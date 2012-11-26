@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{692E5C8E-3062-4D54-B7A7-B7691299C17F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Offwind.Sowfa</RootNamespace>
+    <AssemblyName>Offwind.Sowfa</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Irony, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prebuilt\Irony\bin40\Irony.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constant\AblProperties\AblPropertiesHandler.cs" />
+    <Compile Include="Constant\AblProperties\AblPropertiesData.cs" />
+    <Compile Include="Constant\AblProperties\AblRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AblRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Constant\AirfoilProperties\AirfoilPropRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AirfoilPropRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Constant\AirfoilProperties\AirfoilPropertiesData.cs" />
+    <Compile Include="Constant\AirfoilProperties\AirfoilPropertiesHandler.cs" />
+    <Compile Include="Constant\LesProperties\LesPropertiesRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LesPropertiesRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Constant\Gravitation\GravitationHandler.cs" />
+    <Compile Include="Constant\Gravitation\GravitationRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GravitationRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Constant\LesProperties\LesPropertiesHandler.cs" />
+    <Compile Include="Constant\Omega\OmegaHandler.cs" />
+    <Compile Include="Constant\Omega\OmegaRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OmegaRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Constant\TurbineArrayPropertiesFAST\TurbineArrayPropFASTGeneral.cs" />
+    <Compile Include="Constant\TurbineArrayPropertiesFAST\TurbineArrayPropFASTHandler.cs" />
+    <Compile Include="Constant\TurbineArrayPropertiesFAST\TurbineArrayPropFASTData.cs" />
+    <Compile Include="Constant\TurbineArrayPropertiesFAST\TurbineArrayPropFAST.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TurbineArrayPropFAST.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Constant\TurbineArrayPropertiesFAST\TurbineInstanceFAST.cs" />
+    <Compile Include="Constant\TurbineArrayProperties\TurbineArrayPropRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TurbineArrayPropRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Constant\TurbineArrayProperties\TurbineArrayPropHandler.cs" />
+    <Compile Include="Constant\TurbineArrayProperties\TurbineInstance.cs" />
+    <Compile Include="Constant\TurbineArrayProperties\TurbineArrayPropData.cs" />
+    <Compile Include="Constant\TurbineProperties\TurbineProperiesHandler.cs" />
+    <Compile Include="Constant\TurbineProperties\TurbinePropertiesData.cs" />
+    <Compile Include="Constant\TurbineProperties\TurbinePropRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TurbinePropRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Constant\TransportProperties\LesModel.cs" />
+    <Compile Include="Constant\TransportProperties\TransportModel.cs" />
+    <Compile Include="Constant\TransportProperties\TransportPropertiesData.cs" />
+    <Compile Include="Constant\TransportProperties\SurfaceStressModel.cs" />
+    <Compile Include="Constant\TransportProperties\TransportPropertiesHandler.cs" />
+    <Compile Include="Constant\TransportProperties\TransportPropertiesRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TransportPropertiesRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SowfaConstants.cs" />
+    <Compile Include="System\ControlDict\ControlDictData.cs" />
+    <Compile Include="System\ControlDict\ControlDictHandler.cs" />
+    <Compile Include="System\ControlDict\ControlDictRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControlDictRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="System\DecomposeParDict\DecomposeParDictData.cs" />
+    <Compile Include="System\DecomposeParDict\DecomposeParDictHandler.cs" />
+    <Compile Include="System\DecomposeParDict\DecomposeParDictRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DecomposeParDictRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="System\FvSchemes\DiscretisationType.cs" />
+    <Compile Include="System\FvSchemes\DivergenceScheme.cs" />
+    <Compile Include="System\FvSchemes\FluxCalculation.cs" />
+    <Compile Include="System\FvSchemes\FvSchemesData.cs" />
+    <Compile Include="System\FvSchemes\FvSchemesHandler.cs" />
+    <Compile Include="System\FvSchemes\FvSchemesRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FvSchemesRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="System\FvSchemes\GradientScheme.cs" />
+    <Compile Include="System\FvSchemes\InterpolationType.cs" />
+    <Compile Include="System\FvSchemes\InterpolationScheme.cs" />
+    <Compile Include="System\FvSchemes\LaplacianScheme.cs" />
+    <Compile Include="System\FvSchemes\SchemeHeader.cs" />
+    <Compile Include="System\FvSchemes\SurfaceNormalGradientType.cs" />
+    <Compile Include="System\FvSchemes\SurfaceNormalGradientScheme.cs" />
+    <Compile Include="System\FvSchemes\TimeScheme.cs" />
+    <Compile Include="System\FvSolution\FvSolutionData.cs" />
+    <Compile Include="System\FvSolution\FvSolutionHandler.cs" />
+    <Compile Include="System\FvSolution\FvSolutionRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FvSolutionRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="System\FvSolution\MLinearSolver.cs" />
+    <Compile Include="System\FvSolution\MOptions.cs" />
+    <Compile Include="System\RefineMeshDict\RefineMeshDictHandler.cs" />
+    <Compile Include="System\RefineMeshDict\RefineMeshDictData.cs" />
+    <Compile Include="System\RefineMeshDict\RefineMeshDictRes1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RefineMeshDictRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="System\SetFieldsAblDict\SetFieldsAblDictData.cs" />
+    <Compile Include="System\SetFieldsAblDict\SetFieldsAblDictHandler.cs" />
+    <Compile Include="System\SetFieldsAblDict\SetFieldsAblDictRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetFieldsAblDictRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="System\TopoSetDict\TopoSetDictData.cs" />
+    <Compile Include="System\TopoSetDict\TopoSetDictHandler.cs" />
+    <Compile Include="System\TopoSetDict\TopoSetDictRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TopoSetDictRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Time\FieldData\BoundaryPatch.cs" />
+    <Compile Include="Time\FieldData\FieldData.cs" />
+    <Compile Include="Time\FieldData\FieldDataHandler.cs" />
+    <Compile Include="Time\FieldData\FieldDataRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FieldDataRes.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Offwind.OpenFoam\Offwind.OpenFoam.csproj">
+      <Project>{432FFC08-741E-4DEB-A264-AFC8B756CB71}</Project>
+      <Name>Offwind.OpenFoam</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Constant\AblProperties\AblRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AblRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Constant\AirfoilProperties\AirfoilPropRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AirfoilPropRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Constant\Gravitation\GravitationRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GravitationRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Constant\LesProperties\LesPropertiesRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LesPropertiesRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Constant\Omega\OmegaRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OmegaRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Constant\TransportProperties\TransportPropertiesRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TransportPropertiesRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Constant\TurbineArrayPropertiesFAST\TurbineArrayPropFAST.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TurbineArrayPropFAST.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Constant\TurbineArrayProperties\TurbineArrayPropRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TurbineArrayPropRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Constant\TurbineProperties\TurbinePropRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TurbinePropRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\ControlDict\ControlDictRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ControlDictRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\DecomposeParDict\DecomposeParDictRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DecomposeParDictRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\FvSchemes\FvSchemesRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FvSchemesRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\FvSolution\FvSolutionRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FvSolutionRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\RefineMeshDict\RefineMeshDictRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RefineMeshDictRes1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\SetFieldsAblDict\SetFieldsAblDictRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SetFieldsAblDictRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\TopoSetDict\TopoSetDictRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TopoSetDictRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Time\FieldData\FieldDataRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FieldDataRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Constant\AblProperties\Default" />
+    <None Include="Constant\AblProperties\Template" />
+    <None Include="Constant\Gravitation\Default" />
+    <None Include="Constant\LesProperties\Template" />
+    <None Include="Constant\LesProperties\Default" />
+    <None Include="Constant\Omega\Default" />
+    <None Include="Constant\Omega\Template" />
+    <None Include="Constant\TransportProperties\Default" />
+    <None Include="Constant\TransportProperties\Template" />
+    <None Include="Constant\TurbineArrayProperties\TemplateArray" />
+    <None Include="Constant\TurbineArrayProperties\TemplateGlob" />
+    <None Include="System\ControlDict\Default" />
+    <None Include="System\ControlDict\Template" />
+    <None Include="System\DecomposeParDict\Default" />
+    <None Include="System\DecomposeParDict\Template" />
+    <None Include="System\FvSchemes\Default" />
+    <None Include="System\FvSchemes\Template" />
+    <None Include="System\FvSolution\Default" />
+    <None Include="System\FvSolution\TemplateSolver" />
+    <None Include="System\FvSolution\Template" />
+    <None Include="System\SetFieldsAblDict\Default" />
+    <None Include="System\SetFieldsAblDict\Template" />
+    <None Include="System\TopoSetDict\Default" />
+    <None Include="System\TopoSetDict\Template" />
+    <None Include="Time\FieldData\Default" />
+    <None Include="Time\FieldData\Template" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Constant\Gravitation\Template" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Constant\TurbineArrayProperties\Default" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Constant\TurbineProperties\Default" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Constant\TurbineProperties\Template" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Constant\AirfoilProperties\Default" />
+    <None Include="Constant\AirfoilProperties\Template" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Constant\TurbineArrayPropertiesFAST\Default" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Constant\TurbineArrayPropertiesFAST\TemplateGeneral" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Constant\TurbineArrayPropertiesFAST\TemplateTurbine" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="System\RefineMeshDict\Default" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="System\RefineMeshDict\Template" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

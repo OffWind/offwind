@@ -1,0 +1,73 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+
+    root            "";
+    case            "";
+    instance        "";
+    local           "";
+
+    class           dictionary;
+    object          setFieldsABLDict;
+}
+
+// Extents of the domain (assumes x, y, and z start from 0.0).
+xMax                      ({[[xMax]]});
+yMax                      ({[[yMax]]});
+zMax                      ({[[zMax]]});
+
+// If true, initialize with a base logarithmic profile.
+// If false, initialize base profile to be uniform geostrophic wind speed.
+logInit                   ({[[logInit]]});
+
+// Maximum perturbation of streamwise/spanwise flow near surface.
+deltaU                    ({[[deltaU]]});
+deltaV                    ({[[deltaV]]});
+
+// Total periods of perturbations in streamwise/spanwise in the domain.
+Uperiods                  ({[[Uperiods]]});
+Vperiods                  ({[[Vperiods]]});
+
+// Percentage of domain height (zMax) where peak in perturbation 
+// magnitude occurs.
+zPeak                     ({[[zPeak]]});
+
+// Initial height of the center of the capping inversion.
+zInversion                ({[[zInversion]]});
+
+// Width of the capping inversion.
+widthInversion            ({[[widthInversion]]});
+
+// Potential temperature at the bottom and top of the capping inversion.
+Tbottom                   ({[[Tbottom]]});
+Ttop                      ({[[Ttop]]});
+
+// Height rate of change of potential temperature above the inversion.
+dTdz                      ({[[dTdz]]});
+
+// Geostrophic wind speed magnitude.
+Ug                        ({[[Ug]]});
+
+// Geostrophic wind speed direction.
+UgDir                     ({[[UgDir]]});
+
+// Aerodynamic roughness height of surface.
+z0                        ({[[z0]]});
+
+// von Karman constant.
+kappa                     ({[[kappa]]});
+
+// Update internal field.
+updateInternalFields      ({[[updateInternalFields]]});
+
+// Update boundary field.
+updateBoundaryFields      ({[[updateBoundaryFields]]});

@@ -1,0 +1,8 @@
+﻿<Window x:Class="Offwind.Settings.WSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WSettings" Height="300" Width="300">
+    <Grid>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="12,12,0,0" Height="35" Width="102" Click="Button_Click">Reset settings</Button>
+    </Grid>
+</Window>

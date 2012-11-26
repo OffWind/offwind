@@ -1,0 +1,159 @@
+﻿<UserControl x:Class="Offwind.Products.Sowfa.UI.AblProperties.CABLProperties"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d">
+    <Grid Margin="5">
+        <Grid.LayoutTransform>
+            <ScaleTransform CenterX="0" CenterY="0" ScaleX="{DynamicResource ResourceKey=globalScale}" ScaleY="{DynamicResource ResourceKey=globalScale}" />
+        </Grid.LayoutTransform>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0">
+            <GroupBox.Resources>
+                <ResourceDictionary Source="/UI/FormStylesDict.xaml" />
+            </GroupBox.Resources>
+            <GroupBox.Header>
+                <Label Style="{StaticResource GroupBoxHeader}">Wind Properties</Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="442*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=radioDriveWindOn}">Drive Wind</Label>
+                <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Is average wind at a specified height driven to a specified velocity?</TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <ItemsControl Grid.Row="0" Grid.Column="2" Name="radioDriveWindOn" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton GroupName="radioDriveWindOn" IsChecked="{Binding Path=DriveWindOn, Converter={StaticResource BooleanToCheckedYesNoConverter}, ConverterParameter=Yes}">Yes</RadioButton>
+                        <RadioButton GroupName="radioDriveWindOn" IsChecked="{Binding Path=DriveWindOn, Converter={StaticResource BooleanToCheckedYesNoConverter}, ConverterParameter=No}">No</RadioButton>
+                    </StackPanel>
+                </ItemsControl>
+
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=txtUWindSpeed}">Wind Speed (m/s)</Label>
+                <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Desired horizontally-averaged wind speed at a certain height"></Image>
+                <TextBox Grid.Row="1" Grid.Column="2" Name="txtUWindSpeed" Text="{Binding UWindSpeed, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=txtUWindDir}">Wind Direction (degrees)</Label>
+                <Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Desired horizontally-averaged wind direction at a height (direction blowing from)"></Image>
+                <TextBox Grid.Row="2" Grid.Column="2" Name="txtUWindDir" Text="{Binding UWindDir, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=txtHWind}">Wind Height (m)</Label>
+                <Image Grid.Row="3" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Height at which horizontally-averaged wind vector is specified"></Image>
+                <TextBox Grid.Row="3" Grid.Column="2" Name="txtHWind" Text="{Binding HWind, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=txtAlpha}">Alpha</Label>
+                <Image Grid.Row="4" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Relaxation factor on the pressure gradient control"></Image>
+                <TextBox Grid.Row="4" Grid.Column="2" Name="txtAlpha" Text="{Binding Alpha, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=txtLowerBoundaryName}">Lower Boundary</Label>
+                <Image Grid.Row="5" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Name of the lower boundary"></Image>
+                <TextBox Grid.Row="5" Grid.Column="2" Name="txtLowerBoundaryName" Text="{Binding LowerBoundaryName, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=txtUpperBoundaryName}">Upper Boundary</Label>
+                <Image Grid.Row="6" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Name of the upper boundary"></Image>
+                <TextBox Grid.Row="6" Grid.Column="2" Name="txtUpperBoundaryName" Text="{Binding UpperBoundaryName, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1">
+            <GroupBox.Resources>
+                <ResourceDictionary Source="/UI/FormStylesDict.xaml" />
+            </GroupBox.Resources>
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal" Height="30">
+                    <Label Style="{StaticResource GroupBoxHeader}" VerticalAlignment="Center">Wind Plant</Label>
+                    <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <TextBlock MaxWidth="300" TextWrapping="Wrap">
+                                We no longer take horizontal averages resulting in a mean profile. We take time averages.
+                                The mean is built up on the fly starting at meanAvgStartTime, and fluctuations away
+                                from that mean are taken to build correlations starting at corrAvgStartTime.<LineBreak />
+                                Allow enough time for transients to pass before starting to build up mean,
+                                and allow enough time for mean to be built before building up correlations.
+                            </TextBlock>
+                        </Image.ToolTip>
+                    </Image>
+                </StackPanel>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="442*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=comboStartFrom}">Turbine Array</Label>
+                <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Activate the actuator turbine models" />
+                <ItemsControl Grid.Row="0" Grid.Column="2" Name="radioTurbineArray" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton GroupName="radioTurbineArray" IsChecked="{Binding Path=TurbineArrayOn, Converter={StaticResource BooleanToCheckedYesNoConverter}, ConverterParameter=Yes}">Yes</RadioButton>
+                        <RadioButton GroupName="radioTurbineArray" IsChecked="{Binding Path=TurbineArrayOn, Converter={StaticResource BooleanToCheckedYesNoConverter}, ConverterParameter=No}">No</RadioButton>
+                    </StackPanel>
+                </ItemsControl>
+
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=txtMeanAvgStartTime}">Mean Avg Start Time</Label>
+                <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Mean field averaging start time." />
+                <TextBox Grid.Row="1" Grid.Column="2" Name="txtMeanAvgStartTime" Text="{Binding MaxDeltaT, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=txtCorrAvgStartTime}">Corr. Avg Start Time</Label>
+                <Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Correlation field averaging start time." />
+                <TextBox Grid.Row="2" Grid.Column="2" Name="txtCorrAvgStartTime" Text="{Binding MaxDeltaT, UpdateSourceTrigger=PropertyChanged}" />
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="2">
+            <GroupBox.Resources>
+                <ResourceDictionary Source="/UI/FormStylesDict.xaml" />
+            </GroupBox.Resources>
+            <GroupBox.Header>
+                <Label Style="{StaticResource GroupBoxHeader}">Statistics</Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="442*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=checkStatisticsOn}">Gather Statistics</Label>
+                <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Are statistics about ABL to be gathered?"></Image>
+                <CheckBox Grid.Row="0" Grid.Column="2" Name="checkStatisticsOn" IsChecked="{Binding StatisticsOn}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=txtStatisticsFrequency}">Statistics Frequency</Label>
+                <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="At which frequency are statistics to be taken and written (every n time steps)?"></Image>
+                <TextBox Grid.Row="1" Grid.Column="2" Name="txtStatisticsFrequency" Text="{Binding StatisticsFrequency, UpdateSourceTrigger=PropertyChanged}" />
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

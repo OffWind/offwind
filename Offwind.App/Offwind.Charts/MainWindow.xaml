@@ -1,0 +1,28 @@
+﻿<Window x:Class="Offwind.Charts.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:oxy="http://oxyplot.codeplex.com"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.LayoutTransform>
+            <ScaleTransform CenterX="0" CenterY="0" ScaleX="1.2" ScaleY="1.2" />
+        </Grid.LayoutTransform>
+        <!--<oxy:Plot Model="{Binding PlotModel}"></oxy:Plot>-->
+        <Grid Name="grid1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="0" x:Name ="chartGrid" Grid.Column="1" Grid.Row="1"
+ClipToBounds="False" Background="Transparent"
+SizeChanged="chartGrid_SizeChanged" />
+            <Canvas Margin="2" Name="chartCanvas" ClipToBounds="False"
+Grid.Column="1" Grid.Row="1"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,632 @@
+﻿<UserControl
+    x:Class="Offwind.Products.Sowfa.UI.TurbinesSetup.CTurbineSetup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:TurbineArrayProperties="clr-namespace:Offwind.Sowfa.Constant.TurbineArrayProperties;assembly=Offwind.Sowfa"
+    xmlns:TurbineProperties="clr-namespace:Offwind.Sowfa.Constant.TurbineProperties;assembly=Offwind.Sowfa"
+    mc:Ignorable="d" d:DesignHeight="593" d:DesignWidth="670">
+    
+    <UserControl.Resources>
+        <x:ArrayExtension x:Key="comboPointInterpType" Type="{x:Type TurbineArrayProperties:PointInterpType}">
+            <TurbineArrayProperties:PointInterpType>linear</TurbineArrayProperties:PointInterpType>
+            <TurbineArrayProperties:PointInterpType>cellCenter</TurbineArrayProperties:PointInterpType>
+        </x:ArrayExtension>
+
+        <x:ArrayExtension x:Key="comboBladeUpdateType" Type="{x:Type TurbineArrayProperties:BladeUpdateType}">
+            <TurbineArrayProperties:BladeUpdateType>oldPosition</TurbineArrayProperties:BladeUpdateType>
+            <TurbineArrayProperties:BladeUpdateType>newPosition</TurbineArrayProperties:BladeUpdateType>
+        </x:ArrayExtension>
+
+        <x:ArrayExtension x:Key="comboTipRootLossCorrType" Type="{x:Type TurbineArrayProperties:TipRootLossCorrType}">
+            <TurbineArrayProperties:TipRootLossCorrType>none</TurbineArrayProperties:TipRootLossCorrType>
+            <TurbineArrayProperties:TipRootLossCorrType>Glauert</TurbineArrayProperties:TipRootLossCorrType>
+        </x:ArrayExtension>
+
+        <x:ArrayExtension x:Key="comboControllerType" Type="{x:Type TurbineProperties:ControllerType}">
+            <TurbineProperties:ControllerType>none</TurbineProperties:ControllerType>
+            <TurbineProperties:ControllerType>fiveRegion</TurbineProperties:ControllerType>
+        </x:ArrayExtension>
+
+        <x:ArrayExtension x:Key="BladesCountVariants" Type="{x:Type System:Int32}">
+            <System:Int32>2</System:Int32>
+            <System:Int32>3</System:Int32>
+        </x:ArrayExtension>
+
+    </UserControl.Resources>
+        
+    <Grid Margin="5">
+        <Grid.Resources>
+            <ResourceDictionary Source="../../../../UI/FormStylesDict.xaml" />
+        </Grid.Resources>
+        <Grid.LayoutTransform>
+            <ScaleTransform CenterX="0" CenterY="0" ScaleX="{DynamicResource ResourceKey=globalScale}" ScaleY="{DynamicResource ResourceKey=globalScale}" />
+        </Grid.LayoutTransform>
+        <TabControl Name="dXTabControl1" TabStripPlacement="Top">
+            <TabItem Header="Turbine properties array" Name="TurbineArrayProperties">
+                <Grid>                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="90"/>
+                        <RowDefinition Height ="*"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Row="0">
+                        <GroupBox.Header>
+                            <Label Style="{StaticResource GroupBoxHeader}">Global properties</Label>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0">Output control</Label>
+                            <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                <Image.ToolTip>
+                                    <TextBlock>Either <Bold>timeStep</Bold> or <Bold>runTime</Bold></TextBlock>
+                                </Image.ToolTip>
+                            </Image>
+                            <dxe:ComboBoxEdit Grid.Row="0" Grid.Column="2" Name="comboOutputControl" SelectedItem="{Binding OutputControl}" />
+                            
+                            <Label Grid.Row="1">Output interval</Label>
+                            <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                <Image.ToolTip>
+                                    <TextBlock>Output interval in timesteps or seconds</TextBlock>
+                                </Image.ToolTip>
+                            </Image>
+                            <TextBox Grid.Row="1" Grid.Column="2" Name="txtOutputInterval" Text="{Binding OutputInterval}" />
+                        </Grid>
+                    </GroupBox>                    
+                    <TabControl Name="TurbinesList" Grid.Row="1" IsSynchronizedWithCurrentItem="true" ItemsSource="{Binding Turbines}" SelectionChanged="TurbinesList_SelectionChanged" >
+                        <TabControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding PropName}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </TabControl.ItemTemplate>
+                        
+                        <TabControl.ContentTemplate>
+                            <DataTemplate>
+                                <Grid Visibility="{Binding ShowInstance}">
+                                    
+                                    <Grid.Resources>
+                                        <ResourceDictionary Source="../../../../UI/FormStylesDict.xaml" />
+                                    </Grid.Resources>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Grid.ColumnSpan="3">Turbine type</Label>
+                                    <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Type of turbine</TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <dxe:ComboBoxEdit Grid.Row="0" Grid.Column="2" SelectedItem="{Binding TurbineType}" ItemsSource="{Binding TypesCopy}"/>
+                                    
+                                    <Label Grid.Row="1" Grid.ColumnSpan="3">Base location</Label>
+                                    <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Location of the center of the tower base</TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <DockPanel Grid.Row="1" Grid.Column="2" Name="panelBaseLocation" DataContext="{Binding BaseLocation}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="1*" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox Grid.Column="0" Name="txtBaseLocationX" Margin="19,4,0,4" Width="50" Text="{Binding X}"/>
+                                            <TextBox Grid.Column="1" Name="txtBaseLocationY" Margin="19,4,0,4" Width="50" Text="{Binding Y}"/>
+                                            <TextBox Grid.Column="2" Name="txtBaseLocationZ" Margin="19,4,0,4" Width="50" Text="{Binding Z}"/>
+                                            <Label Grid.Column="0">X</Label>
+                                            <Label Grid.Column="1">Y</Label>
+                                            <Label Grid.Column="2">Z</Label>
+
+                                        </Grid>
+                                    </DockPanel>
+                                    <Label Grid.Row="2" Grid.ColumnSpan="3">NumBladePoints</Label>
+                                    <Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Number of actuator elements along a blade</TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding NumBladePoints}" />                                    
+                                    <Label Grid.Row="3" Grid.ColumnSpan="3">PointDistType</Label>
+                                    <Image Grid.Row="3" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Currently, elements are uniformly distributed</TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding PointDistType}" />
+                                    <Label Grid.Row="4" Grid.ColumnSpan="3">PointInterpType</Label>
+                                    <Image Grid.Row="4" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Type of interpolation of velocity to actuator point,
+                                                <Bold>linear</Bold> or <Bold>cellCenter</Bold></TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <dxe:ComboBoxEdit Grid.Row="4" Grid.Column="2" SelectedItem="{Binding PointInterpType}" ItemsSource="{Binding Source={StaticResource comboPointInterpType}}"/>
+                                    <Label Grid.Row="5"  Grid.ColumnSpan="3">BladeUpdateType</Label>
+                                    <Image Grid.Row="5" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Use velocity at old or new blade position</TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <dxe:ComboBoxEdit Grid.Row="5" Grid.Column="2" SelectedItem="{Binding BladeUpdateType}" ItemsSource="{Binding Source={StaticResource comboBladeUpdateType}}"/>
+                                    <Label Grid.Row="6"  Grid.ColumnSpan="3">Epsilon</Label>
+                                    <Image Grid.Row="6" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Gaussian projection width</TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding Epsilon}" />
+                                    <Label Grid.Row="7"  Grid.ColumnSpan="3">TipRootLossCorrType</Label>
+                                    <Image Grid.Row="7" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Options are <Bold>none</Bold> or <Bold>Glauert</Bold></TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <dxe:ComboBoxEdit Grid.Row="7" Grid.Column="2" SelectedItem="{Binding TipRootLossCorrType}" ItemsSource="{Binding Source={StaticResource comboTipRootLossCorrType}}"/>
+                                    <Label Grid.Row="8"  Grid.ColumnSpan="3">RotationDir</Label>
+                                    <Image Grid.Row="8" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Rotor rotation sense as viewed from upstream</TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <TextBox Grid.Row="8" Grid.Column="2" Text="{Binding RotationDir}" />
+                                    <Label Grid.Row="9"  Grid.ColumnSpan="3">Azimuth</Label>
+                                    <Image Grid.Row="9" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Initial rotor azimuth angle</TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <TextBox Grid.Row="9" Grid.Column="2" Text="{Binding Azimuth}" />
+                                    <Label Grid.Row="10" Grid.ColumnSpan="3">RotSpeed</Label>
+                                    <Image Grid.Row="10" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Initial rotor speed in RPM</TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <TextBox Grid.Row="10" Grid.Column="2" Text="{Binding RotSpeed}" />
+                                    <Label Grid.Row="11" Grid.ColumnSpan="3">Pitch</Label>
+                                    <Image Grid.Row="11" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Initial blade collective pitch</TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <TextBox Grid.Row="11" Grid.Column="2" Text="{Binding Pitch}" />
+                                    <Label Grid.Row="12" Grid.ColumnSpan="3">NacYaw</Label>
+                                    <Image Grid.Row="12" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Initial nacelle yaw position</TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <TextBox Grid.Row="12" Grid.Column="2" Text="{Binding NacYaw}" />
+                                    <Label Grid.Row="13" Grid.ColumnSpan="3">FluidDensity</Label>
+                                    <Image Grid.Row="13" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                        <Image.ToolTip>
+                                            <TextBlock>Density use to compute forces, torque, and power</TextBlock>
+                                        </Image.ToolTip>
+                                    </Image>
+                                    <TextBox Grid.Row="13" Grid.Column="2" Text="{Binding FluidDensity}" />
+
+                                </Grid>
+                            </DataTemplate>
+                        </TabControl.ContentTemplate>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Turbines properies" Name="TurbineProp1">
+                
+                <TabControl Name="TurbineTypeList" IsSynchronizedWithCurrentItem="true" SelectionChanged="TurbinesType_SelectionChanged" ItemsSource="{Binding TurbineTypes}">
+                    <TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding PropName}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>
+                    <TabControl.ContentTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.Resources>
+                                    <ResourceDictionary Source="../../../../UI/FormStylesDict.xaml" />
+                                </Grid.Resources>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="360"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <DockPanel Grid.Column="0">
+                                    <TabControl Name="TurbinePropCategory"  Visibility="{Binding ShowInstance}">
+                                        <TabItem Header="General settings">
+                                            <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Grid.Row="0" Grid.ColumnSpan="3">Turbine name</Label>
+                                            <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>Symbolic name of the current properties set</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                                <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding PropName}"  LostFocus="TurbinePropName_LostFocus" TextChanged="TurbinePropName_Changed"/>
+
+
+                                            <Label Grid.Row="1" Grid.ColumnSpan="3">Number of blades</Label>
+                                            <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>This is the number of blades on the rotor. Valid values are 2 and 3</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <!--<TextBox Grid.Row="0" Grid.Column="2" Text="{Binding NumBl}" /> -->
+                                            <dxe:ComboBoxEdit Grid.Row="1" Grid.Column="2" SelectedItem="{Binding NumBl}" ItemsSource="{Binding Source={StaticResource BladesCountVariants}}" SelectedIndexChanged="BladesNumber_Changed"/>
+
+                                            <Label Grid.Row="2" Grid.ColumnSpan="3">Blade-tip radius (m)</Label>
+                                            <Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>The distance from the apex of the cone of rotation to the blade tip along the pitch axis<LineBreak/>
+                                            instead of the perpendicular distance from the axis of rotation</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding TipRad}" />
+
+                                            <Label Grid.Row="3" Grid.ColumnSpan="3">Hub radius (m)</Label>
+                                            <Image Grid.Row="3" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>The distance from the apex of the cone of rotation to the blade root along the pitch axis<LineBreak/>
+                                            instead of the perpendicular distance from the axis of rotation</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding HubRad}" />
+
+                                            <Label Grid.Row="4" Grid.ColumnSpan="3">Undersling (m)</Label>
+                                            <Image Grid.Row="4" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>The distance from the teeter pin to the apex of the cone of rotation</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding UndSling}" />
+
+                                            <Label Grid.Row="5" Grid.ColumnSpan="3">OverHang (m)</Label>
+                                            <Image Grid.Row="5" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>The distance along the rotor shaft from the <Bold>Yn-/ Zn</Bold>-plane to the teeter pin for two-bladed turbines<LineBreak/>
+                                                   or from the <Bold>Yn-/ Zn</Bold>-plane to the rotor apex for three-bladed turbines.<LineBreak/>
+                                                   It is positive downwind, so use a negative number for upwind turbines.<LineBreak/>
+                                                   For turbines with rotor-furl, this distance defines the configuration at a furl angle of zero.</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding OverHang}" />
+
+                                            <Label Grid.Row="6" Grid.ColumnSpan="3">Tower height (m)</Label>
+                                            <Image Grid.Row="6" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>The distance from ground level <Italic>[onshore]</Italic> or mean sea level <Italic>[offshore]</Italic><LineBreak/>
+                                                   to the top of the tower and yaw bearing. This value must be greater than zero.</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding TowerHt}" />
+
+                                            <Label Grid.Row="7" Grid.ColumnSpan="3">Twr2Shft (m)</Label>
+                                            <Image Grid.Row="7" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>The vertical distance from the top of the tower and yaw bearing to the intersection<LineBreak/>
+                                                   of the rotor shaft axis and the <Bold>Yn-/Zn</Bold>-plane. The distance is measured parallel to the zn-axis.<LineBreak/>
+                                                   The combination of TipRad, TowerHt, Twr2Shft, OverHang, and ShftTilt must ensure<LineBreak/>
+                                                   that the blade tip does not hit the ground. This value also cannot be negative. For turbines with rotor-furl, <LineBreak/>
+                                                   this distance defines the configuration at a furl angle ofzero (m)</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <TextBox Grid.Row="7" Grid.Column="2" Text="{Binding Twr2Shft}" />
+
+                                            <Label Grid.Row="8" Grid.ColumnSpan="3">Tilt angle (deg)</Label>
+                                            <Image Grid.Row="8" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>The tilt angle of the rotor shaft from the nominally horizontal plane.<LineBreak/>
+                                                   Positive tilt means that the downwind end of the shaft is the highest.<LineBreak/>
+                                                   This value must be between –90 and 90 degrees. Upwind turbines have negative<LineBreak/>
+                                                   tilt for improved tower clearance. For turbines with rotor-furl, <LineBreak/>
+                                                   this angle defines the configuration at a furl angle of zero (deg)</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <TextBox Grid.Row="8" Grid.Column="2" Text="{Binding ShftTilt}" />
+
+                                            <Label Grid.Row="9" Grid.ColumnSpan="3">Coning angle (deg)</Label>
+                                            <Image Grid.Row="9" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>The coning angle for the <Italic>i</Italic>th blade is positive downwind for upwind and downwind rotors.<LineBreak/>
+                                            These values must be greater than –180 and less than or equal to 180 degrees.<LineBreak/>
+                                            Only the first two values are used for two-bladed turbines. (deg)</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <DockPanel Grid.Row="9" Grid.Column="2" DataContext="{Binding PreCone}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="55" />
+                                                        <ColumnDefinition Width="52" />
+                                                        <ColumnDefinition Width="343*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox Margin="5,4,0,4" Width="45" Text="{Binding X}" />
+                                                    <TextBox Grid.Column="1" Margin="3,4,0,4" Width="45" Text="{Binding Y}"/>
+                                                    <TextBox Grid.Column="2" Name ="txtThirdBladePreCone" Margin="3,4,0,4" Width="45" Text="{Binding Z}"/>
+                                                </Grid>
+                                            </DockPanel>
+
+                                            <Label Grid.Row="10" Grid.ColumnSpan="3">GBRatio</Label>
+                                            <Image Grid.Row="10" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>The ratio of the HSS speed to the LSS speed. This value must be greater than zero and<LineBreak/>
+                                                   should be 1.0 for a direct-drive turbine</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <TextBox Grid.Row="10" Grid.Column="2" Text="{Binding GBRatio}" />
+
+                                            <Label Grid.Row="11" Grid.ColumnSpan="3">GenIner (kg*m^2)</Label>
+                                            <Image Grid.Row="11" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>This is the moment of inertia of the high-speed portion of the drivetrain including the gearbox,<LineBreak/>
+                                                   HSS, and generator. If torsional flexibility of the drivetrain is enabled, the compliance is between<LineBreak/>
+                                                   the inertia of the rotor and this inertia. This value will be multiplied by the square of the gear ratio<LineBreak/>
+                                                   to map it to the low-speed reference frame. This value must not be negative. (kg·m2)</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <TextBox Grid.Row="11" Grid.Column="2" Text="{Binding GenIner}" />
+
+                                            <Label Grid.Row="12" Grid.ColumnSpan="3">HubIner</Label>
+                                            <Image Grid.Row="12" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>The hub moment of inertia is measured about the teeter axis for two-bladed turbines or about the<LineBreak/>
+                                                   rotor shaft axis for three-bladed turbines. For two-bladed turbines, it includes those parts that<LineBreak/>
+                                                   teeter, except for the blades and tip brakes.<LineBreak/>
+                                                   For three-bladed turbines, it excludes the blades and tip brakes and must not be negative. (kg·m2)</TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <TextBox Grid.Row="12" Grid.Column="2" Text="{Binding HubIner}" />
+
+                                            <Label Grid.Row="13" Grid.ColumnSpan="3">BladeIner</Label>
+                                            <Image Grid.Row="13" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock></TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <TextBox Grid.Row="13" Grid.Column="2" Text="{Binding BladeIner}" />
+
+                                            <Label Grid.Row="14"  Grid.ColumnSpan="3">Torque controller type</Label>
+                                            <Image Grid.Row="14" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>Either uses fixed speed <Bold>none</Bold> or like NREL5MW2 <Bold>fiveRegion</Bold></TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <dxe:ComboBoxEdit Grid.Row="14" Grid.Column="2" SelectedItem="{Binding TorqueControllerType}" ItemsSource="{Binding Source={StaticResource comboControllerType}}"/>
+
+                                            <Label Grid.Row="15"  Grid.ColumnSpan="3">Yaw controller type</Label>
+                                            <Image Grid.Row="15" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>Either uses fixed speed <Bold>none</Bold> or like NREL5MW2 <Bold>fiveRegion</Bold></TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <dxe:ComboBoxEdit Grid.Row="15" Grid.Column="2" SelectedItem="{Binding YawControllerType}" ItemsSource="{Binding Source={StaticResource comboControllerType}}"/>
+
+                                            <Label Grid.Row="16"  Grid.ColumnSpan="3">Pitch controller type</Label>
+                                            <Image Grid.Row="16" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                <Image.ToolTip>
+                                                    <TextBlock>Either uses fixed speed <Bold>none</Bold> or like NREL5MW2 <Bold>fiveRegion</Bold></TextBlock>
+                                                </Image.ToolTip>
+                                            </Image>
+                                            <dxe:ComboBoxEdit Grid.Row="16" Grid.Column="2" SelectedItem="{Binding PitchControllerType}" ItemsSource="{Binding Source={StaticResource comboControllerType}}"/>
+                                        </Grid>                                        
+                                        </TabItem>
+                                        <TabItem Header="Controller parameters">
+                                            <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="300"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <GroupBox Grid.Row="0">
+                                            <GroupBox.Header>
+                                                <Label Style="{StaticResource GroupBoxHeader}">Torque controller params</Label>
+                                            </GroupBox.Header>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="145" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Label Grid.Row="0" Grid.ColumnSpan="3">CutInGenSpeed (rpm)</Label>
+                                                <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                    <Image.ToolTip>
+                                                        <TextBlock>Generator speed at cut-in wind speed</TextBlock>
+                                                    </Image.ToolTip>
+                                                </Image>
+                                                <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding CutInGenSpeed}" />
+
+                                                <Label Grid.Row="1" Grid.ColumnSpan="3">RatedGenSpeed (rpm)</Label>
+                                                <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                    <Image.ToolTip>
+                                                        <TextBlock>Generator speed at rated wind speed</TextBlock>
+                                                    </Image.ToolTip>
+                                                </Image>
+                                                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding RatedGenSpeed}" />
+
+                                                <Label Grid.Row="2" Grid.ColumnSpan="3">Region2StartSpeed (rpm)</Label>
+                                                <Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                    <Image.ToolTip>
+                                                        <TextBlock>Generator speed at the start of Region 2 (the end of Region 1-1/2)</TextBlock>
+                                                    </Image.ToolTip>
+                                                </Image>
+                                                <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Region2StartGenSpeed}" />
+
+                                                <Label Grid.Row="3" Grid.ColumnSpan="3">Region2EndSpeed (rpm)</Label>
+                                                <Image Grid.Row="3" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                    <Image.ToolTip>
+                                                        <TextBlock>Generator speed at the end of Region 2 (the beginning of Region 2-1/2)</TextBlock>
+                                                    </Image.ToolTip>
+                                                </Image>
+                                                <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Region2EndGenSpeed}" />
+
+                                                <Label Grid.Row="4" Grid.ColumnSpan="3">CutInGenTorque (N-m)</Label>
+                                                <Image Grid.Row="4" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                    <Image.ToolTip>
+                                                        <TextBlock>Generator control torque at cut-in wind speed</TextBlock>
+                                                    </Image.ToolTip>
+                                                </Image>
+                                                <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding CutInGenTorque}" />
+
+                                                <Label Grid.Row="5" Grid.ColumnSpan="3">RatedGenTorque (N-m)</Label>
+                                                <Image Grid.Row="5" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                    <Image.ToolTip>
+                                                        <TextBlock>Generator control torque at rated wind speed</TextBlock>
+                                                    </Image.ToolTip>
+                                                </Image>
+                                                <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding RatedGenTorque}" />
+
+                                                <Label Grid.Row="6" Grid.ColumnSpan="3">RateLimitTorque (N-m/s)</Label>
+                                                <Image Grid.Row="6" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                    <Image.ToolTip>
+                                                        <TextBlock>Maximum allowable rate of generator control torque change</TextBlock>
+                                                    </Image.ToolTip>
+                                                </Image>
+                                                <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding RateLimitGenTorque}" />
+
+                                                <Label Grid.Row="7" Grid.ColumnSpan="3">KGen</Label>
+                                                <Image Grid.Row="7" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                    <Image.ToolTip>
+                                                        <TextBlock>Region 2 generator control constant <Bold>(N-m/RPM)-torque = K*Omega^2</Bold></TextBlock>
+                                                    </Image.ToolTip>
+                                                </Image>
+                                                <TextBox Grid.Row="7" Grid.Column="2" Text="{Binding KGen}" />
+
+                                                <Label Grid.Row="8" Grid.ColumnSpan="3">TorqueControllerRelax</Label>
+                                                <Image Grid.Row="8" Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                    <Image.ToolTip>
+                                                        <TextBlock>Relaxation factor on generator control torque update each time step</TextBlock>
+                                                    </Image.ToolTip>
+                                                </Image>
+                                                <TextBox Grid.Row="8" Grid.Column="2" Text="{Binding TorqueControllerRelax}" />
+                                            </Grid>
+                                        </GroupBox>
+                                        <GroupBox Grid.Row="1">
+                                            <GroupBox.Header>
+                                                <DockPanel>
+                                                    <Grid Width="185" Height="30">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="150" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Grid.Column="0" Style="{StaticResource GroupBoxHeader}" >
+                                                            Pitch controller params
+                                                        </Label>
+                                                        <Image Grid.Column="1" Style="{StaticResource HelpTip}">
+                                                            <Image.ToolTip>
+                                                                <TextBlock>Simple linear pitch control based on rotor speed (not realistic, though!) <LineBreak/>
+                                                                           Just linearly varies pitch between two specified rotor speeds with a maximum rate of change limit.</TextBlock>
+                                                            </Image.ToolTip>
+                                                        </Image>
+
+                                                    </Grid>
+                                                </DockPanel>
+                                            </GroupBox.Header>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="150" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Row="0" Grid.ColumnSpan="3">PitchControlStartPitch</Label>
+                                                <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding PitchControlStartPitch}" />
+                                                <Label Grid.Row="1" Grid.ColumnSpan="3">PitchControlEndPitch</Label>
+                                                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding PitchControlEndPitch}" />
+                                                <Label Grid.Row="2" Grid.ColumnSpan="3">PitchControlStartSpeed</Label>
+                                                <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding PitchControlStartSpeed}" />
+                                                <Label Grid.Row="3" Grid.ColumnSpan="3">PitchControlEndSpeed</Label>
+                                                <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding PitchControlEndSpeed}" />
+                                                <Label Grid.Row="4" Grid.ColumnSpan="3">RateLimitPitch</Label>
+                                                <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding RateLimitPitch}" />
+                                            </Grid>
+                                        </GroupBox>
+                                    </Grid>
+                                        </TabItem>                                
+                                        <TabItem Header="Blades configuration">
+                                        </TabItem>                                
+                                    </TabControl>
+                                </DockPanel>
+                                <Image Grid.Column="1" Source="{Binding TipPicture}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>                        
+                </TabControl>               
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>
+    

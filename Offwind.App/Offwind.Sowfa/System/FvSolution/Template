@@ -1,0 +1,37 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+
+/*
+    See detailed description of the file format and fields at:
+    http://www.openfoam.org/docs/user/fvSolution.php
+*/
+
+solvers
+{
+({[[solvers]]})
+}
+
+options
+{
+    nCorrectors                 ({[[nCorrectors]]});
+    nNonOrthogonalCorrectors    ({[[nNonOrthogonalCorrectors]]});
+
+    pdRefOn                     ({[[pdRefOn]]}); 
+    pdRefCell                   ({[[pdRefCell]]});
+    pdRefValue                  ({[[pdRefValue]]});
+
+    tempEqnOn                   ({[[tempEqnOn]]});
+}

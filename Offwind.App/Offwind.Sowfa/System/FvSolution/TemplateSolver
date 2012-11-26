@@ -1,0 +1,14 @@
+    ({[[name]]})
+    {
+        solver                     ({[[solver]]});
+        tolerance                  ({[[tolerance]]});
+        relTol                     ({[[relTol]]});
+        smoother                   ({[[smoother]]});
+        nPreSweeps                 ({[[nPreSweeps]]});
+        nPostSweeps                ({[[nPostSweeps]]});
+        nFinestSweeps              ({[[nFinestSweeps]]});
+        cacheAgglomeration         ({[[cacheAgglomeration]]});
+        nCellsInCoarsestLevel      ({[[nCellsInCoarsestLevel]]});
+        agglomerator               ({[[agglomerator]]});
+        mergeLevels                ({[[mergeLevels]]});
+    }

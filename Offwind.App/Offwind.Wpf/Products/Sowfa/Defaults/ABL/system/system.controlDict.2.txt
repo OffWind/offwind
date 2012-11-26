@@ -1,0 +1,155 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+  application       ABLPisoSolver;
+
+  libs              ("libuserfiniteVolume.so");
+
+  startFrom         startTime;
+
+  startTime         12000.0;
+
+  stopAt            endTime;
+
+  endTime           14000.0;
+
+  deltaT            0.5;
+
+  writeControl      adjustableRunTime;
+
+  writeInterval     250.0; 
+
+  purgeWrite        3;
+
+  writeFormat       binary;
+
+  writePrecision    12;
+
+  writeCompression  compressed;
+
+  timeFormat        general;
+
+  timePrecision     12;
+
+  runTimeModifiable yes;
+
+  adjustTimeStep    yes;
+
+  maxCo             0.75;
+
+  maxDeltaT         25.0;
+
+  functions
+  {
+      boundaryDataPre
+      {
+          type                 surfaces;
+          functionObjectLibs   ("libsampling.so");
+          enabled              true;
+          interpolationScheme  isThisNeeded;
+          outputControl        timeStep;
+          outputInterval       1;
+          surfaceFormat        foamFile;
+          fields
+          (
+              U
+              T
+          );
+          surfaces
+          (
+              south
+              {
+                  type         patch;
+                  patches      (south);
+                  triangulate  false;
+              }
+              west
+              {
+                  type         patch;
+                  patches      (west);
+                  triangulate  false;
+              }
+              top
+              {
+                  type         patch;
+                  patches      (top);
+                  triangulate  false;
+              }
+          );
+      }
+      sliceData
+      {
+          type                 surfaces;
+          functionObjectLibs   ("libsampling.so");
+          enabled              true;
+          interpolationScheme  isThisNeeded;
+          outputControl        outputTime;
+          outputInterval       250.0;
+          surfaceFormat        vtk;
+          fields
+          (
+              U
+              p
+          );
+          surfaces
+          (
+              slice_1
+              {
+                  type         plane;
+                  basePoint    (1500.0 1500.0 6.666667);
+                  normalVector (0 0 1);
+                  interpolate  false;
+                  triangulate  false;
+              }
+              slice_2
+              {
+                  type         plane;
+                  basePoint    (1500.0 1500.0 50.0);
+                  normalVector (0 0 1);
+                  interpolate  false;
+                  triangulate  false;
+              }
+              slice_3
+              {
+                  type         plane;
+                  basePoint    (1500.0 1500.0 50.0);
+                  normalVector (0 0 1);
+                  interpolate  false;
+                  triangulate  false;
+              }
+              slice_4
+              {
+                  type         plane;
+                  basePoint    (1500.0 1500.0 100.0);
+                  normalVector (0 0 1);
+                  interpolate  false;
+                  triangulate  false;
+              }
+              slice_5
+              {
+                  type         plane;
+                  basePoint    (1500.0 1500.0 500.0);
+                  normalVector (0 0 1);
+                  interpolate  false;
+                  triangulate  false;
+              }
+          );
+      }
+  }
+
+
+// ************************************************************************* //

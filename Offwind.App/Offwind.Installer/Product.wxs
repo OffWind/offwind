@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Name="Offwind"
+           Id="AC377757-007E-4F87-905B-0A036FF91AA6"
+           Language="1033"
+           Version="1.0.0"
+           Manufacturer="International Research Institute of Stavanger (IRIS)"
+           UpgradeCode="29F191E3-B08C-4359-91A8-EEF30B9FE4FA"           >
+
+    <Package InstallerVersion="200" Compressed="yes" />
+		<Media Id="1" Cabinet="Offwind.cab" EmbedCab="yes" />
+
+    <Icon Id="Offwind.exe" SourceFile="Offwind.exe" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="CompanyNameFolder" Name="IRIS">
+				<Directory Id="INSTALLLOCATION" Name="Offwind 1.0">
+
+          <Component Id="MainExecutable" Guid="66a1123b-60c6-4213-bd96-642e1c7b4799">
+            <File Id='Offwind_EXE' Name='Offwind.exe' DiskId='1' Source='Offwind.exe' KeyPath='yes'>
+              <Shortcut Id="startmenu_Offwind_10" Directory="ProductFolder" Name="Offwind 1.0" WorkingDirectory='INSTALLDIR' Icon="Offwind.exe" IconIndex="0" Advertise="yes" />
+              <Shortcut Id="desktop_Offwind_10" Directory="DesktopFolder" Name="Offwind 1.0" WorkingDirectory='INSTALLDIR' Icon="Offwind.exe" IconIndex="0" Advertise="yes" />
+            </File>
+          </Component>
+
+        </Directory>
+      </Directory>
+			</Directory>
+
+      <Directory Id="ProgramMenuFolder" Name="ProgramsFolder">
+          <Directory Id="ProductFolder" Name="Offwind 1.0"/>
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop" />
+
+    </Directory>
+
+    <DirectoryRef Id="ProductFolder">
+      <Component Id="ProgramMenuDir" Guid="2d9f4e84-5218-4ae1-a39d-5f5864dc67c6">
+        <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Type="string" Value="" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    
+    <Feature Id='Complete' Level='1'>
+      <ComponentRef Id='MainExecutable' />
+      <!--<ComponentRef Id='HelperLibrary' />
+      <ComponentRef Id='Manual' />-->
+      <ComponentRef Id='ProgramMenuDir' />
+    </Feature>
+    
+		<Feature Id="ProductFeature" Title="Offwind" Level="1">
+			<!-- TODO: Remove the comments around this ComponentRef element and the Component above in order to add resources to this installer. -->
+			<!-- <ComponentRef Id="ProductComponent" /> -->
+			
+			<!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+			<ComponentGroupRef Id="Product.Generated" />
+		</Feature>
+
+
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+    
+  </Product>
+</Wix>

@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="Offwind.Products.WakeModel.CGeneralInputProperties"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" >
+    <Grid Margin="5">
+        <Grid.LayoutTransform>
+            <ScaleTransform CenterX="0" CenterY="0" ScaleX="{DynamicResource ResourceKey=globalScale}" ScaleY="{DynamicResource ResourceKey=globalScale}" />
+        </Grid.LayoutTransform>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <GroupBox>
+            <GroupBox.Resources>
+                <ResourceDictionary Source="/UI/FormStylesDict.xaml" />
+            </GroupBox.Resources>
+            <GroupBox.Header>
+                <Label Style="{StaticResource GroupBoxHeader}">General Input Parameters</Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=txtGridPointsX}">X Grid Points</Label>
+                <Image Grid.Row="0" Grid.Column="1" ToolTip="X grid points" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="0" Grid.Column="2" x:Name="txtGridPointsX" Text="{Binding Path=GridPointsX, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=txtGridPointsY}">Y Grid Points</Label>
+                <Image Grid.Row="1" Grid.Column="1" ToolTip="Y grid points" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="1" Grid.Column="2" x:Name="txtGridPointsY" Text="{Binding Path=GridPointsY, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=txtTurbineDiameter}">Turbine Diameter (m)</Label>
+                <Image Grid.Row="2" Grid.Column="1" ToolTip="Turbine diameter" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="2" Grid.Column="2" x:Name="txtTurbineDiameter" Text="{Binding Path=TurbineDiameter, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=txtTurbineHeight}">Turbine Height (m)</Label>
+                <Image Grid.Row="3" Grid.Column="1" ToolTip="Turbine height" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="3" Grid.Column="2" x:Name="txtTurbineHeight" Text="{Binding Path=TurbineHeight, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=txtHubThurst}">Hub Thurst</Label>
+                <Image Grid.Row="4" Grid.Column="1" ToolTip="Turbine hub thurst coefficient" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="4" Grid.Column="2" x:Name="txtHubThurst" Text="{Binding Path=HubThrust, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=txtWakeDecayConstant}">Wake Decay Constant</Label>
+                <Image Grid.Row="5" Grid.Column="1" ToolTip="Wake decay constant" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="5" Grid.Column="2" x:Name="txtWakeDecayConstant" Text="{Binding Path=WakeDecay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=txtVelocityAtHub}">Velocity at Hub (m/s)</Label>
+                <Image Grid.Row="6" Grid.Column="1" ToolTip="Velocity at the hub without the influence of the wind turbine" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="6" Grid.Column="2" x:Name="txtVelocityAtHub" Text="{Binding Path=VelocityAtHub, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=txtTurbinesAmount}">N Turbines</Label>
+                <Image Grid.Row="7" Grid.Column="1" ToolTip="Turbines Amount" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="7" Grid.Column="2" x:Name="txtTurbinesAmount" Text="{Binding Path=TurbinesAmount, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+
+                <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=txtAirDensity}">Air Density</Label>
+                <Image Grid.Row="8" Grid.Column="1" ToolTip="Density of the air around the turbine" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="8" Grid.Column="2" x:Name="txtAirDensity" Text="{Binding Path=AirDensity, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=txtUnknownParameter}">Unknown Parameter</Label>
+                <Image Grid.Row="9" Grid.Column="1" ToolTip="Unknown parameter" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="9" Grid.Column="2" x:Name="txtUnknownParameter" Text="{Binding Path=UnknownProperty, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=txtRotationAngle}">Rotation Angle (&#176;)</Label>
+                <Image Grid.Row="10" Grid.Column="1" ToolTip="Rotation angle - clockwise - in grade" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="10" Grid.Column="2" x:Name="txtRotationAngle" Text="{Binding Path=RotationAngle, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

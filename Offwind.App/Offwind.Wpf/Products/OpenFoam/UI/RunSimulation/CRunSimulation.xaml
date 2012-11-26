@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="Offwind.Products.OpenFoam.RunSimulation.CRunSimulation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" mc:Ignorable="d" >
+    <dxb:BarManager>
+        <dxb:BarManager.Items>
+            <dxb:BarButtonItem Content="Run"
+                                   Name="bbSowfaRun"
+                                   LargeGlyph="/Offwind;component/Images/media_play_green_32.png"
+                                   Glyph="/Offwind;component/Images/media_play_green_16.png"
+                                   ItemClick="bbSowfaRun_ItemClick" />
+            <dxb:BarButtonItem Content="Stop"
+                                   Name="bbSowfaStop"
+                                   LargeGlyph="/Offwind;component/Images/media_stop_red_32.png"
+                                   Glyph="/Offwind;component/Images/media_stop_red_16.png"
+                                   ItemClick="bbSowfaStop_ItemClick" />
+            <dxb:BarButtonItem Content="View Results"
+                                   Name="bbSowfaViewResults"
+                                   LargeGlyph="/Offwind;component/Images/flag_checkered_32.png"
+                                   Glyph="/Offwind;component/Images/flag_checkered_16.png"
+                                   ItemClick="bbSowfaViewResults_ItemClick" />
+        </dxb:BarManager.Items>
+        <DockPanel Margin="5">
+            <DockPanel.Resources>
+                <ResourceDictionary Source="../../../UI/FormStylesDict.xaml" />
+            </DockPanel.Resources>
+            <DockPanel.LayoutTransform>
+                <ScaleTransform CenterX="0" CenterY="0" ScaleX="{DynamicResource ResourceKey=globalScale}" ScaleY="{DynamicResource ResourceKey=globalScale}" />
+            </DockPanel.LayoutTransform>
+            <dxr:RibbonControl DockPanel.Dock="Top">
+                <dxr:RibbonDefaultPageCategory Caption="defaultCategory">
+                    <dxr:RibbonPage Caption="Home" Name="ribbonPage1">
+                        <dxr:RibbonPageGroup Caption="Simulation" Name="ribbonPageGroup1">
+                            <dxb:BarButtonItemLink BarItemName="bbSowfaRun" />
+                            <dxb:BarButtonItemLink BarItemName="bbSowfaStop" />
+                            <dxb:BarButtonItemLink BarItemName="bbSowfaViewResults" />
+                        </dxr:RibbonPageGroup>
+                    </dxr:RibbonPage>
+                </dxr:RibbonDefaultPageCategory>
+            </dxr:RibbonControl>
+            <dxr:RibbonStatusBarControl Name="RibbonStatus" DockPanel.Dock="Bottom" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <GroupBox>
+                    <GroupBox.Header>
+                        <Label Style="{StaticResource GroupBoxHeader}">Simulation</Label>
+                    </GroupBox.Header>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0">Parallel Execution</Label>
+                        <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Check if parallel execution required" />
+                        <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{Binding ParallelExecution}" />
+
+                        <Label Grid.Row="1" Grid.Column="0">Processors Amount</Label>
+                        <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Number of processors used for parallel execution" />
+                        <TextBox Grid.Row="1" Grid.Column="2" Name="txtParallelProcessorsAmount" Text="{Binding ParallelProcessorsAmount}" Width="300"/>
+
+                        <Label Grid.Row="2" Grid.Column="0">Solver Directory</Label>
+                        <Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Directory, where all OpenFOAM input files are being written. They then are used for simulation." />
+                        <TextBox Grid.Row="2" Grid.Column="2" Name="txtSolverDirectory" Text="{Binding SolverDirectory}" Width="300" />
+                        <Button Grid.Row="2" Grid.Column="3" Width="30" Margin="4" Click="ButtonSolverDirectory_Click" HorizontalAlignment="Left">...</Button>
+
+                        <Label Grid.Row="3" Grid.Column="0">State</Label>
+                        <Image Grid.Row="3" Grid.Column="1" Style="{StaticResource HelpTip}">
+                            <Image.ToolTip>
+                                <TextBlock>
+                                State of the simulation.<LineBreak />
+                                <Bold>Running</Bold> - simulation is in progress. Can be stopped.<LineBreak />
+                                <Bold>Idle</Bold> - simulation is not running.
+                                </TextBlock>
+                            </Image.ToolTip>
+                        </Image>
+                        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding State}" Width="300" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
+    </DockPanel>
+    </dxb:BarManager>
+
+</UserControl>

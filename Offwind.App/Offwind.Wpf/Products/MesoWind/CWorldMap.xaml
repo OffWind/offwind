@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="Offwind.Products.MesoWind.CWorldMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d">
+    <Grid Margin="5" Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="350*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+        <dx:DXTabControl HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <dx:DXTabItem Header="Bing Map" Name="tabBingMap">
+                <m:Map Name="MainMap"
+                       CredentialsProvider="AjrAZFxnDKDBm4T_1EebxtPFCZnFgcK9IK0uAzSBaLxm9XbCSM1D89v70_EyWoxs"
+                       Mode="AerialWithLabels"
+                       Center="0, 0"
+                       MouseMove="MainMap_MouseMove"
+                       MouseDoubleClick="MainMap_MouseDoubleClick"
+                       ZoomLevel="0" />
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Embedded Map">
+                <Border Grid.Row="0" Grid.Column="0" ClipToBounds="True" Name="border">
+                    <Image Stretch="Uniform"
+                       RenderTransformOrigin="0.5,0.5"
+                       x:Name="image"
+                       MouseMove="EmbeddedMap_MouseMove"
+                       MouseWheel="EmbeddedMap_MouseWheel"
+                       MouseLeftButtonDown="EmbeddedMap_MouseLeftButtonDown"
+                       MouseLeftButtonUp="EmbeddedMap_MouseLeftButtonUp"
+                       Source="/Images/world_map.jpg">
+                        <Image.RenderTransform>
+                            <TransformGroup x:Name="imgTransformGroup">
+                                <ScaleTransform x:Name="imgScaleTransform"></ScaleTransform>
+                                <TranslateTransform x:Name="imgTranslateTransform"></TranslateTransform>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                </Border>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Row="0" Margin="5,0,5,5" Header="UTM">
+                <StackPanel>
+                    <TextBlock x:Name="locationX" Margin="2" />
+                    <TextBlock x:Name="locationY" Margin="2" />
+                    <TextBlock x:Name="locationZone" Margin="2" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Margin="5,0,5,5" Header="Geographic">
+                <StackPanel>
+                    <TextBlock x:Name="locationLong" Margin="2" />
+                    <TextBlock x:Name="locationLat" Margin="2" />
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</UserControl>

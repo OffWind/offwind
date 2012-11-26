@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="Offwind.UI.CaseExplorer.CaseExplorerTree"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"             >
+    <Grid>
+        <dxg:TreeListControl Name="treeListControl1" ShowBorder="False" MouseDoubleClick="treeListControl1_MouseDoubleClick">
+            <dxg:TreeListControl.Columns>
+                <dxg:TreeListColumn Name="tlcName" FieldName="Name"  />
+            </dxg:TreeListControl.Columns>
+            <dxg:TreeListControl.View>
+                <dxg:TreeListView Name="treeListView1"
+                                  ShowTotalSummary="False"
+                                  ShowColumnHeaders="False"
+                                  ShowFocusedRectangle="True"
+                                  ShowHorizontalLines="False"
+                                  ShowIndicator="False"
+                                  ShowVerticalLines="False"
+                                  AutoWidth="True"
+                                  AllowEditing="False"
+                                  KeyFieldName="Id"
+                                  ParentFieldName="ParentId"
+                                  ImageFieldName="Image" />
+            </dxg:TreeListControl.View>
+        </dxg:TreeListControl>
+    </Grid>
+</UserControl>

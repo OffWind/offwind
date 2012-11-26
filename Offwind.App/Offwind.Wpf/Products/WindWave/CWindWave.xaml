@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="Offwind.Products.WindWave.CWindWave"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" Loaded="UserControl_Loaded">
+    <Grid Margin="5">
+        <Grid.LayoutTransform>
+            <ScaleTransform CenterX="0" CenterY="0" ScaleX="{DynamicResource ResourceKey=globalScale}" ScaleY="{DynamicResource ResourceKey=globalScale}" />
+        </Grid.LayoutTransform>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <GroupBox>
+            <GroupBox.Resources>
+                <ResourceDictionary Source="/UI/FormStylesDict.xaml" />
+            </GroupBox.Resources>
+            <GroupBox.Header>
+                <Label Style="{StaticResource GroupBoxHeader}">Input Data</Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=txtWindSpeed}">Wind Speed (m/s)</Label>
+                <Image Grid.Row="0" Grid.Column="1" ToolTip="Wind speed measured at a known height (Ug)" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="0" Grid.Column="2" x:Name="txtWindSpeed" Text="{Binding Path=Ug, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=txtReferenceHeight}">Reference Height (m)</Label>
+                <Image Grid.Row="1" Grid.Column="1" ToolTip="The height at which the wind velocity is measured (Zg)" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="1" Grid.Column="2" x:Name="txtReferenceHeight" Text="{Binding Path=Zg, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=txtTurbineHubHeight}">Turbine Hub Height (m)</Label>
+                <Image Grid.Row="2" Grid.Column="1" ToolTip="Turbine hub height (Zhub)" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="2" Grid.Column="2" x:Name="txtTurbineHubHeight" Text="{Binding Path=Zhub, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=txtTurbineDiameter}">Turbine Diameter (m)</Label>
+                <Image Grid.Row="3" Grid.Column="1" ToolTip="Turbine Diameter (Td)" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="3" Grid.Column="2" x:Name="txtTurbineDiameter" Text="{Binding Path=Td, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=txtTurbineEfficiency}">Turbine Efficiency (%)</Label>
+                <Image Grid.Row="4" Grid.Column="1" ToolTip="Turbine Efficiency (Ef)" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="4" Grid.Column="2" x:Name="txtTurbineEfficiency" Text="{Binding Path=Ef, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=txtWaveSpeed}">Wave speed (m/s)</Label>
+                <Image Grid.Row="5" Grid.Column="1" ToolTip="Wave speed (Cw)" Style="{StaticResource HelpTip}"></Image>
+                <TextBox Grid.Row="5" Grid.Column="2" x:Name="txtWaveSpeed" Text="{Binding Path=Cw, UpdateSourceTrigger=PropertyChanged}" />
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1">
+            <GroupBox.Resources>
+                <ResourceDictionary Source="/UI/FormStylesDict.xaml" />
+            </GroupBox.Resources>
+            <GroupBox.Header>
+                <Label Style="{StaticResource GroupBoxHeader}">Output Data</Label>
+            </GroupBox.Header>
+            <dx:DXTabControl Name="dXTabControl1">
+                <dx:DXTabItem Header="Power Output" Name="dXTabItem1">
+                    <dxg:GridControl x:Name="gridControl1" ItemsSource="{Binding Path=PowerOutputItems}">
+                        <dxg:GridControl.View>
+                            <dxg:TableView AllowGrouping="False" AllowEditing="False" AllowColumnFiltering="False" ShowGroupPanel="False" />
+                        </dxg:GridControl.View>
+                        <dxg:GridControl.Columns>
+                            <dxg:GridColumn Name="colMethod1" FieldName="Method" ReadOnly="True" Header="Method" />
+                            <dxg:GridColumn Name="colVelocity" FieldName="Velocity" ReadOnly="True" Header="Velocity (m/s)" HorizontalHeaderContentAlignment="Right">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings DisplayFormat="n8" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn Name="colPowerOutput" FieldName="Output" ReadOnly="True" Header="Power Output (MW)" SortIndex="0" SortOrder="Ascending" HorizontalHeaderContentAlignment="Right" MinWidth="150">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings DisplayFormat="n8" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn Name="colDifferences" FieldName="Differences" ReadOnly="True" Header="Differences (%)" HorizontalHeaderContentAlignment="Right">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings DisplayFormat="n8" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                        </dxg:GridControl.Columns>
+                    </dxg:GridControl>
+                </dx:DXTabItem>
+                <dx:DXTabItem Header="Advanced Output" Name="dXTabItem2">
+                    <dxg:GridControl x:Name="gridControl2" ItemsSource="{Binding Path=AdvancedCfdItems}">
+                        <dxg:GridControl.View>
+                            <dxg:TableView AllowGrouping="False" AllowEditing="False" AllowColumnFiltering="False" ShowGroupPanel="False" />
+                        </dxg:GridControl.View>
+                        <dxg:GridControl.Columns>
+                            <dxg:GridColumn Name="colMethod2" FieldName="Method" ReadOnly="True" Header="Method" />
+                            <dxg:GridColumn Name="colFrictionVelocity" FieldName="FrictionVelocity" ReadOnly="True" Header="Friction Velocity (m/s)" MinWidth="140" HorizontalHeaderContentAlignment="Right">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings DisplayFormat="n8" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn Name="colRoughnessHeight" FieldName="RoughnessHeight" ReadOnly="True" Header="Roughness Height (m)" MinWidth="150" SortIndex="0" SortOrder="Ascending" HorizontalHeaderContentAlignment="Right">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings Mask="n8" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                        </dxg:GridControl.Columns>
+                    </dxg:GridControl>
+                </dx:DXTabItem>
+            </dx:DXTabControl>
+        </GroupBox>
+    </Grid>
+</UserControl>

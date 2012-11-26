@@ -1,0 +1,263 @@
+﻿<UserControl x:Class="Offwind.Products.Sowfa.UI.SetFieldsAbl.FSetFieldsAbl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" >
+	<Grid Margin="5">
+		<Grid.LayoutTransform>
+			<ScaleTransform CenterX="0" CenterY="0" ScaleX="{DynamicResource ResourceKey=globalScale}" ScaleY="{DynamicResource ResourceKey=globalScale}" />
+		</Grid.LayoutTransform>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="Auto"/>
+		</Grid.ColumnDefinitions>
+		<GroupBox Grid.Row="0" Grid.Column="0">
+			<GroupBox.Resources>
+				<ResourceDictionary Source="../../../../UI/FormStylesDict.xaml" />
+			</GroupBox.Resources>
+			<GroupBox.Header>
+				<StackPanel Orientation="Horizontal" Height="30">
+					<Label Style="{StaticResource GroupBoxHeader}">Domain</Label>
+					<Image Style="{StaticResource HelpTip}">
+						<Image.ToolTip>
+							<TextBlock>Extents of the domain (assumes x, y, and z start from 0.0).</TextBlock>
+						</Image.ToolTip>
+					</Image>
+				</StackPanel>
+				
+			</GroupBox.Header>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="100" />
+					<ColumnDefinition Width="30"/>
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Label Grid.Row="0" Grid.Column="0">xMax</Label>
+				<Label Grid.Row="1" Grid.Column="0">yMax</Label>
+				<Label Grid.Row="2" Grid.Column="0">zMax</Label>
+				<TextBox Grid.Row="0" Grid.Column="2" Text="{Binding xMax}" Name="txtxMax"/>
+				<TextBox Grid.Row="1" Grid.Column="2" Text="{Binding yMax}" Name="txtyMax"/>
+				<TextBox Grid.Row="2" Grid.Column="2" Text="{Binding zMax}" Name="txtzMax"/>
+			</Grid>
+		</GroupBox>
+		<GroupBox Grid.Row="0" Grid.Column="1">
+			<GroupBox.Resources>
+				<ResourceDictionary Source="../../../../UI/FormStylesDict.xaml" />
+			</GroupBox.Resources>
+			<GroupBox.Header>
+				<Label Style="{StaticResource GroupBoxHeader}">Initialization</Label>
+			</GroupBox.Header>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Grid.Row="0" Grid.Column="0">Logarithmic initialization</Label>
+				<Label Grid.Row="1" Grid.Column="0">Update internal fields</Label>
+				<Label Grid.Row="2" Grid.Column="0">Update boundary fields</Label>
+				<Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>If true, initialize with a base logarithmic profile.<LineBreak/>
+							If false, initialize base profile to be uniform geostrophic wind speed.
+						</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Update internal field.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Update boundary field.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<CheckBox Grid.Row="0" Grid.Column="2" Name="checklogInit" IsChecked="{Binding logInit}"/>
+				<CheckBox Grid.Row="1" Grid.Column="2" Name="checkupdateInternalFields" IsChecked="{Binding updateInternalFields}"/>
+				<CheckBox Grid.Row="2" Grid.Column="2" Name="checkupdateBoundaryFields"  IsChecked="{Binding updateBoundaryFields}" />
+			</Grid>
+		</GroupBox>
+		<GroupBox Grid.Row="1" Grid.Column="0">
+			<GroupBox.Resources>
+				<ResourceDictionary Source="../../../../UI/FormStylesDict.xaml" />
+			</GroupBox.Resources>
+			<GroupBox.Header>
+				<Label Style="{StaticResource GroupBoxHeader}">Perturbations</Label>
+			</GroupBox.Header>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="100" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Grid.Row="0" Grid.Column="0">deltaU</Label>
+				<Label Grid.Row="1" Grid.Column="0">deltaV</Label>
+				<Label Grid.Row="2" Grid.Column="0">U periods</Label>
+				<Label Grid.Row="3" Grid.Column="0">V periods</Label>
+				<Label Grid.Row="4" Grid.Column="0">zPeak</Label>
+				<Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Maximum perturbation of <Bold>streamwise</Bold> flow near surface.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Maximum perturbation of <Bold>spanwise</Bold> flow near surface.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Total periods of perturbations in <Bold>streamwise</Bold> in the domain.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="3" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Total periods of perturbations in <Bold>spanwise</Bold> in the domain.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="4" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Percentage of domain height (zMax) where peak in perturbation<LineBreak/>
+							magnitude occurs.
+						</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<TextBox Grid.Row="0" Grid.Column="2" Text="{Binding deltaU}" Name="txtdeltaU"/>
+				<TextBox Grid.Row="1" Grid.Column="2" Text="{Binding deltaV}" Name="txtdeltaV"/>
+				<TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Uperiods}" Name="txtUperiods"/>
+				<TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Vperiods}" Name="txtVperiods"/>
+				<TextBox Grid.Row="4" Grid.Column="2" Text="{Binding zPeak}" Name="txtzPeak"/>
+			</Grid>
+		</GroupBox>
+		<GroupBox Grid.Row="1" Grid.Column="1">
+			<GroupBox.Resources>
+				<ResourceDictionary Source="../../../../UI/FormStylesDict.xaml" />
+			</GroupBox.Resources>
+			<GroupBox.Header>
+				<Label Style="{StaticResource GroupBoxHeader}">Inversion</Label>
+			</GroupBox.Header>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Grid.Row="0" Grid.Column="0">zInversion</Label>
+				<Label Grid.Row="1" Grid.Column="0">widthInversion</Label>
+				<Label Grid.Row="2" Grid.Column="0">Tbottom</Label>
+				<Label Grid.Row="3" Grid.Column="0">Ttop</Label>
+				<Label Grid.Row="4" Grid.Column="0">dTdz</Label>
+				<Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Initial height of the center of the capping inversion.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Width of the capping inversion.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Potential temperature at the <Bold>bottom</Bold> of the capping inversion.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="3" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Potential temperature at the <Bold>top</Bold> of the capping inversion.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="4" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Height rate of change of potential temperature above the inversion.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<TextBox Grid.Row="0" Grid.Column="2" Text="{Binding zInversion}" Name="txtzInversion" />
+				<TextBox Grid.Row="1" Grid.Column="2" Text="{Binding widthInversion}" Name="txtwidthInversion"/>
+				<TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Tbottom}" Name="txtTbottom"/>
+				<TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Ttop}" Name="txtTtop"/>
+				<TextBox Grid.Row="4" Grid.Column="2" Text="{Binding dTdz}" Name="txtdTdz"/>
+			</Grid>
+		</GroupBox>
+		<GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+			<GroupBox.Resources>
+				<ResourceDictionary Source="../../../../UI/FormStylesDict.xaml" />
+			</GroupBox.Resources>
+			<GroupBox.Header>
+				<Label Style="{StaticResource GroupBoxHeader}">WindSpeed</Label>
+			</GroupBox.Header>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="100" />
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Grid.Row="0" Grid.Column="0">Ug</Label>
+				<Label Grid.Row="1" Grid.Column="0">UgDirection</Label>
+				<Label Grid.Row="2" Grid.Column="0">z0</Label>
+				<Label Grid.Row="3" Grid.Column="0">kappa</Label>
+				<Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Geostrophic wind speed magnitude.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Geostrophic wind speed direction.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>Aerodynamic roughness height of surface.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<Image Grid.Row="3" Grid.Column="1" Style="{StaticResource HelpTip}">
+					<Image.ToolTip>
+						<TextBlock>von Karman constant.</TextBlock>
+					</Image.ToolTip>
+				</Image>
+				<TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Ug}"  Name="txtUg" HorizontalAlignment="Left"/>
+				<TextBox Grid.Row="1" Grid.Column="2" Text="{Binding UgDir}" Name="txtUgDir" HorizontalAlignment="Left"/>
+				<TextBox Grid.Row="2" Grid.Column="2" Text="{Binding z0}" Name="txtz0" HorizontalAlignment="Left"/>
+				<TextBox Grid.Row="3" Grid.Column="2" Text="{Binding kappa}" Name="txtkappa" HorizontalAlignment="Left"/>
+			</Grid>
+		</GroupBox>
+	</Grid>
+</UserControl>

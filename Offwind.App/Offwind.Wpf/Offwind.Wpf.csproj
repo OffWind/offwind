@@ -1,0 +1,809 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A09E8EC5-528E-4D34-907E-4CC4275BF18E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Offwind</RootNamespace>
+    <AssemblyName>Offwind</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>application.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\Offwind.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\Offwind.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.v11.2.Core, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v11.2.Core, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Carousel.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Charts.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Core.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Docking.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v11.2.Core, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Layout.v11.2.Core, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.LayoutControl.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.NavBar.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Ribbon.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.LightGray.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.MetropolisDark.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.Office2007Black.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.Office2007Blue.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.Office2007Silver.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.Office2010Black.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.Seven.v11.2, Version=11.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HelixToolkit.Wpf">
+      <HintPath>..\..\Prebuilt\HelixToolkit.2012.4.14.1\lib\NET40\HelixToolkit.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\Prebuilt\SharpZipLib\net-20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Irony">
+      <HintPath>..\..\Prebuilt\Irony\bin40\Irony.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Maps.MapControl.WPF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prebuilt\BingMaps\V1\Libraries\Microsoft.Maps.MapControl.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prebuilt\MySql.Data\lib\net40\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ProjNet">
+      <HintPath>..\..\Prebuilt\ProjNet\ProjNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Device" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\JobResult.cs" />
+    <Compile Include="Common\JobState.cs" />
+    <Compile Include="Common\JobType.cs" />
+    <Compile Include="Common\ProductCode.cs" />
+    <Compile Include="Products\MesoWind\CHistogram.xaml.cs">
+      <DependentUpon>CHistogram.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\MesoWind\CImportedData.xaml.cs">
+      <DependentUpon>CImportedData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\MesoWind\CMesoWind.xaml.cs">
+      <DependentUpon>CMesoWind.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Products\MesoWind\CMeanVelPerSector.xaml.cs">
+      <DependentUpon>CMeanVelPerSector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\MesoWind\CWindRose.xaml.cs">
+      <DependentUpon>CWindRose.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Products\MesoWind\CWorldMap.xaml.cs">
+      <DependentUpon>CWorldMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\MesoWind\DatabaseItem.cs" />
+    <Compile Include="Products\MesoWind\HPoint.cs" />
+    <Compile Include="Products\MesoWind\MesoWindProjectDescriptor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Products\MesoWind\ProductTargets.cs" />
+    <Compile Include="Products\MesoWind\VDataImport.cs" />
+    <Compile Include="Products\MesoWind\VMesoWind.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Products\OpenFoam\OpenFoamConfiguration.cs" />
+    <Compile Include="Products\OpenFoam\OpenFoamItemType.cs" />
+    <Compile Include="Products\OpenFoam\UI\Meshing\CMeshing.xaml.cs">
+      <DependentUpon>CMeshing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\OpenFoam\VOpenFoam.cs" />
+    <Compile Include="Products\Sowfa\SowfaNormal.cs" />
+    <Compile Include="Products\Sowfa\VSowfaNormal.cs" />
+    <Compile Include="Products\Sowfa\UI\AblGeneralSettings\CAblGeneralSettings.xaml.cs">
+      <DependentUpon>CAblGeneralSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\OpenFoam\UI\RunSimulation\VRunSimulation.cs" />
+    <Compile Include="Products\Sowfa\UI\SetFieldsAbl\FSetFieldsAbl.xaml.cs">
+      <DependentUpon>FSetFieldsAbl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\Sowfa\UI\TurbinesSetup\CTurbineSetup.xaml.cs">
+      <DependentUpon>CTurbineSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\Sowfa\UI\TurbinesSetup\VBladeData.cs" />
+    <Compile Include="Products\Sowfa\UI\TurbinesSetup\VTurbineArrayProperties.cs" />
+    <Compile Include="Products\Sowfa\UI\TurbinesSetup\VTurbineArrayInstance.cs" />
+    <Compile Include="Products\Sowfa\UI\TurbinesSetup\VTurbineType.cs" />
+    <Compile Include="Products\WakeModel\CGeneralInputProperties.xaml.cs">
+      <DependentUpon>CGeneralInputProperties.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Products\WakeModel\WakeModelHandler.cs" />
+    <Compile Include="Products\WakeModel\CSolver.xaml.cs">
+      <DependentUpon>CSolver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\WakeModel\CTurbinesInputProperties.xaml.cs">
+      <DependentUpon>CTurbinesInputProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\WakeModel\VTurbine.cs" />
+    <Compile Include="Products\WakeModel\VWakeModel.cs" />
+    <Compile Include="Products\WakeModel\WakeModelProjectDescriptor.cs" />
+    <Compile Include="Products\WakeModel\WakeModelRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WakeModelRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Products\OpenFoam\UI\TransportProperties\SurfaceStressModelToCheckedConverter.cs" />
+    <Compile Include="Infrastructure\DbCommandShortcut.cs" />
+    <Compile Include="Infrastructure\DirectoryExt.cs" />
+    <Compile Include="Infrastructure\DocumentTextUtils.cs" />
+    <Compile Include="Infrastructure\BooleanToCheckedYesNoConverter.cs" />
+    <Compile Include="Infrastructure\ICommand.cs" />
+    <Compile Include="Infrastructure\IOffwindForm.cs" />
+    <Compile Include="Infrastructure\IProjectItemController.cs" />
+    <Compile Include="Infrastructure\IProjectItemView.cs" />
+    <Compile Include="Infrastructure\ModelChangedIndicator.cs" />
+    <Compile Include="Infrastructure\Models\BaseViewModel.cs" />
+    <Compile Include="Infrastructure\Models\VDimensions.cs" />
+    <Compile Include="Infrastructure\SaveCommands\BaseDirType.cs" />
+    <Compile Include="Infrastructure\SaveCommands\FileHeader.cs" />
+    <Compile Include="Infrastructure\SaveCommands\Location.cs" />
+    <Compile Include="Infrastructure\SaveCommands\SaveCommand.cs" />
+    <Compile Include="Infrastructure\SaveCommands\SaveHelpers.cs" />
+    <Compile Include="Infrastructure\SharpZipUtils.cs" />
+    <Compile Include="Infrastructure\ShowSelectedInExplorer.cs" />
+    <Compile Include="Infrastructure\TreeTraversal.cs" />
+    <Compile Include="NewCase\NewCaseDialog2.xaml.cs">
+      <DependentUpon>NewCaseDialog2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewCase\ListItem.cs" />
+    <Compile Include="NewCase\VNewCase.cs" />
+    <Compile Include="Products\OpenFoam\OpenFoamDescriptor.cs" />
+    <Compile Include="Products\Other\PowerGenerator.cs" />
+    <Compile Include="Products\Other\UI\PowerGeneratorCalc\Class1.cs" />
+    <Compile Include="Products\Other\UI\WindTurbinesCalc\Class1.cs" />
+    <Compile Include="Products\Other\UI\WindustryWindPlant\Class1.cs" />
+    <Compile Include="Products\Other\WindTurbinesCalc.cs" />
+    <Compile Include="Products\Other\WindustryWindProject.cs" />
+    <Compile Include="Products\Sowfa\Defaults\AblDefaultsRes.Designer.cs">
+      <DependentUpon>AblDefaultsRes.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Products\Sowfa\Defaults\FastDefaultsRes.Designer.cs">
+      <DependentUpon>FastDefaultsRes.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Products\Sowfa\Defaults\WindPlantDefaultsRes.Designer.cs">
+      <DependentUpon>WindPlantDefaultsRes.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Products\Sowfa\Defaults\WindPlantFastDefaultsRes.Designer.cs">
+      <DependentUpon>WindPlantFastDefaultsRes.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Products\Sowfa\SowfaProject.cs" />
+    <Compile Include="Products\Sowfa\SowfaProjectCaseInitializer.cs" />
+    <Compile Include="Products\Sowfa\SowfaProjectConfiguration.cs" />
+    <Compile Include="Products\Sowfa\SowfaProjectItemType.cs" />
+    <Compile Include="Products\Sowfa\UI\AblGeneralSettings\VGeneralSettings.cs" />
+    <Compile Include="Products\Sowfa\UI\AblGeometry\AblGeometryData.cs" />
+    <Compile Include="Products\Sowfa\UI\AblGeometry\AblGeometryHandler.cs" />
+    <Compile Include="Products\Sowfa\UI\AblGeometry\VAblGeometry.cs" />
+    <Compile Include="Products\Sowfa\UI\AblProperties\CABLProperties.xaml.cs">
+      <DependentUpon>CABLProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\Sowfa\UI\AblProperties\VABLProperties.cs" />
+    <Compile Include="Products\Sowfa\UI\DimensionsAndValue\VDimensionsAndValue.cs" />
+    <Compile Include="Products\OpenFoam\UI\FieldData\VBoundaryPatch.cs" />
+    <Compile Include="Products\OpenFoam\UI\FieldData\VFieldData.cs" />
+    <Compile Include="Products\Sowfa\UI\LesProperties\CLesPropertiesSave.cs" />
+    <Compile Include="Products\Sowfa\UI\LesProperties\VLesProperties.cs" />
+    <Compile Include="Products\Sowfa\UI\SetFieldsAbl\VSetFieldsAblDict.cs" />
+    <Compile Include="Products\Sowfa\UI\TurbinesFastSetup\VTurbine.cs" />
+    <Compile Include="Products\Sowfa\UI\TurbinesFastSetup\VTurbinesFastSetup.cs" />
+    <Compile Include="Products\WindWave\Computations\AdvancedCfd.cs" />
+    <Compile Include="Products\WindWave\Computations\Calculator.cs" />
+    <Compile Include="Products\WindWave\Computations\Input.cs" />
+    <Compile Include="Products\WindWave\Computations\PowerOutput.cs" />
+    <Compile Include="Products\WindWave\CWindWave.xaml.cs">
+      <DependentUpon>CWindWave.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\WindWave\VAdvancedCfd.cs" />
+    <Compile Include="Products\WindWave\VPowerOutput.cs" />
+    <Compile Include="Products\WindWave\VWindWave.cs" />
+    <Compile Include="Products\WindWave\WindWaveProjectDescriptor.cs" />
+    <Compile Include="Projects\CaseInitializer.cs" />
+    <Compile Include="Projects\IProjectConfiguration.cs" />
+    <Compile Include="Projects\Persistence\CaseHandler.cs" />
+    <Compile Include="Projects\Persistence\ProjectHandler.cs" />
+    <Compile Include="Projects\ProductType.cs" />
+    <Compile Include="Projects\ProjectDescriptor.cs" />
+    <Compile Include="Projects\ProjectItemDescriptor.cs" />
+    <Compile Include="Projects\SimpleCaseInitializer.cs" />
+    <Compile Include="Projects\VCase.cs" />
+    <Compile Include="Projects\VCaseItem.cs" />
+    <Compile Include="Projects\VProject.cs" />
+    <Compile Include="Projects\VProjectItem.cs" />
+    <Compile Include="RemoteClient\VConnectToServer.cs" />
+    <Compile Include="RemoteClient\VJob.cs" />
+    <Compile Include="RemoteClient\VRemoteClient.cs" />
+    <Compile Include="Settings\NonRoamingUserSettings.cs" />
+    <Compile Include="Settings\WSettings.xaml.cs">
+      <DependentUpon>WSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StartPage\Logo.xaml.cs">
+      <DependentUpon>Logo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StartPage\StartDialog.xaml.cs">
+      <DependentUpon>StartDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StartPage\StartMain.xaml.cs">
+      <DependentUpon>StartMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CaseExplorer\CaseExplorerTree.xaml.cs">
+      <DependentUpon>CaseExplorerTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CaseExplorer\CaseExplorerEventArgs.cs" />
+    <Compile Include="UI\CaseExplorer\CETI.cs" />
+    <Compile Include="UI\CaseExplorer\ImageIndex.cs" />
+    <Compile Include="UI\CaseExplorer\NodeDescriptor.cs" />
+    <Compile Include="Products\OpenFoam\UI\ControlDict\CControlDict.xaml.cs">
+      <DependentUpon>CControlDict.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\OpenFoam\UI\ControlDict\VControlDict.cs" />
+    <Compile Include="Products\OpenFoam\UI\fvSchemes\FvSchemes.xaml.cs">
+      <DependentUpon>FvSchemes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\OpenFoam\UI\fvSchemes\VFvSchemes.cs" />
+    <Compile Include="Products\OpenFoam\UI\fvSolution\VFvSolution.cs" />
+    <Compile Include="Products\OpenFoam\UI\TransportProperties\CTransportProperties.xaml.cs">
+      <DependentUpon>CTransportProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Products\OpenFoam\UI\TransportProperties\VTransportProperties.cs" />
+    <Compile Include="Products\OpenFoam\UI\TurbulenceProperties\SimulationType.cs" />
+    <Compile Include="Products\OpenFoam\UI\TurbulenceProperties\VTurbulenceProperties.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="NewCase\NewCaseDialog2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Products\MesoWind\CHistogram.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\MesoWind\CImportedData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\MesoWind\CMesoWind.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\MesoWind\CMeanVelPerSector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Products\MesoWind\CWindRose.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\MesoWind\CWorldMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\OpenFoam\UI\Meshing\CMeshing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\Sowfa\UI\AblGeneralSettings\CAblGeneralSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\Sowfa\UI\AblProperties\CABLProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\Sowfa\UI\SetFieldsAbl\FSetFieldsAbl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\Sowfa\UI\TurbinesSetup\CTurbineSetup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\WakeModel\CGeneralInputProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\WakeModel\CSolver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\WakeModel\CTurbinesInputProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\WindWave\CWindWave.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\WSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StartPage\Logo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StartPage\StartDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StartPage\StartMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\CaseExplorer\CaseExplorerTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\OpenFoam\UI\ControlDict\CControlDict.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\FormStylesDict.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Products\OpenFoam\UI\fvSchemes\FvSchemes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Products\OpenFoam\UI\TransportProperties\CTransportProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Products\Sowfa\Defaults\AblDefaultsRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AblDefaultsRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Products\Sowfa\Defaults\FastDefaultsRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>FastDefaultsRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Products\Sowfa\Defaults\WindPlantDefaultsRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WindPlantDefaultsRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Products\Sowfa\Defaults\WindPlantFastDefaultsRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WindPlantFastDefaultsRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Products\WakeModel\WakeModelRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>WakeModelRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Products\Sowfa\Defaults\WindPlant\0.original\uniform\gradPd.raw" />
+    <None Include="Products\Sowfa\Defaults\WindPlant\constant\polyMesh\blockMeshDict" />
+    <Content Include="exec\wake6.exe" />
+    <Content Include="Products\WakeModel\initial_data.inp.txt" />
+    <Content Include="Products\WakeModel\default.txt" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OFFWIND_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bg-banner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bg-banner-holder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="application.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bg-sidenav.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo_OFFWIND_2_03.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Products\Sowfa\Defaults\ABL\0.original\time.pd.txt" />
+    <Resource Include="Products\Sowfa\Defaults\ABL\0.original\time.T.txt" />
+    <Resource Include="Products\Sowfa\Defaults\ABL\0.original\time.U.txt" />
+    <Resource Include="Products\Sowfa\Defaults\ABL\constant\constant.ABLProperties.txt" />
+    <Resource Include="Products\Sowfa\Defaults\ABL\constant\constant.transportProperties.txt" />
+    <Resource Include="Products\Sowfa\Defaults\ABL\constant\polyMesh\constant.blockMeshDict.txt" />
+    <Resource Include="Products\Sowfa\Defaults\ABL\system\system.controlDict.1.txt" />
+    <Resource Include="Products\Sowfa\Defaults\ABL\system\system.controlDict.2.txt" />
+    <Resource Include="Products\Sowfa\Defaults\ABL\system\system.decomposeParDict.txt" />
+    <Resource Include="Products\Sowfa\Defaults\ABL\system\system.fvSchemes.txt" />
+    <Resource Include="Products\Sowfa\Defaults\ABL\system\system.fvSolution.txt" />
+    <Resource Include="Products\Sowfa\Defaults\ABL\system\system.setFieldsABLDict.txt" />
+    <Resource Include="Products\Sowfa\Defaults\ABL\system\system.topoSetDict.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlantFast\WP-FAST.U.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlantFast\WP-FAST.T.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlantFast\WP-FAST.pd.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlantFast\WP-FAST.controlDict.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\0.original\time.pd.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\0.original\time.T.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\0.original\time.U.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\airfoilProperties\constant.airfoil.Cylinder1.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\airfoilProperties\constant.airfoil.Cylinder2.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\airfoilProperties\constant.airfoil.DU21_A17.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\airfoilProperties\constant.airfoil.DU25_A17.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\airfoilProperties\constant.airfoil.DU30_A17.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\airfoilProperties\constant.airfoil.DU35_A17.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\airfoilProperties\constant.airfoil.DU40_A17.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\airfoilProperties\constant.airfoil.NACA64_A17.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\constant.ABLProperties.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\constant.boundaryData.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\constant.cellDecomposition.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\constant.transportProperties.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\constant.turbineArrayProperties.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\constant\turbineProperties\constant.turbine.NREL5MWRef.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.changeDictionaryDict.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.controlDict.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.decomposeParDict.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.fvSchemes.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.mapFieldsDict.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.refineMeshDict.global.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.refineMeshDict.local.1.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.refineMeshDict.local.2.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.refineMeshDict.local.3.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.refineMeshDict.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.setFieldsABLDict.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.topoSetDict.global.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.topoSetDict.local.1.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.topoSetDict.local.2.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.topoSetDict.local.3.txt" />
+    <Resource Include="Products\Sowfa\Defaults\WindPlant\system\system.topoSetDict.txt" />
+    <Resource Include="Products\Sowfa\Defaults\FAST\FAST.U.txt" />
+    <Resource Include="Products\Sowfa\Defaults\FAST\FAST.p.txt" />
+    <Resource Include="Products\Sowfa\Defaults\FAST\FAST.nuSgs.txt" />
+    <Resource Include="Products\Sowfa\Defaults\FAST\FAST.controlDict.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Products\Sowfa\UI\GeometrySettings\" />
+    <Folder Include="Templates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Offwind.Charts\Offwind.Charts.csproj">
+      <Project>{20A606EF-E2CC-48D8-AE7E-45DE876F324D}</Project>
+      <Name>Offwind.Charts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Offwind.OpenFoam\Offwind.OpenFoam.csproj">
+      <Project>{432FFC08-741E-4DEB-A264-AFC8B756CB71}</Project>
+      <Name>Offwind.OpenFoam</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Offwind.Sowfa\Offwind.Sowfa.csproj">
+      <Project>{692E5C8E-3062-4D54-B7A7-B7691299C17F}</Project>
+      <Name>Offwind.Sowfa</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\document_new_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\document_new_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\document_new_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\media_stop_red_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\media_stop_red_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\disk_blue_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\disk_blue_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\disks_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\disks_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\gears_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\media_play_green_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\gears_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\media_play_green_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow_down.png" />
+    <Resource Include="Images\arrow_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\help2_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\help2_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\symbol_add128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\symbol_delete128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\world_map.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\blade_2.png" />
+    <Resource Include="Images\blade_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\media_stop_red_24.png" />
+    <Resource Include="Images\media_stop_red_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\media_stop_red_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\media_play_green_24.png" />
+    <Resource Include="Images\media_play_green_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\media_play_green_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_24.png" />
+    <Resource Include="Images\gears_128.png" />
+    <Resource Include="Images\gears_24.png" />
+    <Resource Include="Images\gears_32.png" />
+    <Resource Include="Images\help2_128.png" />
+    <Resource Include="Images\help2_24.png" />
+    <Resource Include="Images\help2_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\edit.png" />
+    <Resource Include="Images\edit_128.png" />
+    <Resource Include="Images\edit_16.png" />
+    <Resource Include="Images\edit_24.png" />
+    <Resource Include="Images\edit_32.png" />
+    <Resource Include="Images\edit_48.png" />
+    <Resource Include="Images\folder_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\document_new_128.png" />
+    <Resource Include="Images\document_new_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\disks_128.png" />
+    <Resource Include="Images\disks_24.png" />
+    <Resource Include="Images\disks_32.png" />
+    <Resource Include="Images\disk_blue_24.png" />
+    <Resource Include="Images\disk_blue_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete_128.png" />
+    <Resource Include="Images\delete_16.png" />
+    <Resource Include="Images\delete_24.png" />
+    <Resource Include="Images\delete_32.png" />
+    <Resource Include="Images\delete_48.png" />
+    <Resource Include="Images\disk_blue_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow_up_green_128.png" />
+    <Resource Include="Images\arrow_up_green_16.png" />
+    <Resource Include="Images\arrow_up_green_24.png" />
+    <Resource Include="Images\arrow_up_green_32.png" />
+    <Resource Include="Images\arrow_up_green_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow_down_green_128.png" />
+    <Resource Include="Images\arrow_down_green_16.png" />
+    <Resource Include="Images\arrow_down_green_24.png" />
+    <Resource Include="Images\arrow_down_green_32.png" />
+    <Resource Include="Images\arrow_down_green_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add_128.png" />
+    <Resource Include="Images\add_16.png" />
+    <Resource Include="Images\add_24.png" />
+    <Resource Include="Images\add_32.png" />
+    <Resource Include="Images\add_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\flag_checkered_128.png" />
+    <Resource Include="Images\flag_checkered_16.png" />
+    <Resource Include="Images\flag_checkered_24.png" />
+    <Resource Include="Images\flag_checkered_32.png" />
+    <Resource Include="Images\flag_checkered_48.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

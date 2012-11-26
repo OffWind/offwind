@@ -1,0 +1,369 @@
+﻿<UserControl xmlns:dxr="clr-namespace:DevExpress.Xpf.Ribbon;assembly=DevExpress.Xpf.Ribbon.v11.2" 
+    x:Class="Offwind.Products.OpenFoam.UI.fvSchemes.CFvScheme"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    mc:Ignorable="d"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:FvSchemes="clr-namespace:Offwind.Sowfa.System.FvSchemes;assembly=Offwind.Sowfa" d:DesignWidth="815">
+
+    <UserControl.Resources>
+        <x:Array x:Key="InterpolationsList" Type="FvSchemes:InterpolationType">
+            <FvSchemes:InterpolationType>none</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>linear</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>cubicCorrection</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>midPoint</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>upwind</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>linearUpwind</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>skewLinear</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>filteredLinear2</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>limitedLinear</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>vanLeer</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>MUSCL</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>limitedCubic</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>SFCD</FvSchemes:InterpolationType>
+            <FvSchemes:InterpolationType>Gamma</FvSchemes:InterpolationType>
+        </x:Array>
+
+        <x:Array x:Key="BoundView" Type="FvSchemes:BoundView">
+            <FvSchemes:BoundView>none</FvSchemes:BoundView>
+            <FvSchemes:BoundView>Range</FvSchemes:BoundView>
+       </x:Array>
+
+        <x:Array x:Key="LimitedList" Type="FvSchemes:LimitedType">
+            <FvSchemes:LimitedType>none</FvSchemes:LimitedType>
+            <FvSchemes:LimitedType>cellLimited</FvSchemes:LimitedType>
+            <FvSchemes:LimitedType>faceLimited</FvSchemes:LimitedType>
+        </x:Array>
+
+        <x:Array x:Key="DiscretisationList" Type="FvSchemes:DiscretisationType">
+            <FvSchemes:DiscretisationType>none</FvSchemes:DiscretisationType>
+            <FvSchemes:DiscretisationType>Gauss</FvSchemes:DiscretisationType>
+            <FvSchemes:DiscretisationType>leastSquares</FvSchemes:DiscretisationType>
+            <FvSchemes:DiscretisationType>fourth</FvSchemes:DiscretisationType>
+        </x:Array>
+
+        <x:Array x:Key="DiscretisationShort" Type="FvSchemes:DiscretisationType">
+            <FvSchemes:DiscretisationType>none</FvSchemes:DiscretisationType>
+            <FvSchemes:DiscretisationType>Gauss</FvSchemes:DiscretisationType>
+        </x:Array>
+
+        <x:Array x:Key="SurfaceNoramGradientList" Type="FvSchemes:SurfaceNormalGradientType">
+            <FvSchemes:SurfaceNormalGradientType>none</FvSchemes:SurfaceNormalGradientType>
+
+            <FvSchemes:SurfaceNormalGradientType>corrected</FvSchemes:SurfaceNormalGradientType>
+            <FvSchemes:SurfaceNormalGradientType>uncorrected</FvSchemes:SurfaceNormalGradientType>
+            <FvSchemes:SurfaceNormalGradientType>limited</FvSchemes:SurfaceNormalGradientType>
+            <FvSchemes:SurfaceNormalGradientType>bounded</FvSchemes:SurfaceNormalGradientType>
+            <FvSchemes:SurfaceNormalGradientType>fourth</FvSchemes:SurfaceNormalGradientType>
+        </x:Array>
+
+        <x:Array x:Key="TimesList" Type="FvSchemes:TimeSchemeType">
+            <FvSchemes:TimeSchemeType>Euler</FvSchemes:TimeSchemeType>
+            <FvSchemes:TimeSchemeType>localEuler</FvSchemes:TimeSchemeType>
+            <FvSchemes:TimeSchemeType>CrankNicholson</FvSchemes:TimeSchemeType>
+            <FvSchemes:TimeSchemeType>backward</FvSchemes:TimeSchemeType>
+            <FvSchemes:TimeSchemeType>steadyState</FvSchemes:TimeSchemeType>
+        </x:Array>
+
+        <Style TargetType="dxg:TableView">
+            <Setter Property="AllowGrouping" Value="False" />
+            <Setter Property="AllowColumnFiltering" Value="False" />
+            <Setter Property="ShowGroupPanel" Value="False" />
+        </Style>
+
+        <Style TargetType="dxe:ComboBoxEditSettings">
+            <Setter Property="IsTextEditable" Value="false" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="ImmediatePopup" Value="false" />
+            <Setter Property="IncrementalFiltering" Value="false" />
+        </Style>
+        
+        <Style TargetType="{x:Type dxg:GridColumn}">
+        <Setter Property="HorizontalHeaderContentAlignment" Value="Center" />
+        </Style>
+
+    </UserControl.Resources>    
+    <Grid Margin="5" x:Name="GridScheme">
+        <Grid.Resources>
+            <ResourceDictionary Source="/UI/FormStylesDict.xaml"/>
+        </Grid.Resources>
+        <Grid.LayoutTransform>
+            <ScaleTransform CenterX="0"
+                            CenterY="0"
+                            ScaleX="{DynamicResource ResourceKey=globalScale}"
+                            ScaleY="{DynamicResource ResourceKey=globalScale}" />
+        </Grid.LayoutTransform>        
+        
+        <dxb:BarManager x:Name="NumSchemeBM" VerticalAlignment="Top">
+            <dxb:BarManager.Items>
+                <dxb:BarButtonItem Glyph="/Offwind;component/Images/add_16.png" LargeGlyph="/Offwind;component/Images/add_48.png" GlyphSize="Large" Hint="Add new scheme" Name="bbNew" ItemClick="bbNew_ItemClick" Content="Add"/>
+                <dxb:BarButtonItem Glyph="/Offwind;component/Images/delete_16.png" LargeGlyph="/Offwind;component/Images/delete_48.png" GlyphSize="Large" Hint="Delete scheme" Name="bbDelete" ItemClick="bbDelete_ItemClick" Content="Delete"/>
+            </dxb:BarManager.Items>
+            <DockPanel>
+                <Grid>
+                    <dxr:RibbonControl DockPanel.Dock="Bottom" ShowApplicationButton="False" RibbonStyle="Office2010" ToolbarShowCustomizationButton="False" ToolbarShowMode="Hide" RibbonTitleBarVisibility="Collapsed">
+                        <dxr:RibbonDefaultPageCategory Caption="defaultCategory">
+                            <dxr:RibbonPage Caption="Home">
+                                <dxr:RibbonPageGroup Caption="Numerical schemes">
+                                    <dxb:BarButtonItemLink BarItemName="bbNew"/>
+                                    <dxb:BarButtonItemLink BarItemName="bbDelete"/>
+                                </dxr:RibbonPageGroup>
+                            </dxr:RibbonPage>
+                        </dxr:RibbonDefaultPageCategory>
+                    </dxr:RibbonControl>
+                </Grid>
+            </DockPanel>
+        </dxb:BarManager>
+        
+        <dx:DXTabControl Name="NumericalShemes">
+            <dx:DXTabItem Header="Interpolation" Name="Interpolation">
+                <dxg:GridControl x:Name="InterpolationGrid" ItemsSource="{Binding Path=cInterpolation}">
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn Name ="IScheme" Header="Scheme" FieldName="Scheme">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Right" CharacterCasing="Lower" AllowNullInput="False" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Name ="IFunction" Header="Function" FieldName="Function">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Center" DisplayFormat="" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Name ="IInterpolation" Header="Interpolation" FieldName="InterpolationType" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource InterpolationsList}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Name ="IBounded" Header="Bounded" FieldName="BoundView" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource BoundView}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Name ="ILower" Header="Lower" FieldName="LowerLimit" UnboundType="Decimal">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Center" CharacterCasing="Lower" DisplayFormat="n2" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Name ="IUpper" Header="Upper" FieldName="UpperLimit" UnboundType="Decimal">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings DisplayFormat="n2" HorizontalContentAlignment="Center" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Name ="IPsi" Header="ψ" FieldName="Psi" SortIndex="0" SortOrder="Ascending">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings DisplayFormat="n2" HorizontalContentAlignment="Center"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Name ="IFlux" Header="Flux" FieldName="Flux">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Center" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl.Columns>
+                    <dxg:GridControl.View>
+                        <dxg:TableView x:Name ="InterpolationTable"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Surface normal gradient" Name="SnGrad">
+                <dxg:GridControl x:Name="SnGradGrid" ItemsSource="{Binding Path=cSnGrad}">
+                    <dxg:GridControl.View>
+                        <dxg:TableView />
+                    </dxg:GridControl.View>
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn Header="Scheme" FieldName="Scheme">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings AllowNullInput="False" HorizontalContentAlignment="Right" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Function" FieldName="Function">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Center" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Surface normal gradient" FieldName="SurfaceNoramGradientType" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource SurfaceNoramGradientList}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="ψ" FieldName="Psi">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings DisplayFormat="n2" HorizontalContentAlignment="Center" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl.Columns>
+                </dxg:GridControl>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Divergence" Name="Divergence">
+                <dxg:GridControl x:Name="DivergenceGrid" ItemsSource="{Binding Path=cDivergence}">
+                    <dxg:GridControl.View>
+                        <dxg:TableView />
+                    </dxg:GridControl.View>
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn Header="Scheme" FieldName="Scheme">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Right" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Function" FieldName="Function">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Center" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Discretisation" FieldName="DiscretisationType" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource DiscretisationShort}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn Header="Interpolation" FieldName="InterpolationType" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource InterpolationsList}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Bounded" FieldName="BoundView" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource BoundView}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Lower" FieldName="LowerLimit" UnboundType="Decimal">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Center" DisplayFormat="n2" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Upper" FieldName="UpperLimit" UnboundType="Decimal">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Center" DisplayFormat="n2" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="ψ" FieldName="Psi">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings DisplayFormat="n2" HorizontalContentAlignment="Center"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl.Columns>
+                </dxg:GridControl>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Gradient" Name="Gradient">
+                <dxg:GridControl x:Name="GradientGrid" ItemsSource="{Binding Path=cGradient}">
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn Header="Scheme" FieldName="Scheme">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Right" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Function" FieldName="Function">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Center" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Limited type" FieldName="LimitedType">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource LimitedList}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Discretisation" FieldName="DiscretisationType" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource DiscretisationList}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Interpolation" FieldName="InterpolationType" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource InterpolationsList}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="ψ" FieldName="Psi">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings DisplayFormat="n2" HorizontalContentAlignment="Center"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl.Columns>
+                </dxg:GridControl>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Laplacian" Name="Laplacian">
+                <dxg:GridControl x:Name="LaplacianGrid" ItemsSource="{Binding Path=cLaplacian}">
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn Header="Scheme" FieldName="Scheme">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Right" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Function" FieldName="Function">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Center" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Discretisation" FieldName="DiscretisationType" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource DiscretisationList}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Interpolation" FieldName="InterpolationType" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource InterpolationsList}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="ψ" FieldName="Psi">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings DisplayFormat="n2" HorizontalContentAlignment="Center"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Surface normal gradient" FieldName="SurfaceNoramGradientType" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource SurfaceNoramGradientList}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl.Columns>
+                </dxg:GridControl>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Time scheme" Name="TimeScheme">
+                <dxg:GridControl x:Name="TimeGrid" ItemsSource="{Binding Path=cTime}">
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn Header="Scheme" FieldName="Scheme">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Right" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Function" FieldName="Function">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Center" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Type" FieldName="TimeSchemeType" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding Source={StaticResource TimesList}}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="ψ" FieldName="Psi">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings DisplayFormat="n2" HorizontalContentAlignment="Center"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl.Columns>
+                </dxg:GridControl>
+            </dx:DXTabItem>
+
+            <dx:DXTabItem Header="Flux control" Name="FluxControl">
+                <dxg:GridControl x:Name="FluxGrid" ItemsSource="{Binding Path=cFlux}">
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn Header="Flux" FieldName="Flux">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings HorizontalContentAlignment="Center" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Enable" FieldName="Enable">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:CheckEditSettings HorizontalContentAlignment="Center" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl.Columns>
+                </dxg:GridControl>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+    </Grid>
+</UserControl>

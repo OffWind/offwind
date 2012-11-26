@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="Offwind.Products.OpenFoam.UI.TransportProperties.CTransportProperties"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" >
+    <Grid Margin="5">
+        <Grid.LayoutTransform>
+            <ScaleTransform CenterX="0" CenterY="0" ScaleX="{DynamicResource ResourceKey=globalScale}" ScaleY="{DynamicResource ResourceKey=globalScale}" />
+        </Grid.LayoutTransform>
+        <GroupBox Grid.Row="0">
+            <GroupBox.Resources>
+                <ResourceDictionary Source="/UI/FormStylesDict.xaml" />
+            </GroupBox.Resources>
+            <GroupBox.Header>
+                <Label Style="{StaticResource GroupBoxHeader}">General</Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="190" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="442*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=txtMolecularViscosity}" Content="Molecular Viscosity (m^2/s^2)"></Label>
+                <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Solver reads this molecular viscosity, but does not use it (need to fix this in the future)" />
+                <TextBox Grid.Row="0" Grid.Column="2" Name="txtMolecularViscosity" Text="{Binding MolecularViscosity, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=txtTransportModel}" Content="Transport Model"></Label>
+                <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Transport Model"></Image>
+                <TextBox Grid.Row="1" Grid.Column="2" Name="txtTransportModel" Text="{Binding TransportModel, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=txtTRef}" Content="Reference Temperature"></Label>
+                <Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Reference temperature (inverse should correspond to fluid expansion ratio)" />
+                <TextBox Grid.Row="2" Grid.Column="2" Name="txtTRef" Text="{Binding TRef, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=txtLESModel}" Content="LES SGS model"></Label>
+                <Image Grid.Row="3" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="SGS model (currently limited to standard Smagorinsky)" />
+                <TextBox Grid.Row="3" Grid.Column="2" Name="txtLESModel" Text="{Binding LESModel, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=txtSmagorinskyConstant}" Content="Smagorinsky Constant"></Label>
+                <Image Grid.Row="4" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Smagorinsky model constant"></Image>
+                <TextBox Grid.Row="4" Grid.Column="2" Name="txtSmagorinskyConstant" Text="{Binding SmagorinskyConstant, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=txtDeltaLESCoeff}" Content="LES filter width scalar"></Label>
+                <Image Grid.Row="5" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="LES filter width is cube root of cell volume times this coefficient"></Image>
+                <TextBox Grid.Row="5" Grid.Column="2" Name="txtDeltaLESCoeff" Text="{Binding DeltaLESCoeff, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=txtVonKarmanConstant}" Content="von Karman Constant"></Label>
+                <Image Grid.Row="6" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="von Karman Constant"></Image>
+                <TextBox Grid.Row="6" Grid.Column="2" Name="txtVonKarmanConstant" Text="{Binding VonKarmanConstant, UpdateSourceTrigger=PropertyChanged}" />
+
+                <DockPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3">
+                    <Label Content="Constants for Monin-Obuhkov universal constants"></Label>
+                    <Image Style="{StaticResource HelpTip}" ToolTip="These constants are used for calculating friction velocity in non-neutral flow"/>
+                    <TextBlock></TextBlock>
+                </DockPanel>
+
+                <Label Grid.Row="8" Grid.Column="0" Margin="35,0,0,0" Target="{Binding ElementName=txtBetaM}" Content="betaM"></Label>
+                <TextBox Grid.Row="8" Grid.Column="2" Name="txtBetaM" Text="{Binding BetaM, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="9" Grid.Column="0" Margin="35,0,0,0" Target="{Binding ElementName=txtGammM}" Content="gammaM"></Label>
+                <TextBox Grid.Row="9" Grid.Column="2" Name="txtGammM" Text="{Binding GammM, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=txtRoughnessHeight}" Content="Roughness Height (m)"></Label>
+                <Image Grid.Row="10" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Aerodynamic roughness height"></Image>
+                <TextBox Grid.Row="10" Grid.Column="2" Name="txtRoughnessHeight" Text="{Binding RoughnessHeight, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=txtSurfaceTemperatureFlux}" Content="Surface temperature flux (K-m/s)"></Label>
+                <Image Grid.Row="11" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Mean surface temperature flux"></Image>
+                <TextBox Grid.Row="11" Grid.Column="2" Name="txtSurfaceTemperatureFlux" Text="{Binding SurfaceTemperatureFlux, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=txtLowerBoundaryName}" Content="Surface Stress Model"></Label>
+                <Image Grid.Row="12" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Name of the lower boundary"></Image>
+                <ItemsControl Grid.Row="12" Grid.Column="2" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton GroupName="radioSurfaceStressModel" IsChecked="{Binding Path=SurfaceStressModel, Converter={StaticResource SurfaceStressModelToCheckedConverter}, ConverterParameter=Schummann}">Schummann</RadioButton>
+                        <RadioButton GroupName="radioSurfaceStressModel" IsChecked="{Binding Path=SurfaceStressModel, Converter={StaticResource SurfaceStressModelToCheckedConverter}, ConverterParameter=Moeng}">Moeng</RadioButton>
+                        <RadioButton GroupName="radioSurfaceStressModel" IsChecked="{Binding Path=SurfaceStressModel, Converter={StaticResource SurfaceStressModelToCheckedConverter}, ConverterParameter=MoengCorrected}">Moeng corrected</RadioButton>
+                    </StackPanel>
+                </ItemsControl>
+
+                <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=txtBetaSurfaceStress}" Content="Beta Surface Stress"></Label>
+                <Image Grid.Row="13" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Name of the lower boundary"></Image>
+                <TextBox Grid.Row="13" Grid.Column="2" Name="txtBetaSurfaceStress" Text="{Binding BetaSurfaceStress, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

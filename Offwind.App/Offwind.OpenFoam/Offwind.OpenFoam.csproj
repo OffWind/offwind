@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{432FFC08-741E-4DEB-A264-AFC8B756CB71}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Offwind.Products.OpenFoam</RootNamespace>
+    <AssemblyName>Offwind.Products.OpenFoam</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Irony, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prebuilt\Irony\bin40\Irony.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\PolyMesh\MeshBlock.cs" />
+    <Compile Include="Models\PolyMesh\MeshBoundary.cs" />
+    <Compile Include="Models\PolyMesh\BlockMeshDictData.cs" />
+    <Compile Include="Models\PolyMesh\BlockMeshDictHandler.cs" />
+    <Compile Include="Models\PolyMesh\BlockMeshDictRes.Designer.cs">
+      <DependentUpon>BlockMeshDictRes.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Models\PolyMesh\Grading.cs" />
+    <Compile Include="Models\Dimensions.cs" />
+    <Compile Include="Models\Fields\FieldClass.cs" />
+    <Compile Include="Models\Fields\FieldType.cs" />
+    <Compile Include="Models\Fields\PatchValue.cs" />
+    <Compile Include="Models\FoamFileHandler.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmDictHandler.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmAddLayersControls.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmCastellatedMeshControls.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmDictData.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmDictRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ShmDictRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SnappyHexMesh\ShmFeature.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmGeometry.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmGeometryType.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmMeshQualityControls.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmRefinementLevel.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmRefinementRegion.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmRefinementRegionMode.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmRefinementSurface.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmRegion.cs" />
+    <Compile Include="Models\SnappyHexMesh\ShmSnapControls.cs" />
+    <Compile Include="Models\VRealPoint.cs" />
+    <Compile Include="Models\VVector.cs" />
+    <Compile Include="Parsing\NumericalSchemeGrammar.cs" />
+    <Compile Include="Models\StubFileHandler.cs" />
+    <Compile Include="Models\ControlDict\GraphFormat.cs" />
+    <Compile Include="Models\ControlDict\ApplicationSolver.cs" />
+    <Compile Include="Models\FvSolution\Agglomerator.cs" />
+    <Compile Include="Models\FvSolution\LinearSolver.cs" />
+    <Compile Include="Models\FvSolution\Preconditioner.cs" />
+    <Compile Include="Models\runTimeModifiable.cs" />
+    <Compile Include="Models\ControlDict\StartFrom.cs" />
+    <Compile Include="Models\ControlDict\StopAt.cs" />
+    <Compile Include="Models\ControlDict\TimeFormat.cs" />
+    <Compile Include="Models\ControlDict\WriteCompression.cs" />
+    <Compile Include="Models\ControlDict\WriteControl.cs" />
+    <Compile Include="Models\ControlDict\WriteFormat.cs" />
+    <Compile Include="Models\DimensionedValue.cs" />
+    <Compile Include="Models\Fields\BoundaryField.cs" />
+    <Compile Include="Models\Fields\Patch.cs" />
+    <Compile Include="Models\Fields\PatchType.cs" />
+    <Compile Include="Models\FileHeader.cs" />
+    <Compile Include="Models\Format.cs" />
+    <Compile Include="Parsing\OpenFoamGrammar.cs" />
+    <Compile Include="Parsing\ParserTreeExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\RealPoint.cs" />
+    <Compile Include="Models\FvSolution\Smoother.cs" />
+    <Compile Include="Models\Tensor.cs" />
+    <Compile Include="Models\TensorField.cs" />
+    <Compile Include="Models\Utils.cs" />
+    <Compile Include="Models\Validator.cs" />
+    <Compile Include="Models\ValueType.cs" />
+    <Compile Include="Models\Vertice.cs" />
+    <Compile Include="Models\WriteHelpers.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\FvSchemes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\PolyMesh\Default" />
+    <None Include="Models\PolyMesh\Template" />
+    <None Include="Models\PolyMesh\TemplateBoundary" />
+    <Content Include="Models\SnappyHexMesh\TemplateMeshQualityControls.txt" />
+    <Content Include="Models\SnappyHexMesh\TemplateAddLayersControls.txt" />
+    <Content Include="Models\SnappyHexMesh\TemplateSnapControls.txt" />
+    <Content Include="Models\SnappyHexMesh\TemplateCastellatedMeshControls.txt" />
+    <Content Include="Models\SnappyHexMesh\Default.txt" />
+    <Content Include="Models\SnappyHexMesh\Template.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Models\PolyMesh\BlockMeshDictRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BlockMeshDictRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\SnappyHexMesh\ShmDictRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ShmDictRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,254 @@
+﻿<UserControl x:Class="Offwind.Products.OpenFoam.UI.ControlDict.CControlDict"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors">
+    <Grid Margin="5">
+        <Grid.LayoutTransform>
+            <ScaleTransform CenterX="0" CenterY="0" ScaleX="{DynamicResource ResourceKey=globalScale}" ScaleY="{DynamicResource ResourceKey=globalScale}" />
+        </Grid.LayoutTransform>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0">
+            <GroupBox.Resources>
+                <ResourceDictionary Source="/UI/FormStylesDict.xaml" />
+            </GroupBox.Resources>
+            <GroupBox.Header>
+                <Label Style="{StaticResource GroupBoxHeader}">General Settings</Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=comboApplication}">Application</Label>
+                <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Application type</TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <dxe:ComboBoxEdit Grid.Row="0" Grid.Column="2" Name="comboApplication" SelectedItem="{Binding Application}" />
+
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=radioRuntimeModifiable}">Run-time Modifiable</Label>
+                <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Switch for whether dictionaries (<Italic>e.g. controlDict</Italic>) are re-read by OpenFOAM at the beginning of each time step.</TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <ItemsControl Grid.Row="1" Grid.Column="2" Name="radioRuntimeModifiable" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton GroupName="radioRuntimeModifiable" IsChecked="{Binding Path=IsRunTimeModifiable, Converter={StaticResource BooleanToCheckedYesNoConverter}, ConverterParameter=Yes}">Yes</RadioButton>
+                        <RadioButton GroupName="radioRuntimeModifiable" IsChecked="{Binding Path=IsRunTimeModifiable, Converter={StaticResource BooleanToCheckedYesNoConverter}, ConverterParameter=No}">No</RadioButton>
+                    </StackPanel>
+                </ItemsControl>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1">
+            <GroupBox.Resources>
+                <ResourceDictionary Source="/UI/FormStylesDict.xaml" />
+            </GroupBox.Resources>
+            <GroupBox.Header>
+                <Label Style="{StaticResource GroupBoxHeader}">Time Control</Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=comboStartFrom}">Start From</Label>
+                <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Controls the start time of the simulation.<LineBreak />
+                        <Bold>firstTime</Bold> - Earliest time step from the set of time directories.<LineBreak />
+                        <Bold>startTime</Bold> - Time specified by the <Run Style="{StaticResource HelpTipAccent}">startTime</Run> keyword entry.<LineBreak />
+                        <Bold>latestTime</Bold> - Most recent time step from the set of time directories.<LineBreak />
+                        </TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <DockPanel Grid.Row="0" Grid.Column="2" >
+                    <dxe:ComboBoxEdit Name="comboStartFrom" SelectedItem="{Binding StartFrom}" />
+                    <TextBox Name="txtStartFrom" Text="{Binding StartTime}" />
+                </DockPanel>
+
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=comboStopAt}">Stop At</Label>
+                <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Controls the end time of the simulation.<LineBreak />
+                        <Bold>endTime</Bold> - Time specified by the <Run Style="{StaticResource HelpTipAccent}">endTime</Run> keyword entry.<LineBreak />
+                        <Bold>writeNow</Bold> - Stops simulation on completion of current time step and writes data.<LineBreak />
+                        <Bold>noWriteNow</Bold> - Stops simulation on completion of current time step and does not write out data.<LineBreak />
+                        <Bold>nextWrite</Bold> - Stops simulation on completion of next scheduled write time, specified by <Run Style="{StaticResource HelpTipAccent}">writeControl</Run>.<LineBreak />
+                        </TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <DockPanel Grid.Row="1" Grid.Column="2">
+                    <dxe:ComboBoxEdit Name="comboStopAt" SelectedItem="{Binding StopAt}" />
+                    <TextBox Name="txtStopAt" Text="{Binding EndTime}" />
+                </DockPanel>
+
+                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=txtDeltaT}">&#916;T</Label>
+                <Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Time step of the simulation"></Image>
+                <TextBox Grid.Row="2" Grid.Column="2" Name="txtDeltaT" Text="{Binding DeltaT, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=checkAdjustableTimeStep}">Adjustable Time Step</Label>
+                <Image Grid.Row="3" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Time step of the simulation"></Image>
+                <CheckBox Grid.Row="3" Grid.Column="2" Name="checkAdjustableTimeStep" IsChecked="{Binding Path=AdjustTimeStep}"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=txtMaxCo}">Max Courant Number</Label>
+                <Image Grid.Row="4" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Max Courant Number"></Image>
+                <TextBox Grid.Row="4" Grid.Column="2" Name="txtMaxCo" Text="{Binding MaxCo, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=txtMaxDeltaT}">Max &#916;T</Label>
+                <Image Grid.Row="5" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Max &#916;T"></Image>
+                <TextBox Grid.Row="5" Grid.Column="2" Name="txtMaxDeltaT" Text="{Binding MaxDeltaT, UpdateSourceTrigger=PropertyChanged}" />
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="2">
+            <GroupBox.Resources>
+                <ResourceDictionary Source="/UI/FormStylesDict.xaml" />
+            </GroupBox.Resources>
+            <GroupBox.Header>
+                <Label Style="{StaticResource GroupBoxHeader}">Data Writing</Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <!--<RowDefinition />-->
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=comboWriteControl}">Write Control</Label>
+                <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Controls the timing of write output to file.<LineBreak />
+                        <Bold>timeStep</Bold> - Writes data every <Run Style="{StaticResource HelpTipAccent}">writeInterval</Run> time steps.<LineBreak />
+                        <Bold>runTime</Bold> - Writes data every <Run Style="{StaticResource HelpTipAccent}">writeInterval</Run> seconds of simulated time.<LineBreak />
+                        <Bold>adjustableRunTime</Bold> -  Writes data every <Run Style="{StaticResource HelpTipAccent}">writeInterval</Run> seconds of simulated time,
+                            adjusting the time steps to coincide with the <Run Style="{StaticResource HelpTipAccent}">writeInterval</Run> if necessary — used in
+                            cases with automatic time step adjustment.<LineBreak />
+                        <Bold>cpuTime</Bold> - Writes data every <Run Style="{StaticResource HelpTipAccent}">writeInterval</Run> seconds of CPU time.<LineBreak />
+                        <Bold>clockTime</Bold> - Writes data out every <Run Style="{StaticResource HelpTipAccent}">writeInterval</Run> seconds of real time.
+                        </TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <DockPanel Grid.Row="0" Grid.Column="2">
+                    <dxe:ComboBoxEdit Name="comboWriteControl" SelectedItem="{Binding WriteControl}" />
+                    <TextBox Name="txtWriteControl" Text="{Binding WriteInterval}" />
+                </DockPanel>
+
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=txtPurgeWrite}">Purge Write</Label>
+                <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Integer representing a limit on the number of time directories that are stored
+                            by overwriting time directories on a cyclic basis. Example of <Italic>t0 = 5s</Italic>
+                            \relax \special {t4ht=, Δt = 1s \relax \special {t4ht= and purgeWrite 2;: data written
+                            into 2 directories, 6 and 7, before returning to write the data at 8 s
+                            \relax \special {t4ht= in 6, data at 9 s \relax \special {t4ht= into 7, etc.<LineBreak />
+                            To disable the time directory limit, specify purgeWrite 0;<LineBreak />
+                            For steady-state solutions, results from previous iterations can be
+                            continuously overwritten by specifying purgeWrite 1;
+                        </TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <TextBox Grid.Row="1" Grid.Column="2" Name="txtPurgeWrite" Text="{Binding PurgeWrite, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=comboWriteFormat}">Write Format</Label>
+                <Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Controls the timing of write output to file.<LineBreak />
+                        <Bold>ascii</Bold> - ASCII format, written to <Run Style="{StaticResource HelpTipAccent}">writePrecision</Run> significant figures.<LineBreak />
+                        <Bold>binary</Bold> - Binary format.
+                        </TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <dxe:ComboBoxEdit Grid.Row="2" Grid.Column="2" Name="comboWriteFormat" SelectedItem="{Binding WriteFormat}" />
+
+                <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=txtWritePrecision}">Write Precision</Label>
+                <Image Grid.Row="3" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Integer used in conjunction with <Run Style="{StaticResource HelpTipAccent}">writeFormat</Run> described above, 6 by default.</TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <TextBox Grid.Row="3" Grid.Column="2" Name="txtWritePrecision" Text="{Binding WritePrecision, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=comboWriteCompression}">Write Compression</Label>
+                <Image Grid.Row="4" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Specifies the compression of the data files.<LineBreak />
+                            <Bold>uncompressed</Bold> - No compression<LineBreak />
+                            <Bold>compressed</Bold> - <Run Style="{StaticResource HelpTipAccent}">gzip</Run> compression
+                        </TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <dxe:ComboBoxEdit Grid.Row="4" Grid.Column="2" Name="comboWriteCompression" SelectedItem="{Binding WriteCompression}" />
+
+                <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=comboTimeFormat}">Time Format</Label>
+                <Image Grid.Row="5" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Choice of format of the naming of the time directories.<LineBreak />
+                            <Bold>fixed</Bold> - <Run Style="{StaticResource HelpTipAccent}">&#0177;m.dddddd</Run> where the number of <Run Style="{StaticResource HelpTipAccent}">d</Run>s is set by <Run Style="{StaticResource HelpTipAccent}">timePrecision</Run><LineBreak/>
+                            <Bold>scientific</Bold> - <Run Style="{StaticResource HelpTipAccent}">&#0177;m.dddddde &#0177;xx</Run> where the number of <Run Style="{StaticResource HelpTipAccent}">d</Run>s is set by <Run Style="{StaticResource HelpTipAccent}">timePrecision</Run><LineBreak/>
+                            <Bold>general</Bold> - Specifies <Run Style="{StaticResource HelpTipAccent}">scientific</Run> format if the exponent is less than -4 or greater than or equal to that specified by timePrecision
+                        </TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <dxe:ComboBoxEdit Grid.Row="5" Grid.Column="2" Name="comboTimeFormat" SelectedItem="{Binding TimeFormat}" />
+
+                <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=txtTimePrecision}">Time Precision</Label>
+                <Image Grid.Row="6" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Integer used in conjunction with <Run Style="{StaticResource HelpTipAccent}">timeFormat</Run> described above, 6 by default.
+                        </TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <TextBox Grid.Row="6" Grid.Column="2" Name="txtTimePrecision" Text="{Binding TimePrecision, UpdateSourceTrigger=PropertyChanged}" />
+
+                <!--<Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=comboGraphFormat}">Graph Format</Label>
+                <Image Grid.Row="7" Grid.Column="1" Style="{StaticResource HelpTip}">
+                    <Image.ToolTip>
+                        <TextBlock>Format for graph data written by an application.<LineBreak />
+                            <Bold>raw</Bold> - Raw ASCII format in columns.<LineBreak/>
+                            <Bold>gnuplot</Bold> - Data in <Run Style="{StaticResource HelpTipAccent}">gnuplot</Run> format.<LineBreak/>
+                            <Bold>xmgr</Bold> - Data in <Run Style="{StaticResource HelpTipAccent}">Grace/xmgr</Run> format.<LineBreak/>
+                            <Bold>jplot</Bold> - Data in <Run Style="{StaticResource HelpTipAccent}">jPlot</Run> format.
+                        </TextBlock>
+                    </Image.ToolTip>
+                </Image>
+                <dxe:ComboBoxEdit Grid.Row="7" Grid.Column="2" Name="comboGraphFormat" SelectedItem="{Binding GraphFormat}" />-->
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

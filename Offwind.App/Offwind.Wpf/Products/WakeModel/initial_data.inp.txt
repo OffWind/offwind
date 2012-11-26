@@ -1,0 +1,14 @@
+({[[GridPointsX]]})    The number of grid points in x direction
+({[[GridPointsY]]})    The number of the grid points in Y direction
+({[[TurbineDiameter]]})     THE DIAMETER OF THE TURBINE
+({[[TurbineHeight]]})      THE HEIGHT OF THE TURBINE
+({[[HubThrust]]})     THE HUB THRUST COEFFICIENT OF TURBINE
+({[[WakeDecay]]})     THE WAKE DECAY CONSTANT
+({[[VelocityAtHub]]})    m/s - VELOCITY AT THE HUB, WITHOUT THE INFLUENCE OF THE WIND TURBINE
+({[[TurbinesAmount]]})       THE NUMBER OF THE TURBINE
+({[[AirDensity]]})     THE DENSITY OF THE AIR AROUNT TURBINE
+({[[UnknownProperty]]})
+({[[RotationAngle]]})          rotation angle - clockwise - in grade
+
+X            Y   THE COORDINATE OF THE CENTER OF THE BLADES
+({[[Turbines]]})

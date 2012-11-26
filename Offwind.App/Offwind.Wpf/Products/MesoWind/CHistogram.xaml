@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Offwind.Products.MesoWind.CHistogram"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" mc:Ignorable="d" >
+    <Grid Margin="20">
+        <Grid.LayoutTransform>
+            <ScaleTransform CenterX="0" CenterY="0" ScaleX="{DynamicResource ResourceKey=globalScale}" ScaleY="{DynamicResource ResourceKey=globalScale}" />
+        </Grid.LayoutTransform>
+        <dxc:ChartControl Name="chartHistogram" BorderThickness="0">
+            <dxc:ChartControl.Diagram>
+                <dxc:XYDiagram2D>
+                    <dxc:XYDiagram2D.AxisX>
+                        <dxc:AxisX2D>
+                            <dxc:AxisX2D.Title>
+                                <dxc:AxisTitle Content="Velocity (m/s)" FontSize="12" />
+                            </dxc:AxisX2D.Title>
+                        </dxc:AxisX2D>
+                    </dxc:XYDiagram2D.AxisX>
+                    <dxc:XYDiagram2D.AxisY>
+                        <dxc:AxisY2D>
+                            <dxc:AxisY2D.Title>
+                                <dxc:AxisTitle Content="Frequency (%)" FontSize="12" />
+                            </dxc:AxisY2D.Title>
+                        </dxc:AxisY2D>
+                    </dxc:XYDiagram2D.AxisY>
+                    <dxc:XYDiagram2D.Series>
+                        <dxc:BarSideBySideSeries2D x:Name="VelocityFreq" 
+                                                       ArgumentDataMember="Velocity" 
+                                                       ValueDataMember="Frequency"
+                                                       ColorEach="False"
+                                                           ArgumentScaleType="Numerical">
+                            <dxc:BarSideBySideSeries2D.Model>
+                                <dxc:SimpleBar2DModel />
+                            </dxc:BarSideBySideSeries2D.Model>
+                            <dxc:BarSideBySideSeries2D.Label>
+                                <dxc:SeriesLabel ResolveOverlappingMode="Default" Visible="False" />
+                            </dxc:BarSideBySideSeries2D.Label>
+                        </dxc:BarSideBySideSeries2D>
+                    </dxc:XYDiagram2D.Series>
+                </dxc:XYDiagram2D>
+            </dxc:ChartControl.Diagram>
+        </dxc:ChartControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,79 @@
+// Settings for the layer addition.
+addLayersControls
+{
+    // Are the thickness parameters below relative to the undistorted
+    // size of the refined cell outside layer (true) or absolute sizes (false).
+    relativeSizes ({[[relativeSizes]]});
+
+    // Per final patch (so not geometry!) the layer information
+    layers
+    {
+        "flange_.*"
+        {
+            nSurfaceLayers 1;
+        }
+    }
+
+    // Expansion factor for layer mesh
+    expansionRatio ({[[expansionRatio]]});
+
+
+    //- Wanted thickness of final added cell layer. If multiple layers
+    //  is the thickness of the layer furthest away from the wall.
+    //  See relativeSizes parameter.
+    finalLayerThickness ({[[finalLayerThickness]]});
+
+    //- Minimum thickness of cell layer. If for any reason layer
+    //  cannot be above minThickness do not add layer.
+    //  See relativeSizes parameter.
+    minThickness ({[[minThickness]]});
+
+    //- If points get not extruded do nGrow layers of connected faces that are
+    //  also not grown. This helps convergence of the layer addition process
+    //  close to features.
+    nGrow ({[[nGrow]]});
+
+
+    // Advanced settings
+
+    //- When not to extrude surface. 0 is flat surface, 90 is when two faces
+    //  make straight angle.
+    featureAngle ({[[featureAngle]]});
+
+    //- Maximum number of snapping relaxation iterations. Should stop
+    //  before upon reaching a correct mesh.
+    nRelaxIter ({[[nRelaxIter]]});
+
+    // Number of smoothing iterations of surface normals
+    nSmoothSurfaceNormals ({[[nSmoothSurfaceNormals]]});
+
+    // Number of smoothing iterations of interior mesh movement direction
+    nSmoothNormals ({[[nSmoothNormals]]});
+
+    // Smooth layer thickness over surface patches
+    nSmoothThickness ({[[nSmoothThickness]]});
+
+    // Stop layer growth on highly warped cells
+    maxFaceThicknessRatio ({[[maxFaceThicknessRatio]]});
+
+    // Reduce layer growth where ratio thickness to medial
+    // distance is large
+    maxThicknessToMedialRatio ({[[maxThicknessToMedialRatio]]});
+
+    // Angle used to pick up medial axis points
+    minMedianAxisAngle ({[[minMedianAxisAngle]]});
+
+    // Create buffer region for new layer terminations
+    nBufferCellsNoExtrude ({[[nBufferCellsNoExtrude]]});
+
+
+    // Overall max number of layer addition iterations. The mesher will exit
+    // if it reaches this number of iterations; possibly with an illegal
+    // mesh.
+    nLayerIter ({[[nLayerIter]]});
+
+    // Max number of iterations after which relaxed meshQuality controls
+    // get used. Up to nRelaxIter it uses the settings in meshQualityControls,
+    // after nRelaxIter it uses the values in meshQualityControls::relaxed.
+    nRelaxedIter ({[[nRelaxedIter]]});
+}

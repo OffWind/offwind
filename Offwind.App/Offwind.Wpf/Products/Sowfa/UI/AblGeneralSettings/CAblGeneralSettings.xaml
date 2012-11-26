@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="Offwind.Products.Sowfa.UI.AblGeneralSettings.CAblGeneralSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <Grid Margin="5">
+        <Grid.LayoutTransform>
+            <ScaleTransform CenterX="0" CenterY="0" ScaleX="{DynamicResource ResourceKey=globalScale}" ScaleY="{DynamicResource ResourceKey=globalScale}" />
+        </Grid.LayoutTransform>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0">
+            <GroupBox.Resources>
+                <ResourceDictionary Source="/UI/FormStylesDict.xaml" />
+            </GroupBox.Resources>
+            <GroupBox.Header>
+                <Label Style="{StaticResource GroupBoxHeader}">General</Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="442*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=txtParallelProcessors}" Content="Parallel Processors"></Label>
+                <Image Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Parallel Processors"></Image>
+                <TextBox Grid.Row="0" Grid.Column="2" Name="txtParallelProcessors" Text="{Binding ParallelProcessors, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=txtRequireMeshRefinement}">Require Mesh Refinement</Label>
+                <Image Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Require Mesh Refinement"></Image>
+                <CheckBox Grid.Row="1" Grid.Column="2" Name="checkRequireMeshRefinement" IsChecked="{Binding RequireMeshRefinement}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=txtMeshRefinementLevel}">Mesh Refinement Level</Label>
+                <Image Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTip}" ToolTip="Mesh Refinement Level"></Image>
+                <TextBox Grid.Row="2" Grid.Column="2" Name="txtMeshRefinementLevel" Text="{Binding MeshRefinementLevel, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

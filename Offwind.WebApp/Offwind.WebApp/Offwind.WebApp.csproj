@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\libs\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\Prebuilt\SharpZipLib\net-20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -300,7 +300,7 @@
     <Content Include="Views\Shared\EditorTemplates\Int32.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\offwind.wake\csharp\WakeCode\WakeCode.csproj">
+    <ProjectReference Include="..\..\Offwind.Wake\csharp\WakeCode\WakeCode.csproj">
       <Project>{E37CB3E6-1575-4241-BEC6-86E2650ECAED}</Project>
       <Name>WakeCode</Name>
     </ProjectReference>

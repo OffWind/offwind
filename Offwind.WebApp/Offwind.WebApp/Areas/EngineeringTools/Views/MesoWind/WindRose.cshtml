@@ -1,0 +1,89 @@
+﻿@using System.Linq
+@using System.Web.Script.Serialization
+@using MvcApplication1.Areas.EngineeringTools.Models.MesoWind
+@model VWindRose
+
+<div class="span3">
+    @Html.Partial("__SideNav")
+</div>
+<div class="span4" >
+    <div id="frequencyByDir" style="width: 100%; height: 480px;"></div>
+</div>
+<div class="span4" >
+    <div id="meanVelocityByDir" style="width: 100%; height: 480px;"></div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/static/js/amcharts.js")
+    <script type="text/javascript">
+    @{
+        var freqByDirs = Model.FreqByDirs.Select(x => new { direction = x.Dir, value = x.Frequency });
+        var meanVelocityByDir = Model.MeanVelocityPerDir.Select(x => new { direction = x.Dir, value = x.Velocity });
+    }
+        var freqByDir = @(Html.Raw(new JavaScriptSerializer().Serialize(freqByDirs)));
+        var meanVelocityByDir = @(Html.Raw(new JavaScriptSerializer().Serialize(meanVelocityByDir)));
+        var plotChart = function(data, target, title) {
+            var chart;
+
+            // RADAR CHART
+            chart = new AmCharts.AmRadarChart();
+            chart.dataProvider = data;
+            chart.categoryField = "direction";
+            chart.startDuration = 1;
+
+            // TITLE
+            chart.addTitle(title, 15);
+
+            // VALUE AXIS
+            var valueAxis = new AmCharts.ValueAxis();
+            valueAxis.gridType = "circles";
+            valueAxis.fillAlpha = 0.05;
+            valueAxis.fillColor = "#000000";
+            valueAxis.axisAlpha = 0.2;
+            valueAxis.gridAlpha = 0;
+            valueAxis.fontWeight = "bold";
+            valueAxis.minimum = 0;
+            chart.addValueAxis(valueAxis);
+
+            // GRAPH
+            var graph = new AmCharts.AmGraph();
+            graph.lineColor = "#FFCC00";
+            graph.fillAlphas = 0.4;
+            graph.bullet = "round";
+            graph.valueField = "value";
+            graph.balloonText = "[[category]]: [[value]] m/s";
+            chart.addGraph(graph);
+
+            // GUIDES
+            // blue fill
+            var guide = new AmCharts.Guide();
+            guide.angle = 225;
+            guide.tickLength = 0;
+            guide.toAngle = 315;
+            guide.value = 0;
+            guide.toValue = 14;
+            guide.fillColor = "#0066CC";
+            guide.fillAlpha = 0.6;
+            valueAxis.addGuide(guide);
+
+            // red fill
+            guide = new AmCharts.Guide();
+            guide.angle = 45;
+            guide.tickLength = 0;
+            guide.toAngle = 135;
+            guide.value = 0;
+            guide.toValue = 14;
+            guide.fillColor = "#CC3333";
+            guide.fillAlpha = 0.6;
+            valueAxis.addGuide(guide);
+
+            // WRITE                
+            chart.write(target);
+        };
+
+        AmCharts.ready(function() {
+            plotChart(freqByDir, "frequencyByDir", "Frequency by direction");
+            plotChart(meanVelocityByDir, "meanVelocityByDir", "Mean velocity by direction");
+        });
+    </script>
+}

@@ -1,0 +1,62 @@
+﻿@section styles
+{
+    @Styles.Render("~/static/css/jquery.handsontable.full.css")
+}
+<div class="span3">
+    @Html.Partial("__SideNav")
+</div>
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+        <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+        <li><a href="@Url.Action("GeneralProperties", "WakeSimulation", new { area = "EngineeringTools" })">Wake Simulation</a> <span class="divider">/</span></li>
+        <li class="active">Turbine Properties</li>
+    </ul>
+    <div id="example1"></div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/static/js/jquery.handsontable.full.js")
+    <script language="javascript">
+        $(document).ready(function () {
+            var renderer = function (instance, td) {
+                Handsontable.TextCell.renderer.apply(this, arguments);
+                $(td).css({ textAlign: "right" });
+                return td;
+            };
+            var isInitialized = false;
+            var $container = $("#example1");
+
+            var changed = function(change, source) {
+                if (!isInitialized) return;
+                var d = $container.data('handsontable').getData();
+                $.ajax({
+                    url: "@Url.Action("TurbinePropertiesSave", "WakeSimulation", new { area = "EngineeringTools" })",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(d)
+                });
+            };
+
+            $container.handsontable({
+                startRows: 5,
+                startCols: 2,
+                columns: [{ type: { renderer: renderer} }, { type: { renderer: renderer} }],
+                colHeaders: ["<b>X</b>", "<b>Y</b>"],
+                minSpareRows: 1,
+                onChange: changed
+            });
+
+            $.ajax({
+                url: "@Url.Action("TurbinePropertiesData", "WakeSimulation", new { area = "EngineeringTools" })",
+                dataType: 'json',
+                type: 'GET',
+                success: function (res) {
+                    $container.data('handsontable').loadData(res);
+                    isInitialized = true;
+                }
+            });
+        });        
+    </script>
+}

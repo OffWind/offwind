@@ -1,0 +1,20 @@
+﻿@model decimal
+@*<script runat="server">
+    private object ModelValue {
+        get {
+            if (ViewData.TemplateInfo.FormattedModelValue == ViewData.ModelMetadata.Model) {
+                return String.Format(System.Globalization.CultureInfo.CurrentCulture,
+                                     "{0:0.00}", ViewData.ModelMetadata.Model);
+            }
+            return ViewData.TemplateInfo.FormattedModelValue;
+        }
+    }
+</script>
+*@
+@{var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;}
+<div class="control-group">
+    <label class="control-label" for="@fieldName">@fieldName <i class="icon-question-sign"></i></label>
+    <div class="controls">
+        <input type="text" class="inputmask decimal" id="@fieldName" name="@fieldName" placeholder="0.0" value="@Model"/>
+    </div>
+</div>

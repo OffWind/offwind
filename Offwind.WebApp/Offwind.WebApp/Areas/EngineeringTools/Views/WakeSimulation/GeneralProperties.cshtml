@@ -1,0 +1,60 @@
+﻿@using MvcApplication1.Areas.EngineeringTools.Models.WakeSimulation
+@model VGeneralProperties
+<div class="span3">
+    @Html.Partial("__SideNav")
+</div>
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+        <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+        <li><a href="@Url.Action("GeneralProperties", "WakeSimulation", new { area = "EngineeringTools" })">Wake Simulation</a> <span class="divider">/</span></li>
+        <li class="active">General Properties</li>
+    </ul>
+    <div id="alert-saved"  class="alert alert-success hidden" style="width: 10%">
+        <a class="close" data-dismiss="alert">×</a>
+        Saved
+    </div>
+    <form class="form-horizontal" method="post">
+        <fieldset>
+
+            @Html.EditorFor(m => m.GridPointsX)
+            @Html.EditorFor(m => m.GridPointsY)
+            @Html.EditorFor(m => m.TurbineDiameter)
+            @Html.EditorFor(m => m.TurbineHeight)
+            @Html.EditorFor(m => m.TurbineThrust)
+            @Html.EditorFor(m => m.WakeDecay)
+            @Html.EditorFor(m => m.VelocityAtHub)
+            @Html.EditorFor(m => m.AirDensity)
+            @Html.EditorFor(m => m.PowerDistance)
+            @Html.EditorFor(m => m.RotationAngle)
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn">Cancel</button>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/static/js/jquery.form.js")
+    @Scripts.Render("~/static/js/jquery.inputmask/jquery.inputmask.js")
+    @Scripts.Render("~/static/js/jquery.inputmask/jquery.inputmask.numeric.extensions.js")
+    <script language="javascript">
+        $(document).ready(function () {
+            $('.inputmask.decimal').inputmask("decimal");
+            $('.inputmask.integer').inputmask("integer");
+            $('form').ajaxForm(function () {
+                $('#alert-saved').removeClass('hidden').hide().fadeIn();
+                //$('#alert-saved').removeClass('hidden').hide().fadeIn();
+                //$('#alert-saved').addClass('in');
+                //$('#alert-saved').fadeIn('slow');
+            });
+            $('#alert-saved').bind('close', function () {
+                $('#alert-saved').fadeOut();
+                return false;
+            });
+        });        
+    </script>
+}

@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="span3">
+@Html.Partial("~/Areas/EngineeringTools/Views/Shared/__SideNav.cshtml")
+</div>
+<div class="span9">
+      <ul class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+        <li class="active">Engineering Tools</li>
+    </ul>
+</div>

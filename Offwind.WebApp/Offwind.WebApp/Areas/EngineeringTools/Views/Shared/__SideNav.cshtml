@@ -1,0 +1,73 @@
+﻿@using MvcApplication1.Infrastructure
+@{
+    var activeFlag = "class=\"active\"";
+    
+}
+<div class="well well-small">
+    <ul class="nav nav-list">
+        <li class="nav-header">Meso Wind</li>
+        <li @this.ActiveIfCurrent("Database", "MesoWind", "EngineeringTools")>
+            <a href="@Url.Action("Database", "MesoWind", new { area = "EngineeringTools" })">
+                <i class="icon-globe"></i> Database
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("CurrentData", "MesoWind", "EngineeringTools")>
+            <a href="@Url.Action("CurrentData", "MesoWind", new { area = "EngineeringTools" })">
+                <i class="icon-table"></i> Current Data
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("VelocityFreq", "MesoWind", "EngineeringTools")>
+            <a href="@Url.Action("VelocityFreq", "MesoWind", new { area = "EngineeringTools" })">
+                <i class="icon-bar-chart"></i> Velocity Freq.
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("WindRose", "MesoWind", "EngineeringTools")>
+            <a href="@Url.Action("WindRose", "MesoWind", new { area = "EngineeringTools" })">
+                <i class="icon-asterisk"></i> Wind Roses
+            </a>
+        </li>
+        <li class="nav-header">Wake Simulation</li>
+        <li @this.ActiveIfCurrent("GeneralProperties", "WakeSimulation", "EngineeringTools")>
+            <a href="@Url.Action("GeneralProperties", "WakeSimulation", new { area = "EngineeringTools" })">
+                <i class="icon-cog"></i> General Properties
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("TurbineProperties", "WakeSimulation", "EngineeringTools")>
+            <a href="@Url.Action("TurbineProperties", "WakeSimulation", new { area = "EngineeringTools" })">
+                <i class="icon-cog"></i> Turbine Properties
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("Simulation", "WakeSimulation", "EngineeringTools")>
+            <a href="@Url.Action("Simulation", "WakeSimulation", new { area = "EngineeringTools" })">
+                <i class="icon-play-circle"></i> Simulation
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("PostProcessing", "WakeSimulation", "EngineeringTools")>
+            <a href="@Url.Action("PostProcessing", "WakeSimulation", new { area = "EngineeringTools" })">
+                <i class="icon-time"></i> Post-processing
+            </a>
+        </li>
+        <li class="nav-header">Wind Wave Power</li>
+        <li @this.ActiveIfCurrent("PowerCalculator", "WindWave", "EngineeringTools")>
+            <a href="@Url.Action("PowerCalculator", "WindWave", new { area = "EngineeringTools" })">
+                <i class="icon-bolt"></i> Power Calculator
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("Results", "WindWave", "EngineeringTools")>
+            <a href="@Url.Action("Results", "WindWave", new { area = "EngineeringTools" })">
+                <i class="icon-download"></i> Results
+            </a>
+        </li>
+        <li class="nav-header">Earth Elevation</li>
+        <li @this.ActiveIfCurrent("Index", "EarthElevation", "EngineeringTools")>
+            <a href="@Url.Action("Index", "EarthElevation", new { area = "EngineeringTools" })">
+                <i class="icon-globe"></i> World Map
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("Results", "EarthElevation", "EngineeringTools")>
+            <a href="@Url.Action("Results", "EarthElevation", new { area = "EngineeringTools" })">
+                <i class="icon-download"></i> Results
+            </a>
+        </li>
+    </ul>
+</div>

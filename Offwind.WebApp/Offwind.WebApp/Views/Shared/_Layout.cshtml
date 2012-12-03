@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/static/css/bootstrap.css")
+    @Styles.Render("~/static/css/font-awesome.css")
+    @Styles.Render("~/static/css/custom.css")
+    @RenderSection("styles", required: false)
+    @Styles.Render("~/static/css/bootstrap-responsive.min.css")
+</head>
+<body>
+    <div id="wrap">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
+                        class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    </a><a class="brand" href="@Url.Action("Index", "Home", new { area = "" })">Offwind</a>
+                    <div class="btn-group pull-right">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user">
+                        </i>Username <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Profile", "Account", new { area = "" })">Profile</a></li>
+                            <li class="divider"></li>
+                            <li><a href="@Url.Action("LogOff", "Account", new { area = "" })">Sign Out</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                            <li@* class="active"*@><a href="@Url.Action("Index", "Home", new { area = "" })">Home</a></li>
+                            <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">
+                                Engineering Tools</a></li>
+                            <li><a href="@Url.Action("Index", "CFD", new { area = "CFD" })">CFD</a></li>
+                            <li><a href="@Url.Action("Index", "About", new { area = "" })">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid main-container">
+            <div class="row-fluid">
+                @RenderBody()
+            </div>
+        </div>
+        <div id="push">
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span6">
+                    <p class="muted credit">
+                        &copy; 2012 <a href="http://offwind.eu" target="_blank">Offwind</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>*@
+    @Scripts.Render("~/static/js/jquery-1.7.1.min.js")
+    @Scripts.Render("~/static/js/bootstrap.min.js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

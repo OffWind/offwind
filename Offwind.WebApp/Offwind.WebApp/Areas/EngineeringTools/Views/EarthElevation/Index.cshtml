@@ -2,42 +2,110 @@
     @Html.Partial("__SideNav")
 </div>
 <div class="span9">
-        <script>
-
-            function CoordMapType(tileSize) {
-                this.tileSize = tileSize;
-            }
-
-            CoordMapType.prototype.getTile = function (coord, zoom, ownerDocument) {
-                var div = ownerDocument.createElement('div');
-                div.innerHTML = coord;
-                div.style.width = this.tileSize.width + 'px';
-                div.style.height = this.tileSize.height + 'px';
-                div.style.fontSize = '10';
-                div.style.borderStyle = 'solid';
-                div.style.borderWidth = '1px';
-                div.style.borderColor = '#AAAAAA';
-                return div;
-            };
-
-            var map;
-            var chicago = new google.maps.LatLng(41.850033, -87.6500523);
-
-            function initialize() {
-                var mapOptions = {
-                    zoom: 10,
-                    center: chicago,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                map = new google.maps.Map(document.getElementById('map_canvas'),
-                                          mapOptions);
-
-                // Insert this overlay map type as the first overlay map type at
-                // position 0. Note that all overlay map types appear on top of
-                // their parent base map.
-                map.overlayMapTypes.insertAt(
-            0, new CoordMapType(new google.maps.Size(256, 256)));
-            }
-    </script>
-    <div id="map_canvas" style="width: 640px; height: 480px;">map div</div>
+    <div class="well well-small">
+        <div class="row-fluid" style="margin-bottom: 1em">
+            <div class="span2">
+                <label for="DistanceWE">Distance WE (m)</label>
+                <input type="text" class="input-small inputmask decimal" id="DistanceWE" value="10000" />
+            </div>
+            <div class="span2">
+                <label for="DistanceNS">Distance NS (m)</label>
+                <input type="text" class="input-small inputmask decimal" id="DistanceNS" value="10000" />
+            </div>
+            <div class="span2">
+                <a class="btn" href="#" id="button-generate">Generate</a>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+            <div id="map_canvas" style="width: auto; height: 480px;"></div>
+            </div>
+        </div>
+    </div>
 </div>
+@section scripts
+{
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=geometry"></script>
+    @Scripts.Render("~/static/js/jquery.inputmask/jquery.inputmask.js")
+    @Scripts.Render("~/static/js/jquery.inputmask/jquery.inputmask.numeric.extensions.js")
+    <script>
+        var dbMarker;
+        var rectangle;
+        
+        function createMarker(map, point, icon) {
+            return new google.maps.Marker({
+                position: point,
+                draggable: true,
+                raiseOnDrag: false,
+                icon: icon,
+                //shadow: shadow,
+                //shape: shape,
+                title: 'Sample',
+                map: map
+            });
+        }
+
+        function initializeMap() {
+            var centerPoint = new google.maps.LatLng(11, 50);
+
+            var mapOptions = {
+                zoom: 1,
+                center: centerPoint,
+                mapTypeId: google.maps.MapTypeId.SATELLITE
+            };
+            var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+            dbMarker = createMarker(map, new google.maps.LatLng(0, 0));
+            dbMarker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
+            dbMarker.visible = false;
+            dbMarker.draggable = false;
+            dbMarker.zIndex = 1;
+
+            rectangle = new google.maps.Rectangle({
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                map: map
+            });
+
+            google.maps.event.addListener(map, 'click', function (e) {
+                var point = e.latLng;
+                dbMarker.visible = true;
+                dbMarker.setPosition(point);
+                var distanceWE = $('#DistanceWE').val();
+                var distanceNS = $('#DistanceNS').val();
+                var toEast = google.maps.geometry.spherical.computeOffset(point, distanceWE, 90);
+                var toSouth = google.maps.geometry.spherical.computeOffset(point, distanceNS, 180);
+                var bounds = new google.maps.LatLngBounds(toSouth, toEast);
+                rectangle.setBounds(bounds);
+            });
+        }
+
+        function inputValuesChanged() {
+            var point = dbMarker.getPosition();
+            var distanceWE = $('#DistanceWE').val();
+            var distanceNS = $('#DistanceNS').val();
+            var toEast = google.maps.geometry.spherical.computeOffset(point, distanceWE, 90);
+            var toSouth = google.maps.geometry.spherical.computeOffset(point, distanceNS, 180);
+            var bounds = new google.maps.LatLngBounds(toSouth, toEast);
+            rectangle.setBounds(bounds);
+        }
+
+        $(document).ready(function () {
+            initializeMap();
+
+            $('.inputmask.decimal').inputmask("integer");
+            $("input.decimal").keyup(function (event) {
+                if (event.keyCode == 13) {
+                    inputValuesChanged();
+                }
+            });
+
+            $('input').change(function () {
+                inputValuesChanged();
+            });
+        });
+    </script>
+}

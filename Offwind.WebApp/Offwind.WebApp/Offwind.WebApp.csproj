@@ -201,6 +201,7 @@
     <Content Include="static\img\marker.png" />
     <Content Include="static\img\marker-shadow.png" />
     <Content Include="static\js\amcharts.js" />
+    <Content Include="static\js\jquery.download.js" />
     <Content Include="static\js\jquery.handsontable.full.js" />
     <Content Include="static\js\jquery.form.js" />
     <Content Include="static\js\d3.v2.js" />

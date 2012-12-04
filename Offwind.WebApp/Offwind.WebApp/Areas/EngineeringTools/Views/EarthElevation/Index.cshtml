@@ -14,6 +14,7 @@
             </div>
             <div class="span2">
                 <a class="btn" href="#" id="button-generate">Generate</a>
+                <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
             </div>
         </div>
         <div class="row-fluid">
@@ -28,6 +29,7 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=geometry"></script>
     @Scripts.Render("~/static/js/jquery.inputmask/jquery.inputmask.js")
     @Scripts.Render("~/static/js/jquery.inputmask/jquery.inputmask.numeric.extensions.js")
+    @Scripts.Render("~/static/js/jquery.download.js")
     <script>
         var dbMarker;
         var rectangle;
@@ -105,6 +107,23 @@
 
             $('input').change(function () {
                 inputValuesChanged();
+            });
+            
+            
+            $('#button-generate').click(function () {
+                //$('#loader-gif').removeClass('hidden');
+                $.fileDownload('@Url.Action("Generate", "EarthElevation", new { area = "EngineeringTools" })', {
+                });
+//                $.ajax({
+//                    url: "@Url.Action("Generate", "EarthElevation", new { area = "EngineeringTools" })",
+//                    dataType: "json",
+//                    type: "POST",
+//                    contentType: 'application/json; charset=utf-8',
+//                    success: function () {
+//                        canBeDownloaded = true;
+//                        $('#loader-gif').addClass('hidden');
+//                    }
+//                });
             });
         });
     </script>

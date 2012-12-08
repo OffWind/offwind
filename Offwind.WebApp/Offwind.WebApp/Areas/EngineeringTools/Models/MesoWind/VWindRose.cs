@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MvcApplication1.Areas.EngineeringTools.Models.MesoWind
+namespace Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
 {
     public class VWindRose
     {

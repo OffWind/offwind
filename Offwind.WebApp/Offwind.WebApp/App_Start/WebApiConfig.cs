@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
-namespace MvcApplication1
+namespace Offwind.WebApp.App_Start
 {
     public static class WebApiConfig
     {

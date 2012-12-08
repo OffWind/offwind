@@ -3,10 +3,10 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
+using Offwind.WebApp.Models;
 using WebMatrix.WebData;
-using MvcApplication1.Models;
 
-namespace MvcApplication1.Filters
+namespace Offwind.WebApp.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public sealed class InitializeSimpleMembershipAttribute : ActionFilterAttribute

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace MvcApplication1.Areas.EngineeringTools
+namespace Offwind.WebApp.Areas.EngineeringTools
 {
     public class EngineeringToolsAreaRegistration : AreaRegistration
     {

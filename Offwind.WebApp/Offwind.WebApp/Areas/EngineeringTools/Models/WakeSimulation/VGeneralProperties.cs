@@ -1,4 +1,4 @@
-﻿namespace MvcApplication1.Areas.EngineeringTools.Models.WakeSimulation
+﻿namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation
 {
     public class VGeneralProperties
     {

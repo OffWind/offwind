@@ -4,11 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using MvcApplication1.Areas.EngineeringTools.Models.WakeSimulation;
-using MvcApplication1.Infrastructure;
+using Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation;
+using Offwind.WebApp.Infrastructure;
 using WakeCode;
 
-namespace MvcApplication1.Areas.EngineeringTools.Controllers
+namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
     public class WakeSimulationController : Controller
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace MvcApplication1.Areas.EngineeringTools.Models.MesoWind
+namespace Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
 {
     public class VDataImport
     {

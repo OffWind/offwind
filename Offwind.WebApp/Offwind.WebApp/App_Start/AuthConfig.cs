@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Web.WebPages.OAuth;
-using MvcApplication1.Models;
-
-namespace MvcApplication1
+﻿namespace Offwind.WebApp.App_Start
 {
     public static class AuthConfig
     {

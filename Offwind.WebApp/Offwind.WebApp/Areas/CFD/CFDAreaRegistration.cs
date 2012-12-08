@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace MvcApplication1.Areas.CFD
+namespace Offwind.WebApp.Areas.CFD
 {
     public class CFDAreaRegistration : AreaRegistration
     {

@@ -6,10 +6,12 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation;
 using Offwind.WebApp.Infrastructure;
+using Offwind.WebApp.Models.Account;
 using WakeCode;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
+    [Authorize(Roles = SystemRole.RegularUser)]
     public class WakeSimulationController : Controller
     {
         public ActionResult Index()

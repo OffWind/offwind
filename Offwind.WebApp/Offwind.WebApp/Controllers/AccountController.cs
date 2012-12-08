@@ -8,6 +8,7 @@ using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using Offwind.WebApp.Filters;
 using Offwind.WebApp.Models;
+using Offwind.WebApp.Models.Account;
 using WebMatrix.WebData;
 
 namespace Offwind.WebApp.Controllers
@@ -23,7 +24,7 @@ namespace Offwind.WebApp.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return View(new LoginModel());
         }
 
         //
@@ -47,8 +48,8 @@ namespace Offwind.WebApp.Controllers
         //
         // POST: /Account/LogOff
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
@@ -80,6 +81,13 @@ namespace Offwind.WebApp.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
+
+                    var roles = (SimpleRoleProvider)Roles.Provider;
+                    if (!roles.RoleExists(SystemRole.RegularUser))
+                    {
+                        roles.CreateRole(SystemRole.RegularUser);
+                    }
+                    roles.AddUsersToRoles(new[] { model.UserName }, new[] { SystemRole.RegularUser });
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -243,6 +251,11 @@ namespace Offwind.WebApp.Controllers
             }
         }
 
+        public new ActionResult Profile()
+        {
+            return View();
+        }
+
         //
         // POST: /Account/ExternalLoginConfirmation
 
@@ -337,30 +350,6 @@ namespace Offwind.WebApp.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }
-        }
-
-        public enum ManageMessageId
-        {
-            ChangePasswordSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
-        }
-
-        internal class ExternalLoginResult : ActionResult
-        {
-            public ExternalLoginResult(string provider, string returnUrl)
-            {
-                Provider = provider;
-                ReturnUrl = returnUrl;
-            }
-
-            public string Provider { get; private set; }
-            public string ReturnUrl { get; private set; }
-
-            public override void ExecuteResult(ControllerContext context)
-            {
-                OAuthWebSecurity.RequestAuthentication(Provider, ReturnUrl);
             }
         }
 

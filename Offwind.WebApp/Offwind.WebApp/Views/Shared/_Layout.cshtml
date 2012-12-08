@@ -19,15 +19,7 @@
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
                         class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                     </a><a class="brand" href="@Url.Action("Index", "Home", new { area = "" })">Offwind</a>
-                    <div class="btn-group pull-right">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user">
-                        </i>Username <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="@Url.Action("Profile", "Account", new { area = "" })">Profile</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("LogOff", "Account", new { area = "" })">Sign Out</a></li>
-                        </ul>
-                    </div>
+                    @Html.Partial("_LoginPartial")
                     <div class="nav-collapse">
                         <ul class="nav">
                             <li@* class="active"*@><a href="@Url.Action("Index", "Home", new { area = "" })">Home</a></li>

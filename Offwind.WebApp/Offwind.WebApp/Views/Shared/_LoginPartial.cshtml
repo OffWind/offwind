@@ -1,14 +1,27 @@
-﻿@if (Request.IsAuthenticated) {
-    <text>
-        Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-            @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-        }
-    </text>
-} else {
-    <ul>
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+﻿<div class="btn-group pull-right">
+    
+    @if (Request.IsAuthenticated)
+    {
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user"></i>
+            @User.Identity.Name
+            <span class="caret"></span>
+        </a>                                                                
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("Profile", "Account", new { area = "" })">Profile</a></li>
+            <li class="divider"></li>
+            <li><a href="@Url.Action("LogOff", "Account", new { area = "" })">Sign Out</a></li>
+        </ul>
+    }
+    else
+    {
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user"></i>
+            <span>Anonymous</span>
+            <span class="caret"></span>
+        </a>                                                                
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("Register", "Account", new { area = "" })">Register</a></li>
+            <li class="divider"></li>
+            <li><a href="@Url.Action("Login", "Account", new { area = "" })">Log in</a></li>
+        </ul>
+    }
+</div>

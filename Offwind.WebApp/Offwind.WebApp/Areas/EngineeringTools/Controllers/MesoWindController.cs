@@ -7,9 +7,11 @@ using System.Linq;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind;
+using Offwind.WebApp.Models.Account;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
+    [Authorize(Roles = SystemRole.RegularUser)]
     public class MesoWindController : Controller
     {
         private static readonly List<DatabaseItem> _items = new List<DatabaseItem>();

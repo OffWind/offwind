@@ -185,7 +185,9 @@
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VTurbineProperties.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Models\Account\ExternalLoginResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\Account\ManageMessageId.cs" />
     <Compile Include="Core\Offwind.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -198,6 +200,7 @@
     <Compile Include="Infrastructure\Helper.cs" />
     <Compile Include="Infrastructure\SharpZipUtils.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Account\SystemRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -266,7 +269,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\CFD\Models\BoundaryConditions\" />
-    <Folder Include="Areas\EngineeringTools\Views\EarthElevation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -333,6 +335,12 @@
   <ItemGroup>
     <Content Include="Areas\CFD\Views\_ViewStart.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Profile.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -349,7 +357,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62797</DevelopmentServerPort>
+          <DevelopmentServerPort>53963</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

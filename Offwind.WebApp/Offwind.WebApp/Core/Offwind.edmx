@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="u254697_offwindModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="u254697_offwindModelStoreContainer">
+          <EntitySet Name="Pages" EntityType="u254697_offwindModel.Store.Pages" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="Pages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Slug" Type="varchar" MaxLength="250" />
+          <Property Name="PageType" Type="varchar" MaxLength="20" />
+          <Property Name="PageTitle" Type="nvarchar" MaxLength="1050" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Announce" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Text" Type="ntext" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Updated" Type="datetime" Nullable="false" />
+          <Property Name="Published" Type="datetime" Nullable="false" />
+          <Property Name="HomePage" Type="bit" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="250" />
+          <Property Name="Priority" Type="int" />
+          <Property Name="IsPublished" Type="bit" Nullable="false" />
+          <Property Name="Votes" Type="int" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="u254697_offwindModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="OffwindEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Pages" EntityType="u254697_offwindModel.Page" />
+        </EntityContainer>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slug" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="PageType" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="PageTitle" Type="String" MaxLength="1050" Unicode="true" FixedLength="false" />
+          <Property Name="Title" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Announce" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" />
+          <Property Name="Updated" Type="DateTime" Nullable="false" />
+          <Property Name="Published" Type="DateTime" Nullable="false" />
+          <Property Name="HomePage" Type="Boolean" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Priority" Type="Int32" />
+          <Property Name="IsPublished" Type="Boolean" Nullable="false" />
+          <Property Name="Votes" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="u254697_offwindModelStoreContainer" CdmEntityContainer="OffwindEntities">
+          <EntitySetMapping Name="Pages"><EntityTypeMapping TypeName="u254697_offwindModel.Page"><MappingFragment StoreEntitySet="Pages">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Slug" ColumnName="Slug" />
+            <ScalarProperty Name="PageType" ColumnName="PageType" />
+            <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Announce" ColumnName="Announce" />
+            <ScalarProperty Name="Text" ColumnName="Text" />
+            <ScalarProperty Name="Created" ColumnName="Created" />
+            <ScalarProperty Name="Updated" ColumnName="Updated" />
+            <ScalarProperty Name="Published" ColumnName="Published" />
+            <ScalarProperty Name="HomePage" ColumnName="HomePage" />
+            <ScalarProperty Name="Url" ColumnName="Url" />
+            <ScalarProperty Name="Priority" ColumnName="Priority" />
+            <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+            <ScalarProperty Name="Votes" ColumnName="Votes" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Offwind">
+        <EntityTypeShape EntityType="u254697_offwindModel.Page" Width="1.5" PointX="0.75" PointY="0.75" Height="3.9033007812499996" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

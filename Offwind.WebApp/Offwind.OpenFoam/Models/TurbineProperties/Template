@@ -1,0 +1,68 @@
+﻿/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      turbineProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+NumBl                   ({[[NumBl]]});
+TipRad                 ({[[TipRad]]});
+HubRad                  ({[[HubRad]]});
+UndSling                ({[[UndSling]]});
+OverHang               ({[[OverHang]]});
+TowerHt                ({[[TowerHt]]});
+Twr2Shft                ({[[Twr2Shft]]});
+ShftTilt               ({[[ShftTilt]]});
+PreCone               (({[[x]]}) ({[[y]]}) ({[[z]]}));
+GBRatio                ({[[GBRatio]]});
+GenIner               ({[[GenIner]]});
+HubIner               ({[[HubIner]]});
+BladeIner             ({[[BladeIner]]});
+TorqueControllerType   "({[[TorqueControllerType]]})";
+YawControllerType      "({[[YawControllerType]]})";
+PitchControllerType    "({[[PitchControllerType]]})";
+
+
+TorqueControllerParams
+{
+    CutInGenSpeed           ({[[CutInGenSpeed]]});
+    RatedGenSpeed          ({[[RatedGenSpeed]]});
+    Region2StartGenSpeed    ({[[Region2StartGenSpeed]]});
+    Region2EndGenSpeed     ({[[Region2EndGenSpeed]]});
+    CutInGenTorque            ({[[CutInGenTorque]]});
+    RatedGenTorque           ({[[RatedGenTorque]]});
+    RateLimitGenTorque       ({[[RateLimitGenTorque]]});
+    KGen                      ({[[KGen]]});
+    TorqueControllerRelax     ({[[TorqueControllerRelax]]});
+}
+
+
+PitchControllerParams
+{
+    PitchControlStartPitch    ({[[PitchControlStartPitch]]});
+    PitchControlEndPitch      ({[[PitchControlEndPitch]]});
+    PitchControlStartSpeed    ({[[PitchControlStartSpeed]]});
+    PitchControlEndSpeed      ({[[PitchControlEndSpeed]]});
+    RateLimitPitch             ({[[RateLimitPitch]]});
+}
+
+Airfoils
+(
+({[[Airfoils]]}) 
+);
+
+
+BladeData
+(
+//  radius(m)   c(m)     twist(deg) airfoil 
+({[[BladeData]]}) 
+);

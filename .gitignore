@@ -7,3 +7,5 @@
 /Offwind.WebApp/*.suo
 /Offwind.WebApp/Offwind.WebApp/*.user
 /Offwind.Wake/csharp/WakeCode/*.user
+/Offwind.WebApp/Offwind.OpenFoam/bin
+/Offwind.WebApp/Offwind.OpenFoam/obj

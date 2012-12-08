@@ -1,0 +1,7 @@
+﻿({[[turbine_id]]})
+{
+  refx  ({[[refx]]});
+  refy  ({[[refy]]});
+  refz  ({[[refz]]});
+  hubz  ({[[hubz]]});
+}

@@ -1,0 +1,57 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+
+    root            "";
+    case            "";
+    instance        "";
+    local           "";
+
+    class           dictionary;
+    object          ABLProperties;
+}
+
+// Is the turbine array active?
+turbineArrayOn            ({[[turbineArrayOn]]});
+
+// Is average wind at a specified height driven to a specified velocity?
+driveWindOn               ({[[driveWindOn]]});
+
+// Desired horizontally-averaged wind speed at a certain height
+UWindSpeed                UWindSpeed [0 1 -1 0 0 0 0] ({[[UWindSpeed]]});
+
+// Desired horizontally-averaged wind direction at a height (degrees)
+UWindDir                  ({[[UWindDir]]});
+
+// Height at which horizontally-averaged wind vector is specified
+hWind                     hWind [0 1 0 0 0 0 0] ({[[hWind]]});
+
+// Relaxation factor on the pressure gradient control
+alpha                     ({[[alpha]]});
+
+// Name of the lower surface patch
+lowerBoundaryName         "({[[lowerBoundaryName]]})";
+
+// Name of the upper surface patch
+upperBoundaryName         "({[[upperBoundaryName]]})";
+
+// Are statistics to be gathered?
+statisticsOn              ({[[statisticsOn]]});
+
+// At which frequency are statistics to be taken and written?
+statisticsFrequency       ({[[statisticsFrequency]]});
+
+// Mean field averaging start time.
+meanAvgStartTime          ({[[meanAvgStartTime]]});
+
+// Correlation field averaging start time.
+corrAvgStartTime          ({[[corrAvgStartTime]]});

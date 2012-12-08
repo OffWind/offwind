@@ -1,16 +1,22 @@
-﻿<div class="well sidebar-nav sidebar-nav-fixed">
+﻿@using MvcApplication1.Infrastructure
+<div class="well sidebar-nav sidebar-nav-fixed">
     <ul class="nav nav-list">
-        <li class="nav-header">OpenFOAM</li>
-        <li class="active"><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li class="nav-header">SOWFA</li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
+        <li class="nav-header">Pre-processing</li>
+        <li @this.ActiveIfCurrent("StlGenerator", "Preprocessing", "CFD")>
+            <a href="@Url.Action("StlGenerator", "Preprocessing", new { area = "CFD" })">
+                <i class="icon-globe"></i> Earth STL Generator
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("AblSetup", "Preprocessing", "CFD")>
+            <a href="@Url.Action("AblSetup", "Preprocessing", new { area = "CFD" })">
+                <i class="icon-globe"></i> ABL Setup
+            </a>
+        </li>
+        <li class="nav-header">Boundary Conditions</li>
+        <li @this.ActiveIfCurrent("Index", "BoundaryConditions", "CFD")>
+            <a href="@Url.Action("Index", "BoundaryConditions", new { area = "CFD" })">
+                <i class="icon-globe"></i> Earth STL Generator
+            </a>
+        </li>
     </ul>
 </div>

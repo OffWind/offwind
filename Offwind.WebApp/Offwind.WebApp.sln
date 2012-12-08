@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Offwind.WebApp", "Offwind.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeCode", "..\Offwind.Wake\csharp\WakeCode\WakeCode.csproj", "{E37CB3E6-1575-4241-BEC6-86E2650ECAED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Offwind.OpenFoam", "Offwind.OpenFoam\Offwind.OpenFoam.csproj", "{E191C60E-F3E8-4262-A924-EF75E79FCC7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,12 @@ Global
 		{E37CB3E6-1575-4241-BEC6-86E2650ECAED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E37CB3E6-1575-4241-BEC6-86E2650ECAED}.Release|x86.ActiveCfg = Release|x86
 		{E37CB3E6-1575-4241-BEC6-86E2650ECAED}.Release|x86.Build.0 = Release|x86
+		{E191C60E-F3E8-4262-A924-EF75E79FCC7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E191C60E-F3E8-4262-A924-EF75E79FCC7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E191C60E-F3E8-4262-A924-EF75E79FCC7C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E191C60E-F3E8-4262-A924-EF75E79FCC7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E191C60E-F3E8-4262-A924-EF75E79FCC7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E191C60E-F3E8-4262-A924-EF75E79FCC7C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

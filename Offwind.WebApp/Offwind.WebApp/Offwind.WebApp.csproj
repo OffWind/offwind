@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MvcApplication1</RootNamespace>
-    <AssemblyName>MvcApplication1</AssemblyName>
+    <RootNamespace>Offwind.WebApp</RootNamespace>
+    <AssemblyName>Offwind.WebApp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
@@ -44,6 +44,8 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Device" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -166,9 +168,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\CFD\CFDAreaRegistration.cs" />
+    <Compile Include="Areas\CFD\Controllers\BoundaryConditionsController.cs" />
     <Compile Include="Areas\CFD\Controllers\CFDController.cs" />
+    <Compile Include="Areas\CFD\Controllers\PreprocessingController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\EngineeringToolsController.cs" />
-    <Compile Include="Areas\EngineeringTools\Controllers\EarthElevationController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\MesoWindController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WakeSimulationController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WindWaveController.cs" />
@@ -183,6 +186,11 @@
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Core\Offwind.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Offwind.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -257,7 +265,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\CFD\Models\" />
+    <Folder Include="Areas\CFD\Models\BoundaryConditions\" />
+    <Folder Include="Areas\EngineeringTools\Views\EarthElevation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -270,9 +279,8 @@
     <Content Include="Areas\CFD\Views\Web.config" />
     <Content Include="Areas\CFD\Views\CFD\Index.cshtml" />
     <Content Include="Areas\CFD\Views\Shared\__SideNav.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\EarthElevation\Index.cshtml" />
+    <Content Include="Areas\CFD\Views\Preprocessing\StlGenerator.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\EarthElevation\Results.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\Index.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\Database.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\CurrentData.cshtml" />
@@ -305,6 +313,25 @@
       <Project>{E37CB3E6-1575-4241-BEC6-86E2650ECAED}</Project>
       <Name>WakeCode</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Offwind.OpenFoam\Offwind.OpenFoam.csproj">
+      <Project>{E191C60E-F3E8-4262-A924-EF75E79FCC7C}</Project>
+      <Name>Offwind.OpenFoam</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Core\Offwind.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Offwind.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\BoundaryConditions\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\Preprocessing\AblSetup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\_ViewStart.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

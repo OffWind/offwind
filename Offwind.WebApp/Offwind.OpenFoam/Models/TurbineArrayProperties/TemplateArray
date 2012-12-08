@@ -1,0 +1,17 @@
+﻿({[[turnine_id]]})
+{
+    turbineType         "({[[turbineType]]})";
+    baseLocation        (({[[x]]}) ({[[y]]}) ({[[z]]}));
+    numBladePoints      ({[[numBladePoints]]});
+    pointDistType       "({[[pointDistType]]})";
+    pointInterpType     "({[[pointInterpType]]})";
+    bladeUpdateType     "({[[bladeUpdateType]]})";
+    epsilon              ({[[epsilon]]});
+    tipRootLossCorrType "({[[tipRootLossCorrType]]})";
+    rotationDir         "({[[rotationDir]]})";
+    Azimuth              ({[[Azimuth]]});
+    RotSpeed             ({[[RotSpeed]]});
+    Pitch                ({[[Pitch]]});
+    NacYaw              ({[[NacYaw]]});
+    fluidDensity        ({[[fluidDensity]]});
+}

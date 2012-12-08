@@ -1,18 +1,18 @@
-﻿@model Offwind.WebApp.Models.LoginModel
+﻿@using Offwind.WebApp.Infrastructure
+@model Offwind.WebApp.Models.LoginModel
 
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Authentication";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+<h3>@ViewBag.Title</h3>
 
-    <h2>Use a local account to log in.</h2>
+<p>Please, log in to system in order to use Offwind online tools. You can register if you don't have an account yet.</p>
+
 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    @Html.BootstrapValidationSummary()
 
     <fieldset>
         <div class="control-group">
@@ -35,11 +35,9 @@
             </div>
         </div>*@
         
-        <input type="submit" class="btn btn-primary" value="Log in" />
+        <input type="submit" class="btn btn-primary btn-large" value="Log in" />
+        or <a class="btn btn-success btn-large" href="@Url.Action("Register", "Account")">Register</a>
     </fieldset>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
 }
 
 @section Scripts {

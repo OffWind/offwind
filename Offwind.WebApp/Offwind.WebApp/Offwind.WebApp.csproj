@@ -180,6 +180,8 @@
     <Compile Include="Areas\CFD\Controllers\SystemControlsController.cs" />
     <Compile Include="Areas\CFD\Controllers\TurbinesController.cs" />
     <Compile Include="Areas\CFD\Models\Preprocessing\VAblProperties.cs" />
+    <Compile Include="Areas\CFD\Models\Preprocessing\VTransportProperties.cs" />
+    <Compile Include="Areas\CFD\Models\SystemControls\VControlDict.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\EngineeringToolsController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\MesoWindController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WakeSimulationController.cs" />

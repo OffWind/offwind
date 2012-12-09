@@ -9,6 +9,7 @@ using Offwind.Sowfa.Constant.AirfoilProperties;
 using Offwind.Sowfa.Constant.TransportProperties;
 using Offwind.Sowfa.Constant.TurbineArrayProperties;
 using Offwind.Sowfa.Constant.TurbineProperties;
+using Offwind.Sowfa.System.ControlDict;
 
 namespace Offwind.OpenFoam.Sintef
 {
@@ -29,6 +30,7 @@ namespace Offwind.OpenFoam.Sintef
         public TurbineArrayPropData TurbineArrayProperties { get; set; }
 
         public BlockMeshDictData BlockMeshDict { get; set; }
+        public ControlDictData ControlDict { get; set; }
         public AirfoilPropertiesData AirfoilProperties { get; set; }
         public ProcessingSettings ProcessingSettings { get; set; }
 
@@ -49,6 +51,8 @@ namespace Offwind.OpenFoam.Sintef
             AirfoilProperties = new AirfoilPropertiesData();
 
             ProcessingSettings = new ProcessingSettings();
+
+            ControlDict = new ControlDictData();
         }
 
         public static SolverData GetDefaultModel()

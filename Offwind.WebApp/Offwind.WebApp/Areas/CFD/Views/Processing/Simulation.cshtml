@@ -1,1 +1,59 @@
-﻿
+﻿<p>Here you can start/stop simulation process. When it starts, the job is submitted to CFD Processing server.
+You will find a download link as soon as job finishes.
+</p>
+
+<p>
+    <a class="btn btn-primary btn-large" href="#" id="button-run">Run simulation</a>
+    <a class="btn btn-danger btn-large" href="#" id="button-stop">Stop simulation</a>
+    <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
+</p>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var inProgress = @ViewBag.IsInProgress.ToString().ToLowerInvariant();
+            if (inProgress) {
+                $('#loader-gif').removeClass('hidden');
+                $('#button-run').addClass('disabled');
+                $('#button-stop').removeClass('disabled');
+            } else {
+                $('#loader-gif').addClass('hidden');
+                $('#button-run').removeClass('disabled');
+                $('#button-stop').addClass('disabled');
+            }
+
+            $('#button-run').click(function () {
+                if (inProgress) return false;
+                inProgress = true;
+                $('#loader-gif').removeClass('hidden');
+                $('#button-run').addClass('disabled');
+                $('#button-stop').removeClass('disabled');
+                $.ajax({
+                    url: "@Url.Action("SimulationStart", "Processing", new { area = "CFD" })",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                    }
+                });
+            });
+
+            $('#button-stop').click(function () {
+                if (!inProgress) return false;
+                inProgress = false;
+                $('#loader-gif').addClass('hidden');
+                $('#button-run').removeClass('disabled');
+                $('#button-stop').addClass('disabled');
+                $.ajax({
+                    url: "@Url.Action("SimulationStop", "Processing", new { area = "CFD" })",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                    }
+                });
+            });
+        });        
+    </script>    
+}

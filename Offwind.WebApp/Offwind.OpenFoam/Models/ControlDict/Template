@@ -1,0 +1,60 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+
+/*
+    See detailed description of the file format and fields at:
+    http://www.openfoam.org/docs/user/controlDict.php
+*/
+
+application           ({[[application]]});
+
+libs                  ("libuserfiniteVolume.so");
+
+startFrom             ({[[startFrom]]});
+
+startTime             ({[[startTime]]});
+
+stopAt                ({[[stopAt]]});
+
+endTime               ({[[endTime]]});
+
+deltaT                ({[[deltaT]]});
+
+writeControl          ({[[writeControl]]});
+
+writeInterval         ({[[writeInterval]]}); 
+
+purgeWrite            ({[[purgeWrite]]});
+
+writeFormat           ({[[writeFormat]]});
+
+writePrecision        ({[[writePrecision]]});
+
+writeCompression      ({[[writeCompression]]});
+
+timeFormat            ({[[timeFormat]]});
+
+timePrecision         ({[[timePrecision]]});
+
+runTimeModifiable     ({[[runTimeModifiable]]});
+
+adjustTimeStep        ({[[adjustTimeStep]]});
+
+maxCo                 ({[[maxCo]]});
+
+maxDeltaT             ({[[maxDeltaT]]});
+
+({[[functions]]})

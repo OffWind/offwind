@@ -1,8 +1,17 @@
-﻿@model String
+﻿@model object
 @{var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;}
 <div class="control-group">
     <label class="control-label" for="@fieldName">@fieldName <i class="icon-question-sign"></i></label>
+@if (Model is Enum)
+{
     <div class="controls">
         <input type="text" class="" id="@fieldName" name="@fieldName" placeholder="0.0" value="@Model"/>
     </div>
+}
+else
+{
+    <div class="controls">
+        <input type="text" class="" id="@fieldName" name="@fieldName" placeholder="0.0" value="@Model"/>
+    </div>
+}
 </div>

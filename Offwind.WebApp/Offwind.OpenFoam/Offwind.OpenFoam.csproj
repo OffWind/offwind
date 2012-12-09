@@ -50,6 +50,9 @@
     <Compile Include="Models\AirfoilProperties\AirfoilPropertiesHandler.cs" />
     <Compile Include="Models\AirfoilProperties\AirfoilPropRes.Designer.cs" />
     <Compile Include="Models\ControlDict\ApplicationSolver.cs" />
+    <Compile Include="Models\ControlDict\ControlDictData.cs" />
+    <Compile Include="Models\ControlDict\ControlDictHandler.cs" />
+    <Compile Include="Models\ControlDict\ControlDictRes.Designer.cs" />
     <Compile Include="Models\ControlDict\GraphFormat.cs" />
     <Compile Include="Models\ControlDict\StartFrom.cs" />
     <Compile Include="Models\ControlDict\StopAt.cs" />
@@ -142,6 +145,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Models\AblProperties\AblRes.resx" />
     <EmbeddedResource Include="Models\AirfoilProperties\AirfoilPropRes.resx" />
+    <EmbeddedResource Include="Models\ControlDict\ControlDictRes.resx" />
     <EmbeddedResource Include="Models\Gravitation\GravitationRes.resx" />
     <EmbeddedResource Include="Models\LesProperties\LesPropertiesRes.resx" />
     <EmbeddedResource Include="Models\Omega\OmegaRes.resx" />
@@ -157,6 +161,8 @@
     <None Include="Models\AblProperties\Template" />
     <None Include="Models\AirfoilProperties\Default" />
     <None Include="Models\AirfoilProperties\Template" />
+    <None Include="Models\ControlDict\Default" />
+    <None Include="Models\ControlDict\Template" />
     <None Include="Models\Gravitation\Default" />
     <None Include="Models\Gravitation\Template" />
     <None Include="Models\LesProperties\Default" />

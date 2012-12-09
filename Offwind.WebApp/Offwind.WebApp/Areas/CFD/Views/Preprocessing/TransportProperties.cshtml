@@ -1,1 +1,20 @@
-﻿
+﻿@model Offwind.WebApp.Areas.CFD.Models.Preprocessing.VTransportProperties
+<form class="form-horizontal" method="post">
+    <fieldset>
+
+        @Html.EditorFor(m => m.TransportModel)
+        @Html.EditorFor(m => m.MolecularViscosity)
+        @Html.EditorFor(m => m.TRef)
+        @Html.EditorFor(m => m.LESModel)
+        @Html.EditorFor(m => m.SmagorinskyConstant)
+        @Html.EditorFor(m => m.DeltaLESCoeff)
+        @Html.EditorFor(m => m.VonKarmanConstant)
+        @Html.EditorFor(m => m.BetaM)
+        @Html.EditorFor(m => m.GammM)
+        @Html.EditorFor(m => m.RoughnessHeight)
+        @Html.EditorFor(m => m.SurfaceTemperatureFlux)
+        @Html.EditorFor(m => m.SurfaceStressModel)
+        @Html.EditorFor(m => m.BetaSurfaceStress)
+
+    </fieldset>
+</form>

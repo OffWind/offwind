@@ -21,7 +21,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var m = new VAblProperties();
             var sd = GetSolverData();
             m.Width = sd.BlockMeshDict.vertices[1].X;
-            m.Length = sd.BlockMeshDict.vertices[1].Y;
+            m.Length = sd.BlockMeshDict.vertices[2].Y;
             m.Height = sd.BlockMeshDict.vertices[4].Z;
 
             m.GridX = sd.BlockMeshDict.MeshBlocks.numberOfCells[0];
@@ -69,7 +69,24 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult TransportProperties()
         {
             ShortTitle = "Transport Properties";
-            return View();
+            var m = new VTransportProperties();
+            var sd = GetSolverData();
+            var d = sd.TransportProperties;
+            m.BetaM = d.betaM;
+            m.BetaSurfaceStress = d.betaSurfaceStress;
+            m.DeltaLESCoeff = d.deltaLESCoeff;
+            m.GammM = d.gammM;
+            m.LESModel = d.LESModel;
+            m.MolecularViscosity = d.nu;
+            m.RoughnessHeight = d.z0;
+            m.SmagorinskyConstant = d.Cs;
+            m.SurfaceStressModel = d.surfaceStressModel;
+            m.SurfaceTemperatureFlux = d.q0;
+            m.TRef = d.TRef;
+            m.TransportModel = d.transportModel;
+            m.VonKarmanConstant = d.kappa;
+
+            return View(m);
         }
     }
 }

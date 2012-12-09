@@ -18,7 +18,18 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult Simulation()
         {
             ShortTitle = "Simulation";
+            ViewBag.IsInProgress = false;
             return View();
+        }
+
+        public JsonResult SimulationStart()
+        {
+            return Json("OK");
+        }
+
+        public JsonResult SimulationStop()
+        {
+            return Json("OK");
         }
     }
 }

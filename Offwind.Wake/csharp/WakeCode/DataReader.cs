@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.IO;
 
 namespace WakeCode
@@ -52,7 +53,7 @@ namespace WakeCode
             int intValue;
             string line = textReader.ReadLine();
             string[] lineParts = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            if (!(lineParts.Length >= 1) || !int.TryParse(lineParts[0], out intValue))
+            if (!(lineParts.Length >= 1) || !int.TryParse(lineParts[0], NumberStyles.Any, CultureInfo.InvariantCulture, out intValue))
             {
                 throw new FormatException();
             }
@@ -64,7 +65,7 @@ namespace WakeCode
             double doubleValue;
             string line = textReader.ReadLine();
             string[] lineParts = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            if (!(lineParts.Length >= 1) || !double.TryParse(lineParts[0], out doubleValue))
+            if (!(lineParts.Length >= 1) || !double.TryParse(lineParts[0], NumberStyles.Any, CultureInfo.InvariantCulture, out doubleValue))
             {
                 throw new FormatException();
             }
@@ -77,7 +78,9 @@ namespace WakeCode
             double doubleValue2;
             string line = textReader.ReadLine();
             string[] lineParts = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            if (!(lineParts.Length >= 2) || !double.TryParse(lineParts[0], out doubleValue1) || !double.TryParse(lineParts[1], out doubleValue2))
+            if (!(lineParts.Length >= 2)
+                || !double.TryParse(lineParts[0], NumberStyles.Any, CultureInfo.InvariantCulture, out doubleValue1)
+                || !double.TryParse(lineParts[0], NumberStyles.Any, CultureInfo.InvariantCulture, out doubleValue2))
             {
                 throw new FormatException();
             }

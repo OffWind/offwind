@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Device.Location;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web.Configuration;
@@ -159,6 +160,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                             break;
                         case 2:
                             var line2 = line.Trim().Split("\t ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                            _log.InfoFormat("NBins parsing: [{0}]", line);
                             model.NBins = ParseInt(line2[2]);
                             _log.InfoFormat("NBins: {0}", model.NBins);
                             break;
@@ -282,19 +284,21 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private int ParseInt(string input)
         {
             int ir;
-            if (int.TryParse(input, out ir))
+            if (int.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out ir))
                 return ir;
             decimal dr;
-            if (decimal.TryParse(input, out dr))
+            if (decimal.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out dr))
                 return Convert.ToInt32(dr);
+            _log.ErrorFormat("[ParseInt] Unable to parse '{0}'", input);
             return 0;
         }
 
         private decimal ParseDecimal(string input)
         {
             decimal dr;
-            if (decimal.TryParse(input, out dr))
+            if (decimal.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out dr))
                 return dr;
+            _log.ErrorFormat("[ParseDecimal] Unable to parse '{0}'", input);
             return 0;
         }
     }

@@ -5,7 +5,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 {
     public class PreprocessingController : Controller
     {
-        public ActionResult AblSetup()
+        public ActionResult AblProperties()
         {
             ViewBag.Title = "Atmospheric Boundary Layer (ABL) Setup | Preprocessing | Offwind";
             return View();
@@ -21,6 +21,11 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             Thread.Sleep(3000);
             return File(new byte[0], "text/plain", "result.stl");
+        }
+
+        public ActionResult TransportProperties()
+        {
+            return View();
         }
     }
 }

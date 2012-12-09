@@ -1,26 +1,21 @@
-﻿<div class="span3">
-    @Html.Partial("__SideNav")
-</div>
-<div class="span9">
-    <div class="well well-small">
-        <div class="row-fluid" style="margin-bottom: 1em">
-            <div class="span2">
-                <label for="DistanceWE">Distance WE (m)</label>
-                <input type="text" class="input-small inputmask decimal" id="DistanceWE" value="10000" />
-            </div>
-            <div class="span2">
-                <label for="DistanceNS">Distance NS (m)</label>
-                <input type="text" class="input-small inputmask decimal" id="DistanceNS" value="10000" />
-            </div>
-            <div class="span2">
-                <a class="btn" href="#" id="button-generate">Generate</a>
-                <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
-            </div>
+﻿<div class="well well-small">
+    <div class="row-fluid" style="margin-bottom: 1em">
+        <div class="span2">
+            <label for="DistanceWE">Distance WE (m)</label>
+            <input type="text" class="input-small inputmask decimal" id="DistanceWE" value="10000" />
         </div>
-        <div class="row-fluid">
-            <div class="span12">
-            <div id="map_canvas" style="width: auto; height: 480px;"></div>
-            </div>
+        <div class="span2">
+            <label for="DistanceNS">Distance NS (m)</label>
+            <input type="text" class="input-small inputmask decimal" id="DistanceNS" value="10000" />
+        </div>
+        <div class="span2">
+            <a class="btn" href="#" id="button-generate">Generate</a>
+            <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+        <div id="map_canvas" style="width: auto; height: 480px;"></div>
         </div>
     </div>
 </div>

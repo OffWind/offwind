@@ -6,12 +6,17 @@
         <li class="nav-header">Pre-processing</li>
         <li @this.ActiveIfCurrent("StlGenerator", "Preprocessing", "CFD")>
             <a href="@Url.Action("StlGenerator", "Preprocessing", new { area = "CFD" })">
-                <i class="icon-globe"></i> Earth STL Generator
+                <i class="icon-asterisk"></i> Earth STL Generator
             </a>
         </li>
-        <li @this.ActiveIfCurrent("AblSetup", "Preprocessing", "CFD")>
-            <a href="@Url.Action("AblSetup", "Preprocessing", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> ABL Setup
+        <li @this.ActiveIfCurrent("AblProperties", "Preprocessing", "CFD")>
+            <a href="@Url.Action("AblProperties", "Preprocessing", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> ABL Properties
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("TransportProperties", "Preprocessing", "CFD")>
+            <a href="@Url.Action("TransportProperties", "Preprocessing", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Transport Properties
             </a>
         </li>
 
@@ -42,12 +47,38 @@
                 <i class="icon-asterisk"></i> U
             </a>
         </li>
+        
+        <!--...................................-->
+        <li class="nav-header">Turbines</li>
+        <li @this.ActiveIfCurrent("TurbineTypes", "Turbines", "CFD")>
+            <a href="@Url.Action("TurbineTypes", "Turbines", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Turbine Types
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("TurbineArray", "Turbines", "CFD")>
+            <a href="@Url.Action("TurbineArray", "Turbines", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Turbine Array
+            </a>
+        </li>
+        
+        <!--...................................-->
+        <li class="nav-header">Airfoil & Turbulence</li>
+        <li @this.ActiveIfCurrent("AirfoilProperties", "AirfoilAndTurbulence", "CFD")>
+            <a href="@Url.Action("AirfoilProperties", "AirfoilAndTurbulence", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Airfoil Properties
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("TurbulenceProperties", "AirfoilAndTurbulence", "CFD")>
+            <a href="@Url.Action("TurbulenceProperties", "AirfoilAndTurbulence", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Turbulence Properties
+            </a>
+        </li>
 
         <!--....................................-->
-        <li class="nav-header">System Controls</li>
-        <li @this.ActiveIfCurrent("TimeControl", "SystemControls", "CFD")>
-            <a href="@Url.Action("TimeControl", "SystemControls", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Time Control
+        <li class="nav-header">System</li>
+        <li @this.ActiveIfCurrent("Time", "SystemControls", "CFD")>
+            <a href="@Url.Action("Time", "SystemControls", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Time
             </a>
         </li>
         <li @this.ActiveIfCurrent("Schemes", "SystemControls", "CFD")>

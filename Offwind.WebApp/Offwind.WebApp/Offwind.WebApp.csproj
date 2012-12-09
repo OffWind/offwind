@@ -171,11 +171,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\CFD\CFDAreaRegistration.cs" />
+    <Compile Include="Areas\CFD\Controllers\AirfoilAndTurbulenceController.cs" />
     <Compile Include="Areas\CFD\Controllers\BoundaryConditionsController.cs" />
     <Compile Include="Areas\CFD\Controllers\CFDController.cs" />
     <Compile Include="Areas\CFD\Controllers\PreprocessingController.cs" />
     <Compile Include="Areas\CFD\Controllers\ProcessingController.cs" />
     <Compile Include="Areas\CFD\Controllers\SystemControlsController.cs" />
+    <Compile Include="Areas\CFD\Controllers\TurbinesController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\EngineeringToolsController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\MesoWindController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WakeSimulationController.cs" />
@@ -329,7 +331,7 @@
     <Content Include="Areas\CFD\Views\BoundaryConditions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\CFD\Views\Preprocessing\AblSetup.cshtml" />
+    <Content Include="Areas\CFD\Views\Preprocessing\AblProperties.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\CFD\Views\_ViewStart.cshtml" />
@@ -347,7 +349,7 @@
     <Content Include="Areas\CFD\Views\Processing\Simulation.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\CFD\Views\SystemControls\TimeControl.cshtml" />
+    <Content Include="Areas\CFD\Views\SystemControls\Time.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\CFD\Views\SystemControls\Schemes.cshtml" />
@@ -378,6 +380,24 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Offwind.Designer.cs</LastGenOutput>
     </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\Preprocessing\TransportProperties.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\AirfoilAndTurbulence\AirfoilProperties.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\AirfoilAndTurbulence\TurbulenceProperties.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\Turbines\TurbineTypes.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\Turbines\TurbineArray.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\Shared\_CFDLayout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

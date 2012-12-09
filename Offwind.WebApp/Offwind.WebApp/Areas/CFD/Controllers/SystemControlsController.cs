@@ -4,7 +4,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 {
     public class SystemControlsController : Controller
     {
-        public ActionResult TimeControl()
+        public ActionResult Time()
         {
             return View();
         }

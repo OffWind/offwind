@@ -12,5 +12,30 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             return View();
         }
+
+        public ActionResult FieldK()
+        {
+            return View();
+        }
+
+        public ActionResult FieldEpsilon()
+        {
+            return View();
+        }
+
+        public ActionResult FieldP()
+        {
+            return View();
+        }
+
+        public ActionResult FieldR()
+        {
+            return View();
+        }
+
+        public ActionResult FieldU()
+        {
+            return View();
+        }
     }
 }

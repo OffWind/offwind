@@ -174,6 +174,8 @@
     <Compile Include="Areas\CFD\Controllers\BoundaryConditionsController.cs" />
     <Compile Include="Areas\CFD\Controllers\CFDController.cs" />
     <Compile Include="Areas\CFD\Controllers\PreprocessingController.cs" />
+    <Compile Include="Areas\CFD\Controllers\ProcessingController.cs" />
+    <Compile Include="Areas\CFD\Controllers\SystemControlsController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\EngineeringToolsController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\MesoWindController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WakeSimulationController.cs" />
@@ -343,6 +345,39 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Profile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\Processing\Settings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\Processing\Simulation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\SystemControls\TimeControl.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\SystemControls\Schemes.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\SystemControls\Solution.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\SystemControls\ParallelExecution.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\BoundaryConditions\FieldK.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\BoundaryConditions\FieldEpsilon.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\BoundaryConditions\FieldP.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\BoundaryConditions\FieldR.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\BoundaryConditions\FieldU.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

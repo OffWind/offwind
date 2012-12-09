@@ -1,6 +1,8 @@
 ﻿@using Offwind.WebApp.Infrastructure
 <div class="well sidebar-nav sidebar-nav-fixed">
     <ul class="nav nav-list">
+        
+        <!--...................................-->
         <li class="nav-header">Pre-processing</li>
         <li @this.ActiveIfCurrent("StlGenerator", "Preprocessing", "CFD")>
             <a href="@Url.Action("StlGenerator", "Preprocessing", new { area = "CFD" })">
@@ -9,13 +11,71 @@
         </li>
         <li @this.ActiveIfCurrent("AblSetup", "Preprocessing", "CFD")>
             <a href="@Url.Action("AblSetup", "Preprocessing", new { area = "CFD" })">
-                <i class="icon-globe"></i> ABL Setup
+                <i class="icon-asterisk"></i> ABL Setup
             </a>
         </li>
+
+        <!--........................................-->
         <li class="nav-header">Boundary Conditions</li>
-        <li @this.ActiveIfCurrent("Index", "BoundaryConditions", "CFD")>
-            <a href="@Url.Action("Index", "BoundaryConditions", new { area = "CFD" })">
-                <i class="icon-globe"></i> Earth STL Generator
+        <li @this.ActiveIfCurrent("FieldK", "BoundaryConditions", "CFD")>
+            <a href="@Url.Action("FieldK", "BoundaryConditions", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> k
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("FieldEpsilon", "BoundaryConditions", "CFD")>
+            <a href="@Url.Action("FieldEpsilon", "BoundaryConditions", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> epsilon
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("FieldP", "BoundaryConditions", "CFD")>
+            <a href="@Url.Action("FieldP", "BoundaryConditions", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> p
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("FieldR", "BoundaryConditions", "CFD")>
+            <a href="@Url.Action("FieldR", "BoundaryConditions", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> R
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("FieldU", "BoundaryConditions", "CFD")>
+            <a href="@Url.Action("FieldU", "BoundaryConditions", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> U
+            </a>
+        </li>
+
+        <!--....................................-->
+        <li class="nav-header">System Controls</li>
+        <li @this.ActiveIfCurrent("TimeControl", "SystemControls", "CFD")>
+            <a href="@Url.Action("TimeControl", "SystemControls", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Time Control
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("Schemes", "SystemControls", "CFD")>
+            <a href="@Url.Action("Schemes", "SystemControls", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Schemes
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("Solution", "SystemControls", "CFD")>
+            <a href="@Url.Action("Solution", "SystemControls", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Solution
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("ParallelExecution", "SystemControls", "CFD")>
+            <a href="@Url.Action("ParallelExecution", "SystemControls", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Parallel Execution
+            </a>
+        </li>
+
+        <!--...............................-->
+        <li class="nav-header">Processing</li>
+        <li @this.ActiveIfCurrent("Settings", "Processing", "CFD")>
+            <a href="@Url.Action("Settings", "Processing", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Settings
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("Simulation", "Processing", "CFD")>
+            <a href="@Url.Action("Simulation", "Processing", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Simulation
             </a>
         </li>
     </ul>

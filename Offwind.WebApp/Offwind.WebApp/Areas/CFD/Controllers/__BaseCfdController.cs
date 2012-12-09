@@ -15,7 +15,8 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
     [Authorize(Roles = SystemRole.RegularUser)]
     public class __BaseCfdController : Controller
     {
-        private ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         protected string Title;
         protected string ShortTitle;
         protected string SectionTitle;
@@ -39,7 +40,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                     dCase.Created = DateTime.UtcNow;
 
                     // Init model
-                    var model = new SolverData();
+                    var model = SolverData.GetDefaultModel();
                     var serializer = new XmlSerializer(typeof(SolverData));
                     using (var writer = new StringWriter())
                     {
@@ -66,6 +67,32 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             base.OnException(filterContext);
             _log.Error(filterContext.Exception);
+        }
+
+        protected SolverData GetSolverData()
+        {
+            using (var ctx = new OffwindEntities())
+            {
+                var dCase = ctx.DWorkCases.First(c => c.Owner == User.Identity.Name);
+                var serializer = new XmlSerializer(typeof(SolverData));
+                using (var reader = new StringReader(dCase.Model))
+                {
+                    return (SolverData)serializer.Deserialize(reader);
+                }
+            }
+        }
+
+        protected void SetSolverData(SolverData model)
+        {
+            var serializer = new XmlSerializer(typeof(SolverData));
+            using (var ctx = new OffwindEntities())
+            using (var writer = new StringWriter())
+            {
+                var dCase = ctx.DWorkCases.First(c => c.Owner == User.Identity.Name);
+                serializer.Serialize(writer, model);
+                dCase.Model = writer.ToString();
+                writer.Close();
+            }
         }
     }
     // ReSharper restore InconsistentNaming

@@ -1,5 +1,8 @@
-﻿using System.Threading;
+﻿using System.Diagnostics;
+using System.Linq;
+using System.Threading;
 using System.Web.Mvc;
+using Offwind.WebApp.Areas.CFD.Models.Preprocessing;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
@@ -15,7 +18,39 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             Title = "Atmospheric Boundary Layer (ABL) Setup";
             ShortTitle = "ABL Properties";
 
-            return View();
+            var m = new VAblProperties();
+            var sd = GetSolverData();
+            m.Width = sd.BlockMeshDict.vertices[1].X;
+            m.Length = sd.BlockMeshDict.vertices[1].Y;
+            m.Height = sd.BlockMeshDict.vertices[4].Z;
+
+            m.GridX = sd.BlockMeshDict.MeshBlocks.numberOfCells[0];
+            m.GridY = sd.BlockMeshDict.MeshBlocks.numberOfCells[1];
+            m.GridZ = sd.BlockMeshDict.MeshBlocks.numberOfCells[2];
+
+            return View(m);
+        }
+
+        public JsonResult AblPropertiesSave(VAblProperties m)
+        {
+            var sd = GetSolverData();
+            sd.BlockMeshDict.vertices[1].X = m.Width;
+            sd.BlockMeshDict.vertices[2].X = m.Width;
+            sd.BlockMeshDict.vertices[5].X = m.Width;
+            sd.BlockMeshDict.vertices[6].X = m.Width;
+
+            sd.BlockMeshDict.vertices[2].Y = m.Length;
+            sd.BlockMeshDict.vertices[3].Y = m.Length;
+            sd.BlockMeshDict.vertices[6].Y = m.Length;
+            sd.BlockMeshDict.vertices[7].Y = m.Length;
+
+            sd.BlockMeshDict.vertices[4].Z = m.Height;
+            sd.BlockMeshDict.vertices[5].Z = m.Height;
+            sd.BlockMeshDict.vertices[6].Z = m.Height;
+            sd.BlockMeshDict.vertices[7].Z = m.Height;
+
+            SetSolverData(sd);
+            return Json("OK");
         }
 
         public ActionResult StlGenerator()

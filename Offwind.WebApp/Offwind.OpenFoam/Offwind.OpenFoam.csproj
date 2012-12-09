@@ -163,6 +163,7 @@
     <None Include="Models\LesProperties\Template" />
     <None Include="Models\Omega\Default" />
     <None Include="Models\Omega\Template" />
+    <None Include="Models\PolyMesh\Template.bak" />
     <None Include="Models\PolyMesh\Default" />
     <None Include="Models\PolyMesh\Template" />
     <None Include="Models\PolyMesh\TemplateBoundary" />

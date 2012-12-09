@@ -12,6 +12,10 @@
         <li>@ViewBag.SectionTitle<span class="divider">/</span></li>
         <li>@ViewBag.ShortTitle</li>
     </ul>
+    <div id="alert-saved"  class="alert alert-success hidden" style="width: 10%">
+        <a class="close" data-dismiss="alert">×</a>
+        Saved
+    </div>
     @RenderBody()
 </div>
 
@@ -22,5 +26,24 @@
 
 @section scripts
 {
+    @Scripts.Render("~/static/js/jquery.form.js")
+    @Scripts.Render("~/static/js/jquery.inputmask/jquery.inputmask.js")
+    @Scripts.Render("~/static/js/jquery.inputmask/jquery.inputmask.numeric.extensions.js")
+    <script language="javascript">
+        $(document).ready(function () {
+            $('.inputmask.decimal').inputmask("decimal");
+            $('.inputmask.integer').inputmask("integer");
+            $('form').ajaxForm(function () {
+                $('#alert-saved').removeClass('hidden').hide().fadeIn();
+                //$('#alert-saved').removeClass('hidden').hide().fadeIn();
+                //$('#alert-saved').addClass('in');
+                //$('#alert-saved').fadeIn('slow');
+            });
+            $('#alert-saved').bind('close', function () {
+                $('#alert-saved').fadeOut();
+                return false;
+            });
+        });        
+    </script>
     @RenderSection("scripts", false)
 }

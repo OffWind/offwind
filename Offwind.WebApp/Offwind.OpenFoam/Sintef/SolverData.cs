@@ -1,6 +1,8 @@
-﻿using Offwind.OpenFoam.Models.Fields;
+﻿using System.Collections.Generic;
+using Offwind.OpenFoam.Models.Fields;
 using Offwind.OpenFoam.Models.RasProperties;
 using Offwind.OpenFoam.Models.TurbulenceModels;
+using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Models.Fields;
 using Offwind.Products.OpenFoam.Models.PolyMesh;
 using Offwind.Sowfa.Constant.AirfoilProperties;
@@ -51,9 +53,26 @@ namespace Offwind.OpenFoam.Sintef
 
         public static SolverData GetDefaultModel()
         {
-            var model = new SolverData();
+            var m = new SolverData();
 
-            return model;
+            m.BlockMeshDict.convertToMeters = 1;
+            m.BlockMeshDict.vertices.AddRange(new []
+            {
+                new Vertice(-500, -500, 0),
+                new Vertice(6000, -500, 0),
+                new Vertice(6000, 6000, 0),
+                new Vertice(-500, 6000, 0),
+                new Vertice(-500, -500, 1000),
+                new Vertice(6000, -500, 1000),
+                new Vertice(6000, 6000, 1000),
+                new Vertice(-500, 6000, 1000),
+            });
+
+            m.BlockMeshDict.MeshBlocks.vertexNumbers.AddRange(new [] { 0, 1, 2, 3, 4, 5, 6, 7 });
+            m.BlockMeshDict.MeshBlocks.numberOfCells.AddRange(new [] { 100, 100, 30 });
+            m.BlockMeshDict.MeshBlocks.grading = Grading.simpleGrading;
+            m.BlockMeshDict.MeshBlocks.gradingNumbers.AddRange(new [] { 1, 1, 1 });
+            return m;
         }
     }
 }

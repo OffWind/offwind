@@ -1,1 +1,14 @@
-﻿
+﻿@model Offwind.WebApp.Areas.CFD.Models.Preprocessing.VAblProperties
+<form class="form-horizontal" method="post">
+    <fieldset>
+
+        @Html.EditorFor(m => m.Width)
+        @Html.EditorFor(m => m.Length)
+        @Html.EditorFor(m => m.Height)
+
+        @Html.EditorFor(m => m.GridX)
+        @Html.EditorFor(m => m.GridY)
+        @Html.EditorFor(m => m.GridZ)
+
+    </fieldset>
+</form>

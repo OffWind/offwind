@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using Offwind.Products.OpenFoam.Models.Fields;
 
-namespace Offwind.Products.OpenFoam.Models.Fields
+namespace Offwind.OpenFoam.Models.Fields
 {
     public class BoundaryField
     {
-        public List<Patch> Patches { get; set; }
         public BoundaryField()
         {
             Patches = new List<Patch>();
         }
+
+        public List<Patch> Patches { get; set; }
     }
 }

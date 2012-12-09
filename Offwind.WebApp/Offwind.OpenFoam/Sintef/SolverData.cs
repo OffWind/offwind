@@ -1,4 +1,5 @@
-﻿using Offwind.OpenFoam.Models.RasProperties;
+﻿using Offwind.OpenFoam.Models.Fields;
+using Offwind.OpenFoam.Models.RasProperties;
 using Offwind.OpenFoam.Models.TurbulenceModels;
 using Offwind.Products.OpenFoam.Models.Fields;
 using Offwind.Products.OpenFoam.Models.PolyMesh;
@@ -27,5 +28,25 @@ namespace Offwind.OpenFoam.Sintef
 
         public BlockMeshDictData BlockMeshDict { get; set; }
         public AirfoilPropertiesData AirfoilProperties { get; set; }
+        public ProcessingSettings ProcessingSettings { get; set; }
+
+        public SolverData()
+        {
+            FieldEpsilon = new BoundaryField();
+            FieldK = new BoundaryField();
+            FieldNut = new BoundaryField();
+            FieldP = new BoundaryField();
+            FieldR = new BoundaryField();
+            FieldU = new BoundaryField();
+
+            TurbulenceProperties = new TurbulencePropertiesData();
+            RasProperties = new RasPropertiesData();
+            TransportProperties = new TransportPropertiesData();
+            TurbineProperties = new TurbinePropertiesData();
+            BlockMeshDict = new BlockMeshDictData();
+            AirfoilProperties = new AirfoilPropertiesData();
+
+            ProcessingSettings = new ProcessingSettings();
+        }
     }
 }

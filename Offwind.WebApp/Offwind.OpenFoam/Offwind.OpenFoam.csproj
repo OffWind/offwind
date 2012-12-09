@@ -136,6 +136,7 @@
     <Compile Include="Parsing\OpenFoamGrammar.cs" />
     <Compile Include="Parsing\ParserTreeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sintef\ProcessingSettings.cs" />
     <Compile Include="Sintef\SolverData.cs" />
   </ItemGroup>
   <ItemGroup>

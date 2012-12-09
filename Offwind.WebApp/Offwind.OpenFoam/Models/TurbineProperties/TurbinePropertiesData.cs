@@ -67,6 +67,10 @@ namespace Offwind.Sowfa.Constant.TurbineProperties
             YawControllerType = ControllerType.none;
             PitchControllerType = ControllerType.none;
             airfoilBlade = new List<AirfoilBlade>();
+
+            torqueControllerParams = new TorqueControllerParams();
+            pitchControllerParams = new PitchControllerParams();
+            airfoilBlade = new List<AirfoilBlade>();
         }
     }
 }

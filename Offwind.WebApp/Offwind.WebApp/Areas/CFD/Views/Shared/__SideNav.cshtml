@@ -4,11 +4,6 @@
         
         <!--...................................-->
         <li class="nav-header">Pre-processing</li>
-        <li @this.ActiveIfCurrent("StlGenerator", "Preprocessing", "CFD")>
-            <a href="@Url.Action("StlGenerator", "Preprocessing", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Earth STL Generator
-            </a>
-        </li>
         <li @this.ActiveIfCurrent("AblProperties", "Preprocessing", "CFD")>
             <a href="@Url.Action("AblProperties", "Preprocessing", new { area = "CFD" })">
                 <i class="icon-asterisk"></i> ABL Properties
@@ -17,6 +12,11 @@
         <li @this.ActiveIfCurrent("TransportProperties", "Preprocessing", "CFD")>
             <a href="@Url.Action("TransportProperties", "Preprocessing", new { area = "CFD" })">
                 <i class="icon-asterisk"></i> Transport Properties
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("StlGenerator", "Preprocessing", "CFD")>
+            <a href="@Url.Action("StlGenerator", "Preprocessing", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Earth STL Generator
             </a>
         </li>
 

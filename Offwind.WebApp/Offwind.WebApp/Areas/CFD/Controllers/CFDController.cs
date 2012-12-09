@@ -6,7 +6,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("AblProperties", "Preprocessing", new { area = "CFD" });
         }
     }
 }

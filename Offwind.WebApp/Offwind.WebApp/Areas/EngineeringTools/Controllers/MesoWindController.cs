@@ -8,6 +8,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind;
 using Offwind.WebApp.Models.Account;
+using log4net;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
@@ -16,6 +17,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
     {
         private static readonly List<DatabaseItem> _items = new List<DatabaseItem>();
         private const string CurrentFile = "CurrentFile";
+        private ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ActionResult Index()
         {
@@ -94,6 +96,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             if (Session[CurrentFile] == null)
             {
+                _log.WarnFormat("CurrentFile is not set");
                 var dataEmpty = new { sEcho = sEcho, iTotalRecords = 0, iTotalDisplayRecords = 0, aaData = new List<decimal[]>() };
                 return Json(dataEmpty, JsonRequestBehavior.AllowGet);
             }
@@ -142,6 +145,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             var model = new VDataImport();
             var path = System.IO.Path.Combine(dir, fileName);
+            _log.InfoFormat("Importing file: {0}", path);
             using (var f = new StreamReader(path))
             {
                 var lineN = 0;
@@ -149,7 +153,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 {
                     var line = f.ReadLine();
                     lineN++;
-                    Trace.WriteLine(line);
                     switch (lineN)
                     {
                         case 1:
@@ -157,10 +160,12 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                         case 2:
                             var line2 = line.Trim().Split("\t ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                             model.NBins = ParseInt(line2[2]);
+                            _log.InfoFormat("NBins: {0}", model.NBins);
                             break;
                         case 3:
                             var line3 = line.Trim().Split("\t ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                             model.NDirs = ParseInt(line3[0]);
+                            _log.InfoFormat("NDirs: {0}", model.NDirs);
                             break;
                         case 4:
                             var line4 = line.Trim().Split("\t ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
@@ -182,6 +187,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                     }
                 }
             }
+            _log.Info("File import complete. Calculating...");
 
             // MeanVelocityPerDir
             model.MeanVelocityPerDir.AddRange(new decimal[model.NDirs]);
@@ -203,6 +209,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 }
                 model.VelocityFreq.Add(new HPoint(binIdx, 0, freq));
             }
+            _log.Info("Import&Calculations complete.");
+
             return model;
         }
 

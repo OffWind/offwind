@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Offwind.WebApp.App_Start;
+using log4net.Config;
 
 namespace Offwind.WebApp
 {
@@ -13,6 +14,7 @@ namespace Offwind.WebApp
     {
         protected void Application_Start()
         {
+            XmlConfigurator.Configure();
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

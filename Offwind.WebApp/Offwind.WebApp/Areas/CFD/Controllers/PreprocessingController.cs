@@ -5,15 +5,23 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 {
     public class PreprocessingController : __BaseCfdController
     {
+        public PreprocessingController()
+        {
+            SectionTitle = "Pre-processing";
+        }
+
         public ActionResult AblProperties()
         {
-            ViewBag.Title = "Atmospheric Boundary Layer (ABL) Setup | Preprocessing | Offwind";
+            Title = "Atmospheric Boundary Layer (ABL) Setup";
+            ShortTitle = "ABL Properties";
+
             return View();
         }
 
         public ActionResult StlGenerator()
         {
-            ViewBag.Title = "Earth Elevation STL Generator | Preprocessing | Offwind";
+            Title = "Earth Elevation STL Generator";
+            ShortTitle = "STL Generator";
             return View();
         }
 
@@ -25,6 +33,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 
         public ActionResult TransportProperties()
         {
+            ShortTitle = "Transport Properties";
             return View();
         }
     }

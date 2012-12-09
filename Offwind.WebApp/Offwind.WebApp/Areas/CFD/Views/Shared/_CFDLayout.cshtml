@@ -5,6 +5,13 @@
     @Html.Partial("__SideNav")
 </div>
 <div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+        <li>CFD<span class="divider">/</span></li>
+        @*<li><a href="@Url.Action("Index", "CFD", new { area = "CFD" })">CFD</a> <span class="divider">/</span></li>*@
+        <li>@ViewBag.SectionTitle<span class="divider">/</span></li>
+        <li>@ViewBag.ShortTitle</li>
+    </ul>
     @RenderBody()
 </div>
 

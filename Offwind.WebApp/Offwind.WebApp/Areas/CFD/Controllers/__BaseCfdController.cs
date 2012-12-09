@@ -16,6 +16,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
     public class __BaseCfdController : Controller
     {
         private ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        protected string Title;
+        protected string ShortTitle;
+        protected string SectionTitle;
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
@@ -49,6 +52,14 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                     ctx.SaveChanges();
                 }
             }
+        }
+
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            base.OnActionExecuted(filterContext);
+            ViewBag.SectionTitle = SectionTitle;
+            ViewBag.ShortTitle = ShortTitle ?? Title;
+            ViewBag.Title = String.Format("{0} | {1} | CFD | Offwind", Title ?? ShortTitle, SectionTitle);
         }
 
         protected override void OnException(ExceptionContext filterContext)

@@ -2,7 +2,7 @@
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
-    public class TurbinesController : Controller
+    public class TurbinesController : __BaseCfdController
     {
         public ActionResult TurbineTypes()
         {

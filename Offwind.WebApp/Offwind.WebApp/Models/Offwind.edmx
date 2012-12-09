@@ -20,7 +20,7 @@
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Result" Type="nvarchar" Nullable="false" />
-          <Property Name="Model" Type="xml" />
+          <Property Name="Model" Type="xml" Nullable="false" />
         </EntityType>
         <EntityType Name="DWorkCase">
           <Key>
@@ -30,7 +30,7 @@
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
-          <Property Name="Model" Type="xml" />
+          <Property Name="Model" Type="xml" Nullable="false" />
         </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -51,7 +51,7 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="State" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Result" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Model" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Model" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DWorkCase">
           <Key>
@@ -61,7 +61,7 @@
           <Property Type="DateTime" Name="Created" Nullable="false" />
           <Property Type="String" Name="Owner" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Model" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Model" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>

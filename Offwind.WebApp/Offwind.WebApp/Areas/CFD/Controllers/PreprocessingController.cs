@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
-    public class PreprocessingController : Controller
+    public class PreprocessingController : __BaseCfdController
     {
         public ActionResult AblProperties()
         {

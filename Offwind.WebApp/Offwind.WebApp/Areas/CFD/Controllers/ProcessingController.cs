@@ -2,7 +2,7 @@
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
-    public class ProcessingController : Controller
+    public class ProcessingController : __BaseCfdController
     {
         public ActionResult Settings()
         {

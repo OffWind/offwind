@@ -2,7 +2,7 @@
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
-    public class CFDController : Controller
+    public class CFDController : __BaseCfdController
     {
         public ActionResult Index()
         {

@@ -2,7 +2,7 @@
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
-    public class AirfoilAndTurbulenceController : Controller
+    public class AirfoilAndTurbulenceController : __BaseCfdController
     {
         public ActionResult AirfoilProperties()
         {

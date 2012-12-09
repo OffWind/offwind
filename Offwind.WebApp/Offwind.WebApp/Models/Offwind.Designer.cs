@@ -144,7 +144,8 @@ namespace Offwind.WebApp.Models
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="state">Initial value of the State property.</param>
         /// <param name="result">Initial value of the Result property.</param>
-        public static DRunningCase CreateDRunningCase(global::System.Guid id, global::System.DateTime started, global::System.DateTime finished, global::System.String owner, global::System.String name, global::System.String state, global::System.String result)
+        /// <param name="model">Initial value of the Model property.</param>
+        public static DRunningCase CreateDRunningCase(global::System.Guid id, global::System.DateTime started, global::System.DateTime finished, global::System.String owner, global::System.String name, global::System.String state, global::System.String result, global::System.String model)
         {
             DRunningCase dRunningCase = new DRunningCase();
             dRunningCase.Id = id;
@@ -154,6 +155,7 @@ namespace Offwind.WebApp.Models
             dRunningCase.Name = name;
             dRunningCase.State = state;
             dRunningCase.Result = result;
+            dRunningCase.Model = model;
             return dRunningCase;
         }
 
@@ -334,7 +336,7 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Model
         {
@@ -346,7 +348,7 @@ namespace Offwind.WebApp.Models
             {
                 OnModelChanging(value);
                 ReportPropertyChanging("Model");
-                _Model = StructuralObject.SetValidValue(value, true);
+                _Model = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("Model");
                 OnModelChanged();
             }
@@ -376,13 +378,15 @@ namespace Offwind.WebApp.Models
         /// <param name="created">Initial value of the Created property.</param>
         /// <param name="owner">Initial value of the Owner property.</param>
         /// <param name="name">Initial value of the Name property.</param>
-        public static DWorkCase CreateDWorkCase(global::System.Guid id, global::System.DateTime created, global::System.String owner, global::System.String name)
+        /// <param name="model">Initial value of the Model property.</param>
+        public static DWorkCase CreateDWorkCase(global::System.Guid id, global::System.DateTime created, global::System.String owner, global::System.String name, global::System.String model)
         {
             DWorkCase dWorkCase = new DWorkCase();
             dWorkCase.Id = id;
             dWorkCase.Created = created;
             dWorkCase.Owner = owner;
             dWorkCase.Name = name;
+            dWorkCase.Model = model;
             return dWorkCase;
         }
 
@@ -491,7 +495,7 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Model
         {
@@ -503,7 +507,7 @@ namespace Offwind.WebApp.Models
             {
                 OnModelChanging(value);
                 ReportPropertyChanging("Model");
-                _Model = StructuralObject.SetValidValue(value, true);
+                _Model = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("Model");
                 OnModelChanged();
             }

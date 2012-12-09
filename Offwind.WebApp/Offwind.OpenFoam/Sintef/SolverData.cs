@@ -48,5 +48,12 @@ namespace Offwind.OpenFoam.Sintef
 
             ProcessingSettings = new ProcessingSettings();
         }
+
+        public static SolverData GetDefaultModel()
+        {
+            var model = new SolverData();
+
+            return model;
+        }
     }
 }

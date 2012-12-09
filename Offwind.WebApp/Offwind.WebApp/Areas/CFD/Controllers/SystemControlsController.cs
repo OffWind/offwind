@@ -2,7 +2,7 @@
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
-    public class SystemControlsController : Controller
+    public class SystemControlsController : __BaseCfdController
     {
         public ActionResult Time()
         {

@@ -193,11 +193,6 @@
     <Compile Include="Models\Account\ExternalLoginResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Account\ManageMessageId.cs" />
-    <Compile Include="Core\Offwind.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Offwind.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -206,6 +201,11 @@
     <Compile Include="Infrastructure\SharpZipUtils.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Account\SystemRole.cs" />
+    <Compile Include="Models\Offwind.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Offwind.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -326,12 +326,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Core\Offwind.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Offwind.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\CFD\Views\BoundaryConditions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -378,6 +372,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\CFD\Views\BoundaryConditions\FieldU.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\Offwind.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Offwind.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

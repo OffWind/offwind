@@ -252,7 +252,9 @@
     <Content Include="static\wake-sim\linux.png" />
     <Content Include="static\wake-sim\win-1.png" />
     <Content Include="static\wake-sim\win-2.png" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -402,6 +404,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\CFD\Views\Shared\_CFDLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

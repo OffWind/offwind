@@ -68,22 +68,6 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<DWorkCase> DWorkCases
-        {
-            get
-            {
-                if ((_DWorkCases == null))
-                {
-                    _DWorkCases = base.CreateObjectSet<DWorkCase>("DWorkCases");
-                }
-                return _DWorkCases;
-            }
-        }
-        private ObjectSet<DWorkCase> _DWorkCases;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<DJob> DJobs
         {
             get
@@ -96,17 +80,25 @@ namespace Offwind.WebApp.Models
             }
         }
         private ObjectSet<DJob> _DJobs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DWorkCase> DWorkCases
+        {
+            get
+            {
+                if ((_DWorkCases == null))
+                {
+                    _DWorkCases = base.CreateObjectSet<DWorkCase>("DWorkCases");
+                }
+                return _DWorkCases;
+            }
+        }
+        private ObjectSet<DWorkCase> _DWorkCases;
 
         #endregion
         #region AddTo Methods
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the DWorkCases EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDWorkCases(DWorkCase dWorkCase)
-        {
-            base.AddObject("DWorkCases", dWorkCase);
-        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the DJobs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -114,6 +106,14 @@ namespace Offwind.WebApp.Models
         public void AddToDJobs(DJob dJob)
         {
             base.AddObject("DJobs", dJob);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DWorkCases EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDWorkCases(DWorkCase dWorkCase)
+        {
+            base.AddObject("DWorkCases", dWorkCase);
         }
 
         #endregion
@@ -139,22 +139,18 @@ namespace Offwind.WebApp.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="started">Initial value of the Started property.</param>
-        /// <param name="finished">Initial value of the Finished property.</param>
         /// <param name="owner">Initial value of the Owner property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="state">Initial value of the State property.</param>
-        /// <param name="result">Initial value of the Result property.</param>
         /// <param name="model">Initial value of the Model property.</param>
-        public static DJob CreateDJob(global::System.Guid id, global::System.DateTime started, global::System.DateTime finished, global::System.String owner, global::System.String name, global::System.String state, global::System.String result, global::System.String model)
+        public static DJob CreateDJob(global::System.Guid id, global::System.DateTime started, global::System.String owner, global::System.String name, global::System.String state, global::System.String model)
         {
             DJob dJob = new DJob();
             dJob.Id = id;
             dJob.Started = started;
-            dJob.Finished = finished;
             dJob.Owner = owner;
             dJob.Name = name;
             dJob.State = state;
-            dJob.Result = result;
             dJob.Model = model;
             return dJob;
         }
@@ -216,9 +212,9 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.DateTime Finished
+        public Nullable<global::System.DateTime> Finished
         {
             get
             {
@@ -233,8 +229,8 @@ namespace Offwind.WebApp.Models
                 OnFinishedChanged();
             }
         }
-        private global::System.DateTime _Finished;
-        partial void OnFinishedChanging(global::System.DateTime value);
+        private Nullable<global::System.DateTime> _Finished;
+        partial void OnFinishedChanging(Nullable<global::System.DateTime> value);
         partial void OnFinishedChanged();
     
         /// <summary>
@@ -312,7 +308,7 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String Result
         {
@@ -324,7 +320,7 @@ namespace Offwind.WebApp.Models
             {
                 OnResultChanging(value);
                 ReportPropertyChanging("Result");
-                _Result = StructuralObject.SetValidValue(value, false);
+                _Result = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("Result");
                 OnResultChanged();
             }

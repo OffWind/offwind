@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using Offwind.OpenFoam.Models.Fields;
+﻿using Offwind.OpenFoam.Models.Fields;
 using Offwind.OpenFoam.Models.RasProperties;
 using Offwind.OpenFoam.Models.TurbulenceModels;
 using Offwind.Products.OpenFoam.Models;
-using Offwind.Products.OpenFoam.Models.Fields;
 using Offwind.Products.OpenFoam.Models.PolyMesh;
 using Offwind.Sowfa.Constant.AirfoilProperties;
 using Offwind.Sowfa.Constant.TransportProperties;

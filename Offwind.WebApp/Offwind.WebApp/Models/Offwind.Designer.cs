@@ -68,22 +68,6 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<DRunningCase> DRunningCases
-        {
-            get
-            {
-                if ((_DRunningCases == null))
-                {
-                    _DRunningCases = base.CreateObjectSet<DRunningCase>("DRunningCases");
-                }
-                return _DRunningCases;
-            }
-        }
-        private ObjectSet<DRunningCase> _DRunningCases;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<DWorkCase> DWorkCases
         {
             get
@@ -96,17 +80,25 @@ namespace Offwind.WebApp.Models
             }
         }
         private ObjectSet<DWorkCase> _DWorkCases;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DJob> DJobs
+        {
+            get
+            {
+                if ((_DJobs == null))
+                {
+                    _DJobs = base.CreateObjectSet<DJob>("DJobs");
+                }
+                return _DJobs;
+            }
+        }
+        private ObjectSet<DJob> _DJobs;
 
         #endregion
         #region AddTo Methods
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the DRunningCases EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDRunningCases(DRunningCase dRunningCase)
-        {
-            base.AddObject("DRunningCases", dRunningCase);
-        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the DWorkCases EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -114,6 +106,14 @@ namespace Offwind.WebApp.Models
         public void AddToDWorkCases(DWorkCase dWorkCase)
         {
             base.AddObject("DWorkCases", dWorkCase);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DJobs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDJobs(DJob dJob)
+        {
+            base.AddObject("DJobs", dJob);
         }
 
         #endregion
@@ -127,15 +127,15 @@ namespace Offwind.WebApp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DRunningCase")]
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DJob")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class DRunningCase : EntityObject
+    public partial class DJob : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new DRunningCase object.
+        /// Create a new DJob object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="started">Initial value of the Started property.</param>
@@ -145,18 +145,18 @@ namespace Offwind.WebApp.Models
         /// <param name="state">Initial value of the State property.</param>
         /// <param name="result">Initial value of the Result property.</param>
         /// <param name="model">Initial value of the Model property.</param>
-        public static DRunningCase CreateDRunningCase(global::System.Guid id, global::System.DateTime started, global::System.DateTime finished, global::System.String owner, global::System.String name, global::System.String state, global::System.String result, global::System.String model)
+        public static DJob CreateDJob(global::System.Guid id, global::System.DateTime started, global::System.DateTime finished, global::System.String owner, global::System.String name, global::System.String state, global::System.String result, global::System.String model)
         {
-            DRunningCase dRunningCase = new DRunningCase();
-            dRunningCase.Id = id;
-            dRunningCase.Started = started;
-            dRunningCase.Finished = finished;
-            dRunningCase.Owner = owner;
-            dRunningCase.Name = name;
-            dRunningCase.State = state;
-            dRunningCase.Result = result;
-            dRunningCase.Model = model;
-            return dRunningCase;
+            DJob dJob = new DJob();
+            dJob.Id = id;
+            dJob.Started = started;
+            dJob.Finished = finished;
+            dJob.Owner = owner;
+            dJob.Name = name;
+            dJob.State = state;
+            dJob.Result = result;
+            dJob.Model = model;
+            return dJob;
         }
 
         #endregion

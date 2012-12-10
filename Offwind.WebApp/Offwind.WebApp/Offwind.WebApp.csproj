@@ -194,6 +194,13 @@
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VGeneralProperties.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VTurbine.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VTurbineProperties.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WindWave\Computations\AdvancedCfd.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WindWave\Computations\Calculator.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WindWave\Computations\WindWaveInput.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WindWave\Computations\PowerOutput.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WindWave\VAdvancedCfd.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WindWave\VPowerOutput.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WindWave\VWindWave.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Models\Account\ExternalLoginResult.cs" />
@@ -212,6 +219,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Offwind.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\StandardCases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -301,7 +309,6 @@
     <Content Include="Areas\EngineeringTools\Views\MesoWind\CurrentData.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\VelocityFreq.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\WindRose.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\WindWave\Index.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WindWave\PowerCalculator.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\Index.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\Simulation.cshtml" />

@@ -29,13 +29,13 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var user = User.Identity.Name;
             using (var ctx = new OffwindEntities())
             {
-                var dCase = ctx.DWorkCases.FirstOrDefault(c => c.Owner == user);
+                var dCase = ctx.DWorkCases.FirstOrDefault(c => c.Owner == user && c.Name == StandardCases.CfdCase);
                 if (dCase == null)
                 {
                     // Init basic properties
                     dCase = new DWorkCase();
                     dCase.Id = Guid.NewGuid();
-                    dCase.Name = String.Format("{0}'s case", user);
+                    dCase.Name = StandardCases.CfdCase;
                     dCase.Owner = user;
                     dCase.Created = DateTime.UtcNow;
 
@@ -73,7 +73,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             using (var ctx = new OffwindEntities())
             {
-                var dCase = ctx.DWorkCases.First(c => c.Owner == User.Identity.Name);
+                var dCase = ctx.DWorkCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.CfdCase);
                 var serializer = new XmlSerializer(typeof(SolverData));
                 using (var reader = new StringReader(dCase.Model))
                 {
@@ -88,10 +88,11 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             using (var ctx = new OffwindEntities())
             using (var writer = new StringWriter())
             {
-                var dCase = ctx.DWorkCases.First(c => c.Owner == User.Identity.Name);
+                var dCase = ctx.DWorkCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.CfdCase);
                 serializer.Serialize(writer, model);
                 dCase.Model = writer.ToString();
                 writer.Close();
+                ctx.SaveChanges();
             }
         }
     }

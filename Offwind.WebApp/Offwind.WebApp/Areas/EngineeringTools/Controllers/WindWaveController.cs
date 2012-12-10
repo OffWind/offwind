@@ -1,4 +1,12 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Web.Mvc;
+using System.Xml.Serialization;
+using Offwind.WebApp.Areas.EngineeringTools.Models.WindWave;
+using Offwind.WebApp.Areas.EngineeringTools.Models.WindWave.Computations;
+using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Account;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
@@ -6,19 +14,113 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
     [Authorize(Roles = SystemRole.RegularUser)]
     public class WindWaveController : Controller
     {
-        public ActionResult Index()
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
-            return View();
+            base.Initialize(requestContext);
+            Debug.Assert(Request.IsAuthenticated);
+
+            var user = User.Identity.Name;
+            using (var ctx = new OffwindEntities())
+            {
+                var dCase = ctx.DWorkCases.FirstOrDefault(c => c.Owner == user && c.Name == StandardCases.WindWave);
+                if (dCase == null)
+                {
+                    // Init basic properties
+                    dCase = new DWorkCase();
+                    dCase.Id = Guid.NewGuid();
+                    dCase.Name = StandardCases.WindWave;
+                    dCase.Owner = user;
+                    dCase.Created = DateTime.UtcNow;
+
+                    // Init model
+                    var model = CreateProjectModel();
+                    var serializer = new XmlSerializer(typeof(WindWaveInput));
+                    using (var writer = new StringWriter())
+                    {
+                        serializer.Serialize(writer, model);
+                        dCase.Model = writer.ToString();
+                        writer.Close();
+                    }
+
+                    ctx.DWorkCases.AddObject(dCase);
+                    ctx.SaveChanges();
+                }
+            }
+            base.Initialize(requestContext);
         }
 
         public ActionResult PowerCalculator()
         {
-            return View();
+            var m = new VWindWave();
+            var d = GetDbModel();
+            m.WindSpeed = (decimal) d.Ug;
+            m.ReferenceHeight = (decimal)d.Zg;
+            m.TurbineHubHeight = (decimal)d.Zhub;
+            m.TurbineDiameter = (decimal)d.Td;
+            m.TurbineEfficiency = (decimal)d.Ef;
+            m.WaveSpeed = (decimal)d.Cw;
+            return View(m);
+        }
+
+
+        [ActionName("PowerCalculator")]
+        [HttpPost]
+        public ActionResult PowerCalculatorSave(VWindWave m)
+        {
+            var d = GetDbModel();
+            d.Ug = (double) m.WindSpeed;
+            d.Zg = (double)m.ReferenceHeight;
+            d.Zhub = (double)m.TurbineHubHeight;
+            d.Td = (double)m.TurbineDiameter;
+            d.Ef = (double)m.TurbineEfficiency;
+            d.Cw = (double)m.WaveSpeed;
+            SetDbModel(d);
+            if (Request.IsAjaxRequest()) return Json("OK");
+            return View(m);
         }
 
         public ActionResult Results()
         {
             return View();
+        }
+
+        public WindWaveInput CreateProjectModel()
+        {
+            var m = new WindWaveInput();
+            m.Ug = 7;
+            m.Zg = 20;
+            m.Zhub = 100;
+            m.Td = 100;
+            m.Ef = 35;
+            m.Cw = 2;
+            return m;
+        }
+
+        protected WindWaveInput GetDbModel()
+        {
+            using (var ctx = new OffwindEntities())
+            {
+                var dCase = ctx.DWorkCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.WindWave);
+                var serializer = new XmlSerializer(typeof(WindWaveInput));
+                using (var reader = new StringReader(dCase.Model))
+                {
+                    return (WindWaveInput)serializer.Deserialize(reader);
+                }
+            }
+        }
+
+        protected void SetDbModel(WindWaveInput model)
+        {
+            var serializer = new XmlSerializer(typeof(WindWaveInput));
+            using (var ctx = new OffwindEntities())
+            using (var writer = new StringWriter())
+            {
+                var dCase = ctx.DWorkCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.WindWave);
+                serializer.Serialize(writer, model);
+                dCase.Model = writer.ToString();
+                writer.Close();
+                ctx.SaveChanges();
+            }
         }
     }
 }

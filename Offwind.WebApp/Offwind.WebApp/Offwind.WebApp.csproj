@@ -230,6 +230,11 @@
     <Content Include="static\css\custom.css" />
     <Content Include="static\css\jquery.handsontable.full.css" />
     <Content Include="static\img\ajax-loader.gif" />
+    <Content Include="static\img\m1.png" />
+    <Content Include="static\img\m2.png" />
+    <Content Include="static\img\m3.png" />
+    <Content Include="static\img\m4.png" />
+    <Content Include="static\img\m5.png" />
     <Content Include="static\img\marker.png" />
     <Content Include="static\img\marker-shadow.png" />
     <Content Include="static\js\amcharts.js" />
@@ -257,6 +262,8 @@
     <Content Include="static\js\jquery.dataTables.Pagination.js" />
     <Content Include="static\js\jquery.inputmask\jquery.inputmask.js" />
     <Content Include="static\js\jquery.inputmask\jquery.inputmask.numeric.extensions.js" />
+    <Content Include="static\js\markerclusterer.js" />
+    <Content Include="static\js\markerclusterer.min.js" />
     <Content Include="static\js\protovis.js" />
     <Content Include="static\js\protovis.min.js" />
     <Content Include="static\wake-sim\linux.png" />

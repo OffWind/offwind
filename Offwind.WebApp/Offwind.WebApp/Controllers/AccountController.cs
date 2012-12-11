@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
-using Offwind.WebApp.Filters;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Account;
 using WebMatrix.WebData;
@@ -14,7 +13,6 @@ using WebMatrix.WebData;
 namespace Offwind.WebApp.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         //

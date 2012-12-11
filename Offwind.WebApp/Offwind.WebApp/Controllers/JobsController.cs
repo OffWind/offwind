@@ -16,13 +16,13 @@ namespace Offwind.WebApp.Controllers
     {
         private OffwindEntities db = new OffwindEntities();
 
-        // GET api/Jobs
+        // GET api/jobs
         public IEnumerable<DJob> GetDJobs()
         {
             return db.DJobs.AsEnumerable();
         }
 
-        // GET api/Jobs/5
+        // GET api/jobs/5
         public DJob GetDJob(Guid id)
         {
             DJob djob = db.DJobs.Single(d => d.Id == id);

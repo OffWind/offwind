@@ -215,6 +215,9 @@
     <Compile Include="Infrastructure\SharpZipUtils.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Account\SystemRole.cs" />
+    <Compile Include="Models\Jobs\Job.cs" />
+    <Compile Include="Models\Jobs\JobResult.cs" />
+    <Compile Include="Models\Jobs\JobState.cs" />
     <Compile Include="Models\Offwind.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

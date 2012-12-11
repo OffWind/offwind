@@ -21,9 +21,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         protected string ShortTitle;
         protected string SectionTitle;
 
-        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            base.Initialize(requestContext);
+            base.OnActionExecuting(filterContext);
             Debug.Assert(Request.IsAuthenticated);
 
             var user = User.Identity.Name;

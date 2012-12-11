@@ -233,6 +233,22 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
         }
 
+        public JsonResult GetAllData()
+        {
+            lock (_items)
+            {
+                if (_items.Count == 0)
+                    InitDatabase();
+
+                var filtered = _items
+                    .Select(x => new object[] { x.Latitude, x.Longitude })
+                    .ToArray();
+
+                return Json(filtered, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         public JsonResult GetDatabasePointsF(double lat, double lng)
         {
             lock (_items)

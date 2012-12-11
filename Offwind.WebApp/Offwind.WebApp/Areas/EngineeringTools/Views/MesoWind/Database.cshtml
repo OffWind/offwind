@@ -34,28 +34,31 @@
 {
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../../../../static/js/markerclusterer.js"></script>
+
     @Scripts.Render("~/static/js/jquery.dataTables.Pagination.js")
     <script>
         var map;
-        var dbTable;
+        var dbTable = null;
+        var clasters = null;
         var dbMarker;
         var dbHoverMarker;
         var centerPoint = new google.maps.LatLng(11, 50);
         var dburl = "@Url.Action("GetDatabasePoints", "MesoWind", new { are = "EngineeringTools" })";
 
         var image = new google.maps.MarkerImage(
-                    '@Url.Content("~/static/img/marker.png")',
-                    new google.maps.Size(50, 60),
-                    new google.maps.Point(0, 0),
-                    new google.maps.Point(25, 60)
-                    );
+            '@Url.Content("~/static/img/marker.png")',
+            new google.maps.Size(50, 60),
+            new google.maps.Point(0, 0),
+            new google.maps.Point(25, 60)
+        );
 
         var shadow = new google.maps.MarkerImage(
-                    '@Url.Content("~/static/img/marker-shadow.png")',
-                    new google.maps.Size(84, 60),
-                    new google.maps.Point(0, 0),
-                    new google.maps.Point(25, 60)
-                    );
+            '@Url.Content("~/static/img/marker-shadow.png")',
+            new google.maps.Size(84, 60),
+            new google.maps.Point(0, 0),
+            new google.maps.Point(25, 60)
+        );
 
         var shape = { coord: [22, 0, 23, 1, 23, 2, 23, 3, 23, 4, 23, 5,
             23, 6, 23, 7, 23, 8, 24, 9, 24, 10, 24, 11, 24, 12, 24, 13,
@@ -86,74 +89,117 @@
                 map: map
             });
         }
+        
+        function refreshMap() {
+            var data = null;
+            $.ajax({
+                url: "@Url.Action("GetAllData", "MesoWind", new { are = "EngineeringTools" })",
+                dataType: "json",
+                data: data
+            }).done(function(data) {                
+                if (clasters)
+                    clasters.clearMarkers();                
+                var markers = [];
+                
+                for (var i = 0; i < data.length; i++)
+                {
+                	var coord = new google.maps.LatLng(data[i][0], data[i][1]);
+                    var marker = new google.maps.Marker({
+                        position: coord,
+                        draggable: true                        
+                    });
+                    marker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
+                    markers.push(marker);                    
+                }                
+                clasters = new MarkerClusterer(map, markers, {
+                    maxZoom: 20,
+                    gridSize: null,
+                    styles: null
+                });
+            });            
+        }
+        
+
         function initializeMap() {
             var mapOptions = {
                 zoom: 1,
+                minZoom: 1,
                 center: centerPoint,
                 mapTypeId: google.maps.MapTypeId.SATELLITE
             };
             map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-
+            
             dbMarker = createMarker(new google.maps.LatLng(0, 0));
-	        dbMarker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
+            dbMarker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
             dbMarker.visible = false;
             dbMarker.zIndex = 1;
 
             dbHoverMarker = createMarker(new google.maps.LatLng(0, 0));
-	        dbHoverMarker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/ltblue-dot.png");
+            dbHoverMarker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/ltblue-dot.png");
             dbHoverMarker.visible = false;
-            dbMarker.zIndex = 2;
+            dbHoverMarker.zIndex = 2;
+            
+            //google.maps.event.addListener(refresh, 'click', refreshMap);
+            //google.maps.event.addDomListener(clear, 'click', clearClusters);
+
+            refreshMap();
         }
+        
+        function clearClusters(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            clasters.clearMarkers();
+      }
         
         /* Get the rows which are currently selected */
         function fnGetSelected(oTableLocal)
         {
-	        var aReturn = new Array();
-	        var aTrs = oTableLocal.fnGetNodes();
+            var aReturn = new Array();
+            var aTrs = oTableLocal.fnGetNodes();
 	
-	        for ( var i=0 ; i<aTrs.length ; i++ )
-	        {
-		        if ( $(aTrs[i]).hasClass('table-row-selected') )
-		        {
-			        aReturn.push( aTrs[i] );
-		        }
-	        }
-	        return aReturn;
+            for ( var i=0 ; i<aTrs.length ; i++ )
+            {
+                if ( $(aTrs[i]).hasClass('table-row-selected') )
+                {
+                    aReturn.push( aTrs[i] );
+                }
+            }
+            return aReturn;
         }
         
-        $(document).ready(function () {
-            initializeMap();
-            
-            $.extend( $.fn.dataTableExt.oStdClasses, {
+        $(document).ready(function() {            
+            $.extend($.fn.dataTableExt.oStdClasses, {
                 "sSortAsc": "header headerSortDown",
                 "sSortDesc": "header headerSortUp",
                 "sSortable": "header"
             });
-            dbTable = $('#database').dataTable( {
-		        "sDom": "tip<'row-fluid'r>",
+            dbTable = $('#database').dataTable({
+                "sDom": "tip<'row-fluid'r>",
                 //"sDom": "lfrtip",
-		        "bFilter": false,
+                "bFilter": false,
                 "bProcessing": true,
                 "bServerSide": true,
                 "sAjaxSource": dburl,
                 "sPaginationType": "bootstrap"
             });
             
-            // Select DB row
-	        $("#database tbody").click(function(event) {
-		        $(dbTable.fnSettings().aoData).each(function (){
-			        $(this.nTr).removeClass('table-row-selected');
-		        });
-		        $(event.target.parentNode).addClass('table-row-selected');
+            initializeMap();
 
-	            var row = $(event.target.parentNode);
-	            var lat = $(row.find("td")[0]).text();
-	            var lng = $(row.find("td")[1]).text();
-	            var point = new google.maps.LatLng(lat, lng);
-	            dbMarker.setPosition(point);
-	            dbMarker.visible = true;
-	            map.setCenter(point);
-	        });
+            // Select DB row
+            $("#database tbody").click(function(event) {
+                $(dbTable.fnSettings().aoData).each(function() {
+                    $(this.nTr).removeClass('table-row-selected');
+                });
+                $(event.target.parentNode).addClass('table-row-selected');
+
+                var row = $(event.target.parentNode);
+                var lat = $(row.find("td")[0]).text();
+                var lng = $(row.find("td")[1]).text();
+                var point = new google.maps.LatLng(lat, lng);
+                dbMarker.setPosition(point);
+                dbMarker.visible = true;
+                map.setCenter(point);
+            });
             $('#database tbody')
                 .on('mouseenter', 'tr', function() {
                     var lat = $($(this).find('td')[0]).text();
@@ -182,4 +228,5 @@
             });
         });
     </script>
+
 }

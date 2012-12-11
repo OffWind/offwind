@@ -29,7 +29,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 
         public JsonResult SimulationStart()
         {
-            var model = GetSolverData();
             using (var ctx = new OffwindEntities())
             {
                 var dJob = new DJob();
@@ -37,16 +36,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                 dJob.Started = DateTime.UtcNow;
                 dJob.Name = StandardCases.CfdCase;
                 dJob.Owner = User.Identity.Name;
-
-                var serializer = new XmlSerializer(typeof(SolverData));
-                using (var writer = new StringWriter())
-                {
-                    serializer.Serialize(writer, model);
-                    dJob.Model = writer.ToString();
-                    writer.Close();
-                    ctx.SaveChanges();
-                }
-
                 dJob.State = "Started";
                 ctx.DJobs.AddObject(dJob);
                 ctx.SaveChanges();

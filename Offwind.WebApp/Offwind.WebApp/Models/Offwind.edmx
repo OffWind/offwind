@@ -6,9 +6,19 @@
     <edmx:StorageModels>
     <Schema Namespace="u254697_offwindModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="u254697_offwindModelStoreContainer">
+          <EntitySet Name="DCase" EntityType="u254697_offwindModel.Store.DCase" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DJob" EntityType="u254697_offwindModel.Store.DJob" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DWorkCase" EntityType="u254697_offwindModel.Store.DWorkCase" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
+        <EntityType Name="DCase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="Model" Type="xml" Nullable="false" />
+        </EntityType>
         <EntityType Name="DJob">
           <Key>
             <PropertyRef Name="Id" />
@@ -19,27 +29,27 @@
           <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Result" Type="nvarchar" />
-          <Property Name="Model" Type="xml" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DWorkCase">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Created" Type="datetime" Nullable="false" />
-          <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="150" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
-          <Property Name="Model" Type="xml" Nullable="false" />
+          <Property Name="Result" Type="nvarchar" MaxLength="20" />
+          <Property Name="ResultData" Type="nvarchar" />
         </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Offwind.DbModels" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="OffwindEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DCases" EntityType="Offwind.DbModels.DCase" />
           <EntitySet Name="DJobs" EntityType="Offwind.DbModels.DJob" />
-          <EntitySet Name="DWorkCases" EntityType="Offwind.DbModels.DWorkCase" />
         </EntityContainer>
+        <EntityType Name="DCase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Model" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="DJob">
           <Key>
             <PropertyRef Name="Id" />
@@ -50,18 +60,8 @@
           <Property Type="String" Name="Owner" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="State" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Result" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Model" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="DWorkCase">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="DateTime" Name="Created" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Model" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Result" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ResultData" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -69,27 +69,27 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="u254697_offwindModelStoreContainer" CdmEntityContainer="OffwindEntities">
+          <EntitySetMapping Name="DCases">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DCase">
+              <MappingFragment StoreEntitySet="DCase">
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DJobs">
             <EntityTypeMapping TypeName="Offwind.DbModels.DJob">
               <MappingFragment StoreEntitySet="DJob">
-                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ResultData" ColumnName="ResultData" />
                 <ScalarProperty Name="Result" ColumnName="Result" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Owner" ColumnName="Owner" />
                 <ScalarProperty Name="Finished" ColumnName="Finished" />
                 <ScalarProperty Name="Started" ColumnName="Started" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DWorkCases">
-            <EntityTypeMapping TypeName="Offwind.DbModels.DWorkCase">
-              <MappingFragment StoreEntitySet="DWorkCase">
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -115,8 +115,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Offwind">
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="0.75" PointY="0.75" Height="2.5571907552083335" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWorkCase" Width="1.5" PointX="2.75" PointY="0.75" Height="1.9802864583333335" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333326" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="2.75" PointY="0.75" Height="2.5571907552083335" />
       </Diagram>
     </Diagrams>
   </Designer>

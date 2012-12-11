@@ -22,11 +22,11 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             var user = User.Identity.Name;
             using (var ctx = new OffwindEntities())
             {
-                var dCase = ctx.DWorkCases.FirstOrDefault(c => c.Owner == user && c.Name == StandardCases.WindWave);
+                var dCase = ctx.DCases.FirstOrDefault(c => c.Owner == user && c.Name == StandardCases.WindWave);
                 if (dCase == null)
                 {
                     // Init basic properties
-                    dCase = new DWorkCase();
+                    dCase = new DCase();
                     dCase.Id = Guid.NewGuid();
                     dCase.Name = StandardCases.WindWave;
                     dCase.Owner = user;
@@ -42,7 +42,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                         writer.Close();
                     }
 
-                    ctx.DWorkCases.AddObject(dCase);
+                    ctx.DCases.AddObject(dCase);
                     ctx.SaveChanges();
                 }
             }
@@ -100,7 +100,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             using (var ctx = new OffwindEntities())
             {
-                var dCase = ctx.DWorkCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.WindWave);
+                var dCase = ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.WindWave);
                 var serializer = new XmlSerializer(typeof(WindWaveInput));
                 using (var reader = new StringReader(dCase.Model))
                 {
@@ -115,7 +115,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             using (var ctx = new OffwindEntities())
             using (var writer = new StringWriter())
             {
-                var dCase = ctx.DWorkCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.WindWave);
+                var dCase = ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.WindWave);
                 serializer.Serialize(writer, model);
                 dCase.Model = writer.ToString();
                 writer.Close();

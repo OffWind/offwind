@@ -9,46 +9,68 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Offwind.WebApp.Models;
+using Offwind.WebApp.Models.Jobs;
 
 namespace Offwind.WebApp.Controllers
 {
     public class JobsController : ApiController
     {
-        private OffwindEntities db = new OffwindEntities();
+        private readonly OffwindEntities _ctx = new OffwindEntities();
 
         // GET api/jobs
-        public IEnumerable<DJob> GetDJobs()
+        public IEnumerable<Job> GetJobs()
         {
-            return db.DJobs.AsEnumerable();
+            return _ctx.DJobs
+                .Select(MapFromDB)
+                .AsEnumerable();
         }
 
-        // GET api/jobs/5
-        public DJob GetDJob(Guid id)
+        public IEnumerable<Job> GetStartedJobs()
         {
-            DJob djob = db.DJobs.Single(d => d.Id == id);
+            return _ctx.DJobs
+                .Where(d => d.State == JobState.Started.ToString())
+                .Select(MapFromDB)
+                .AsEnumerable();
+        }
+
+        public IEnumerable<Job> GetRunningJobs()
+        {
+            return _ctx.DJobs
+                .Where(d => d.State == JobState.Running.ToString())
+                .Select(MapFromDB)
+                .AsEnumerable();
+        }
+
+        public Job GetJob(Guid id)
+        {
+            DJob djob = _ctx.DJobs.Single(d => d.Id == id);
             if (djob == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
-
-            return djob;
+            return MapFromDB(djob);
         }
 
         // PUT api/Jobs/5
-        public HttpResponseMessage PutDJob(Guid id, DJob djob)
+        public HttpResponseMessage PutJob(Guid id, Job job)
         {
-            if (ModelState.IsValid && id == djob.Id)
+            if (ModelState.IsValid && id == job.Id)
             {
-                db.DJobs.Attach(djob);
-                db.ObjectStateManager.ChangeObjectState(djob, EntityState.Modified);
+                DJob djob = _ctx.DJobs.Single(d => d.Id == id);
+                if (djob == null)
+                {
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+                }
+
+                MapToDB(job, djob);
 
                 try
                 {
-                    db.SaveChanges();
+                    _ctx.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
 
                 return Request.CreateResponse(HttpStatusCode.OK);
@@ -59,38 +81,43 @@ namespace Offwind.WebApp.Controllers
             }
         }
 
-        // POST api/Jobs
-        public HttpResponseMessage PostDJob(DJob djob)
+        public HttpResponseMessage PostJob(Job job)
         {
             if (ModelState.IsValid)
             {
-                db.DJobs.AddObject(djob);
-                db.SaveChanges();
+                var dJob = new DJob { Id = Guid.NewGuid() };
+                MapToDB(job, dJob);
 
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, djob);
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = djob.Id }));
+                _ctx.DJobs.AddObject(dJob);
+                try
+                {
+                    _ctx.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
+
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, dJob);
+                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = dJob.Id }));
                 return response;
             }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        // DELETE api/Jobs/5
-        public HttpResponseMessage DeleteDJob(Guid id)
+        public HttpResponseMessage DeleteJob(Guid id)
         {
-            DJob djob = db.DJobs.Single(d => d.Id == id);
+            DJob djob = _ctx.DJobs.Single(d => d.Id == id);
             if (djob == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            db.DJobs.DeleteObject(djob);
+            _ctx.DJobs.DeleteObject(djob);
 
             try
             {
-                db.SaveChanges();
+                _ctx.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -102,8 +129,36 @@ namespace Offwind.WebApp.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _ctx.Dispose();
             base.Dispose(disposing);
         }
+
+        // ReSharper disable InconsistentNaming
+        private static Job MapFromDB(DJob d)
+        {
+            return new Job
+            {
+                Id = d.Id,
+                Owner = d.Owner,
+                Name = d.Name,
+                Started = d.Started,
+                State = (JobState)Enum.Parse(typeof(JobState), d.State),
+                Result = (JobResult)Enum.Parse(typeof(JobResult), d.Result),
+                Finished = d.Finished,
+                ResultData = d.ResultData
+            };
+        }
+
+        private static void MapToDB(Job job, DJob djob)
+        {
+            djob.Started = job.Started;
+            djob.Finished = job.Finished;
+            djob.Name = job.Name;
+            djob.Owner = job.Owner;
+            djob.State = job.State.ToString();
+            djob.Result = job.Result.ToString();
+            djob.ResultData = job.ResultData;
+        }
+        // ReSharper restore InconsistentNaming
     }
 }

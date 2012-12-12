@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Irony.Parsing;
+using Offwind.OpenFoam.Models.PolyMesh;
 using Offwind.Products.OpenFoam.Models.Fields;
 using Offwind.Products.OpenFoam.Parsing;
 

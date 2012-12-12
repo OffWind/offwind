@@ -298,14 +298,16 @@ namespace Offwind.WebApp.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="started">Initial value of the Started property.</param>
+        /// <param name="finished">Initial value of the Finished property.</param>
         /// <param name="owner">Initial value of the Owner property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="state">Initial value of the State property.</param>
-        public static DJob CreateDJob(global::System.Guid id, global::System.DateTime started, global::System.String owner, global::System.String name, global::System.String state)
+        public static DJob CreateDJob(global::System.Guid id, global::System.DateTime started, global::System.DateTime finished, global::System.String owner, global::System.String name, global::System.String state)
         {
             DJob dJob = new DJob();
             dJob.Id = id;
             dJob.Started = started;
+            dJob.Finished = finished;
             dJob.Owner = owner;
             dJob.Name = name;
             dJob.State = state;
@@ -369,9 +371,9 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> Finished
+        public global::System.DateTime Finished
         {
             get
             {
@@ -386,8 +388,8 @@ namespace Offwind.WebApp.Models
                 OnFinishedChanged();
             }
         }
-        private Nullable<global::System.DateTime> _Finished;
-        partial void OnFinishedChanging(Nullable<global::System.DateTime> value);
+        private global::System.DateTime _Finished;
+        partial void OnFinishedChanging(global::System.DateTime value);
         partial void OnFinishedChanged();
     
         /// <summary>

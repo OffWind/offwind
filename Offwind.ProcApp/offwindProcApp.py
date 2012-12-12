@@ -13,7 +13,7 @@ import urllib
 
 class JobManager:
     def getJobs(self):
-        url = 'http://localhost:53963/api/jobs'
+        url = 'http://localhost:53963/api/jobs/running'
         u = urllib.urlopen(url)
         # u is a file-like object
         data = u.read()

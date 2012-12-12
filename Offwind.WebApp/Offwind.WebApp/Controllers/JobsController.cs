@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Jobs;
@@ -25,18 +22,22 @@ namespace Offwind.WebApp.Controllers
                 .AsEnumerable();
         }
 
+        [ActionName("started")]
         public IEnumerable<Job> GetStartedJobs()
         {
+            string state = JobState.Started.ToString();
             return _ctx.DJobs
-                .Where(d => d.State == JobState.Started.ToString())
+                .Where(d => d.State == state)
                 .Select(MapFromDB)
                 .AsEnumerable();
         }
 
+        [ActionName("running")]
         public IEnumerable<Job> GetRunningJobs()
         {
+            string state = JobState.Running.ToString();
             return _ctx.DJobs
-                .Where(d => d.State == JobState.Running.ToString())
+                .Where(d => d.State == state)
                 .Select(MapFromDB)
                 .AsEnumerable();
         }
@@ -83,26 +84,28 @@ namespace Offwind.WebApp.Controllers
 
         public HttpResponseMessage PostJob(Job job)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var dJob = new DJob { Id = Guid.NewGuid() };
-                MapToDB(job, dJob);
-
-                _ctx.DJobs.AddObject(dJob);
-                try
-                {
-                    _ctx.SaveChanges();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
-                }
-
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, dJob);
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = dJob.Id }));
+                var njob = PostJobManually(job);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, njob);
+                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = njob.Id }));
                 return response;
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (DbUpdateConcurrencyException)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        public Job PostJobManually(Job job)
+        {
+            var dJob = new DJob();
+            dJob.Id = job.Id;
+            MapToDB(job, dJob);
+
+            _ctx.DJobs.AddObject(dJob);
+            _ctx.SaveChanges();
+            return MapFromDB(dJob);
         }
 
         public HttpResponseMessage DeleteJob(Guid id)
@@ -124,7 +127,7 @@ namespace Offwind.WebApp.Controllers
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, djob);
+            return Request.CreateResponse(HttpStatusCode.OK, MapFromDB(djob));
         }
 
         protected override void Dispose(bool disposing)
@@ -137,16 +140,16 @@ namespace Offwind.WebApp.Controllers
         private static Job MapFromDB(DJob d)
         {
             return new Job
-            {
-                Id = d.Id,
-                Owner = d.Owner,
-                Name = d.Name,
-                Started = d.Started,
-                State = (JobState)Enum.Parse(typeof(JobState), d.State),
-                Result = (JobResult)Enum.Parse(typeof(JobResult), d.Result),
-                Finished = d.Finished,
-                ResultData = d.ResultData
-            };
+                       {
+                           Id = d.Id,
+                           Owner = d.Owner,
+                           Name = d.Name,
+                           Started = d.Started,
+                           State = (JobState) Enum.Parse(typeof (JobState), d.State),
+                           Result = (JobResult) Enum.Parse(typeof (JobResult), d.Result),
+                           Finished = d.Finished,
+                           ResultData = d.ResultData
+                       };
         }
 
         private static void MapToDB(Job job, DJob djob)
@@ -159,6 +162,7 @@ namespace Offwind.WebApp.Controllers
             djob.Result = job.Result.ToString();
             djob.ResultData = job.ResultData;
         }
+
         // ReSharper restore InconsistentNaming
     }
 }

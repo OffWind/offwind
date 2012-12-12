@@ -7,7 +7,7 @@ namespace Offwind.WebApp.App_Start
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new InitializeSimpleMembershipAttribute());
+            //filters.Add(new InitializeSimpleMembershipAttribute());
             filters.Add(new HandleErrorAttribute());
         }
     }

@@ -25,7 +25,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Started" Type="datetime2" Nullable="false" />
-          <Property Name="Finished" Type="datetime2" />
+          <Property Name="Finished" Type="datetime2" Nullable="false" />
           <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="50" />
@@ -56,7 +56,7 @@
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="DateTime" Name="Started" Nullable="false" />
-          <Property Type="DateTime" Name="Finished" />
+          <Property Type="DateTime" Name="Finished" Nullable="false" />
           <Property Type="String" Name="Owner" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="State" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -116,7 +116,7 @@
     <Diagrams>
       <Diagram Name="Offwind">
         <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333326" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="2.75" PointY="0.75" Height="2.5571907552083335" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="3.375" PointY="0.75" Height="2.5571907552083335" />
       </Diagram>
     </Diagrams>
   </Designer>

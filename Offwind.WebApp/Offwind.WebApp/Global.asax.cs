@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Offwind.WebApp.App_Start;
+using Offwind.WebApp.Filters;
 using log4net.Config;
 
 namespace Offwind.WebApp
@@ -16,6 +17,9 @@ namespace Offwind.WebApp
         {
             XmlConfigurator.Configure();
             AreaRegistration.RegisterAllAreas();
+
+            // This works better than putting it in FilterConfig.RegisterGlobalFilters
+            new InitializeSimpleMembershipAttribute().OnActionExecuting(null);
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

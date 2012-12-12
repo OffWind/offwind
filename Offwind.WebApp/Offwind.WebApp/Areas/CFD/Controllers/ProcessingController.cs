@@ -3,7 +3,9 @@ using System.IO;
 using System.Web.Mvc;
 using System.Xml.Serialization;
 using Offwind.OpenFoam.Sintef;
+using Offwind.WebApp.Controllers;
 using Offwind.WebApp.Models;
+using Offwind.WebApp.Models.Jobs;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
@@ -29,17 +31,16 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 
         public JsonResult SimulationStart()
         {
-            using (var ctx = new OffwindEntities())
+            var job = new Job
             {
-                var dJob = new DJob();
-                dJob.Id = Guid.NewGuid();
-                dJob.Started = DateTime.UtcNow;
-                dJob.Name = StandardCases.CfdCase;
-                dJob.Owner = User.Identity.Name;
-                dJob.State = "Started";
-                ctx.DJobs.AddObject(dJob);
-                ctx.SaveChanges();
-            }
+                Id = Guid.NewGuid(),
+                Started = DateTime.UtcNow,
+                Owner = User.Identity.Name,
+                Name = StandardCases.CfdCase,
+                State = JobState.Started,
+            };
+
+            new JobsController().PostJobManually(job);
             return Json("Simulation successfully started");
         }
 

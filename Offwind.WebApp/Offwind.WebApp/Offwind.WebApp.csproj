@@ -204,6 +204,7 @@
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
+    <Compile Include="Infrastructure\GuidConstraint.cs" />
     <Compile Include="Models\Account\ExternalLoginResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Account\ManageMessageId.cs" />

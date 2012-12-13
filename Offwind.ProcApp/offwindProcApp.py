@@ -10,26 +10,43 @@ import tempfile
 from time import sleep
 import subprocess
 import urllib
+import urllib2
+import json
 
 class JobManager:
     def getJobs(self):
-        url = 'http://localhost:53963/api/jobs/running'
+        url = 'http://tools.offwind.eu/simplejobs/started'
         u = urllib.urlopen(url)
         # u is a file-like object
         data = u.read()
         return data
 
-class Processor:
+    def setRunning(self, job):
+        url = 'http://tools.offwind.eu/simplejobs/put/' + job['Id']
+        job['State'] = 'Running'
+        opener = urllib2.build_opener(urllib2.HTTPHandler)
+        request = urllib2.Request(url, data = json.dumps(job))
+        request.add_header('Content-Type', 'application/json')
+        request.get_method = lambda: 'PUT'
+        url = opener.open(request)
 
+class Processor:
     jobId = None
     connection = None
     cursor = None
 
 if __name__ == '__main__':
     print "Hello!"
+    print ""
     while 1==1:
         mgr = JobManager()
-        data = mgr.getJobs()
-        print data
-        sleep(3)
+        jobs = mgr.getJobs()
+        jobs = json.loads(jobs)
+        print len(jobs)
+        if len(jobs):
+            #job = jobs[0]
+            print jobs
+            #mgr.setRunning(job)
+
+        sleep(1)
     print "Exiting program... Bye!"

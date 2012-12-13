@@ -1,97 +1,103 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web.Mvc;
-using Newtonsoft.Json;
+using System.Net.Http;
+using System.Web.Http;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Jobs;
 
 namespace Offwind.WebApp.Controllers
 {
-    public class JobsController : Controller
+    public class JobsController : ApiController
     {
         private readonly OffwindEntities _ctx = new OffwindEntities();
 
+        // GET api/jobs
         [ActionName("all")]
-        public JsonResult GetAllJobs()
+        public IEnumerable<Job> GetJobs()
         {
-            return JsonX(HttpStatusCode.OK,
-                _ctx.DJobs
+            return _ctx.DJobs
                 .Select(MapFromDB)
-                .AsEnumerable());
+                .AsEnumerable();
         }
 
         [ActionName("started")]
-        public JsonResult GetStartedJobs()
+        public IEnumerable<Job> GetStartedJobs()
         {
             string state = JobState.Started.ToString();
-            return JsonX(HttpStatusCode.OK,
-                _ctx.DJobs
+            return _ctx.DJobs
                 .Where(d => d.State == state)
                 .Select(MapFromDB)
-                .AsEnumerable());
+                .AsEnumerable();
         }
 
         [ActionName("running")]
-        public JsonResult GetRunningJobs()
+        public IEnumerable<Job> GetRunningJobs()
         {
             string state = JobState.Running.ToString();
-            return JsonX(HttpStatusCode.OK,
-                _ctx.DJobs
+            return _ctx.DJobs
                 .Where(d => d.State == state)
                 .Select(MapFromDB)
-                .AsEnumerable());
+                .AsEnumerable();
         }
 
-        public JsonResult Single(Guid id)
+        public Job GetJob(Guid id)
         {
             DJob djob = _ctx.DJobs.Single(d => d.Id == id);
             if (djob == null)
             {
-                return JsonX(HttpStatusCode.NotFound, JsonRequestBehavior.AllowGet);
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
-            return JsonX(HttpStatusCode.OK, MapFromDB(djob));
+            return MapFromDB(djob);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public JsonResult Update(Job job)
+        public HttpResponseMessage PutJob(Guid id, Job job)
         {
-            DJob djob = _ctx.DJobs.Single(d => d.Id == job.Id);
-            if (djob == null)
+            if (ModelState.IsValid && id == job.Id)
             {
-                return JsonX(HttpStatusCode.NotFound);
+                DJob djob = _ctx.DJobs.Single(d => d.Id == id);
+                if (djob == null)
+                {
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+                }
+
+                MapToDB(job, djob);
+
+                try
+                {
+                    _ctx.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK);
             }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+        }
 
-            MapToDB(job, djob);
-
+        public HttpResponseMessage PostJob(Job job)
+        {
             try
             {
-                _ctx.SaveChanges();
+                var njob = PostJobManually(job);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, njob);
+                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = njob.Id }));
+                return response;
             }
             catch (DbUpdateConcurrencyException)
             {
-                return JsonX(HttpStatusCode.InternalServerError);
-            }
-
-            return JsonX(HttpStatusCode.OK);
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public JsonResult Add(Job job)
-        {
-            try
-            {
-                var njob = AddJobManually(job);
-                return JsonX(HttpStatusCode.Created, njob);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return JsonX(HttpStatusCode.InternalServerError);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
         }
 
-        public Job AddJobManually(Job job)
+        public Job PostJobManually(Job job)
         {
             var dJob = new DJob();
             dJob.Id = job.Id;
@@ -102,12 +108,12 @@ namespace Offwind.WebApp.Controllers
             return MapFromDB(dJob);
         }
 
-        public JsonResult Delete(Guid id)
+        public HttpResponseMessage DeleteJob(Guid id)
         {
             DJob djob = _ctx.DJobs.Single(d => d.Id == id);
             if (djob == null)
             {
-                return JsonX(HttpStatusCode.NotFound);
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
             _ctx.DJobs.DeleteObject(djob);
@@ -118,10 +124,10 @@ namespace Offwind.WebApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                return JsonX(HttpStatusCode.NotFound);
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            return JsonX(HttpStatusCode.OK, MapFromDB(djob));
+            return Request.CreateResponse(HttpStatusCode.OK, MapFromDB(djob));
         }
 
         protected override void Dispose(bool disposing)
@@ -158,15 +164,5 @@ namespace Offwind.WebApp.Controllers
         }
 
         // ReSharper restore InconsistentNaming
-
-        private JsonResult JsonX(HttpStatusCode status, object data)
-        {
-            return Json(new { status, data }, JsonRequestBehavior.AllowGet);
-        }
-
-        private JsonResult JsonX(HttpStatusCode status)
-        {
-            return Json(new { status, data = "" }, JsonRequestBehavior.AllowGet);
-        }
     }
 }

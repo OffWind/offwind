@@ -1,8 +1,11 @@
-﻿using Offwind.OpenFoam.Models.Fields;
+﻿using System;
+using System.IO;
+using Offwind.OpenFoam.Models.Fields;
 using Offwind.OpenFoam.Models.RasProperties;
 using Offwind.OpenFoam.Models.TurbulenceModels;
 using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Models.PolyMesh;
+using Offwind.Sowfa.Constant.AblProperties;
 using Offwind.Sowfa.Constant.AirfoilProperties;
 using Offwind.Sowfa.Constant.TransportProperties;
 using Offwind.Sowfa.Constant.TurbineArrayProperties;
@@ -13,6 +16,8 @@ namespace Offwind.OpenFoam.Sintef
 {
     public class SolverData
     {
+        public string DefaultArchName = Path.Combine(Path.GetTempPath(), "solver.zip");
+
         public BoundaryField FieldEpsilon { get; set; }
         public BoundaryField FieldK { get; set; }
         public BoundaryField FieldNut { get; set; }
@@ -31,6 +36,8 @@ namespace Offwind.OpenFoam.Sintef
         public ControlDictData ControlDict { get; set; }
         public AirfoilPropertiesData AirfoilProperties { get; set; }
         public ProcessingSettings ProcessingSettings { get; set; }
+
+        private string fsPath = null;
 
         public SolverData()
         {
@@ -75,6 +82,32 @@ namespace Offwind.OpenFoam.Sintef
             m.BlockMeshDict.MeshBlocks.grading = Grading.simpleGrading;
             m.BlockMeshDict.MeshBlocks.gradingNumbers.AddRange(new [] { 1, 1, 1 });
             return m;
+        }
+
+        public string MakeFS()
+        {
+            fsPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+            Directory.CreateDirectory(fsPath);
+
+            /*
+            var ablHandler = new AblPropertiesHandler();
+            ablHandler.Write(fsPath, AblProperties);
+             */
+            var controlDictHandler = new ControlDictHandler();
+            controlDictHandler.Write(controlDictHandler.GetPath(fsPath), ControlDict);
+
+            var transportPropHandler = new TransportPropertiesHandler();
+            transportPropHandler.Write(transportPropHandler.GetPath(fsPath), TransportProperties);
+
+            var blockMeshHandler = new BlockMeshDictHandler();
+            blockMeshHandler.Write(blockMeshHandler.GetPath(fsPath), BlockMeshDict);
+
+            return fsPath;
+        }
+
+        public string ArchName(string key)
+        {
+            return Path.Combine(Path.GetTempPath(), key + ".zip");
         }
     }
 }

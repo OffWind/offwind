@@ -15,6 +15,9 @@ namespace Offwind.WebApp.Models.Jobs
         public string Name { get; set; }
 
         [Required]
+        public string InputData { get; set; }
+
+        [Required]
         public DateTime Started { get; set; }
 
         public DateTime Finished { get; set; }

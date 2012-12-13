@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Offwind.Products.OpenFoam.Models.PolyMesh {
+namespace Offwind.OpenFoam.Models.PolyMesh {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Offwind.Products.OpenFoam.Models.PolyMesh {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Offwind.Products.OpenFoam.Models.PolyMesh.BlockMeshDictRes", typeof(BlockMeshDictRes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Offwind.OpenFoam.Models.PolyMesh.BlockMeshDictRes", typeof(BlockMeshDictRes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -67,7 +67,7 @@ namespace Offwind.Products.OpenFoam.Models.PolyMesh {
         ///|  \\    /   O peration     | Version:  2.0.x                                 |
         ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
         ///|    \\/     M anipulation  |                                                 |
-        ///\*------------------------------ [rest of string was truncated]&quot;;.
+        ///\*------------------------ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Default {
             get {
@@ -82,11 +82,26 @@ namespace Offwind.Products.OpenFoam.Models.PolyMesh {
         ///|  \\    /   O peration     | Version:  2.0.x                                 |
         ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
         ///|    \\/     M anipulation  |                                                 |
-        ///\*------------------------------ [rest of string was truncated]&quot;;.
+        ///\*------------------------ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Template {
             get {
                 return ResourceManager.GetString("Template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                 |                                                 |
+        ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+        ///|  \\    /   O peration     | Version:  2.0.x                                 |
+        ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+        ///|    \\/     M anipulation  |                                                 |
+        ///\*------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Template1 {
+            get {
+                return ResourceManager.GetString("Template1", resourceCulture);
             }
         }
         

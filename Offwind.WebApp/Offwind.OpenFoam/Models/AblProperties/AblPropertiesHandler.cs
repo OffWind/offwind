@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 using Irony.Parsing;
+using Offwind.OpenFoam.Models.AblProperties;
 using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Parsing;
 

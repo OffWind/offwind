@@ -52,6 +52,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult InputData()
         {
+            ViewBag.Title = "Input Data | Wind Wave | Offwind";
             var m = new VWindWave();
             var d = GetDbModel();
             m.WindSpeed = (decimal) d.Ug;
@@ -82,6 +83,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult PowerOutput()
         {
+            ViewBag.Title = "Power Output | Wind Wave | Offwind";
             return View();
         }
 
@@ -103,6 +105,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult PowerOutputAdvanced()
         {
+            ViewBag.Title = "Power Output Advanced | Wind Wave | Offwind";
             return View();
         }
 

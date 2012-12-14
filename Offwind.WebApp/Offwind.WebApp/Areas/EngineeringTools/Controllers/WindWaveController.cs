@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -49,7 +50,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             base.Initialize(requestContext);
         }
 
-        public ActionResult PowerCalculator()
+        public ActionResult InputData()
         {
             var m = new VWindWave();
             var d = GetDbModel();
@@ -63,9 +64,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         }
 
 
-        [ActionName("PowerCalculator")]
+        [ActionName("InputData")]
         [HttpPost]
-        public ActionResult PowerCalculatorSave(VWindWave m)
+        public ActionResult InputDataSave(VWindWave m)
         {
             var d = GetDbModel();
             d.Ug = (double) m.WindSpeed;
@@ -79,9 +80,45 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return View(m);
         }
 
-        public ActionResult Results()
+        public ActionResult PowerOutput()
         {
             return View();
+        }
+
+        public JsonResult PowerOutputData()
+        {
+            var input = GetDbModel();
+            var calc = new Calculator();
+            calc.Do(input);
+            var arr = calc.PowerOutput.Select(po =>
+                new object[]
+                    {
+                        po.Method,
+                        po.Velocity.ToString ("0.00000000"),
+                        po.Output.ToString ("0.00000000"),
+                        po.Differences.ToString ("0.00000000")
+                    }).ToArray();
+            return Json(arr, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PowerOutputAdvanced()
+        {
+            return View();
+        }
+
+        public JsonResult PowerOutputAdvancedData()
+        {
+            var input = GetDbModel();
+            var calc = new Calculator();
+            calc.Do(input);
+            var arr = calc.AdvancedCfdItems.Select(po =>
+                new object[]
+                    {
+                        po.Method,
+                        po.FrictionVelocity.ToString ("0.00000000"),
+                        po.RoughnessHeight.ToString ("0.00000000")
+                    }).ToArray();
+            return Json(arr, JsonRequestBehavior.AllowGet);
         }
 
         public WindWaveInput CreateProjectModel()

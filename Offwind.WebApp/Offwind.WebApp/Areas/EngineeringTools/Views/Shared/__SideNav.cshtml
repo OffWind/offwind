@@ -48,14 +48,19 @@
             </a>
         </li>
         <li class="nav-header">Wind Wave Power</li>
-        <li @this.ActiveIfCurrent("PowerCalculator", "WindWave", "EngineeringTools")>
-            <a href="@Url.Action("PowerCalculator", "WindWave", new { area = "EngineeringTools" })">
-                <i class="icon-bolt"></i> Power Calculator
+        <li @this.ActiveIfCurrent("InputData", "WindWave", "EngineeringTools")>
+            <a href="@Url.Action("InputData", "WindWave", new { area = "EngineeringTools" })">
+                <i class="icon-bolt"></i> Input Data
             </a>
         </li>
-        <li @this.ActiveIfCurrent("Results", "WindWave", "EngineeringTools")>
-            <a href="@Url.Action("Results", "WindWave", new { area = "EngineeringTools" })">
-                <i class="icon-download"></i> Results
+        <li @this.ActiveIfCurrent("PowerOutput", "WindWave", "EngineeringTools")>
+            <a href="@Url.Action("PowerOutput", "WindWave", new { area = "EngineeringTools" })">
+                <i class="icon-download"></i> Power Output
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("PowerOutputAdvanced", "WindWave", "EngineeringTools")>
+            <a href="@Url.Action("PowerOutputAdvanced", "WindWave", new { area = "EngineeringTools" })">
+                <i class="icon-download"></i> Power Output Adv.
             </a>
         </li>
     </ul>

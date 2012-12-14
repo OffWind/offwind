@@ -21,7 +21,7 @@
     }
         var freqByDir = @(Html.Raw(new JavaScriptSerializer().Serialize(freqByDirs)));
         var meanVelocityByDir = @(Html.Raw(new JavaScriptSerializer().Serialize(meanVelocityByDir)));
-        var plotChart = function(data, target, title) {
+        var plotChart = function(data, target, title, unit) {
             var chart;
 
             // RADAR CHART
@@ -50,39 +50,16 @@
             graph.fillAlphas = 0.4;
             graph.bullet = "round";
             graph.valueField = "value";
-            graph.balloonText = "[[category]]: [[value]] m/s";
+            graph.balloonText = "[[value]] " + unit;
             chart.addGraph(graph);
-
-            // GUIDES
-            // blue fill
-            var guide = new AmCharts.Guide();
-            guide.angle = 225;
-            guide.tickLength = 0;
-            guide.toAngle = 315;
-            guide.value = 0;
-            guide.toValue = 14;
-            guide.fillColor = "#0066CC";
-            guide.fillAlpha = 0.6;
-            valueAxis.addGuide(guide);
-
-            // red fill
-            guide = new AmCharts.Guide();
-            guide.angle = 45;
-            guide.tickLength = 0;
-            guide.toAngle = 135;
-            guide.value = 0;
-            guide.toValue = 14;
-            guide.fillColor = "#CC3333";
-            guide.fillAlpha = 0.6;
-            valueAxis.addGuide(guide);
 
             // WRITE                
             chart.write(target);
         };
 
         AmCharts.ready(function() {
-            plotChart(freqByDir, "frequencyByDir", "Frequency by direction");
-            plotChart(meanVelocityByDir, "meanVelocityByDir", "Mean velocity by direction");
+            plotChart(freqByDir, "frequencyByDir", "Frequency by direction", "%");
+            plotChart(meanVelocityByDir, "meanVelocityByDir", "Mean velocity by direction", "m/s");
         });
     </script>
 }

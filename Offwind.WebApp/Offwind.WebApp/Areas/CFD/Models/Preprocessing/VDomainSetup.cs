@@ -1,6 +1,6 @@
 ﻿namespace Offwind.WebApp.Areas.CFD.Models.Preprocessing
 {
-    public class VAblProperties
+    public class VDomainSetup
     {
         public decimal Length { get; set; }
         public decimal Width { get; set; }

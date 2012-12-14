@@ -64,8 +64,9 @@ namespace Offwind.OpenFoam.Sintef
         {
             var m = new SolverData();
 
-            m.BlockMeshDict.convertToMeters = 1;
-            m.BlockMeshDict.vertices.AddRange(new []
+            var bm = m.BlockMeshDict;
+            bm.convertToMeters = 1;
+            bm.vertices.AddRange(new[]
             {
                 new Vertice(-500, -500, 0),
                 new Vertice(6000, -500, 0),
@@ -77,10 +78,23 @@ namespace Offwind.OpenFoam.Sintef
                 new Vertice(-500, 6000, 1000),
             });
 
-            m.BlockMeshDict.MeshBlocks.vertexNumbers.AddRange(new [] { 0, 1, 2, 3, 4, 5, 6, 7 });
-            m.BlockMeshDict.MeshBlocks.numberOfCells.AddRange(new [] { 100, 100, 30 });
-            m.BlockMeshDict.MeshBlocks.grading = Grading.simpleGrading;
-            m.BlockMeshDict.MeshBlocks.gradingNumbers.AddRange(new [] { 1, 1, 1 });
+            bm.MeshBlocks.vertexNumbers.AddRange(new[] { 0, 1, 2, 3, 4, 5, 6, 7 });
+            bm.MeshBlocks.numberOfCells.AddRange(new[] { 100, 100, 30 });
+            bm.MeshBlocks.grading = Grading.simpleGrading;
+            bm.MeshBlocks.gradingNumbers.AddRange(new[] { 1, 1, 1 });
+
+            var tp = m.TransportProperties;
+            tp.nu = 0.00001m;
+
+            tp.CplcNu0 = 0.000001m;
+            tp.CplcNuInf = 0.000001m;
+            tp.CplcM = 1m;
+            tp.CplcN = 1m;
+
+            tp.BccNu0 = 0.000001m;
+            tp.BccNuInf = 0.000001m;
+            tp.BccM = 0m;
+            tp.BccN = 1m;
             return m;
         }
 

@@ -1,4 +1,4 @@
-﻿@model Offwind.WebApp.Areas.CFD.Models.Preprocessing.VAblProperties
+﻿@model Offwind.WebApp.Areas.CFD.Models.Preprocessing.VDomainSetup
 <form class="form-horizontal" method="post">
     <fieldset>
 
@@ -9,6 +9,11 @@
         @Html.EditorFor(m => m.GridX)
         @Html.EditorFor(m => m.GridY)
         @Html.EditorFor(m => m.GridZ)
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn">Cancel</button>
+        </div>
 
     </fieldset>
 </form>

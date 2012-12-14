@@ -4,9 +4,9 @@
         
         <!--...................................-->
         <li class="nav-header">Pre-processing</li>
-        <li @this.ActiveIfCurrent("AblProperties", "Preprocessing", "CFD")>
-            <a href="@Url.Action("AblProperties", "Preprocessing", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> ABL Properties
+        <li @this.ActiveIfCurrent("DomainSetup", "Preprocessing", "CFD")>
+            <a href="@Url.Action("DomainSetup", "Preprocessing", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Domain Setup
             </a>
         </li>
         <li @this.ActiveIfCurrent("TransportProperties", "Preprocessing", "CFD")>

@@ -13,12 +13,12 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             SectionTitle = "Pre-processing";
         }
 
-        public ActionResult AblProperties()
+        public ActionResult DomainSetup()
         {
-            Title = "Atmospheric Boundary Layer (ABL) Setup";
-            ShortTitle = "ABL Properties";
+            Title = "Domain Setup";
+            ShortTitle = "Domain Setup";
 
-            var m = new VAblProperties();
+            var m = new VDomainSetup();
             var sd = GetSolverData();
             m.Width = sd.BlockMeshDict.vertices[1].X;
             m.Length = sd.BlockMeshDict.vertices[2].Y;
@@ -31,7 +31,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             return View(m);
         }
 
-        public JsonResult AblPropertiesSave(VAblProperties m)
+        [ActionName("DomainSetup")]
+        [HttpPost]
+        public JsonResult DomainSetupSave(VDomainSetup m)
         {
             var sd = GetSolverData();
             sd.BlockMeshDict.vertices[1].X = m.Width;
@@ -72,21 +74,40 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var m = new VTransportProperties();
             var sd = GetSolverData();
             var d = sd.TransportProperties;
-            m.BetaM = d.betaM;
-            m.BetaSurfaceStress = d.betaSurfaceStress;
-            m.DeltaLESCoeff = d.deltaLESCoeff;
-            m.GammM = d.gammM;
-            m.LESModel = d.LESModel;
             m.MolecularViscosity = d.nu;
-            m.RoughnessHeight = d.z0;
-            m.SmagorinskyConstant = d.Cs;
-            m.SurfaceStressModel = d.surfaceStressModel;
-            m.SurfaceTemperatureFlux = d.q0;
-            m.TRef = d.TRef;
-            m.TransportModel = d.transportModel;
-            m.VonKarmanConstant = d.kappa;
+
+            m.CplcNu0 = d.CplcNu0;
+            m.CplcNuInf = d.CplcNuInf;
+            m.CplcM = d.CplcM;
+            m.CplcN = d.CplcN;
+
+            m.BccNu0 = d.BccNu0;
+            m.BccNuInf = d.BccNuInf;
+            m.BccM = d.BccM;
+            m.BccN = d.BccN;
 
             return View(m);
+        }
+
+        [ActionName("TransportProperties")]
+        [HttpPost]
+        public JsonResult TransportPropertiesSave(VTransportProperties m)
+        {
+            var sd = GetSolverData();
+            var d = sd.TransportProperties;
+            d.nu = m.MolecularViscosity;
+            d.CplcNu0 = m.CplcNu0;
+            d.CplcNuInf = m.CplcNuInf;
+            d.CplcM = m.CplcM;
+            d.CplcN = m.CplcN;
+
+            d.BccNu0 = m.BccNu0;
+            d.BccNuInf = m.BccNuInf;
+            d.BccM = m.BccM;
+            d.BccN = m.BccN;
+
+            SetSolverData(sd);
+            return Json("OK");
         }
     }
 }

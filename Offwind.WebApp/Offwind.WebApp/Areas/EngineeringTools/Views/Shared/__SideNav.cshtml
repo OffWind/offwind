@@ -32,9 +32,9 @@
                 <i class="icon-cog"></i> General Properties
             </a>
         </li>
-        <li @this.ActiveIfCurrent("TurbineProperties", "WakeSimulation", "EngineeringTools")>
-            <a href="@Url.Action("TurbineProperties", "WakeSimulation", new { area = "EngineeringTools" })">
-                <i class="icon-cog"></i> Turbine Properties
+        <li @this.ActiveIfCurrent("TurbineCoordinates", "WakeSimulation", "EngineeringTools")>
+            <a href="@Url.Action("TurbineCoordinates", "WakeSimulation", new { area = "EngineeringTools" })">
+                <i class="icon-cog"></i> Turbine Coordinates
             </a>
         </li>
         <li @this.ActiveIfCurrent("Simulation", "WakeSimulation", "EngineeringTools")>

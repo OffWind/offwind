@@ -8,9 +8,9 @@
 <div class="span9">
     <ul class="breadcrumb">
         <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
-        <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
-        <li><a href="@Url.Action("GeneralProperties", "WakeSimulation", new { area = "EngineeringTools" })">Wake Simulation</a> <span class="divider">/</span></li>
-        <li class="active">Turbine Properties</li>
+        <li>Engineering Tools <span class="divider">/</span></li>
+        <li>Wake Simulation <span class="divider">/</span></li>
+        <li>Turbine Coordinates</li>
     </ul>
     <div id="example1"></div>
 </div>
@@ -31,7 +31,7 @@
                 if (!isInitialized) return;
                 var d = $container.data('handsontable').getData();
                 $.ajax({
-                    url: "@Url.Action("TurbinePropertiesSave", "WakeSimulation", new { area = "EngineeringTools" })",
+                    url: "@Url.Action("TurbineCoordinatesSave", "WakeSimulation", new { area = "EngineeringTools" })",
                     dataType: "json",
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',
@@ -44,12 +44,13 @@
                 startCols: 2,
                 columns: [{ type: { renderer: renderer} }, { type: { renderer: renderer} }],
                 colHeaders: ["<b>X</b>", "<b>Y</b>"],
+                rowHeaders: true,
                 minSpareRows: 1,
                 onChange: changed
             });
 
             $.ajax({
-                url: "@Url.Action("TurbinePropertiesData", "WakeSimulation", new { area = "EngineeringTools" })",
+                url: "@Url.Action("TurbineCoordinatesData", "WakeSimulation", new { area = "EngineeringTools" })",
                 dataType: 'json',
                 type: 'GET',
                 success: function (res) {

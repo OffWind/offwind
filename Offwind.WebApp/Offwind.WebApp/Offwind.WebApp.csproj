@@ -193,7 +193,7 @@
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\VWindRose.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VGeneralProperties.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VTurbine.cs" />
-    <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VTurbineProperties.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VTurbineCoordinates.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WindWave\Computations\AdvancedCfd.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WindWave\Computations\Calculator.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WindWave\Computations\WindWaveInput.cs" />
@@ -326,7 +326,7 @@
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\Index.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\Simulation.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\GeneralProperties.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\WakeSimulation\TurbineProperties.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\WakeSimulation\TurbineCoordinates.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WindWave\PowerOutput.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\Results.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\PostProcessing.cshtml" />

@@ -2,11 +2,11 @@
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation
 {
-    public class VTurbineProperties
+    public class VTurbineCoordinates
     {
         public List<VTurbine> Turbines { get; set; }
 
-        public VTurbineProperties()
+        public VTurbineCoordinates()
         {
             Turbines = new List<VTurbine>();
         }

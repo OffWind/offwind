@@ -40,20 +40,20 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return View(model);
         }
 
-        public ActionResult TurbineProperties()
+        public ActionResult TurbineCoordinates()
         {
             ViewBag.Title = "Turbine Properties | WakeSim | Offwind";
             return View();
         }
 
-        public JsonResult TurbinePropertiesData()
+        public JsonResult TurbineCoordinatesData()
         {
             var model = GetModelTurbines();
             var arr = model.Turbines.Select(t => new[] {t.X, t.Y}).ToArray();
             return Json(arr, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult TurbinePropertiesSave(List<decimal[]> turbines)
+        public JsonResult TurbineCoordinatesSave(List<decimal[]> turbines)
         {
             if (turbines == null) return Json("Bad model");
             var model = GetModelTurbines();
@@ -158,18 +158,18 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return model;
         }
 
-        private VTurbineProperties GetModelTurbines()
+        private VTurbineCoordinates GetModelTurbines()
         {
-            VTurbineProperties model = null;
-            if (Session["TurbineProperties"] != null)
+            VTurbineCoordinates model = null;
+            if (Session["TurbineCoordinates"] != null)
             {
-                model = Session["TurbineProperties"] as VTurbineProperties;
+                model = Session["TurbineCoordinates"] as VTurbineCoordinates;
             }
             if (model == null)
             {
-                model = new VTurbineProperties();
+                model = new VTurbineCoordinates();
                 InitTurbuneProperties(model);
-                Session["TurbineProperties"] = model;
+                Session["TurbineCoordinates"] = model;
             }
             return model;
         }
@@ -188,7 +188,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             m.RotationAngle = -48.4m;
         }
 
-        private void InitTurbuneProperties(VTurbineProperties m)
+        private void InitTurbuneProperties(VTurbineCoordinates m)
         {
             m.Turbines.AddRange(new[]
                              {

@@ -3,7 +3,7 @@
     public sealed class TransportPropertiesData
     {
         public TransportModel transportModel { get; set; }
-        public decimal nu { get; set; }
+        public decimal MolecularViscosity { get; set; }
 
         // SOWFA Transport Properties
         public decimal TRef { get; set; }

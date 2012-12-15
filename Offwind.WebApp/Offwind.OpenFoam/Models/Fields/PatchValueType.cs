@@ -1,4 +1,4 @@
-﻿namespace Offwind.Products.OpenFoam.Models
+﻿namespace Offwind.OpenFoam.Models.Fields
 {
     public enum PatchValueType
     {

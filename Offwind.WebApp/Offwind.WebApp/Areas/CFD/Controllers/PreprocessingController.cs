@@ -2,6 +2,10 @@
 using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
+using AutoMapper;
+using Offwind.OpenFoam.Models.Fields;
+using Offwind.Sowfa.Constant.TransportProperties;
+using Offwind.WebApp.Areas.CFD.Models.BoundaryConditions;
 using Offwind.WebApp.Areas.CFD.Models.Preprocessing;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
@@ -11,6 +15,8 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public PreprocessingController()
         {
             SectionTitle = "Pre-processing";
+            Mapper.CreateMap<VTransportProperties, TransportPropertiesData>();
+            Mapper.CreateMap<TransportPropertiesData, VTransportProperties>();
         }
 
         public ActionResult DomainSetup()
@@ -73,19 +79,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ShortTitle = "Transport Properties";
             var m = new VTransportProperties();
             var sd = GetSolverData();
-            var d = sd.TransportProperties;
-            m.MolecularViscosity = d.nu;
-
-            m.CplcNu0 = d.CplcNu0;
-            m.CplcNuInf = d.CplcNuInf;
-            m.CplcM = d.CplcM;
-            m.CplcN = d.CplcN;
-
-            m.BccNu0 = d.BccNu0;
-            m.BccNuInf = d.BccNuInf;
-            m.BccM = d.BccM;
-            m.BccN = d.BccN;
-
+            Mapper.Map(sd.TransportProperties, m);
             return View(m);
         }
 
@@ -94,18 +88,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public JsonResult TransportPropertiesSave(VTransportProperties m)
         {
             var sd = GetSolverData();
-            var d = sd.TransportProperties;
-            d.nu = m.MolecularViscosity;
-            d.CplcNu0 = m.CplcNu0;
-            d.CplcNuInf = m.CplcNuInf;
-            d.CplcM = m.CplcM;
-            d.CplcN = m.CplcN;
-
-            d.BccNu0 = m.BccNu0;
-            d.BccNuInf = m.BccNuInf;
-            d.BccM = m.BccM;
-            d.BccN = m.BccN;
-
+            Mapper.Map(m, sd.TransportProperties);
             SetSolverData(sd);
             return Json("OK");
         }

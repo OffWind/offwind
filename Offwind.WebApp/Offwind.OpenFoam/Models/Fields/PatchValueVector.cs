@@ -1,9 +1,6 @@
-﻿using Offwind.OpenFoam.Models.Fields;
-using Offwind.Products.OpenFoam.Models;
-
-namespace Offwind.WebApp.Areas.CFD.Models.BoundaryConditions
+﻿namespace Offwind.OpenFoam.Models.Fields
 {
-    public class VFieldVectorValue
+    public class PatchValueVector
     {
         public PatchValueType Type { get; set; }
         public decimal Value1 { get; set; }

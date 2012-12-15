@@ -36,7 +36,7 @@ namespace Offwind.Sowfa.Constant.TransportProperties
                         rawData.transportModel = rootEntryNode.GetBasicValEnum<TransportModel>();
                         break;
                     case "nu":
-                        rawData.nu = rootEntryNode.GetDimVal().ScalarValue;
+                        rawData.MolecularViscosity = rootEntryNode.GetDimVal().ScalarValue;
                         break;
                     case "TRef":
                         rawData.TRef = rootEntryNode.GetDimVal().ScalarValue;
@@ -81,7 +81,7 @@ namespace Offwind.Sowfa.Constant.TransportProperties
             var d = (TransportPropertiesData)data;
             var t = new StringBuilder(TransportPropertiesRes.Template);
             t.Replace("({[[transportModel]]})", d.transportModel.ToString());
-            t.Replace("({[[nu]]})", d.nu.ToString());
+            t.Replace("({[[nu]]})", d.MolecularViscosity.ToString());
             t.Replace("({[[TRef]]})", d.TRef.ToString());
             t.Replace("({[[LESModel]]})", d.LESModel.ToString());
             t.Replace("({[[Cs]]})", d.Cs.ToString());

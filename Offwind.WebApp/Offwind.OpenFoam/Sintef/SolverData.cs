@@ -3,7 +3,9 @@ using System.IO;
 using Offwind.OpenFoam.Models.Fields;
 using Offwind.OpenFoam.Models.RasProperties;
 using Offwind.OpenFoam.Models.TurbulenceModels;
+using Offwind.OpenFoam.Sintef.BoundaryFields;
 using Offwind.Products.OpenFoam.Models;
+using Offwind.Products.OpenFoam.Models.Fields;
 using Offwind.Products.OpenFoam.Models.PolyMesh;
 using Offwind.Sowfa.Constant.AblProperties;
 using Offwind.Sowfa.Constant.AirfoilProperties;
@@ -19,7 +21,7 @@ namespace Offwind.OpenFoam.Sintef
         public string DefaultArchName = Path.Combine(Path.GetTempPath(), "solver.zip");
 
         public BoundaryField FieldEpsilon { get; set; }
-        public BoundaryField FieldK { get; set; }
+        public FieldK FieldK { get; set; }
         public BoundaryField FieldNut { get; set; }
         public BoundaryField FieldP { get; set; }
         public BoundaryField FieldR { get; set; }
@@ -42,7 +44,7 @@ namespace Offwind.OpenFoam.Sintef
         public SolverData()
         {
             FieldEpsilon = new BoundaryField();
-            FieldK = new BoundaryField();
+            FieldK = new FieldK();
             FieldNut = new BoundaryField();
             FieldP = new BoundaryField();
             FieldR = new BoundaryField();
@@ -64,27 +66,37 @@ namespace Offwind.OpenFoam.Sintef
         {
             var m = new SolverData();
 
-            var bm = m.BlockMeshDict;
+            InitBlockMeshDict(m.BlockMeshDict);
+            InitTransportProperties(m.TransportProperties);
+            InitFieldK(m.FieldK);
+
+            return m;
+        }
+
+        private static void InitBlockMeshDict(BlockMeshDictData bm)
+        {
             bm.convertToMeters = 1;
             bm.vertices.AddRange(new[]
-            {
-                new Vertice(-500, -500, 0),
-                new Vertice(6000, -500, 0),
-                new Vertice(6000, 6000, 0),
-                new Vertice(-500, 6000, 0),
-                new Vertice(-500, -500, 1000),
-                new Vertice(6000, -500, 1000),
-                new Vertice(6000, 6000, 1000),
-                new Vertice(-500, 6000, 1000),
-            });
+                                     {
+                                         new Vertice(-500, -500, 0),
+                                         new Vertice(6000, -500, 0),
+                                         new Vertice(6000, 6000, 0),
+                                         new Vertice(-500, 6000, 0),
+                                         new Vertice(-500, -500, 1000),
+                                         new Vertice(6000, -500, 1000),
+                                         new Vertice(6000, 6000, 1000),
+                                         new Vertice(-500, 6000, 1000),
+                                     });
 
-            bm.MeshBlocks.vertexNumbers.AddRange(new[] { 0, 1, 2, 3, 4, 5, 6, 7 });
-            bm.MeshBlocks.numberOfCells.AddRange(new[] { 100, 100, 30 });
+            bm.MeshBlocks.vertexNumbers.AddRange(new[] {0, 1, 2, 3, 4, 5, 6, 7});
+            bm.MeshBlocks.numberOfCells.AddRange(new[] {100, 100, 30});
             bm.MeshBlocks.grading = Grading.simpleGrading;
-            bm.MeshBlocks.gradingNumbers.AddRange(new[] { 1, 1, 1 });
+            bm.MeshBlocks.gradingNumbers.AddRange(new[] {1, 1, 1});
+        }
 
-            var tp = m.TransportProperties;
-            tp.nu = 0.00001m;
+        private static void InitTransportProperties(TransportPropertiesData tp)
+        {
+            tp.MolecularViscosity = 0.00001m;
 
             tp.CplcNu0 = 0.000001m;
             tp.CplcNuInf = 0.000001m;
@@ -95,7 +107,29 @@ namespace Offwind.OpenFoam.Sintef
             tp.BccNuInf = 0.000001m;
             tp.BccM = 0m;
             tp.BccN = 1m;
-            return m;
+        }
+
+        private static void InitFieldK(FieldK f)
+        {
+            f.BottomType = PatchType.kqRWallFunction;
+            f.BottomValue.Type = PatchValueType.Uniform;
+            f.BottomValue.Value = 1.5m;
+
+            f.TopType = PatchType.kqRWallFunction;
+            f.TopValue.Type = PatchValueType.Uniform;
+            f.TopValue.Value = 1.5m;
+
+            f.WestType = PatchType.fixedValue;
+            f.WestValue.Type = PatchValueType.Uniform;
+            f.WestValue.Value = 1.5m;
+
+            f.EastType = PatchType.zeroGradient;
+
+            f.NorthType = PatchType.zeroGradient;
+
+            f.SouthType = PatchType.fixedValue;
+            f.SouthValue.Type = PatchValueType.Uniform;
+            f.SouthValue.Value = 1.5m;
         }
 
         public string MakeFS()

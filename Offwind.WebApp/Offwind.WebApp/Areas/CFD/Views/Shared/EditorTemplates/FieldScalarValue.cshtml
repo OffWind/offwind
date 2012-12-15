@@ -1,5 +1,4 @@
-﻿@using Offwind.Products.OpenFoam.Models
-@model Offwind.WebApp.Areas.CFD.Models.BoundaryConditions.VFieldVectorValue
+﻿@model Offwind.WebApp.Areas.CFD.Models.BoundaryConditions.VFieldScalarValue
 @{
     var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
     var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
@@ -24,8 +23,6 @@
         </select>
 *@
         <span>@Model.Type.ToString()</span>
-        <input type="text" class="input-mini inputmask decimal" id="@(fieldName + "." + "Value1")" name="@(fieldName + "." + "Value1")" placeholder="0.0" value="@Model.Value1"/>
-        <input type="text" class="input-mini inputmask decimal" id="@(fieldName + "." + "Value2")" name="@(fieldName + "." + "Value2")" placeholder="0.0" value="@Model.Value2"/>
-        <input type="text" class="input-mini inputmask decimal" id="@(fieldName + "." + "Value3")" name="@(fieldName + "." + "Value3")" placeholder="0.0" value="@Model.Value3"/>
+        <input type="text" class="input-mini inputmask decimal" id="@fieldName" name="@fieldName" placeholder="0.0" value="@Model.Value"/>
     </div>
 </div>

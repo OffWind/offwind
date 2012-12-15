@@ -1,10 +1,14 @@
-﻿using Offwind.Products.OpenFoam.Models;
+﻿using System.ComponentModel;
+using Offwind.OpenFoam.Models.Fields;
 
 namespace Offwind.WebApp.Areas.CFD.Models.BoundaryConditions
 {
     public struct VFieldScalarValue
     {
-        private PatchValueType Type { get; set; }
+        [DisplayName("type")]
+        public PatchValueType Type { get; set; }
+
+        [DisplayName("value")]
         public decimal Value { get; set; }
     }
 }

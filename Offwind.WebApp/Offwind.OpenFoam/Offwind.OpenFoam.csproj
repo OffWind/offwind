@@ -71,11 +71,13 @@
     <Compile Include="Models\DimensionedValue.cs" />
     <Compile Include="Models\Dimensions.cs" />
     <Compile Include="Models\Fields\BoundaryField.cs" />
+    <Compile Include="Models\Fields\PatchValueScalar.cs" />
     <Compile Include="Models\Fields\FieldClass.cs" />
     <Compile Include="Models\Fields\FieldType.cs" />
     <Compile Include="Models\Fields\Patch.cs" />
     <Compile Include="Models\Fields\PatchType.cs" />
     <Compile Include="Models\Fields\PatchValue.cs" />
+    <Compile Include="Models\Fields\PatchValueVector.cs" />
     <Compile Include="Models\FileHeader.cs" />
     <Compile Include="Models\FoamFileHandler.cs" />
     <Compile Include="Models\Format.cs" />
@@ -146,7 +148,7 @@
     <Compile Include="Models\TensorField.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Models\Validator.cs" />
-    <Compile Include="Models\PatchValueType.cs" />
+    <Compile Include="Models\Fields\PatchValueType.cs" />
     <Compile Include="Models\Vertice.cs" />
     <Compile Include="Models\VRealPoint.cs" />
     <Compile Include="Models\VVector.cs" />
@@ -155,6 +157,7 @@
     <Compile Include="Parsing\OpenFoamGrammar.cs" />
     <Compile Include="Parsing\ParserTreeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sintef\BoundaryFields\FieldK.cs" />
     <Compile Include="Sintef\ProcessingSettings.cs" />
     <Compile Include="Sintef\SolverData.cs" />
   </ItemGroup>

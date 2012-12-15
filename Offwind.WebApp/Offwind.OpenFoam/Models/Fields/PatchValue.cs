@@ -1,4 +1,6 @@
-﻿namespace Offwind.Products.OpenFoam.Models.Fields
+﻿using Offwind.OpenFoam.Models.Fields;
+
+namespace Offwind.Products.OpenFoam.Models.Fields
 {
     public sealed class PatchValue
     {

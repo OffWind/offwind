@@ -8,23 +8,28 @@
 @if (Model is Enum)
 {
     var enumType = Model.GetType();
-    <div class="controls">
-        <select>
-            
-        @foreach (var t in Enum.GetNames(enumType))
+    Output.Write("<div class=\"controls\">");
+    if (ViewData.ModelMetadata.IsReadOnly)
+    {
+        Output.Write("<select disabled=\"\">");
+    }
+    else
+    {
+        Output.Write("<select>");
+    }
+    foreach (var t in Enum.GetNames(enumType))
+    {
+        if (t == Model.ToString())
         {
-            if (t == Model.ToString())
-            {
-                <option value="@t" selected="@t">@t</option>
-            }
-            else
-            {
-                <option value="@t">@t</option>
-            }
+            <option value="@t" selected="@t">@t</option>
         }
-        </select>
-        @*<input type="text" class="" id="@fieldName" name="@fieldName" placeholder="0.0" value="@Model"/>*@
-    </div>
+        else
+        {
+            <option value="@t">@t</option>
+        }
+    }
+    Output.Write("</select>");
+    Output.Write("</div>");
 }
 else
 {

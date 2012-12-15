@@ -1,6 +1,6 @@
 ﻿namespace Offwind.Products.OpenFoam.Models
 {
-    public enum ValueType
+    public enum PatchValueType
     {
         Uniform,
         NonUniform

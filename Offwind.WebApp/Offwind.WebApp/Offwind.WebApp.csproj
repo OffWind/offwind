@@ -179,6 +179,16 @@
     <Compile Include="Areas\CFD\Controllers\ProcessingController.cs" />
     <Compile Include="Areas\CFD\Controllers\SystemControlsController.cs" />
     <Compile Include="Areas\CFD\Controllers\TurbinesController.cs" />
+    <Compile Include="Areas\CFD\Models\BoundaryConditions\FieldVectorValueBinder.cs" />
+    <Compile Include="Areas\CFD\Models\BoundaryConditions\VAtmBoundaryLayerInletVelocity.cs" />
+    <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldVectorValue.cs" />
+    <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldEpsilon.cs" />
+    <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldK.cs" />
+    <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldNut.cs" />
+    <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldP.cs" />
+    <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldR.cs" />
+    <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldScalarValue.cs" />
+    <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldU.cs" />
     <Compile Include="Areas\CFD\Models\Preprocessing\VDomainSetup.cs" />
     <Compile Include="Areas\CFD\Models\Preprocessing\VTransportProperties.cs" />
     <Compile Include="Areas\CFD\Models\SystemControls\VControlDict.cs" />
@@ -302,7 +312,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\CFD\Models\BoundaryConditions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -430,6 +439,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindWave\PowerOutputAdvanced.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\Shared\EditorTemplates\FieldVectorValue.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\Shared\EditorTemplates\FieldPatchType.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\Shared\EditorTemplates\FieldDecimal.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\Shared\EditorTemplates\FieldString.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\Shared\EditorTemplates\FieldInt32.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

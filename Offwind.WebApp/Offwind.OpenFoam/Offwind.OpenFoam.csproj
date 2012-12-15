@@ -146,7 +146,7 @@
     <Compile Include="Models\TensorField.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Models\Validator.cs" />
-    <Compile Include="Models\ValueType.cs" />
+    <Compile Include="Models\PatchValueType.cs" />
     <Compile Include="Models\Vertice.cs" />
     <Compile Include="Models\VRealPoint.cs" />
     <Compile Include="Models\VVector.cs" />

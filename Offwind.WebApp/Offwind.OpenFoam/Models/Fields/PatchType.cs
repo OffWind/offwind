@@ -16,5 +16,11 @@
         fixedGradient,
         fixedValue,
         slip,
+
+        kqRWallFunction,
+        nutkWallFunction,
+        calculated,
+        epsilonWallFunction,
+        atmBoundaryLayerInletVelocity,
     }
 }

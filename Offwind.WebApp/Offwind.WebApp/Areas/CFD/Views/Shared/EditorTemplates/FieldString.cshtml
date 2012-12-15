@@ -4,7 +4,7 @@
     var fieldName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
 }
 <div class="control-group">
-    <label class="control-label" for="@fieldName">@fieldName <i class="icon-question-sign"></i></label>
+    <label class="control-label indent" for="@fieldName">@fieldName <i class="icon-question-sign"></i></label>
 @if (Model is Enum)
 {
     <div class="controls">

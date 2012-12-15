@@ -11,7 +11,7 @@
     }
 </script>
 *@
-@{var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;}
+@{var fieldName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;}
 <div class="control-group">
     <label class="control-label" for="@fieldName">@fieldName <i class="icon-question-sign"></i></label>
     <div class="controls">

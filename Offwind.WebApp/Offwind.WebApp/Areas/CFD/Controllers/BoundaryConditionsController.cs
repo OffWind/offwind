@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Offwind.WebApp.Areas.CFD.Models.BoundaryConditions;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
@@ -45,7 +46,15 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult FieldU()
         {
             ShortTitle = "U";
-            return View();
+            return View(new VFieldU());
+        }
+
+        [ActionName("FieldU")]
+        [HttpPost]
+        public ActionResult FieldUSave(VFieldU m)
+        {
+            ShortTitle = "U";
+            return View(m);
         }
     }
 }

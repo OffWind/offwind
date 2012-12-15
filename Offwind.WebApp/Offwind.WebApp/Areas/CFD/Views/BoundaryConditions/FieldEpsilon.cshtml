@@ -1,1 +1,20 @@
-﻿
+﻿@model Offwind.WebApp.Areas.CFD.Models.BoundaryConditions.VFieldEpsilon
+<form class="form-horizontal" method="post">
+    <fieldset>
+        @Html.EditorFor(m => m.InternalField)
+
+        @Html.EditorFor(m => m.Width)
+        @Html.EditorFor(m => m.Length)
+        @Html.EditorFor(m => m.Height)
+
+        @Html.EditorFor(m => m.GridX)
+        @Html.EditorFor(m => m.GridY)
+        @Html.EditorFor(m => m.GridZ)
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn">Cancel</button>
+        </div>
+
+    </fieldset>
+</form>

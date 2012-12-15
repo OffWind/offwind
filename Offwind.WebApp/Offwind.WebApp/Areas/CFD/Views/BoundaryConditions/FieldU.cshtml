@@ -1,1 +1,22 @@
-﻿
+﻿@model Offwind.WebApp.Areas.CFD.Models.BoundaryConditions.VFieldU
+<form class="form-horizontal" method="post">
+    <fieldset>
+        @Html.EditorFor(m => m.InternalField, "FieldVectorValue")
+
+        @Html.EditorFor(m => m.BottomType)
+        @Html.EditorFor(m => m.BottomValue, "FieldVectorValue")
+
+        @Html.EditorFor(m => m.TopType)
+        
+        @Html.EditorFor(m => m.WestType)
+        @Html.EditorFor(m => m.EastType)
+        @Html.EditorFor(m => m.NorthType)
+        @Html.EditorFor(m => m.SouthType)
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn">Cancel</button>
+        </div>
+
+    </fieldset>
+</form>

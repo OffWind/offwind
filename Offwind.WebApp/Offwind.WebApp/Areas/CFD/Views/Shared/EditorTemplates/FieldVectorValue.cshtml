@@ -1,0 +1,10 @@
+﻿@model Offwind.WebApp.Areas.CFD.Models.BoundaryConditions.VFieldVectorValue
+@{var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;}
+<div class="control-group">
+    <label class="control-label indent" for="@fieldName">@fieldName <i class="icon-question-sign"></i></label>
+    <div class="controls">
+        <input type="text" class="input-mini inputmask decimal" id="@(fieldName + "." + "Value1")" name="@(fieldName + "." + "Value1")" placeholder="0.0" value="@Model.Value1"/>
+        <input type="text" class="input-mini inputmask decimal" id="@(fieldName + "." + "Value2")" name="@(fieldName + "." + "Value2")" placeholder="0.0" value="@Model.Value2"/>
+        <input type="text" class="input-mini inputmask decimal" id="@(fieldName + "." + "Value3")" name="@(fieldName + "." + "Value3")" placeholder="0.0" value="@Model.Value3"/>
+    </div>
+</div>

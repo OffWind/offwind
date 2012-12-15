@@ -11,7 +11,7 @@
     Output.Write("<div class=\"controls\">");
     if (ViewData.ModelMetadata.IsReadOnly)
     {
-        Output.Write("<select disabled=\"\">");
+        Output.Write("<select disabled=\"\" id=\"{0}\">", fieldName);
     }
     else
     {

@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
-using AutoMapper;
+using EmitMapper;
 using Offwind.OpenFoam.Models.Fields;
+using Offwind.OpenFoam.Sintef.BoundaryFields;
 using Offwind.Sowfa.Constant.TransportProperties;
 using Offwind.WebApp.Areas.CFD.Models.BoundaryConditions;
 using Offwind.WebApp.Areas.CFD.Models.Preprocessing;
@@ -15,8 +16,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public PreprocessingController()
         {
             SectionTitle = "Pre-processing";
-            Mapper.CreateMap<VTransportProperties, TransportPropertiesData>();
-            Mapper.CreateMap<TransportPropertiesData, VTransportProperties>();
         }
 
         public ActionResult DomainSetup()
@@ -79,7 +78,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ShortTitle = "Transport Properties";
             var m = new VTransportProperties();
             var sd = GetSolverData();
-            Mapper.Map(sd.TransportProperties, m);
+            ObjectMapperManager.DefaultInstance.GetMapper<TransportPropertiesData, VTransportProperties>().Map(sd.TransportProperties, m);
             return View(m);
         }
 
@@ -88,7 +87,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public JsonResult TransportPropertiesSave(VTransportProperties m)
         {
             var sd = GetSolverData();
-            Mapper.Map(m, sd.TransportProperties);
+            ObjectMapperManager.DefaultInstance.GetMapper<VTransportProperties, TransportPropertiesData>().Map(m, sd.TransportProperties);
             SetSolverData(sd);
             return Json("OK");
         }

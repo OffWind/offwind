@@ -23,6 +23,6 @@
         </select>
 *@
         <span>@Model.Type.ToString()</span>
-        <input type="text" class="input-mini inputmask decimal" id="@fieldName" name="@fieldName" placeholder="0.0" value="@Model.Value"/>
+        <input type="text" class="input-mini inputmask decimal" id="@(fieldName + "." + "Value")" name="@(fieldName + "." + "Value")" placeholder="0.0" value="@Model.Value"/>
     </div>
 </div>

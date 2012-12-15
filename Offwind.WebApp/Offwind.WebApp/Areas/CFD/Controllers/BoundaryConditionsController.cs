@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using System.Web.Mvc;
+using EmitMapper;
 using Offwind.OpenFoam.Models.Fields;
+using Offwind.OpenFoam.Sintef;
 using Offwind.OpenFoam.Sintef.BoundaryFields;
-using Offwind.Products.OpenFoam.Models.Fields;
 using Offwind.WebApp.Areas.CFD.Models.BoundaryConditions;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
@@ -15,12 +11,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
     {
         public BoundaryConditionsController()
         {
-            Mapper.CreateMap<PatchValueScalar, VFieldScalarValue>();
-            Mapper.CreateMap<VFieldScalarValue, PatchValueScalar>();
-
-            Mapper.CreateMap<FieldK, VFieldK>();
-            Mapper.CreateMap<VFieldK, FieldK>();
-
             SectionTitle = "Boundary Conditions";
         }
 
@@ -33,8 +23,21 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "k";
             var m = new VFieldK();
-            var sd = GetSolverData();
-            Mapper.Map(sd.FieldK, m);
+            SolverData sd = GetSolverData();
+            ObjectMapperManager.DefaultInstance.GetMapper<FieldK, VFieldK>().Map(sd.FieldK, m);
+            return View(m);
+        }
+
+
+        [ActionName("FieldK")]
+        [HttpPost]
+        public ActionResult FieldKSave(VFieldK m)
+        {
+            ShortTitle = "k";
+            SolverData sd = GetSolverData();
+            ObjectMapperManager.DefaultInstance.GetMapper<VFieldK, FieldK>().Map(m, sd.FieldK);
+            SetSolverData(sd);
+            if (Request.IsAjaxRequest()) return Json("OK");
             return View(m);
         }
 
@@ -42,8 +45,20 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "epsilon";
             var m = new VFieldEpsilon();
-            var sd = GetSolverData();
-            Mapper.Map(m, sd.FieldK);
+            SolverData sd = GetSolverData();
+            //ObjectMapperManager.DefaultInstance.GetMapper<VFieldEpsilon, BoundaryField>().Map(m, sd.FieldEpsilon);
+            return View(m);
+        }
+
+        [ActionName("FieldEpsilon")]
+        [HttpPost]
+        public ActionResult FieldEpsilonSave(VFieldEpsilon m)
+        {
+            ShortTitle = "epsilon";
+            SolverData sd = GetSolverData();
+            //Mapper.Map(m, sd.FieldEpsilon);
+            SetSolverData(sd);
+            if (Request.IsAjaxRequest()) return Json("OK");
             return View(m);
         }
 
@@ -51,6 +66,20 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "p";
             var m = new VFieldP();
+            SolverData sd = GetSolverData();
+            //Mapper.Map(sd.FieldP, m);
+            return View(m);
+        }
+
+        [ActionName("FieldP")]
+        [HttpPost]
+        public ActionResult FieldPSave(VFieldP m)
+        {
+            ShortTitle = "p";
+            SolverData sd = GetSolverData();
+            //Mapper.Map(m, sd.FieldP);
+            SetSolverData(sd);
+            if (Request.IsAjaxRequest()) return Json("OK");
             return View(m);
         }
 
@@ -58,6 +87,20 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "R";
             var m = new VFieldR();
+            SolverData sd = GetSolverData();
+            //Mapper.Map(sd.FieldR, m);
+            return View(m);
+        }
+
+        [ActionName("FieldR")]
+        [HttpPost]
+        public ActionResult FieldRSave(VFieldR m)
+        {
+            ShortTitle = "R";
+            SolverData sd = GetSolverData();
+            //Mapper.Map(m, sd.FieldR);
+            SetSolverData(sd);
+            if (Request.IsAjaxRequest()) return Json("OK");
             return View(m);
         }
 
@@ -65,7 +108,8 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "U";
             var m = new VFieldU();
-            m.BottomType = PatchType.cyclic;
+            SolverData sd = GetSolverData();
+            //Mapper.Map(sd.FieldU, m);
             return View(m);
         }
 
@@ -74,6 +118,10 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult FieldUSave(VFieldU m)
         {
             ShortTitle = "U";
+            SolverData sd = GetSolverData();
+            //Mapper.Map(m, sd.FieldU);
+            SetSolverData(sd);
+            if (Request.IsAjaxRequest()) return Json("OK");
             return View(m);
         }
     }

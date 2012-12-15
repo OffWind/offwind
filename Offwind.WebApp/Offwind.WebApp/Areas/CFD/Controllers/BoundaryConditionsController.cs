@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Offwind.Products.OpenFoam.Models.Fields;
 using Offwind.WebApp.Areas.CFD.Models.BoundaryConditions;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
@@ -46,7 +47,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult FieldU()
         {
             ShortTitle = "U";
-            return View(new VFieldU());
+            var m = new VFieldU();
+            m.BottomType = PatchType.cyclic;
+            return View(m);
         }
 
         [ActionName("FieldU")]

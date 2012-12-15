@@ -7,8 +7,23 @@
     <label class="control-label" for="@fieldName">@displayName <i class="icon-question-sign"></i></label>
 @if (Model is Enum)
 {
+    var enumType = Model.GetType();
     <div class="controls">
-        <input type="text" class="" id="@fieldName" name="@fieldName" placeholder="0.0" value="@Model"/>
+        <select>
+            
+        @foreach (var t in Enum.GetNames(enumType))
+        {
+            if (t == Model.ToString())
+            {
+                <option value="@t" selected="@t">@t</option>
+            }
+            else
+            {
+                <option value="@t">@t</option>
+            }
+        }
+        </select>
+        @*<input type="text" class="" id="@fieldName" name="@fieldName" placeholder="0.0" value="@Model"/>*@
     </div>
 }
 else

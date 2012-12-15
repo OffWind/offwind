@@ -1,20 +1,39 @@
 ﻿@model Offwind.WebApp.Areas.CFD.Models.BoundaryConditions.VFieldEpsilon
 <form class="form-horizontal" method="post">
-    <fieldset>
-        @Html.EditorFor(m => m.InternalField)
-
-        @Html.EditorFor(m => m.Width)
-        @Html.EditorFor(m => m.Length)
-        @Html.EditorFor(m => m.Height)
-
-        @Html.EditorFor(m => m.GridX)
-        @Html.EditorFor(m => m.GridY)
-        @Html.EditorFor(m => m.GridZ)
+      <legend class="small">General</legend>
+    @Html.EditorFor(m => m.InternalField)
         
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="button" class="btn">Cancel</button>
-        </div>
+    <legend class="small">Bottom</legend>
+    @Html.EditorFor(m => m.BottomType)
+    @Html.EditorFor(m => m.BottomValue.Cmu)
+    @Html.EditorFor(m => m.BottomValue.kappa)
+    @Html.EditorFor(m => m.BottomValue.E)
+    @Html.EditorFor(m => m.BottomValue.value, "FieldScalarValue")
 
-    </fieldset>
+    <legend class="small">Top</legend>
+    @Html.EditorFor(m => m.TopType)
+    @Html.EditorFor(m => m.TopValue.Cmu)
+    @Html.EditorFor(m => m.TopValue.kappa)
+    @Html.EditorFor(m => m.TopValue.E)
+    @Html.EditorFor(m => m.TopValue.value, "FieldScalarValue")
+        
+    <legend class="small">West</legend>
+    @Html.EditorFor(m => m.WestType)
+    @Html.EditorFor(m => m.WestValue, "FieldScalarValue")
+
+    <legend class="small">East</legend>
+    @Html.EditorFor(m => m.EastType)
+
+    <legend class="small">North</legend>
+    @Html.EditorFor(m => m.NorthType)
+
+    <legend class="small">South</legend>
+    @Html.EditorFor(m => m.SouthType)
+    @Html.EditorFor(m => m.SouthValue, "FieldScalarValue")
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn">Cancel</button>
+    </div>
+
 </form>

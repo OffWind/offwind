@@ -184,6 +184,7 @@
     <Compile Include="Areas\CFD\Controllers\TurbinesController.cs" />
     <Compile Include="Areas\CFD\Models\BoundaryConditions\FieldVectorValueBinder.cs" />
     <Compile Include="Areas\CFD\Models\BoundaryConditions\VAtmBoundaryLayerInletVelocity.cs" />
+    <Compile Include="Areas\CFD\Models\BoundaryConditions\VEpsilonWallFunction.cs" />
     <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldVectorValue.cs" />
     <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldEpsilon.cs" />
     <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldK.cs" />

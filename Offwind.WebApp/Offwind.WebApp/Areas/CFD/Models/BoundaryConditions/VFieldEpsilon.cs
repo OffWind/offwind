@@ -1,4 +1,5 @@
-﻿using Offwind.Products.OpenFoam.Models.Fields;
+﻿using System.ComponentModel;
+using Offwind.Products.OpenFoam.Models.Fields;
 
 namespace Offwind.WebApp.Areas.CFD.Models.BoundaryConditions
 {
@@ -6,28 +7,42 @@ namespace Offwind.WebApp.Areas.CFD.Models.BoundaryConditions
     {
         public decimal InternalField { get; set; }
 
+        [DisplayName("type")]
+        [ReadOnly(true)]
         public PatchType BottomType { get; set; }
-        public decimal BottomCmu { get; set; }
-        public decimal BottomKappa { get; set; }
-        public decimal BottomE { get; set; }
-        public decimal BottomValue { get; set; }
+        public VEpsilonWallFunction BottomValue { get; set; }
 
+        [DisplayName("type")]
+        [ReadOnly(true)]
         public PatchType TopType { get; set; }
-        public decimal TopCmu { get; set; }
-        public decimal TopKappa { get; set; }
-        public decimal TopE { get; set; }
-        public decimal TopValue { get; set; }
+        public VEpsilonWallFunction TopValue { get; set; }
 
+        [DisplayName("type")]
+        [ReadOnly(true)]
         public PatchType WestType { get; set; }
-        public decimal WestValue { get; set; }
 
+        [DisplayName("value")]
+        public VFieldScalarValue WestValue { get; set; }
+
+        [DisplayName("type")]
+        [ReadOnly(true)]
         public PatchType EastType { get; set; }
-        //public decimal EastValue { get; set; }
 
+        [DisplayName("type")]
+        [ReadOnly(true)]
         public PatchType NorthType { get; set; }
-        //public decimal NorthValue { get; set; }
 
+        [DisplayName("type")]
+        [ReadOnly(true)]
         public PatchType SouthType { get; set; }
-        public decimal SouthValue { get; set; }
+
+        [DisplayName("value")]
+        public VFieldScalarValue SouthValue { get; set; }
+
+        public VFieldEpsilon()
+        {
+            BottomValue = new VEpsilonWallFunction();
+            TopValue = new VEpsilonWallFunction();
+        }
     }
 }

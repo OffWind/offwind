@@ -12,7 +12,12 @@ namespace Offwind.OpenFoam.Sintef.BoundaryFields
         public Vertice n { get; set; }
         public Vertice z { get; set; }
         public PatchValueScalar z0 { get; set; }
+        public PatchValueVector Value { get; set; }
         public PatchValueScalar zGround { get; set; }
+        public AtmBoundaryLayerInletVelocity()
+        {
+            Value = new PatchValueVector();
+        }
     }
 
     public class FieldU
@@ -20,31 +25,27 @@ namespace Offwind.OpenFoam.Sintef.BoundaryFields
         public PatchValueVector InternalField { get; set; }
 
         public PatchType BottomType { get; set; }
-        public PatchValueVector BottomValue { get; set; }
+        public AtmBoundaryLayerInletVelocity BottomValue { get; set; }
 
         public PatchType TopType { get; set; }
 
         public PatchType WestType { get; set; }
-        public AtmBoundaryLayerInletVelocity WestBoundary { get; set; }
-        public PatchValueVector WestValue { get; set; }
+        public AtmBoundaryLayerInletVelocity WestValue { get; set; }
+        
 
         public PatchType EastType { get; set; }
 
         public PatchType NorthType { get; set; }
 
         public PatchType SouthType { get; set; }
-        public AtmBoundaryLayerInletVelocity SouthBoundary { get; set; }
-        public PatchValueVector SouthValue { get; set; }
+        public AtmBoundaryLayerInletVelocity SouthValue { get; set; }
 
         public FieldU()
         {
             InternalField = new PatchValueVector();
-            BottomValue = new PatchValueVector();
-            WestValue = new PatchValueVector();
-            SouthValue = new PatchValueVector();
-
-            WestBoundary = new AtmBoundaryLayerInletVelocity();
-            SouthBoundary = new AtmBoundaryLayerInletVelocity();
+            BottomValue = new AtmBoundaryLayerInletVelocity();
+            WestValue = new AtmBoundaryLayerInletVelocity();
+            SouthValue = new AtmBoundaryLayerInletVelocity();
         }
 
     }

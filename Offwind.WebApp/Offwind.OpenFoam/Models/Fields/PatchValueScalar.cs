@@ -6,6 +6,5 @@ namespace Offwind.OpenFoam.Models.Fields
     {
         public PatchValueType Type { get; set; }
         public decimal Value { get; set; }
-        public List<decimal> Array { get; set; }
     }
 }

@@ -173,6 +173,7 @@
     <Compile Include="Sintef\BoundaryFields\FieldP.cs" />
     <Compile Include="Sintef\BoundaryFields\FieldPHandler.cs" />
     <Compile Include="Sintef\BoundaryFields\FieldR.cs" />
+    <Compile Include="Sintef\BoundaryFields\FieldRHandler.cs" />
     <Compile Include="Sintef\BoundaryFields\FieldU.cs" />
     <Compile Include="Sintef\BoundaryFields\FieldUHandler.cs" />
     <Compile Include="Sintef\ProcessingSettings.cs" />

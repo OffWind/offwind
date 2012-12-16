@@ -39,24 +39,24 @@ namespace Offwind.OpenFoam.Sintef.BoundaryFields
             t1.Replace("({[[internalField]]})", ValueVectorFormat(obj.InternalField));
 
 
-            t1.Replace("({[[westUref]]})", obj.WestBoundary.Uref.ToString());
-            t1.Replace("({[[westHref]]})", obj.WestBoundary.Href.ToString());
-            t1.Replace("({[[westn]]})", VerticeFormat(obj.WestBoundary.n));
-            t1.Replace("({[[westz]]})", VerticeFormat(obj.WestBoundary.z));
-            t1.Replace("({[[westz0]]})", obj.WestBoundary.z0.Value.ToString());
-            t1.Replace("({[[westzGround]]})", obj.WestBoundary.zGround.Value.ToString());
-            t1.Replace("({[[westValue]]})", ValueVectorFormat(obj.WestValue));
+            t1.Replace("({[[westUref]]})", obj.WestValue.Uref.ToString());
+            t1.Replace("({[[westHref]]})", obj.WestValue.Href.ToString());
+            t1.Replace("({[[westn]]})", VerticeFormat(obj.WestValue.n));
+            t1.Replace("({[[westz]]})", VerticeFormat(obj.WestValue.z));
+            t1.Replace("({[[westz0]]})", obj.WestValue.z0.Value.ToString());
+            t1.Replace("({[[westzGround]]})", obj.WestValue.zGround.Value.ToString());
+            t1.Replace("({[[westValue]]})", ValueVectorFormat(obj.WestValue.Value));
 
-            t1.Replace("({[[southUref]]})", obj.SouthBoundary.Uref.ToString());
-            t1.Replace("({[[southHref]]})", obj.SouthBoundary.Href.ToString());
-            t1.Replace("({[[southn]]})", VerticeFormat(obj.SouthBoundary.n));
-            t1.Replace("({[[southz]]})", VerticeFormat(obj.SouthBoundary.z));
-            t1.Replace("({[[southz0]]})", obj.SouthBoundary.z0.Value.ToString());
-            t1.Replace("({[[southzGround]]})", obj.SouthBoundary.zGround.Value.ToString());
-            t1.Replace("({[[southValue]]})", ValueVectorFormat(obj.SouthValue));
+            t1.Replace("({[[southUref]]})", obj.SouthValue.Uref.ToString());
+            t1.Replace("({[[southHref]]})", obj.SouthValue.Href.ToString());
+            t1.Replace("({[[southn]]})", VerticeFormat(obj.SouthValue.n));
+            t1.Replace("({[[southz]]})", VerticeFormat(obj.SouthValue.z));
+            t1.Replace("({[[southz0]]})", obj.SouthValue.z0.Value.ToString());
+            t1.Replace("({[[southzGround]]})", obj.SouthValue.zGround.Value.ToString());
+            t1.Replace("({[[southValue]]})", ValueVectorFormat(obj.SouthValue.Value));
 
             t1.Replace("({[[bottomType]]})", obj.BottomType.ToString());
-            t1.Replace("({[[bottomValue]]})", ValueVectorFormat(obj.BottomValue));
+            t1.Replace("({[[bottomValue]]})", ValueVectorFormat(obj.BottomValue.Value));
 
             WriteToFile(path, t1.ToString());
         }

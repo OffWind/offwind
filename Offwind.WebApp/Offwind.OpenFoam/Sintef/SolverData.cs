@@ -48,6 +48,7 @@ namespace Offwind.OpenFoam.Sintef
         private readonly FieldKHandler fieldKHandler;
         private readonly FieldPHandler fieldPHandler;
         private readonly FieldUHandler fieldUHandler;
+        private readonly FieldRHandler fieldRHandler;
 
         public SolverData()
         {
@@ -66,6 +67,7 @@ namespace Offwind.OpenFoam.Sintef
             fieldKHandler = new FieldKHandler();
             fieldPHandler = new FieldPHandler();
             fieldUHandler = new FieldUHandler();
+            fieldRHandler = new FieldRHandler();
 
             BlockMeshDict = (BlockMeshDictData) blockMeshHandler.Read(null);
             ControlDict = (ControlDictData) controlDictHandler.Read(null);
@@ -105,6 +107,7 @@ namespace Offwind.OpenFoam.Sintef
             fieldKHandler.Write(fieldKHandler.GetPath(path), FieldK);
             fieldPHandler.Write(fieldPHandler.GetPath(path), FieldP);
             fieldUHandler.Write(fieldUHandler.GetPath(path), FieldU);
+            fieldRHandler.Write(fieldRHandler.GetPath(path), FieldR);
 
            
             /* TODO: extra write handlres */
@@ -154,18 +157,18 @@ namespace Offwind.OpenFoam.Sintef
         private static void InitFieldEpsilon(FieldEpsilon f)
         {
             f.BottomType = PatchType.epsilonWallFunction;
-            f.BottomEpsilon.Cmu = 0.09m;
-            f.BottomEpsilon.kappa = 0.41m;
-            f.BottomEpsilon.E = 9.8m;
-            f.BottomValue.Type = PatchValueType.Uniform;
-            f.BottomValue.Value = 34.4993m;
+            f.BottomValue.Cmu = 0.09m;
+            f.BottomValue.kappa = 0.41m;
+            f.BottomValue.E = 9.8m;
+            f.BottomValue.value.Type = PatchValueType.Uniform;
+            f.BottomValue.value.Value = 34.4993m;
 
             f.TopType = PatchType.epsilonWallFunction;
-            f.TopEpsilon.Cmu = 0.09m;
-            f.TopEpsilon.kappa = 0.41m;
-            f.TopEpsilon.E = 9.8m;
-            f.TopValue.Type = PatchValueType.Uniform;
-            f.TopValue.Value = 34.4993m;
+            f.TopValue.Cmu = 0.09m;
+            f.TopValue.kappa = 0.41m;
+            f.TopValue.E = 9.8m;
+            f.TopValue.value.Type = PatchValueType.Uniform;
+            f.TopValue.value.Value = 34.4993m;
 
             f.WestType = PatchType.fixedValue;
             f.WestValue.Type = PatchValueType.Uniform;
@@ -199,20 +202,37 @@ namespace Offwind.OpenFoam.Sintef
 
         private static void InitFieldR(FieldR f)
         {
-            f.InternalField = new List<decimal>() { 0, 0, 0, 0, 0, 0 };
+            f.InternalField.Type = PatchValueType.Uniform;
+            f.InternalField.Value1 = 0;
+            f.InternalField.Value2 = 0;
+            f.InternalField.Value3 = 0;
+            f.InternalField.Value4 = 0;
+            f.InternalField.Value5 = 0;
+            f.InternalField.Value6 = 0;
+
             f.BottomType = PatchType.zeroGradient;
             f.TopType = PatchType.zeroGradient;
 
             f.WestType = PatchType.fixedValue;
             f.WestValue.Type = PatchValueType.Uniform;
-            f.WestValue.Array = new List<decimal>() {0, 0, 0, 0, 0, 0};
+            f.WestValue.Value1 = 0;
+            f.WestValue.Value2 = 0;
+            f.WestValue.Value3 = 0;
+            f.WestValue.Value4 = 0;
+            f.WestValue.Value5 = 0;
+            f.WestValue.Value6 = 0;
 
             f.EastType = PatchType.zeroGradient;
             f.NorthType = PatchType.zeroGradient;
 
             f.SouthType = PatchType.fixedValue;
             f.SouthValue.Type = PatchValueType.Uniform;
-            f.SouthValue.Array = new List<decimal>() { 0, 0, 0, 0, 0, 0 };
+            f.SouthValue.Value1 = 0;
+            f.SouthValue.Value2 = 0;
+            f.SouthValue.Value3 = 0;
+            f.SouthValue.Value4 = 0;
+            f.SouthValue.Value5 = 0;
+            f.SouthValue.Value6 = 0;
         }
         private static void InitFieldU(FieldU f)
         {
@@ -224,73 +244,73 @@ namespace Offwind.OpenFoam.Sintef
             f.TopType = PatchType.slip;
 
             f.WestType = PatchType.atmBoundaryLayerInletVelocity;
-            f.WestBoundary.Uref = 11;
-            f.WestBoundary.Href = 520;
-            f.WestBoundary.n = new Vertice()
+            f.WestValue.Uref = 11;
+            f.WestValue.Href = 520;
+            f.WestValue.n = new Vertice()
                                    {
                                        X = 0.664m,
                                        Y = 0.7478m,
                                        Z = 0
                                    };
-            f.WestBoundary.z = new Vertice()
+            f.WestValue.z = new Vertice()
                                    {
                                        X = 0,
                                        Y = 0,
                                        Z = 1
                                    };
-            f.WestBoundary.z0 = new PatchValueScalar()
+            f.WestValue.z0 = new PatchValueScalar()
                                     {
                                         Type = PatchValueType.Uniform,
                                         Value = 0.014m
                                     };
-            f.WestBoundary.zGround = new PatchValueScalar()
+            f.WestValue.zGround = new PatchValueScalar()
                                          {
                                              Type = PatchValueType.Uniform,
                                              Value = 0
                                          };
-            f.WestValue.Type = PatchValueType.Uniform;
-            f.WestValue.Value1 = 0;
-            f.WestValue.Value2 = 0;
-            f.WestValue.Value3 = 0;
+            f.WestValue.Value.Type = PatchValueType.Uniform;
+            f.WestValue.Value.Value1 = 0;
+            f.WestValue.Value.Value2 = 0;
+            f.WestValue.Value.Value3 = 0;
 
             f.EastType = PatchType.zeroGradient;
             f.NorthType = PatchType.zeroGradient;
             f.BottomType = PatchType.fixedValue;
-            f.BottomValue.Type = PatchValueType.Uniform;
-            f.BottomValue.Value1 = 0;
-            f.BottomValue.Value2 = 0;
-            f.BottomValue.Value3 = 0;
+            f.BottomValue.Value.Type = PatchValueType.Uniform;
+            f.BottomValue.Value.Value1 = 0;
+            f.BottomValue.Value.Value2 = 0;
+            f.BottomValue.Value.Value3 = 0;
 
 
             f.SouthType = PatchType.atmBoundaryLayerInletVelocity;
-            f.SouthBoundary.Uref = 11;
-            f.SouthBoundary.Href = 520;
-            f.SouthBoundary.n = new Vertice()
+            f.SouthValue.Uref = 11;
+            f.SouthValue.Href = 520;
+            f.SouthValue.n = new Vertice()
             {
                 X = 0.664m,
                 Y = 0.7478m,
                 Z = 0
             };
-            f.SouthBoundary.z = new Vertice()
+            f.SouthValue.z = new Vertice()
             {
                 X = 0,
                 Y = 0,
                 Z = 1
             };
-            f.SouthBoundary.z0 = new PatchValueScalar()
+            f.SouthValue.z0 = new PatchValueScalar()
             {
                 Type = PatchValueType.Uniform,
                 Value = 0.014m
             };
-            f.SouthBoundary.zGround = new PatchValueScalar()
+            f.SouthValue.zGround = new PatchValueScalar()
             {
                 Type = PatchValueType.Uniform,
                 Value = 0
             };
-            f.SouthValue.Type = PatchValueType.Uniform;
-            f.SouthValue.Value1 = 0;
-            f.SouthValue.Value2 = 0;
-            f.SouthValue.Value3 = 0;
+            f.SouthValue.Value.Type = PatchValueType.Uniform;
+            f.SouthValue.Value.Value1 = 0;
+            f.SouthValue.Value.Value2 = 0;
+            f.SouthValue.Value.Value3 = 0;
         }
 
         #region Unused manualy init

@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Irony.Parsing;
 using System;
+using Offwind.OpenFoam.Models.TurbineProperties;
 using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Parsing;
 
@@ -21,18 +22,8 @@ namespace Offwind.Sowfa.Constant.TurbineProperties
         public override object Read(string path)
         {
             var obj = new TurbinePropertiesData();
-            string text;
+            string text = Load(path);
 
-            if (!File.Exists(path))
-            {
-                if (!useDefault) return obj;
-                WriteToFile(path, DefaultData);
-            }
-
-            using (var reader = new StreamReader(path))
-            {
-                text = reader.ReadToEnd();
-            }
             var grammar = new OpenFoamGrammar();
             var parser = new Parser(grammar);
             var tree = parser.Parse(text);

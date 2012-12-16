@@ -49,6 +49,7 @@ namespace Offwind.OpenFoam.Sintef
         private readonly FieldPHandler fieldPHandler;
         private readonly FieldUHandler fieldUHandler;
         private readonly FieldRHandler fieldRHandler;
+        private readonly TurbineProperiesHandler turbineProperiesHandler;
 
         public SolverData()
         {
@@ -63,6 +64,7 @@ namespace Offwind.OpenFoam.Sintef
             transportPropHandler = new TransportPropertiesHandler();
             blockMeshHandler = new BlockMeshDictHandler();
             turbineArrayPropHandler = new TurbineArrayPropHandler();
+            turbineProperiesHandler = new TurbineProperiesHandler("NREL5MWRef", true);
             fieldEpsilonHandler = new FieldEpsilonHandler();
             fieldKHandler = new FieldKHandler();
             fieldPHandler = new FieldPHandler();
@@ -73,6 +75,8 @@ namespace Offwind.OpenFoam.Sintef
             ControlDict = (ControlDictData) controlDictHandler.Read(null);
             TransportProperties = (TransportPropertiesData) transportPropHandler.Read(null);
             TurbineArrayProperties = (TurbineArrayPropData) turbineArrayPropHandler.Read(null);
+            TurbineProperties = (TurbinePropertiesData) turbineProperiesHandler.Read(null);
+            
             
             /* extra post-initialize calls */
             InitTransportProperties(TransportProperties);
@@ -84,7 +88,6 @@ namespace Offwind.OpenFoam.Sintef
 
             TurbulenceProperties = new TurbulencePropertiesData();
             RasProperties = new RasPropertiesData();
-            TurbineProperties = new TurbinePropertiesData();
             AirfoilProperties = new AirfoilPropertiesData();
             ProcessingSettings = new ProcessingSettings();
         }
@@ -103,6 +106,7 @@ namespace Offwind.OpenFoam.Sintef
             controlDictHandler.Write(controlDictHandler.GetPath(path), ControlDict);            
             blockMeshHandler.Write(blockMeshHandler.GetPath(path), BlockMeshDict);
             turbineArrayPropHandler.Write(turbineArrayPropHandler.GetPath(path), TurbineArrayProperties);
+            turbineProperiesHandler.Write(turbineProperiesHandler.GetPath(path), TurbineProperties);
             fieldEpsilonHandler.Write(fieldEpsilonHandler.GetPath(path), FieldEpsilon);
             fieldKHandler.Write(fieldKHandler.GetPath(path), FieldK);
             fieldPHandler.Write(fieldPHandler.GetPath(path), FieldP);

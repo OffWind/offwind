@@ -1,4 +1,4 @@
-﻿/*--------------------------------*- C++ -*----------------------------------*\
+/*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
 |  \\    /   O peration     | Version:  2.0.x                                 |
@@ -54,6 +54,8 @@ PitchControllerParams
     PitchControlEndSpeed      16.0;
     RateLimitPitch             4.5;
 }
+
+
 
 Airfoils
 (

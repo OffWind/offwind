@@ -126,7 +126,11 @@
     <Compile Include="Models\TurbineArrayProperties\TurbineInstance.cs" />
     <Compile Include="Models\TurbineProperties\TurbineProperiesHandler.cs" />
     <Compile Include="Models\TurbineProperties\TurbinePropertiesData.cs" />
-    <Compile Include="Models\TurbineProperties\TurbinePropRes.Designer.cs" />
+    <Compile Include="Models\TurbineProperties\TurbinePropRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TurbinePropRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\TurbulenceModels\RasPropertiesData.cs" />
     <Compile Include="Models\TurbulenceModels\TurbulenceModel.cs" />
     <Compile Include="Models\TurbulenceModels\TurbulencePropertiesData.cs" />
@@ -206,7 +210,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TurbineArrayPropRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\TurbineProperties\TurbinePropRes.resx" />
+    <EmbeddedResource Include="Models\TurbineProperties\TurbinePropRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TurbinePropRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sintef\BoundaryFields\BoundaryFieldsRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BoundaryFieldsRes.Designer.cs</LastGenOutput>

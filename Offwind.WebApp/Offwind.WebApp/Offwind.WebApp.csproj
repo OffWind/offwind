@@ -199,6 +199,8 @@
     <Compile Include="Areas\CFD\Models\SystemControls\VControlDict.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VPitchControllerParams.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VTorqueControllerParams.cs" />
+    <Compile Include="Areas\CFD\Models\Turbines\VTurbineArray.cs" />
+    <Compile Include="Areas\CFD\Models\Turbines\VTurbineInstance.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VTurbineType.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VVertice.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\EngineeringToolsController.cs" />
@@ -222,6 +224,7 @@
     <Compile Include="Areas\EngineeringTools\Models\WindWave\VWindWave.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Areas\CFD\Controllers\CaseManagementController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Infrastructure\GuidConstraint.cs" />
     <Compile Include="Models\Account\ExternalLoginResult.cs" />
@@ -463,6 +466,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\CFD\Views\Turbines\EditorTemplates\Vertice.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CFD\Views\CaseManagement\Reset.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

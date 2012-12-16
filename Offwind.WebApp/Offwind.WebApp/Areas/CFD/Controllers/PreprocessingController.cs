@@ -56,6 +56,10 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             sd.BlockMeshDict.vertices[6].Z = m.Height;
             sd.BlockMeshDict.vertices[7].Z = m.Height;
 
+            sd.BlockMeshDict.MeshBlocks.numberOfCells[0] = m.GridX;
+            sd.BlockMeshDict.MeshBlocks.numberOfCells[1] = m.GridY;
+            sd.BlockMeshDict.MeshBlocks.numberOfCells[2] = m.GridZ;
+
             SetSolverData(sd);
             return Json("OK");
         }

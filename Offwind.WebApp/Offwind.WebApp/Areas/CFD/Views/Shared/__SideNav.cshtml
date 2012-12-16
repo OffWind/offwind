@@ -109,5 +109,13 @@
                 <i class="icon-asterisk"></i> Simulation
             </a>
         </li>
+
+        <!--...............................-->
+        <li class="nav-header">Case Management</li>
+        <li @this.ActiveIfCurrent("Reset", "CaseManagement", "CFD")>
+            <a href="@Url.Action("Reset", "CaseManagement", new { area = "CFD" })">
+                <i class="icon-asterisk"></i> Reset
+            </a>
+        </li>
     </ul>
 </div>

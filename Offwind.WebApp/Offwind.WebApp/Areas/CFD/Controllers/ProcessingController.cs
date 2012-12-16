@@ -61,30 +61,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             return Json("Simulation stopped");
         }
 
-        public FileResult GetInputData(string id)
-        {
-            if (id == null) throw new ArgumentNullException("id");
-
-            Guid jobId;
-            if (!Guid.TryParse(id, out jobId))
-            {
-                _log.ErrorFormat("Unable to parse job ID: {0}", id);
-                throw new ArgumentException("Invalid ID");
-            }
-
-            var job = new JobsController().GetJob(jobId);
-            var fileName = String.Format("{0}.zip", job.Id);
-
-            var isTestMode = bool.Parse(WebConfigurationManager.AppSettings["TestMode"]);
-            if (isTestMode)
-            {
-                return File(CreateTestJobPath(), "application/octet-stream", fileName);
-            }
-            var path = CreateJobPath(job);
-            return File(path, "application/octet-stream", fileName);
-        }
-
-        private string CreateJobPath(Job job)
+        public static string CreateJobPath(Job job)
         {
             Contract.Requires(job != null);
             Contract.Requires(job.Id != Guid.Empty);
@@ -101,7 +78,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             return path;
         }
 
-        private string CreateTestJobPath()
+        public static string CreateTestJobPath()
         {
             string path = WebConfigurationManager.AppSettings["UsersDir"];
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);

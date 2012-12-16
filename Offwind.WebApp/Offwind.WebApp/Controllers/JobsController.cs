@@ -102,6 +102,11 @@ namespace Offwind.WebApp.Controllers
             return MapFromDB(dJob);
         }
 
+        public Job GetJob(Guid id)
+        {
+            DJob djob = _ctx.DJobs.Single(d => d.Id == id);
+            return MapFromDB(djob);
+        }
         public JsonResult Delete(Guid id)
         {
             DJob djob = _ctx.DJobs.Single(d => d.Id == id);

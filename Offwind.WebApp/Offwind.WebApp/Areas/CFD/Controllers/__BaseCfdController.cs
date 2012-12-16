@@ -15,7 +15,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
     [Authorize(Roles = SystemRole.RegularUser)]
     public class __BaseCfdController : Controller
     {
-        private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        protected readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         protected string Title;
         protected string ShortTitle;

@@ -89,5 +89,20 @@ namespace Offwind.OpenFoam.Models.TransportProperties {
                 return ResourceManager.GetString("Template", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                 |                                                 |
+        ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+        ///|  \\    /   O peration     | Version:  1.5                                   |
+        ///|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+        ///|    \\/     M anipulation  |                                                 |
+        ///\*------------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Template2 {
+            get {
+                return ResourceManager.GetString("Template2", resourceCulture);
+            }
+        }
     }
 }

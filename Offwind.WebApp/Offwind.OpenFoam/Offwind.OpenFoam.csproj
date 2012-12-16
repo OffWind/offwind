@@ -231,6 +231,7 @@
     <None Include="Models\PolyMesh\TemplateBoundary" />
     <None Include="Models\TransportProperties\Default" />
     <None Include="Models\TransportProperties\Template" />
+    <None Include="Models\TransportProperties\Template2" />
     <None Include="Models\TurbineArrayPropertiesFAST\Default" />
     <None Include="Models\TurbineArrayPropertiesFAST\TemplateGeneral" />
     <None Include="Models\TurbineArrayPropertiesFAST\TemplateTurbine" />

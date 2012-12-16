@@ -75,6 +75,8 @@ namespace Offwind.Sowfa.Constant.TransportProperties
         public override void Write(string path, object data)
         {
             var d = (TransportPropertiesData)data;
+
+            /*
             var t = new StringBuilder(TransportPropertiesRes.Template);
             t.Replace("({[[transportModel]]})", d.transportModel.ToString());
             t.Replace("({[[nu]]})", d.MolecularViscosity.ToString());
@@ -89,6 +91,19 @@ namespace Offwind.Sowfa.Constant.TransportProperties
             t.Replace("({[[q0]]})", d.q0.ToString());
             t.Replace("({[[surfaceStressModel]]})", d.surfaceStressModel.ToString());
             t.Replace("({[[betaSurfaceStress]]})", d.betaSurfaceStress.ToString());
+             */
+
+            var t = new StringBuilder(TransportPropertiesRes.Template2);
+            t.Replace("({[[nu]]})", d.MolecularViscosity.ToString());
+            t.Replace("({[[nu0]]})", d.CplcNu0.ToString());
+            t.Replace("({[[nuInf]]})", d.CplcNuInf.ToString());
+            t.Replace("({[[m]]})", d.CplcM.ToString());
+            t.Replace("({[[n]]})", d.CplcN.ToString());
+
+            t.Replace("({[[_nu0]]})", d.BccNu0.ToString());
+            t.Replace("({[[_nuInf]]})", d.BccNuInf.ToString());
+            t.Replace("({[[_m]]})", d.BccM.ToString());
+            t.Replace("({[[_n]]})", d.BccN.ToString());
 
             WriteToFile(path, t.ToString());
         }

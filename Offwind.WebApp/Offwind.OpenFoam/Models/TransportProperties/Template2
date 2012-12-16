@@ -1,0 +1,37 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.5                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      transportProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+transportModel  Newtonian;
+
+nu              nu [0 2 -1 0 0 0 0] ({[[nu]]});     //1e-05;
+
+CrossPowerLawCoeffs
+{
+    nu0             nu0 [0 2 -1 0 0 0 0] ({[[nu0]]});
+    nuInf           nuInf [0 2 -1 0 0 0 0] ({[[nuInf]]});
+    m               m [0 0 1 0 0 0 0] ({[[m]]});
+    n               n [0 0 0 0 0 0 0] ({[[n]]});
+}
+
+BirdCarreauCoeffs
+{
+    nu0             nu0 [0 2 -1 0 0 0 0] ({[[_nu0]]});
+    nuInf           nuInf [0 2 -1 0 0 0 0] ({[[_nuInf]]});
+    m               m [0 0 1 0 0 0 0] ({[[_m]]});
+    n               n [0 0 0 0 0 0 0] ({[[_n]]});
+}
+
+// ************************************************************************* //

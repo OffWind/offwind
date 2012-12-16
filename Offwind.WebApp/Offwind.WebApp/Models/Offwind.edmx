@@ -18,6 +18,7 @@
           <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="Model" Type="xml" Nullable="false" />
+          <Property Name="CurrentJobId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="DJob">
           <Key>
@@ -49,6 +50,7 @@
           <Property Type="String" Name="Owner" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Model" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="CurrentJobId" />
         </EntityType>
         <EntityType Name="DJob">
           <Key>
@@ -72,6 +74,7 @@
           <EntitySetMapping Name="DCases">
             <EntityTypeMapping TypeName="Offwind.DbModels.DCase">
               <MappingFragment StoreEntitySet="DCase">
+                <ScalarProperty Name="CurrentJobId" ColumnName="CurrentJobId" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Owner" ColumnName="Owner" />
@@ -115,8 +118,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Offwind">
-        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333326" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="3.375" PointY="0.75" Height="2.5571907552083335" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="0.75" PointY="0.75" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="2.75" PointY="0.75" Height="2.5571907552083335" />
       </Diagram>
     </Diagrams>
   </Designer>

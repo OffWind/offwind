@@ -90,6 +90,16 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             }
         }
 
+        protected void SetCaseJob(Guid id)
+        {
+            using (var ctx = new OffwindEntities())
+            {
+                var dCase = ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.CfdCase);
+                dCase.CurrentJobId = id;
+                ctx.SaveChanges();
+            }
+        }
+
         protected void SetSolverData(SolverData model)
         {
             var serializer = new XmlSerializer(typeof(SolverData));

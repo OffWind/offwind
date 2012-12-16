@@ -53,7 +53,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             };
 
             new JobsController().AddJobManually(job);
-            return Json("Simulation successfully started");
+
+            SetCaseJob(job.Id);
+            return Json(job.Id);
         }
 
         public JsonResult SimulationStop()

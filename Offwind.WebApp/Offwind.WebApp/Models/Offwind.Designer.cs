@@ -278,6 +278,30 @@ namespace Offwind.WebApp.Models
         private global::System.String _Model;
         partial void OnModelChanging(global::System.String value);
         partial void OnModelChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> CurrentJobId
+        {
+            get
+            {
+                return _CurrentJobId;
+            }
+            set
+            {
+                OnCurrentJobIdChanging(value);
+                ReportPropertyChanging("CurrentJobId");
+                _CurrentJobId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CurrentJobId");
+                OnCurrentJobIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _CurrentJobId;
+        partial void OnCurrentJobIdChanging(Nullable<global::System.Guid> value);
+        partial void OnCurrentJobIdChanged();
 
         #endregion
     

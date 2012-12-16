@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Globalization;
+using System.Threading;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -15,6 +17,8 @@ namespace Offwind.WebApp
     {
         protected void Application_Start()
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
             XmlConfigurator.Configure();
             AreaRegistration.RegisterAllAreas();
 

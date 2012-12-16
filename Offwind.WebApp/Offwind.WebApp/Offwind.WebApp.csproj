@@ -465,7 +465,7 @@
     <Content Include="Areas\CFD\Views\Shared\EditorTemplates\FieldVectorValue2.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\CFD\Views\Turbines\EditorTemplates\Vertice.cshtml" />
+    <Content Include="Areas\CFD\Views\Shared\EditorTemplates\Vertice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\CFD\Views\CaseManagement\Reset.cshtml" />

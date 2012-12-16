@@ -54,8 +54,10 @@
             });
             $('input[type=checkbox]').change(function () {
                 var checked = $(this).attr('checked') != undefined;
-                //console.debug(checked);
                 $(this).attr('value', checked);
+            });
+            $('li.disabled a').click(function() {
+                return false;
             });
         });        
     </script>

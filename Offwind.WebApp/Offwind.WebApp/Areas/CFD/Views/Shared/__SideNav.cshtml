@@ -63,12 +63,12 @@
         
         <!--...................................-->
         <li class="nav-header">Airfoil & Turbulence</li>
-        <li @this.ActiveIfCurrent("AirfoilProperties", "AirfoilAndTurbulence", "CFD")>
+        <li @this.ActiveIfCurrent("AirfoilProperties", "AirfoilAndTurbulence", "CFD") class="disabled">
             <a href="@Url.Action("AirfoilProperties", "AirfoilAndTurbulence", new { area = "CFD" })">
                 <i class="icon-asterisk"></i> Airfoil Properties
             </a>
         </li>
-        <li @this.ActiveIfCurrent("TurbulenceProperties", "AirfoilAndTurbulence", "CFD")>
+        <li @this.ActiveIfCurrent("TurbulenceProperties", "AirfoilAndTurbulence", "CFD") class="disabled">
             <a href="@Url.Action("TurbulenceProperties", "AirfoilAndTurbulence", new { area = "CFD" })">
                 <i class="icon-asterisk"></i> Turbulence Properties
             </a>
@@ -81,17 +81,17 @@
                 <i class="icon-asterisk"></i> Time
             </a>
         </li>
-        <li @this.ActiveIfCurrent("Schemes", "SystemControls", "CFD")>
+        <li @this.ActiveIfCurrent("Schemes", "SystemControls", "CFD") class="disabled">
             <a href="@Url.Action("Schemes", "SystemControls", new { area = "CFD" })">
                 <i class="icon-asterisk"></i> Schemes
             </a>
         </li>
-        <li @this.ActiveIfCurrent("Solution", "SystemControls", "CFD")>
+        <li @this.ActiveIfCurrent("Solution", "SystemControls", "CFD") class="disabled">
             <a href="@Url.Action("Solution", "SystemControls", new { area = "CFD" })">
                 <i class="icon-asterisk"></i> Solution
             </a>
         </li>
-        <li @this.ActiveIfCurrent("ParallelExecution", "SystemControls", "CFD")>
+        <li @this.ActiveIfCurrent("ParallelExecution", "SystemControls", "CFD") class="disabled">
             <a href="@Url.Action("ParallelExecution", "SystemControls", new { area = "CFD" })">
                 <i class="icon-asterisk"></i> Parallel Execution
             </a>
@@ -99,7 +99,7 @@
 
         <!--...............................-->
         <li class="nav-header">Processing</li>
-        <li @this.ActiveIfCurrent("Settings", "Processing", "CFD")>
+        <li @this.ActiveIfCurrent("Settings", "Processing", "CFD") class="disabled">
             <a href="@Url.Action("Settings", "Processing", new { area = "CFD" })">
                 <i class="icon-asterisk"></i> Settings
             </a>

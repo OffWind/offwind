@@ -1,1 +1,57 @@
-﻿
+﻿@model Offwind.WebApp.Areas.CFD.Models.Turbines.VTurbineType
+<form class="form-horizontal indent" method="post">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#general" data-toggle="tab">General Parameters</a></li>
+        <li><a href="#controller" data-toggle="tab">Controller Parameters</a></li>
+        <li><a href="#blades" data-toggle="tab">Blades Configuration</a></li>
+    </ul>
+    
+    <div class="tab-content">
+        <div class="tab-pane active" id="general">
+            @Html.EditorFor(m => m.NumBl)
+            @Html.EditorFor(m => m.TipRad)
+            @Html.EditorFor(m => m.HubRad)
+            @Html.EditorFor(m => m.UndSling)
+            @Html.EditorFor(m => m.OverHang)
+            @Html.EditorFor(m => m.TowerHt)
+            @Html.EditorFor(m => m.Twr2Shft)
+            @Html.EditorFor(m => m.ShftTilt)
+            @Html.EditorFor(m => m.PreCone, "Vertice")
+            @Html.EditorFor(m => m.GBRatio)
+            @Html.EditorFor(m => m.GenIner)
+            @Html.EditorFor(m => m.HubIner)
+            @Html.EditorFor(m => m.BladeIner)
+            @Html.EditorFor(m => m.TorqueControllerType)
+            @Html.EditorFor(m => m.YawControllerType)
+            @Html.EditorFor(m => m.PitchControllerType)
+        </div>
+        <div class="tab-pane" id="controller">
+            <legend>Torque Controller Params</legend>
+            @Html.EditorFor(m => m.torqueControllerParams.CutInGenSpeed)
+            @Html.EditorFor(m => m.torqueControllerParams.RatedGenSpeed)
+            @Html.EditorFor(m => m.torqueControllerParams.Region2StartGenSpeed)
+            @Html.EditorFor(m => m.torqueControllerParams.Region2EndGenSpeed)
+            @Html.EditorFor(m => m.torqueControllerParams.CutInGenTorque)
+            @Html.EditorFor(m => m.torqueControllerParams.RatedGenTorque)
+            @Html.EditorFor(m => m.torqueControllerParams.RateLimitGenTorque)
+            @Html.EditorFor(m => m.torqueControllerParams.KGen)
+            @Html.EditorFor(m => m.torqueControllerParams.TorqueControllerRelax)
+
+            <legend>Pitch Controller Params</legend>
+            @Html.EditorFor(m => m.pitchControllerParams.PitchControlStartPitch)
+            @Html.EditorFor(m => m.pitchControllerParams.PitchControlEndPitch)
+            @Html.EditorFor(m => m.pitchControllerParams.PitchControlStartSpeed)
+            @Html.EditorFor(m => m.pitchControllerParams.PitchControlEndSpeed)
+            @Html.EditorFor(m => m.pitchControllerParams.RateLimitPitch)
+     </div>
+        <div class="tab-pane" id="blades">
+            
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn">Cancel</button>
+    </div>
+
+</form>

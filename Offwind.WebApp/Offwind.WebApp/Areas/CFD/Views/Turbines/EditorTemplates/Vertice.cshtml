@@ -1,0 +1,13 @@
+﻿@model Offwind.WebApp.Areas.CFD.Models.Turbines.VVertice
+@{
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
+}
+<div class="control-group" id="@("EditorFor_" + fieldName)">
+    <label class="control-label" for="@fieldName">@displayName <i class="icon-question-sign"></i></label>
+    <div class="controls">
+        <input type="text" class="input-mini inputmask decimal" id="@(fieldName + "." + "X")" name="@(fieldName + "." + "X")" placeholder="0.0" value="@Model.X"/>
+        <input type="text" class="input-mini inputmask decimal" id="@(fieldName + "." + "Y")" name="@(fieldName + "." + "Y")" placeholder="0.0" value="@Model.Y"/>
+        <input type="text" class="input-mini inputmask decimal" id="@(fieldName + "." + "Z")" name="@(fieldName + "." + "Z")" placeholder="0.0" value="@Model.Z"/>
+    </div>
+</div>

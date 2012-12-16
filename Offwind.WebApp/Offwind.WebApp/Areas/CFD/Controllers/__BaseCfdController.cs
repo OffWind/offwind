@@ -77,7 +77,15 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                 var serializer = new XmlSerializer(typeof(SolverData));
                 using (var reader = new StringReader(dCase.Model))
                 {
-                    return (SolverData)serializer.Deserialize(reader);
+                    try
+                    {
+                        return (SolverData)serializer.Deserialize(reader);
+                    }
+                    catch (Exception e)
+                    {
+                        _log.Error("Failed to deserialize SolverData", e);
+                        return SolverData.GetDefaultModel();
+                    }
                 }
             }
         }

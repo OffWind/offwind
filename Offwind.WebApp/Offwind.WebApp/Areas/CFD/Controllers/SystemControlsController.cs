@@ -1,5 +1,7 @@
 ﻿using System.Web.Mvc;
+using EmitMapper;
 using Offwind.Products.OpenFoam.Models;
+using Offwind.Sowfa.System.ControlDict;
 using Offwind.WebApp.Areas.CFD.Models.SystemControls;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
@@ -16,26 +18,18 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ShortTitle = "Time";
             var m = new VControlDict();
             var sd = GetSolverData();
-            var d = sd.ControlDict;
-            m.Application = d.application;
-            m.StartFrom = d.startFrom;
-            m.StartTime = d.startTime;
-            m.StopAt = d.stopAt;
-            m.EndTime = d.endTime;
-            m.DeltaT = d.deltaT;
-            m.WriteControl = d.writeControl;
-            m.WriteInterval = d.writeInterval;
-            m.PurgeWrite = d.purgeWrite;
-            m.WriteFormat = d.writeFormat;
-            m.WritePrecision = d.writePrecision;
-            m.WriteCompression = d.writeCompression;
-            m.TimeFormat = d.timeFormat;
-            m.TimePrecision = d.timePrecision;
-            m.IsRunTimeModifiable = d.runTimeModifiable == FlagYesNo.yes;
-            m.AdjustTimeStep = d.adjustTimeStep == FlagYesNo.yes;
-            m.MaxCo = d.maxCo;
-            m.MaxDeltaT = d.maxDeltaT;
+            ObjectMapperManager.DefaultInstance.GetMapper<ControlDictData, VControlDict>().Map(sd.ControlDict, m);
             return View(m);
+        }
+
+        [ActionName("Time")]
+        [HttpPost]
+        public JsonResult TimeSave(VControlDict m)
+        {
+            var sd = GetSolverData();
+            ObjectMapperManager.DefaultInstance.GetMapper<VControlDict, ControlDictData>().Map(m, sd.ControlDict);
+            SetSolverData(sd);
+            return Json("OK");
         }
 
         public ActionResult Schemes()

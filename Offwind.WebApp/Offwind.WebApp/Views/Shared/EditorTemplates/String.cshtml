@@ -11,11 +11,11 @@
     Output.Write("<div class=\"controls\">");
     if (ViewData.ModelMetadata.IsReadOnly)
     {
-        Output.Write("<select disabled=\"\" id=\"{0}\">", fieldName);
+        Output.Write("<select disabled=\"\" id=\"{0}\" name=\"{0}\">", fieldName);
     }
     else
     {
-        Output.Write("<select>");
+        Output.Write("<select id=\"{0}\" name=\"{0}\">", fieldName);
     }
     foreach (var t in Enum.GetNames(enumType))
     {

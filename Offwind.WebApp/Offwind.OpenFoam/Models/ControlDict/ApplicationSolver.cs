@@ -6,6 +6,7 @@
     /// </summary>
     public enum ApplicationSolver
     {
+        pisoFoam,
         icoFoam,
         fastfoam,
         ABLPisoSolver,

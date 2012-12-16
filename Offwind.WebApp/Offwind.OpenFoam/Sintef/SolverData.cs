@@ -5,6 +5,7 @@ using Offwind.OpenFoam.Models.RasProperties;
 using Offwind.OpenFoam.Models.TurbulenceModels;
 using Offwind.OpenFoam.Sintef.BoundaryFields;
 using Offwind.Products.OpenFoam.Models;
+using Offwind.Products.OpenFoam.Models.ControlDict;
 using Offwind.Products.OpenFoam.Models.Fields;
 using Offwind.Products.OpenFoam.Models.PolyMesh;
 using Offwind.Sowfa.Constant.AblProperties;
@@ -71,6 +72,8 @@ namespace Offwind.OpenFoam.Sintef
             InitTransportProperties(m.TransportProperties);
             InitFieldK(m.FieldK);
             InitTurbineArray(m.TurbineArrayProperties);
+
+            InitTimeControl(m.ControlDict);
 
             return m;
         }
@@ -1052,6 +1055,24 @@ namespace Offwind.OpenFoam.Sintef
             ta.turbine.Add(t47);
         }
 
+        private static void InitTimeControl(ControlDictData cd)
+        {
+            cd.application = ApplicationSolver.pisoFoam;
+            cd.startFrom = StartFrom.latestTime;
+            cd.startTime = 10m;
+            cd.stopAt = StopAt.endTime;
+            cd.endTime = 200m;
+            cd.deltaT = 0.005m;
+            cd.writeControl = WriteControl.timeStep;
+            cd.writeInterval = 1000m;
+            cd.purgeWrite = 0;
+            cd.writeFormat = WriteFormat.ascii;
+            cd.writePrecision = 6m;
+            cd.writeCompression = WriteCompression.off;
+            cd.timeFormat = TimeFormat.general;
+            cd.timePrecision = 6m;
+            cd.runTimeModifiable = true;
+        }
         public string MakeFS()
         {
             fsPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());

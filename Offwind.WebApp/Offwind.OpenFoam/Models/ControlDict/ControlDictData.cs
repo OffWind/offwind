@@ -19,7 +19,7 @@ namespace Offwind.Sowfa.System.ControlDict
         public WriteCompression writeCompression { get; set; }
         public TimeFormat timeFormat { get; set; }
         public decimal timePrecision { get; set; }
-        public FlagYesNo runTimeModifiable { get; set; }
+        public bool runTimeModifiable { get; set; }
         public FlagYesNo adjustTimeStep { get; set; }
         public decimal maxCo { get; set; }
         public decimal maxDeltaT { get; set; }

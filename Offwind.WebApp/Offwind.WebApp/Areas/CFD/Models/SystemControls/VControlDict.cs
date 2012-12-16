@@ -1,29 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Offwind.Products.OpenFoam.Models.ControlDict;
 
 namespace Offwind.WebApp.Areas.CFD.Models.SystemControls
 {
     public class VControlDict
     {
-        public ApplicationSolver Application { get; set; }
-        public StartFrom StartFrom { get; set; }
-        public Decimal StartTime { get; set; }
-        public StopAt StopAt { get; set; }
-        public Decimal EndTime { get; set; }
-        public Decimal DeltaT { get; set; }
-        public WriteControl WriteControl { get; set; }
-        public Decimal WriteInterval { get; set; }
-        public Decimal PurgeWrite { get; set; }
-        public WriteFormat WriteFormat { get; set; }
-        public Decimal WritePrecision { get; set; }
-        public WriteCompression WriteCompression { get; set; }
-        public TimeFormat TimeFormat { get; set; }
-        public Decimal TimePrecision { get; set; }
-        public Boolean IsRunTimeModifiable { get; set; }
-        public Boolean AdjustTimeStep { get; set; }
-        public Decimal MaxCo { get; set; }
-        public Decimal MaxDeltaT { get; set; }
+        [ReadOnly(true)]
+        public ApplicationSolver application { get; set; }
+
+        public StartFrom startFrom { get; set; }
+        public Decimal startTime { get; set; }
+        public StopAt stopAt { get; set; }
+        public Decimal endTime { get; set; }
+        public Decimal deltaT { get; set; }
+        public WriteControl writeControl { get; set; }
+        public Decimal writeInterval { get; set; }
+        public Decimal purgeWrite { get; set; }
+        public WriteFormat writeFormat { get; set; }
+        public Decimal writePrecision { get; set; }
+        public WriteCompression writeCompression { get; set; }
+        public TimeFormat timeFormat { get; set; }
+        public Decimal timePrecision { get; set; }
+        public Boolean runTimeModifiable { get; set; }
+        public Boolean adjustTimeStep { get; set; }
+        public Decimal maxCo { get; set; }
+        public Decimal maxDeltaT { get; set; }
         public List<string> Libs { get; set; }
 
         public VControlDict()

@@ -1,26 +1,27 @@
 ﻿@model Offwind.WebApp.Areas.CFD.Models.SystemControls.VControlDict
 <form class="form-horizontal" method="post">
-    <fieldset>
-
-        @Html.EditorFor(m => m.Libs)
-        @*@Html.EditorFor(m => m.Application)*@
-        @Html.EditorFor(m => m.StartFrom)
-        @*@Html.EditorFor(m => m.StartTime)*@
-        @Html.EditorFor(m => m.StopAt)
-        @*@Html.EditorFor(m => m.EndTime)*@
-        @Html.EditorFor(m => m.DeltaT)
-        @Html.EditorFor(m => m.WriteControl)
-        @Html.EditorFor(m => m.WriteInterval)
-        @Html.EditorFor(m => m.PurgeWrite)
-        @Html.EditorFor(m => m.WriteFormat)
-        @Html.EditorFor(m => m.WritePrecision)
-        @Html.EditorFor(m => m.WriteCompression)
-        @Html.EditorFor(m => m.TimeFormat)
-        @Html.EditorFor(m => m.TimePrecision)
-        @Html.EditorFor(m => m.IsRunTimeModifiable)
-        @Html.EditorFor(m => m.AdjustTimeStep)
-        @Html.EditorFor(m => m.MaxCo)
-        @Html.EditorFor(m => m.MaxDeltaT)
-
-    </fieldset>
+    @Html.EditorFor(m => m.Libs)
+    @Html.EditorFor(m => m.application)
+    @Html.EditorFor(m => m.startFrom)
+    @Html.EditorFor(m => m.startTime)
+    @Html.EditorFor(m => m.stopAt)
+    @Html.EditorFor(m => m.endTime)
+    @Html.EditorFor(m => m.deltaT)
+    @Html.EditorFor(m => m.writeControl)
+    @Html.EditorFor(m => m.writeInterval)
+    @Html.EditorFor(m => m.purgeWrite)
+    @Html.EditorFor(m => m.writeFormat)
+    @Html.EditorFor(m => m.writePrecision)
+    @Html.EditorFor(m => m.writeCompression)
+    @Html.EditorFor(m => m.timeFormat)
+    @Html.EditorFor(m => m.timePrecision)
+    @Html.EditorFor(m => m.runTimeModifiable)
+    @Html.EditorFor(m => m.adjustTimeStep)
+    @Html.EditorFor(m => m.maxCo)
+    @Html.EditorFor(m => m.maxDeltaT)
+        
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn">Cancel</button>
+    </div>
 </form>

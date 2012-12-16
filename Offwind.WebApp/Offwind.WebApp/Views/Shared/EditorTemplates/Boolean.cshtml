@@ -6,6 +6,13 @@
 <div class="control-group" id="@("EditorFor_" + fieldName)">
     <label class="control-label" for="@fieldName">@displayName <i class="icon-question-sign"></i></label>
     <div class="controls">
-        <input type="checkbox" class="" id="@fieldName" name="@fieldName" value="@Model"/>
+        @if (Model)
+        {
+            Output.WriteLine("<input type=\"checkbox\" class=\"\" id=\"{0}\" name=\"{0}\" value=\"true\" checked />", fieldName);
+        }
+        else
+        {
+            Output.WriteLine("<input type=\"checkbox\" class=\"\" id=\"{0}\" name=\"{0}\" value=\"false\" />", fieldName);
+        }
     </div>
 </div>

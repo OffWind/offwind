@@ -76,7 +76,7 @@ namespace Offwind.Sowfa.System.ControlDict
                         rawData.timePrecision = rootEntryNode.GetBasicValDecimal();
                         break;
                     case "runTimeModifiable":
-                        rawData.runTimeModifiable = rootEntryNode.GetBasicValEnum<FlagYesNo>();
+                        rawData.runTimeModifiable = rootEntryNode.GetBasicValBool();
                         break;
                     case "adjustTimeStep":
                         rawData.adjustTimeStep = rootEntryNode.GetBasicValEnum<FlagYesNo>();

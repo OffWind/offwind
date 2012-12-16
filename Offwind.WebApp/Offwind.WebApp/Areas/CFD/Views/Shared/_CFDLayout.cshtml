@@ -52,6 +52,11 @@
                 $('#alert-saved').fadeOut();
                 return false;
             });
+            $('input[type=checkbox]').change(function () {
+                var checked = $(this).attr('checked') != undefined;
+                //console.debug(checked);
+                $(this).attr('value', checked);
+            });
         });        
     </script>
     @RenderSection("scripts", false)

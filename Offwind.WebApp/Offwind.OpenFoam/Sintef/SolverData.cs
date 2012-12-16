@@ -54,6 +54,7 @@ namespace Offwind.OpenFoam.Sintef
             RasProperties = new RasPropertiesData();
             TransportProperties = new TransportPropertiesData();
             TurbineProperties = new TurbinePropertiesData();
+            TurbineArrayProperties = new TurbineArrayPropData();
             BlockMeshDict = new BlockMeshDictData();
             AirfoilProperties = new AirfoilPropertiesData();
 

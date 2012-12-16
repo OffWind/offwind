@@ -71,6 +71,7 @@ namespace Offwind.Sowfa.Constant.TurbineProperties
             torqueControllerParams = new TorqueControllerParams();
             pitchControllerParams = new PitchControllerParams();
             airfoilBlade = new List<AirfoilBlade>();
+            PreCone = new Vertice();
         }
     }
 }

@@ -195,7 +195,6 @@
     <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldScalarValue.cs" />
     <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldU.cs" />
     <Compile Include="Areas\CFD\Models\Preprocessing\VDomainSetup.cs" />
-    <Compile Include="Areas\CFD\Models\BoundaryConditions\VField.cs" />
     <Compile Include="Areas\CFD\Models\Preprocessing\VTransportProperties.cs" />
     <Compile Include="Areas\CFD\Models\SystemControls\VControlDict.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VPitchControllerParams.cs" />

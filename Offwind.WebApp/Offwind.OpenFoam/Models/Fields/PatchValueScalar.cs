@@ -1,4 +1,6 @@
-﻿namespace Offwind.OpenFoam.Models.Fields
+﻿using System.Collections.Generic;
+
+namespace Offwind.OpenFoam.Models.Fields
 {
     public class PatchValueScalar
     {

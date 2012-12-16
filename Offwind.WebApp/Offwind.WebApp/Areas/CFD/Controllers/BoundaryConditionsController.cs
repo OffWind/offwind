@@ -3,7 +3,13 @@ using EmitMapper;
 using Offwind.OpenFoam.Models.Fields;
 using Offwind.OpenFoam.Sintef;
 using Offwind.OpenFoam.Sintef.BoundaryFields;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using Offwind.WebApp.Areas.CFD.Models.BoundaryConditions;
+
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
@@ -46,7 +52,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ShortTitle = "epsilon";
             var m = new VFieldEpsilon();
             SolverData sd = GetSolverData();
-            //ObjectMapperManager.DefaultInstance.GetMapper<VFieldEpsilon, BoundaryField>().Map(m, sd.FieldEpsilon);
+            ObjectMapperManager.DefaultInstance.GetMapper<FieldEpsilon, VFieldEpsilon>().Map(sd.FieldEpsilon, m);
             return View(m);
         }
 
@@ -56,7 +62,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "epsilon";
             SolverData sd = GetSolverData();
-            //Mapper.Map(m, sd.FieldEpsilon);
+            ObjectMapperManager.DefaultInstance.GetMapper<VFieldEpsilon, FieldEpsilon>().Map(m, sd.FieldEpsilon);
             SetSolverData(sd);
             if (Request.IsAjaxRequest()) return Json("OK");
             return View(m);
@@ -67,7 +73,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ShortTitle = "p";
             var m = new VFieldP();
             SolverData sd = GetSolverData();
-            //Mapper.Map(sd.FieldP, m);
+            ObjectMapperManager.DefaultInstance.GetMapper<FieldP, VFieldP>().Map(sd.FieldP, m);
             return View(m);
         }
 
@@ -77,7 +83,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "p";
             SolverData sd = GetSolverData();
-            //Mapper.Map(m, sd.FieldP);
+            ObjectMapperManager.DefaultInstance.GetMapper<VFieldP, FieldP>().Map(m, sd.FieldP);
             SetSolverData(sd);
             if (Request.IsAjaxRequest()) return Json("OK");
             return View(m);
@@ -88,7 +94,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ShortTitle = "R";
             var m = new VFieldR();
             SolverData sd = GetSolverData();
-            //Mapper.Map(sd.FieldR, m);
+            ObjectMapperManager.DefaultInstance.GetMapper<FieldR, VFieldR>().Map(sd.FieldR, m);
             return View(m);
         }
 
@@ -98,7 +104,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "R";
             SolverData sd = GetSolverData();
-            //Mapper.Map(m, sd.FieldR);
+            ObjectMapperManager.DefaultInstance.GetMapper<VFieldR, FieldR>().Map(m, sd.FieldR);
             SetSolverData(sd);
             if (Request.IsAjaxRequest()) return Json("OK");
             return View(m);
@@ -109,7 +115,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ShortTitle = "U";
             var m = new VFieldU();
             SolverData sd = GetSolverData();
-            //Mapper.Map(sd.FieldU, m);
+            ObjectMapperManager.DefaultInstance.GetMapper<FieldU, VFieldU>().Map(sd.FieldU, m);
             return View(m);
         }
 
@@ -119,7 +125,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "U";
             SolverData sd = GetSolverData();
-            //Mapper.Map(m, sd.FieldU);
+            ObjectMapperManager.DefaultInstance.GetMapper<VFieldU, FieldU>().Map(m, sd.FieldU);
             SetSolverData(sd);
             if (Request.IsAjaxRequest()) return Json("OK");
             return View(m);

@@ -1,0 +1,48 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                |                                                  |
+| \\      /  F ield        | OpenFOAM:            The Open Source CFD Toolbox |
+|  \\    /   O peration    | Version:             1.5                         |
+|   \\  /    A nd          | Web:                 http://www.OpenFOAM.org     |
+|    \\/     M anipulation | Discretizer - Setup: http://www.discretizer.org  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volSymmTensorField;
+    object      R;
+}
+
+dimensions      [0 2 -2 0 0 0 0];
+
+internalField   uniform ({[[internalField]]});
+
+boundaryField
+{
+    top
+    {
+        type            zeroGradient;
+    }
+    west
+    {
+        type            fixedValue;
+        value           uniform ({[[westValue]]});
+    }
+    east
+    {
+        type            zeroGradient;
+    }
+    north
+    {
+        type            zeroGradient;
+    }
+    bottom
+    {
+        type            zeroGradient;
+    }
+    south
+    {
+        type            fixedValue;
+        value           uniform ({[[southValue]]});
+    }
+}

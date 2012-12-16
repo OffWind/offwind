@@ -18,11 +18,7 @@ namespace Offwind.Sowfa.System.ControlDict
         public override object Read(string path)
         {
             var rawData = new ControlDictData();
-            string txt;
-            using (var reader = new StreamReader(path))
-            {
-                txt = reader.ReadToEnd();
-            }
+            string txt = Load(path);
 
             var grammar = new OpenFoamGrammar();
             var parser = new Parser(grammar);

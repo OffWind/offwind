@@ -18,19 +18,19 @@ convertToMeters 1.0;
 
 vertices        
 (
-    (   0.0    0.0    0.0)
-    (3000.0    0.0    0.0)
-    (3000.0 3000.0    0.0)
-    (   0.0 3000.0    0.0)
-    (   0.0    0.0 1000.0)
-    (3000.0    0.0 1000.0)
-    (3000.0 3000.0 1000.0)
-    (   0.0 3000.0 1000.0)
+    (-500.0 -500.0    0.0)
+    (6000.0 -500.0    0.0)
+    (6000.0 6000.0    0.0)
+    (-500.0 6000.0    0.0)
+    (-500.0 -500.0 1000.0)
+    (6000.0 -500.0 1000.0)
+    (6000.0 6000.0 1000.0)
+    (-500.0 6000.0 1000.0)
 );
 
 blocks          
 (
-    hex (0 1 2 3 4 5 6 7) (75 75 25) simpleGrading (1 1 1)
+    hex (0 1 2 3 4 5 6 7) (100 100 30) simpleGrading (1 1 1)
 );
 
 edges           
@@ -49,7 +49,7 @@ boundary
     }
     top 
     {
-        type patch;
+        type wall;
         faces
         (
             (4 5 6 7)
@@ -57,8 +57,7 @@ boundary
     }
     west
     { 
-        type cyclic;
-        neighbourPatch east;
+        type patch;
         faces
         (
             (0 4 7 3)
@@ -66,8 +65,7 @@ boundary
     }
     east
     { 
-        type cyclic;
-        neighbourPatch west;
+        type patch;
         faces
         (
             (1 2 6 5)
@@ -75,8 +73,7 @@ boundary
     }
     north
     { 
-        type cyclic;
-        neighbourPatch south;
+        type wall;
         faces
         (
             (3 7 6 2)
@@ -84,8 +81,7 @@ boundary
     }
     south
     { 
-        type cyclic;
-        neighbourPatch north;
+        type wall;
         faces
         (
             (0 1 5 4)

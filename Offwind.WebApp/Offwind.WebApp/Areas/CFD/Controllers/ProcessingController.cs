@@ -17,6 +17,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
     {
         public ProcessingController()
         {
+            rootPath = "C:\\work\\temp"; // just for tests, take value from Web.config
             SectionTitle = "Processing";
         }
 
@@ -35,22 +36,21 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 
         public JsonResult SimulationStart()
         {
-            var solverData = GetSolverData();
-            var now = DateTime.UtcNow;
-            var inputData = solverData.ArchName(now.ToBinary().ToString());
-            var inputFs = solverData.MakeFS();
-            SharpZipUtils.CompressFolder(inputFs, inputData, null);
-            Directory.Delete(inputFs, true);
-
             var job = new Job
             {
                 Id = Guid.NewGuid(),
-                Started = now,
+                Started = DateTime.UtcNow,
                 Owner = User.Identity.Name,
                 Name = StandardCases.CfdCase,
-                State = JobState.Started,
-                InputData = inputData // or may be just allocate memory for zip data ?
+                State = JobState.Started,                
             };
+
+            var jobZip = CreateJobPath(job);
+            var jobPath = jobZip.Replace(".zip", "");
+            
+            var solverData = GetSolverData();            
+            solverData.MakeJobFS(jobPath);
+            SharpZipUtils.CompressFolder(jobPath, jobZip, null);
 
             new JobsController().AddJobManually(job);
 

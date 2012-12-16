@@ -20,6 +20,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         protected string Title;
         protected string ShortTitle;
         protected string SectionTitle;
+        protected string rootPath;
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Offwind.OpenFoam.Models.TransportProperties {
+namespace Offwind.OpenFoam.Sintef.BoundaryFields {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Offwind.OpenFoam.Models.TransportProperties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class TransportPropertiesRes {
+    internal class BoundaryFieldsRes {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal TransportPropertiesRes() {
+        internal BoundaryFieldsRes() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Offwind.OpenFoam.Models.TransportProperties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Offwind.OpenFoam.Models.TransportProperties.TransportPropertiesRes", typeof(TransportPropertiesRes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Offwind.OpenFoam.Sintef.BoundaryFields.BoundaryFieldsRes", typeof(BoundaryFieldsRes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -64,44 +64,74 @@ namespace Offwind.OpenFoam.Models.TransportProperties {
         ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
         ///| =========                 |                                                 |
         ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-        ///|  \\    /   O peration     | Version:  2.0.x                                 |
+        ///|  \\    /   O peration     | Version:  2.1.1                                 |
         ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
-        ///|    \\/     M anipulation  |                                                 |
-        ///\*------------------------ [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Default {
-            get {
-                return ResourceManager.GetString("Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
-        ///| =========                 |                                                 |
-        ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-        ///|  \\    /   O peration     | Version:  2.0.x                                 |
-        ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
-        ///|    \\/     M anipulation  |                                                 |
-        ///\*------------------------ [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Template {
-            get {
-                return ResourceManager.GetString("Template", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
-        ///| =========                 |                                                 |
-        ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-        ///|  \\    /   O peration     | Version:  1.5                                   |
-        ///|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
         ///|    \\/     M anipulation  |                                                 |
         ///\*------------------------------ [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Template2 {
+        internal static string TemplateEpsilon {
             get {
-                return ResourceManager.GetString("Template2", resourceCulture);
+                return ResourceManager.GetString("TemplateEpsilon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                 |                                                 |
+        ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+        ///|  \\    /   O peration     | Version:  2.1.1                                 |
+        ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+        ///|    \\/     M anipulation  |                                                 |
+        ///\*------------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TemplateK {
+            get {
+                return ResourceManager.GetString("TemplateK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                |                                                  |
+        ///| \\      /  F ield        | OpenFOAM:            The Open Source CFD Toolbox |
+        ///|  \\    /   O peration    | Version:             1.5                         |
+        ///|   \\  /    A nd          | Web:                 http://www.OpenFOAM.org     |
+        ///|    \\/     M anipulation | Discretizer - Setup: http://www.discretizer.org  |
+        ///\*------------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TemplateP {
+            get {
+                return ResourceManager.GetString("TemplateP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                |                                                  |
+        ///| \\      /  F ield        | OpenFOAM:            The Open Source CFD Toolbox |
+        ///|  \\    /   O peration    | Version:             1.5                         |
+        ///|   \\  /    A nd          | Web:                 http://www.OpenFOAM.org     |
+        ///|    \\/     M anipulation | Discretizer - Setup: http://www.discretizer.org  |
+        ///\*------------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TemplateR {
+            get {
+                return ResourceManager.GetString("TemplateR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                |                                                  |
+        ///| \\      /  F ield        | OpenFOAM:            The Open Source CFD Toolbox |
+        ///|  \\    /   O peration    | Version:             1.5                         |
+        ///|   \\  /    A nd          | Web:                 http://www.OpenFOAM.org     |
+        ///|    \\/     M anipulation | Discretizer - Setup: http://www.discretizer.org  |
+        ///\*------------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TemplateU {
+            get {
+                return ResourceManager.GetString("TemplateU", resourceCulture);
             }
         }
     }

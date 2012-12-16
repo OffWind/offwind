@@ -73,8 +73,14 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             }
 
             var job = new JobsController().GetJob(jobId);
-            var path = CreateJobPath(job);
             var fileName = String.Format("{0}.zip", job.Id);
+
+            var isTestMode = bool.Parse(WebConfigurationManager.AppSettings["TestMode"]);
+            if (isTestMode)
+            {
+                return File(CreateTestJobPath(), "application/octet-stream", fileName);
+            }
+            var path = CreateJobPath(job);
             return File(path, "application/octet-stream", fileName);
         }
 
@@ -91,6 +97,15 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             path = Path.Combine(path, job.Owner);
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             path = Path.Combine(path, job.Id.ToString());
+            path += ".zip";
+            return path;
+        }
+
+        private string CreateTestJobPath()
+        {
+            string path = WebConfigurationManager.AppSettings["UsersDir"];
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            path = Path.Combine(path, "test");
             path += ".zip";
             return path;
         }

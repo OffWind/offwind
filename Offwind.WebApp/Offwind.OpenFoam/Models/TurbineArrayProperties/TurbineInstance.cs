@@ -36,5 +36,10 @@ namespace Offwind.Sowfa.Constant.TurbineArrayProperties
         public decimal pitch    { set; get; }
         public decimal nacYaw   { set; get; }
         public decimal fluidDensity { set; get; }
+
+        public TurbineInstance()
+        {
+            baseLocation = new Vertice();
+        }
     }
 }

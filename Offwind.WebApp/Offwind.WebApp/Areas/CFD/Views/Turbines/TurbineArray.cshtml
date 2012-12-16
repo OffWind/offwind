@@ -2,7 +2,7 @@
 {
     @Styles.Render("~/static/css/jquery.handsontable.full.css")
 }
-<div id="example1"></div>
+<div id="example1" style="height: 640px; width: 1024px; overflow: scroll"></div>
 
 @section scripts
 {
@@ -21,7 +21,7 @@
                 if (!isInitialized) return;
                 var d = $container.data('handsontable').getData();
                 $.ajax({
-                    url: "@Url.Action("TurbineCoordinatesSave", "WakeSimulation", new { area = "EngineeringTools" })",
+                    url: "@Url.Action("TurbineCoordinatesSave", "Turbines", new { area = "CFD" })",
                     dataType: "json",
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',
@@ -30,17 +30,50 @@
             };
 
             $container.handsontable({
-                startRows: 5,
-                startCols: 2,
-                columns: [{ type: { renderer: renderer} }, { type: { renderer: renderer} }],
-                colHeaders: ["<b>X</b>", "<b>Y</b>"],
+                startRows: 1,
+                startCols: 16,
+                columns: [
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} }],
+                colHeaders: [
+                    "<b>turbineType</b>",
+                    "<b>X</b>",
+                    "<b>Y</b>",
+                    "<b>Z</b>",
+                    "<b>numBladePoints</b>",
+                    "<b>pointDistType</b>",
+                    "<b>pointInterpType</b>",
+                    "<b>bladeUpdateType</b>",
+                    "<b>epsilon</b>",
+                    "<b>tipRootLossCorrType</b>",
+                    "<b>rotationDir</b>",
+                    "<b>azimuth</b>",
+                    "<b>rotSpeed</b>",
+                    "<b>pitch</b>",
+                    "<b>nacYaw</b>",
+                    "<b>fluidDensity</b>"
+                ],
                 rowHeaders: true,
                 minSpareRows: 1,
                 onChange: changed
             });
 
             $.ajax({
-                url: "@Url.Action("TurbineCoordinatesData", "WakeSimulation", new { area = "EngineeringTools" })",
+                url: "@Url.Action("TurbineArrayData", "Turbines", new { area = "CFD" })",
                 dataType: 'json',
                 type: 'GET',
                 success: function (res) {
@@ -48,6 +81,6 @@
                     isInitialized = true;
                 }
             });
-        });        
+        });
     </script>
 }

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using Irony.Parsing;
+using Offwind.OpenFoam.Models.TurbineArrayProperties;
 using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Parsing;
 
@@ -19,11 +20,7 @@ namespace Offwind.Sowfa.Constant.TurbineArrayProperties
         public override object Read(string path)
         {
             var turbine_prop = new TurbineArrayPropData();
-            string text;
-            using (var reader = new StreamReader(path))
-            {
-                text = reader.ReadToEnd();
-            }
+            string text = Load(path);
 
             var grammar = new OpenFoamGrammar();
             var parser = new Parser(grammar);

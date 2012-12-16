@@ -9,41 +9,47 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "system";
-    object      controlDict;
+    class       volScalarField;
+    location    "0";
+    object      k;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     pisoFoam;
+dimensions      [0 2 -2 0 0 0 0];
 
-startFrom       latestTime;
+internalField   uniform ({[[internalField]]});
 
-startTime       10;
-
-stopAt          endTime;
-
-endTime         200;
-
-deltaT          0.005;
-
-writeControl    timeStep;
-
-writeInterval   1000;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable true;
+boundaryField
+{
+    bottom
+    {
+        type            ({[[bottomType]]});
+        value           uniform ({[[bottomValue]]});
+    }
+    top
+    {
+        type            ({[[topType]]});
+        value           uniform ({[[topValue]]});
+    }
+    west
+    {
+        type            ({[[westType]]});
+        value           uniform ({[[westValue]]});
+    }
+    east
+    {
+        type            zeroGradient;
+    }
+    north
+    {
+        type            zeroGradient;
+    }
+    south
+    {
+        type            ({[[southType]]});
+        value           uniform ({[[southValue]]});
+    }
+}
 
 
 // ************************************************************************* //

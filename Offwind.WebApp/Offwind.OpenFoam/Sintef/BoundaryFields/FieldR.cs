@@ -1,11 +1,12 @@
-﻿using Offwind.OpenFoam.Models.Fields;
+using System.Collections.Generic;
+using Offwind.OpenFoam.Models.Fields;
 using Offwind.Products.OpenFoam.Models.Fields;
 
 namespace Offwind.OpenFoam.Sintef.BoundaryFields
 {
-     public class FieldK
+    public class FieldR
     {
-        public decimal InternalField { get; set; }
+        public List<decimal> InternalField { get; set; }
 
         public PatchType BottomType { get; set; }
         public PatchValueScalar BottomValue { get; set; }
@@ -25,7 +26,7 @@ namespace Offwind.OpenFoam.Sintef.BoundaryFields
         public PatchType SouthType { get; set; }
         public PatchValueScalar SouthValue { get; set; }
 
-        public FieldK()
+        public FieldR()
         {
             BottomValue = new PatchValueScalar();
             TopValue = new PatchValueScalar();

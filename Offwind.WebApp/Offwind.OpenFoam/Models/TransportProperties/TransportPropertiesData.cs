@@ -22,7 +22,7 @@
         /// OffwindSolver Transport Properties
         public decimal CplcNu0 { get; set; }
         public decimal CplcNuInf { get; set; }
-        public decimal CplcM { get; set; }
+        public decimal CplcM { get; set; } 
         public decimal CplcN { get; set; }
 
         public decimal BccNu0 { get; set; }

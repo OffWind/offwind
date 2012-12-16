@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.1.1                                 |
+|  \\    /   O peration     | Version:  2.0.x                                 |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -11,39 +11,43 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "system";
-    object      controlDict;
+    object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     pisoFoam;
+ddtSchemes
+{
+({[[ddtSchemes]]})
+}
 
-startFrom       latestTime;
+gradSchemes
+{
+({[[gradSchemes]]})
+}
 
-startTime       10;
+divSchemes
+{
+({[[divSchemes]]})
+}
 
-stopAt          endTime;
+laplacianSchemes
+{
+({[[laplacianSchemes]]})
+}
 
-endTime         200;
+interpolationSchemes
+{
+({[[interpolationSchemes]]})
+}
 
-deltaT          0.005;
+snGradSchemes
+{
+({[[snGradSchemes]]})
+}
 
-writeControl    timeStep;
-
-writeInterval   1000;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable true;
-
+fluxRequired
+{
+({[[fluxRequired]]})
+}
 
 // ************************************************************************* //

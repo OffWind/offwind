@@ -1,0 +1,61 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                |                                                  |
+| \\      /  F ield        | OpenFOAM:            The Open Source CFD Toolbox |
+|  \\    /   O peration    | Version:             1.5                         |
+|   \\  /    A nd          | Web:                 http://www.OpenFOAM.org     |
+|    \\/     M anipulation | Discretizer - Setup: http://www.discretizer.org  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      U;
+}
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform ({[[internalField]]});
+
+boundaryField
+{
+    top
+    {
+        type            slip;
+    }
+    west
+    {
+        type            atmBoundaryLayerInletVelocity;
+        Uref            ({[[westUref]]});
+        Href            ({[[westHref]]});
+        n               ({[[westn]]});
+        z               ({[[westz]]});
+        z0              uniform ({[[westz0]]});
+        value           uniform ({[[westValue]]});
+        zGround         uniform ({[[westzGround]]});
+    }
+    east
+    {
+        type            zeroGradient;
+    }
+    north
+    {
+        type            zeroGradient;
+    }
+    bottom
+    {
+        type             ({[[bottomType]]});
+        value           uniform  ({[[bottomValue]]});
+    }
+    south
+    {
+        type            atmBoundaryLayerInletVelocity;
+        Uref            ({[[southUref]]});
+        Href            ({[[southHref]]});
+        n               ({[[southn]]});
+        z               ({[[southz]]});
+        z0              uniform ({[[southz0]]});
+        value           uniform ({[[southValue]]});
+        zGround         uniform ({[[southzGround]]});
+    }
+}

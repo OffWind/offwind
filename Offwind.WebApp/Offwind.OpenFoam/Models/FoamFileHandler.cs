@@ -79,5 +79,17 @@ namespace Offwind.Products.OpenFoam.Models
                 Write(path, data);
             }
         }
+
+        public string Load(string path)
+        {
+            if (path == null)
+            {
+                return DefaultData;
+            }
+            using (var reader = new StreamReader(path))
+            {
+                return reader.ReadToEnd();
+            }
+        }
     }
 }

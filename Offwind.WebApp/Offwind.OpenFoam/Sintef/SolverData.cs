@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Offwind.OpenFoam.Models.Fields;
 using Offwind.OpenFoam.Models.RasProperties;
@@ -19,14 +20,13 @@ namespace Offwind.OpenFoam.Sintef
 {
     public class SolverData
     {
-        public string DefaultArchName = Path.Combine(Path.GetTempPath(), "solver.zip");
 
-        public BoundaryField FieldEpsilon { get; set; }
+        public FieldEpsilon FieldEpsilon { get; set; }
         public FieldK FieldK { get; set; }
+        public FieldP FieldP { get; set; }
+        public FieldR FieldR { get; set; }
+        public FieldU FieldU { get; set; }
         public BoundaryField FieldNut { get; set; }
-        public BoundaryField FieldP { get; set; }
-        public BoundaryField FieldR { get; set; }
-        public BoundaryField FieldU { get; set; }
 
         public TurbulencePropertiesData TurbulenceProperties { get; set; }
         public RasPropertiesData RasProperties { get; set; }
@@ -40,63 +40,77 @@ namespace Offwind.OpenFoam.Sintef
         public AirfoilPropertiesData AirfoilProperties { get; set; }
         public ProcessingSettings ProcessingSettings { get; set; }
 
-        private string fsPath = null;
+        private readonly ControlDictHandler controlDictHandler;
+        private readonly TransportPropertiesHandler transportPropHandler;
+        private readonly BlockMeshDictHandler blockMeshHandler;
+        private readonly TurbineArrayPropHandler turbineArrayPropHandler;
+        private readonly FieldEpsilonHandler fieldEpsilonHandler;
+        private readonly FieldKHandler fieldKHandler;
+        private readonly FieldPHandler fieldPHandler;
+        private readonly FieldUHandler fieldUHandler;
 
         public SolverData()
         {
-            FieldEpsilon = new BoundaryField();
+            FieldEpsilon = new FieldEpsilon();
             FieldK = new FieldK();
             FieldNut = new BoundaryField();
-            FieldP = new BoundaryField();
-            FieldR = new BoundaryField();
-            FieldU = new BoundaryField();
+            FieldP = new FieldP();
+            FieldR = new FieldR();
+            FieldU = new FieldU();
+
+            controlDictHandler = new ControlDictHandler();
+            transportPropHandler = new TransportPropertiesHandler();
+            blockMeshHandler = new BlockMeshDictHandler();
+            turbineArrayPropHandler = new TurbineArrayPropHandler();
+            fieldEpsilonHandler = new FieldEpsilonHandler();
+            fieldKHandler = new FieldKHandler();
+            fieldPHandler = new FieldPHandler();
+            fieldUHandler = new FieldUHandler();
+
+            BlockMeshDict = (BlockMeshDictData) blockMeshHandler.Read(null);
+            ControlDict = (ControlDictData) controlDictHandler.Read(null);
+            TransportProperties = (TransportPropertiesData) transportPropHandler.Read(null);
+            TurbineArrayProperties = (TurbineArrayPropData) turbineArrayPropHandler.Read(null);
+            
+            /* extra post-initialize calls */
+            InitTransportProperties(TransportProperties);
+            InitFieldK(FieldK);
+            InitFieldEpsilon(FieldEpsilon);
+            InitFieldP(FieldP);
+            InitFieldR(FieldR);
+            InitFieldU(FieldU);
 
             TurbulenceProperties = new TurbulencePropertiesData();
             RasProperties = new RasPropertiesData();
-            TransportProperties = new TransportPropertiesData();
             TurbineProperties = new TurbinePropertiesData();
-            TurbineArrayProperties = new TurbineArrayPropData();
-            BlockMeshDict = new BlockMeshDictData();
             AirfoilProperties = new AirfoilPropertiesData();
-
             ProcessingSettings = new ProcessingSettings();
-
-            ControlDict = new ControlDictData();
         }
 
         public static SolverData GetDefaultModel()
         {
-            var m = new SolverData();
-
-            InitBlockMeshDict(m.BlockMeshDict);
-            InitTransportProperties(m.TransportProperties);
-            InitFieldK(m.FieldK);
-            InitTurbineArray(m.TurbineArrayProperties);
-
-            InitTimeControl(m.ControlDict);
-
-            return m;
+            return new SolverData();
         }
 
-        private static void InitBlockMeshDict(BlockMeshDictData bm)
+        public void MakeJobFS(string path)
         {
-            bm.convertToMeters = 1;
-            bm.vertices.AddRange(new[]
-                                     {
-                                         new Vertice(-500, -500, 0),
-                                         new Vertice(6000, -500, 0),
-                                         new Vertice(6000, 6000, 0),
-                                         new Vertice(-500, 6000, 0),
-                                         new Vertice(-500, -500, 1000),
-                                         new Vertice(6000, -500, 1000),
-                                         new Vertice(6000, 6000, 1000),
-                                         new Vertice(-500, 6000, 1000),
-                                     });
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            controlDictHandler.Write(controlDictHandler.GetPath(path), ControlDict);            
+            blockMeshHandler.Write(blockMeshHandler.GetPath(path), BlockMeshDict);
+            turbineArrayPropHandler.Write(turbineArrayPropHandler.GetPath(path), TurbineArrayProperties);
+            fieldEpsilonHandler.Write(fieldEpsilonHandler.GetPath(path), FieldEpsilon);
+            fieldKHandler.Write(fieldKHandler.GetPath(path), FieldK);
+            fieldPHandler.Write(fieldPHandler.GetPath(path), FieldP);
+            fieldUHandler.Write(fieldUHandler.GetPath(path), FieldU);
 
-            bm.MeshBlocks.vertexNumbers.AddRange(new[] {0, 1, 2, 3, 4, 5, 6, 7});
-            bm.MeshBlocks.numberOfCells.AddRange(new[] {100, 100, 30});
-            bm.MeshBlocks.grading = Grading.simpleGrading;
-            bm.MeshBlocks.gradingNumbers.AddRange(new[] {1, 1, 1});
+           
+            /* TODO: extra write handlres */
+
+            transportPropHandler.Write(transportPropHandler.GetPath(path), TransportProperties);
+
         }
 
         private static void InitTransportProperties(TransportPropertiesData tp)
@@ -135,6 +149,190 @@ namespace Offwind.OpenFoam.Sintef
             f.SouthType = PatchType.fixedValue;
             f.SouthValue.Type = PatchValueType.Uniform;
             f.SouthValue.Value = 1.5m;
+        }
+
+        private static void InitFieldEpsilon(FieldEpsilon f)
+        {
+            f.BottomType = PatchType.epsilonWallFunction;
+            f.BottomEpsilon.Cmu = 0.09m;
+            f.BottomEpsilon.kappa = 0.41m;
+            f.BottomEpsilon.E = 9.8m;
+            f.BottomValue.Type = PatchValueType.Uniform;
+            f.BottomValue.Value = 34.4993m;
+
+            f.TopType = PatchType.epsilonWallFunction;
+            f.TopEpsilon.Cmu = 0.09m;
+            f.TopEpsilon.kappa = 0.41m;
+            f.TopEpsilon.E = 9.8m;
+            f.TopValue.Type = PatchValueType.Uniform;
+            f.TopValue.Value = 34.4993m;
+
+            f.WestType = PatchType.fixedValue;
+            f.WestValue.Type = PatchValueType.Uniform;
+            f.WestValue.Value = 34.4993m;
+
+            f.EastType = PatchType.zeroGradient;
+
+            f.NorthType = PatchType.zeroGradient;
+
+            f.SouthType = PatchType.fixedValue;
+            f.SouthValue.Type = PatchValueType.Uniform;
+            f.SouthValue.Value = 34.4993m;
+        }
+
+        private static void InitFieldP(FieldP f)
+        {
+            f.BottomType = PatchType.zeroGradient;
+            f.TopType = PatchType.zeroGradient;
+            f.WestType = PatchType.zeroGradient;
+
+            f.EastType = PatchType.fixedValue;
+            f.EastValue.Type = PatchValueType.Uniform;
+            f.EastValue.Value = 0m;
+
+            f.NorthType = PatchType.zeroGradient;
+
+            f.SouthType = PatchType.fixedValue;
+            f.SouthValue.Type = PatchValueType.Uniform;
+            f.SouthValue.Value = 0m;
+        }
+
+        private static void InitFieldR(FieldR f)
+        {
+            f.InternalField = new List<decimal>() { 0, 0, 0, 0, 0, 0 };
+            f.BottomType = PatchType.zeroGradient;
+            f.TopType = PatchType.zeroGradient;
+
+            f.WestType = PatchType.fixedValue;
+            f.WestValue.Type = PatchValueType.Uniform;
+            f.WestValue.Array = new List<decimal>() {0, 0, 0, 0, 0, 0};
+
+            f.EastType = PatchType.zeroGradient;
+            f.NorthType = PatchType.zeroGradient;
+
+            f.SouthType = PatchType.fixedValue;
+            f.SouthValue.Type = PatchValueType.Uniform;
+            f.SouthValue.Array = new List<decimal>() { 0, 0, 0, 0, 0, 0 };
+        }
+        private static void InitFieldU(FieldU f)
+        {
+            f.InternalField.Type = PatchValueType.Uniform;
+            f.InternalField.Value1 = 7.304m;
+            f.InternalField.Value2 = 8.226m;
+            f.InternalField.Value3 = 0;
+
+            f.TopType = PatchType.slip;
+
+            f.WestType = PatchType.atmBoundaryLayerInletVelocity;
+            f.WestBoundary.Uref = 11;
+            f.WestBoundary.Href = 520;
+            f.WestBoundary.n = new Vertice()
+                                   {
+                                       X = 0.664m,
+                                       Y = 0.7478m,
+                                       Z = 0
+                                   };
+            f.WestBoundary.z = new Vertice()
+                                   {
+                                       X = 0,
+                                       Y = 0,
+                                       Z = 1
+                                   };
+            f.WestBoundary.z0 = new PatchValueScalar()
+                                    {
+                                        Type = PatchValueType.Uniform,
+                                        Value = 0.014m
+                                    };
+            f.WestBoundary.zGround = new PatchValueScalar()
+                                         {
+                                             Type = PatchValueType.Uniform,
+                                             Value = 0
+                                         };
+            f.WestValue.Type = PatchValueType.Uniform;
+            f.WestValue.Value1 = 0;
+            f.WestValue.Value2 = 0;
+            f.WestValue.Value3 = 0;
+
+            f.EastType = PatchType.zeroGradient;
+            f.NorthType = PatchType.zeroGradient;
+            f.BottomType = PatchType.fixedValue;
+            f.BottomValue.Type = PatchValueType.Uniform;
+            f.BottomValue.Value1 = 0;
+            f.BottomValue.Value2 = 0;
+            f.BottomValue.Value3 = 0;
+
+
+            f.SouthType = PatchType.atmBoundaryLayerInletVelocity;
+            f.SouthBoundary.Uref = 11;
+            f.SouthBoundary.Href = 520;
+            f.SouthBoundary.n = new Vertice()
+            {
+                X = 0.664m,
+                Y = 0.7478m,
+                Z = 0
+            };
+            f.SouthBoundary.z = new Vertice()
+            {
+                X = 0,
+                Y = 0,
+                Z = 1
+            };
+            f.SouthBoundary.z0 = new PatchValueScalar()
+            {
+                Type = PatchValueType.Uniform,
+                Value = 0.014m
+            };
+            f.SouthBoundary.zGround = new PatchValueScalar()
+            {
+                Type = PatchValueType.Uniform,
+                Value = 0
+            };
+            f.SouthValue.Type = PatchValueType.Uniform;
+            f.SouthValue.Value1 = 0;
+            f.SouthValue.Value2 = 0;
+            f.SouthValue.Value3 = 0;
+        }
+
+        #region Unused manualy init
+
+        private static void InitTimeControl(ControlDictData cd)
+        {
+            cd.application = ApplicationSolver.pisoFoam;
+            cd.startFrom = StartFrom.latestTime;
+            cd.startTime = 10m;
+            cd.stopAt = StopAt.endTime;
+            cd.endTime = 200m;
+            cd.deltaT = 0.005m;
+            cd.writeControl = WriteControl.timeStep;
+            cd.writeInterval = 1000m;
+            cd.purgeWrite = 0;
+            cd.writeFormat = WriteFormat.ascii;
+            cd.writePrecision = 6m;
+            cd.writeCompression = WriteCompression.off;
+            cd.timeFormat = TimeFormat.general;
+            cd.timePrecision = 6m;
+            cd.runTimeModifiable = true;
+        }
+
+        private static void InitBlockMeshDict(BlockMeshDictData bm)
+        {
+            bm.convertToMeters = 1;
+            bm.vertices.AddRange(new[]
+                                     {
+                                         new Vertice(-500, -500, 0),
+                                         new Vertice(6000, -500, 0),
+                                         new Vertice(6000, 6000, 0),
+                                         new Vertice(-500, 6000, 0),
+                                         new Vertice(-500, -500, 1000),
+                                         new Vertice(6000, -500, 1000),
+                                         new Vertice(6000, 6000, 1000),
+                                         new Vertice(-500, 6000, 1000),
+                                     });
+
+            bm.MeshBlocks.vertexNumbers.AddRange(new[] { 0, 1, 2, 3, 4, 5, 6, 7 });
+            bm.MeshBlocks.numberOfCells.AddRange(new[] { 100, 100, 30 });
+            bm.MeshBlocks.grading = Grading.simpleGrading;
+            bm.MeshBlocks.gradingNumbers.AddRange(new[] { 1, 1, 1 });
         }
 
         private static void InitTurbineArray(TurbineArrayPropData ta)
@@ -1054,49 +1252,7 @@ namespace Offwind.OpenFoam.Sintef
             t47.baseLocation.Z = 0m;
             ta.turbine.Add(t47);
         }
-
-        private static void InitTimeControl(ControlDictData cd)
-        {
-            cd.application = ApplicationSolver.pisoFoam;
-            cd.startFrom = StartFrom.latestTime;
-            cd.startTime = 10m;
-            cd.stopAt = StopAt.endTime;
-            cd.endTime = 200m;
-            cd.deltaT = 0.005m;
-            cd.writeControl = WriteControl.timeStep;
-            cd.writeInterval = 1000m;
-            cd.purgeWrite = 0;
-            cd.writeFormat = WriteFormat.ascii;
-            cd.writePrecision = 6m;
-            cd.writeCompression = WriteCompression.off;
-            cd.timeFormat = TimeFormat.general;
-            cd.timePrecision = 6m;
-            cd.runTimeModifiable = true;
-        }
-        public string MakeFS()
-        {
-            fsPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-            Directory.CreateDirectory(fsPath);
-
-            /*
-            var ablHandler = new AblPropertiesHandler();
-            ablHandler.Write(fsPath, AblProperties);
-             */
-            var controlDictHandler = new ControlDictHandler();
-            controlDictHandler.Write(controlDictHandler.GetPath(fsPath), ControlDict);
-
-            var transportPropHandler = new TransportPropertiesHandler();
-            transportPropHandler.Write(transportPropHandler.GetPath(fsPath), TransportProperties);
-
-            var blockMeshHandler = new BlockMeshDictHandler();
-            blockMeshHandler.Write(blockMeshHandler.GetPath(fsPath), BlockMeshDict);
-
-            return fsPath;
-        }
-
-        public string ArchName(string key)
-        {
-            return Path.Combine(Path.GetTempPath(), key + ".zip");
-        }
+        #endregion
+       
     }
 }

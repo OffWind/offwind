@@ -20,11 +20,7 @@ namespace Offwind.Products.OpenFoam.Models.PolyMesh
         public override object Read(string path)
         {
             var rawData = new BlockMeshDictData();
-            string txt;
-            using (var reader = new StreamReader(path))
-            {
-                txt = reader.ReadToEnd();
-            }
+            string txt = Load(path);
 
             var grammar = new OpenFoamGrammar();
             var parser = new Parser(grammar);

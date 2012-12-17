@@ -8,6 +8,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Title = "Engineering Tools | Offwind";
             return View();
         }
     }

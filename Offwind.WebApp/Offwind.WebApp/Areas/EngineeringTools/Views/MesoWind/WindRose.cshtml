@@ -5,6 +5,14 @@
 <div class="span3">
     @Html.Partial("__SideNav")
 </div>
+<div class="span9">
+        <ul class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+        <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+        <li>Meso Wind <span class="divider">/</span></li>
+        <li>Wind Rose</li>
+    </ul>
+</div>
 <div class="span4" >
     <div id="frequencyByDir" style="width: 100%; height: 480px;"></div>
 </div>

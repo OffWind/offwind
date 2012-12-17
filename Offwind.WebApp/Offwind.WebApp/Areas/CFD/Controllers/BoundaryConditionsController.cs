@@ -63,7 +63,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "epsilon";
             SolverData sd = GetSolverData();
-            ObjectMapperManager.DefaultInstance.GetMapper<VFieldEpsilon, FieldEpsilon>().Map(m, sd.FieldEpsilon);
+            string[] fieldsToIgnore = { "BottomType", "TopType", "WestType", "EastType", "NorthType", "SouthType" };
+            var config = new DefaultMapConfig().IgnoreMembers<VFieldEpsilon, FieldEpsilon>(fieldsToIgnore);
+            ObjectMapperManager.DefaultInstance.GetMapper<VFieldEpsilon, FieldEpsilon>(config).Map(m, sd.FieldEpsilon);
             SetSolverData(sd);
             if (Request.IsAjaxRequest()) return Json("OK");
             return View(m);

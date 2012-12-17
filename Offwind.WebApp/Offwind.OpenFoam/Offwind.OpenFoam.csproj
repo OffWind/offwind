@@ -68,6 +68,12 @@
     <Compile Include="Models\ControlDict\WriteCompression.cs" />
     <Compile Include="Models\ControlDict\WriteControl.cs" />
     <Compile Include="Models\ControlDict\WriteFormat.cs" />
+    <Compile Include="Models\DecomposeParDict\DecomposeParDictHandler.cs" />
+    <Compile Include="Models\DecomposeParDict\DecomposeParDictRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DecomposeParDictRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\DimensionedValue.cs" />
     <Compile Include="Models\Dimensions.cs" />
     <Compile Include="Models\Fields\BoundaryField.cs" />
@@ -81,7 +87,31 @@
     <Compile Include="Models\FileHeader.cs" />
     <Compile Include="Models\FoamFileHandler.cs" />
     <Compile Include="Models\Format.cs" />
+    <Compile Include="Models\FvSchemes\DiscretisationType.cs" />
+    <Compile Include="Models\FvSchemes\DivergenceScheme.cs" />
+    <Compile Include="Models\FvSchemes\FluxCalculation.cs" />
+    <Compile Include="Models\FvSchemes\FvSchemesData.cs" />
+    <Compile Include="Models\FvSchemes\FvSchemesHandler.cs" />
+    <Compile Include="Models\FvSchemes\FvSchemesRes1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FvSchemesRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FvSchemes\GradientScheme.cs" />
+    <Compile Include="Models\FvSchemes\InterpolationScheme.cs" />
+    <Compile Include="Models\FvSchemes\InterpolationType.cs" />
+    <Compile Include="Models\FvSchemes\LaplacianScheme.cs" />
+    <Compile Include="Models\FvSchemes\SchemeHeader.cs" />
+    <Compile Include="Models\FvSchemes\SurfaceNormalGradientScheme.cs" />
+    <Compile Include="Models\FvSchemes\SurfaceNormalGradientType.cs" />
+    <Compile Include="Models\FvSchemes\TimeScheme.cs" />
     <Compile Include="Models\FvSolution\Agglomerator.cs" />
+    <Compile Include="Models\FvSolution\FvSolutionHandler.cs" />
+    <Compile Include="Models\FvSolution\FvSolutionRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FvSolutionRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\FvSolution\LinearSolver.cs" />
     <Compile Include="Models\FvSolution\Preconditioner.cs" />
     <Compile Include="Models\FvSolution\Smoother.cs" />
@@ -193,6 +223,19 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ControlDictRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Models\DecomposeParDict\DecomposeParDictRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DecomposeParDictRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\FvSchemes\FvSchemesRes.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FvSchemesRes1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\FvSolution\FvSolutionRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FvSolutionRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Models\Gravitation\GravitationRes.resx" />
     <EmbeddedResource Include="Models\LesProperties\LesPropertiesRes.resx" />
     <EmbeddedResource Include="Models\Omega\OmegaRes.resx" />
@@ -226,6 +269,10 @@
     <None Include="Models\AirfoilProperties\Template" />
     <None Include="Models\ControlDict\Default" />
     <None Include="Models\ControlDict\Template" />
+    <Content Include="Models\DecomposeParDict\Default.txt" />
+    <None Include="Models\FvSchemes\Default" />
+    <None Include="Models\FvSchemes\Template" />
+    <Content Include="Models\FvSolution\Default.txt" />
     <None Include="Models\Gravitation\Default" />
     <None Include="Models\Gravitation\Template" />
     <None Include="Models\LesProperties\Default" />
@@ -261,9 +308,7 @@
     <Content Include="Models\SnappyHexMesh\TemplateMeshQualityControls.txt" />
     <Content Include="Models\SnappyHexMesh\TemplateSnapControls.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\FvSchemes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

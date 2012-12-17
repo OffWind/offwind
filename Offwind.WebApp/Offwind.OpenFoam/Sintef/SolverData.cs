@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Offwind.OpenFoam.Models.DecomposeParDict;
 using Offwind.OpenFoam.Models.Fields;
+using Offwind.OpenFoam.Models.FvSolution;
 using Offwind.OpenFoam.Models.RasProperties;
 using Offwind.OpenFoam.Models.TurbulenceModels;
 using Offwind.OpenFoam.Sintef.BoundaryFields;
@@ -15,6 +17,7 @@ using Offwind.Sowfa.Constant.TransportProperties;
 using Offwind.Sowfa.Constant.TurbineArrayProperties;
 using Offwind.Sowfa.Constant.TurbineProperties;
 using Offwind.Sowfa.System.ControlDict;
+using Offwind.Sowfa.System.FvSchemes;
 
 namespace Offwind.OpenFoam.Sintef
 {
@@ -113,6 +116,14 @@ namespace Offwind.OpenFoam.Sintef
             fieldUHandler.Write(fieldUHandler.GetPath(path), FieldU);
             fieldRHandler.Write(fieldRHandler.GetPath(path), FieldR);
 
+            var fsh = new FvSchemesHandler();
+            fsh.Write(fsh.GetPath(path), null);
+
+            var fss = new FvSolutionHandler();
+            fss.Write(fss.GetPath(path), null);
+
+            var dph = new DecomposeParDictHandler();
+            dph.Write(dph.GetPath(path), null);
            
             /* TODO: extra write handlres */
 
@@ -137,6 +148,8 @@ namespace Offwind.OpenFoam.Sintef
 
         private static void InitFieldK(FieldK f)
         {
+            f.InternalField = 1.5m;
+
             f.BottomType = PatchType.kqRWallFunction;
             f.BottomValue.Type = PatchValueType.Uniform;
             f.BottomValue.Value = 1.5m;
@@ -160,6 +173,8 @@ namespace Offwind.OpenFoam.Sintef
 
         private static void InitFieldEpsilon(FieldEpsilon f)
         {
+            f.InternalField = 34.4993m;
+
             f.BottomType = PatchType.epsilonWallFunction;
             f.BottomValue.Cmu = 0.09m;
             f.BottomValue.kappa = 0.41m;

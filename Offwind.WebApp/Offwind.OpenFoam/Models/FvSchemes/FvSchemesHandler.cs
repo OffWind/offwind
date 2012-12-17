@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Irony.Parsing;
+using Offwind.OpenFoam.Models.FvSchemes;
 using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Parsing;
 
@@ -249,6 +250,11 @@ namespace Offwind.Sowfa.System.FvSchemes
 
         public override void Write(string path, object data)
         {
+            var result = new StringBuilder(FvSchemesRes.Default);
+            WriteToFile(path, result.ToString());
+            return;
+
+
             var obj = (FvSchemesData) data;
             var str = new StringBuilder(FvSchemesRes.Template);
             var culture = CultureInfo.InvariantCulture;

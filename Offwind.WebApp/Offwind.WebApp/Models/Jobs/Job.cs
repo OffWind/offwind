@@ -17,7 +17,9 @@ namespace Offwind.WebApp.Models.Jobs
         [Required]
         public DateTime Started { get; set; }
 
-        public DateTime Finished { get; set; }
+        public DateTime? Finished { get; set; }
+
+        public DateTime? RunningSince { get; set; }
 
         [Required]
         public JobState State { get; set; }

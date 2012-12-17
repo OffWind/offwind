@@ -100,5 +100,14 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             path += ".zip";
             return path;
         }
+
+        public ActionResult History()
+        {
+            ShortTitle = "History";
+            var jobs = ctx.DJobs
+                .Where(dj => dj.Owner == User.Identity.Name)
+                .OrderByDescending(dj => dj.Started);
+            return View(jobs);
+        }
     }
 }

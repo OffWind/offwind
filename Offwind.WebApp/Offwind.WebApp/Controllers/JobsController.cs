@@ -91,6 +91,50 @@ namespace Offwind.WebApp.Controllers
             }
         }
 
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult SetJobRunning(Guid jobId)
+        {
+            DJob djob = _ctx.DJobs.Single(d => d.Id == jobId);
+            if (djob == null)
+            {
+                return JsonX(HttpStatusCode.NotFound);
+            }
+
+            try
+            {
+                djob.State = JobState.Running.ToString();
+                _ctx.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return JsonX(HttpStatusCode.InternalServerError);
+            }
+
+            return JsonX(HttpStatusCode.OK);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult SetJobFinished(Guid jobId)
+        {
+            DJob djob = _ctx.DJobs.Single(d => d.Id == jobId);
+            if (djob == null)
+            {
+                return JsonX(HttpStatusCode.NotFound);
+            }
+
+            try
+            {
+                djob.State = JobState.Idle.ToString();
+                _ctx.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return JsonX(HttpStatusCode.InternalServerError);
+            }
+
+            return JsonX(HttpStatusCode.OK);
+        }
+
         public Job AddJobManually(Job job)
         {
             var dJob = new DJob();
@@ -170,9 +214,10 @@ namespace Offwind.WebApp.Controllers
                            Owner = d.Owner,
                            Name = d.Name,
                            Started = d.Started,
-                           State = (JobState) Enum.Parse(typeof (JobState), d.State),
-                           Result = (JobResult) Enum.Parse(typeof (JobResult), d.Result),
                            Finished = d.Finished,
+                           RunningSince = d.RunningSince,
+                           State = (JobState)Enum.Parse(typeof(JobState), d.State),
+                           Result = (JobResult) Enum.Parse(typeof (JobResult), d.Result),
                            ResultData = d.ResultData
                        };
         }

@@ -1,0 +1,23 @@
+﻿@using System.Globalization
+@model IEnumerable<Offwind.WebApp.Models.DJob>
+<table id="database" class="table table-condensed table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Started</th>
+            <th>RunningSince</th>
+            <th>Finished</th>
+            <th>State</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    @foreach (var job in Model)
+    {
+        <tr>
+            <td>@job.Started.AddHours(1)</td>
+            <td>@(job.RunningSince == null ? "" : job.RunningSince.Value.AddHours(1).ToString(CultureInfo.InvariantCulture))</td>
+            <td>@(job.Finished == null ? "" : job.Finished.Value.AddHours(1).ToString(CultureInfo.InvariantCulture))</td>
+            <td>@job.State</td>
+            <td><a href="@Url.Action("GetInputData", "Downloads", new { area = "CFD", id = job.Id })">download case files</a></td>
+        </tr>
+    }
+</table>

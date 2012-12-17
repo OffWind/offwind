@@ -26,7 +26,8 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Started" Type="datetime2" Nullable="false" />
-          <Property Name="Finished" Type="datetime2" Nullable="false" />
+          <Property Name="RunningSince" Type="datetime2" />
+          <Property Name="Finished" Type="datetime2" />
           <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="50" />
@@ -58,7 +59,8 @@
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="DateTime" Name="Started" Nullable="false" />
-          <Property Type="DateTime" Name="Finished" Nullable="false" />
+          <Property Type="DateTime" Name="RunningSince" />
+          <Property Type="DateTime" Name="Finished" />
           <Property Type="String" Name="Owner" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="State" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -92,6 +94,7 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Owner" ColumnName="Owner" />
                 <ScalarProperty Name="Finished" ColumnName="Finished" />
+                <ScalarProperty Name="RunningSince" ColumnName="RunningSince" />
                 <ScalarProperty Name="Started" ColumnName="Started" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -119,7 +122,7 @@
     <Diagrams>
       <Diagram Name="Offwind">
         <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="0.75" PointY="0.75" Height="2.1725878906249996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="2.75" PointY="0.75" Height="2.5571907552083335" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="2.75" PointY="0.75" Height="2.7494921874999996" />
       </Diagram>
     </Diagrams>
   </Designer>

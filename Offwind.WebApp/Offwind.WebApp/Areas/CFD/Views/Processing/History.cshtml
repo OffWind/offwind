@@ -1,11 +1,17 @@
 ﻿@using System.Globalization
+@using Offwind.WebApp.Models.Jobs
 @model IEnumerable<Offwind.WebApp.Models.DJob>
+<p>
+    <a class="btn btn-warning" href="@Url.Action("ClearHistory", "Processing", new { area = "CFD" })">Clear idle jobs</a>
+    <a class="btn btn-warning" href="@Url.Action("ClearAllJobs", "Processing", new { area = "CFD" })">Clear all jobs</a>
+</p>
 <table id="database" class="table table-condensed table-hover table-bordered">
     <thead>
         <tr>
             <th>Started</th>
             <th>RunningSince</th>
             <th>Finished</th>
+            <th>Name</th>
             <th>State</th>
             <th>Action</th>
         </tr>
@@ -16,8 +22,16 @@
             <td>@job.Started.AddHours(1)</td>
             <td>@(job.RunningSince == null ? "" : job.RunningSince.Value.AddHours(1).ToString(CultureInfo.InvariantCulture))</td>
             <td>@(job.Finished == null ? "" : job.Finished.Value.AddHours(1).ToString(CultureInfo.InvariantCulture))</td>
+            <td>@job.Name</td>
             <td>@job.State</td>
-            <td><a href="@Url.Action("GetInputData", "Downloads", new { area = "CFD", id = job.Id })">download case files</a></td>
+            <td>
+                <a href="@Url.Action("GetInputData", "Downloads", new { area = "CFD", id = job.Id })">download case files</a>
+                @if (job.State == JobState.Idle.ToString() && job.Finished != null)
+                {
+                    <br/>
+                    <a href="@Url.Action("GetResults", "Downloads", new { area = "CFD", id = job.Id })">download results</a>
+                }
+            </td>
         </tr>
     }
 </table>

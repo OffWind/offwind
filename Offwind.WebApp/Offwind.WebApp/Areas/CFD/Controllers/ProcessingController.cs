@@ -71,7 +71,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             var dCase = GetCase();
             if (dCase.CurrentJobId == null) return Json("Already idle");
-            new JobsController().StopJob(dCase.CurrentJobId.Value);
+            new JobsController().SetJobFinished(dCase.CurrentJobId.Value);
             return Json("Simulation stopped");
         }
 
@@ -105,9 +105,39 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "History";
             var jobs = ctx.DJobs
-                .Where(dj => dj.Owner == User.Identity.Name)
+                .Where(dj => dj.Owner == User.Identity.Name && dj.Name == StandardCases.CfdCase)
                 .OrderByDescending(dj => dj.Started);
             return View(jobs);
+        }
+
+        public ActionResult ClearHistory()
+        {
+            var state = JobState.Idle.ToString();
+            var jobs = ctx.DJobs.Where(dj =>
+                dj.Owner == User.Identity.Name
+                && dj.Name == StandardCases.CfdCase
+                && dj.State == state
+                );
+            foreach (var dJob in jobs)
+            {
+                ctx.DeleteObject(dJob);
+            }
+            ctx.SaveChanges();
+            return RedirectToAction("History");
+        }
+
+        public ActionResult ClearAllJobs()
+        {
+            var jobs = ctx.DJobs.Where(dj =>
+                dj.Owner == User.Identity.Name
+                && dj.Name == StandardCases.CfdCase
+                );
+            foreach (var dJob in jobs)
+            {
+                ctx.DeleteObject(dJob);
+            }
+            ctx.SaveChanges();
+            return RedirectToAction("History");
         }
     }
 }

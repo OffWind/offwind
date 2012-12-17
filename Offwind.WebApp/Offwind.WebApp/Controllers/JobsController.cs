@@ -102,6 +102,7 @@ namespace Offwind.WebApp.Controllers
 
             try
             {
+                djob.RunningSince = DateTime.UtcNow;
                 djob.State = JobState.Running.ToString();
                 _ctx.SaveChanges();
             }
@@ -124,6 +125,7 @@ namespace Offwind.WebApp.Controllers
 
             try
             {
+                djob.Finished = DateTime.UtcNow;
                 djob.State = JobState.Idle.ToString();
                 _ctx.SaveChanges();
             }
@@ -144,14 +146,6 @@ namespace Offwind.WebApp.Controllers
             _ctx.DJobs.AddObject(dJob);
             _ctx.SaveChanges();
             return MapFromDB(dJob);
-        }
-
-        public void StopJob(Guid jobId)
-        {
-            var dJob = _ctx.DJobs.FirstOrDefault(dj => dj.Id == jobId);
-            if (dJob == null) return;
-            dJob.State = JobState.Idle.ToString();
-            _ctx.SaveChanges();
         }
 
         public JsonResult StopAllJobs()

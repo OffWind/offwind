@@ -131,6 +131,12 @@
     <Compile Include="Models\PolyMesh\Grading.cs" />
     <Compile Include="Models\PolyMesh\MeshBlock.cs" />
     <Compile Include="Models\PolyMesh\MeshBoundary.cs" />
+    <Compile Include="Models\RasProperties\RasPropertiesHandler.cs" />
+    <Compile Include="Models\RasProperties\RasPropertiesRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RasPropertiesRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\TransportProperties\LesModel.cs" />
     <Compile Include="Models\TransportProperties\SurfaceStressModel.cs" />
     <Compile Include="Models\TransportProperties\TransportModel.cs" />
@@ -154,6 +160,12 @@
       <DependentUpon>TurbineArrayPropRes.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\TurbineArrayProperties\TurbineInstance.cs" />
+    <Compile Include="Models\TurbineOption\TurbineOptionHandler.cs" />
+    <Compile Include="Models\TurbineOption\TurbineOptionRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TurbineOptionRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\TurbineProperties\TurbineProperiesHandler.cs" />
     <Compile Include="Models\TurbineProperties\TurbinePropertiesData.cs" />
     <Compile Include="Models\TurbineProperties\TurbinePropRes.Designer.cs">
@@ -184,6 +196,12 @@
     <Compile Include="Models\StubFileHandler.cs" />
     <Compile Include="Models\Tensor.cs" />
     <Compile Include="Models\TensorField.cs" />
+    <Compile Include="Models\TurbulenceProperties\TurbulencePropertiesHandler.cs" />
+    <Compile Include="Models\TurbulenceProperties\TurbulencePropertiesRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TurbulencePropertiesRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Models\Validator.cs" />
     <Compile Include="Models\Fields\PatchValueType.cs" />
@@ -243,6 +261,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BlockMeshDictRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Models\RasProperties\RasPropertiesRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RasPropertiesRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Models\SnappyHexMesh\ShmDictRes.resx" />
     <EmbeddedResource Include="Models\TransportProperties\TransportPropertiesRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -253,9 +275,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TurbineArrayPropRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Models\TurbineOption\TurbineOptionRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TurbineOptionRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Models\TurbineProperties\TurbinePropRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TurbinePropRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\TurbulenceProperties\TurbulencePropertiesRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TurbulencePropertiesRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Sintef\BoundaryFields\BoundaryFieldsRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -283,6 +313,7 @@
     <None Include="Models\PolyMesh\Default" />
     <None Include="Models\PolyMesh\Template" />
     <None Include="Models\PolyMesh\TemplateBoundary" />
+    <Content Include="Models\RasProperties\Default.txt" />
     <None Include="Models\TransportProperties\Default" />
     <None Include="Models\TransportProperties\Template" />
     <None Include="Models\TransportProperties\Template2" />
@@ -292,8 +323,10 @@
     <None Include="Models\TurbineArrayProperties\Default" />
     <None Include="Models\TurbineArrayProperties\TemplateArray" />
     <None Include="Models\TurbineArrayProperties\TemplateGlob" />
+    <Content Include="Models\TurbineOption\Default.txt" />
     <None Include="Models\TurbineProperties\Default" />
     <None Include="Models\TurbineProperties\Template" />
+    <Content Include="Models\TurbulenceProperties\Default.txt" />
     <None Include="Sintef\BoundaryFields\TemplateEpsilon" />
     <None Include="Sintef\BoundaryFields\TemplateK" />
     <None Include="Sintef\BoundaryFields\TemplateP" />

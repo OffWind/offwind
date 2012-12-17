@@ -6,6 +6,7 @@ using Offwind.OpenFoam.Models.Fields;
 using Offwind.OpenFoam.Models.FvSolution;
 using Offwind.OpenFoam.Models.RasProperties;
 using Offwind.OpenFoam.Models.TurbulenceModels;
+using Offwind.OpenFoam.Models.TurbulenceProperties;
 using Offwind.OpenFoam.Sintef.BoundaryFields;
 using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Models.ControlDict;
@@ -115,6 +116,15 @@ namespace Offwind.OpenFoam.Sintef
             fieldPHandler.Write(fieldPHandler.GetPath(path), FieldP);
             fieldUHandler.Write(fieldUHandler.GetPath(path), FieldU);
             fieldRHandler.Write(fieldRHandler.GetPath(path), FieldR);
+
+            var rash = new RasPropertiesHandler();
+            rash.Write(rash.GetPath(path), null);
+
+            var toh = new TurbineOptionHandler();
+            toh.Write(toh.GetPath(path), null);
+
+            var turbh = new TurbulencePropertiesHandler();
+            turbh.Write(turbh.GetPath(path), null);
 
             var fsh = new FvSchemesHandler();
             fsh.Write(fsh.GetPath(path), null);

@@ -106,7 +106,7 @@ namespace Offwind.Sowfa.System.ControlDict
             t.Replace("({[[writeCompression]]})", d.writeCompression.ToString());
             t.Replace("({[[timeFormat]]})", d.timeFormat.ToString());
             t.Replace("({[[timePrecision]]})", d.timePrecision.ToString());
-            t.Replace("({[[runTimeModifiable]]})", d.runTimeModifiable.ToString());
+            t.Replace("({[[runTimeModifiable]]})", d.runTimeModifiable.ToString().ToLowerInvariant());
             t.Replace("({[[adjustTimeStep]]})", d.adjustTimeStep.ToString());
             t.Replace("({[[maxCo]]})", d.maxCo.ToString());
             t.Replace("({[[maxDeltaT]]})", d.maxDeltaT.ToString());

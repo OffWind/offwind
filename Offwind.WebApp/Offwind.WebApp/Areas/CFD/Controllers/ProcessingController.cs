@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.IO;
+using System.Linq;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Xml.Serialization;
@@ -30,7 +31,15 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult Simulation()
         {
             ShortTitle = "Simulation";
-            ViewBag.IsInProgress = false;
+            var dCase = GetCase();
+            var caseHasJob = dCase.CurrentJobId != null;
+            bool jobActive = false;
+            if (caseHasJob)
+            {
+                var dJob = ctx.DJobs.FirstOrDefault(dj => dj.Id == dCase.CurrentJobId);
+                jobActive = (dJob != null) && (dJob.State != JobState.Idle.ToString());
+            }
+            ViewBag.IsInProgress = jobActive;
             return View();
         }
 
@@ -60,6 +69,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 
         public JsonResult SimulationStop()
         {
+            var dCase = GetCase();
+            if (dCase.CurrentJobId == null) return Json("Already idle");
+            new JobsController().StopJob(dCase.CurrentJobId.Value);
             return Json("Simulation stopped");
         }
 

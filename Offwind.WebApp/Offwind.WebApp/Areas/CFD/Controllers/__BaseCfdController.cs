@@ -22,37 +22,36 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         protected string SectionTitle;
         protected string rootPath;
 
+        protected OffwindEntities ctx = new OffwindEntities();
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
             Debug.Assert(Request.IsAuthenticated);
 
             var user = User.Identity.Name;
-            using (var ctx = new OffwindEntities())
+            var dCase = ctx.DCases.FirstOrDefault(c => c.Owner == user && c.Name == StandardCases.CfdCase);
+            if (dCase == null)
             {
-                var dCase = ctx.DCases.FirstOrDefault(c => c.Owner == user && c.Name == StandardCases.CfdCase);
-                if (dCase == null)
+                // Init basic properties
+                dCase = new DCase();
+                dCase.Id = Guid.NewGuid();
+                dCase.Name = StandardCases.CfdCase;
+                dCase.Owner = user;
+                dCase.Created = DateTime.UtcNow;
+
+                // Init model
+                var model = SolverData.GetDefaultModel();
+                var serializer = new XmlSerializer(typeof (SolverData));
+                using (var writer = new StringWriter())
                 {
-                    // Init basic properties
-                    dCase = new DCase();
-                    dCase.Id = Guid.NewGuid();
-                    dCase.Name = StandardCases.CfdCase;
-                    dCase.Owner = user;
-                    dCase.Created = DateTime.UtcNow;
-
-                    // Init model
-                    var model = SolverData.GetDefaultModel();
-                    var serializer = new XmlSerializer(typeof(SolverData));
-                    using (var writer = new StringWriter())
-                    {
-                        serializer.Serialize(writer, model);
-                        dCase.Model = writer.ToString();
-                        writer.Close();
-                    }
-
-                    ctx.DCases.AddObject(dCase);
-                    ctx.SaveChanges();
+                    serializer.Serialize(writer, model);
+                    dCase.Model = writer.ToString();
+                    writer.Close();
                 }
+
+                ctx.DCases.AddObject(dCase);
+                ctx.SaveChanges();
             }
         }
 
@@ -70,41 +69,39 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             _log.Error(filterContext.Exception);
         }
 
+        protected DCase GetCase()
+        {
+            return ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.CfdCase);
+        }
+
         protected SolverData GetSolverData()
         {
-            using (var ctx = new OffwindEntities())
+            var dCase = ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.CfdCase);
+            var serializer = new XmlSerializer(typeof (SolverData));
+            using (var reader = new StringReader(dCase.Model))
             {
-                var dCase = ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.CfdCase);
-                var serializer = new XmlSerializer(typeof(SolverData));
-                using (var reader = new StringReader(dCase.Model))
+                try
                 {
-                    try
-                    {
-                        return (SolverData)serializer.Deserialize(reader);
-                    }
-                    catch (Exception e)
-                    {
-                        _log.Error("Failed to deserialize SolverData", e);
-                        return SolverData.GetDefaultModel();
-                    }
+                    return (SolverData) serializer.Deserialize(reader);
+                }
+                catch (Exception e)
+                {
+                    _log.Error("Failed to deserialize SolverData", e);
+                    return SolverData.GetDefaultModel();
                 }
             }
         }
 
         protected void SetCaseJob(Guid id)
         {
-            using (var ctx = new OffwindEntities())
-            {
-                var dCase = ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.CfdCase);
-                dCase.CurrentJobId = id;
-                ctx.SaveChanges();
-            }
+            var dCase = GetCase();
+            dCase.CurrentJobId = id;
+            ctx.SaveChanges();
         }
 
         protected void SetSolverData(SolverData model)
         {
             var serializer = new XmlSerializer(typeof(SolverData));
-            using (var ctx = new OffwindEntities())
             using (var writer = new StringWriter())
             {
                 var dCase = ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.CfdCase);

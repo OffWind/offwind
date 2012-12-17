@@ -102,6 +102,32 @@ namespace Offwind.WebApp.Controllers
             return MapFromDB(dJob);
         }
 
+        public void StopJob(Guid jobId)
+        {
+            var dJob = _ctx.DJobs.FirstOrDefault(dj => dj.Id == jobId);
+            if (dJob == null) return;
+            dJob.State = JobState.Idle.ToString();
+            _ctx.SaveChanges();
+        }
+
+        public JsonResult StopAllJobs()
+        {
+            try
+            {
+                foreach (var dJob in _ctx.DJobs)
+                {
+                    dJob.State = JobState.Idle.ToString();
+                }
+                _ctx.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return JsonX(HttpStatusCode.InternalServerError);
+            }
+
+            return JsonX(HttpStatusCode.OK);
+        }
+
         public Job GetJob(Guid id)
         {
             DJob djob = _ctx.DJobs.Single(d => d.Id == id);

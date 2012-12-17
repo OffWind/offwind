@@ -238,6 +238,7 @@ namespace Offwind.OpenFoam.Sintef
             f.SouthValue.Value5 = 0;
             f.SouthValue.Value6 = 0;
         }
+
         private static void InitFieldU(FieldU f)
         {
             f.InternalField.Type = PatchValueType.Uniform;
@@ -248,73 +249,73 @@ namespace Offwind.OpenFoam.Sintef
             f.TopType = PatchType.slip;
 
             f.WestType = PatchType.atmBoundaryLayerInletVelocity;
-            f.WestValue.Uref = 11;
-            f.WestValue.Href = 520;
-            f.WestValue.n = new Vertice()
+            f.WestParams.Uref = 11;
+            f.WestParams.Href = 520;
+            f.WestParams.N = new Vertice()
                                    {
                                        X = 0.664m,
                                        Y = 0.7478m,
                                        Z = 0
                                    };
-            f.WestValue.z = new Vertice()
+            f.WestParams.Z = new Vertice()
                                    {
                                        X = 0,
                                        Y = 0,
                                        Z = 1
                                    };
-            f.WestValue.z0 = new PatchValueScalar()
+            f.WestParams.Z0 = new PatchValueScalar()
                                     {
                                         Type = PatchValueType.Uniform,
                                         Value = 0.014m
                                     };
-            f.WestValue.zGround = new PatchValueScalar()
+            f.WestParams.ZGround = new PatchValueScalar()
                                          {
                                              Type = PatchValueType.Uniform,
                                              Value = 0
                                          };
-            f.WestValue.Value.Type = PatchValueType.Uniform;
-            f.WestValue.Value.Value1 = 0;
-            f.WestValue.Value.Value2 = 0;
-            f.WestValue.Value.Value3 = 0;
+            f.WestParams.Value.Type = PatchValueType.Uniform;
+            f.WestParams.Value.Value1 = 0;
+            f.WestParams.Value.Value2 = 0;
+            f.WestParams.Value.Value3 = 0;
 
             f.EastType = PatchType.zeroGradient;
             f.NorthType = PatchType.zeroGradient;
             f.BottomType = PatchType.fixedValue;
-            f.BottomValue.Value.Type = PatchValueType.Uniform;
-            f.BottomValue.Value.Value1 = 0;
-            f.BottomValue.Value.Value2 = 0;
-            f.BottomValue.Value.Value3 = 0;
+            f.BottomValue.Type = PatchValueType.Uniform;
+            f.BottomValue.Value1 = 0;
+            f.BottomValue.Value2 = 0;
+            f.BottomValue.Value3 = 0;
 
 
             f.SouthType = PatchType.atmBoundaryLayerInletVelocity;
-            f.SouthValue.Uref = 11;
-            f.SouthValue.Href = 520;
-            f.SouthValue.n = new Vertice()
+            f.SouthParams.Uref = 11;
+            f.SouthParams.Href = 520;
+            f.SouthParams.N = new Vertice()
             {
                 X = 0.664m,
                 Y = 0.7478m,
                 Z = 0
             };
-            f.SouthValue.z = new Vertice()
+            f.SouthParams.Z = new Vertice()
             {
                 X = 0,
                 Y = 0,
                 Z = 1
             };
-            f.SouthValue.z0 = new PatchValueScalar()
+            f.SouthParams.Z0 = new PatchValueScalar()
             {
                 Type = PatchValueType.Uniform,
                 Value = 0.014m
             };
-            f.SouthValue.zGround = new PatchValueScalar()
+            f.SouthParams.ZGround = new PatchValueScalar()
             {
                 Type = PatchValueType.Uniform,
                 Value = 0
             };
-            f.SouthValue.Value.Type = PatchValueType.Uniform;
-            f.SouthValue.Value.Value1 = 0;
-            f.SouthValue.Value.Value2 = 0;
-            f.SouthValue.Value.Value3 = 0;
+            f.SouthParams.Value.Type = PatchValueType.Uniform;
+            f.SouthParams.Value.Value1 = 0;
+            f.SouthParams.Value.Value2 = 0;
+            f.SouthParams.Value.Value3 = 0;
         }
 
         #region Unused manualy init

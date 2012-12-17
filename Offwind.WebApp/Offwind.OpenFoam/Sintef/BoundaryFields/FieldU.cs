@@ -9,11 +9,11 @@ namespace Offwind.OpenFoam.Sintef.BoundaryFields
     {
         public decimal Uref { get; set; }
         public decimal Href { get; set; }
-        public Vertice n { get; set; }
-        public Vertice z { get; set; }
-        public PatchValueScalar z0 { get; set; }
+        public Vertice N { get; set; }
+        public Vertice Z { get; set; }
+        public PatchValueScalar Z0 { get; set; }
         public PatchValueVector Value { get; set; }
-        public PatchValueScalar zGround { get; set; }
+        public PatchValueScalar ZGround { get; set; }
         public AtmBoundaryLayerInletVelocity()
         {
             Value = new PatchValueVector();
@@ -25,12 +25,12 @@ namespace Offwind.OpenFoam.Sintef.BoundaryFields
         public PatchValueVector InternalField { get; set; }
 
         public PatchType BottomType { get; set; }
-        public AtmBoundaryLayerInletVelocity BottomValue { get; set; }
+        public PatchValueVector BottomValue { get; set; }
 
         public PatchType TopType { get; set; }
 
         public PatchType WestType { get; set; }
-        public AtmBoundaryLayerInletVelocity WestValue { get; set; }
+        public AtmBoundaryLayerInletVelocity WestParams { get; set; }
         
 
         public PatchType EastType { get; set; }
@@ -38,14 +38,14 @@ namespace Offwind.OpenFoam.Sintef.BoundaryFields
         public PatchType NorthType { get; set; }
 
         public PatchType SouthType { get; set; }
-        public AtmBoundaryLayerInletVelocity SouthValue { get; set; }
+        public AtmBoundaryLayerInletVelocity SouthParams { get; set; }
 
         public FieldU()
         {
             InternalField = new PatchValueVector();
-            BottomValue = new AtmBoundaryLayerInletVelocity();
-            WestValue = new AtmBoundaryLayerInletVelocity();
-            SouthValue = new AtmBoundaryLayerInletVelocity();
+            BottomValue = new PatchValueVector();
+            WestParams = new AtmBoundaryLayerInletVelocity();
+            SouthParams = new AtmBoundaryLayerInletVelocity();
         }
 
     }

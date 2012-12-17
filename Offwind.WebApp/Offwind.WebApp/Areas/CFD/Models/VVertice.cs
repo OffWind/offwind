@@ -1,4 +1,4 @@
-﻿namespace Offwind.WebApp.Areas.CFD.Models.Turbines
+﻿namespace Offwind.WebApp.Areas.CFD.Models
 {
     public class VVertice
     {

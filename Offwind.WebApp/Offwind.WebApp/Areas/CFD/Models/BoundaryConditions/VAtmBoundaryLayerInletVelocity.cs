@@ -11,23 +11,27 @@ namespace Offwind.WebApp.Areas.CFD.Models.BoundaryConditions
         public decimal Href { get; set; }
 
         [DisplayName("n")]
-        public decimal N { get; set; }
+        public VVertice N { get; set; }
 
         [DisplayName("z")]
-        public decimal Z { get; set; }
+        public VVertice Z { get; set; }
 
         [DisplayName("z0")]
-        public decimal Z0 { get; set; }
+        public VFieldScalarValue Z0 { get; set; }
 
         [DisplayName("value")]
         public VFieldVectorValue Value { get; set; }
 
-        [DisplayName("Uref")]
-        public decimal ZGround { get; set; }
+        [DisplayName("zGround")]
+        public VFieldScalarValue ZGround { get; set; }
 
         public VAtmBoundaryLayerInletVelocity()
         {
             Value = new VFieldVectorValue();
+            N = new VVertice();
+            Z = new VVertice();
+            Z0 = new VFieldScalarValue();
+            ZGround = new VFieldScalarValue();
         }
     }
 }

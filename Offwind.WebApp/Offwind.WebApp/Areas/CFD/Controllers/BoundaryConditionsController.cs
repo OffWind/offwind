@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using EmitMapper;
+using EmitMapper.MappingConfiguration;
 using Offwind.OpenFoam.Models.Fields;
 using Offwind.OpenFoam.Sintef;
 using Offwind.OpenFoam.Sintef.BoundaryFields;
@@ -116,6 +117,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var m = new VFieldU();
             SolverData sd = GetSolverData();
             ObjectMapperManager.DefaultInstance.GetMapper<FieldU, VFieldU>().Map(sd.FieldU, m);
+           
             return View(m);
         }
 
@@ -125,7 +127,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "U";
             SolverData sd = GetSolverData();
-            ObjectMapperManager.DefaultInstance.GetMapper<VFieldU, FieldU>().Map(m, sd.FieldU);
+            string[] fieldsToIgnore = { "BottomType", "TopType", "WestType", "EastType", "NorthType", "SouthType" };
+            var config = new DefaultMapConfig().IgnoreMembers<VFieldU, FieldU>(fieldsToIgnore);
+            ObjectMapperManager.DefaultInstance.GetMapper<VFieldU, FieldU>(config).Map(m, sd.FieldU);
             SetSolverData(sd);
             if (Request.IsAjaxRequest()) return Json("OK");
             return View(m);

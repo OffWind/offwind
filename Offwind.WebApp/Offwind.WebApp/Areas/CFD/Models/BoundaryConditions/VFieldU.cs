@@ -19,6 +19,7 @@ namespace Offwind.WebApp.Areas.CFD.Models.BoundaryConditions
         [ReadOnly(true)]
         public PatchType BottomType { get; set; }
 
+        [DisplayName("value")]
         public VFieldVectorValue BottomValue { get; set; }
 
         [DisplayName("type")]

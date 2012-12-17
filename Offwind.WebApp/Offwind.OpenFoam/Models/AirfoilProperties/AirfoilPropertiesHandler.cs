@@ -4,6 +4,7 @@ using Irony.Parsing;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Offwind.OpenFoam.Models.AirfoilProperties;
 using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Parsing;
 

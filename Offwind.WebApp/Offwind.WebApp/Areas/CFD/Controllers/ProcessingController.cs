@@ -43,6 +43,18 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             return View();
         }
 
+        public FileResult SimulationPreview()
+        {
+            var dCase = GetCase();
+            var jobZip = CreateJobPath(User.Identity.Name, dCase.Id);
+            var jobPath = jobZip.Replace(".zip", "");
+            var solverData = GetSolverData();
+            solverData.MakeJobFS(jobPath);
+            SharpZipUtils.CompressFolder(jobPath, jobZip, null);
+
+            return File(jobZip, "application/octet-stream", "preview.zip");
+        }
+
         public JsonResult SimulationStart()
         {
             var job = new Job
@@ -54,7 +66,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                 State = JobState.Started,                
             };
 
-            var jobZip = CreateJobPath(job);
+            var jobZip = CreateJobPath(job.Owner, job.Id);
             var jobPath = jobZip.Replace(".zip", "");
             
             var solverData = GetSolverData();            
@@ -75,19 +87,13 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             return Json("Simulation stopped");
         }
 
-        public static string CreateJobPath(Job job)
+        public static string CreateJobPath(string owner, Guid id)
         {
-            Contract.Requires(job != null);
-            Contract.Requires(job.Id != Guid.Empty);
-            Contract.Requires(job.Owner != null);
-            Contract.Requires(job.Owner.Trim().Length > 0);
-            Contract.Requires(job.Owner.Trim().Length == job.Owner.Length); // No pre- and post- spaces
-
             string path = WebConfigurationManager.AppSettings["UsersDir"];
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            path = Path.Combine(path, job.Owner);
+            path = Path.Combine(path, owner);
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            path = Path.Combine(path, job.Id.ToString());
+            path = Path.Combine(path, id.ToString());
             path += ".zip";
             return path;
         }

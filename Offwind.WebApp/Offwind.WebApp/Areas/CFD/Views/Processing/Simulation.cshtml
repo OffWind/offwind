@@ -3,7 +3,8 @@ You will find a download link as soon as job finishes.
 </p>
 
 <p>
-    <a class="btn btn-primary btn-large" href="#" id="button-run">Run simulation</a>
+    <a class="btn btn-warning btn-large" href="@Url.Action("SimulationPreview")" id="button-preview">Preview case</a>
+    <a class="btn btn-success btn-large" href="#" id="button-run">Run simulation</a>
     <a class="btn btn-danger btn-large" href="#" id="button-stop">Stop simulation</a>
     <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
 </p>
@@ -22,7 +23,6 @@ You will find a download link as soon as job finishes.
                 $('#button-run').removeClass('disabled');
                 $('#button-stop').addClass('disabled');
             }
-
             $('#button-run').click(function () {
                 if (inProgress) return false;
                 inProgress = true;

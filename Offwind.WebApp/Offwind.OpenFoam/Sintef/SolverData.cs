@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Offwind.OpenFoam.Models.AirfoilProperties;
 using Offwind.OpenFoam.Models.DecomposeParDict;
 using Offwind.OpenFoam.Models.Fields;
 using Offwind.OpenFoam.Models.FvSolution;
@@ -134,7 +135,17 @@ namespace Offwind.OpenFoam.Sintef
 
             var dph = new DecomposeParDictHandler();
             dph.Write(dph.GetPath(path), null);
-           
+
+            var afh = new AirfoilPropertiesInstanceHandler();
+            afh.SetFileName<AirfoilPropertiesInstanceHandler>("Cylinder1").WriteInstance(afh.GetPath(path), AirfoilPropRes.Cylinder1);
+            afh.SetFileName<AirfoilPropertiesInstanceHandler>("Cylinder2").WriteInstance(afh.GetPath(path), AirfoilPropRes.Cylinder2);
+            afh.SetFileName<AirfoilPropertiesInstanceHandler>("DU21_A17").WriteInstance(afh.GetPath(path), AirfoilPropRes.DU21_A17);
+            afh.SetFileName<AirfoilPropertiesInstanceHandler>("DU25_A17").WriteInstance(afh.GetPath(path), AirfoilPropRes.DU25_A17);
+            afh.SetFileName<AirfoilPropertiesInstanceHandler>("DU30_A17").WriteInstance(afh.GetPath(path), AirfoilPropRes.DU30_A17);
+            afh.SetFileName<AirfoilPropertiesInstanceHandler>("DU35_A17").WriteInstance(afh.GetPath(path), AirfoilPropRes.DU35_A17);
+            afh.SetFileName<AirfoilPropertiesInstanceHandler>("DU40_A17").WriteInstance(afh.GetPath(path), AirfoilPropRes.DU40_A17);
+            afh.SetFileName<AirfoilPropertiesInstanceHandler>("NACA64_A17").WriteInstance(afh.GetPath(path), AirfoilPropRes.NACA64_A17);
+
             /* TODO: extra write handlres */
 
             transportPropHandler.Write(transportPropHandler.GetPath(path), TransportProperties);

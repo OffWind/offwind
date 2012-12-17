@@ -31,7 +31,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             {
                 return File(ProcessingController.CreateTestJobPath(), "application/octet-stream", fileName);
             }
-            string path = ProcessingController.CreateJobPath(job);
+            string path = ProcessingController.CreateJobPath(job.Owner, job.Id);
             return File(path, "application/octet-stream", fileName);
         }
 
@@ -50,14 +50,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             string fileName = String.Format("{0}.zip", job.Id);
 
             return File(ProcessingController.CreateTestJobPath(), "application/octet-stream", fileName);
-
-            bool isTestMode = bool.Parse(WebConfigurationManager.AppSettings["TestMode"]);
-            if (isTestMode)
-            {
-                return File(ProcessingController.CreateTestJobPath(), "application/octet-stream", fileName);
-            }
-            string path = ProcessingController.CreateJobPath(job);
-            return File(path, "application/octet-stream", fileName);
         }
     }
 }

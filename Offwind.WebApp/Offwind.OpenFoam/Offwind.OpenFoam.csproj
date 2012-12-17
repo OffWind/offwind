@@ -52,7 +52,12 @@
     </Compile>
     <Compile Include="Models\AirfoilProperties\AirfoilPropertiesData.cs" />
     <Compile Include="Models\AirfoilProperties\AirfoilPropertiesHandler.cs" />
-    <Compile Include="Models\AirfoilProperties\AirfoilPropRes.Designer.cs" />
+    <Compile Include="Models\AirfoilProperties\AirfoilPropertiesInstanceHandler.cs" />
+    <Compile Include="Models\AirfoilProperties\AirfoilPropRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AirfoilPropRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\ControlDict\ApplicationSolver.cs" />
     <Compile Include="Models\ControlDict\ControlDictData.cs" />
     <Compile Include="Models\ControlDict\ControlDictHandler.cs" />
@@ -236,7 +241,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AblRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\AirfoilProperties\AirfoilPropRes.resx" />
+    <EmbeddedResource Include="Models\AirfoilProperties\AirfoilPropRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AirfoilPropRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Models\ControlDict\ControlDictRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ControlDictRes.Designer.cs</LastGenOutput>
@@ -295,8 +303,16 @@
   <ItemGroup>
     <None Include="Models\AblProperties\Default" />
     <None Include="Models\AblProperties\Template" />
-    <None Include="Models\AirfoilProperties\Default" />
-    <None Include="Models\AirfoilProperties\Template" />
+    <Content Include="Models\AirfoilProperties\Default.txt" />
+    <Content Include="Models\AirfoilProperties\Defaults\Cylinder1.txt" />
+    <Content Include="Models\AirfoilProperties\Defaults\Cylinder2.txt" />
+    <Content Include="Models\AirfoilProperties\Defaults\DU21_A17.txt" />
+    <Content Include="Models\AirfoilProperties\Defaults\DU25_A17.txt" />
+    <Content Include="Models\AirfoilProperties\Defaults\DU30_A17.txt" />
+    <Content Include="Models\AirfoilProperties\Defaults\DU35_A17.txt" />
+    <Content Include="Models\AirfoilProperties\Defaults\DU40_A17.txt" />
+    <Content Include="Models\AirfoilProperties\Defaults\NACA64_A17.txt" />
+    <Content Include="Models\AirfoilProperties\Template.txt" />
     <None Include="Models\ControlDict\Default" />
     <None Include="Models\ControlDict\Template" />
     <Content Include="Models\DecomposeParDict\Default.txt" />

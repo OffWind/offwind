@@ -91,5 +91,12 @@ namespace Offwind.Products.OpenFoam.Models
                 return reader.ReadToEnd();
             }
         }
+
+        public T SetFileName<T>(string fName)
+            where T: FoamFileHandler
+        {
+            FileName = fName;
+            return (T) this;
+        }
     }
 }

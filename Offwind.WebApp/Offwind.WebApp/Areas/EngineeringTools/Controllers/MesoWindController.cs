@@ -241,7 +241,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                     InitDatabase();
 
                 var filtered = _items
-                    .Select(x => new object[] { x.Latitude, x.Longitude })
+                    .Select(x => new object[] { x.Latitude, x.Longitude, x.FileName.Replace(".dat.tab", "") })
                     .ToArray();
 
                 return Json(filtered, JsonRequestBehavior.AllowGet);

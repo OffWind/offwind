@@ -96,6 +96,25 @@
             });
         }
         
+        function createClusterItem(key, place) {
+            var marker = new google.maps.Marker({
+                        position: place,
+                        draggable: false,
+                        title: key
+                    });
+            marker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
+            google.maps.event.addListener(marker, 'click', function () {
+                /*
+                var id = parseInt(marker.getTitle());
+                var node = dbTable.fnGetNodes(id);
+                if (node != null) {
+                    $(node).addClass('row_selected');
+                }
+                */
+            });
+            return marker;
+        }
+        
         function refreshMap() {
             var data = null;
             $.ajax({
@@ -110,12 +129,8 @@
                 for (var i = 0; i < data.length; i++)
                 {
                 	var coord = new google.maps.LatLng(data[i][0], data[i][1]);
-                    var marker = new google.maps.Marker({
-                        position: coord,
-                        draggable: true                        
-                    });
-                    marker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
-                    markers.push(marker);                    
+                    var m = createClusterItem(data[i][2], coord);
+                    markers.push(m);
                 }                
                 clusters = new MarkerClusterer(map, markers, {
                     maxZoom: 20,

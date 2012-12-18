@@ -413,18 +413,18 @@ MarkerClusterer.prototype.addMarkers = function(markers, opt_nodraw) {
  * @param {google.maps.Marker} marker The marker to add.
  * @private
  */
-MarkerClusterer.prototype.pushMarkerTo_ = function(marker) {
-  marker.isAdded = false;
-  if (marker['draggable']) {
-    // If the marker is draggable add a listener so we update the clusters on
-    // the drag end.
-    var that = this;
-    google.maps.event.addListener(marker, 'dragend', function() {
-      marker.isAdded = false;
-      that.repaint();
-    });
-  }
-  this.markers_.push(marker);
+MarkerClusterer.prototype.pushMarkerTo_ = function (marker) {
+    marker.isAdded = false;
+    if (marker['draggable']) {
+        // If the marker is draggable add a listener so we update the clusters on
+        // the drag end.
+        var that = this;
+        google.maps.event.addListener(marker, 'dragend', function() {
+            marker.isAdded = false;
+            that.repaint();
+        });
+    }
+    this.markers_.push(marker);
 };
 
 
@@ -1238,6 +1238,7 @@ ClusterIcon.prototype.createCss = function(pos) {
 };
 
 
+/*
 // Export Symbols for Closure
 // If you are not going to compile with closure then you can remove the
 // code below.
@@ -1287,3 +1288,4 @@ Cluster.prototype['getMarkers'] = Cluster.prototype.getMarkers;
 ClusterIcon.prototype['onAdd'] = ClusterIcon.prototype.onAdd;
 ClusterIcon.prototype['draw'] = ClusterIcon.prototype.draw;
 ClusterIcon.prototype['onRemove'] = ClusterIcon.prototype.onRemove;
+*/

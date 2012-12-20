@@ -36,25 +36,26 @@ namespace Offwind.OpenFoam.Sintef
         public TurbulencePropertiesData TurbulenceProperties { get; set; }
         public RasPropertiesData RasProperties { get; set; }
         public TransportPropertiesData TransportProperties { get; set; }
-
         public TurbinePropertiesData TurbineProperties { get; set; }
         public TurbineArrayPropData TurbineArrayProperties { get; set; }
+        public FvSolutionData FvSolution { get; set; }
 
         public BlockMeshDictData BlockMeshDict { get; set; }
         public ControlDictData ControlDict { get; set; }
         public AirfoilPropertiesData AirfoilProperties { get; set; }
         public ProcessingSettings ProcessingSettings { get; set; }
 
-        private readonly ControlDictHandler controlDictHandler;
-        private readonly TransportPropertiesHandler transportPropHandler;
-        private readonly BlockMeshDictHandler blockMeshHandler;
-        private readonly TurbineArrayPropHandler turbineArrayPropHandler;
-        private readonly FieldEpsilonHandler fieldEpsilonHandler;
-        private readonly FieldKHandler fieldKHandler;
-        private readonly FieldPHandler fieldPHandler;
-        private readonly FieldUHandler fieldUHandler;
-        private readonly FieldRHandler fieldRHandler;
-        private readonly TurbineProperiesHandler turbineProperiesHandler;
+        private readonly ControlDictHandler _controlDictHandler;
+        private readonly TransportPropertiesHandler _transportPropHandler;
+        private readonly BlockMeshDictHandler _blockMeshHandler;
+        private readonly TurbineArrayPropHandler _turbineArrayPropHandler;
+        private readonly FieldEpsilonHandler _fieldEpsilonHandler;
+        private readonly FieldKHandler _fieldKHandler;
+        private readonly FieldPHandler _fieldPHandler;
+        private readonly FieldUHandler _fieldUHandler;
+        private readonly FieldRHandler _fieldRHandler;
+        private readonly TurbineProperiesHandler _turbineProperiesHandler;
+        private readonly FvSolutionHandler _fvSolutionHandler;
 
         public SolverData()
         {
@@ -65,22 +66,24 @@ namespace Offwind.OpenFoam.Sintef
             FieldR = new FieldR();
             FieldU = new FieldU();
 
-            controlDictHandler = new ControlDictHandler();
-            transportPropHandler = new TransportPropertiesHandler();
-            blockMeshHandler = new BlockMeshDictHandler();
-            turbineArrayPropHandler = new TurbineArrayPropHandler();
-            turbineProperiesHandler = new TurbineProperiesHandler("NREL5MWRef", true);
-            fieldEpsilonHandler = new FieldEpsilonHandler();
-            fieldKHandler = new FieldKHandler();
-            fieldPHandler = new FieldPHandler();
-            fieldUHandler = new FieldUHandler();
-            fieldRHandler = new FieldRHandler();
+            _controlDictHandler = new ControlDictHandler();
+            _transportPropHandler = new TransportPropertiesHandler();
+            _blockMeshHandler = new BlockMeshDictHandler();
+            _turbineArrayPropHandler = new TurbineArrayPropHandler();
+            _turbineProperiesHandler = new TurbineProperiesHandler("NREL5MWRef", true);
+            _fieldEpsilonHandler = new FieldEpsilonHandler();
+            _fieldKHandler = new FieldKHandler();
+            _fieldPHandler = new FieldPHandler();
+            _fieldUHandler = new FieldUHandler();
+            _fieldRHandler = new FieldRHandler();
+            _fvSolutionHandler = new FvSolutionHandler();
 
-            BlockMeshDict = (BlockMeshDictData) blockMeshHandler.Read(null);
-            ControlDict = (ControlDictData) controlDictHandler.Read(null);
-            TransportProperties = (TransportPropertiesData) transportPropHandler.Read(null);
-            TurbineArrayProperties = (TurbineArrayPropData) turbineArrayPropHandler.Read(null);
-            TurbineProperties = (TurbinePropertiesData) turbineProperiesHandler.Read(null);
+            BlockMeshDict = (BlockMeshDictData) _blockMeshHandler.Read(null);
+            ControlDict = (ControlDictData) _controlDictHandler.Read(null);
+            TransportProperties = (TransportPropertiesData) _transportPropHandler.Read(null);
+            TurbineArrayProperties = (TurbineArrayPropData) _turbineArrayPropHandler.Read(null);
+            TurbineProperties = (TurbinePropertiesData) _turbineProperiesHandler.Read(null);
+            FvSolution = (FvSolutionData) _fvSolutionHandler.Read(null);
             
             
             /* extra post-initialize calls */
@@ -108,15 +111,16 @@ namespace Offwind.OpenFoam.Sintef
             {
                 Directory.CreateDirectory(path);
             }
-            controlDictHandler.Write(controlDictHandler.GetPath(path), ControlDict);            
-            blockMeshHandler.Write(blockMeshHandler.GetPath(path), BlockMeshDict);
-            turbineArrayPropHandler.Write(turbineArrayPropHandler.GetPath(path), TurbineArrayProperties);
-            turbineProperiesHandler.Write(turbineProperiesHandler.GetPath(path), TurbineProperties);
-            fieldEpsilonHandler.Write(fieldEpsilonHandler.GetPath(path), FieldEpsilon);
-            fieldKHandler.Write(fieldKHandler.GetPath(path), FieldK);
-            fieldPHandler.Write(fieldPHandler.GetPath(path), FieldP);
-            fieldUHandler.Write(fieldUHandler.GetPath(path), FieldU);
-            fieldRHandler.Write(fieldRHandler.GetPath(path), FieldR);
+            _controlDictHandler.Write(_controlDictHandler.GetPath(path), ControlDict);            
+            _blockMeshHandler.Write(_blockMeshHandler.GetPath(path), BlockMeshDict);
+            _turbineArrayPropHandler.Write(_turbineArrayPropHandler.GetPath(path), TurbineArrayProperties);
+            _turbineProperiesHandler.Write(_turbineProperiesHandler.GetPath(path), TurbineProperties);
+            _fieldEpsilonHandler.Write(_fieldEpsilonHandler.GetPath(path), FieldEpsilon);
+            _fieldKHandler.Write(_fieldKHandler.GetPath(path), FieldK);
+            _fieldPHandler.Write(_fieldPHandler.GetPath(path), FieldP);
+            _fieldUHandler.Write(_fieldUHandler.GetPath(path), FieldU);
+            _fieldRHandler.Write(_fieldRHandler.GetPath(path), FieldR);
+            _fvSolutionHandler.Write(_fvSolutionHandler.GetPath(path), FvSolution);
 
             var rash = new RasPropertiesHandler();
             rash.Write(rash.GetPath(path), null);
@@ -129,9 +133,6 @@ namespace Offwind.OpenFoam.Sintef
 
             var fsh = new FvSchemesHandler();
             fsh.Write(fsh.GetPath(path), null);
-
-            var fss = new FvSolutionHandler();
-            fss.Write(fss.GetPath(path), null);
 
             var dph = new DecomposeParDictHandler();
             dph.Write(dph.GetPath(path), null);
@@ -148,7 +149,7 @@ namespace Offwind.OpenFoam.Sintef
 
             /* TODO: extra write handlres */
 
-            transportPropHandler.Write(transportPropHandler.GetPath(path), TransportProperties);
+            _transportPropHandler.Write(_transportPropHandler.GetPath(path), TransportProperties);
 
         }
 

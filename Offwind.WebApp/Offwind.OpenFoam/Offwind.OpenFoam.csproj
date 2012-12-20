@@ -111,12 +111,15 @@
     <Compile Include="Models\FvSchemes\SurfaceNormalGradientType.cs" />
     <Compile Include="Models\FvSchemes\TimeScheme.cs" />
     <Compile Include="Models\FvSolution\Agglomerator.cs" />
+    <Compile Include="Models\FvSolution\FvSolution.cs" />
+    <Compile Include="Models\FvSolution\FvSolutionData.cs" />
     <Compile Include="Models\FvSolution\FvSolutionHandler.cs" />
     <Compile Include="Models\FvSolution\FvSolutionRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FvSolutionRes.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\FvSolution\FvSolver.cs" />
     <Compile Include="Models\FvSolution\LinearSolver.cs" />
     <Compile Include="Models\FvSolution\Preconditioner.cs" />
     <Compile Include="Models\FvSolution\Smoother.cs" />
@@ -261,6 +264,7 @@
     <EmbeddedResource Include="Models\FvSolution\FvSolutionRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>FvSolutionRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Gravitation\GravitationRes.resx" />
     <EmbeddedResource Include="Models\LesProperties\LesPropertiesRes.resx" />
@@ -301,6 +305,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Models\FvSolution\Template.txt" />
     <None Include="Models\AblProperties\Default" />
     <None Include="Models\AblProperties\Template" />
     <Content Include="Models\AirfoilProperties\Default.txt" />
@@ -329,6 +334,7 @@
     <None Include="Models\PolyMesh\Default" />
     <None Include="Models\PolyMesh\Template" />
     <None Include="Models\PolyMesh\TemplateBoundary" />
+    <Content Include="Models\FvSolution\TemplateSolver.txt" />
     <Content Include="Models\RasProperties\Default.txt" />
     <None Include="Models\TransportProperties\Default" />
     <None Include="Models\TransportProperties\Template" />
@@ -357,7 +363,9 @@
     <Content Include="Models\SnappyHexMesh\TemplateMeshQualityControls.txt" />
     <Content Include="Models\SnappyHexMesh\TemplateSnapControls.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

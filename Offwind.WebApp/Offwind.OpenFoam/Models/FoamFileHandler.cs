@@ -10,6 +10,8 @@ namespace Offwind.Products.OpenFoam.Models
     /// </summary>
     public abstract class FoamFileHandler
     {
+        public const string _indent = "    ";
+
         public string FileName { get; set; }
         public string FileSuffix { get; set; }
         public string RelativePath { get; set; }

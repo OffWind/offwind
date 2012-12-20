@@ -264,8 +264,5 @@ namespace Offwind.Products.OpenFoam.Models.SnappyHexMesh
             t.AppendFormat("}};");
             return t.ToString();
         }
-
-        private const string _indent = "    ";
-
     }
 }

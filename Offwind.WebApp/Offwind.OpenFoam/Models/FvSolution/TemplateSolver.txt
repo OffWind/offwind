@@ -1,0 +1,7 @@
+﻿    ({[[name]]})
+    {
+        solver          ({[[solver]]});
+        preconditioner  ({[[preconditioner]]});
+        tolerance       ({[[tolerance]]});
+        relTol          ({[[relTol]]});
+    }

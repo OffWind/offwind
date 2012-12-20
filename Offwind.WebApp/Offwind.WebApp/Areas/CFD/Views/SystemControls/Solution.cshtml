@@ -1,1 +1,83 @@
-﻿
+﻿@model Offwind.WebApp.Areas.CFD.Models.SystemControls.VFvSolution
+
+@section styles
+{
+    @Styles.Render("~/static/css/jquery.handsontable.full.css")
+}
+
+@section scripts
+{
+    @Scripts.Render("~/static/js/jquery.handsontable.full.js")
+        <script language="javascript">
+            $(document).ready(function() {                
+                var renderer = function(instance, td) {
+                    Handsontable.TextCell.renderer.apply(this, arguments);
+                    $(td).css({ textAlign: "right" });
+                    return td;
+                };
+                var $container = $("#solvers");
+                var isInitialized = false;
+
+                var changed = function(change, source) {
+                    if (!isInitialized) return;
+                    var d = $container.data('handsontable').getData();
+                    $.ajax({
+                        url: "@Url.Action("VFvSolutionSolverSave", "SystemControls", new { area = "CFD" })",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(d)
+                    });
+                };
+                $container.handsontable({
+                    startRows: 1,
+                    startCols: 5,
+                    columns: [
+                        { type: { renderer: renderer } },
+                        { type: { renderer: renderer } },
+                        { type: { renderer: renderer } },
+                        { type: { renderer: renderer } },
+                        { type: { renderer: renderer } }],
+                    colHeaders: [
+                        "<b>Name</b>",
+                        "<b>Solver</b>",
+                        "<b>Preconditioner</b>",
+                        "<b>Tolerance</b>",
+                        "<b>RelTol</b>"
+                    ],
+                    rowHeaders: true,
+                    minSpareRows: 1,
+                    onChange: changed
+                });
+                $.ajax({
+                    url: "@Url.Action("VFvSolutionSolverData", "SystemControls", new {area = "CFD"})",
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function(res) {
+                        $container.data('handsontable').loadData(res);
+                        isInitialized = true;
+                    }
+                });
+            });
+        </script>
+}
+           
+<form class="form-horizontal" method="post">     
+    <fieldset id = "solvers">
+        <legend><b>Solvers</b></legend><br/>
+        <div style="overflow: scroll"></div>             
+    </fieldset><br/>
+
+    <fieldset>
+        <legend><b>@Model.Solution.Name</b></legend>
+        @Html.EditorFor(m => m.Solution.nCorrectors)
+        @Html.EditorFor(m => m.Solution.nNonOrthogonalCorrectors)
+        @Html.EditorFor(m => m.Solution.pRefCell)
+        @Html.EditorFor(m => m.Solution.pRefValue)
+    </fieldset>
+    
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn">Cancel</button>
+    </div>
+</form>

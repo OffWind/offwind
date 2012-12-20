@@ -67,11 +67,42 @@ namespace Offwind.OpenFoam.Models.FvSolution {
         ///|  \\    /   O peration     | Version:  2.1.1                                 |
         ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
         ///|    \\/     M anipulation  |                                                 |
-        ///\*------------------------------ [rest of string was truncated]&quot;;.
+        ///\*------------------------ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Default {
             get {
                 return ResourceManager.GetString("Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                 |                                                 |
+        ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+        ///|  \\    /   O peration     | Version:  2.1.1                                 |
+        ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+        ///|    \\/     M anipulation  |                                                 |
+        ///\*------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Template {
+            get {
+                return ResourceManager.GetString("Template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to     ({[[name]]})
+        ///    {
+        ///        solver          ({[[solver]]});
+        ///        preconditioner  ({[[preconditioner]]});
+        ///        tolerance       ({[[tolerance]]});
+        ///        relTol          ({[[relTol]]});
+        ///    }
+        ///.
+        /// </summary>
+        internal static string TemplateSolver {
+            get {
+                return ResourceManager.GetString("TemplateSolver", resourceCulture);
             }
         }
     }

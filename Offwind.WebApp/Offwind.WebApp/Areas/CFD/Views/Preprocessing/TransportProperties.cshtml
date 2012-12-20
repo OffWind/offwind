@@ -3,21 +3,25 @@
     <fieldset>
         @Html.EditorFor(m => m.MolecularViscosity)
         
-        <div><b>CrossPowerLawCoeffs</b></div>
-        <div class="indent">
-            @Html.EditorFor(m => m.CplcNu0)
-            @Html.EditorFor(m => m.CplcNuInf)
-            @Html.EditorFor(m => m.CplcM)
-            @Html.EditorFor(m => m.CplcN)
-        </div>
-
-        <div><b>BirdCarreauCoeffs</b></div>
-        <div class="indent">
-            @Html.EditorFor(m => m.BccNu0)
-            @Html.EditorFor(m => m.BccNuInf)
-            @Html.EditorFor(m => m.BccM)
-            @Html.EditorFor(m => m.BccN)
-        </div>
+        <fieldset>
+            <legend><b>CrossPowerLawCoeffs</b></legend><br/>
+            <div class="indent">
+                @Html.EditorFor(m => m.CplcNu0)
+                @Html.EditorFor(m => m.CplcNuInf)
+                @Html.EditorFor(m => m.CplcM)
+                @Html.EditorFor(m => m.CplcN)
+            </div>
+        </fieldset>
+        
+        <fieldset>
+            <legend><b>BirdCarreauCoeffs</b></legend><br/>
+            <div class="indent">
+                @Html.EditorFor(m => m.BccNu0)
+                @Html.EditorFor(m => m.BccNuInf)
+                @Html.EditorFor(m => m.BccM)
+                @Html.EditorFor(m => m.BccN)
+            </div>
+        </fieldset>
         
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Save</button>

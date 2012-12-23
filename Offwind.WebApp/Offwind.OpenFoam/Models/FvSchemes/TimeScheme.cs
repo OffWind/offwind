@@ -16,12 +16,10 @@ namespace Offwind.Sowfa.System.FvSchemes
     public sealed class TimeScheme : SchemeHeader
     {
         public TimeSchemeType type { set; get; }
-        public decimal psi { set; get; }
 
         public TimeScheme()
         {
             type = TimeSchemeType.Euler;
-            psi  = 0;
         }
     }
 }

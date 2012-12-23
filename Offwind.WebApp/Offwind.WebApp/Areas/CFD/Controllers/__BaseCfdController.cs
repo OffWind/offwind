@@ -77,7 +77,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         protected SolverData GetSolverData()
         {
             var dCase = ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.CfdCase);
-            var serializer = new XmlSerializer(typeof (SolverData));
+            var serializer = new XmlSerializer(typeof(SolverData));
             using (var reader = new StringReader(dCase.Model))
             {
                 try

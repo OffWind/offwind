@@ -7,24 +7,27 @@ namespace Offwind.Sowfa.System.FvSchemes
 {
     public class SchemeHeader
     {
-        public bool use_default { set; get; }
+        public bool isDefault { set; get; }
         public string scheme  { set; get; }
-        public string function;
+        public string function { set; get; }
+        public decimal psi { set; get; }
+
 
         public SchemeHeader()
         {
-            use_default = true;
+            isDefault = true;
             scheme = null;
             function = null;
+            psi = 0;
         }
 
         public void SetHeader( ref string value )
         {
             const string format = @"(laplacian|div|interpolate|grad|time)";
-            use_default = true;
+            isDefault = true;
             if ( value != "default" )
             {
-                use_default = false;
+                isDefault = false;
                 var match = Regex.Match(value, format);
                 if (match.Length > 0)
                 {
@@ -35,8 +38,12 @@ namespace Offwind.Sowfa.System.FvSchemes
         }
         public string GetHeader()
         {
-            if (use_default) return "default";
+            if (isDefault) return "default";
             return String.Concat(scheme, function);
+        }
+        public string GetFunction()
+        {
+            return (isDefault) ? "default" : function;
         }
     }
 }

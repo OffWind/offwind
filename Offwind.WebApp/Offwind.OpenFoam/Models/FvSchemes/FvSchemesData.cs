@@ -29,5 +29,8 @@ namespace Offwind.Sowfa.System.FvSchemes
             }
         }
         
+        public FvSchemesData()
+        {
+        }
     }
 }

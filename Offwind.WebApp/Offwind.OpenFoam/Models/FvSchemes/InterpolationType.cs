@@ -19,7 +19,8 @@ namespace Offwind.Sowfa.System.FvSchemes
         MUSCL,
         limitedCubic,
         SFCD,
-        Gamma
+        Gamma,
+        limitedLinearV
     }
 
     public class InterolationExtension

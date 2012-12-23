@@ -16,14 +16,12 @@ namespace Offwind.Sowfa.System.FvSchemes
         public LimitedType limited { set; get; }
         public DiscretisationType discretisation { set; get; }
         public InterpolationType interpolation { set; get; }
-        public decimal psi { set; get; }
 
         public GradientScheme()
         {
             limited = LimitedType.none;
             discretisation = DiscretisationType.Gauss;
             interpolation = InterpolationType.none;
-            psi = 0;
         }
     }
 }

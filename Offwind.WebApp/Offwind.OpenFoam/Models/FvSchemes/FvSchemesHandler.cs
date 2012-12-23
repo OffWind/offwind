@@ -20,11 +20,7 @@ namespace Offwind.Sowfa.System.FvSchemes
         public override object Read(string path)
         {
             var obj = new FvSchemesData();
-            string txt;
-            using (var reader = new StreamReader(path))
-            {
-                txt = reader.ReadToEnd();
-            }
+            string txt = Load(path);
 
             var grammar = new NumericalSchemeGrammar();
             var parser = new Parser(grammar);
@@ -180,25 +176,25 @@ namespace Offwind.Sowfa.System.FvSchemes
                 }
                 else
                 {
-                    x.view = BoundView.Name;
+                    x.bound.view = BoundView.Name;
                     x.interpolation = shortLimMatch.Groups[1].Value.ToEnum<InterpolationType>();
-                    x.lower_limit = Convert.ToDecimal(shortLimMatch.Groups[2].Value);
-                    x.upper_limit = Convert.ToDecimal(shortLimMatch.Groups[3].Value);
+                    x.bound.Lower = Convert.ToDecimal(shortLimMatch.Groups[2].Value);
+                    x.bound.Upper = Convert.ToDecimal(shortLimMatch.Groups[3].Value);
                 }
                 switch (y.Length)
                 {
                     case 5:
-                        x.lower_limit = Convert.ToDecimal(y[2]);
-                        x.upper_limit = Convert.ToDecimal(y[3]);
+                        x.bound.Lower = Convert.ToDecimal(y[2]);
+                        x.bound.Upper = Convert.ToDecimal(y[3]);
                         x.flux = String.Copy(y[4]);
-                        x.view = BoundView.Range;
+                        x.bound.view = BoundView.Range;
                         break;
                     case 4:
                         if (Regex.IsMatch(isValue,y[3]))
                         {
-                            x.lower_limit = Convert.ToDecimal(y[2]);
-                            x.upper_limit = Convert.ToDecimal(y[3]);
-                            x.view = BoundView.Range;
+                            x.bound.Lower = Convert.ToDecimal(y[2]);
+                            x.bound.Upper = Convert.ToDecimal(y[3]);
+                            x.bound.view = BoundView.Range;
                         }
                         else
                         {
@@ -250,11 +246,6 @@ namespace Offwind.Sowfa.System.FvSchemes
 
         public override void Write(string path, object data)
         {
-            var result = new StringBuilder(FvSchemesRes.Default);
-            WriteToFile(path, result.ToString());
-            return;
-
-
             var obj = (FvSchemesData) data;
             var str = new StringBuilder(FvSchemesRes.Template);
             var culture = CultureInfo.InvariantCulture;
@@ -262,10 +253,9 @@ namespace Offwind.Sowfa.System.FvSchemes
             var body0 = new StringBuilder(null);
             foreach (TimeScheme x in obj.ddtSchemes)
             {
-                body0.Append(String.Format("\tdefault {0} {1};{2}",
+                body0.Append(String.Format("{0}default {1} {2};\n", _indent,
                                            x.type,
-                                           (x.psi != 0) ? x.psi.ToString(culture) : "",
-                                           Environment.NewLine));
+                                           (x.psi != 0) ? x.psi.ToString(culture) : ""));
             }
             str.Replace("({[[ddtSchemes]]})", body0.ToString());
 
@@ -274,14 +264,14 @@ namespace Offwind.Sowfa.System.FvSchemes
             {
                 if (x.discretisation == DiscretisationType.Gauss)
                 {
-                    body1.Append(String.Format("\t{0} Gauss {1} {2};{3}",
+                    body1.Append(String.Format("{0}{1} Gauss {2} {3};{4}", _indent,
                                                x.GetHeader(),
                                                (x.interpolation != InterpolationType.none) ? x.interpolation.ToString() : "",
                                                (x.psi != 0) ? x.psi.ToString(culture) : "", Environment.NewLine));
                 }
                 else
                 {
-                    body1.Append(String.Format("\t{0} none;{1}",
+                    body1.Append(String.Format("{0}{1} none;{2}", _indent,
                                                x.GetHeader(), Environment.NewLine));
                 }
             }
@@ -290,7 +280,7 @@ namespace Offwind.Sowfa.System.FvSchemes
             var body2 = new StringBuilder(null);
             foreach (GradientScheme x in obj.gradSchemes)
             {
-                body2.Append(String.Format("\t{0} {1} {2} {3} {4};{5}",
+                body2.Append(String.Format("{0}{1} {2} {3} {4} {5};{6}", _indent,
                                            x.GetHeader(),
                                            (x.limited != LimitedType.none) ? x.limited.ToString() : "",
                                            (x.discretisation != DiscretisationType.none) ? x.discretisation.ToString() : "",
@@ -305,7 +295,7 @@ namespace Offwind.Sowfa.System.FvSchemes
             {
                 if (x.discretisation != DiscretisationType.none)
                 {
-                    body3.Append(String.Format("\t{0} {1} {2} {3} {4};{5}",
+                    body3.Append(String.Format("{0}{1} {2} {3} {4} {5};{6}", _indent,
                         x.GetHeader(),
                         x.discretisation,
                         x.interpolation,
@@ -315,7 +305,7 @@ namespace Offwind.Sowfa.System.FvSchemes
                 }
                 else
                 {
-                    body3.Append(String.Format("\t{0} {1} ;{2}",
+                    body3.Append(String.Format("{0}{1} {2} ;{3}", _indent,
                                                x.GetHeader(), x.discretisation, Environment.NewLine));
                 }
             }
@@ -327,19 +317,21 @@ namespace Offwind.Sowfa.System.FvSchemes
 
                 bool dont_add_limit = (x.interpolation == InterpolationType.limitedLinear) ||
                                       (x.interpolation == InterpolationType.limitedCubic);
-                body4.Append(String.Format("\t{0} {1}{2}",
+                body4.Append(String.Format("{0}{1} {2}{3}", _indent,
                                            x.GetHeader(),
-                                           (x.view == BoundView.Range && !dont_add_limit) ? "limited" : "",
+                                           (x.bound.view == BoundView.Range && !dont_add_limit) ? "limited" : "",
                                            x.interpolation));
-                if (x.view == BoundView.Name)
+                
+                if (x.bound.view == BoundView.Name)
                 {
-                    body4.Append(String.Format("{0}{1} ", x.lower_limit.ToString(), x.upper_limit.ToString()));
+                    body4.Append(String.Format("{0}{1} ", x.bound.Lower.ToString(), x.bound.Upper.ToString()));
                 }
-                else if (x.view == BoundView.Range)
+                else if (x.bound.view == BoundView.Range)
                 {
-                    body4.Append(String.Format(" {0} {1}", x.lower_limit.ToString(culture),
-                                               x.upper_limit.ToString(culture)));
+                    body4.Append(String.Format(" {0} {1}", x.bound.Lower.ToString(culture),
+                                               x.bound.Upper.ToString(culture)));
                 }
+
                 if (x.psi != 0)
                 {
                     body4.Append(String.Format(" {0}", x.psi.ToString(culture)));
@@ -355,7 +347,7 @@ namespace Offwind.Sowfa.System.FvSchemes
             var body5 = new StringBuilder(null);
             foreach (SurfaceNormalGradientScheme x in obj.snGradSchemes)
             {
-                body5.Append(String.Format("\t{0} {1} {2};{3}",
+                body5.Append(String.Format("{0}{1} {2} {3};{4}", _indent,
                     x.GetHeader(),
                     x.type,
                     (x.psi != 0) ? x.psi.ToString(culture): "",
@@ -366,7 +358,7 @@ namespace Offwind.Sowfa.System.FvSchemes
             var body6 = new StringBuilder(null);
             foreach (FluxCalculation x in obj.fluxCalculation)
             {
-                body6.Append(String.Format("\t{0} {1};{2}", x.flux, x.enable ? "yes" : "no",
+                body6.Append(String.Format("{0}{1} {2};{3}", _indent, x.flux, x.enable ? "yes" : "no",
                     Environment.NewLine));
             }
             str.Replace("({[[fluxRequired]]})", body6.ToString());

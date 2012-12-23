@@ -7,6 +7,7 @@ using Offwind.OpenFoam.Models.FvSolution;
 using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Models.FvSolution;
 using Offwind.Sowfa.System.ControlDict;
+using Offwind.Sowfa.System.FvSchemes;
 using Offwind.WebApp.Areas.CFD.Models.SystemControls;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
@@ -40,7 +41,131 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult Schemes()
         {
             ShortTitle = "Schemes";
-            return View();
+            var m = new VSchemes();
+            return View(m);
+        }
+
+        public JsonResult VSchemeGetData(int id)
+        {
+            var sch = GetSolverData().FvScheme;
+            IEnumerable<object[]> res;
+
+            switch (id)
+            {
+                case 0:
+                    res = sch
+                        .ddtSchemes
+                        .Select(t => new object[]
+                                            {
+                                                t.GetFunction(),
+                                                t.type.ToString()
+                                            });
+                    break;
+                case 1:
+                    res = sch
+                        .gradSchemes
+                        .Select(t => new object[]
+                                            {
+                                                t.GetFunction(),
+                                                t.discretisation.ToString(),
+                                                t.interpolation.ToString()
+                                            });
+                    break;
+                case 2:
+                    res = sch
+                        .divSchemes
+                        .Select(t => new object[]
+                                            {
+                                                t.GetFunction(),
+                                                t.discretisation.ToString(),
+                                                t.interpolation.ToString(),
+                                                t.psi.ToString()
+                                            });
+                    break;
+                case 3:
+                    res = sch
+                        .laplacianSchemes
+                        .Select(t => new object[]
+                                            {
+                                                t.GetFunction(),
+                                                t.discretisation.ToString(),
+                                                t.interpolation.ToString(),
+                                                t.snGradScheme.ToString()
+                                            });
+                    break;
+                case 4:
+                    res = sch
+                        .interpolationSchemes
+                        .Select(t => new object[]
+                                            {
+                                                t.GetFunction(),
+                                                t.interpolation.ToString(),
+                                                t.psi.ToString()
+                                            });
+                    break;
+                case 5:
+                    res = sch
+                        .snGradSchemes
+                        .Select(t => new object[]
+                                            {
+                                                t.GetFunction(),
+                                                t.type.ToString()
+                                            });
+                    break;
+                case 6:
+                    res = sch
+                            .fluxCalculation
+                            .Select(t => new object[]
+                                             {
+                                                 t.flux,
+                                                 t.enable.ToString()
+                                             });
+                    break;
+                default:
+                    return Json("ERROR");
+            }
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult VSchemeSetData(int id, List<string[]> modified)
+        {
+            var sd = GetSolverData();
+            switch (id)
+            {
+                case 0:
+                    {
+                        var lst = sd.FvScheme.ddtSchemes;
+                        lst.Clear();
+                        foreach (var s in modified)
+                        {
+                            if ((s[0] != null) && (s[1] != null))
+                            {
+                                var x = new TimeScheme();
+                                x.SetHeader(ref s[0]);
+                                x.type = (TimeSchemeType) Enum.Parse(typeof (TimeSchemeType), s[1]);
+                                lst.Add(x);
+                            }
+                        }
+                    }
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                default:
+                    return Json("OK");
+            }
+
+            SetSolverData(sd);
+            return Json("OK");
         }
 
         
@@ -53,6 +178,16 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             //ObjectMapperManager.DefaultInstance.GetMapper<List<FvSolver> , List<VSolver>>().Map(sd.FvSolution.Solvers, m.Solver);
 
             return View(m);
+        }
+
+        [ActionName("Solution")]
+        [HttpPost]
+        public JsonResult SolutionSave(VFvSolution m)
+        {
+            var sd = GetSolverData();
+            ObjectMapperManager.DefaultInstance.GetMapper<VFvSolution, FvSolutionData>().Map(m, sd.FvSolution);
+            SetSolverData(sd);
+            return Json("OK");
         }
 
         public JsonResult VFvSolutionSolverData()

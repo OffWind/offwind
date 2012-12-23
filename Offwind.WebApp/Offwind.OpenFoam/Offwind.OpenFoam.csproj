@@ -106,6 +106,7 @@
     <Compile Include="Models\FvSchemes\InterpolationScheme.cs" />
     <Compile Include="Models\FvSchemes\InterpolationType.cs" />
     <Compile Include="Models\FvSchemes\LaplacianScheme.cs" />
+    <Compile Include="Models\FvSchemes\SchemeBound.cs" />
     <Compile Include="Models\FvSchemes\SchemeHeader.cs" />
     <Compile Include="Models\FvSchemes\SurfaceNormalGradientScheme.cs" />
     <Compile Include="Models\FvSchemes\SurfaceNormalGradientType.cs" />

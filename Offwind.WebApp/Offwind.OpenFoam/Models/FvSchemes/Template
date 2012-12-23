@@ -17,37 +17,30 @@ FoamFile
 
 ddtSchemes
 {
-({[[ddtSchemes]]})
-}
+({[[ddtSchemes]]})}
 
 gradSchemes
 {
-({[[gradSchemes]]})
-}
+({[[gradSchemes]]})}
 
 divSchemes
 {
-({[[divSchemes]]})
-}
+({[[divSchemes]]})}
 
 laplacianSchemes
 {
-({[[laplacianSchemes]]})
-}
+({[[laplacianSchemes]]})}
 
 interpolationSchemes
 {
-({[[interpolationSchemes]]})
-}
+({[[interpolationSchemes]]})}
 
 snGradSchemes
 {
-({[[snGradSchemes]]})
-}
+({[[snGradSchemes]]})}
 
 fluxRequired
 {
-({[[fluxRequired]]})
-}
+({[[fluxRequired]]})}
 
 // ************************************************************************* //

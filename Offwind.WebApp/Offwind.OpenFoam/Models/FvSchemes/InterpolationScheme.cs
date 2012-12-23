@@ -8,19 +8,14 @@ namespace Offwind.Sowfa.System.FvSchemes
     public sealed class InterpolationScheme : SchemeHeader
     {
         public InterpolationType interpolation { set; get; }
-        public decimal psi { set; get; }
-        public BoundView view { set; get; }
-        public decimal lower_limit { set; get; }
-        public decimal upper_limit { set; get; }
+        public SchemeBound bound { set; get; }
         public string flux { set; get; }
 
         public InterpolationScheme()
         {
             interpolation = InterpolationType.linear;
-            psi = 0;
+            bound = new SchemeBound();
             flux = null;
-            view = BoundView.None;
-            upper_limit = lower_limit = 0;
         }
 
         public static bool StrictlyBoundedField(InterpolationType x)

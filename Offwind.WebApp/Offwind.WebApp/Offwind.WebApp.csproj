@@ -199,6 +199,7 @@
     <Compile Include="Areas\CFD\Models\Preprocessing\VTransportProperties.cs" />
     <Compile Include="Areas\CFD\Models\SystemControls\VControlDict.cs" />
     <Compile Include="Areas\CFD\Models\SystemControls\VFvSolution.cs" />
+    <Compile Include="Areas\CFD\Models\SystemControls\VSchemes.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VPitchControllerParams.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VTorqueControllerParams.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VTurbineArray.cs" />

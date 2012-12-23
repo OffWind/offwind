@@ -1,1 +1,264 @@
-﻿
+﻿@model Offwind.WebApp.Areas.CFD.Models.SystemControls.VSchemes
+
+@section styles
+{
+    @Styles.Render("~/static/css/jquery.handsontable.full.css")
+}
+
+@section scripts
+{    @Scripts.Render("~/static/js/jquery.handsontable.full.js")
+    <script language="javascript">
+        $(document).ready(function () {
+            
+            var $body = [$("#time"), $("#gradient"), $("#divergence"), $("#lapalacian"),
+                $("#interpolation"), $("#sngrad"), $("#flux")];
+            var isInitialize = [false, false, false, false, false, false, false];
+
+            var renderer = function (instance, td) {
+                Handsontable.TextCell.renderer.apply(this, arguments);
+                $(td).css({ textAlign: "right" });
+                return td;
+            };
+
+            var dataloaded = function(res, id) {
+                    $body[id].data('handsontable').loadData(res);
+                    isInitialize[id] = true;
+            };
+
+            var applychanges = function(change, id) {
+                if (!isInitialize[id]) return;
+                if ((change.length == 0) || (change[0].length != 4)) return;
+                if (change[0][2] == change[0][3]) return;
+                
+                var d = $body[id].data('handsontable').getData();
+                var url = "/CFD/SystemControls/VSchemeSetData/" + id;
+                $.ajax({
+                    url: url,
+                    dataType: "json",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(d)
+                });
+            };
+            
+            $body[0].handsontable({
+                startRows: 1,
+                startCols: 2,
+                columns: [
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer} } ],
+                colHeaders: [
+                        "<b>Function</b>",
+                        "<b>Type</b>"
+                    ],
+                rowHeaders: true,
+                minSpareRows: 1,
+                onChange: function (change, source) {
+                    applychanges(change, 0);
+                }
+            });
+            $body[1].handsontable({
+                startRows: 1,
+                startCols: 3,
+                columns: [
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer} } ],
+                colHeaders: [
+                        "<b>Function</b>",
+                        "<b>Discretisation</b>",
+                        "<b>Interpolation</b>"
+                    ],
+                rowHeaders: true,
+                minSpareRows: 1,
+                onChange: function (change, source) {
+                    applychanges(change, 1);
+                }
+            });
+            $body[2].handsontable({
+                startRows: 1,
+                startCols: 4,
+                columns: [
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer}}],
+                colHeaders: [
+                        "<b>Function</b>",
+                        "<b>Discretisation</b>",
+                        "<b>Interpolation</b>",
+                        "<b>Psi</b>"
+                    ],
+                rowHeaders: true,
+                minSpareRows: 1,
+                onChange: function (change, source) {
+                    applychanges(change, 2);
+                }
+            });            
+            $body[3].handsontable({
+                startRows: 1,
+                startCols: 4,
+                columns: [
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer}}],
+                colHeaders: [
+                        "<b>Function</b>",
+                        "<b>Discretisation</b>",
+                        "<b>Interpolation</b>",
+                        "<b>snGrad</b>"
+                    ],
+                rowHeaders: true,
+                minSpareRows: 1,
+                onChange: function (change, source) {
+                    applychanges(change, 3);
+                }
+            });
+            $body[4].handsontable({
+                startRows: 1,
+                startCols: 3,
+                columns: [
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer}}],
+                colHeaders: [
+                        "<b>Function</b>",
+                        "<b>Interpolation</b>",
+                        "<b>Psi</b>"
+                    ],
+                rowHeaders: true,
+                minSpareRows: 1,
+                onChange: function (change, source) {
+                    applychanges(change, 4);
+                }
+            });
+            $body[5].handsontable({
+                startRows: 1,
+                startCols: 2,
+                columns: [
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer}}],
+                colHeaders: [
+                        "<b>Function</b>",
+                        "<b>Type</b>"
+                    ],
+                rowHeaders: true,
+                minSpareRows: 1,
+                onChange: function (change, source) {
+                    applychanges(change, 5);
+                }
+            });
+            $body[6].handsontable({
+                startRows: 1,
+                startCols: 2,
+                columns: [
+                        { type: { renderer: renderer} },
+                        { type: { renderer: renderer}}],
+                colHeaders: [
+                        "<b>Name</b>",
+                        "<b>Generate</b>"
+                    ],
+                rowHeaders: true,
+                minSpareRows: 1,
+                onChange: function (change, source) {
+                    applychanges(change, 6);
+                }
+            });
+
+            $.ajax({                    
+                url: "@Url.Action("VSchemeGetData", "SystemControls", new { area = "CFD", id = 0 })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    dataloaded(res, 0);
+                }
+            });
+            $.ajax({                    
+                url: "@Url.Action("VSchemeGetData", "SystemControls", new { area = "CFD", id = 1 })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    dataloaded(res, 1);
+                }
+            });
+            $.ajax({                    
+                url: "@Url.Action("VSchemeGetData", "SystemControls", new { area = "CFD", id = 2 })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    dataloaded(res, 2);
+                }
+            });
+            $.ajax({                    
+                url: "@Url.Action("VSchemeGetData", "SystemControls", new { area = "CFD", id = 3 })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    dataloaded(res, 3);
+                }
+            });
+            $.ajax({                    
+                url: "@Url.Action("VSchemeGetData", "SystemControls", new { area = "CFD", id = 4 })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    dataloaded(res, 4);
+                }
+            });
+            $.ajax({                    
+                url: "@Url.Action("VSchemeGetData", "SystemControls", new { area = "CFD", id = 5 })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    dataloaded(res, 5);
+                }
+            });
+            $.ajax({                    
+                url: "@Url.Action("VSchemeGetData", "SystemControls", new { area = "CFD", id = 6 })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    dataloaded(res, 6);
+                }
+            });
+            
+        });
+    </script>
+}
+
+<form class="form-horizontal" method="post">
+    <fieldset id = "time">
+        <legend><b>Time scheme</b></legend><br/>
+    </fieldset><br/>
+
+    <fieldset id = "gradient">
+        <legend><b>Gradient scheme</b></legend><br/>
+    </fieldset><br/>
+    
+    <fieldset id = "interpolation">
+        <legend><b>Interpolation scheme</b></legend><br/>
+    </fieldset><br/>
+    
+    <fieldset id = "lapalacian">
+        <legend><b>Laplacian scheme</b></legend><br/>
+    </fieldset><br/>
+
+    <fieldset id = "divergence">
+        <legend><b>Divergence scheme</b></legend><br/>
+    </fieldset><br/>
+
+    <fieldset id = "sngrad">
+        <legend><b>Surface Normal Gradient scheme</b></legend><br/>
+    </fieldset><br/>
+
+    <fieldset id = "flux">
+        <legend><b>Flux calculation</b></legend><br/>
+    </fieldset><br/>
+    
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn">Cancel</button>
+    </div>
+
+</form>

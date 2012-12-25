@@ -1,3 +1,5 @@
+using System;
+
 namespace Offwind.Sowfa.System.FvSchemes
 {
     public enum BoundView
@@ -16,6 +18,12 @@ namespace Offwind.Sowfa.System.FvSchemes
             interpolation = InterpolationType.linear;
             bound = new SchemeBound();
             flux = null;
+        }
+
+        public InterpolationScheme(string[] array) : base(array[0])
+        {
+            interpolation = (InterpolationType)Enum.Parse(typeof(InterpolationType), array[1]);
+            psi = Convert.ToDecimal(array[2]);
         }
 
         public static bool StrictlyBoundedField(InterpolationType x)

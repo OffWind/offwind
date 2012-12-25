@@ -21,5 +21,10 @@ namespace Offwind.Sowfa.System.FvSchemes
         {
             type = TimeSchemeType.Euler;
         }
+
+        public TimeScheme(string[] array) : base(array[0])
+        {
+            type = (TimeSchemeType) Enum.Parse(typeof (TimeSchemeType), array[1]);
+        }
     }
 }

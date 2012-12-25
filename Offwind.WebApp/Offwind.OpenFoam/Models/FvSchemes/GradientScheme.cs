@@ -23,5 +23,11 @@ namespace Offwind.Sowfa.System.FvSchemes
             discretisation = DiscretisationType.Gauss;
             interpolation = InterpolationType.none;
         }
+
+        public GradientScheme(string[] array) : base(array[0])
+        {
+            discretisation = (DiscretisationType)Enum.Parse(typeof(DiscretisationType), array[1]);
+            interpolation = (InterpolationType)Enum.Parse(typeof(InterpolationType), array[2]);
+        }
     }
 }

@@ -13,5 +13,11 @@ namespace Offwind.Sowfa.System.FvSchemes
             flux = null;
             enable = true;
         }
+
+        public FluxCalculation(string[] array)
+        {
+            flux = array[0];
+            enable = Boolean.Parse(array[1]);
+        }
     }
 }

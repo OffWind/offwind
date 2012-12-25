@@ -13,16 +13,18 @@ namespace Offwind.Sowfa.System.FvSchemes
         public decimal psi { set; get; }
 
 
-        public SchemeHeader()
+        public SchemeHeader(string value = null)
         {
             isDefault = true;
             scheme = null;
             function = null;
             psi = 0;
+            SetHeader(value);
         }
 
-        public void SetHeader( ref string value )
+        public void SetHeader(string value)
         {
+            if (value == null) return;
             const string format = @"(laplacian|div|interpolate|grad|time)";
             isDefault = true;
             if ( value != "default" )

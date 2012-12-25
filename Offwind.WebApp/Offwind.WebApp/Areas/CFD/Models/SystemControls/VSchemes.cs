@@ -65,8 +65,6 @@ namespace Offwind.WebApp.Areas.CFD.Models.SystemControls
 
     public class VSchemes
     {
-        public int SchemeIndex { set; get; }
-
         public List<VTimeScheme> ddtSchemes { set; get; }
         public List<VGradientScheme> gradSchemes { set; get; }
         public List<VInterpolationScheme> interpolationSchemes { set; get; }
@@ -77,8 +75,6 @@ namespace Offwind.WebApp.Areas.CFD.Models.SystemControls
 
         public VSchemes()
         {
-            SchemeIndex = 0;
-
             ddtSchemes = new List<VTimeScheme>();
             gradSchemes = new List<VGradientScheme>();
             interpolationSchemes = new List<VInterpolationScheme>();

@@ -1,4 +1,4 @@
-﻿@model Offwind.WebApp.Areas.CFD.Models.SystemControls.VSchemes
+﻿
 
 @section styles
 {
@@ -10,7 +10,7 @@
     <script language="javascript">
         $(document).ready(function () {
             
-            var $body = [$("#time"), $("#gradient"), $("#divergence"), $("#lapalacian"),
+            var $body = [$("#time"), $("#gradient"), $("#divergence"), $("#laplacian"),
                 $("#interpolation"), $("#sngrad"), $("#flux")];
             var isInitialize = [false, false, false, false, false, false, false];
 
@@ -240,7 +240,7 @@
         <legend><b>Interpolation scheme</b></legend><br/>
     </fieldset><br/>
     
-    <fieldset id = "lapalacian">
+    <fieldset id = "laplacian">
         <legend><b>Laplacian scheme</b></legend><br/>
     </fieldset><br/>
 

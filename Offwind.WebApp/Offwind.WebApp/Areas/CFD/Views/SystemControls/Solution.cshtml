@@ -8,7 +8,21 @@
 @section scripts
 {
     @Scripts.Render("~/static/js/jquery.handsontable.full.js")
-    <script language="javascript">    
+    <script language="javascript">
+
+        var linearSolver = ["PCG",
+                            "PBiCG",
+                            "smoothSolver",
+                            "GAMG",
+                            "diagonal"];
+        
+        var preconditioner = ["none",
+                                "DIC",
+                                "FDIC",
+                                "DILU",
+                                "diagonal",
+                                "GAMG"];
+
         $(document).ready(function() {                
             var renderer = function(instance, td) {
                 Handsontable.TextCell.renderer.apply(this, arguments);
@@ -21,6 +35,8 @@
             var changed = function(change, source) {
                 if (!isInitialized) return;
                 var d = $container.data('handsontable').getData();
+                
+
                 $.ajax({
                     url: "@Url.Action("VFvSolutionSolverSave", "SystemControls", new { area = "CFD" })",
                     dataType: "json",
@@ -34,8 +50,8 @@
                 startCols: 5,
                 columns: [
                     { type: { renderer: renderer } },
-                    { type: { renderer: renderer } },
-                    { type: { renderer: renderer } },
+                    { type: Handsontable.AutocompleteCell, source: linearSolver, editor: Handsontable.AutocompleteEditor, strict: true },
+                    { type: Handsontable.AutocompleteCell, source: preconditioner, editor: Handsontable.AutocompleteEditor, strict: true },
                     { type: { renderer: renderer } },
                     { type: { renderer: renderer } }],
                 colHeaders: [

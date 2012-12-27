@@ -119,7 +119,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                         .Select(t => new object[]
                                          {
                                              t.flux,
-                                             t.enable.ToString()
+                                             t.enable
                                          });
                     break;
                 default:

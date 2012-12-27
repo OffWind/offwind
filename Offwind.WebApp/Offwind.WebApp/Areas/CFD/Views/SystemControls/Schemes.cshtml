@@ -8,6 +8,27 @@
 @section scripts
 {    @Scripts.Render("~/static/js/jquery.handsontable.full.js")
     <script language="javascript">
+
+        var ddtTypes = ["Euler", "localEuler", "CrankNicholson", "backward", "steadyState"];
+        var discretisationTypes = ["none" ,"Gauss", "leastSquares", "fourth"];
+        var interpolationTypes = ["none", "linear", "cubicCorrection", "midPoint",
+            "upwind", "linearUpwind", "skewLinear",
+            "filteredLinear2", "limitedLinear", "vanLeer", "MUSCL",
+            "limitedCubic", "SFCD", "Gamma", "limitedLinearV"];
+        var snGradTypes = ["none", "corrected",  "uncorrected", "limited", "bounded", "fourth"];
+
+        var ddtTemplate = ["default", ddtTypes[0]];
+        var grdTemplate = ["default", discretisationTypes[0], interpolationTypes[0]];
+        var divTemplate = ["default", discretisationTypes[0], interpolationTypes[0], "0"];
+        var lapTemplate = ["default", discretisationTypes[0], interpolationTypes[0], snGradTypes[0]];
+        var intTempalte = ["default", interpolationTypes[0], "0"];
+        var sngTemplate = ["default", snGradTypes[0]];
+        var flxTempalte = ["default", false];
+        
+        function autocomp_renderer(instance, td, row, col, prop, value, cellProperties) {
+            Handsontable.AutocompleteCell.renderer.apply(this, arguments);
+        };
+
         $(document).ready(function () {
             
             var $body = [$("#time"), $("#gradient"), $("#divergence"), $("#laplacian"),
@@ -21,16 +42,22 @@
             };
 
             var dataloaded = function(res, id) {
-                    $body[id].data('handsontable').loadData(res);
-                    isInitialize[id] = true;
+                $body[id].data('handsontable').loadData(res);
+                isInitialize[id] = true;
             };
 
             var applychanges = function(change, id) {
                 if (!isInitialize[id]) return;
-                if ((change.length == 0) || (change[0].length != 4)) return;
-                if (change[0][2] == change[0][3]) return;
+                /*all fields must be filed at first */
                 
+                if ((change.length == 0) || (change[0].length != 4)) return;
+                if (change[0][2] == change[0][3]) return;                
                 var d = $body[id].data('handsontable').getData();
+                var newvalue = d[change[0][0]];
+                for (var i = 0; i < newvalue.length; i++) {
+                    if (newvalue[i] == null) return;
+                }
+                
                 var url = "/CFD/SystemControls/VSchemeSetData/" + id;
                 $.ajax({
                     url: url,
@@ -45,30 +72,31 @@
                 startRows: 1,
                 startCols: 2,
                 columns: [
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer} } ],
+                    { type: { renderer: renderer} },
+                    { type: Handsontable.AutocompleteCell, source: ddtTypes, editor: Handsontable.AutocompleteEditor, strict: true } ],
                 colHeaders: [
-                        "<b>Function</b>",
-                        "<b>Type</b>"
-                    ],
+                    "<b>Function</b>",
+                    "<b>Type</b>"
+                ],
                 rowHeaders: true,
                 minSpareRows: 1,
                 onChange: function (change, source) {
                     applychanges(change, 0);
                 }
+                
             });
             $body[1].handsontable({
                 startRows: 1,
                 startCols: 3,
                 columns: [
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer} } ],
+                    { type: { renderer: renderer} },
+                    { type: Handsontable.AutocompleteCell, source: discretisationTypes, editor: Handsontable.AutocompleteEditor, strict: true },
+                    { type: Handsontable.AutocompleteCell, source: interpolationTypes, editor: Handsontable.AutocompleteEditor, strict: true } ],
                 colHeaders: [
-                        "<b>Function</b>",
-                        "<b>Discretisation</b>",
-                        "<b>Interpolation</b>"
-                    ],
+                    "<b>Function</b>",
+                    "<b>Discretisation</b>",
+                    "<b>Interpolation</b>"
+                ],
                 rowHeaders: true,
                 minSpareRows: 1,
                 onChange: function (change, source) {
@@ -79,16 +107,16 @@
                 startRows: 1,
                 startCols: 4,
                 columns: [
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer}}],
+                    { type: { renderer: renderer} },
+                    { type: Handsontable.AutocompleteCell, source: discretisationTypes, editor: Handsontable.AutocompleteEditor, strict: true },
+                    { type: Handsontable.AutocompleteCell, source: interpolationTypes, editor: Handsontable.AutocompleteEditor, strict: true },
+                    { type: { renderer: renderer}}],
                 colHeaders: [
-                        "<b>Function</b>",
-                        "<b>Discretisation</b>",
-                        "<b>Interpolation</b>",
-                        "<b>Psi</b>"
-                    ],
+                    "<b>Function</b>",
+                    "<b>Discretisation</b>",
+                    "<b>Interpolation</b>",
+                    "<b>Psi</b>"
+                ],
                 rowHeaders: true,
                 minSpareRows: 1,
                 onChange: function (change, source) {
@@ -99,16 +127,16 @@
                 startRows: 1,
                 startCols: 4,
                 columns: [
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer}}],
+                    { type: { renderer: renderer} },
+                    { type: Handsontable.AutocompleteCell, source: discretisationTypes, editor: Handsontable.AutocompleteEditor, strict: true },
+                    { type: Handsontable.AutocompleteCell, source: interpolationTypes, editor: Handsontable.AutocompleteEditor, strict: true },
+                    { type: Handsontable.AutocompleteCell, source: snGradTypes, editor: Handsontable.AutocompleteEditor, strict: true }],
                 colHeaders: [
-                        "<b>Function</b>",
-                        "<b>Discretisation</b>",
-                        "<b>Interpolation</b>",
-                        "<b>snGrad</b>"
-                    ],
+                    "<b>Function</b>",
+                    "<b>Discretisation</b>",
+                    "<b>Interpolation</b>",
+                    "<b>snGrad</b>"
+                ],
                 rowHeaders: true,
                 minSpareRows: 1,
                 onChange: function (change, source) {
@@ -119,14 +147,14 @@
                 startRows: 1,
                 startCols: 3,
                 columns: [
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer}}],
+                    { type: { renderer: renderer} },
+                    { type: Handsontable.AutocompleteCell, source: interpolationTypes, editor: Handsontable.AutocompleteEditor, strict: true },
+                    { type: { renderer: renderer}}],
                 colHeaders: [
-                        "<b>Function</b>",
-                        "<b>Interpolation</b>",
-                        "<b>Psi</b>"
-                    ],
+                    "<b>Function</b>",
+                    "<b>Interpolation</b>",
+                    "<b>Psi</b>"
+                ],
                 rowHeaders: true,
                 minSpareRows: 1,
                 onChange: function (change, source) {
@@ -137,12 +165,12 @@
                 startRows: 1,
                 startCols: 2,
                 columns: [
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer}}],
+                    { type: { renderer: renderer} },
+                    { type: Handsontable.AutocompleteCell, source: snGradTypes, editor: Handsontable.AutocompleteEditor, strict: true }],
                 colHeaders: [
-                        "<b>Function</b>",
-                        "<b>Type</b>"
-                    ],
+                    "<b>Function</b>",
+                    "<b>Type</b>"
+                ],
                 rowHeaders: true,
                 minSpareRows: 1,
                 onChange: function (change, source) {
@@ -153,12 +181,12 @@
                 startRows: 1,
                 startCols: 2,
                 columns: [
-                        { type: { renderer: renderer} },
-                        { type: { renderer: renderer}}],
+                    { type: { renderer: renderer} },
+                    { type: Handsontable.CheckboxCell }],
                 colHeaders: [
-                        "<b>Name</b>",
-                        "<b>Generate</b>"
-                    ],
+                    "<b>Name</b>",
+                    "<b>Generate</b>"
+                ],
                 rowHeaders: true,
                 minSpareRows: 1,
                 onChange: function (change, source) {

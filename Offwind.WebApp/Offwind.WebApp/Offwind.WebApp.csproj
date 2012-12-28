@@ -233,8 +233,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\CFD\Controllers\CaseManagementController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
-    <Compile Include="Filters\Infrastructure\GuidConstraint.cs" />
-    <Compile Include="Filters\Infrastructure\EmitMapperExtensions.cs" />
+    <Compile Include="Infrastructure\GuidConstraint.cs" />
+    <Compile Include="Infrastructure\EmitMapperExtensions.cs" />
     <Compile Include="Models\Account\ExternalLoginResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Account\ManageMessageId.cs" />
@@ -242,8 +242,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Filters\Infrastructure\Helper.cs" />
-    <Compile Include="Filters\Infrastructure\SharpZipUtils.cs" />
+    <Compile Include="Infrastructure\Helper.cs" />
+    <Compile Include="Infrastructure\SharpZipUtils.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Account\SystemRole.cs" />
     <Compile Include="Models\Jobs\Job.cs" />

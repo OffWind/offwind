@@ -67,11 +67,26 @@ namespace Offwind.OpenFoam.Models.DecomposeParDict {
         ///|  \\    /   O peration     | Version:  2.1.1                                 |
         ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
         ///|    \\/     M anipulation  |                                                 |
-        ///\*------------------------------ [rest of string was truncated]&quot;;.
+        ///\*------------------------ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Default {
             get {
                 return ResourceManager.GetString("Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                 |                                                 |
+        ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+        ///|  \\    /   O peration     | Version:  2.1.1                                 |
+        ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+        ///|    \\/     M anipulation  |                                                 |
+        ///\*------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Template {
+            get {
+                return ResourceManager.GetString("Template", resourceCulture);
             }
         }
     }

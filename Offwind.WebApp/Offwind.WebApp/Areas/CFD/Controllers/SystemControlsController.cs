@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using EmitMapper;
+using Offwind.OpenFoam.Models.DecomposeParDict;
 using Offwind.OpenFoam.Models.FvSolution;
 using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Models.FvSolution;
@@ -255,7 +256,22 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult ParallelExecution()
         {
             ShortTitle = "Parallel Execution";
-            return View();
+            var m = new VParallelExecution();
+            var sd = GetSolverData();
+            ObjectMapperManager.DefaultInstance.GetMapper<DecomposeParDictData, VParallelExecution>().Map(sd.DecomposeParDict, m);
+            ObjectMapperManager.DefaultInstance.GetMapper<HierarchicalCoeffs, VHierarchicalCoeffs>().Map(sd.DecomposeParDict.hCoefs, m.coefs);
+            return View(m);
+        }
+
+        [ActionName("ParallelExecution")]
+        [HttpPost]
+        public JsonResult ParallelExecutionSave(VParallelExecution m)
+        {
+            var sd = GetSolverData();
+            ObjectMapperManager.DefaultInstance.GetMapper<VParallelExecution, DecomposeParDictData>().Map(m, sd.DecomposeParDict);
+            ObjectMapperManager.DefaultInstance.GetMapper<VHierarchicalCoeffs, HierarchicalCoeffs>().Map(m.coefs, sd.DecomposeParDict.hCoefs);
+            SetSolverData(sd);
+            return Json("OK");
         }
     }
 }

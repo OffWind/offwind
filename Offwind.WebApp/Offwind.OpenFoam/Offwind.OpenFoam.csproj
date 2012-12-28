@@ -73,12 +73,16 @@
     <Compile Include="Models\ControlDict\WriteCompression.cs" />
     <Compile Include="Models\ControlDict\WriteControl.cs" />
     <Compile Include="Models\ControlDict\WriteFormat.cs" />
+    <Compile Include="Models\DecomposeParDict\DecomposeParDictData.cs" />
     <Compile Include="Models\DecomposeParDict\DecomposeParDictHandler.cs" />
     <Compile Include="Models\DecomposeParDict\DecomposeParDictRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DecomposeParDictRes.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DecomposeParDict\DecompositionMethod.cs" />
+    <Compile Include="Models\DecomposeParDict\DecompositionOrder.cs" />
+    <Compile Include="Models\DecomposeParDict\HierarchicalCoeffs.cs" />
     <Compile Include="Models\DimensionedValue.cs" />
     <Compile Include="Models\Dimensions.cs" />
     <Compile Include="Models\Fields\BoundaryField.cs" />
@@ -324,6 +328,7 @@
     <Content Include="Models\DecomposeParDict\Default.txt" />
     <None Include="Models\FvSchemes\Default" />
     <None Include="Models\FvSchemes\Template" />
+    <Content Include="Models\DecomposeParDict\Template.txt" />
     <Content Include="Models\FvSolution\Default.txt" />
     <None Include="Models\Gravitation\Default" />
     <None Include="Models\Gravitation\Template" />

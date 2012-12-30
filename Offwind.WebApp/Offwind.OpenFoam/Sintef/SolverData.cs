@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Offwind.OpenFoam.Models.AirfoilProperties;
 using Offwind.OpenFoam.Models.DecomposeParDict;
 using Offwind.OpenFoam.Models.Fields;
 using Offwind.OpenFoam.Models.FvSolution;
-using Offwind.OpenFoam.Models.RasProperties;
-using Offwind.OpenFoam.Models.TurbulenceModels;
 using Offwind.OpenFoam.Models.TurbulenceProperties;
 using Offwind.OpenFoam.Sintef.BoundaryFields;
 using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Models.ControlDict;
 using Offwind.Products.OpenFoam.Models.Fields;
 using Offwind.Products.OpenFoam.Models.PolyMesh;
-using Offwind.Sowfa.Constant.AblProperties;
 using Offwind.Sowfa.Constant.AirfoilProperties;
 using Offwind.Sowfa.Constant.TransportProperties;
 using Offwind.Sowfa.Constant.TurbineArrayProperties;
@@ -32,7 +27,6 @@ namespace Offwind.OpenFoam.Sintef
         public FieldU FieldU { get; set; }
         public BoundaryField FieldNut { get; set; }
         public TurbulencePropertiesData TurbulenceProperties { get; set; }
-        public RasPropertiesData RasProperties { get; set; }
         public TransportPropertiesData TransportProperties { get; set; }
         public TurbinePropertiesData TurbineProperties { get; set; }
         public TurbineArrayPropData TurbineArrayProperties { get; set; }
@@ -57,6 +51,7 @@ namespace Offwind.OpenFoam.Sintef
         private readonly FvSolutionHandler _fvSolutionHandler;
         private readonly FvSchemesHandler _fvSchemesHandler;
         private readonly DecomposeParDictHandler _decomposeParDictHandler;
+        private readonly TurbulencePropertiesHandler _turbulencePropertiesHandler;
 
         public SolverData()
         {
@@ -80,6 +75,7 @@ namespace Offwind.OpenFoam.Sintef
             _fvSolutionHandler = new FvSolutionHandler();
             _fvSchemesHandler = new FvSchemesHandler();
             _decomposeParDictHandler = new DecomposeParDictHandler();
+            _turbulencePropertiesHandler = new TurbulencePropertiesHandler();
             #endregion
 
             #region Data
@@ -91,6 +87,7 @@ namespace Offwind.OpenFoam.Sintef
             FvSolution = (FvSolutionData) _fvSolutionHandler.Read(null);
             FvScheme = (FvSchemesData) _fvSchemesHandler.Read(null);
             DecomposeParDict = (DecomposeParDictData) _decomposeParDictHandler.Read(null);
+            TurbulenceProperties = (TurbulencePropertiesData)_turbulencePropertiesHandler.Read(null);
             #endregion
 
             /* extra post-initialize calls */
@@ -101,8 +98,6 @@ namespace Offwind.OpenFoam.Sintef
             InitFieldR(FieldR);
             InitFieldU(FieldU);
 
-            TurbulenceProperties = new TurbulencePropertiesData();
-            RasProperties = new RasPropertiesData();
             AirfoilProperties = new AirfoilPropertiesData();
             ProcessingSettings = new ProcessingSettings();
         }
@@ -130,15 +125,11 @@ namespace Offwind.OpenFoam.Sintef
             _fvSolutionHandler.Write(_fvSolutionHandler.GetPath(path), FvSolution);
             _fvSchemesHandler.Write(_fvSchemesHandler.GetPath(path), FvScheme);
             _decomposeParDictHandler.Write(_decomposeParDictHandler.GetPath(path), DecomposeParDict);
+            _turbulencePropertiesHandler.Write(_turbulencePropertiesHandler.GetPath(path), TurbulenceProperties);
 
-            var rash = new RasPropertiesHandler();
-            rash.Write(rash.GetPath(path), null);
 
             var toh = new TurbineOptionHandler();
             toh.Write(toh.GetPath(path), null);
-
-            var turbh = new TurbulencePropertiesHandler();
-            turbh.Write(turbh.GetPath(path), null);
 
             var afh = new AirfoilPropertiesInstanceHandler();
             afh.SetFileName<AirfoilPropertiesInstanceHandler>("Cylinder1").WriteInstance(afh.GetPath(path), AirfoilPropRes.Cylinder1);

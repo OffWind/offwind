@@ -186,6 +186,7 @@
     <Compile Include="Areas\CFD\Controllers\ProcessingController.cs" />
     <Compile Include="Areas\CFD\Controllers\SystemControlsController.cs" />
     <Compile Include="Areas\CFD\Controllers\TurbinesController.cs" />
+    <Compile Include="Areas\CFD\Models\AirfoilAndTurbulence\VTurbulenceProperties.cs" />
     <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldVectorValue2.cs" />
     <Compile Include="Areas\CFD\Models\BoundaryConditions\FieldVectorValueBinder.cs" />
     <Compile Include="Areas\CFD\Models\BoundaryConditions\VAtmBoundaryLayerInletVelocity.cs" />

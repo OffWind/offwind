@@ -68,7 +68,7 @@
                 <i class="icon-asterisk"></i> Airfoil Properties
             </a>
         </li>
-        <li @this.ActiveIfCurrent("TurbulenceProperties", "AirfoilAndTurbulence", "CFD") class="disabled">
+        <li @this.ActiveIfCurrent("TurbulenceProperties", "AirfoilAndTurbulence", "CFD") >
             <a href="@Url.Action("TurbulenceProperties", "AirfoilAndTurbulence", new { area = "CFD" })">
                 <i class="icon-asterisk"></i> Turbulence Properties
             </a>

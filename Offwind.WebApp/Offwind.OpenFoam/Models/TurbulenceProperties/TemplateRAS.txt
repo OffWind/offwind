@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  1.7.1                                 |
-|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|  \\    /   O peration     | Version:  2.1.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -11,19 +11,15 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "constant";
-    object      LESProperties;
+    object      RASProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-LESModel        Smagorinsky;
+RASModel        ({[[model]]});
 
-delta           cubeRootVol;
+turbulence      ({[[turbulence]]});
 
-printCoeffs     on;
+printCoeffs     ({[[printCoeffs]]});
 
-cubeRootVolCoeffs
-{
-    deltaCoeff      1;
-}
 
 // ************************************************************************* //

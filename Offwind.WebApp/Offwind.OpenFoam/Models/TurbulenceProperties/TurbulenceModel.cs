@@ -4,8 +4,8 @@
     public enum TurbulenceModel
     {
         Laminar,
-        RAS,
-        LES,
+        RASModel,
+        LESModel,
     }
     // ReSharper restore InconsistentNaming
 }

@@ -52,7 +52,7 @@
     </Compile>
     <Compile Include="Models\AirfoilProperties\AirfoilPropertiesData.cs" />
     <Compile Include="Models\AirfoilProperties\AirfoilPropertiesHandler.cs" />
-    <Compile Include="Models\AirfoilProperties\AirfoilPropertiesInstanceHandler.cs" />
+    <Compile Include="Models\AirfoilProperties\AirfoilPropertiesInstance.cs" />
     <Compile Include="Models\AirfoilProperties\AirfoilPropRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

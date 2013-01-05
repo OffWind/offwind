@@ -20,6 +20,7 @@ namespace Offwind.OpenFoam.Sintef
 {
     public class SolverData
     {
+
         public FieldEpsilon FieldEpsilon { get; set; }
         public FieldK FieldK { get; set; }
         public FieldP FieldP { get; set; }
@@ -37,6 +38,7 @@ namespace Offwind.OpenFoam.Sintef
         public AirfoilPropertiesData AirfoilProperties { get; set; }
         public ProcessingSettings ProcessingSettings { get; set; }
         public DecomposeParDictData DecomposeParDict { get; set; }
+        public AirfoilPropertiesData AirfoilData { get; set; }
 
         private readonly ControlDictHandler _controlDictHandler;
         private readonly TransportPropertiesHandler _transportPropHandler;
@@ -52,6 +54,7 @@ namespace Offwind.OpenFoam.Sintef
         private readonly FvSchemesHandler _fvSchemesHandler;
         private readonly DecomposeParDictHandler _decomposeParDictHandler;
         private readonly TurbulencePropertiesHandler _turbulencePropertiesHandler;
+        private readonly AirfoilPropertiesHandler _airfoilPropertiesHandler;
 
         public SolverData()
         {
@@ -76,6 +79,7 @@ namespace Offwind.OpenFoam.Sintef
             _fvSchemesHandler = new FvSchemesHandler();
             _decomposeParDictHandler = new DecomposeParDictHandler();
             _turbulencePropertiesHandler = new TurbulencePropertiesHandler();
+            _airfoilPropertiesHandler = new AirfoilPropertiesHandler(null);
             #endregion
 
             #region Data
@@ -88,6 +92,9 @@ namespace Offwind.OpenFoam.Sintef
             FvScheme = (FvSchemesData) _fvSchemesHandler.Read(null);
             DecomposeParDict = (DecomposeParDictData) _decomposeParDictHandler.Read(null);
             TurbulenceProperties = (TurbulencePropertiesData)_turbulencePropertiesHandler.Read(null);
+
+            AirfoilData = _airfoilPropertiesHandler.ReadDefault();
+
             #endregion
 
             /* extra post-initialize calls */
@@ -130,7 +137,7 @@ namespace Offwind.OpenFoam.Sintef
 
             var toh = new TurbineOptionHandler();
             toh.Write(toh.GetPath(path), null);
-
+            /*
             var afh = new AirfoilPropertiesInstanceHandler();
             afh.SetFileName<AirfoilPropertiesInstanceHandler>("Cylinder1").WriteInstance(afh.GetPath(path), AirfoilPropRes.Cylinder1);
             afh.SetFileName<AirfoilPropertiesInstanceHandler>("Cylinder2").WriteInstance(afh.GetPath(path), AirfoilPropRes.Cylinder2);
@@ -140,6 +147,7 @@ namespace Offwind.OpenFoam.Sintef
             afh.SetFileName<AirfoilPropertiesInstanceHandler>("DU35_A17").WriteInstance(afh.GetPath(path), AirfoilPropRes.DU35_A17);
             afh.SetFileName<AirfoilPropertiesInstanceHandler>("DU40_A17").WriteInstance(afh.GetPath(path), AirfoilPropRes.DU40_A17);
             afh.SetFileName<AirfoilPropertiesInstanceHandler>("NACA64_A17").WriteInstance(afh.GetPath(path), AirfoilPropRes.NACA64_A17);
+            */
 
             /* TODO: extra write handlres */
 

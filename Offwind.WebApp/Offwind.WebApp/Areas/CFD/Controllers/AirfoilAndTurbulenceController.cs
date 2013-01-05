@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 using Offwind.WebApp.Areas.CFD.Models.AirfoilAndTurbulence;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
@@ -15,6 +17,23 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ShortTitle = "Airfoil Properties";
             return View();
         }
+
+        public JsonResult VGetAirfoilsList()
+        {
+            var sd = GetSolverData();
+
+            IEnumerable<object[]> res = sd.AirfoilData.collection.Select(t => new object[] {t.airfoilName});
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult VGetAirfoilData(int id)
+        {
+            var sd = GetSolverData();
+
+            IEnumerable<object[]> res = sd.AirfoilData.collection[id].row.Select(t => new object[] {t.X, t.Y, t.Z});
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult TurbulenceProperties()
         {

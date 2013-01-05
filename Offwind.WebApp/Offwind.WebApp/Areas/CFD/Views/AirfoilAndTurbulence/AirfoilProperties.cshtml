@@ -1,1 +1,145 @@
-﻿
+﻿@section styles
+{
+    @Styles.Render("~/static/css/jquery.handsontable.full.css")
+}
+
+@section scripts
+{    @Scripts.Render("~/static/js/jquery.handsontable.full.js")
+     @Scripts.Render("~/static/js/amcharts.js")
+     
+
+    <script language="javascript">
+
+        var chart = null;//new AmCharts.AmSerialChart();
+        var graphCL = null;//new AmCharts.AmGraph();
+        var graphCD = null;//new AmCharts.AmGraph();
+
+        $(document).ready(function() {
+            var renderer = function (instance, td) {
+                Handsontable.TextCell.renderer.apply(this, arguments);
+                $(td).css({ textAlign: "right" });
+                return td;
+            };
+                        
+            $("#airfoildata").handsontable({
+                startRows: 1,
+                startCols: 3,
+                columns: [
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} }
+                ],
+                        
+                colHeaders: [
+                    "<b>Alpha</b>",
+                    "<b>C_l</b>",
+                    "<b>C_d</b>"
+                ],
+                rowHeaders: true,
+                minSpareRows: 1,
+                onChange: function (change, source) {
+                }
+
+            });
+            
+            $.ajax({                    
+                url: "@Url.Action("VGetAirfoilsList", "AirfoilAndTurbulence", new { area = "CFD" })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    var lbox = document.getElementById("airfoilsel");
+                    for (var i = 0; i < res.length; i++)
+                    {
+                        var opt = document.createElement("option");
+                        opt.label = res[i];
+                        lbox.appendChild(opt);
+                    }
+                    if (res.length > 0) lbox.selectedIndex = 2;
+                    change_info();
+                }
+            });
+            
+            chart = new AmCharts.AmXYChart();
+            var legend = new AmCharts.AmLegend();
+            //legend.data = [ {title:"first", color:"#CC0000"}, {title:"second", color:"#00CC00"} ]; 
+            chart.addLegend(legend);
+            
+            // X
+            var xAxis = new AmCharts.ValueAxis();
+            xAxis.position = "bottom";
+            xAxis.maximum = 180;
+            xAxis.minimum = -180;
+            xAxis.title = "Angle of Attack (deg)";
+            xAxis.gridAlpha = 0.1;
+            xAxis.autoGridCount = true;
+            chart.addValueAxis(xAxis);
+
+            // Y
+            var yAxis = new AmCharts.ValueAxis();
+            yAxis.position = "left";
+            yAxis.gridAlpha = 0.1;
+            yAxis.autoGridCount = true;
+            yAxis.title = "Lift or Drag coefficient";
+            chart.addValueAxis(yAxis);
+            
+            graphCL = new AmCharts.AmGraph();
+            graphCL.xField = "x";
+            graphCL.yField = "y0";
+            graphCL.lineAlpha = 1;
+            graphCL.lineColor = '#FF9E01';
+            chart.addGraph(graphCL);
+
+            graphCD = new AmCharts.AmGraph();
+            graphCD.xField = "x";
+            graphCD.yField = "y1";
+            graphCD.lineAlpha = 1;
+            graphCD.lineColor = '#9EFF01';
+            chart.addGraph(graphCD);
+
+        });
+        function change_info() {
+            var obj = document.getElementById("airfoilsel");
+            var url = "/CFD/AirfoilAndTurbulence/VGetAirfoilData/" + obj.selectedIndex;
+            $.ajax({                    
+                url: url,
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    $("#airfoildata").data('handsontable').loadData(res);
+                    
+                    //chart.clear();
+                    
+                    var cld = [];
+                    var j = 0;
+                    for (var i = 0; i < res.length-1; i++)
+                    {
+                        cld[j++] = {
+                            x: parseFloat(res[i][0]),
+                            y0: parseFloat(res[i][1]),
+                            y1: parseFloat(res[i][2])
+                        };
+                    }
+
+                    chart.dataProvider = cld;
+                    chart.validateData();
+                    chart.write("datagraph");
+                }
+            });
+        }
+    </script>
+}
+
+<form class="form-horizontal" method="post">
+    <fieldset>
+        <legend>Airfoil</legend><br/>
+        <select id="airfoilsel" onchange="change_info();">
+        </select>        
+    </fieldset><br/>
+    <fieldset id="airfoildata" class="span4">
+        <legend>Data</legend><br/>
+    </fieldset>
+    <fieldset  class="span4" >
+        <legend>Lift and drag coefficients</legend><br/>
+        <div id="datagraph" style="width: 100%; height: 320px;"></div>
+    </fieldset>
+</form>

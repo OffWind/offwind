@@ -5,6 +5,7 @@ using System.Web;
 using NUnit.Framework;
 using Offwind.OpenFoam.Models.DecomposeParDict;
 using System.Collections;
+using Offwind.Sowfa.Constant.AirfoilProperties;
 
 namespace Offwind.WebApp.Tests
 {
@@ -18,6 +19,11 @@ namespace Offwind.WebApp.Tests
             var o = hdr.Read(null);
             hdr.Write(null, o);
         }
-
+        [Test]
+        public void AirfoilHandlerTest()
+        {
+            var a = new AirfoilPropertiesHandler(null);
+            var t = a.ReadDefault();
+        }
     }
 }

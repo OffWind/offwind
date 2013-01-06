@@ -1,8 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Offwind.Sowfa.Constant.TurbineProperties;
 
 namespace Offwind.WebApp.Areas.CFD.Models.Turbines
 {
+    public struct VAirfoilBlade
+    {
+        [DisplayName("AirfoilName")]
+        public String AirfoilName { get; set; }
+        public List<VVertice> Blade { get; set; }
+
+    }
+
     public class VTurbineType
     {
         public VTurbineType()
@@ -28,7 +39,8 @@ namespace Offwind.WebApp.Areas.CFD.Models.Turbines
         public ControllerType TorqueControllerType { get; set; }
         public ControllerType YawControllerType { get; set; }
         public ControllerType PitchControllerType { get; set; }
-        public List<AirfoilBlade> airfoilBlade { get; set; }
+
+        public List<VAirfoilBlade> airfoilBlade { get; set; }
 
 
         public VTorqueControllerParams torqueControllerParams { get; set; }

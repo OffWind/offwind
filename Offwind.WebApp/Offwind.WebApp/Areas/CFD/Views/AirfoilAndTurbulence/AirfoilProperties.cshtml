@@ -13,6 +13,8 @@
         var chart = null;//new AmCharts.AmSerialChart();
         var graphCL = null;//new AmCharts.AmGraph();
         var graphCD = null;//new AmCharts.AmGraph();
+        var xAxis;
+        var yAxis;
 
         $(document).ready(function() {
             var renderer = function (instance, td) {
@@ -61,11 +63,10 @@
             
             chart = new AmCharts.AmXYChart();
             var legend = new AmCharts.AmLegend();
-            //legend.data = [ {title:"first", color:"#CC0000"}, {title:"second", color:"#00CC00"} ]; 
             chart.addLegend(legend);
             
             // X
-            var xAxis = new AmCharts.ValueAxis();
+            xAxis = new AmCharts.ValueAxis();
             xAxis.position = "bottom";
             xAxis.maximum = 180;
             xAxis.minimum = -180;
@@ -75,7 +76,7 @@
             chart.addValueAxis(xAxis);
 
             // Y
-            var yAxis = new AmCharts.ValueAxis();
+            yAxis = new AmCharts.ValueAxis();
             yAxis.position = "left";
             yAxis.gridAlpha = 0.1;
             yAxis.autoGridCount = true;
@@ -86,14 +87,16 @@
             graphCL.xField = "x";
             graphCL.yField = "y0";
             graphCL.lineAlpha = 1;
-            graphCL.lineColor = '#FF9E01';
+            graphCL.lineColor = '#FF0000';
+            graphCL.title = "C_l";
             chart.addGraph(graphCL);
 
             graphCD = new AmCharts.AmGraph();
             graphCD.xField = "x";
             graphCD.yField = "y1";
             graphCD.lineAlpha = 1;
-            graphCD.lineColor = '#9EFF01';
+            graphCD.lineColor = '#0000FF';
+            graphCD.title = "C_d";
             chart.addGraph(graphCD);
 
         });
@@ -106,9 +109,7 @@
                 type: 'GET',
                 success: function(res) {
                     $("#airfoildata").data('handsontable').loadData(res);
-                    
-                    //chart.clear();
-                    
+                                        
                     var cld = [];
                     var j = 0;
                     for (var i = 0; i < res.length-1; i++)

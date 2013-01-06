@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using EmitMapper;
 using Offwind.OpenFoam.Models.DecomposeParDict;
 using Offwind.OpenFoam.Models.FvSolution;
-using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Models.FvSolution;
 using Offwind.Sowfa.System.ControlDict;
 using Offwind.Sowfa.System.FvSchemes;
@@ -43,7 +42,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult Schemes()
         {
             ShortTitle = "Schemes";
-            //var m = new VSchemes(); // TODO
+            var m = new VSchemes(); // TODO
             return View();
         }
 
@@ -200,7 +199,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var m = new VFvSolution();
             var sd = GetSolverData();
             ObjectMapperManager.DefaultInstance.GetMapper<FvSolutionData, VFvSolution>().Map(sd.FvSolution, m);
-            EmitMapperExtensions.MapList<FvSolver, VSolver>(sd.FvSolution.Solvers, m.Solver);
             return View(m);
         }
 

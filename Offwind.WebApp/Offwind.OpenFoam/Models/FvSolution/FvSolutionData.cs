@@ -8,7 +8,7 @@ namespace Offwind.OpenFoam.Models.FvSolution
 {
     public class FvSolutionData
     {
-        public List<FvSolver> Solvers;
-        public FvSolution Solution;
+        public List<FvSolver> Solvers { set; get; }
+        public FvSolution Solution { set; get; }
     }
 }

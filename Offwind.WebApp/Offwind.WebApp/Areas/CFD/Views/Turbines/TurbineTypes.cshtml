@@ -1,4 +1,5 @@
-﻿@model Offwind.WebApp.Areas.CFD.Models.Turbines.VTurbineType
+﻿@using Offwind.WebApp.Areas.CFD.Models.Turbines
+@model Offwind.WebApp.Areas.CFD.Models.Turbines.VTurbineType
 
 @section styles
 {
@@ -9,9 +10,46 @@
 {
     @Scripts.Render("~/static/js/jquery.handsontable.full.js")
     <script type="text/javascript">
-        
-        $(document).ready(function () {
-        });
+        function draw_table() {
+            var sel = document.getElementById("airfoils");
+            var url = "/CFD/Turbines/VGetBladeData/" + sel.selectedIndex;
+
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type: 'GET',
+                success: function (res) {
+                    $("#bladedata").data('handsontable').loadData(res);
+                }
+            });            
+        }
+
+        function init_tab() {
+            var renderer = function (instance, td) {
+                Handsontable.TextCell.renderer.apply(this, arguments);
+                $(td).css({ textAlign: "right" });
+                return td;
+            };
+            
+            $("#bladedata").handsontable({
+                startRows: 1,
+                startCols: 3,
+                columns: [
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer} },
+                    { type: { renderer: renderer}}],
+                colHeaders: [
+                    "<b>radius (m)</b>",
+                    "<b>c (m)</b>",
+                    "<b>twist (deg)</b>"
+                ],
+                rowHeaders: true,
+                minSpareRows: 1,
+                onChange: function (change, source) {
+                }
+            });
+            draw_table();
+        }
 
     </script>
 }
@@ -20,7 +58,7 @@
     <ul class="nav nav-tabs">
         <li class="active"><a href="#general" data-toggle="tab">General Parameters</a></li>
         <li><a href="#controller" data-toggle="tab">Controller Parameters</a></li>
-        <li><a href="#blades" data-toggle="tab">Blades Configuration</a></li>
+        <li onclick="init_tab()"><a href="#blades" data-toggle="tab">Blades Configuration</a></li>
     </ul>
     
     <div class="tab-content">
@@ -62,9 +100,17 @@
             @Html.EditorFor(m => m.pitchControllerParams.RateLimitPitch)
         </div>
         <div class="tab-pane" id="blades">
-            <select id="airfoils" onchange="af_change();">
+            <select id="airfoils" onchange="draw_table();">                
+                @foreach (VAirfoilBlade t in Model.airfoilBlade)
+                {
+                    <option>@t.AirfoilName</option>
+                }
             </select>
-            <div id="bladedata"></div>
+
+            <br/><br/><div id="bladedata">
+                
+            </div>
+
         </div>
     </div>
 

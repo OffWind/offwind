@@ -34,8 +34,7 @@
 
             var changed = function(change, source) {
                 if (!isInitialized) return;
-                var d = $container.data('handsontable').getData();
-                
+                var d = $container.data('handsontable').getData();                
 
                 $.ajax({
                     url: "@Url.Action("VFvSolutionSolverSave", "SystemControls", new { area = "CFD" })",

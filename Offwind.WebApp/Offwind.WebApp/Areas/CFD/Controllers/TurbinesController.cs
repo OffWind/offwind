@@ -25,6 +25,18 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             return View(m);
         }
 
+        public JsonResult VGetBladeData(int id)
+        {
+            var sd = GetSolverData();
+            var res = sd.TurbineProperties.airfoilBlade[id].Blade.Select(t => new object[]
+                                                                                  {
+                                                                                      t.X,
+                                                                                      t.Y,
+                                                                                      t.Z
+                                                                                  });
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
         [ActionName("TurbineTypes")]
         [HttpPost]
         public ActionResult TurbineTypesSave(VTurbineType m)

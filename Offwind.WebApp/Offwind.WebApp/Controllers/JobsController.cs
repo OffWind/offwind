@@ -3,7 +3,6 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Jobs;
 
@@ -13,7 +12,6 @@ namespace Offwind.WebApp.Controllers
     {
         private readonly OffwindEntities _ctx = new OffwindEntities();
 
-        [ActionName("all")]
         public JsonResult GetAllJobs()
         {
             return JsonX(HttpStatusCode.OK,
@@ -22,7 +20,6 @@ namespace Offwind.WebApp.Controllers
                 .AsEnumerable());
         }
 
-        [ActionName("started")]
         public JsonResult GetStartedJobs()
         {
             string state = JobState.Started.ToString();
@@ -33,7 +30,6 @@ namespace Offwind.WebApp.Controllers
                 .AsEnumerable());
         }
 
-        [ActionName("running")]
         public JsonResult GetRunningJobs()
         {
             string state = JobState.Running.ToString();
@@ -44,14 +40,34 @@ namespace Offwind.WebApp.Controllers
                 .AsEnumerable());
         }
 
-        public JsonResult Single(Guid id)
+        public JsonResult GetCancelledJobs()
         {
-            DJob djob = _ctx.DJobs.Single(d => d.Id == id);
+            string state = JobState.Cancelled.ToString();
+            return JsonX(HttpStatusCode.OK,
+                _ctx.DJobs
+                .Where(d => d.State == state)
+                .Select(MapFromDB)
+                .AsEnumerable());
+        }
+
+        public JsonResult GetSingleJob(Guid jobId)
+        {
+            DJob djob = _ctx.DJobs.Single(d => d.Id == jobId);
             if (djob == null)
             {
-                return JsonX(HttpStatusCode.NotFound, JsonRequestBehavior.AllowGet);
+                return JsonX(HttpStatusCode.NotFound);
             }
             return JsonX(HttpStatusCode.OK, MapFromDB(djob));
+        }
+
+        public JsonResult IsJobCancelled(Guid jobId)
+        {
+            DJob djob = _ctx.DJobs.Single(d => d.Id == jobId);
+            if (djob == null)
+            {
+                return JsonX(HttpStatusCode.NotFound);
+            }
+            return JsonX(HttpStatusCode.OK, MapFromDB(djob).State == JobState.Cancelled);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -137,15 +153,27 @@ namespace Offwind.WebApp.Controllers
             return JsonX(HttpStatusCode.OK);
         }
 
-        public Job AddJobManually(Job job)
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult SetJobCancelled(Guid jobId)
         {
-            var dJob = new DJob();
-            dJob.Id = job.Id;
-            MapToDB(job, dJob);
+            DJob djob = _ctx.DJobs.Single(d => d.Id == jobId);
+            if (djob == null)
+            {
+                return JsonX(HttpStatusCode.NotFound);
+            }
 
-            _ctx.DJobs.AddObject(dJob);
-            _ctx.SaveChanges();
-            return MapFromDB(dJob);
+            try
+            {
+                djob.Finished = DateTime.UtcNow;
+                djob.State = JobState.Cancelled.ToString();
+                _ctx.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return JsonX(HttpStatusCode.InternalServerError);
+            }
+
+            return JsonX(HttpStatusCode.OK);
         }
 
         public JsonResult StopAllJobs()
@@ -166,11 +194,6 @@ namespace Offwind.WebApp.Controllers
             return JsonX(HttpStatusCode.OK);
         }
 
-        public Job GetJob(Guid id)
-        {
-            DJob djob = _ctx.DJobs.Single(d => d.Id == id);
-            return MapFromDB(djob);
-        }
         public JsonResult Delete(Guid id)
         {
             DJob djob = _ctx.DJobs.Single(d => d.Id == id);
@@ -191,6 +214,23 @@ namespace Offwind.WebApp.Controllers
             }
 
             return JsonX(HttpStatusCode.OK, MapFromDB(djob));
+        }
+
+        internal Job GetJob(Guid id)
+        {
+            DJob djob = _ctx.DJobs.Single(d => d.Id == id);
+            return MapFromDB(djob);
+        }
+
+        internal Job AddJobManually(Job job)
+        {
+            var dJob = new DJob();
+            dJob.Id = job.Id;
+            MapToDB(job, dJob);
+
+            _ctx.DJobs.AddObject(dJob);
+            _ctx.SaveChanges();
+            return MapFromDB(dJob);
         }
 
         protected override void Dispose(bool disposing)

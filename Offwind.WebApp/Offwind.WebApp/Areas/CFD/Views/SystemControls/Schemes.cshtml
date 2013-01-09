@@ -7,6 +7,8 @@
 {    @Scripts.Render("~/static/js/jquery.handsontable.full.js")
     <script language="javascript">
 
+        var $body = [$("#time"), $("#gradient"), $("#divergence"), $("#laplacian"),
+            $("#interpolation"), $("#sngrad"), $("#flux")];        
         var ddtTypes = ["Euler", "localEuler", "CrankNicholson", "backward", "steadyState"];
         var discretisationTypes = ["none" ,"Gauss", "leastSquares", "fourth"];
         var interpolationTypes = ["none", "linear", "cubicCorrection", "midPoint",
@@ -26,11 +28,27 @@
         function autocomp_renderer(instance, td, row, col, prop, value, cellProperties) {
             Handsontable.AutocompleteCell.renderer.apply(this, arguments);
         };
-
+        
+        function validator(value, id) {
+            var instance = $body[id].data('handsontable');
+            for (var i = 0; i < value.length; i++)
+            {
+                var r = value[i][0];
+                var c = value[i][1];
+                if ( (value[i][3] == null) && (value[i][2] == null)) {
+                    for (var cCount = 0; cCount < instance.colCount; cCount++)
+                    {
+                        if (cCount != c) value.push([r, cCount, null, ddtTemplate[cCount]]);
+                    }
+                    return true;
+                }                
+                if (value[i][2] == value[i][3]) return false;                
+            }
+            return true;
+        }
+        
         $(document).ready(function () {
             
-            var $body = [$("#time"), $("#gradient"), $("#divergence"), $("#laplacian"),
-                $("#interpolation"), $("#sngrad"), $("#flux")];
             var isInitialize = [false, false, false, false, false, false, false];
 
             var renderer = function (instance, td) {
@@ -46,16 +64,7 @@
 
             var applychanges = function(change, id) {
                 if (!isInitialize[id]) return;
-                /*all fields must be filed at first */
-                
-                if ((change.length == 0) || (change[0].length != 4)) return;
-                if (change[0][2] == change[0][3]) return;                
                 var d = $body[id].data('handsontable').getData();
-                var newvalue = d[change[0][0]];
-                for (var i = 0; i < newvalue.length; i++) {
-                    if (newvalue[i] == null) return;
-                }
-                
                 var url = "/CFD/SystemControls/VSchemeSetData/" + id;
                 $.ajax({
                     url: url,
@@ -78,6 +87,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                onBeforeChange: function (value) {
+                    return validator(value, 0);   
+                },
                 onChange: function (change, source) {
                     applychanges(change, 0);
                 }

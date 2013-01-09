@@ -1,4 +1,4 @@
-﻿@section styles
+@section styles
 {
     @Styles.Render("~/static/css/jquery.handsontable.full.css")
 }
@@ -27,11 +27,10 @@
                 startRows: 1,
                 startCols: 3,
                 columns: [
-                    { type: { renderer: renderer} },
-                    { type: { renderer: renderer} },
-                    { type: { renderer: renderer} }
-                ],
-                        
+                    { type: { renderer: renderer}, readOnly: true },
+                    { type: { renderer: renderer}, readOnly: true },
+                    { type: { renderer: renderer}, readOnly: true }
+                ],                        
                 colHeaders: [
                     "<b>Alpha</b>",
                     "<b>C_l</b>",

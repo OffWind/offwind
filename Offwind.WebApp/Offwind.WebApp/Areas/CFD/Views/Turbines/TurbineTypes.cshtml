@@ -1,4 +1,4 @@
-﻿@using Offwind.WebApp.Areas.CFD.Models.Turbines
+@using Offwind.WebApp.Areas.CFD.Models.Turbines
 @model Offwind.WebApp.Areas.CFD.Models.Turbines.VTurbineType
 
 @section styles
@@ -35,9 +35,10 @@
                 startRows: 1,
                 startCols: 3,
                 columns: [
-                    { type: { renderer: renderer} },
-                    { type: { renderer: renderer} },
-                    { type: { renderer: renderer}}],
+                    { type: { renderer: renderer}, readOnly: true },
+                    { type: { renderer: renderer }, readOnly: true },
+                    { type: { renderer: renderer }, readOnly: true }
+                ],
                 colHeaders: [
                     "<b>radius (m)</b>",
                     "<b>c (m)</b>",
@@ -81,23 +82,27 @@
             @Html.EditorFor(m => m.PitchControllerType)
         </div>
         <div class="tab-pane" id="controller">
-            <legend>Torque Controller Params</legend>
-            @Html.EditorFor(m => m.torqueControllerParams.CutInGenSpeed)
-            @Html.EditorFor(m => m.torqueControllerParams.RatedGenSpeed)
-            @Html.EditorFor(m => m.torqueControllerParams.Region2StartGenSpeed)
-            @Html.EditorFor(m => m.torqueControllerParams.Region2EndGenSpeed)
-            @Html.EditorFor(m => m.torqueControllerParams.CutInGenTorque)
-            @Html.EditorFor(m => m.torqueControllerParams.RatedGenTorque)
-            @Html.EditorFor(m => m.torqueControllerParams.RateLimitGenTorque)
-            @Html.EditorFor(m => m.torqueControllerParams.KGen)
-            @Html.EditorFor(m => m.torqueControllerParams.TorqueControllerRelax)
-
-            <legend>Pitch Controller Params</legend>
-            @Html.EditorFor(m => m.pitchControllerParams.PitchControlStartPitch)
-            @Html.EditorFor(m => m.pitchControllerParams.PitchControlEndPitch)
-            @Html.EditorFor(m => m.pitchControllerParams.PitchControlStartSpeed)
-            @Html.EditorFor(m => m.pitchControllerParams.PitchControlEndSpeed)
-            @Html.EditorFor(m => m.pitchControllerParams.RateLimitPitch)
+            <fieldset>
+                <legend>Torque Controller Params</legend>
+                @Html.EditorFor(m => m.torqueControllerParams.CutInGenSpeed)
+                @Html.EditorFor(m => m.torqueControllerParams.RatedGenSpeed)
+                @Html.EditorFor(m => m.torqueControllerParams.Region2StartGenSpeed)
+                @Html.EditorFor(m => m.torqueControllerParams.Region2EndGenSpeed)
+                @Html.EditorFor(m => m.torqueControllerParams.CutInGenTorque)
+                @Html.EditorFor(m => m.torqueControllerParams.RatedGenTorque)
+                @Html.EditorFor(m => m.torqueControllerParams.RateLimitGenTorque)
+                @Html.EditorFor(m => m.torqueControllerParams.KGen)
+                @Html.EditorFor(m => m.torqueControllerParams.TorqueControllerRelax)
+            </fieldset>
+            
+            <fieldset>
+                <legend>Pitch Controller Params</legend>
+                @Html.EditorFor(m => m.pitchControllerParams.PitchControlStartPitch)
+                @Html.EditorFor(m => m.pitchControllerParams.PitchControlEndPitch)
+                @Html.EditorFor(m => m.pitchControllerParams.PitchControlStartSpeed)
+                @Html.EditorFor(m => m.pitchControllerParams.PitchControlEndSpeed)
+                @Html.EditorFor(m => m.pitchControllerParams.RateLimitPitch)
+            </fieldset>
         </div>
         <div class="tab-pane" id="blades">
             <select id="airfoils" onchange="draw_table();">                

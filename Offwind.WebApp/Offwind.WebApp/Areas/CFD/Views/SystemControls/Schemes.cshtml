@@ -24,7 +24,17 @@
         var intTempalte = ["default", interpolationTypes[0], "0"];
         var sngTemplate = ["default", snGradTypes[0]];
         var flxTempalte = ["default", false];
-        
+
+        var commTemplate = [
+            ddtTemplate,
+            grdTemplate,
+            divTemplate,
+            lapTemplate,
+            intTempalte,
+            sngTemplate,
+            flxTempalte
+        ];
+               
         function autocomp_renderer(instance, td, row, col, prop, value, cellProperties) {
             Handsontable.AutocompleteCell.renderer.apply(this, arguments);
         };
@@ -35,14 +45,20 @@
             {
                 var r = value[i][0];
                 var c = value[i][1];
-                if ( (value[i][3] == null) && (value[i][2] == null)) {
-                    for (var cCount = 0; cCount < instance.colCount; cCount++)
+                /* check that the old value was null */
+                if ( (value[i][3] != null) && (value[i][2] == null)) {
+                    /* inspect all items in row are not empty*/
+                    var row = instance.getData()[r];                 
+                    for (var j = 0; j < row.length; j++)
                     {
-                        if (cCount != c) value.push([r, cCount, null, ddtTemplate[cCount]]);
+                    	if ((c != j) && (row[j] == null)) {
+                    	    /* if empty, set new value from the template*/
+                    	    value.push([r, j, null, commTemplate[id][j]]);
+                    	}
                     }
                     return true;
-                }                
-                if (value[i][2] == value[i][3]) return false;                
+                }
+                else if (value[i][3] == "") return false; // undo if new value is empty
             }
             return true;
         }
@@ -64,6 +80,9 @@
 
             var applychanges = function(change, id) {
                 if (!isInitialize[id]) return;
+                
+                if ((change.length == 0) || (change[0][2] == change[0][3])) return;
+                
                 var d = $body[id].data('handsontable').getData();
                 var url = "/CFD/SystemControls/VSchemeSetData/" + id;
                 $.ajax({
@@ -109,6 +128,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                onBeforeChange: function (value) {
+                    return validator(value, 1);   
+                },
                 onChange: function (change, source) {
                     applychanges(change, 1);
                 }
@@ -129,6 +151,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                onBeforeChange: function (value) {
+                    return validator(value, 2);   
+                },                
                 onChange: function (change, source) {
                     applychanges(change, 2);
                 }
@@ -149,6 +174,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                onBeforeChange: function (value) {
+                    return validator(value, 3);   
+                },                
                 onChange: function (change, source) {
                     applychanges(change, 3);
                 }
@@ -167,6 +195,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                onBeforeChange: function (value) {
+                    return validator(value, 4);   
+                },                
                 onChange: function (change, source) {
                     applychanges(change, 4);
                 }
@@ -183,6 +214,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                onBeforeChange: function (value) {
+                    return validator(value, 5);   
+                },                
                 onChange: function (change, source) {
                     applychanges(change, 5);
                 }
@@ -199,6 +233,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                onBeforeChange: function (value) {
+                    return validator(value, 6);   
+                },                
                 onChange: function (change, source) {
                     applychanges(change, 6);
                 }

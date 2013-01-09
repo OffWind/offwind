@@ -45,6 +45,9 @@
       <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\Prebuilt\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -183,6 +186,7 @@
     <Compile Include="Areas\CFD\Controllers\ProcessingController.cs" />
     <Compile Include="Areas\CFD\Controllers\SystemControlsController.cs" />
     <Compile Include="Areas\CFD\Controllers\TurbinesController.cs" />
+    <Compile Include="Areas\CFD\Models\AirfoilAndTurbulence\VTurbulenceProperties.cs" />
     <Compile Include="Areas\CFD\Models\BoundaryConditions\VFieldVectorValue2.cs" />
     <Compile Include="Areas\CFD\Models\BoundaryConditions\FieldVectorValueBinder.cs" />
     <Compile Include="Areas\CFD\Models\BoundaryConditions\VAtmBoundaryLayerInletVelocity.cs" />
@@ -199,6 +203,7 @@
     <Compile Include="Areas\CFD\Models\Preprocessing\VTransportProperties.cs" />
     <Compile Include="Areas\CFD\Models\SystemControls\VControlDict.cs" />
     <Compile Include="Areas\CFD\Models\SystemControls\VFvSolution.cs" />
+    <Compile Include="Areas\CFD\Models\SystemControls\VParallelExecution.cs" />
     <Compile Include="Areas\CFD\Models\SystemControls\VSchemes.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VPitchControllerParams.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VTorqueControllerParams.cs" />
@@ -230,6 +235,7 @@
     <Compile Include="Areas\CFD\Controllers\CaseManagementController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Infrastructure\GuidConstraint.cs" />
+    <Compile Include="Infrastructure\EmitMapperExtensions.cs" />
     <Compile Include="Models\Account\ExternalLoginResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Account\ManageMessageId.cs" />
@@ -251,6 +257,8 @@
     </Compile>
     <Compile Include="Models\StandardCases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\EmitMapper.cs" />
+    <Compile Include="Tests\SolverTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\rr3publ2.bmp" />
@@ -258,8 +266,6 @@
     <Content Include="Global.asax" />
     <Content Include="static\css\custom.css" />
     <Content Include="static\css\jquery.handsontable.full.css" />
-    <Content Include="static\dist\jquery.handsontable.full.css" />
-    <Content Include="static\dist\jquery.handsontable.full.js" />
     <Content Include="static\img\ajax-loader.gif" />
     <Content Include="static\img\m1.png" />
     <Content Include="static\img\m2.png" />
@@ -480,9 +486,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\CFD\Views\Processing\History.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="static\dist\README.md" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

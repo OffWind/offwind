@@ -121,4 +121,19 @@
   <data name="Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>default.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
+  <data name="DefaultLES" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>defaultles.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="DefaultRAS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>defaultras.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Template" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>template.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="TemplateLES" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>templateles.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="TemplateRAS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>templateras.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
 </root>

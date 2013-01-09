@@ -67,11 +67,86 @@ namespace Offwind.OpenFoam.Models.TurbulenceProperties {
         ///|  \\    /   O peration     | Version:  2.1.1                                 |
         ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
         ///|    \\/     M anipulation  |                                                 |
-        ///\*------------------------------ [rest of string was truncated]&quot;;.
+        ///\*------------------------ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Default {
             get {
                 return ResourceManager.GetString("Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                 |                                                 |
+        ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+        ///|  \\    /   O peration     | Version:  2.1.1                                 |
+        ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+        ///|    \\/     M anipulation  |                                                 |
+        ///\*------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DefaultLES {
+            get {
+                return ResourceManager.GetString("DefaultLES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                 |                                                 |
+        ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+        ///|  \\    /   O peration     | Version:  2.1.1                                 |
+        ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+        ///|    \\/     M anipulation  |                                                 |
+        ///\*------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DefaultRAS {
+            get {
+                return ResourceManager.GetString("DefaultRAS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                 |                                                 |
+        ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+        ///|  \\    /   O peration     | Version:  2.1.1                                 |
+        ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+        ///|    \\/     M anipulation  |                                                 |
+        ///\*------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Template {
+            get {
+                return ResourceManager.GetString("Template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                 |                                                 |
+        ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+        ///|  \\    /   O peration     | Version:  2.1.1                                 |
+        ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+        ///|    \\/     M anipulation  |                                                 |
+        ///\*------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TemplateLES {
+            get {
+                return ResourceManager.GetString("TemplateLES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*--------------------------------*- C++ -*----------------------------------*\
+        ///| =========                 |                                                 |
+        ///| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+        ///|  \\    /   O peration     | Version:  2.1.1                                 |
+        ///|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+        ///|    \\/     M anipulation  |                                                 |
+        ///\*------------------------ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TemplateRAS {
+            get {
+                return ResourceManager.GetString("TemplateRAS", resourceCulture);
             }
         }
     }

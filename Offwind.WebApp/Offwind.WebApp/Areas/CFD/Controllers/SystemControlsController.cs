@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using EmitMapper;
+using Offwind.OpenFoam.Models.DecomposeParDict;
 using Offwind.OpenFoam.Models.FvSolution;
-using Offwind.Products.OpenFoam.Models;
 using Offwind.Products.OpenFoam.Models.FvSolution;
 using Offwind.Sowfa.System.ControlDict;
 using Offwind.Sowfa.System.FvSchemes;
 using Offwind.WebApp.Areas.CFD.Models.SystemControls;
+using Offwind.WebApp.Infrastructure;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
@@ -41,8 +42,8 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult Schemes()
         {
             ShortTitle = "Schemes";
-            var m = new VSchemes();
-            return View(m);
+            var m = new VSchemes(); // TODO
+            return View();
         }
 
         public JsonResult VSchemeGetData(int id)
@@ -57,7 +58,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                         .ddtSchemes
                         .Select(t => new object[]
                                             {
-                                                t.GetFunction(),
+                                                t.GetHeader(),
                                                 t.type.ToString()
                                             });
                     break;
@@ -66,7 +67,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                         .gradSchemes
                         .Select(t => new object[]
                                             {
-                                                t.GetFunction(),
+                                                t.GetHeader(),
                                                 t.discretisation.ToString(),
                                                 t.interpolation.ToString()
                                             });
@@ -76,7 +77,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                         .divSchemes
                         .Select(t => new object[]
                                             {
-                                                t.GetFunction(),
+                                                t.GetHeader(),
                                                 t.discretisation.ToString(),
                                                 t.interpolation.ToString(),
                                                 t.psi.ToString()
@@ -87,7 +88,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                         .laplacianSchemes
                         .Select(t => new object[]
                                             {
-                                                t.GetFunction(),
+                                                t.GetHeader(),
                                                 t.discretisation.ToString(),
                                                 t.interpolation.ToString(),
                                                 t.snGradScheme.ToString()
@@ -98,7 +99,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                         .interpolationSchemes
                         .Select(t => new object[]
                                             {
-                                                t.GetFunction(),
+                                                t.GetHeader(),
                                                 t.interpolation.ToString(),
                                                 t.psi.ToString()
                                             });
@@ -108,18 +109,18 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                         .snGradSchemes
                         .Select(t => new object[]
                                             {
-                                                t.GetFunction(),
+                                                t.GetHeader(),
                                                 t.type.ToString()
                                             });
                     break;
                 case 6:
                     res = sch
-                            .fluxCalculation
-                            .Select(t => new object[]
-                                             {
-                                                 t.flux,
-                                                 t.enable.ToString()
-                                             });
+                        .fluxCalculation
+                        .Select(t => new object[]
+                                         {
+                                             t.flux,
+                                             t.enable
+                                         });
                     break;
                 default:
                     return Json("ERROR");
@@ -127,7 +128,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             return Json(res, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult VSchemeSetData(int id, List<string[]> modified)
+        
+
+        public JsonResult VSchemeSetData(int id, IEnumerable<string[]> modified)
         {
             var sd = GetSolverData();
             switch (id)
@@ -136,32 +139,53 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                     {
                         var lst = sd.FvScheme.ddtSchemes;
                         lst.Clear();
-                        foreach (var s in modified)
-                        {
-                            if ((s[0] != null) && (s[1] != null))
-                            {
-                                var x = new TimeScheme();
-                                x.SetHeader(ref s[0]);
-                                x.type = (TimeSchemeType) Enum.Parse(typeof (TimeSchemeType), s[1]);
-                                lst.Add(x);
-                            }
-                        }
+                        lst.AddRange(from s in modified where s[0] != null select new TimeScheme(s));
                     }
                     break;
                 case 1:
+                    {
+                        var lst = sd.FvScheme.gradSchemes;
+                        lst.Clear();
+                        lst.AddRange(from s in modified where s[0] != null select new GradientScheme(s));
+                    }
                     break;
                 case 2:
+                    {
+                        var lst = sd.FvScheme.divSchemes;
+                        lst.Clear();
+                        lst.AddRange(from s in modified where s[0] != null select new DivergenceScheme(s));
+                    }
                     break;
                 case 3:
+                    {
+                        var lst = sd.FvScheme.laplacianSchemes;
+                        lst.Clear();
+                        lst.AddRange(from s in modified where s[0] != null select new LaplacianScheme(s));
+                    }
                     break;
                 case 4:
+                    {
+                        var lst = sd.FvScheme.interpolationSchemes;
+                        lst.Clear();
+                        lst.AddRange(from s in modified where s[0] != null select new InterpolationScheme(s));
+                    }
                     break;
                 case 5:
+                    {
+                        var lst = sd.FvScheme.snGradSchemes;
+                        lst.Clear();
+                        lst.AddRange(from s in modified where s[0] != null select new SurfaceNormalGradientScheme(s));
+                    }
                     break;
                 case 6:
+                    {
+                        var lst = sd.FvScheme.fluxCalculation;
+                        lst.Clear();
+                        lst.AddRange(from s in modified where s[0] != null select new FluxCalculation(s));
+                    }
                     break;
                 default:
-                    return Json("OK");
+                    return Json("ERROR");
             }
 
             SetSolverData(sd);
@@ -175,8 +199,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var m = new VFvSolution();
             var sd = GetSolverData();
             ObjectMapperManager.DefaultInstance.GetMapper<FvSolutionData, VFvSolution>().Map(sd.FvSolution, m);
-            //ObjectMapperManager.DefaultInstance.GetMapper<List<FvSolver> , List<VSolver>>().Map(sd.FvSolution.Solvers, m.Solver);
-
             return View(m);
         }
 
@@ -232,7 +254,22 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult ParallelExecution()
         {
             ShortTitle = "Parallel Execution";
-            return View();
+            var m = new VParallelExecution();
+            var sd = GetSolverData();
+            ObjectMapperManager.DefaultInstance.GetMapper<DecomposeParDictData, VParallelExecution>().Map(sd.DecomposeParDict, m);
+            ObjectMapperManager.DefaultInstance.GetMapper<HierarchicalCoeffs, VHierarchicalCoeffs>().Map(sd.DecomposeParDict.hCoefs, m.coefs);
+            return View(m);
+        }
+
+        [ActionName("ParallelExecution")]
+        [HttpPost]
+        public JsonResult ParallelExecutionSave(VParallelExecution m)
+        {
+            var sd = GetSolverData();
+            ObjectMapperManager.DefaultInstance.GetMapper<VParallelExecution, DecomposeParDictData>().Map(m, sd.DecomposeParDict);
+            ObjectMapperManager.DefaultInstance.GetMapper<VHierarchicalCoeffs, HierarchicalCoeffs>().Map(m.coefs, sd.DecomposeParDict.hCoefs);
+            SetSolverData(sd);
+            return Json("OK");
         }
     }
 }

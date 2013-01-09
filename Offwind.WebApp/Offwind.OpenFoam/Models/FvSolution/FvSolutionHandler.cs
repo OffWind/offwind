@@ -112,10 +112,10 @@ namespace Offwind.OpenFoam.Models.FvSolution
             foreach (var s in obj.Solvers)
             {
                 solver.AppendFormat("{0}{1}\n{0}{{\n" +
-                                    "{0}{0}solver {2}\n" +
-                                    "{0}{0}preconditioner {3}\n" +
-                                    "{0}{0}tolerance {4}\n" +
-                                    "{0}{0}relTol {5}\n{0}}}\n", _indent, s.Name, s.Solver, s.Preconditioner,
+                                    "{0}{0}solver {2};\n" +
+                                    "{0}{0}preconditioner {3};\n" +
+                                    "{0}{0}tolerance {4};\n" +
+                                    "{0}{0}relTol {5};\n{0}}}\n", _indent, s.Name, s.Solver, s.Preconditioner,
                                     s.Tolerance.ToString(), s.RelTol.ToString());
             }
             result.Replace("({[[solvers]]})", solver.ToString());

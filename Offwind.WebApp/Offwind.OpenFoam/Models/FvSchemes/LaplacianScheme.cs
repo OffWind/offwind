@@ -15,5 +15,11 @@ namespace Offwind.Sowfa.System.FvSchemes
             interpolation  = InterpolationType.none;
             snGradScheme   = SurfaceNormalGradientType.none;
         }
+        public LaplacianScheme(string[] array) : base(array[0])
+        {
+            discretisation = (DiscretisationType) Enum.Parse(typeof (DiscretisationType), array[1]);
+            interpolation = (InterpolationType) Enum.Parse(typeof (InterpolationType), array[2]);
+            snGradScheme = (SurfaceNormalGradientType) Enum.Parse(typeof (SurfaceNormalGradientType), array[3]);
+        }
     }
 }

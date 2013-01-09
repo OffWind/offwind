@@ -31,12 +31,12 @@ namespace Offwind.WebApp.Areas.CFD.Models.SystemControls
 
     public class VFvSolution
     {
-        public List<VSolver> Solver { set; get; }
+        public List<VSolver> Solvers { set; get; }
         public VSolution Solution { set; get; }
 
         public VFvSolution()
         {
-            Solver = new List<VSolver>();
+            //Solver = new List<VSolver>();
             Solution = new VSolution();
         }
     }

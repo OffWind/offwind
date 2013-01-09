@@ -1,1 +1,15 @@
-﻿
+﻿@model Offwind.WebApp.Areas.CFD.Models.SystemControls.VParallelExecution
+
+<form class="form-horizontal" method="post">
+    
+    @Html.EditorFor(m => m.numberOfSubdomains)
+    @Html.EditorFor(m => m.method)
+    @Html.EditorFor(m => m.coefs.n, "Vertice")
+    @Html.EditorFor(m => m.coefs.delta)
+    @Html.EditorFor(m => m.coefs.order)
+    
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn">Cancel</button>
+    </div>
+</form>

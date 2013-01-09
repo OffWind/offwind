@@ -29,7 +29,7 @@
                 @if (job.State == JobState.Idle.ToString() && job.Finished != null)
                 {
                     <br/>
-                    <a href="http://downloads.offwind.eu/@job.Id/result.zip">download result</a>
+                    <a href="@Url.Action("GetResults", "Downloads", new { area = "CFD", id = job.Id })">download results</a>
                 }
             </td>
         </tr>

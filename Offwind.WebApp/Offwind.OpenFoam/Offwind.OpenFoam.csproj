@@ -52,7 +52,7 @@
     </Compile>
     <Compile Include="Models\AirfoilProperties\AirfoilPropertiesData.cs" />
     <Compile Include="Models\AirfoilProperties\AirfoilPropertiesHandler.cs" />
-    <Compile Include="Models\AirfoilProperties\AirfoilPropertiesInstanceHandler.cs" />
+    <Compile Include="Models\AirfoilProperties\AirfoilPropertiesInstance.cs" />
     <Compile Include="Models\AirfoilProperties\AirfoilPropRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -73,12 +73,16 @@
     <Compile Include="Models\ControlDict\WriteCompression.cs" />
     <Compile Include="Models\ControlDict\WriteControl.cs" />
     <Compile Include="Models\ControlDict\WriteFormat.cs" />
+    <Compile Include="Models\DecomposeParDict\DecomposeParDictData.cs" />
     <Compile Include="Models\DecomposeParDict\DecomposeParDictHandler.cs" />
     <Compile Include="Models\DecomposeParDict\DecomposeParDictRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DecomposeParDictRes.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DecomposeParDict\DecompositionMethod.cs" />
+    <Compile Include="Models\DecomposeParDict\DecompositionOrder.cs" />
+    <Compile Include="Models\DecomposeParDict\HierarchicalCoeffs.cs" />
     <Compile Include="Models\DimensionedValue.cs" />
     <Compile Include="Models\Dimensions.cs" />
     <Compile Include="Models\Fields\BoundaryField.cs" />
@@ -126,8 +130,6 @@
     <Compile Include="Models\FvSolution\Smoother.cs" />
     <Compile Include="Models\Gravitation\GravitationHandler.cs" />
     <Compile Include="Models\Gravitation\GravitationRes.Designer.cs" />
-    <Compile Include="Models\LesProperties\LesPropertiesHandler.cs" />
-    <Compile Include="Models\LesProperties\LesPropertiesRes.Designer.cs" />
     <Compile Include="Models\Omega\OmegaHandler.cs" />
     <Compile Include="Models\Omega\OmegaRes.Designer.cs" />
     <Compile Include="Models\PolyMesh\BlockMeshDictData.cs" />
@@ -140,12 +142,6 @@
     <Compile Include="Models\PolyMesh\Grading.cs" />
     <Compile Include="Models\PolyMesh\MeshBlock.cs" />
     <Compile Include="Models\PolyMesh\MeshBoundary.cs" />
-    <Compile Include="Models\RasProperties\RasPropertiesHandler.cs" />
-    <Compile Include="Models\RasProperties\RasPropertiesRes.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RasPropertiesRes.resx</DependentUpon>
-    </Compile>
     <Compile Include="Models\TransportProperties\LesModel.cs" />
     <Compile Include="Models\TransportProperties\SurfaceStressModel.cs" />
     <Compile Include="Models\TransportProperties\TransportModel.cs" />
@@ -182,9 +178,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TurbinePropRes.resx</DependentUpon>
     </Compile>
-    <Compile Include="Models\TurbulenceModels\RasPropertiesData.cs" />
-    <Compile Include="Models\TurbulenceModels\TurbulenceModel.cs" />
-    <Compile Include="Models\TurbulenceModels\TurbulencePropertiesData.cs" />
+    <Compile Include="Models\TurbulenceProperties\LESPropertiesData.cs" />
+    <Compile Include="Models\TurbulenceProperties\LESPropertiesHandler.cs" />
+    <Compile Include="Models\TurbulenceProperties\RASPropertiesData.cs" />
+    <Compile Include="Models\TurbulenceProperties\RASPropertiesHandler.cs" />
+    <Compile Include="Models\TurbulenceProperties\TurbulenceModel.cs" />
+    <Compile Include="Models\TurbulenceProperties\TurbulencePropertiesData.cs" />
     <Compile Include="Models\RealPoint.cs" />
     <Compile Include="Models\runTimeModifiable.cs" />
     <Compile Include="Models\SnappyHexMesh\ShmAddLayersControls.cs" />
@@ -218,6 +217,7 @@
     <Compile Include="Models\VRealPoint.cs" />
     <Compile Include="Models\VVector.cs" />
     <Compile Include="Models\WriteHelpers.cs" />
+    <Compile Include="Models\OnOffValue.cs" />
     <Compile Include="Parsing\NumericalSchemeGrammar.cs" />
     <Compile Include="Parsing\OpenFoamGrammar.cs" />
     <Compile Include="Parsing\ParserTreeExtensions.cs" />
@@ -268,15 +268,10 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Gravitation\GravitationRes.resx" />
-    <EmbeddedResource Include="Models\LesProperties\LesPropertiesRes.resx" />
     <EmbeddedResource Include="Models\Omega\OmegaRes.resx" />
     <EmbeddedResource Include="Models\PolyMesh\BlockMeshDictRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BlockMeshDictRes.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Models\RasProperties\RasPropertiesRes.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>RasPropertiesRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\SnappyHexMesh\ShmDictRes.resx" />
     <EmbeddedResource Include="Models\TransportProperties\TransportPropertiesRes.resx">
@@ -306,6 +301,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Models\TurbulenceProperties\DefaultLES.txt" />
+    <Content Include="Models\TurbulenceProperties\DefaultRAS.txt" />
+    <Content Include="Models\TurbulenceProperties\Template.txt" />
+    <Content Include="Models\TurbulenceProperties\TemplateLES.txt" />
+    <Content Include="Models\TurbulenceProperties\TemplateRAS.txt" />
     <None Include="Models\FvSolution\Template.txt" />
     <None Include="Models\AblProperties\Default" />
     <None Include="Models\AblProperties\Template" />
@@ -324,11 +324,10 @@
     <Content Include="Models\DecomposeParDict\Default.txt" />
     <None Include="Models\FvSchemes\Default" />
     <None Include="Models\FvSchemes\Template" />
+    <Content Include="Models\DecomposeParDict\Template.txt" />
     <Content Include="Models\FvSolution\Default.txt" />
     <None Include="Models\Gravitation\Default" />
     <None Include="Models\Gravitation\Template" />
-    <None Include="Models\LesProperties\Default" />
-    <None Include="Models\LesProperties\Template" />
     <None Include="Models\Omega\Default" />
     <None Include="Models\Omega\Template" />
     <None Include="Models\PolyMesh\Template.bak" />
@@ -336,7 +335,6 @@
     <None Include="Models\PolyMesh\Template" />
     <None Include="Models\PolyMesh\TemplateBoundary" />
     <Content Include="Models\FvSolution\TemplateSolver.txt" />
-    <Content Include="Models\RasProperties\Default.txt" />
     <None Include="Models\TransportProperties\Default" />
     <None Include="Models\TransportProperties\Template" />
     <None Include="Models\TransportProperties\Template2" />

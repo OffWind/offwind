@@ -80,7 +80,7 @@ namespace Offwind.Sowfa.System.FvSchemes
 
             x = new GradientScheme();
             var i = 0;
-            x.SetHeader(ref y[i++]);
+            x.SetHeader(y[i++]);
             switch (y[i])
             {
                 case "cellLimited":
@@ -110,7 +110,7 @@ namespace Offwind.Sowfa.System.FvSchemes
             if (y.Length > 1)
             {
                 x = new DivergenceScheme();
-                x.SetHeader(ref y[0]);
+                x.SetHeader(y[0]);
                 var idx = 1;
                 if (y[1] == "Gauss")
                 {
@@ -135,7 +135,7 @@ namespace Offwind.Sowfa.System.FvSchemes
             if (y.Length > 1)
             {
                 x = new LaplacianScheme();
-                x.SetHeader(ref y[0]);
+                x.SetHeader(y[0]);
                 x.discretisation = y[1].ToEnum<DiscretisationType>();
                 if (x.discretisation != DiscretisationType.Gauss) return x;
                 x.interpolation  = y[2].ToEnum<InterpolationType>();
@@ -158,7 +158,7 @@ namespace Offwind.Sowfa.System.FvSchemes
             if (y.Length > 1)
             {
                 x = new InterpolationScheme();                
-                x.SetHeader( ref y[0]);
+                x.SetHeader( y[0]);
 
                 var shortLimMatch = Regex.Match(y[1], ShortLimit);
                 if (shortLimMatch.Length == 0)
@@ -223,7 +223,7 @@ namespace Offwind.Sowfa.System.FvSchemes
             if (y.Length > 1)
             {
                 x = new SurfaceNormalGradientScheme();
-                x.SetHeader( ref y[0]);
+                x.SetHeader( y[0]);
                 x.type = y[1].ToEnum<SurfaceNormalGradientType>();
                 if ((x.type == SurfaceNormalGradientType.limited) && (y.Length > 2))
                 {

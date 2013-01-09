@@ -63,12 +63,12 @@
         
         <!--...................................-->
         <li class="nav-header">Airfoil & Turbulence</li>
-        <li @this.ActiveIfCurrent("AirfoilProperties", "AirfoilAndTurbulence", "CFD") class="disabled">
+        <li @this.ActiveIfCurrent("AirfoilProperties", "AirfoilAndTurbulence", "CFD")>
             <a href="@Url.Action("AirfoilProperties", "AirfoilAndTurbulence", new { area = "CFD" })">
                 <i class="icon-asterisk"></i> Airfoil Properties
             </a>
         </li>
-        <li @this.ActiveIfCurrent("TurbulenceProperties", "AirfoilAndTurbulence", "CFD") class="disabled">
+        <li @this.ActiveIfCurrent("TurbulenceProperties", "AirfoilAndTurbulence", "CFD") >
             <a href="@Url.Action("TurbulenceProperties", "AirfoilAndTurbulence", new { area = "CFD" })">
                 <i class="icon-asterisk"></i> Turbulence Properties
             </a>
@@ -91,7 +91,7 @@
                 <i class="icon-asterisk"></i> Solution
             </a>
         </li>
-        <li @this.ActiveIfCurrent("ParallelExecution", "SystemControls", "CFD") class="disabled">
+        <li @this.ActiveIfCurrent("ParallelExecution", "SystemControls", "CFD") >
             <a href="@Url.Action("ParallelExecution", "SystemControls", new { area = "CFD" })">
                 <i class="icon-asterisk"></i> Parallel Execution
             </a>

@@ -1,1 +1,14 @@
-﻿
+﻿@model Offwind.WebApp.Areas.CFD.Models.AirfoilAndTurbulence.VTurbulenceProperties
+
+<form class="form-horizontal" method="post">
+    
+    @Html.EditorFor(m => m.SimulationType)
+    @Html.EditorFor(m => m.RASProperties.RasModelName)
+    @Html.EditorFor(m => m.RASProperties.Turbulence)
+    @Html.EditorFor(m => m.RASProperties.PrintCoeffs)
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn">Cancel</button>
+    </div>
+</form>

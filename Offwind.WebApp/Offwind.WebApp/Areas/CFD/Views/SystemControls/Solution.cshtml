@@ -8,63 +8,78 @@
 @section scripts
 {
     @Scripts.Render("~/static/js/jquery.handsontable.full.js")
-        <script language="javascript">
-            $(document).ready(function() {                
-                var renderer = function(instance, td) {
-                    Handsontable.TextCell.renderer.apply(this, arguments);
-                    $(td).css({ textAlign: "right" });
-                    return td;
-                };
-                var $container = $("#solvers");
-                var isInitialized = false;
+    <script language="javascript">
 
-                var changed = function(change, source) {
-                    if (!isInitialized) return;
-                    var d = $container.data('handsontable').getData();
-                    $.ajax({
-                        url: "@Url.Action("VFvSolutionSolverSave", "SystemControls", new { area = "CFD" })",
-                        dataType: "json",
-                        type: "POST",
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(d)
-                    });
-                };
-                $container.handsontable({
-                    startRows: 1,
-                    startCols: 5,
-                    columns: [
-                        { type: { renderer: renderer } },
-                        { type: { renderer: renderer } },
-                        { type: { renderer: renderer } },
-                        { type: { renderer: renderer } },
-                        { type: { renderer: renderer } }],
-                    colHeaders: [
-                        "<b>Name</b>",
-                        "<b>Solver</b>",
-                        "<b>Preconditioner</b>",
-                        "<b>Tolerance</b>",
-                        "<b>RelTol</b>"
-                    ],
-                    rowHeaders: true,
-                    minSpareRows: 1,
-                    onChange: changed
-                });
+        var linearSolver = ["PCG",
+                            "PBiCG",
+                            "smoothSolver",
+                            "GAMG",
+                            "diagonal"];
+        
+        var preconditioner = ["none",
+                                "DIC",
+                                "FDIC",
+                                "DILU",
+                                "diagonal",
+                                "GAMG"];
+
+        $(document).ready(function() {                
+            var renderer = function(instance, td) {
+                Handsontable.TextCell.renderer.apply(this, arguments);
+                $(td).css({ textAlign: "right" });
+                return td;
+            };
+            var $container = $("#solvers");
+            var isInitialized = false;
+
+            var changed = function(change, source) {
+                if (!isInitialized) return;
+                var d = $container.data('handsontable').getData();                
+
                 $.ajax({
-                    url: "@Url.Action("VFvSolutionSolverData", "SystemControls", new {area = "CFD"})",
-                    dataType: 'json',
-                    type: 'GET',
-                    success: function(res) {
-                        $container.data('handsontable').loadData(res);
-                        isInitialized = true;
-                    }
+                    url: "@Url.Action("VFvSolutionSolverSave", "SystemControls", new { area = "CFD" })",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(d)
                 });
+            };
+            $container.handsontable({
+                startRows: 1,
+                startCols: 5,
+                columns: [
+                    { type: { renderer: renderer } },
+                    { type: Handsontable.AutocompleteCell, source: linearSolver, editor: Handsontable.AutocompleteEditor, strict: true },
+                    { type: Handsontable.AutocompleteCell, source: preconditioner, editor: Handsontable.AutocompleteEditor, strict: true },
+                    { type: { renderer: renderer } },
+                    { type: { renderer: renderer } }],
+                colHeaders: [
+                    "<b>Name</b>",
+                    "<b>Solver</b>",
+                    "<b>Preconditioner</b>",
+                    "<b>Tolerance</b>",
+                    "<b>RelTol</b>"
+                ],
+                rowHeaders: true,
+                minSpareRows: 1,
+                onChange: changed
             });
-        </script>
+            $.ajax({
+                url: "@Url.Action("VFvSolutionSolverData", "SystemControls", new {area = "CFD"})",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    $container.data('handsontable').loadData(res);
+                    isInitialized = true;
+                }
+            });
+        });
+    </script>
 }
            
 <form class="form-horizontal" method="post">     
     <fieldset id = "solvers">
-        <legend><b>Solvers</b></legend><br/>
+        <legend><b>Solvers</b></legend><br/>        
     </fieldset><br/>
 
     <fieldset>

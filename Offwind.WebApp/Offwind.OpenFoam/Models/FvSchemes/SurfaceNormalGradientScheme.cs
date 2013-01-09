@@ -11,5 +11,10 @@ namespace Offwind.Sowfa.System.FvSchemes
         {
             type = SurfaceNormalGradientType.limited;
         }
+
+        public SurfaceNormalGradientScheme(string[] array) : base(array[0])
+        {
+            type = (SurfaceNormalGradientType)Enum.Parse(typeof(SurfaceNormalGradientType), array[1]);
+        }
     }
 }

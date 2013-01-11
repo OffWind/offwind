@@ -1,12 +1,6 @@
-/Offwind/*.suo
+*.suo
+*.user
+*.pyc
+bin/
+obj/
 /Offwind.WebApp/_ReSharper.Offwind.WebApp
-/Offwind.WebApp/Offwind.WebApp/bin
-/Offwind.WebApp/Offwind.WebApp/obj
-/Offwind.Wake/csharp/WakeCode/bin
-/Offwind.Wake/csharp/WakeCode/obj
-/Offwind.WebApp/*.suo
-/Offwind.WebApp/Offwind.WebApp/*.user
-/Offwind.Wake/csharp/WakeCode/*.user
-/Offwind.WebApp/Offwind.OpenFoam/bin
-/Offwind.WebApp/Offwind.OpenFoam/obj
-/Offwind.WebApp/Offwind.OpenFoam/*.user

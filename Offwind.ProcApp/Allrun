@@ -1,0 +1,18 @@
+#!/bin/bash
+source /opt/openfoam211/etc/bashrc
+
+echo "Unzipping 'input.zip'..."
+unzip -o input.zip > log.unzipping.txt
+rm input.zip
+
+echo "Building mesh with 'blockMesh'..."
+blockMesh > log.blockMesh.txt  2>&1
+
+echo "Started 'OffwindSolver'..."
+OffwindSolver > log.solver.txt  2>&1
+
+echo "Zipping results..."
+zip -r result.zip * > log.zipping.txt 2>&1
+
+echo "Finished!"
+

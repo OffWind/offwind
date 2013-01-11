@@ -1,0 +1,3 @@
+#!/bin/bash
+rm -rf !(0|constant|system|Allclean|Allrun)
+

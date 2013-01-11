@@ -1,0 +1,21 @@
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+	ServerName proc.offwind.eu
+	DocumentRoot /home/vo/offwind/Offwind.ProcSvc
+
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+
+	WSGIScriptAlias /app /home/vo/offwind/Offwind.ProcSvc/app/app.wsgi
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>

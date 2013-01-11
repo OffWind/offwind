@@ -1,0 +1,3 @@
+Offwind.C
+
+EXE = $(FOAM_APPBIN)/OffwindSolver

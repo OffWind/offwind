@@ -1,0 +1,3 @@
+horizontalAxisWindTurbinesALM/horizontalAxisWindTurbinesALM.C
+
+LIB = $(FOAM_LIBBIN)/libOffwindModels

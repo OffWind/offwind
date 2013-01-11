@@ -1,0 +1,33 @@
+Introduction
+============
+
+The new Offwind Solver based on CFD within OpenFoam architecture is created.
+
+There are two main folder which need to added in Open foam directory
+
+Preparation
+===========
+
+Copy:
+* "OffwindModels" folder to "OpenFOAM/OpenFOAM-2.1.1/src"
+* "OffWindSolver" folder to "OpenFOAM/OpenFOAM-2.1.1/applications/solvers"
+
+
+Compile OffwindModels
+=====================
+
+Goto "OpenFOAM/OpenFOAM-2.1.1/src" folder.
+Run command:
+  wmake libso
+
+You might have permissions issue:
+  /usr/bin/ld: cannot open output file /opt/openfoam210/platforms/linuxGccDPOpt/lib/libOffwindModels.so: Permission denied
+
+To resolve that you need to take ownership of the target folder (replace "vlad" with your name):
+sudo chown vlad /opt/openfoam210/platforms/linuxGccDPOpt/lib
+
+Compile OffWindSolver
+=====================
+
+"OffWindSolver" folder in OpenFOAM/OpenFOAM-2.1.1/applications/solvers and issue the command "wmake", then you have OffWindSolver.
+

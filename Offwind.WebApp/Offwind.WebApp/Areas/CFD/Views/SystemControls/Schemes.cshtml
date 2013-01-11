@@ -5,6 +5,7 @@
 
 @section scripts
 {    @Scripts.Render("~/static/js/jquery.handsontable.full.js")
+     @Scripts.Render("~/static/js/handsontable.tools.js")
     <script language="javascript">
 
         var $body = [$("#time"), $("#gradient"), $("#divergence"), $("#laplacian"),
@@ -34,44 +35,10 @@
             sngTemplate,
             flxTempalte
         ];
-               
-        function autocomp_renderer(instance, td, row, col, prop, value, cellProperties) {
-            Handsontable.AutocompleteCell.renderer.apply(this, arguments);
-        };
-        
-        function validator(value, id) {
-            var instance = $body[id].data('handsontable');
-            for (var i = 0; i < value.length; i++)
-            {
-                var r = value[i][0];
-                var c = value[i][1];
-                /* check that the old value was null */
-                if ( (value[i][3] != null) && (value[i][2] == null)) {
-                    /* inspect all items in row are not empty*/
-                    var row = instance.getData()[r];                 
-                    for (var j = 0; j < row.length; j++)
-                    {
-                    	if ((c != j) && (row[j] == null)) {
-                    	    /* if empty, set new value from the template*/
-                    	    value.push([r, j, null, commTemplate[id][j]]);
-                    	}
-                    }
-                    return true;
-                }
-                else if (value[i][3] == "") return false; // undo if new value is empty
-            }
-            return true;
-        }
-        
+                               
         $(document).ready(function () {
             
-            var isInitialize = [false, false, false, false, false, false, false];
-
-            var renderer = function (instance, td) {
-                Handsontable.TextCell.renderer.apply(this, arguments);
-                $(td).css({ textAlign: "right" });
-                return td;
-            };
+            var isInitialize = [false, false, false, false, false, false, false];            
 
             var dataloaded = function(res, id) {
                 $body[id].data('handsontable').loadData(res);
@@ -98,16 +65,18 @@
                 startRows: 1,
                 startCols: 2,
                 columns: [
-                    { type: { renderer: renderer} },
+                    { type: { renderer: td_renderer} },
                     { type: Handsontable.AutocompleteCell, source: ddtTypes, editor: Handsontable.AutocompleteEditor, strict: true } ],
                 colHeaders: [
                     "<b>Function</b>",
                     "<b>Type</b>"
                 ],
                 rowHeaders: true,
+                contextMenu: true,
                 minSpareRows: 1,
+                
                 onBeforeChange: function (value) {
-                    return validator(value, 0);   
+                    return td_before_change(value, $body[0], commTemplate[0]);
                 },
                 onChange: function (change, source) {
                     applychanges(change, 0);
@@ -118,7 +87,7 @@
                 startRows: 1,
                 startCols: 3,
                 columns: [
-                    { type: { renderer: renderer} },
+                    { type: { renderer: td_renderer} },
                     { type: Handsontable.AutocompleteCell, source: discretisationTypes, editor: Handsontable.AutocompleteEditor, strict: true },
                     { type: Handsontable.AutocompleteCell, source: interpolationTypes, editor: Handsontable.AutocompleteEditor, strict: true } ],
                 colHeaders: [
@@ -128,8 +97,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                contextMenu: true,
                 onBeforeChange: function (value) {
-                    return validator(value, 1);   
+                    return td_before_change(value, $body[1], commTemplate[1]);
                 },
                 onChange: function (change, source) {
                     applychanges(change, 1);
@@ -139,10 +109,10 @@
                 startRows: 1,
                 startCols: 4,
                 columns: [
-                    { type: { renderer: renderer} },
+                    { type: { renderer: td_renderer} },
                     { type: Handsontable.AutocompleteCell, source: discretisationTypes, editor: Handsontable.AutocompleteEditor, strict: true },
                     { type: Handsontable.AutocompleteCell, source: interpolationTypes, editor: Handsontable.AutocompleteEditor, strict: true },
-                    { type: { renderer: renderer}}],
+                    { type: { renderer: td_renderer}}],
                 colHeaders: [
                     "<b>Function</b>",
                     "<b>Discretisation</b>",
@@ -151,8 +121,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                contextMenu: true,
                 onBeforeChange: function (value) {
-                    return validator(value, 2);   
+                    return td_before_change(value, $body[2], commTemplate[2]);
                 },                
                 onChange: function (change, source) {
                     applychanges(change, 2);
@@ -162,7 +133,7 @@
                 startRows: 1,
                 startCols: 4,
                 columns: [
-                    { type: { renderer: renderer} },
+                    { type: { renderer: td_renderer} },
                     { type: Handsontable.AutocompleteCell, source: discretisationTypes, editor: Handsontable.AutocompleteEditor, strict: true },
                     { type: Handsontable.AutocompleteCell, source: interpolationTypes, editor: Handsontable.AutocompleteEditor, strict: true },
                     { type: Handsontable.AutocompleteCell, source: snGradTypes, editor: Handsontable.AutocompleteEditor, strict: true }],
@@ -174,8 +145,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                contextMenu: true,
                 onBeforeChange: function (value) {
-                    return validator(value, 3);   
+                    return td_before_change(value, $body[3], commTemplate[3]);
                 },                
                 onChange: function (change, source) {
                     applychanges(change, 3);
@@ -185,9 +157,9 @@
                 startRows: 1,
                 startCols: 3,
                 columns: [
-                    { type: { renderer: renderer} },
+                    { type: { renderer: td_renderer} },
                     { type: Handsontable.AutocompleteCell, source: interpolationTypes, editor: Handsontable.AutocompleteEditor, strict: true },
-                    { type: { renderer: renderer}}],
+                    { type: { renderer: td_renderer}}],
                 colHeaders: [
                     "<b>Function</b>",
                     "<b>Interpolation</b>",
@@ -195,8 +167,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                contextMenu: true,
                 onBeforeChange: function (value) {
-                    return validator(value, 4);   
+                    return td_before_change(value, $body[4], commTemplate[4]);
                 },                
                 onChange: function (change, source) {
                     applychanges(change, 4);
@@ -206,7 +179,7 @@
                 startRows: 1,
                 startCols: 2,
                 columns: [
-                    { type: { renderer: renderer} },
+                    { type: { renderer: td_renderer} },
                     { type: Handsontable.AutocompleteCell, source: snGradTypes, editor: Handsontable.AutocompleteEditor, strict: true }],
                 colHeaders: [
                     "<b>Function</b>",
@@ -214,8 +187,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                contextMenu: true,
                 onBeforeChange: function (value) {
-                    return validator(value, 5);   
+                    return td_before_change(value, $body[5], commTemplate[5]);
                 },                
                 onChange: function (change, source) {
                     applychanges(change, 5);
@@ -225,7 +199,7 @@
                 startRows: 1,
                 startCols: 2,
                 columns: [
-                    { type: { renderer: renderer} },
+                    { type: { renderer: td_renderer} },
                     { type: Handsontable.CheckboxCell }],
                 colHeaders: [
                     "<b>Name</b>",
@@ -233,8 +207,9 @@
                 ],
                 rowHeaders: true,
                 minSpareRows: 1,
+                contextMenu: true,
                 onBeforeChange: function (value) {
-                    return validator(value, 6);   
+                    return td_before_change(value, $body[6], commTemplate[6]);
                 },                
                 onChange: function (change, source) {
                     applychanges(change, 6);

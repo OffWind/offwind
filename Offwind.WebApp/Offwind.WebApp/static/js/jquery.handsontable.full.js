@@ -4157,7 +4157,8 @@ var Handsontable = { //class namespace
     Handsontable.PluginHooks = {
         hooks: {
             afterInit: [],
-            afterGetCellMeta: []
+            afterGetCellMeta: [],
+            walkontableConfig: []
         },
 
         push: function (hook, fn) {
@@ -4190,12 +4191,12 @@ var Handsontable = { //class namespace
         "row_above": { name: "Insert row above", disabled: isDisabled },
         "row_below": { name: "Insert row below", disabled: isDisabled },
         "hsep1": "---------",
-        "col_left": { name: "Insert column on the left", disabled: isDisabled },
-        "col_right": { name: "Insert column on the right", disabled: isDisabled },
-        "hsep2": "---------",
+        //"col_left": { name: "Insert column on the left", disabled: isDisabled },
+        //"col_right": { name: "Insert column on the right", disabled: isDisabled },
+        //"hsep2": "---------",
         "remove_row": { name: "Remove row", disabled: isDisabled },
-        "remove_col": { name: "Remove column", disabled: isDisabled },
-        "hsep3": "---------",
+        //"remove_col": { name: "Remove column", disabled: isDisabled },
+        "hsep2": "---------",
         "undo": { name: "Undo", disabled: function () {
             return !instance.isUndoAvailable();
         } 

@@ -111,7 +111,9 @@ namespace Offwind.OpenFoam.Sintef
 
         public static SolverData GetDefaultModel()
         {
-            return new SolverData();
+            var sd = new SolverData();
+            sd.ControlDict.endTime = 15;
+            return sd;
         }
 
         public void MakeJobFS(string path)

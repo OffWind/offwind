@@ -263,7 +263,6 @@
     <Compile Include="Tests\SolverTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\rr3publ2.bmp" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="static\css\custom.css" />

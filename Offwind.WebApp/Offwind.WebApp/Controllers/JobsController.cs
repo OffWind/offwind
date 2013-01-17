@@ -9,11 +9,19 @@ using Offwind.WebApp.Models.Jobs;
 
 namespace Offwind.WebApp.Controllers
 {
+    /// <summary>
+    /// /jobs/GetStartedJobs
+    /// /jobs/GetRunningJobs
+    /// /jobs/GetCancelledJobs
+    /// /jobs/GetSingleJob?jobId=
+    /// /jobs/IsJobCancelled?jobId=
+    /// /jobs/SetJobRunning?jobId=
+    /// /jobs/SetJobFinished?jobId=
+    /// </summary>
     public class JobsController : Controller
     {
         private readonly OffwindEntities _ctx = new OffwindEntities();
 
-        [ActionName("all")]
         public JsonResult GetAllJobs()
         {
             return JsonX(HttpStatusCode.OK,
@@ -22,7 +30,6 @@ namespace Offwind.WebApp.Controllers
                 .AsEnumerable());
         }
 
-        [ActionName("started")]
         public JsonResult GetStartedJobs()
         {
             string state = JobState.Started.ToString();
@@ -33,7 +40,6 @@ namespace Offwind.WebApp.Controllers
                 .AsEnumerable());
         }
 
-        [ActionName("running")]
         public JsonResult GetRunningJobs()
         {
             string state = JobState.Running.ToString();
@@ -44,14 +50,32 @@ namespace Offwind.WebApp.Controllers
                 .AsEnumerable());
         }
 
-        public JsonResult Single(Guid id)
+        public JsonResult GetCancelledJobs()
         {
-            DJob djob = _ctx.DJobs.Single(d => d.Id == id);
+            string state = JobState.Cancelled.ToString();
+            return JsonX(HttpStatusCode.OK,
+                _ctx.DJobs
+                .Where(d => d.State == state)
+                .Select(MapFromDB)
+                .AsEnumerable());
+        }
+
+        public JsonResult GetSingleJob(Guid jobId)
+        {
+            DJob djob = _ctx.DJobs.Single(d => d.Id == jobId);
             if (djob == null)
             {
                 return JsonX(HttpStatusCode.NotFound, JsonRequestBehavior.AllowGet);
             }
             return JsonX(HttpStatusCode.OK, MapFromDB(djob));
+        }
+
+        public JsonResult IsJobCancelled(Guid jobId)
+        {
+            string state = JobState.Cancelled.ToString();
+            var djob = _ctx.DJobs.FirstOrDefault(d => d.Id == jobId && d.State == state);
+            var isCancelled = djob != null;
+            return JsonX(HttpStatusCode.OK, isCancelled);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

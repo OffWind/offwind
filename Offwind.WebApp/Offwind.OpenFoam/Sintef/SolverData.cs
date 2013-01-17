@@ -135,7 +135,7 @@ namespace Offwind.OpenFoam.Sintef
             _fvSchemesHandler.Write(_fvSchemesHandler.GetPath(path), FvScheme);
             _decomposeParDictHandler.Write(_decomposeParDictHandler.GetPath(path), DecomposeParDict);
             _turbulencePropertiesHandler.Write(_turbulencePropertiesHandler.GetPath(path), TurbulenceProperties);
-
+            _airfoilPropertiesHandler.Write(_airfoilPropertiesHandler.GetPath(path), AirfoilData);
 
             var toh = new TurbineOptionHandler();
             toh.Write(toh.GetPath(path), null);

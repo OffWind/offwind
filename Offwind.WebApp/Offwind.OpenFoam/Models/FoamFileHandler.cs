@@ -65,7 +65,7 @@ namespace Offwind.Products.OpenFoam.Models
             if (FileSuffix != null && FileSuffix.Length > 0)
                 return Path.Combine(dir, FileName + "." + FileSuffix);
 
-            return Path.Combine(dir, FileName);
+            return (FileName == null) ? dir : Path.Combine(dir, FileName);
         }
 
         public virtual void WriteDefault(string solverDir, object data)

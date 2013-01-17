@@ -75,21 +75,24 @@ namespace Offwind.Sowfa.Constant.AirfoilProperties
 
         public override void Write(string path, object data)
         {
-            var obj = (AirfoilPropertiesInstance)data;            
-            var str = new StringBuilder(AirfoilPropRes.Template);
-            var culture = CultureInfo.InvariantCulture;
+            var lst = (AirfoilPropertiesData) data;
             var p = new StringBuilder();
-
-            for (int i = 0; i < obj.row.Count; i++)
+            foreach (var obj in lst.collection)
             {
-                var x = obj.row[i];
-                p.Append(String.Format("{0}( {1} {2} {3} ){4}", _indent, x.X.ToString(culture),
-                                                              x.Y.ToString(culture),
-                                                              x.Z.ToString(culture),
-                                                              Environment.NewLine));
+                var str = new StringBuilder(AirfoilPropRes.Template);
+                var culture = CultureInfo.InvariantCulture;
+                p.Clear();                
+
+                foreach (var x in obj.row)
+                {
+                    p.Append(String.Format("{0}( {1} {2} {3} ){4}", _indent, x.X.ToString(culture),
+                                           x.Y.ToString(culture),
+                                           x.Z.ToString(culture),
+                                           Environment.NewLine));
+                }
+                str.Replace("({[[airfoilData]]})", p.ToString());
+                WriteToFile(path + "//" + obj.airfoilName, str.ToString());
             }
-            str.Replace("({[[airfoilData]]})", p.ToString());
-            WriteToFile(path, str.ToString());
         }
     }
 }

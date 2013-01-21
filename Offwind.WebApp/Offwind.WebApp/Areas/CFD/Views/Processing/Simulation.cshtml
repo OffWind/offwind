@@ -8,12 +8,94 @@ You will find a download link as soon as job finishes.
     <a class="btn btn-danger btn-large" href="#" id="button-stop">Stop simulation</a>
     <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
 </p>
+<fieldset id="processing">
+    <legend>Processing</legend><br/>
+    <div id="procgraph" style="width: 100%; height: 320px;"></div>
+</fieldset>
+
 
 @section scripts
 {
+    @Scripts.Render("~/static/js/amcharts.js")
+
     <script>
+        var chart = null;
+        var interval_obj = null;
+        var history = [];
+        var historyDepth = 0;
+        
+        function init_xy() {
+            var xAxis = new AmCharts.ValueAxis();
+            xAxis.position = "bottom";
+            xAxis.minimum = 0;
+            xAxis.title = "Time (sec)";
+            xAxis.gridAlpha = 0.1;
+            xAxis.autoGridCount = true;
+            chart.addValueAxis(xAxis);
+            // Y
+            var yAxis = new AmCharts.ValueAxis();
+            yAxis.position = "left";
+            yAxis.gridAlpha = 0.1;
+            yAxis.autoGridCount = true;
+            yAxis.title = "";
+            chart.addValueAxis(yAxis);            
+        }
+
+        function add_graph(title, yAxis, color)
+        {
+            var graph = new AmCharts.AmGraph();
+            graph.xField = "x";
+            graph.yField = yAxis;
+            graph.lineAlpha = 1;
+            graph.lineColor = color;
+            graph.title = title;
+            chart.addGraph(graph);
+        }
+        
+        function update_tick() {
+            $.ajax({
+                url: "@Url.Action("SimulationProcess", "Processing", new { area = "CFD" })",
+                dataType: "json",
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (res) {
+                    for (var i = 0; i < res.length - 1; i++)
+                    {
+                        history[historyDepth++] = {
+                            x: parseFloat(res[i][0]),
+                            epsilon: parseFloat(res[i][1]),
+                            k: parseFloat(res[i][2]),
+                            p: parseFloat(res[i][3]),
+                            Ux: parseFloat(res[i][4]),
+                            Uy: parseFloat(res[i][5]),
+                            Uz: parseFloat(res[i][6])
+                        };
+                    }
+                    chart.dataProvider = history;
+                    chart.validateData();
+                    chart.write("procgraph");
+                }
+            });            
+        }
+
         $(document).ready(function () {
+            
             var inProgress = @ViewBag.IsInProgress.ToString().ToLowerInvariant();
+            
+            
+            chart = new AmCharts.AmXYChart();            
+            var legend = new AmCharts.AmLegend();
+            chart.addLegend(legend);
+
+            init_xy();
+
+            add_graph("epsilon", "epsilon", '#0000FF');
+            add_graph("k", "k", '#00FF00');
+            add_graph("p", "p", '#FF0000');
+            add_graph("Ux", "Ux", '#FF00FF');
+            add_graph("Uy", "Uy", '#FFFF00');
+            add_graph("Uz", "Uz", '#00FFFF');
+
             if (inProgress) {
                 $('#loader-gif').removeClass('hidden');
                 $('#button-run').addClass('disabled');
@@ -29,14 +111,19 @@ You will find a download link as soon as job finishes.
                 $('#loader-gif').removeClass('hidden');
                 $('#button-run').addClass('disabled');
                 $('#button-stop').removeClass('disabled');
+                
+                history.length = 0;
+                historyDepth = 0;                
+
                 $.ajax({
                     url: "@Url.Action("SimulationStart", "Processing", new { area = "CFD" })",
                     dataType: "json",
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',
                     success: function () {
+                        interval_obj = setInterval(function() { update_tick(); }, 1000);
                     }
-                });
+                });                
             });
 
             $('#button-stop').click(function () {
@@ -45,15 +132,17 @@ You will find a download link as soon as job finishes.
                 $('#loader-gif').addClass('hidden');
                 $('#button-run').removeClass('disabled');
                 $('#button-stop').addClass('disabled');
+                clearInterval(interval_obj);
                 $.ajax({
                     url: "@Url.Action("SimulationStop", "Processing", new { area = "CFD" })",
                     dataType: "json",
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',
-                    success: function () {
+                    success: function () {                        
                     }
                 });
+                
             });
-        });        
+        });
     </script>    
 }

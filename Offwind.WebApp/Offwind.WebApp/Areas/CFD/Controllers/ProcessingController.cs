@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.IO;
@@ -11,6 +12,7 @@ using Offwind.WebApp.Controllers;
 using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Jobs;
+using System.Drawing;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
@@ -55,6 +57,8 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             return File(jobZip, "application/octet-stream", "preview.zip");
         }
 
+        private static double debug_time = 0;
+
         public JsonResult SimulationStart()
         {
             var job = new Job
@@ -76,6 +80,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             new JobsController().AddJobManually(job);
 
             SetCaseJob(job.Id);
+            debug_time = 0;
             return Json(job.Id);
         }
 
@@ -144,6 +149,43 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             }
             ctx.SaveChanges();
             return RedirectToAction("History");
+        }
+
+
+        
+        private Random rnd = new Random();
+
+        public JsonResult SimulationProcess()
+        {
+            var data = new List<SimulationTick>();
+            int ticks_elapsed = rnd.Next(1, 10);
+
+            for (int i = 0; i < ticks_elapsed; i++)
+            {
+                var tick = new SimulationTick();
+                tick.time = debug_time;
+                tick.epsilon = rnd.NextDouble()*2;
+                tick.k = rnd.NextDouble()*5;
+                tick.p = rnd.NextDouble()*10;
+                tick.Ux = Math.Sin(2*Math.PI/4 + Math.PI/(i + 1));
+                tick.Uy = 4*Math.Cos(Math.PI/(i + 1));
+                tick.Uz = 8*Math.Cos(Math.PI/2 + Math.PI/(i + 1));
+
+                debug_time = debug_time + 0.01;
+                data.Add(tick);
+            }
+
+            IEnumerable<object[]> res = data.Select(t => new object[]
+                                                   {
+                                                       t.time.ToString(),
+                                                       t.epsilon.ToString(),
+                                                       t.k.ToString(),
+                                                       t.p.ToString(),
+                                                       t.Ux.ToString(),
+                                                       t.Uy.ToString(),
+                                                       t.Uz.ToString()
+                                                   });
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
     }
 }

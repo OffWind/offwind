@@ -15,7 +15,7 @@
     <AssemblyName>Offwind.WebApp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -183,6 +183,7 @@
     <Compile Include="Areas\CFD\Controllers\BoundaryConditionsController.cs" />
     <Compile Include="Areas\CFD\Controllers\CFDController.cs" />
     <Compile Include="Areas\CFD\Controllers\DownloadsController.cs" />
+    <Compile Include="Areas\CFD\Controllers\SimulationTick.cs" />
     <Compile Include="Areas\CFD\Controllers\__BaseCfdController.cs" />
     <Compile Include="Areas\CFD\Controllers\PreprocessingController.cs" />
     <Compile Include="Areas\CFD\Controllers\ProcessingController.cs" />
@@ -507,8 +508,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59216</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:59216/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

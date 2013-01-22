@@ -183,7 +183,7 @@
     <Compile Include="Areas\CFD\Controllers\BoundaryConditionsController.cs" />
     <Compile Include="Areas\CFD\Controllers\CFDController.cs" />
     <Compile Include="Areas\CFD\Controllers\DownloadsController.cs" />
-    <Compile Include="Areas\CFD\Controllers\SimulationTick.cs" />
+    <Compile Include="Areas\CFD\Models\SimulationTick.cs" />
     <Compile Include="Areas\CFD\Controllers\__BaseCfdController.cs" />
     <Compile Include="Areas\CFD\Controllers\PreprocessingController.cs" />
     <Compile Include="Areas\CFD\Controllers\ProcessingController.cs" />

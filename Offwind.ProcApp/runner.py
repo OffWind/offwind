@@ -68,7 +68,7 @@ class Runner:
         self.process = subprocess.Popen(["./Allrun"], cwd = self.tmpDir)
         
     def parseLogs(self):
-        self.process = subprocess.Popen(["./ParseLogs"], cwd = self.tmpDir)
+        subprocess.call(["./ParseLogs"], cwd = self.tmpDir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     def checkState(self):
         self.process.poll()

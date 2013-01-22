@@ -1,14 +1,22 @@
 <VirtualHost *:80>
 	ServerAdmin webmaster@localhost
 	ServerName proc.offwind.eu
-	DocumentRoot /home/vo/offwind/Offwind.ProcSvc
+	DocumentRoot /home/vo/offwind/offwind.git/Offwind.ProcSvc
 
 	<Directory />
 		Options FollowSymLinks
 		AllowOverride None
 	</Directory>
 
-	WSGIScriptAlias /app /home/vo/offwind/Offwind.ProcSvc/app/app.wsgi
+	WSGIScriptAlias /app /home/vo/offwind/offwind.git/Offwind.ProcSvc/app/app.wsgi
+
+	Alias /wd /home/vo/offwind/work
+	<Directory /home/vo/offwind/work>
+	    Options All
+	    AllowOverride All
+	    order allow,deny
+	    allow from all
+	</Directory>
 
 	ErrorLog ${APACHE_LOG_DIR}/error.log
 

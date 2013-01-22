@@ -23,7 +23,7 @@ class Configurator:
 class list:
     def GET(self, jobId):
         cfg = Configurator().read()
-        dir = cfg.workDir + jobId + '/logs'
+        dir = cfg.workDir + '/' + jobId + '/logs'
         t = ""
         for file in os.listdir(dir):
             t = t + " | " + file
@@ -32,7 +32,7 @@ class list:
 class read:
     def GET(self, jobId, param):
         cfg = Configurator().read()
-        fpath = cfg.workDir + jobId + '/logs/' + param
+        fpath = cfg.workDir + '/' + jobId + '/logs/' + param
         data = []
         import json
         with open(fpath, 'r') as content_file:

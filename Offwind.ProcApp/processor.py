@@ -52,6 +52,7 @@ class Processor:
         if (self.runner.isFinished()):
             #if (p.result == JobResult.ERROR):
             #    print "Error occured: " + str(p.resultData)
+            self.runner.parseLogs() # do it before exit
             mgr.setJobFinished(self.runner.jobId)
             self.runner = None
             print "Processing finished"

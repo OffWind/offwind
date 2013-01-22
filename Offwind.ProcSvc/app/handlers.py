@@ -1,12 +1,29 @@
 import sys, os
 import web
+import ConfigParser
 
-workDir = '/home/vo/offwind/work/'
-workDir = 'D:/temp/'
+class Configurator:
+    workDir = None
+
+    def init(self):
+        config = ConfigParser.RawConfigParser()
+        config.add_section('Processing')
+        config.set("Processing", "workDir", "/home/vlad/offwind.cfd/work")
+
+        with open("/etc/offwind-proc.conf", "wt") as configfile:
+            config.write(configfile)
+        print "/etc/offwind-proc.conf written"
+
+    def read(self):
+        config = ConfigParser.RawConfigParser()
+        config.read("/etc/offwind-proc.conf")
+        self.workDir = config.get("Processing", "workDir")
+        return self
 
 class list:
     def GET(self, jobId):
-        dir = workDir + jobId + '/logs'
+        cfg = Configurator().read()
+        dir = cfg.workDir + jobId + '/logs'
         t = ""
         for file in os.listdir(dir):
             t = t + " | " + file
@@ -14,7 +31,8 @@ class list:
 
 class read:
     def GET(self, jobId, param):
-        fpath = workDir + jobId + '/logs/' + param
+        cfg = Configurator().read()
+        fpath = cfg.workDir + jobId + '/logs/' + param
         data = []
         import json
         with open(fpath, 'r') as content_file:
@@ -26,6 +44,7 @@ class read:
 
 class plot:
     def GET(self, jobId, param):
+        cfg = Configurator().read()
         import cStringIO
         from matplotlib.figure import Figure                      
         from matplotlib.backends.backend_agg import FigureCanvasAgg
@@ -46,6 +65,7 @@ class plot:
 
 class hello:        
     def GET(self, name):
+        cfg = Configurator().read()
         if not name: 
             name = 'World'
-        return 'Hello, ' + name + '!'
+        return 'Hello, ' + name + '!<br/> Workdir: ' + cfg.workDir

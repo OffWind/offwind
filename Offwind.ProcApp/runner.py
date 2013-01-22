@@ -26,14 +26,18 @@ class Runner:
             self.copyUtil("/Allrun")
             self.copyUtil("/ParseLogs")
             #self.run()
-            self.run2()
+            self.runUnzip()
+	    self.runBlockMesh()
+	    self.startSolver()
         except:
+	    print sys.exc_info()[0]
             self.result = JobResult.ERROR
             self.resultData = sys.exc_info()[0]
         finally:
             self.finished = datetime.utcnow()                
     
     def showDebug(self):
+	if self.process == None: return
         print "PID: %s" % self.process.pid
         print "RCode: %s" % self.process.returncode
         print "Job ID: %s" % self.jobId
@@ -68,32 +72,40 @@ class Runner:
         #output, error = subprocess.Popen(["./Allrun"], cwd = self.tmpDir).communicate()
         self.process = subprocess.Popen(["./Allrun"], cwd = self.tmpDir)
 
-    def run2(self):
+    def runUnzip(self):
         print "Unzipping 'input.zip'..."
-        subprocess.call(["unzip -o input.zip > log.unzipping.txt"], cwd = self.tmpDir)
-        subprocess.call(["rm input.zip"], cwd = self.tmpDir)
+	with open(self.tmpDir + "/log.unzipping.txt", "w") as log:
+            subprocess.call(["unzip", "-o", "input.zip"], cwd = self.tmpDir, stdout=log)
+            subprocess.call(["rm", "input.zip"], cwd = self.tmpDir, stdout=log)
 
+    def runBlockMesh(self):
         print "Building mesh with 'blockMesh'..."
-        subprocess.call(["blockMesh > log.blockMesh.txt  2>&1"], cwd = self.tmpDir)
+	with open(self.tmpDir + "/log.blockMesh.txt", "w") as log:
+            subprocess.call(["blockMesh"], cwd = self.tmpDir, stdout=log)
 
+    def startSolver(self):
         print "Started 'OffwindSolver'..."
-        self.process = subprocess.Popen(["OffwindSolver > log.solver.txt  2>&1"], cwd = self.tmpDir)
+	with open(self.tmpDir + "/log.solver.txt", "w") as log:
+            self.process = subprocess.Popen(["OffwindSolver"], cwd = self.tmpDir, stdout=log)
 
+    def runZip(self):
         print "Zipping results..."
-        subprocess.call(["zip -r result.zip * > log.zipping.txt 2>&1"], cwd = self.tmpDir)
-
-        print "Finished!"
+	with open(self.tmpDir + "/log.zipping.txt", "w") as log:
+            subprocess.call(["zip", "-r", "result.zip", "*"], cwd = self.tmpDir, stdout=log)
 
     def parseLogs(self):
-        self.process = subprocess.call(["./ParseLogs"], cwd = self.tmpDir)
+        subprocess.call(["./ParseLogs"], cwd = self.tmpDir, stdout=subprocess.PIPE)
 
     def checkState(self):
+	if self.process == None: return
         self.process.poll()
     
     def isFinished(self):
+	if self.process == None: return
         return self.process.returncode != None
     
     def cancel(self):
+	if self.process == None: return
         self.process.terminate()
 
 if __name__ == '__main__':

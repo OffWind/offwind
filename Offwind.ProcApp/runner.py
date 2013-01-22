@@ -25,7 +25,8 @@ class Runner:
             self.downloadInputData()
             self.copyUtil("/Allrun")
             self.copyUtil("/ParseLogs")
-            self.run()
+            #self.run()
+            self.run2()
         except:
             self.result = JobResult.ERROR
             self.resultData = sys.exc_info()[0]
@@ -66,9 +67,25 @@ class Runner:
     def run(self):
         #output, error = subprocess.Popen(["./Allrun"], cwd = self.tmpDir).communicate()
         self.process = subprocess.Popen(["./Allrun"], cwd = self.tmpDir)
-        
+
+    def run2(self):
+        print "Unzipping 'input.zip'..."
+        subprocess.call(["unzip -o input.zip > log.unzipping.txt"], cwd = self.tmpDir)
+        subprocess.call(["rm input.zip"], cwd = self.tmpDir)
+
+        print "Building mesh with 'blockMesh'..."
+        subprocess.call(["blockMesh > log.blockMesh.txt  2>&1"], cwd = self.tmpDir)
+
+        print "Started 'OffwindSolver'..."
+        self.process = subprocess.Popen(["OffwindSolver > log.solver.txt  2>&1"], cwd = self.tmpDir)
+
+        print "Zipping results..."
+        subprocess.call(["zip -r result.zip * > log.zipping.txt 2>&1"], cwd = self.tmpDir)
+
+        print "Finished!"
+
     def parseLogs(self):
-        subprocess.call(["./ParseLogs"], cwd = self.tmpDir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        self.process = subprocess.call(["./ParseLogs"], cwd = self.tmpDir)
 
     def checkState(self):
         self.process.poll()

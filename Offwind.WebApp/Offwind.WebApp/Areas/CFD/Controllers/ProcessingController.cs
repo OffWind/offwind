@@ -8,6 +8,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Xml.Serialization;
 using Offwind.OpenFoam.Sintef;
+using Offwind.WebApp.Areas.CFD.Models;
 using Offwind.WebApp.Controllers;
 using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Models;
@@ -155,6 +156,13 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         
         private Random rnd = new Random();
 
+        /// <summary>
+        /// Take data from http://proc.offwind.eu/app
+        /// API Description
+        /// List all files: http://proc.offwind.eu/app/list/ef29b068-a8ad-4d43-b6a8-94dbe8f5d120
+        /// Read particular file in JSON format: http://proc.offwind.eu/app/read/ef29b068-a8ad-4d43-b6a8-94dbe8f5d120/contCumulative_0
+        /// </summary>
+        /// <returns></returns>
         public JsonResult SimulationProcess()
         {
             var data = new List<SimulationTick>();

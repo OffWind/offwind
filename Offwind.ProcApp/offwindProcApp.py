@@ -48,5 +48,4 @@ if __name__ == '__main__':
             print jobs
             #mgr.setRunning(job)
 
-        sleep(1)
     print "Exiting program... Bye!"

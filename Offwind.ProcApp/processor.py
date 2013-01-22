@@ -7,6 +7,7 @@ from jobmanager import JobManager
 from runner import Runner
 from configurator import Configurator
 import utils
+import subprocess
 
 class Processor:
     runner = None
@@ -61,4 +62,5 @@ class Processor:
             print "Processing cancelled"
             return
 
+        self.runner.parseLogs()
         print "Processing is still running"

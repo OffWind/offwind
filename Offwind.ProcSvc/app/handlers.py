@@ -4,13 +4,6 @@ import web
 workDir = '/home/vo/offwind/work/'
 workDir = 'D:/temp/'
 
-class parse:
-    def GET(self, jobId):
-        jdir = workDir + jobId
-        import subprocess
-        result = subprocess.call(['./ParseLogs'], cwd = jdir)
-        return result
-
 class list:
     def GET(self, jobId):
         dir = workDir + jobId + '/logs'

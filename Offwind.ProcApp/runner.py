@@ -23,7 +23,8 @@ class Runner:
         try:
             self.createTempFolder()
             self.downloadInputData()
-            self.copyAllrun()
+            self.copyUtil("/Allrun")
+            self.copyUtil("/ParseLogs")
             self.run()
         except:
             self.result = JobResult.ERROR
@@ -54,10 +55,11 @@ class Runner:
         with open(targetFile, "wb") as f:
             f.write(content)
 
-    def copyAllrun(self):
-        #source = self.workDir + "/Allrun"
-        source = os.path.dirname(os.path.realpath(__file__)) + "/Allrun"
-        destination = self.tmpDir + "/Allrun"
+    def copyUtil(self, utilName):
+        source = os.path.dirname(os.path.realpath(__file__)) + utilName
+        destination = self.tmpDir + utilName
+        print source
+        print destination
         shutil.copy(source, destination)
         os.chmod(destination, os.stat(destination).st_mode | stat.S_IXUSR)
 
@@ -65,6 +67,9 @@ class Runner:
         #output, error = subprocess.Popen(["./Allrun"], cwd = self.tmpDir).communicate()
         self.process = subprocess.Popen(["./Allrun"], cwd = self.tmpDir)
         
+    def parseLogs(self):
+        self.process = subprocess.Popen(["./ParseLogs"], cwd = self.tmpDir)
+
     def checkState(self):
         self.process.poll()
     

@@ -15,7 +15,7 @@ class MyDaemon(Daemon):
         processor = Processor()
         while 1==1:
             print datetime.utcnow()
-            sleep(3)
+            sleep(5)
             processor.Do()
         
         print "Exiting program... Bye!"

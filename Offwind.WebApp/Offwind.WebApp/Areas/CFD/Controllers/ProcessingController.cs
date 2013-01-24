@@ -89,7 +89,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             var dCase = GetCase();
             if (dCase.CurrentJobId == null) return Json("Already idle");
-            new JobsController().SetJobFinished(dCase.CurrentJobId.Value);
+            new JobsController().SetJobCancelled(dCase.CurrentJobId.Value);
             return Json("Simulation stopped");
         }
 

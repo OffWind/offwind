@@ -26,13 +26,12 @@
             <td>@job.State</td>
             <td>
                 <a href="@Url.Action("GetInputData", "Downloads", new { area = "CFD", id = job.Id })">download case files</a>
-                @if (job.State == JobState.Idle.ToString() && job.Finished != null)
-                {
-                    <br/>
-                    <a href="http://proc.offwind.eu/wd/@job.Id/log.blockMesh.txt">log.blockMesh.txt</a>
-                    <a href="http://proc.offwind.eu/wd/@job.Id/log.solver.txt">log.solver.txt</a>
-                    <a href="http://proc.offwind.eu/wd/@job.Id/result.zip">result.zip</a>
-                }
+                <br/>
+                <a href="http://proc.offwind.eu/wd/@job.Id/log.blockMesh.txt">log.blockMesh.txt</a>
+                <br/>
+                <a href="http://proc.offwind.eu/wd/@job.Id/log.solver.txt">log.solver.txt</a>
+                <br/>
+                <a href="http://proc.offwind.eu/wd/@job.Id/result.zip">result.zip</a>
             </td>
         </tr>
     }

@@ -1,126 +1,23 @@
 ﻿@using Offwind.WebApp.Infrastructure
+@using Offwind.WebApp.Infrastructure.Navigation
+@{
+    var nav = (NavItem<NavUrl>)ViewBag.SideNav;
+}
+
 <div class="well sidebar-nav sidebar-nav-fixed">
-    <ul class="nav nav-list">
+    <ul class="nav nav-list" id="accordion2">
         
-        <!--...................................-->
-        <li class="nav-header">Pre-processing</li>
-        <li @this.ActiveIfCurrent("DomainSetup", "Preprocessing", "CFD")>
-            <a href="@Url.Action("DomainSetup", "Preprocessing", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Domain Setup
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("TransportProperties", "Preprocessing", "CFD")>
-            <a href="@Url.Action("TransportProperties", "Preprocessing", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Transport Properties
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("StlGenerator", "Preprocessing", "CFD")>
-            <a href="@Url.Action("StlGenerator", "Preprocessing", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Earth STL Generator
-            </a>
-        </li>
-
-        <!--........................................-->
-        <li class="nav-header">Boundary Conditions</li>
-        <li @this.ActiveIfCurrent("FieldK", "BoundaryConditions", "CFD")>
-            <a href="@Url.Action("FieldK", "BoundaryConditions", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> k
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("FieldEpsilon", "BoundaryConditions", "CFD")>
-            <a href="@Url.Action("FieldEpsilon", "BoundaryConditions", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> epsilon
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("FieldP", "BoundaryConditions", "CFD")>
-            <a href="@Url.Action("FieldP", "BoundaryConditions", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> p
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("FieldR", "BoundaryConditions", "CFD")>
-            <a href="@Url.Action("FieldR", "BoundaryConditions", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> R
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("FieldU", "BoundaryConditions", "CFD")>
-            <a href="@Url.Action("FieldU", "BoundaryConditions", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> U
-            </a>
-        </li>
-        
-        <!--...................................-->
-        <li class="nav-header">Turbines</li>
-        <li @this.ActiveIfCurrent("TurbineTypes", "Turbines", "CFD")>
-            <a href="@Url.Action("TurbineTypes", "Turbines", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Turbine Types
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("TurbineArray", "Turbines", "CFD")>
-            <a href="@Url.Action("TurbineArray", "Turbines", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Turbine Array
-            </a>
-        </li>
-        
-        <!--...................................-->
-        <li class="nav-header">Airfoil & Turbulence</li>
-        <li @this.ActiveIfCurrent("AirfoilProperties", "AirfoilAndTurbulence", "CFD")>
-            <a href="@Url.Action("AirfoilProperties", "AirfoilAndTurbulence", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Airfoil Properties
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("TurbulenceProperties", "AirfoilAndTurbulence", "CFD") >
-            <a href="@Url.Action("TurbulenceProperties", "AirfoilAndTurbulence", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Turbulence Properties
-            </a>
-        </li>
-
-        <!--....................................-->
-        <li class="nav-header">System</li>
-        <li @this.ActiveIfCurrent("Time", "SystemControls", "CFD")>
-            <a href="@Url.Action("Time", "SystemControls", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Time
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("Schemes", "SystemControls", "CFD")>
-            <a href="@Url.Action("Schemes", "SystemControls", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Schemes
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("Solution", "SystemControls", "CFD") >
-            <a href="@Url.Action("Solution", "SystemControls", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Solution
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("ParallelExecution", "SystemControls", "CFD") >
-            <a href="@Url.Action("ParallelExecution", "SystemControls", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Parallel Execution
-            </a>
-        </li>
-
-        <!--...............................-->
-        <li class="nav-header">Processing</li>
-        <li @this.ActiveIfCurrent("Settings", "Processing", "CFD") class="disabled">
-            <a href="@Url.Action("Settings", "Processing", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Settings
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("Simulation", "Processing", "CFD")>
-            <a href="@Url.Action("Simulation", "Processing", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Simulation
-            </a>
-        </li>
-        <li @this.ActiveIfCurrent("History", "Processing", "CFD")>
-            <a href="@Url.Action("History", "Processing", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> History
-            </a>
-        </li>
-
-        <!--...............................-->
-        <li class="nav-header">Case Management</li>
-        <li @this.ActiveIfCurrent("Reset", "CaseManagement", "CFD")>
-            <a href="@Url.Action("Reset", "CaseManagement", new { area = "CFD" })">
-                <i class="icon-asterisk"></i> Reset
-            </a>
-        </li>
+        @foreach (var grp in nav)
+        {
+            <li class="accordion-heading nav-header">@grp.Title</li>
+            foreach(var item in grp)
+            {
+                <li @this.ActiveIfCurrent(item.Url)>
+                    <a href="@this.GenerateUrl(item.Url)">
+                        <i class="icon-asterisk"></i> @item.Title
+                    </a>
+                </li>
+            }
+        }
     </ul>
 </div>

@@ -239,6 +239,8 @@
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Infrastructure\GuidConstraint.cs" />
     <Compile Include="Infrastructure\EmitMapperExtensions.cs" />
+    <Compile Include="Infrastructure\Navigation\NavItem.cs" />
+    <Compile Include="Infrastructure\Navigation\NavUrl.cs" />
     <Compile Include="Models\Account\ExternalLoginResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Account\ManageMessageId.cs" />

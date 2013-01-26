@@ -149,16 +149,22 @@ namespace Offwind.WebApp.Controllers
 
             try
             {
-                djob.RunningSince = DateTime.UtcNow;
-                djob.State = JobState.Cancelled.ToString();
+                if (djob.State == JobState.Started.ToString())
+                {
+                    djob.State = JobState.Idle.ToString();
+                }
+                else
+                {
+                    djob.RunningSince = DateTime.UtcNow;
+                    djob.State = JobState.Cancelled.ToString();
+                }
                 _ctx.SaveChanges();
+                return JsonX(HttpStatusCode.OK);
             }
             catch (DbUpdateConcurrencyException)
             {
                 return JsonX(HttpStatusCode.InternalServerError);
             }
-
-            return JsonX(HttpStatusCode.OK);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

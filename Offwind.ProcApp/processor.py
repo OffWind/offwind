@@ -53,14 +53,14 @@ class Processor:
             #if (p.result == JobResult.ERROR):
             #    print "Error occured: " + str(p.resultData)
             self.runner.parseLogs() # do it before exit
-	    self.runner.runZip()
+            self.runner.runZip()
             mgr.setJobFinished(self.runner.jobId)
             self.runner = None
             print "Processing finished"
             return
 
         if (mgr.isJobCancelled(self.runner.jobId)):
-	    self.runner.runZip()
+            self.runner.runZip()
             self.runner.cancel()
             print "Processing cancelled"
             return

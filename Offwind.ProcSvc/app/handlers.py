@@ -1,6 +1,8 @@
 import sys, os
 import web
 import ConfigParser
+import re
+import json
 
 class Configurator:
     workDir = None
@@ -30,16 +32,26 @@ class list:
         return t
 
 class read:
-    def GET(self, jobId, param):
+    def GET(self, jobId, position, reqfiles):
         cfg = Configurator().read()
-        fpath = cfg.workDir + '/' + jobId + '/logs/' + param
+        flist = re.findall(r'\b[a-zA-Z_0-9]*', reqfiles);
+        sumlen = 0
         data = []
-        import json
-        with open(fpath, 'r') as content_file:
-            for line in content_file:
-                p = line.split()
-                data.append([float(p[0]), float(p[1])])
-            #content = content_file.read()
+        for name in flist:
+            if name:
+                blocklen = 0
+                idx = int(position)
+                fpath = cfg.workDir + '/' + jobId + '/logs/' + name
+                with open(fpath, 'r') as content_file:
+                    for line in content_file:
+                        if idx == 0:
+                            p = line.split()
+                            blocklen = blocklen + 1
+                            data.append([float(p[1])])
+                        else:
+                            idx = idx - 1
+                data.insert(sumlen, [int(blocklen)])
+                sumlen = sumlen + blocklen + 1
         return json.dumps(data)
 
 class plot:
@@ -68,4 +80,8 @@ class hello:
         cfg = Configurator().read()
         if not name: 
             name = 'World'
-        return 'Hello, ' + name + '!<br/> Workdir: ' + cfg.workDir
+        return 'Hello, ' + name + \
+               '\nWorkdir: ' + cfg.workDir + \
+                '\nUsage: \
+                \nhttp://calculator/list/{job id} - show files for selected job \
+                \nhttp://calculator/read/{job id}/{file}/{pos} - read speciefied file from selected position'

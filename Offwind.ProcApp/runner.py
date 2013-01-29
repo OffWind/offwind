@@ -91,7 +91,7 @@ class Runner:
     def runZip(self):
         print "Zipping results..."
 	with open(self.tmpDir + "/log.zipping.txt", "w") as log:
-            subprocess.call(["zip", "-r", "result.zip", "*"], cwd = self.tmpDir, stdout=log)
+            subprocess.call(["zip", "-r", "result.zip", ".", "-i", "*"], cwd = self.tmpDir, stdout=log)
 
     def parseLogs(self):
         subprocess.call(["./ParseLogs"], cwd = self.tmpDir, stdout=subprocess.PIPE)

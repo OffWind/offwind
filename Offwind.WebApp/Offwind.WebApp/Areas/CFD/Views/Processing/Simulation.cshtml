@@ -21,8 +21,11 @@ You will find a download link as soon as job finishes.
     <script>
         var chart = null;
         var interval_obj = null;
+
         var history = [];
         var historyDepth = 0;
+        var jobId = "2595da5d-364b-4c08-8b6d-81345a1869ed";
+        var timeStamp = 0;
         
         function init_xy() {
             var xAxis = new AmCharts.ValueAxis();
@@ -51,77 +54,102 @@ You will find a download link as soon as job finishes.
             graph.title = title;
             chart.addGraph(graph);
         }
+                
+        var visFiles = ["Time_0", "epsilon_0", "k_0", "p_0", "Ux_0", "Uy_0", "Uz_0"];
+        var url = "http://proc.offwind.eu/app/read/" + jobId + "/" + timeStamp + "/" + payload;
+        //var url = "http://proc.offwind.eu:59216/app/read/" + jobId + "/" + timeStamp + "/" + payload;
         
-        function update_tick() {
+        function update_tick2() {
+            var payload = "";                       
+            for (var j = 0; j < visFiles.length; j++)
+            {
+                payload = payload + "$" + visFiles[j];
+            }            
+
             $.ajax({
-                url: "@Url.Action("SimulationProcess", "Processing", new { area = "CFD" })",
+                url: url,
                 dataType: "json",
                 type: "GET",
                 contentType: 'application/json; charset=utf-8',
-                success: function (res) {
-                    for (var i = 0; i < res.length - 1; i++)
-                    {
-                        history[historyDepth++] = {
-                            x: parseFloat(res[i][0]),
-                            epsilon: parseFloat(res[i][1]),
-                            k: parseFloat(res[i][2]),
-                            p: parseFloat(res[i][3]),
-                            Ux: parseFloat(res[i][4]),
-                            Uy: parseFloat(res[i][5]),
-                            Uz: parseFloat(res[i][6])
+                success: function(json) {
+                    var length = json.length;                        
+                    if (length == 0) return;
+                    
+                    var blocklen = [];
+                    var next = 0;
+                    var minblocklen = 0x8FFFFFFF;
+                    for (var b = 0; b < visFiles.length; b++) {
+                        blocklen[b] = parseInt(json[next][0]);
+                        if (blocklen[b] < minblocklen ) {
+                            minblocklen = blocklen[b];
+                        }
+                        next += (blocklen[b] + 1);
+                        blocklen[b] = next;
+                    }
+                    for (var i = 1; i <= minblocklen; i++) {
+                        history[timeStamp++] = {
+                            x: parseFloat(json[i][0]),
+                            epsilon: parseFloat(json[blocklen[0]+i][0]),
+                            k: parseFloat(json[blocklen[1]+i][0]),
+                            p: parseFloat(json[blocklen[2]+i][0]),
+                            Ux: parseFloat(json[blocklen[3]+i][0]),
+                            Uy: parseFloat(json[blocklen[4]+i][0]),
+                            Uz: parseFloat(json[blocklen[5]+i][0])
                         };
                     }
+                    
                     chart.dataProvider = history;
                     chart.validateData();
                     chart.write("procgraph");
                 }
-            });            
+            });
         }
 
         $(document).ready(function () {
             
             var inProgress = @ViewBag.IsInProgress.ToString().ToLowerInvariant();
             
-            
             chart = new AmCharts.AmXYChart();            
             var legend = new AmCharts.AmLegend();
             chart.addLegend(legend);
 
             init_xy();
-
             add_graph("epsilon", "epsilon", '#0000FF');
             add_graph("k", "k", '#00FF00');
             add_graph("p", "p", '#FF0000');
             add_graph("Ux", "Ux", '#FF00FF');
             add_graph("Uy", "Uy", '#FFFF00');
-            add_graph("Uz", "Uz", '#00FFFF');
-
+            add_graph("Uz", "Uz", '#00FFFF');                
+                        
             if (inProgress) {
                 $('#loader-gif').removeClass('hidden');
                 $('#button-run').addClass('disabled');
                 $('#button-stop').removeClass('disabled');
+                interval_obj = setInterval(function() { update_tick2(); }, 3000);
+                
             } else {
                 $('#loader-gif').addClass('hidden');
                 $('#button-run').removeClass('disabled');
-                $('#button-stop').addClass('disabled');
+                $('#button-stop').addClass('disabled');                
             }
+            
             $('#button-run').click(function () {
                 if (inProgress) return false;
                 inProgress = true;
                 $('#loader-gif').removeClass('hidden');
                 $('#button-run').addClass('disabled');
                 $('#button-stop').removeClass('disabled');
-                
                 history.length = 0;
-                historyDepth = 0;                
-
+                historyDepth = 0;
+                timeStamp = 0;
                 $.ajax({
                     url: "@Url.Action("SimulationStart", "Processing", new { area = "CFD" })",
                     dataType: "json",
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',
-                    success: function () {
-                        interval_obj = setInterval(function() { update_tick(); }, 1000);
+                    success: function (id) {
+                        jobId = id;
+                        interval_obj = setInterval(function() { update_tick2(); }, 3000);
                     }
                 });                
             });

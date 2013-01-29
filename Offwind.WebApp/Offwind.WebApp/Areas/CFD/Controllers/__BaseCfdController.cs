@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Xml.Serialization;
 using Offwind.OpenFoam.Sintef;
+using Offwind.WebApp.Infrastructure.Navigation;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Account;
 using log4net;
@@ -61,6 +62,44 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ViewBag.SectionTitle = SectionTitle;
             ViewBag.ShortTitle = ShortTitle ?? Title;
             ViewBag.Title = String.Format("{0} | {1} | CFD | Offwind", Title ?? ShortTitle, SectionTitle);
+
+            var navigation = new NavItem<NavUrl>();
+
+            navigation.AddGroup("Pre-processing")
+                .AddItem("Domain Setup", new NavUrl("DomainSetup", "Preprocessing", "CFD"))
+                .AddItem("Transport Properties", new NavUrl("TransportProperties", "Preprocessing", "CFD"))
+                .AddItem("Earth STL Generator", new NavUrl("StlGenerator", "Preprocessing", "CFD"));
+
+            navigation.AddGroup("Boundary Conditions")
+                .AddItem("k", new NavUrl("FieldK", "BoundaryConditions", "CFD"))
+                .AddItem("epsilon", new NavUrl("FieldEpsilon", "BoundaryConditions", "CFD"))
+                .AddItem("p", new NavUrl("FieldP", "BoundaryConditions", "CFD"))
+                .AddItem("R", new NavUrl("FieldR", "BoundaryConditions", "CFD"))
+                .AddItem("U", new NavUrl("FieldU", "BoundaryConditions", "CFD"));
+
+            navigation.AddGroup("Turbines")
+                .AddItem("Turbine Types", new NavUrl("TurbineTypes", "Turbines", "CFD"))
+                .AddItem("Turbine Array", new NavUrl("TurbineArray", "Turbines", "CFD"));
+
+            navigation.AddGroup("Airfoil & Turbulence")
+                .AddItem("Airfoil Properties", new NavUrl("AirfoilProperties", "AirfoilAndTurbulence", "CFD"))
+                .AddItem("Turbulence Properties", new NavUrl("TurbulenceProperties", "AirfoilAndTurbulence", "CFD"));
+
+            navigation.AddGroup("System")
+                .AddItem("Time", new NavUrl("Time", "SystemControls", "CFD"))
+                .AddItem("Schemes", new NavUrl("Schemes", "SystemControls", "CFD"))
+                .AddItem("Solution", new NavUrl("Solution", "SystemControls", "CFD"))
+                .AddItem("ParallelExecution", new NavUrl("ParallelExecution", "SystemControls", "CFD"));
+
+            navigation.AddGroup("Processing")
+                .AddItem("Settings", new NavUrl("Settings", "Processing", "CFD"))
+                .AddItem("Simulation", new NavUrl("Simulation", "Processing", "CFD"))
+                .AddItem("History", new NavUrl("History", "Processing", "CFD"));
+
+            navigation.AddGroup("Processing")
+                .AddItem("Reset", new NavUrl("Reset", "CaseManagement", "CFD"));
+
+            ViewBag.SideNav = navigation;
         }
 
         protected override void OnException(ExceptionContext filterContext)

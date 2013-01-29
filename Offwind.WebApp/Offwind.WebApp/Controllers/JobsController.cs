@@ -139,6 +139,35 @@ namespace Offwind.WebApp.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult SetJobCancelled(Guid jobId)
+        {
+            DJob djob = _ctx.DJobs.Single(d => d.Id == jobId);
+            if (djob == null)
+            {
+                return JsonX(HttpStatusCode.NotFound);
+            }
+
+            try
+            {
+                if (djob.State == JobState.Started.ToString())
+                {
+                    djob.State = JobState.Idle.ToString();
+                }
+                else
+                {
+                    djob.RunningSince = DateTime.UtcNow;
+                    djob.State = JobState.Cancelled.ToString();
+                }
+                _ctx.SaveChanges();
+                return JsonX(HttpStatusCode.OK);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return JsonX(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult SetJobFinished(Guid jobId)
         {
             DJob djob = _ctx.DJobs.Single(d => d.Id == jobId);

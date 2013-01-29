@@ -2,46 +2,50 @@ import httplib2
 from httplib2 import Http
 import json
 
+class HomeUrl:
+    baseUrl = "http://tools.offwind.eu"
+    #baseUrl = "http://192.168.1.10:59216"
+
 class JobResult:
     NONE = "None"
     OK = "OK"
     ERROR = "Error"
 
 class JobManager:
-    baseUrl = "http://tools.offwind.eu"
+    
 
     def getStartedJobs(self):
-        url = self.baseUrl + "/jobs/GetStartedJobs"
+        url = HomeUrl.baseUrl + "/jobs/GetStartedJobs"
         resp, content = Http().request(url, "GET")
         return json.loads(content)[u'data']
 
     def getRunningJobs(self):
-        url = self.baseUrl + "/jobs/GetRunningJobs"
+        url = HomeUrl.baseUrl + "/jobs/GetRunningJobs"
         resp, content = Http().request(url, "GET")
         return json.loads(content)[u'data']
 
     def getCancelledJobs(self):
-        url = self.baseUrl + "/jobs/GetCancelledJobs"
+        url = HomeUrl.baseUrl + "/jobs/GetCancelledJobs"
         resp, content = Http().request(url, "GET")
         return json.loads(content)[u'data']
 
     def getSingleJob(self, jobId):
-        url = self.baseUrl + "/jobs/GetSingleJob?jobId=" + jobId
+        url = HomeUrl.baseUrl + "/jobs/GetSingleJob?jobId=" + jobId
         resp, content = Http().request(url, "GET" )
         return json.loads(content)[u'data']
 
     def isJobCancelled(self, jobId):
-        url = self.baseUrl + "/jobs/IsJobCancelled?jobId=" + jobId
+        url = HomeUrl.baseUrl + "/jobs/IsJobCancelled?jobId=" + jobId
         resp, content = Http().request(url, "GET" )
         res = json.loads(content)[u'data'] == True
         return res
 
     def setJobRunning(self, jobId):
-        url = self.baseUrl + "/jobs/SetJobRunning?jobId=" + jobId
+        url = HomeUrl.baseUrl + "/jobs/SetJobRunning?jobId=" + jobId
         resp, content = Http().request(url, "POST", headers={'content-type':'application/json', 'content-length':'0'} )
 
     def setJobFinished(self, jobId):
-        url = self.baseUrl + "/jobs/SetJobFinished?jobId=" + jobId
+        url = HomeUrl.baseUrl + "/jobs/SetJobFinished?jobId=" + jobId
         resp, content = Http().request(url, "POST", headers={'content-type':'application/json', 'content-length':'0'} )
 
     #def updateJob(self, job, state):

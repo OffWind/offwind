@@ -9,6 +9,7 @@ import subprocess
 import httplib2
 from httplib2 import Http
 from jobmanager import JobResult
+from jobmanager import HomeUrl
 
 class Runner:
     workDir = None
@@ -27,17 +28,17 @@ class Runner:
             self.copyUtil("/ParseLogs")
             #self.run()
             self.runUnzip()
-	    self.runBlockMesh()
-	    self.startSolver()
+            self.runBlockMesh()
+            self.startSolver()
         except:
-	    print sys.exc_info()[0]
+            print sys.exc_info()[0]
             self.result = JobResult.ERROR
             self.resultData = sys.exc_info()[0]
         finally:
             self.finished = datetime.utcnow()                
     
     def showDebug(self):
-	if self.process == None: return
+        if self.process == None: return
         print "PID: %s" % self.process.pid
         print "RCode: %s" % self.process.returncode
         print "Job ID: %s" % self.jobId
@@ -49,7 +50,7 @@ class Runner:
             os.chmod(self.tmpDir, 0o777)
             
     def downloadInputData(self):
-        url = 'http://tools.offwind.eu/cfd/downloads/getinputdata/'
+        url = HomeUrl.baseUrl + '/cfd/downloads/getinputdata/'
         url = url + self.jobId
         print "Downloading: " + url
         targetFile = self.tmpDir + '/input.zip'
@@ -74,7 +75,7 @@ class Runner:
 
     def runUnzip(self):
         print "Unzipping 'input.zip'..."
-	with open(self.tmpDir + "/log.unzipping.txt", "w") as log:
+        with open(self.tmpDir + "/log.unzipping.txt", "w") as log:
             subprocess.call(["unzip", "-o", "input.zip"], cwd = self.tmpDir, stdout=log)
             subprocess.call(["rm", "input.zip"], cwd = self.tmpDir, stdout=log)
 

@@ -56,52 +56,68 @@ You will find a download link as soon as job finishes.
         }
                 
         var visFiles = ["Time_0", "epsilon_0", "k_0", "p_0", "Ux_0", "Uy_0", "Uz_0"];
-        var url = "http://proc.offwind.eu/app/read/" + jobId + "/" + timeStamp + "/" + payload;
-        //var url = "http://proc.offwind.eu:59216/app/read/" + jobId + "/" + timeStamp + "/" + payload;
+        
+        function plotter(json) {
+            var length = json.length;                        
+            if (length == 0) return;
+                    
+            var blocklen = [];
+            var next = 0;
+            var minblocklen = 0x8FFFFFFF;
+            for (var b = 0; b < visFiles.length; b++) {
+                blocklen[b] = parseInt(json[next][0]);
+                if (blocklen[b] < minblocklen ) {
+                    minblocklen = blocklen[b];
+                }
+                next += (blocklen[b] + 1);
+                blocklen[b] = next;
+            }
+            for (var i = 1; i <= minblocklen; i++) {
+                history[timeStamp++] = {
+                    x: parseFloat(json[i][0]),
+                    epsilon: parseFloat(json[blocklen[0]+i][0]),
+                    k: parseFloat(json[blocklen[1]+i][0]),
+                    p: parseFloat(json[blocklen[2]+i][0]),
+                    Ux: parseFloat(json[blocklen[3]+i][0]),
+                    Uy: parseFloat(json[blocklen[4]+i][0]),
+                    Uz: parseFloat(json[blocklen[5]+i][0])
+                };
+            }
+                    
+            chart.dataProvider = history;
+            chart.validateData();
+            chart.write("procgraph");            
+        }
+
         
         function update_tick2() {
             var payload = "";                       
             for (var j = 0; j < visFiles.length; j++)
             {
                 payload = payload + "$" + visFiles[j];
-            }            
-
+            }
+            var url = "http://proc.offwind.eu/app/read/" + jobId + "/" + timeStamp + "/" + payload;
+            //var url = "http://proc.offwind.eu:59216/app/read/" + jobId + "/" + timeStamp + "/" + payload;            
+            url += "?callback=plotter";
+            
             $.ajax({
                 url: url,
-                dataType: "json",
+                dataType: "jsonp",
                 type: "GET",
-                contentType: 'application/json; charset=utf-8',
+                contentType: 'application/json; charset=utf-8'
+                /*
+                ,
                 success: function(json) {
-                    var length = json.length;                        
-                    if (length == 0) return;
-                    
-                    var blocklen = [];
-                    var next = 0;
-                    var minblocklen = 0x8FFFFFFF;
-                    for (var b = 0; b < visFiles.length; b++) {
-                        blocklen[b] = parseInt(json[next][0]);
-                        if (blocklen[b] < minblocklen ) {
-                            minblocklen = blocklen[b];
-                        }
-                        next += (blocklen[b] + 1);
-                        blocklen[b] = next;
-                    }
-                    for (var i = 1; i <= minblocklen; i++) {
-                        history[timeStamp++] = {
-                            x: parseFloat(json[i][0]),
-                            epsilon: parseFloat(json[blocklen[0]+i][0]),
-                            k: parseFloat(json[blocklen[1]+i][0]),
-                            p: parseFloat(json[blocklen[2]+i][0]),
-                            Ux: parseFloat(json[blocklen[3]+i][0]),
-                            Uy: parseFloat(json[blocklen[4]+i][0]),
-                            Uz: parseFloat(json[blocklen[5]+i][0])
-                        };
-                    }
-                    
-                    chart.dataProvider = history;
-                    chart.validateData();
-                    chart.write("procgraph");
+                    plotter(json);
+                },
+                error: function(request, textStatus, errorThrown) {
+                    alert(textStatus);
+                },
+                complete: function(request, textStatus) {
+                    alert(request.responseText);
+                    alert(textStatus);
                 }
+                */
             });
         }
 

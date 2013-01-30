@@ -52,18 +52,21 @@ class read:
                             idx = idx - 1
                 data.insert(sumlen, [int(blocklen)])
                 sumlen = sumlen + blocklen + 1
-        return json.dumps(data)
+        text = json.dumps(data)
+        # convert data into JSONP, on the other side we MUST have
+        # implemented callback function named "plotter"
+        return 'plotter(' + text + ')'
 
 class plot:
     def GET(self, jobId, param):
         cfg = Configurator().read()
         import cStringIO
-        from matplotlib.figure import Figure                      
+        from matplotlib.figure import Figure
         from matplotlib.backends.backend_agg import FigureCanvasAgg
 
-        fig = Figure(figsize=[4,4])                               
-        ax = fig.add_axes([.1,.1,.8,.8])                          
-        ax.scatter([1,2], [3,4])                                  
+        fig = Figure(figsize=[4,4])
+        ax = fig.add_axes([.1,.1,.8,.8])
+        ax.scatter([1,2], [3,4])
         canvas = FigureCanvasAgg(fig)
 
         # write image data to a string buffer and get the PNG image bytes
@@ -75,10 +78,10 @@ class plot:
         web.header("Content-Length", len(data))
         return data
 
-class hello:        
+class hello:
     def GET(self, name):
         cfg = Configurator().read()
-        if not name: 
+        if not name:
             name = 'World'
         return 'Hello, ' + name + \
                '\nWorkdir: ' + cfg.workDir + \

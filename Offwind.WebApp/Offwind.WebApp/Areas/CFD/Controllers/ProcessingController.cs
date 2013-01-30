@@ -43,6 +43,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                 jobActive = (dJob != null) && (dJob.State != JobState.Idle.ToString());
             }
             ViewBag.IsInProgress = jobActive;
+            ViewBag.activeJobId = (jobActive) ? dCase.CurrentJobId.ToString() : ShortTitle;
             return View();
         }
 

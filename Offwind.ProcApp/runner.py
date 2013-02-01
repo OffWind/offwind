@@ -9,7 +9,6 @@ import subprocess
 import httplib2
 from httplib2 import Http
 from jobmanager import JobResult
-from jobmanager import HomeUrl
 
 class Runner:
     workDir = None
@@ -19,6 +18,7 @@ class Runner:
     resultData = None
     finished = None
     process = None
+    baseUrl = None
     
     def tryRun(self):
         try:
@@ -50,7 +50,7 @@ class Runner:
             os.chmod(self.tmpDir, 0o777)
             
     def downloadInputData(self):
-        url = HomeUrl.baseUrl + '/cfd/downloads/getinputdata/'
+        url = self.baseUrl + '/cfd/downloads/getinputdata/'
         url = url + self.jobId
         print "Downloading: " + url
         targetFile = self.tmpDir + '/input.zip'
@@ -92,7 +92,7 @@ class Runner:
     def runZip(self):
         print "Zipping results..."
 	with open(self.tmpDir + "/log.zipping.txt", "w") as log:
-            subprocess.call(["zip", "-r", "result.zip", ".", "-i", "*"], cwd = self.tmpDir, stdout=log)
+            subprocess.call(["zip", "-r", "result.zip", "*"], cwd = self.tmpDir, stdout=log)
 
     def parseLogs(self):
         subprocess.call(["./ParseLogs"], cwd = self.tmpDir, stdout=subprocess.PIPE)

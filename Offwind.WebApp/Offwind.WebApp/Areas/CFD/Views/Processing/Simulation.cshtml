@@ -28,7 +28,7 @@ You will find a download link as soon as job finishes.
 
         var history = [];
         var historyDepth = 0;
-        var jobId = ""; //"2595da5d-364b-4c08-8b6d-81345a1869ed";
+        var jobId = "";
         var timeStamp = 0;
         
         function init_xy() {
@@ -100,8 +100,9 @@ You will find a download link as soon as job finishes.
             {
                 payload = payload + "$" + visFiles[j];
             }
-            var url = "http://proc.offwind.eu/app/read/" + jobId + "/" + timeStamp + "/" + payload;
-            //var url = "http://proc.offwind.eu:59216/app/read/" + jobId + "/" + timeStamp + "/" + payload;            
+            var url = "http://proc.offwind.eu/app/read/" + jobId + "/" + timeStamp + "/" + payload;            
+            //var url = "http://proc.offwind.eu:59216/app/read/" + jobId + "/" + timeStamp + "/" + payload;
+            
             url += "?callback=plotter";
             
             $.ajax({
@@ -172,7 +173,8 @@ You will find a download link as soon as job finishes.
                         jobId = id;
                         interval_obj = setInterval(function() { update_tick2(); }, 3000);
                     }
-                });                
+                });
+                return true;
             });
 
             $('#button-stop').click(function () {
@@ -190,7 +192,7 @@ You will find a download link as soon as job finishes.
                     success: function () {                        
                     }
                 });
-                
+                return true;
             });
         });
     </script>    

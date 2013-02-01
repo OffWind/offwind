@@ -5,13 +5,13 @@ from time import sleep
 from jobmanager import JobResult
 from jobmanager import JobManager
 from runner import Runner
-from configurator import Configurator
 import utils
 import subprocess
 
 class Processor:
     runner = None
     jobId = None
+    config = None
 
     @utils.suppressExceptions1
     def cleanup(self):
@@ -30,15 +30,15 @@ class Processor:
     @utils.suppressExceptions1
     def Do(self):
         mgr = JobManager()
-        cfg = Configurator().read()
-
+        mgr.baseUrl = self.config.baseUrl
         # If processing not running, get next started job and run it. If no jobs started, just loop.
         if (self.runner == None):
             jobs = mgr.getStartedJobs()
             for job in jobs:
                 mgr.setJobRunning(job[u'Id'])
                 self.runner = Runner()
-                self.runner.workDir = cfg.workDir
+                self.runner.workDir = self.config.workDir
+                self.runner.baseUrl = self.config.baseUrl
                 self.runner.jobId = job[u'Id']
                 self.runner.tryRun()
                 print "Processing started"

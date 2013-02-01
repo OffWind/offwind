@@ -11,11 +11,14 @@ from daemon import Daemon
  
 class MyDaemon(Daemon):
     def run(self):
-        print "Offwind processing service started. Polling queue..."
         processor = Processor()
+        config = Configurator().read()
+        processor.config = config
+        to = float(config.pollTimeOut)
+        print "Offwind processing service started. Polling queue... timeout " + config.pollTimeOut
         while 1==1:
             print datetime.utcnow()
-            sleep(5)
+            sleep(to)
             processor.Do()
         
         print "Exiting program... Bye!"
@@ -41,3 +44,5 @@ if __name__ == '__main__':
         MyDaemon('/tmp/offwind-proc.pid').stop()
     elif (args.action == "run"):
         MyDaemon('/tmp/offwind-proc.pid').run()
+    elif (args.action == "restart"):
+        MyDaemon('/tmp/offwind-proc.pid').restart()

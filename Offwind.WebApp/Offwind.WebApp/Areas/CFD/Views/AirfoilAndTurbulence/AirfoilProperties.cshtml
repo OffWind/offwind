@@ -5,7 +5,7 @@
 
 @section scripts
 {    @Scripts.Render("~/static/js/jquery.handsontable.full.js")
-     @Scripts.Render("~/static/js/amcharts.js")
+     @Scripts.Render("~/static/js/highcharts.js")
      
 
     <script language="javascript">
@@ -59,45 +59,61 @@
                     change_info();
                 }
             });
-            
-            chart = new AmCharts.AmXYChart();
-            var legend = new AmCharts.AmLegend();
-            chart.addLegend(legend);
-            
-            // X
-            xAxis = new AmCharts.ValueAxis();
-            xAxis.position = "bottom";
-            xAxis.maximum = 180;
-            xAxis.minimum = -180;
-            xAxis.title = "Angle of Attack (deg)";
-            xAxis.gridAlpha = 0.1;
-            xAxis.autoGridCount = true;
-            chart.addValueAxis(xAxis);
 
-            // Y
-            yAxis = new AmCharts.ValueAxis();
-            yAxis.position = "left";
-            yAxis.gridAlpha = 0.1;
-            yAxis.autoGridCount = true;
-            yAxis.title = "Lift or Drag coefficient";
-            chart.addValueAxis(yAxis);
-            
-            graphCL = new AmCharts.AmGraph();
-            graphCL.xField = "x";
-            graphCL.yField = "y0";
-            graphCL.lineAlpha = 1;
-            graphCL.lineColor = '#FF0000';
-            graphCL.title = "C_l";
-            chart.addGraph(graphCL);
-
-            graphCD = new AmCharts.AmGraph();
-            graphCD.xField = "x";
-            graphCD.yField = "y1";
-            graphCD.lineAlpha = 1;
-            graphCD.lineColor = '#0000FF';
-            graphCD.title = "C_d";
-            chart.addGraph(graphCD);
-
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'datagraph',
+                    type: 'line'
+                },
+                title: {
+                    text: 'Lift and drag coefficients',
+                    x: -20
+                },
+                credits: {
+                    enabled: false  
+                },
+                plotOptions: {
+                    series: {
+                        marker: {
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    radius: 5
+                                }
+                            }
+                        }
+                    }  
+                },
+                xAxis: {
+                    title: {
+                        text: 'Angle of Attack (deg)'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Lift of Drag Coefficient'
+                    }                    
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -10,
+                    y: 100,
+                    borderWidth: 2
+                },
+                series: [{
+                    name: 'CL',
+                    marker: {
+                        enabled: false
+                    }
+                  },{
+                    name: 'CD',
+                    marker: {
+                        enabled: false
+                    }                    
+                }]
+            });
         });
         function change_info() {
             var obj = document.getElementById("airfoilsel");
@@ -108,21 +124,18 @@
                 type: 'GET',
                 success: function(res) {
                     $("#airfoildata").data('handsontable').loadData(res);
-                                        
-                    var cld = [];
+                    
                     var j = 0;
+                    var cl = [];
+                    var cd = [];
                     for (var i = 0; i < res.length-1; i++)
                     {
-                        cld[j++] = {
-                            x: parseFloat(res[i][0]),
-                            y0: parseFloat(res[i][1]),
-                            y1: parseFloat(res[i][2])
-                        };
+                        cl[j] = { x: parseFloat(res[i][0]), y: parseFloat(res[i][1]) };
+                        cd[j] = { x: cl[j].x, y: parseFloat(res[i][2]) };
+                        j++;
                     }
-
-                    chart.dataProvider = cld;
-                    chart.validateData();
-                    chart.write("datagraph");
+                    chart.series[0].setData(cl);
+                    chart.series[1].setData(cd);
                 }
             });
         }
@@ -138,8 +151,7 @@
     <fieldset id="airfoildata" class="span4">
         <legend>Data</legend><br/>
     </fieldset>
-    <fieldset  class="span4" >
-        <legend>Lift and drag coefficients</legend><br/>
-        <div id="datagraph" style="width: 100%; height: 320px;"></div>
+    <fieldset  class="span4" >        
+        <div id="datagraph" style="min-width: 480px; height: 480px; margin: 0 auto"></div>
     </fieldset>
 </form>

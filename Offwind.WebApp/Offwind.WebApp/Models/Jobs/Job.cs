@@ -26,5 +26,6 @@ namespace Offwind.WebApp.Models.Jobs
 
         public JobResult Result { get; set; }
         public string ResultData { get; set; }
+        public Decimal ProcTime { get; set; }
     }
 }

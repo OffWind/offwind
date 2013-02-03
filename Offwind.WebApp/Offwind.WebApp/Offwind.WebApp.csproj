@@ -280,6 +280,7 @@
     <Content Include="static\img\marker-shadow.png" />
     <Content Include="static\js\amcharts.js" />
     <Content Include="static\js\handsontable.tools.js" />
+    <Content Include="static\js\highcharts.js" />
     <Content Include="static\js\jquery.download.js" />
     <Content Include="static\js\jquery.handsontable.full.js" />
     <Content Include="static\js\jquery.form.js" />

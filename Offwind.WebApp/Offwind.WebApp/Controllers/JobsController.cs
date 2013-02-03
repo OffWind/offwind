@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity.Infrastructure;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -194,6 +195,8 @@ namespace Offwind.WebApp.Controllers
         {
             var dJob = new DJob();
             dJob.Id = job.Id;
+            //dJob.ProcTime = job.ProcTime.ToString(CultureInfo.InvariantCulture);
+
             MapToDB(job, dJob);
 
             _ctx.DJobs.AddObject(dJob);

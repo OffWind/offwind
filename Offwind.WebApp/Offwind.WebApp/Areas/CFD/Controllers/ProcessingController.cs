@@ -37,13 +37,16 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var dCase = GetCase();
             var caseHasJob = dCase.CurrentJobId != null;
             bool jobActive = false;
+            string jobProcTime = "";
             if (caseHasJob)
             {
                 var dJob = ctx.DJobs.FirstOrDefault(dj => dj.Id == dCase.CurrentJobId);
                 jobActive = (dJob != null) && (dJob.State != JobState.Idle.ToString());
+                //if (dJob != null) jobProcTime = dJob.ProcTime;
             }
             ViewBag.IsInProgress = jobActive;
             ViewBag.activeJobId = (jobActive) ? dCase.CurrentJobId.ToString() : ShortTitle;
+            ViewBag.procTime = jobProcTime;
             return View();
         }
 
@@ -63,19 +66,20 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 
         public JsonResult SimulationStart()
         {
+            var solverData = GetSolverData();
             var job = new Job
             {
                 Id = Guid.NewGuid(),
                 Started = DateTime.UtcNow,
                 Owner = User.Identity.Name,
                 Name = StandardCases.CfdCase,
-                State = JobState.Started,                
+                State = JobState.Started,
+                ProcTime = solverData.ControlDict.endTime
             };
 
             var jobZip = CreateJobPath(job.Owner, job.Id);
             var jobPath = jobZip.Replace(".zip", "");
             
-            var solverData = GetSolverData();            
             solverData.MakeJobFS(jobPath);
             SharpZipUtils.CompressFolder(jobPath, jobZip, null);
 

@@ -13,53 +13,27 @@ You will find a download link as soon as job finishes.
     <div id="simprogress">
         
     </div><br/>
-    <legend>Processing</legend><br/>
-    <div id="procgraph" style="width: 100%; height: 320px;"></div>
+    <legend id="proclabel">Processing</legend><br/>
+    <div id="procgraph" style="width: 100%; height: 400px;"></div>
 </fieldset>
 
 
 @section scripts
 {
-    @Scripts.Render("~/static/js/amcharts.js")
+    @Scripts.Render("~/static/js/highcharts.js")
 
     <script>
         var chart = null;
         var interval_obj = null;
 
-        var history = [];
+        var visFiles = ["Time_0", "epsilon_0", "k_0", "p_0", "Ux_0", "Uy_0", "Uz_0"];
+        
+        var history = new Array(visFiles.length - 1);
         var historyDepth = 0;
         var jobId = "";
+        var procTime  = 1;
         var timeStamp = 0;
-        
-        function init_xy() {
-            var xAxis = new AmCharts.ValueAxis();
-            xAxis.position = "bottom";
-            xAxis.minimum = 0;
-            xAxis.title = "Time (sec)";
-            xAxis.gridAlpha = 0.1;
-            xAxis.autoGridCount = true;
-            chart.addValueAxis(xAxis);
-            // Y
-            var yAxis = new AmCharts.ValueAxis();
-            yAxis.position = "left";
-            yAxis.gridAlpha = 0.1;
-            yAxis.autoGridCount = true;
-            yAxis.title = "";
-            chart.addValueAxis(yAxis);            
-        }
-
-        function add_graph(title, yAxis, color)
-        {
-            var graph = new AmCharts.AmGraph();
-            graph.xField = "x";
-            graph.yField = yAxis;
-            graph.lineAlpha = 1;
-            graph.lineColor = color;
-            graph.title = title;
-            chart.addGraph(graph);
-        }
-                
-        var visFiles = ["Time_0", "epsilon_0", "k_0", "p_0", "Ux_0", "Uy_0", "Uz_0"];
+                                
         
         function plotter(json) {
             var length = json.length;                        
@@ -76,21 +50,20 @@ You will find a download link as soon as job finishes.
                 next += (blocklen[b] + 1);
                 blocklen[b] = next;
             }
-            for (var i = 1; i <= minblocklen; i++) {
-                history[timeStamp++] = {
-                    x: parseFloat(json[i][0]),
-                    epsilon: parseFloat(json[blocklen[0]+i][0]),
-                    k: parseFloat(json[blocklen[1]+i][0]),
-                    p: parseFloat(json[blocklen[2]+i][0]),
-                    Ux: parseFloat(json[blocklen[3]+i][0]),
-                    Uy: parseFloat(json[blocklen[4]+i][0]),
-                    Uz: parseFloat(json[blocklen[5]+i][0])
-                };
+            for (var a = 0; a < visFiles.length - 1; a++) {
+                var t = timeStamp;
+                for (var i = 1; i <= minblocklen; i++) {
+                    history[a][t++] = {
+                        x: parseFloat(json[i][0]),
+                        y: parseFloat(json[blocklen[a] + i][0])
+                    };
+                }
+                chart.series[a].setData(history[a]);
             }
-                    
-            chart.dataProvider = history;
-            chart.validateData();
-            chart.write("procgraph");            
+            timeStamp += minblocklen;
+
+            //var label = document.getElementById("proclabel");
+            //label.text = "Processing " + json[minblocklen] + " = " + procTime;
         }
 
         
@@ -110,38 +83,65 @@ You will find a download link as soon as job finishes.
                 dataType: "jsonp",
                 type: "GET",
                 contentType: 'application/json; charset=utf-8'
-                /*
-                ,
-                success: function(json) {
-                    plotter(json);
-                },
-                error: function(request, textStatus, errorThrown) {
-                    alert(textStatus);
-                },
-                complete: function(request, textStatus) {
-                    alert(request.responseText);
-                    alert(textStatus);
-                }
-                */
             });
         }
-
+        
         $(document).ready(function () {
-            
             var inProgress = @ViewBag.IsInProgress.ToString().ToLowerInvariant();
             jobId = "@ViewBag.activeJobId";
-            
-            chart = new AmCharts.AmXYChart();            
-            var legend = new AmCharts.AmLegend();
-            chart.addLegend(legend);
+            //procTime = parseFloat("@ViewBag.procTime");
 
-            init_xy();
-            add_graph("epsilon", "epsilon", '#0000FF');
-            add_graph("k", "k", '#00FF00');
-            add_graph("p", "p", '#FF0000');
-            add_graph("Ux", "Ux", '#FF00FF');
-            add_graph("Uy", "Uy", '#FFFF00');
-            add_graph("Uz", "Uz", '#00FFFF');                
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'procgraph'
+                },
+                title: {
+                    text: ''
+                },
+                plotOptions: {
+                    series: {
+                        marker: {
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    radius: 5
+                                }
+                            }
+                        }
+                    }
+                },
+                xAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Simulation time (sec)'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -10,
+                    y: 100,
+                    borderWidth: 2
+                }
+            });
+            
+            for (var i = 1; i < visFiles.length; i++)
+            {
+                chart.addSeries({
+                    name: visFiles[i],
+                    type: 'line',
+                    marker: {
+                        enabled: false
+                    }
+                });
+                history[i - 1] = [];
+            }
                         
             if (inProgress) {
                 $('#loader-gif').removeClass('hidden');
@@ -161,7 +161,10 @@ You will find a download link as soon as job finishes.
                 $('#loader-gif').removeClass('hidden');
                 $('#button-run').addClass('disabled');
                 $('#button-stop').removeClass('disabled');
-                history.length = 0;
+                for (var j = 0; j < visFiles.length - 1; j++)
+                {
+                    history[j] = [];
+                }
                 historyDepth = 0;
                 timeStamp = 0;
                 $.ajax({

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web.Configuration;
@@ -19,6 +20,8 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 {
     public class ProcessingController : __BaseCfdController
     {
+        static string _procTime = "1";
+
         public ProcessingController()
         {
             rootPath = "C:\\work\\temp"; // just for tests, take value from Web.config
@@ -37,7 +40,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var dCase = GetCase();
             var caseHasJob = dCase.CurrentJobId != null;
             bool jobActive = false;
-            string jobProcTime = "";
             if (caseHasJob)
             {
                 var dJob = ctx.DJobs.FirstOrDefault(dj => dj.Id == dCase.CurrentJobId);
@@ -46,7 +48,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             }
             ViewBag.IsInProgress = jobActive;
             ViewBag.activeJobId = (jobActive) ? dCase.CurrentJobId.ToString() : ShortTitle;
-            ViewBag.procTime = jobProcTime;
+            ViewBag.procTime = _procTime;
             return View();
         }
 
@@ -62,8 +64,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             return File(jobZip, "application/octet-stream", "preview.zip");
         }
 
-        private static double debug_time = 0;
-
         public JsonResult SimulationStart()
         {
             var solverData = GetSolverData();
@@ -74,7 +74,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                 Owner = User.Identity.Name,
                 Name = StandardCases.CfdCase,
                 State = JobState.Started,
-                ProcTime = solverData.ControlDict.endTime
             };
 
             var jobZip = CreateJobPath(job.Owner, job.Id);
@@ -85,9 +84,12 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 
             new JobsController().AddJobManually(job);
 
+            _procTime =
+                (solverData.ControlDict.endTime - solverData.ControlDict.startTime).ToString(
+                    CultureInfo.InvariantCulture);
+
             SetCaseJob(job.Id);
-            debug_time = 0;
-            return Json(job.Id);
+            return Json(new object[] {job.Id, _procTime});
         }
 
         public JsonResult SimulationStop()
@@ -155,50 +157,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             }
             ctx.SaveChanges();
             return RedirectToAction("History");
-        }
-
-
-        
-        private Random rnd = new Random();
-
-        /// <summary>
-        /// Take data from http://proc.offwind.eu/app
-        /// API Description
-        /// List all files: http://proc.offwind.eu/app/list/ef29b068-a8ad-4d43-b6a8-94dbe8f5d120
-        /// Read particular file in JSON format: http://proc.offwind.eu/app/read/ef29b068-a8ad-4d43-b6a8-94dbe8f5d120/contCumulative_0
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult SimulationProcess()
-        {
-            var data = new List<SimulationTick>();
-            int ticks_elapsed = rnd.Next(1, 10);
-
-            for (int i = 0; i < ticks_elapsed; i++)
-            {
-                var tick = new SimulationTick();
-                tick.time = debug_time;
-                tick.epsilon = rnd.NextDouble()*2;
-                tick.k = rnd.NextDouble()*5;
-                tick.p = rnd.NextDouble()*10;
-                tick.Ux = Math.Sin(2*Math.PI/4 + Math.PI/(i + 1));
-                tick.Uy = 4*Math.Cos(Math.PI/(i + 1));
-                tick.Uz = 8*Math.Cos(Math.PI/2 + Math.PI/(i + 1));
-
-                debug_time = debug_time + 0.01;
-                data.Add(tick);
-            }
-
-            IEnumerable<object[]> res = data.Select(t => new object[]
-                                                   {
-                                                       t.time.ToString(),
-                                                       t.epsilon.ToString(),
-                                                       t.k.ToString(),
-                                                       t.p.ToString(),
-                                                       t.Ux.ToString(),
-                                                       t.Uy.ToString(),
-                                                       t.Uz.ToString()
-                                                   });
-            return Json(res, JsonRequestBehavior.AllowGet);
-        }
+        }        
     }
 }

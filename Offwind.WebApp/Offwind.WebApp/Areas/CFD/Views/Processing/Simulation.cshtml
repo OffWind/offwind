@@ -61,9 +61,11 @@ You will find a download link as soon as job finishes.
                 chart.series[a].setData(history[a]);
             }
             timeStamp += minblocklen;
-
-            //var label = document.getElementById("proclabel");
-            //label.text = "Processing " + json[minblocklen] + " = " + procTime;
+            if (minblocklen != 0) {
+                var label = document.getElementById("proclabel");
+                var elapsed = parseFloat(json[minblocklen][0]) / parseFloat(procTime) * 100.0;
+                label.firstChild.data = "Processing... " + elapsed + " %";
+            }
         }
 
         
@@ -89,7 +91,7 @@ You will find a download link as soon as job finishes.
         $(document).ready(function () {
             var inProgress = @ViewBag.IsInProgress.ToString().ToLowerInvariant();
             jobId = "@ViewBag.activeJobId";
-            //procTime = parseFloat("@ViewBag.procTime");
+            procTime = parseFloat("@ViewBag.procTime");
 
             chart = new Highcharts.Chart({
                 chart: {
@@ -172,8 +174,9 @@ You will find a download link as soon as job finishes.
                     dataType: "json",
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',
-                    success: function (id) {
-                        jobId = id;
+                    success: function (json) {
+                        jobId = json[0];
+                        procTime = parseFloat(json[1]);
                         interval_obj = setInterval(function() { update_tick2(); }, 3000);
                     }
                 });

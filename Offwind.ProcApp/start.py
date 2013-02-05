@@ -36,7 +36,10 @@ if __name__ == '__main__':
     if (args.action == "init"):
         Configurator().init()
     elif (args.action == "cleanup"):
-        Processor().cleanup()
+        config = Configurator().read()
+        processor = Processor()
+        processor.config = config        
+        processor.cleanup()
         print "Cleanup finished"
     elif (args.action == "start"):
         MyDaemon('/tmp/offwind-proc.pid').start()

@@ -16,6 +16,7 @@ class Processor:
     @utils.suppressExceptions1
     def cleanup(self):
         mgr = JobManager()
+        mgr.baseUrl = self.config.baseUrl
         rJobs = mgr.getRunningJobs()
         if (len(rJobs) > 0):
             print "Cleaning %s running jobs..." % len(rJobs)

@@ -6,7 +6,6 @@ import json
 
 class Configurator:
     workDir = None
-
     def init(self):
         config = ConfigParser.RawConfigParser()
         config.add_section('Processing')
@@ -26,10 +25,20 @@ class list:
     def GET(self, jobId):
         cfg = Configurator().read()
         dir = cfg.workDir + '/' + jobId + '/logs'
-        t = ""
+        t = []
+        ok = 0
         for file in os.listdir(dir):
-            t = t + " | " + file
-        return t
+            if file == 'executionTime_0':
+                ok = 1
+                break
+        if ok == 0:
+            t.append('Time_0')
+        else:
+            for file in os.listdir(dir):
+                if file != 'foamLog.awk':
+                    t.append(file)
+        text = json.dumps(t)
+        return 'graphlist(' + text + ')'
 
 class read:
     def GET(self, jobId, position, reqfiles):

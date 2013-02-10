@@ -13,86 +13,31 @@ You will find a download link as soon as job finishes.
     <div id="simprogress">
         
     </div><br/>
-    <legend id="proclabel">Processing</legend><br/>
-    <div id="procgraph" style="width: 100%; height: 400px;"></div>
+    <legend id="proclabel">Establish connection</legend>
+    <div id="procgraph" style="width: 100%; height: 500px;"></div>
 </fieldset>
 
 
 @section scripts
-{
+{  
     @Scripts.Render("~/static/js/highcharts.js")
 
     <script>
         var chart = null;
         var interval_obj = null;
-
-        var visFiles = ["Time_0", "epsilon_0", "k_0", "p_0", "Ux_0", "Uy_0", "Uz_0"];
-        
-        var history = new Array(visFiles.length - 1);
+        var proc_url = "http://proc.offwind.eu/app";
+        var graph = ["Time_0"];
+        var ignore = ["Time_0", "Separator_0", "executionTime_0"];
+        var initvis = ["epsilon_0", "Ux_0", "Uy_0", "Uz_0", "p_0", "k_0"];
+                        
+        var history = new Array(graph.length - 1);
         var historyDepth = 0;
         var jobId = "";
         var procTime  = 1;
         var timeStamp = 0;
-                                
-        
-        function plotter(json) {
-            var length = json.length;                        
-            if (length == 0) return;
-                    
-            var blocklen = [];
-            var next = 0;
-            var minblocklen = 0x8FFFFFFF;
-            for (var b = 0; b < visFiles.length; b++) {
-                blocklen[b] = parseInt(json[next][0]);
-                if (blocklen[b] < minblocklen ) {
-                    minblocklen = blocklen[b];
-                }
-                next += (blocklen[b] + 1);
-                blocklen[b] = next;
-            }
-            for (var a = 0; a < visFiles.length - 1; a++) {
-                var t = timeStamp;
-                for (var i = 1; i <= minblocklen; i++) {
-                    history[a][t++] = {
-                        x: parseFloat(json[i][0]),
-                        y: parseFloat(json[blocklen[a] + i][0])
-                    };
-                }
-                chart.series[a].setData(history[a]);
-            }
-            timeStamp += minblocklen;
-            if (minblocklen != 0) {
-                var label = document.getElementById("proclabel");
-                var elapsed = parseFloat(json[minblocklen][0]) / parseFloat(procTime) * 100.0;
-                label.firstChild.data = "Processing... " + elapsed + " %";
-            }
-        }
-
-        
-        function update_tick2() {
-            var payload = "";                       
-            for (var j = 0; j < visFiles.length; j++)
-            {
-                payload = payload + "$" + visFiles[j];
-            }
-            var url = "http://proc.offwind.eu/app/read/" + jobId + "/" + timeStamp + "/" + payload;            
-            //var url = "http://proc.offwind.eu:59216/app/read/" + jobId + "/" + timeStamp + "/" + payload;
-            
-            url += "?callback=plotter";
-            
-            $.ajax({
-                url: url,
-                dataType: "jsonp",
-                type: "GET",
-                contentType: 'application/json; charset=utf-8'
-            });
-        }
-        
-        $(document).ready(function () {
-            var inProgress = @ViewBag.IsInProgress.ToString().ToLowerInvariant();
-            jobId = "@ViewBag.activeJobId";
-            procTime = parseFloat("@ViewBag.procTime");
-
+        var busytime = 0;
+       
+        function create_chart() {
             chart = new Highcharts.Chart({
                 chart: {
                     renderTo: 'procgraph'
@@ -128,15 +73,25 @@ You will find a download link as soon as job finishes.
                     align: 'right',
                     verticalAlign: 'top',
                     x: -10,
-                    y: 100,
+                    y: 0,
                     borderWidth: 2
                 }
-            });
-            
-            for (var i = 1; i < visFiles.length; i++)
-            {
+            });            
+        }
+        
+        function graphlist(json) {
+            var i;
+            for (i = 0; i < json.length; i++) {
+                if ($.inArray(json[i], ignore) < 0) {
+                    graph.push(json[i]);
+                }
+            }
+            if (graph.length == 1) return;
+            graph.push("executionTime_0");
+            for (i = 1; i < graph.length - 1; i++) {
                 chart.addSeries({
-                    name: visFiles[i],
+                    name: graph[i],
+                    visible: ($.inArray(graph[i], initvis) < 0) ? false : true,
                     type: 'line',
                     marker: {
                         enabled: false
@@ -144,7 +99,100 @@ You will find a download link as soon as job finishes.
                 });
                 history[i - 1] = [];
             }
+        }
+                                        
+        function plotter(json) {
+            var length = json.length;                        
+            if (length == 0) return;
+                    
+            var blocklen = [];
+            var next = 0;
+            var minblocklen = 0x8FFFFFFF;
+
+            for (var b = 0; b < graph.length; b++) {
+                blocklen[b] = parseInt(json[next][0]);
+                if (blocklen[b] < minblocklen ) {
+                    minblocklen = blocklen[b];
+                }
+                next += (blocklen[b] + 1);
+                blocklen[b] = next;
+            }
+            for (var a = 0; a < graph.length - 2; a++) {
+                var t = timeStamp;
+                for (var i = 1; i <= minblocklen; i++) {
+                    history[a][t++] = {
+                        x: parseFloat(json[i][0]),
+                        y: parseFloat(json[blocklen[a] + i][0])
+                    };
+                }
+                chart.series[a].setData(history[a]);
+            }
                         
+            timeStamp += minblocklen;
+            if (minblocklen != 0) {
+                var label = document.getElementById("proclabel");                               
+                var timestamp = parseFloat(json[minblocklen][0]) / parseFloat(procTime) * 100.0;
+                var simclock = parseFloat(json[blocklen[graph.length - 2] + minblocklen][0]);
+
+                //label.firstChild.data = "Processing time " + (hours > 0) ? hours + ":" : "" + minutes + ":" + seconds.toFixed(0)
+                //    + ", completed " + elapsed.toFixed(1) + " %";
+
+                var text = "Processing stage " + timestamp.toFixed(1) + "%";
+                if (0) { //busytime > 0) {
+                    function pad2(num, tail) {
+                        var s = num + "";
+                        if (s.length < 1 ) s = "0" + s;
+                        return s + tail;
+                    }
+                    var elapsed = simclock - busytime;
+                    elapsed = elapsed * 100.0 / timestamp;
+                    var hours = Math.floor(elapsed / 3600);
+                    elapsed -= (hours * 3600);
+                    var minutes = Math.floor(elapsed / 60);
+                    elapsed -= (minutes * 60);
+                    text += ", estimated time ";
+                    text += pad2(hours, "h ");
+                    text += pad2(minutes, "m ");
+                    text += pad2(elapsed.toFixed(0), "s");                    
+                }
+                busytime = 0;//simclock;
+                label.firstChild.data = text;
+            }
+        }
+        
+        function update_tick2() {
+            var payload = "";
+            var url = "";
+            if (graph.length == 1) {
+                url = proc_url + "/list/" + jobId + "/?callback=graphlist";
+                $.ajax({
+                    url: url,
+                    dataType: "jsonp",
+                    type: "GET",
+                    contentType: 'application/json; charset=utf-8'
+                });
+                return;
+            }
+            for (var j = 0; j < graph.length; j++) {
+                payload = payload + "$" + graph[j];
+            }
+            url = proc_url + "/read/" + jobId + "/" + timeStamp + "/" + payload;            
+            url += "?callback=plotter";            
+            $.ajax({
+                url: url,
+                dataType: "jsonp",
+                type: "GET",
+                contentType: 'application/json; charset=utf-8'
+            });
+        }
+        
+        $(document).ready(function () {
+            var inProgress = @ViewBag.IsInProgress.ToString().ToLowerInvariant();
+            jobId = "@ViewBag.activeJobId";
+            procTime = parseFloat("@ViewBag.procTime");
+
+            create_chart();
+
             if (inProgress) {
                 $('#loader-gif').removeClass('hidden');
                 $('#button-run').addClass('disabled');
@@ -163,7 +211,7 @@ You will find a download link as soon as job finishes.
                 $('#loader-gif').removeClass('hidden');
                 $('#button-run').addClass('disabled');
                 $('#button-stop').removeClass('disabled');
-                for (var j = 0; j < visFiles.length - 1; j++)
+                for (var j = 0; j < graph.length - 2; j++)
                 {
                     history[j] = [];
                 }

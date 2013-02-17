@@ -13,7 +13,7 @@ You will find a download link as soon as job finishes.
     <div id="simprogress">
         
     </div><br/>
-    <legend id="proclabel">Establish connection</legend>
+    <legend id="proclabel">Idle</legend>
     <div id="procgraph" style="width: 100%; height: 500px;"></div>
 </fieldset>
 
@@ -130,22 +130,19 @@ You will find a download link as soon as job finishes.
                         
             timeStamp += minblocklen;
             if (minblocklen != 0) {
-                var label = document.getElementById("proclabel");                               
-                var timestamp = parseFloat(json[minblocklen][0]) / parseFloat(procTime) * 100.0;
+                //var label = document.getElementById("proclabel");                               
+                var progress = parseFloat(json[minblocklen][0]) / parseFloat(procTime) * 100.0;
                 var simclock = parseFloat(json[blocklen[graph.length - 2] + minblocklen][0]);
 
-                //label.firstChild.data = "Processing time " + (hours > 0) ? hours + ":" : "" + minutes + ":" + seconds.toFixed(0)
-                //    + ", completed " + elapsed.toFixed(1) + " %";
-
-                var text = "Processing stage " + timestamp.toFixed(1) + "%";
-                if (0) { //busytime > 0) {
+                var text = "Processing stage " + progress.toFixed(1) + "%";
+                if (1) { //busytime > 0) {
                     function pad2(num, tail) {
                         var s = num + "";
                         if (s.length < 1 ) s = "0" + s;
                         return s + tail;
                     }
-                    var elapsed = simclock - busytime;
-                    elapsed = elapsed * 100.0 / timestamp;
+                    var elapsed = simclock;// - busytime;
+                    elapsed = elapsed * 100.0 / progress;
                     var hours = Math.floor(elapsed / 3600);
                     elapsed -= (hours * 3600);
                     var minutes = Math.floor(elapsed / 60);
@@ -156,7 +153,8 @@ You will find a download link as soon as job finishes.
                     text += pad2(elapsed.toFixed(0), "s");                    
                 }
                 busytime = 0;//simclock;
-                label.firstChild.data = text;
+                //label.firstChild.data = text;
+                $('#proclabel').text(text);
             }
         }
         
@@ -197,12 +195,14 @@ You will find a download link as soon as job finishes.
                 $('#loader-gif').removeClass('hidden');
                 $('#button-run').addClass('disabled');
                 $('#button-stop').removeClass('disabled');
+                $('#proclabel').text('Establish connection');
                 interval_obj = setInterval(function() { update_tick2(); }, 3000);
                 
             } else {
                 $('#loader-gif').addClass('hidden');
                 $('#button-run').removeClass('disabled');
-                $('#button-stop').addClass('disabled');                
+                $('#button-stop').addClass('disabled');
+                $('#proclabel').text('Idle');
             }
             
             $('#button-run').click(function () {
@@ -211,6 +211,8 @@ You will find a download link as soon as job finishes.
                 $('#loader-gif').removeClass('hidden');
                 $('#button-run').addClass('disabled');
                 $('#button-stop').removeClass('disabled');
+                $('#proclabel').text('Establish connection');
+                
                 for (var j = 0; j < graph.length - 2; j++)
                 {
                     history[j] = [];
@@ -237,6 +239,7 @@ You will find a download link as soon as job finishes.
                 $('#loader-gif').addClass('hidden');
                 $('#button-run').removeClass('disabled');
                 $('#button-stop').addClass('disabled');
+                $('#proclabel').setText('Idle');
                 clearInterval(interval_obj);
                 $.ajax({
                     url: "@Url.Action("SimulationStop", "Processing", new { area = "CFD" })",

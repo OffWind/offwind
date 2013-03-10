@@ -29,17 +29,21 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return View();
         }
 
-        public ActionResult Database(DbSettings model)
+        public ActionResult Database()
         {
             ViewBag.Title = "Database | Mesoscale Wind Characteristics | Offwind";
-            if (model.startLat < 512)
-            {
-                Settings.type = model.type;
-                Settings.showAll = model.showAll;
-                Settings.startLat = model.startLat;
-                Settings.startLng = model.startLng;
-                Settings.distance = model.distance;
-            }
+            return View(Settings);
+        }
+
+        [ActionName("Database")]
+        [HttpPost]
+        public ActionResult ApplySettings(DbSettings model)
+        {
+            Settings.type = model.type;
+            Settings.showAll = model.showAll;
+            Settings.startLat = model.startLat;
+            Settings.startLng = model.startLng;
+            Settings.distance = model.distance;
             return View(Settings);
         }
 
@@ -230,13 +234,14 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public bool AcceptPoint(DatabaseItem p)
         {
-            if (Settings.showAll == ShowAll.yes) return true;
+            if (Settings.showAll == ShowAll.no)
+            {
+                var sCoord = new GeoCoordinate((double) p.Latitude, (double) p.Longitude);
+                var eCoord = new GeoCoordinate((double) Settings.startLat, (double) Settings.startLng);
 
-            var sCoord = new GeoCoordinate((double)p.Latitude, (double)p.Longitude);
-            var eCoord = new GeoCoordinate((double) Settings.startLat, (double) Settings.startLng);
-
-            p.Distance = sCoord.GetDistanceTo(eCoord); //meters
-            if (p.Distance > (double) (Settings.distance*1000)) return false;
+                p.Distance = sCoord.GetDistanceTo(eCoord); //meters
+                if (p.Distance > (double) (Settings.distance*1000)) return false;
+            }
             return true;
         }
 

@@ -220,6 +220,7 @@
     <Compile Include="Areas\EngineeringTools\Controllers\WindWaveController.cs" />
     <Compile Include="Areas\EngineeringTools\EngineeringToolsAreaRegistration.cs" />
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\DatabaseItem.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\MesoWind\DbSettings.cs" />
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\HPoint.cs" />
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\VDataImport.cs" />
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\VWindRose.cs" />

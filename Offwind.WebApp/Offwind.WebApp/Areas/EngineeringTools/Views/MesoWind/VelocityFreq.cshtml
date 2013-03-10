@@ -14,6 +14,7 @@
 </div>
 @section scripts
 {
+    @*
     @Scripts.Render("~/static/js/amcharts.js")
     <script type="text/javascript">
         var chartData = @(Html.Raw(new JavaScriptSerializer().Serialize(Model)));
@@ -61,5 +62,48 @@
             // WRITE
             chart.write("chartdiv");
         });
+    </script>
+   *@
+   
+    @Scripts.Render("~/static/js/highcharts.js")
+
+    <script type="text/javascript">
+        var chartData = @(Html.Raw(new JavaScriptSerializer().Serialize(Model)));
+        var chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'chartdiv'
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                min: 0,
+                title: {
+                    text: 'Direction'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Frequency'
+                }
+            },
+            legend: {
+                enabled: false
+            }
+        });
+        chart.addSeries({
+            name: "Frequency",
+            visible: true,
+            type: 'bar',
+            marker: {
+                enabled: false
+            }
+        });
+        var graph = [];
+        for (var i = 0; i < chartData.length; i++)
+        {
+            graph.push({ x: chartData[i].Dir, y: chartData[i].Frequency });
+        }
+        chart.series[0].setData(graph);
     </script>
 }

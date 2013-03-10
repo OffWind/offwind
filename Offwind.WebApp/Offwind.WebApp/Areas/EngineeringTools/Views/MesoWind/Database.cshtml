@@ -1,41 +1,57 @@
-﻿<div class="span3">
-    @Html.Partial("__SideNav")
-</div>
-<div class="span6">
-    <ul class="breadcrumb">
-        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
-        <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
-        <li>Meso Wind <span class="divider">/</span></li>
-        <li>Database</li>
-    </ul>
-    <div class="well well-small">
-        <div id="map_canvas" style="width: auto; height: 480px;"></div>
+﻿@using Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
+@model Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind.DbSettings
+
+<form class="form-horizontal indent" method="post">
+    <div class="span3">
+        @Html.Partial("__SideNav")
     </div>
-</div>
-<div class="span3">
-    <div class="well well-small" style="background-color: white;">
-        <div class="row-fluid">
-            <div class="span11" style="margin-bottom: 1em;">
-                <a class="btn pull-right" href="#" id="button-import-selected">Import Selected</a>
-            </div>
-            <div class="span11">
-                <table id="database" class="table table-condensed table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>
-                                Lat. (&#176;)
-                            </th>
-                            <th>
-                                Lng. (&#176;)
-                            </th>
-                            <th>File</th>
-                        </tr>
-                    </thead>
-                </table>
+    <div class="span6">
+        <ul class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+            <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+            <li>Meso Wind <span class="divider">/</span></li>
+            <li>Database</li>
+        </ul>
+        <div class="well well-small">
+            <div id="map_canvas" style="width: auto; height: 480px;"></div>
+        </div>
+    </div>
+    <div class="span3">
+        <div class="well well-small" style="background-color: white;">
+            <div class="row-fluid">            
+                <div class="span11" style="margin-bottom: 1em;">                    
+                    @Html.EditorFor(m => m.showAll)
+                    @Html.EditorFor(m => m.startLng)
+                    @Html.EditorFor(m => m.startLat)
+                    @Html.EditorFor(m => m.distance)
+                    @Html.EditorFor(m => m.type)
+                    <div style="text-align: center">
+                        <button type="submit" class="btn btn-primary">Apply settings</button>
+                    </div>
+                </div>
+                <div class="span11">
+                    <table id="database" class="table table-condensed table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Lat. (&#176;)
+                                </th>
+                                <th>
+                                    Lng. (&#176;)
+                                </th>
+                                <th>File</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div style="text-align: center">
+                        <a class="btn" href="#" id="button-import-selected">Import Selected</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
+
 @section scripts
 {
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
@@ -89,8 +105,6 @@
                 draggable: true,
                 raiseOnDrag: false,
                 icon: icon,
-                //shadow: shadow,
-                //shape: shape,
                 title: 'Sample',
                 map: map
             });
@@ -103,22 +117,13 @@
                         title: key
                     });
             marker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
-            google.maps.event.addListener(marker, 'click', function () {
-                /*
-                var id = parseInt(marker.getTitle());
-                var node = dbTable.fnGetNodes(id);
-                if (node != null) {
-                    $(node).addClass('row_selected');
-                }
-                */
-            });
             return marker;
         }
         
         function refreshMap() {
             var data = null;
             $.ajax({
-                url: "@Url.Action("GetAllData", "MesoWind", new { are = "EngineeringTools" })",
+                url: "@Url.Action("GetAllData", "MesoWind", new { area = "EngineeringTools" })",
                 dataType: "json",
                 data: data
             }).done(function(data) {                
@@ -213,9 +218,11 @@
                 var row = $(event.target.parentNode);
                 var lat = $(row.find("td")[0]).text();
                 var lng = $(row.find("td")[1]).text();
-                var point = new google.maps.LatLng(lat, lng);
-                dbMarker.setPosition(point);
-                dbMarker.visible = true;
+                
+                var point = new google.maps.LatLng(lat, lng);                
+                dbHoverMarker.setPosition(point);
+                dbHoverMarker.title = "";
+                dbHoverMarker.visible = true;
                 map.setCenter(point);
             });
             $('#database tbody')
@@ -223,6 +230,7 @@
                     var lat = $($(this).find('td')[0]).text();
                     var lng = $($(this).find('td')[1]).text();
                     dbHoverMarker.setPosition(new google.maps.LatLng(lat, lng));
+                    dbHoverMarker.title = "";
                     dbHoverMarker.visible = true;
                 })
                 .on('mouseleave', 'tr', function() {
@@ -238,7 +246,7 @@
                 //var lng = $($(sel[0]).find('td')[1]).text();
                 var file = $($(sel[0]).find('td')[2]).text();
                 $.ajax({
-                    url: "@Url.Action("Import", "MesoWind", new { are = "EngineeringTools" })",
+                    url: "@Url.Action("Import", "MesoWind", new { area = "EngineeringTools" })",
                     data: { file: file }
                 }).done(function() {
                 });

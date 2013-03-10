@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using NUnit.Framework;
 using Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind;
 using Offwind.WebApp.Models.Account;
 using log4net;
@@ -16,19 +17,30 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
     [Authorize(Roles = SystemRole.RegularUser)]
     public class MesoWindController : Controller
     {
-        private static readonly List<DatabaseItem> _items = new List<DatabaseItem>();
+        private static readonly List<DatabaseItem> _fnl   = new List<DatabaseItem>();
+        private static readonly List<DatabaseItem> _merra = new List<DatabaseItem>();
+
         private const string CurrentFile = "CurrentFile";
         private ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly DbSettings Settings = new DbSettings() { startLat = 0, showAll = ShowAll.yes, distance = 100 };
 
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Database()
+        public ActionResult Database(DbSettings model)
         {
             ViewBag.Title = "Database | Mesoscale Wind Characteristics | Offwind";
-            return View();
+            if (model.startLat < 512)
+            {
+                Settings.type = model.type;
+                Settings.showAll = model.showAll;
+                Settings.startLat = model.startLat;
+                Settings.startLng = model.startLng;
+                Settings.distance = model.distance;
+            }
+            return View(Settings);
         }
 
         public ActionResult CurrentData()
@@ -47,7 +59,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
 
             var file = (string)Session[CurrentFile];
-            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir"];
+            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.type];
             var imported = ImportFile(DbDir, file);
             return View(imported.VelocityFreq);
         }
@@ -62,7 +74,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
 
             var file = (string)Session[CurrentFile];
-            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir"];
+            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.type];
             var imported = ImportFile(DbDir, file);
 
             for (var i = 0; i < imported.FreqByDirs.Count; i++)
@@ -92,7 +104,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             Session[CurrentFile] = file;
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
-
+        
         public JsonResult CurrentDataJson(int sEcho)
         {
             if (Session[CurrentFile] == null)
@@ -103,7 +115,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
 
             var file = (string)Session[CurrentFile];
-            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir"];
+            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.type];
             var imported = ImportFile(DbDir, file);
             
             var final = new List<string[]>();
@@ -216,34 +228,61 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return model;
         }
 
+        public bool AcceptPoint(DatabaseItem p)
+        {
+            if (Settings.showAll == ShowAll.yes) return true;
+
+            var sCoord = new GeoCoordinate((double)p.Latitude, (double)p.Longitude);
+            var eCoord = new GeoCoordinate((double) Settings.startLat, (double) Settings.startLng);
+
+            p.Distance = sCoord.GetDistanceTo(eCoord); //meters
+            if (p.Distance > (double) (Settings.distance*1000)) return false;
+            return true;
+        }
+
         public JsonResult GetDatabasePoints(int sEcho, int iDisplayLength, int iDisplayStart)
         {
+            var _items = (Settings.type == DbType.FNL) ? _fnl : _merra;
+
             lock (_items)
             {
                 if (_items.Count == 0)
                     InitDatabase();
 
-                var filtered = _items
-                    .Skip(iDisplayLength*iDisplayStart)
+                var goodPoints = _items
+                    .Where(AcceptPoint)
+                    .Select(x => new object[] {x.Latitude, x.Longitude, x.FileName})
+                    .ToList();
+
+                var filtered = goodPoints
+                    .Skip(iDisplayStart)
                     .Take(iDisplayLength)
-                    .Select(x => new object[] { x.Latitude, x.Longitude, x.FileName })
                     .ToArray();
-                var data = new { sEcho = sEcho, iTotalRecords = _items.Count, iTotalDisplayRecords = _items.Count, aaData = filtered };
+
+                var data =
+                    new
+                        {
+                            sEcho,
+                            iTotalRecords = goodPoints.Count,
+                            iTotalDisplayRecords = goodPoints.Count,
+                            aaData = filtered
+                        };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         public JsonResult GetAllData()
         {
+            var _items = (Settings.type == DbType.FNL) ? _fnl : _merra;
             lock (_items)
             {
                 if (_items.Count == 0)
                     InitDatabase();
 
                 var filtered = _items
-                    .Select(x => new object[] { x.Latitude, x.Longitude, x.FileName.Replace(".dat.tab", "") })
+                    .Where(AcceptPoint)
+                    .Select(x => new object[] {x.Latitude, x.Longitude, x.FileName.Replace(".dat.tab", "")})
                     .ToArray();
-
                 return Json(filtered, JsonRequestBehavior.AllowGet);
             }
         }
@@ -251,11 +290,11 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public JsonResult GetDatabasePointsF(double lat, double lng)
         {
+            var _items = (Settings.type == DbType.FNL) ? _fnl : _merra;
             lock (_items)
             {
                 if (_items.Count == 0)
                     InitDatabase();
-                
                 return Json(GetFiltered(lat, lng), JsonRequestBehavior.AllowGet);
             }
         }
@@ -263,6 +302,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private DatabaseItem[] GetFiltered(double lat, double lng)
         {
             var tmp = new List<DatabaseItem>();
+            var _items = (Settings.type == DbType.FNL) ? _fnl : _merra;
+
             foreach (var item in _items)
             {
                 var sCoord = new GeoCoordinate((double)item.Latitude, (double)item.Longitude);
@@ -275,10 +316,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return tmp.ToArray();
         }
 
-        private void InitDatabase()
+        private void FNL_Database(string home)
         {
-            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir"];
-            foreach (var d in Directory.EnumerateFiles(DbDir, "*.dat.tab", SearchOption.TopDirectoryOnly))
+            foreach (var d in Directory.EnumerateFiles(home, "*.dat.tab", SearchOption.TopDirectoryOnly))
             {
                 var f = System.IO.Path.GetFileName(d);
                 f = f.Replace(".dat.tab", "");
@@ -293,8 +333,37 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 dbItem.Longitude = longitude;
                 dbItem.Latitude = latitude;
                 dbItem.FileName = System.IO.Path.GetFileName(d);
-                _items.Add(dbItem);
+                _fnl.Add(dbItem);
+            }            
+        }
+
+        private void MERRA_Database(string home)
+        {
+            var reader = new StreamReader(Path.Combine(home, "merraseries.cfg"));
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                var val = line.Trim().Split("\t ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                if (val.Length == 3)
+                {
+                    var dbItem = new DatabaseItem();
+                    dbItem.Latitude = ParseDecimal(val[0]);
+                    dbItem.Longitude = ParseDecimal(val[1]);
+                    dbItem.FileName = String.Format("50mMERRAnear_{0}.dat.tab", val[2]);
+                    _merra.Add(dbItem);
+                }
             }
+        }
+
+        private void InitDatabase()
+        {
+            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.type];
+            if (Settings.type == DbType.FNL)
+            {
+                FNL_Database(DbDir);
+                return;
+            }
+            MERRA_Database(DbDir);
         }
 
         private int ParseInt(string input)

@@ -1,56 +1,65 @@
-﻿<!DOCTYPE html>
+﻿@using Offwind.WebApp.Infrastructure.Navigation
+@model Offwind.WebApp.Models.VWebPage
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width" />
-    @Styles.Render("~/static/css/bootstrap.css")
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/static/theme/lib/bootstrap/css/bootstrap.css")
     @Styles.Render("~/static/css/font-awesome.css")
-    @Styles.Render("~/static/css/custom.css")
+    @Styles.Render("~/static/theme/stylesheets/theme.css")
+    
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    @Styles.Render("~/static/css/custom.css2")
     @RenderSection("styles", required: false)
-    @Styles.Render("~/static/css/bootstrap-responsive.min.css")
+    @Styles.Render("~/static/css/bootstrap-responsive.min.css2")
 </head>
-<body>
-    <div id="wrap">
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
-                        class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </a><a class="brand" href="@Url.Action("Index", "Home", new { area = "" })">Offwind</a>
-                    @Html.Partial("_LoginPartial")
-                    <div class="nav-collapse">
-                        <ul class="nav">
-                            <li@* class="active"*@><a href="@Url.Action("Index", "Home", new { area = "" })">Home</a></li>
-                            <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">
-                                Engineering Tools</a></li>
-                            <li><a href="@Url.Action("Index", "CFD", new { area = "CFD" })">CFD</a></li>
-                            <li><a href="@Url.Action("Index", "About", new { area = "" })">About</a></li>
-                        </ul>
-                    </div>
-                </div>
+<!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+<!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+<!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<body class=""> 
+<!--<![endif]-->
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="@Url.Action("Index", "Home", new {area = ""})">Offwind</a>
+            <div class="nav-collapse">
+                <ul class="nav">
+                </ul>
             </div>
-        </div>
-        <div class="container-fluid main-container">
-            <div class="row-fluid">
-                @RenderBody()
-            </div>
-        </div>
-        <div id="push">
+            <ul class="nav pull-right">
+                @*<li class="hidden-phone"><a href="#" role="button">Settings</a></li>*@
+                @Html.Partial("_LoginPartial")
+            </ul>
         </div>
     </div>
-    <div id="footer">
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span6">
-                    <p class="muted credit">
-                        &copy; 2012 <a href="http://offwind.eu" target="_blank">Offwind</a>.</p>
-                </div>
-            </div>
+
+    <div id="main-menu">
+        <div id="phone-navigation">
+            <select class="selectnav" id="phone-menu">
+                <option value="@Url.Action("Index", "Home", new { area = "" })" selected="selected"> Home</option>
+                <option value="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })" > Engineering Tools</option>
+                <option value="@Url.Action("Index", "CFD", new { area = "CFD" })" > Advanced Tools</option>
+            </select>
         </div>
+
+        <ul class="nav nav-tabs">
+            <li@* class="active"*@><a href="@Url.Action("Index", "Home", new { area = "" })">Home</a></li>
+            <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a></li>
+            <li><a href="@Url.Action("Index", "CFD", new { area = "CFD" })">Advanced Tools</a></li>
+        </ul>
     </div>
-    @*<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>*@
+
+    @RenderBody()
+
     @Scripts.Render("~/static/js/jquery-1.7.1.min.js")
     @Scripts.Render("~/static/js/bootstrap.min.js")
     @RenderSection("scripts", required: false)

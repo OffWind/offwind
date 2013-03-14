@@ -1,0 +1,20 @@
+﻿@model Offwind.WebApp.Models.VWebPage
+@using Offwind.WebApp.Infrastructure
+
+<div class="sidebar-nav">
+    <ul class="nav nav-list" id="dashboard-menu">
+        
+        @foreach (var grp in Model.Navigation)
+        {
+            <li class="accordion-heading nav-header">@grp.Title</li>
+            foreach(var item in grp)
+            {
+                <li @this.ActiveIfCurrent(item.Url)>
+                    <a href="@this.GenerateUrl(item.Url)">
+                        <i class="icon-asterisk"></i> @item.Title
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+</div>

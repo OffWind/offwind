@@ -1,0 +1,22 @@
+﻿@using Offwind.WebApp.Infrastructure.Navigation
+@model Offwind.WebApp.Models.VWebPage
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Navigation.Any())
+{
+    @Html.Partial("__SideNav")
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row-fluid">
+
+            @RenderBody()
+
+            @Html.Partial("__Footer")
+        </div>
+    </div>
+</div>

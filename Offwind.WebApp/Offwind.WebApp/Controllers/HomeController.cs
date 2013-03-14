@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Controllers
 {
@@ -8,21 +9,7 @@ namespace Offwind.WebApp.Controllers
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
 
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your app description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View(new VWebPage());
         }
     }
 }

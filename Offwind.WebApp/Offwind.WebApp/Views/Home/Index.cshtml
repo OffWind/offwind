@@ -1,35 +1,44 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<div class="span12">
-    <div class="hero-unit">
-        <h1>
-            Welcome to Offwind!</h1>
-        <p>
-            This is a start page, where you can choose what to work with.</p>
-        <p>
-            <a class="btn btn-primary btn-large" href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a>
-            or
-            <a class="btn btn-primary btn-large" href="@Url.Action("Index", "CFD", new { area = "CFD" })">CFD</a>
-        </p>
-    </div>
+
+<div class="container-fluid">
     <div class="row-fluid">
-        <div class="span6">
-            <h2>Engineering Tools</h2>
-            <p>Here you can run a number of tools which will help you to make quick calculations and estimations.</p>
+
+
+    <div class="span12">
+        <div class="hero-unit">
+            <h1>
+                Welcome to Offwind!</h1>
             <p>
-                <a class="btn btn-info" href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Go to Engineering Tools &raquo;</a>
+                This is a start page, where you can choose what to work with.</p>
+            <p>
+                <a class="btn btn-primary btn-large" href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a>
+                or
+                <a class="btn btn-primary btn-large" href="@Url.Action("Index", "CFD", new { area = "CFD" })">CFD</a>
             </p>
         </div>
-        <div class="span6">
-            <h2>CFD</h2>
-            <p>
-                With CFD you can utilize big power of OpenFOAM standard solvers and a industry-specific SOWFA product. The simulations are being
-                run at our backend servers in fully parallel mode thus providing optimal performance for most CFD tasks.
-            </p>
-            <p>
-                <a class="btn btn-info" href="@Url.Action("Index", "CFD", new { area = "CFD" })">Go to CFD &raquo;</a>
-            </p>
+        <div class="row-fluid">
+            <div class="span6">
+                <h2>Engineering Tools</h2>
+                <p>Here you can run a number of tools which will help you to make quick calculations and estimations.</p>
+                <p>
+                    <a class="btn btn-info" href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Go to Engineering Tools &raquo;</a>
+                </p>
+            </div>
+            <div class="span6">
+                <h2>CFD</h2>
+                <p>
+                    With CFD you can utilize big power of OpenFOAM standard solvers and a industry-specific SOWFA product. The simulations are being
+                    run at our backend servers in fully parallel mode thus providing optimal performance for most CFD tasks.
+                </p>
+                <p>
+                    <a class="btn btn-info" href="@Url.Action("Index", "CFD", new { area = "CFD" })">Go to CFD &raquo;</a>
+                </p>
+            </div>
         </div>
+    </div>
+
+        @Html.Partial("__Footer")
     </div>
 </div>

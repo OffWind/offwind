@@ -1,11 +1,12 @@
-﻿<div class="btn-group pull-right">
+﻿<li id="fat-menu" class="dropdown">
     
     @if (Request.IsAuthenticated)
     {
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user"></i>
-            @User.Identity.Name
-            <span class="caret"></span>
-        </a>                                                                
+        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-user"></i> @User.Identity.Name
+            <i class="icon-caret-down"></i>
+        </a>
+
         <ul class="dropdown-menu">
             <li><a href="@Url.Action("Profile", "Account", new { area = "" })">Profile</a></li>
             <li class="divider"></li>
@@ -14,14 +15,15 @@
     }
     else
     {
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user"></i>
-            <span>Anonymous</span>
-            <span class="caret"></span>
-        </a>                                                                
+        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-user"></i> Anonymous
+            <i class="icon-caret-down"></i>
+        </a>
+
         <ul class="dropdown-menu">
             <li><a href="@Url.Action("Register", "Account", new { area = "" })">Register</a></li>
             <li class="divider"></li>
             <li><a href="@Url.Action("Login", "Account", new { area = "" })">Log in</a></li>
         </ul>
     }
-</div>
+</li>

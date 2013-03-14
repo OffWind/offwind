@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.CFD.Models.Preprocessing
 {
-    public class VTransportProperties
+    public class VTransportProperties : VWebPage
     {
         [DisplayName("nu ")]
         public Decimal MolecularViscosity { get; set; }

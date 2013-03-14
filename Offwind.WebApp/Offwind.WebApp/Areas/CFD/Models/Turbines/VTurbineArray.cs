@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Offwind.Sowfa.Constant.TurbineArrayProperties;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.CFD.Models.Turbines
 {
-    public class VTurbineArray
+    public class VTurbineArray : VWebPage
     {
         public VTurbineArray()
         {

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Offwind.Products.OpenFoam.Models.ControlDict;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.CFD.Models.SystemControls
 {
-    public class VControlDict
+    public class VControlDict : VWebPage
     {
         [ReadOnly(true)]
         public ApplicationSolver application { get; set; }

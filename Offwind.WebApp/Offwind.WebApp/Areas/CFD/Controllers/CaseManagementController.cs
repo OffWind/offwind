@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Offwind.OpenFoam.Sintef;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
@@ -13,7 +14,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult Reset()
         {
             ShortTitle = "Reset";
-            return View();
+            var m = new VWebPage();
+            InitNavigation(m.Navigation);
+            return View(m);
         }
 
         [ActionName("Reset")]
@@ -24,7 +27,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var sd = SolverData.GetDefaultModel();
             SetSolverData(sd);
             if (Request.IsAjaxRequest()) return Json("OK");
-            return View();
+            var m = new VWebPage();
+            InitNavigation(m.Navigation);
+            return View(m);
         }
     }
 }

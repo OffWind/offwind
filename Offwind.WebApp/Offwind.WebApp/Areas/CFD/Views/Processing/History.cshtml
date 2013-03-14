@@ -1,6 +1,5 @@
 ﻿@using System.Globalization
-@using Offwind.WebApp.Models.Jobs
-@model IEnumerable<Offwind.WebApp.Models.DJob>
+@model Offwind.WebApp.Models.VWebPageSimpleObject<IEnumerable<Offwind.WebApp.Models.DJob>>
 <p>
     <a class="btn btn-warning" href="@Url.Action("ClearHistory", "Processing", new { area = "CFD" })">Clear idle jobs</a>
     <a class="btn btn-warning" href="@Url.Action("ClearAllJobs", "Processing", new { area = "CFD" })">Clear all jobs</a>
@@ -16,7 +15,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    @foreach (var job in Model)
+    @foreach (var job in Model.SimpleObject)
     {
         <tr>
             <td>@job.Started.AddHours(1)</td>

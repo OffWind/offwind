@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Offwind.OpenFoam.Models;
 using Offwind.OpenFoam.Models.TurbulenceModels;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.CFD.Models.AirfoilAndTurbulence
 {
@@ -23,7 +24,7 @@ namespace Offwind.WebApp.Areas.CFD.Models.AirfoilAndTurbulence
         public OnOffValue PrintCoeffs { get; set; }
     }
 
-    public class VTurbulenceProperties
+    public class VTurbulenceProperties : VWebPage
     {
         [DisplayName("Turbulence model")]
         [ReadOnly(true)]

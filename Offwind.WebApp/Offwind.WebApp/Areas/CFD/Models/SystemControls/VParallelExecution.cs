@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using Offwind.OpenFoam.Models.DecomposeParDict;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.CFD.Models.SystemControls
 {
@@ -17,7 +18,7 @@ namespace Offwind.WebApp.Areas.CFD.Models.SystemControls
         public DecompositionOrder order { set; get; }
     }
 
-    public class VParallelExecution
+    public class VParallelExecution : VWebPage
     {
         [DisplayName("Number of subdomains")]
         public int numberOfSubdomains { set; get; }

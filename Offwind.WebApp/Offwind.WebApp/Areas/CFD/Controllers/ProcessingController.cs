@@ -31,7 +31,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult Settings()
         {
             ShortTitle = "Settings";
-            return View();
+            var m = new VWebPage();
+            InitNavigation(m.Navigation);
+            return View(m);
         }
 
         public ActionResult Simulation()
@@ -49,7 +51,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ViewBag.IsInProgress = jobActive;
             ViewBag.activeJobId = (jobActive) ? dCase.CurrentJobId.ToString() : ShortTitle;
             ViewBag.procTime = _procTime;
-            return View();
+            var m = new VWebPage();
+            InitNavigation(m.Navigation);
+            return View(m);
         }
 
         public FileResult SimulationPreview()
@@ -126,7 +130,10 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var jobs = ctx.DJobs
                 .Where(dj => dj.Owner == User.Identity.Name && dj.Name == StandardCases.CfdCase)
                 .OrderByDescending(dj => dj.Started);
-            return View(jobs);
+            var m = new VWebPageSimpleObject<IEnumerable<DJob>>();
+            m.SimpleObject = jobs;
+            InitNavigation(m.Navigation);
+            return View(m);
         }
 
         public ActionResult ClearHistory()
@@ -157,6 +164,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             }
             ctx.SaveChanges();
             return RedirectToAction("History");
-        }        
+        }
     }
 }

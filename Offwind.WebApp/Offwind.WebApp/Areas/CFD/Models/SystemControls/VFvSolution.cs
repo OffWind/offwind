@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Offwind.Products.OpenFoam.Models.FvSolution;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.CFD.Models.SystemControls
 {
@@ -29,7 +30,7 @@ namespace Offwind.WebApp.Areas.CFD.Models.SystemControls
         public Decimal pRefValue { set; get; }
     }
 
-    public class VFvSolution
+    public class VFvSolution : VWebPage
     {
         public List<VSolver> Solvers { set; get; }
         public VSolution Solution { set; get; }

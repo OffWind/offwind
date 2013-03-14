@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Offwind.Sowfa.System.FvSchemes;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.CFD.Models.SystemControls
 {
@@ -63,7 +64,7 @@ namespace Offwind.WebApp.Areas.CFD.Models.SystemControls
         public Boolean enable { set; get; }
     }
 
-    public class VSchemes
+    public class VSchemes : VWebPage
     {
         public List<VTimeScheme> ddtSchemes { set; get; }
         public List<VGradientScheme> gradSchemes { set; get; }

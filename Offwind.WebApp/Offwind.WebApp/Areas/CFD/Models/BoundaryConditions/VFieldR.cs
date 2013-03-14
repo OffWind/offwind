@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using Offwind.Products.OpenFoam.Models.Fields;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.CFD.Models.BoundaryConditions
 {
-    public class VFieldR
+    public class VFieldR : VWebPage
     {
         public VFieldVectorValue2 InternalField { get; set; }
 

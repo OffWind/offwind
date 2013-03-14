@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Offwind.WebApp.Areas.CFD.Models.AirfoilAndTurbulence;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
@@ -15,7 +16,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult AirfoilProperties()
         {
             ShortTitle = "Airfoil Properties";
-            return View();
+            var m = new VWebPage();
+            InitNavigation(m.Navigation);
+            return View(m);
         }
 
         public JsonResult VGetAirfoilsList()
@@ -45,6 +48,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             m.RASProperties.RasModelName = sd.TurbulenceProperties.RasProperties.RasModelName;
             m.RASProperties.Turbulence = sd.TurbulenceProperties.RasProperties.Turbulence;
             m.RASProperties.PrintCoeffs = sd.TurbulenceProperties.RasProperties.PrintCoeffs;
+            InitNavigation(m.Navigation);
 
             return View(m);
         }

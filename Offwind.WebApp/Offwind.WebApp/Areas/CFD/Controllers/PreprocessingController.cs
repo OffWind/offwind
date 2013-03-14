@@ -8,6 +8,7 @@ using Offwind.OpenFoam.Sintef.BoundaryFields;
 using Offwind.Sowfa.Constant.TransportProperties;
 using Offwind.WebApp.Areas.CFD.Models.BoundaryConditions;
 using Offwind.WebApp.Areas.CFD.Models.Preprocessing;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
@@ -70,7 +71,9 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             Title = "Earth Elevation STL Generator";
             ShortTitle = "STL Generator";
-            return View();
+            var m = new VWebPage();
+            InitNavigation(m.Navigation);
+            return View(m);
         }
 
         public FileResult GenerateStl()
@@ -85,6 +88,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var m = new VTransportProperties();
             var sd = GetSolverData();
             ObjectMapperManager.DefaultInstance.GetMapper<TransportPropertiesData, VTransportProperties>().Map(sd.TransportProperties, m);
+            InitNavigation(m.Navigation);
             return View(m);
         }
 

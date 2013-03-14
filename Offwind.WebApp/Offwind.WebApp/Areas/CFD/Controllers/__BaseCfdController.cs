@@ -62,9 +62,16 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ViewBag.SectionTitle = SectionTitle;
             ViewBag.ShortTitle = ShortTitle ?? Title;
             ViewBag.Title = String.Format("{0} | {1} | CFD | Offwind", Title ?? ShortTitle, SectionTitle);
+        }
 
-            var navigation = new NavItem<NavUrl>();
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            base.OnException(filterContext);
+            _log.Error(filterContext.Exception);
+        }
 
+        protected void InitNavigation(NavItem<NavUrl> navigation)
+        {
             navigation.AddGroup("Pre-processing")
                 .AddItem("Domain Setup", new NavUrl("DomainSetup", "Preprocessing", "CFD"))
                 .AddItem("Transport Properties", new NavUrl("TransportProperties", "Preprocessing", "CFD"))
@@ -100,12 +107,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                 .AddItem("Reset", new NavUrl("Reset", "CaseManagement", "CFD"));
 
             ViewBag.SideNav = navigation;
-        }
-
-        protected override void OnException(ExceptionContext filterContext)
-        {
-            base.OnException(filterContext);
-            _log.Error(filterContext.Exception);
         }
 
         protected DCase GetCase()

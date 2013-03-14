@@ -33,6 +33,8 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             m.GridY = sd.BlockMeshDict.MeshBlocks.numberOfCells[1];
             m.GridZ = sd.BlockMeshDict.MeshBlocks.numberOfCells[2];
 
+            InitNavigation(m.Navigation);
+
             return View(m);
         }
 

@@ -1,5 +1,4 @@
-﻿@using Offwind.WebApp.Infrastructure.Navigation
-@model Offwind.WebApp.Models.VWebPage
+﻿@model Offwind.WebApp.Models.VWebPage
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,3 +19,13 @@
         </div>
     </div>
 </div>
+
+@section styles
+{
+    @RenderSection("styles", required: false)
+}
+
+@section scripts
+{
+    @RenderSection("scripts", required: false)
+}

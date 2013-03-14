@@ -1475,7 +1475,6 @@
     <Content Include="Areas\EngineeringTools\Views\Web.config" />
     <Content Include="Areas\CFD\Views\Web.config" />
     <Content Include="Areas\CFD\Views\CFD\Index.cshtml" />
-    <Content Include="Areas\CFD\Views\Shared\__SideNav.cshtml" />
     <Content Include="Areas\CFD\Views\Preprocessing\StlGenerator.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\_ViewStart.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\Index.cshtml" />
@@ -1767,9 +1766,9 @@
     <None Include="static\theme\lib\jquery-qrcode\README.md" />
     <None Include="static\theme\stylesheets\elements.less" />
     <None Include="static\theme\stylesheets\theme.less" />
-    <Content Include="Views\Shared\__SideNav.cshtml" />
     <Content Include="Views\Shared\_LayoutWithSidebar.cshtml" />
     <Content Include="Views\Shared\__Footer.cshtml" />
+    <Content Include="Views\Shared\__SideNav.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,6 +1,8 @@
-﻿namespace Offwind.WebApp.Areas.CFD.Models.Preprocessing
+﻿using Offwind.WebApp.Models;
+
+namespace Offwind.WebApp.Areas.CFD.Models.Preprocessing
 {
-    public class VDomainSetup
+    public class VDomainSetup : VWebPage
     {
         public decimal Length { get; set; }
         public decimal Width { get; set; }

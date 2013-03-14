@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap Admin</title>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+
+
+
+    <!-- For sample logo only-->
+    <!--Remove if you no longer need this font-->
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Aguafina+Script">
+    <!--For sample logo only-->
+
+
+
+
+
+
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    <script src="lib/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="javascripts/site.js" type="text/javascript"></script>
+        <script src="lib/jquery.isotope.min.js"></script>
+    <link rel="stylesheet" href="stylesheets/isotope.css">
+    <link rel="stylesheet" href="lib/fancy-zoom/css/fancyzoom.css" type="text/css" />
+	<script type="text/javascript" src="lib/fancy-zoom/src/fancyzoom.js"></script>
+
+
+	<script type="text/javascript" charset="utf-8">
+
+        $(function(){
+            var width = $(window).width();
+            $(window).resize(function(){
+                setTimeout(function(){
+                    $('#blog-posts').isotope('reLayout');}, 100);
+            });
+
+			$('.blog-post .thumbnail img').fancyZoom({closeOnClick: true, directory:'lib/fancy-zoom/img/'});
+
+            $('#blog-posts').imagesLoaded( function(){
+                $(this).isotope({
+                    resizable:false,
+                    layoutMode: 'straightDown'
+                });
+            });
+
+            fancyFilter('.filter', '#blog-posts');
+        });
+
+    </script>
+
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
+
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+  <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+  <!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+  <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--> 
+  <body class=""> 
+  <!--<![endif]-->
+    
+    <div class="navbar">
+        <div class="navbar-inner">
+                <ul class="nav pull-right">
+                    
+                    <li class="hidden-phone"><a href="#" role="button">Settings</a></li>
+                    <li id="fat-menu" class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-user"></i> Jack Smith
+                            <i class="icon-caret-down"></i>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a tabindex="-1" href="#">My Account</a></li>
+                            <li class="divider"></li>
+                            <li><a tabindex="-1" class="visible-phone" href="#">Settings</a></li>
+                            <li class="divider visible-phone"></li>
+                            <li><a tabindex="-1" href="sign-in.html">Logout</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+                <a class="brand" href="index.html">Awesome.</a>
+        </div>
+    </div>
+
+    <div id="main-menu">
+        
+        <div id="phone-navigation">
+            <select class="selectnav" id="phone-menu">
+                
+                <option value="index.html" > Dashboard</option>
+                    
+                <option value="reports.html" > Reports</option>
+                    
+                <option value="components.html" > Components</option>
+                    
+                <option value="pricing.html" > Pricing</option>
+                    
+                <option value="" > Settings</option>
+                    
+                <option value="sign-in.html" >- Sign In Page</option>
+                    
+                <option value="sign-up.html" >- Sign Up Page</option>
+                    
+                <option value="reset-password.html" >- Reset Password Page</option>
+                    
+                <option value="">----------------------</option>
+                
+                <option value="index.html" > Dashboard</option>
+                    
+                <option value="reports.html" > Reports</option>
+                    
+                <option value="components.html" > UI Features</option>
+                    
+                <option value="pricing.html" > Pricing</option>
+                    
+                <option value="media.html" > Media</option>
+                    
+                <option value="blog.html" selected="selected"> Blog</option>
+                    
+                <option value="help.html" > Help</option>
+                    
+                <option value="faq.html" > Faq</option>
+                    
+                <option value="calendar.html" > Calendar</option>
+                    
+                <option value="forms.html" > Forms</option>
+                    
+                <option value="tables.html" > Tables</option>
+                    
+                <option value="icons.html" > Font Awesome</option>
+                    
+            </select>
+        </div>
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="index.html"><i class="icon-dashboard"></i> <span>Dashboard</span></a></li>
+            <li ><a href="reports.html" ><i class="icon-bar-chart"></i> <span>Reports</span></a></li>
+            <li ><a href="components.html" ><i class="icon-cogs"></i> <span>Components</span></a></li>
+            <li ><a href="pricing.html"><i class="icon-magic"></i> <span>Pricing</span></a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Settings <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/sign-in.html"><span>Sign-in Page</span></a></li>
+                    <li><a href="/sign-up.html"><span>Sign-up Page</span></a></li>
+                    <li><a href="/reset-password.html"><span>Forgot Password Page</span></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    
+    
+    <div id="sidebar-nav">
+        
+        <ul id="dashboard-menu" class="nav nav-list">
+            
+            <li class=" "><a href="index.html"><i class="icon-home"></i> <span>Dashboard</span></a></li>
+            
+            
+            <li class=" "><a href="reports.html"><i class="icon-bar-chart"></i> <span>Reports</span></a></li>
+            
+            
+            <li class=" "><a href="components.html"><i class="icon-briefcase"></i> <span>UI Features</span></a></li>
+            
+            
+            <li class=" "><a href="pricing.html"><i class="icon-magic"></i> <span>Pricing</span></a></li>
+            
+            
+            <li class=" "><a href="media.html"><i class="icon-film"></i> <span>Media</span></a></li>
+            
+            
+            <li class="active "><a href="blog.html"><i class="icon-beaker"></i> <span>Blog</span></a></li>
+            
+            
+            <li class=" "><a href="help.html"><i class="icon-question-sign"></i> <span>Help</span></a></li>
+            
+            
+            <li class=" "><a href="faq.html"><i class="icon-book"></i> <span>Faq</span></a></li>
+            
+            
+            <li class=" "><a href="calendar.html"><i class="icon-calendar"></i> <span>Calendar</span></a></li>
+            
+            
+            <li class=" "><a href="forms.html"><i class="icon-tasks"></i> <span>Forms</span></a></li>
+            
+            
+            <li class=" "><a href="tables.html"><i class="icon-table"></i> <span>Tables</span></a></li>
+            
+            
+            
+            <li class=" theme-mobile-hack"><a href="mobile.html"><i class="icon-comment-alt"></i> <span>Mobile</span></a></li>
+            
+            <li class=" "><a href="icons.html"><i class="icon-heart"></i> <span>Font Awesome</span></a></li>
+            
+            
+        </ul>
+    </div>
+    
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                
+
+
+<h2>Name of the Blog</h2>
+
+<ul class="filter nav nav-pills">
+  <li class="active">
+    <a href="#all" data-filter=".blog-post">All</a>
+  </li>
+  <li><a href="#images" data-filter=".sampleFilterOnetrue">Updates</a></li>
+  <li><a href="#videos" data-filter=".sampleFilterTwotrue">News</a></li>
+</ul>
+
+<div id="blog-posts">
+
+    
+    
+
+    <div class="row-fluid blog-post sampleFilterOnefalse sampleFilterTwofalse">
+      <div class="span12">
+        <h4><strong><a href="#">Title of the post</a></strong></h4>
+        <div class="row-fluid">
+            <a href="#" class="thumbnail pull-left">
+                <img src="images/blog/442256_20337880.jpg" alt="">
+            </a>
+            <div class="post-summary">      
+                <p>
+                  Lorem ipsum dolor sit amet, id nec conceptam conclusionemque. Et eam tation option. Utinam salutatus ex eum. Ne mea dicit tibique facilisi, ea mei omittam explicari conclusionemque, ad nobis propriae quaerendum sea.
+                </p>
+                <p><a class="btn btn-mini" href="#">Read more</a></p>
+            </div>
+        </div>
+        <div class="row-fluid details">
+            <i class="icon-user"></i> by <a href="#">Ashley</a> 
+            | <i class="icon-calendar"></i> January 16th, 2013
+            | <i class="icon-comment"></i> <a href="#">3 Comments</a>
+            | <i class="icon-share"></i> <a href="#">39 Shares</a>
+            | <i class="icon-tags"></i> Tags <a href="#"><span class="label label-info">Official</span></a> 
+            <a href="#"><span class="label label-info">Announcements</span></a> 
+            <a href="#"><span class="label label-info">News</span></a> 
+            <a href="#"><span class="label label-info">New Features</span></a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="row-fluid blog-post sampleFilterOnefalse sampleFilterTwofalse">
+      <div class="span12">
+        <h4><strong><a href="#">Title of the post</a></strong></h4>
+        <div class="row-fluid">
+            <a href="#" class="thumbnail pull-left">
+                <img src="images/blog/472381_10949156.jpg" alt="">
+            </a>
+            <div class="post-summary">      
+                <p>
+                  Lorem ipsum dolor sit amet, id nec conceptam conclusionemque. Et eam tation option. Utinam salutatus ex eum. Ne mea dicit tibique facilisi, ea mei omittam explicari conclusionemque, ad nobis propriae quaerendum sea.
+                </p>
+                <p><a class="btn btn-mini" href="#">Read more</a></p>
+            </div>
+        </div>
+        <div class="row-fluid details">
+            <i class="icon-user"></i> by <a href="#">Ashley</a> 
+            | <i class="icon-calendar"></i> January 16th, 2013
+            | <i class="icon-comment"></i> <a href="#">3 Comments</a>
+            | <i class="icon-share"></i> <a href="#">39 Shares</a>
+            | <i class="icon-tags"></i> Tags <a href="#"><span class="label label-info">Official</span></a> 
+            <a href="#"><span class="label label-info">Announcements</span></a> 
+            <a href="#"><span class="label label-info">News</span></a> 
+            <a href="#"><span class="label label-info">New Features</span></a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="row-fluid blog-post sampleFilterOnetrue sampleFilterTwofalse">
+      <div class="span12">
+        <h4><strong><a href="#">Title of the post</a></strong></h4>
+        <div class="row-fluid">
+            <a href="#" class="thumbnail pull-left">
+                <img src="images/blog/503993_62595320.jpg" alt="">
+            </a>
+            <div class="post-summary">      
+                <p>
+                  Lorem ipsum dolor sit amet, id nec conceptam conclusionemque. Et eam tation option. Utinam salutatus ex eum. Ne mea dicit tibique facilisi, ea mei omittam explicari conclusionemque, ad nobis propriae quaerendum sea.
+                </p>
+                <p><a class="btn btn-mini" href="#">Read more</a></p>
+            </div>
+        </div>
+        <div class="row-fluid details">
+            <i class="icon-user"></i> by <a href="#">Ashley</a> 
+            | <i class="icon-calendar"></i> January 16th, 2013
+            | <i class="icon-comment"></i> <a href="#">3 Comments</a>
+            | <i class="icon-share"></i> <a href="#">39 Shares</a>
+            | <i class="icon-tags"></i> Tags <a href="#"><span class="label label-info">Official</span></a> 
+            <a href="#"><span class="label label-info">Announcements</span></a> 
+            <a href="#"><span class="label label-info">News</span></a> 
+            <a href="#"><span class="label label-info">New Features</span></a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="row-fluid blog-post sampleFilterOnefalse sampleFilterTwofalse">
+      <div class="span12">
+        <h4><strong><a href="#">Title of the post</a></strong></h4>
+        <div class="row-fluid">
+            <a href="#" class="thumbnail pull-left">
+                <img src="images/blog/625998_12886207.jpg" alt="">
+            </a>
+            <div class="post-summary">      
+                <p>
+                  Lorem ipsum dolor sit amet, id nec conceptam conclusionemque. Et eam tation option. Utinam salutatus ex eum. Ne mea dicit tibique facilisi, ea mei omittam explicari conclusionemque, ad nobis propriae quaerendum sea.
+                </p>
+                <p><a class="btn btn-mini" href="#">Read more</a></p>
+            </div>
+        </div>
+        <div class="row-fluid details">
+            <i class="icon-user"></i> by <a href="#">Ashley</a> 
+            | <i class="icon-calendar"></i> January 16th, 2013
+            | <i class="icon-comment"></i> <a href="#">3 Comments</a>
+            | <i class="icon-share"></i> <a href="#">39 Shares</a>
+            | <i class="icon-tags"></i> Tags <a href="#"><span class="label label-info">Official</span></a> 
+            <a href="#"><span class="label label-info">Announcements</span></a> 
+            <a href="#"><span class="label label-info">News</span></a> 
+            <a href="#"><span class="label label-info">New Features</span></a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="row-fluid blog-post sampleFilterOnetrue sampleFilterTwotrue">
+      <div class="span12">
+        <h4><strong><a href="#">Title of the post</a></strong></h4>
+        <div class="row-fluid">
+            <a href="#" class="thumbnail pull-left">
+                <img src="images/blog/737034_24905666.jpg" alt="">
+            </a>
+            <div class="post-summary">      
+                <p>
+                  Lorem ipsum dolor sit amet, id nec conceptam conclusionemque. Et eam tation option. Utinam salutatus ex eum. Ne mea dicit tibique facilisi, ea mei omittam explicari conclusionemque, ad nobis propriae quaerendum sea.
+                </p>
+                <p><a class="btn btn-mini" href="#">Read more</a></p>
+            </div>
+        </div>
+        <div class="row-fluid details">
+            <i class="icon-user"></i> by <a href="#">Ashley</a> 
+            | <i class="icon-calendar"></i> January 16th, 2013
+            | <i class="icon-comment"></i> <a href="#">3 Comments</a>
+            | <i class="icon-share"></i> <a href="#">39 Shares</a>
+            | <i class="icon-tags"></i> Tags <a href="#"><span class="label label-info">Official</span></a> 
+            <a href="#"><span class="label label-info">Announcements</span></a> 
+            <a href="#"><span class="label label-info">News</span></a> 
+            <a href="#"><span class="label label-info">New Features</span></a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="row-fluid blog-post sampleFilterOnefalse sampleFilterTwotrue">
+      <div class="span12">
+        <h4><strong><a href="#">Title of the post</a></strong></h4>
+        <div class="row-fluid">
+            <a href="#" class="thumbnail pull-left">
+                <img src="images/blog/789080_16753532.jpg" alt="">
+            </a>
+            <div class="post-summary">      
+                <p>
+                  Lorem ipsum dolor sit amet, id nec conceptam conclusionemque. Et eam tation option. Utinam salutatus ex eum. Ne mea dicit tibique facilisi, ea mei omittam explicari conclusionemque, ad nobis propriae quaerendum sea.
+                </p>
+                <p><a class="btn btn-mini" href="#">Read more</a></p>
+            </div>
+        </div>
+        <div class="row-fluid details">
+            <i class="icon-user"></i> by <a href="#">Ashley</a> 
+            | <i class="icon-calendar"></i> January 16th, 2013
+            | <i class="icon-comment"></i> <a href="#">3 Comments</a>
+            | <i class="icon-share"></i> <a href="#">39 Shares</a>
+            | <i class="icon-tags"></i> Tags <a href="#"><span class="label label-info">Official</span></a> 
+            <a href="#"><span class="label label-info">Announcements</span></a> 
+            <a href="#"><span class="label label-info">News</span></a> 
+            <a href="#"><span class="label label-info">New Features</span></a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="row-fluid blog-post sampleFilterOnetrue sampleFilterTwotrue">
+      <div class="span12">
+        <h4><strong><a href="#">Title of the post</a></strong></h4>
+        <div class="row-fluid">
+            <a href="#" class="thumbnail pull-left">
+                <img src="images/blog/888272_30368604.jpg" alt="">
+            </a>
+            <div class="post-summary">      
+                <p>
+                  Lorem ipsum dolor sit amet, id nec conceptam conclusionemque. Et eam tation option. Utinam salutatus ex eum. Ne mea dicit tibique facilisi, ea mei omittam explicari conclusionemque, ad nobis propriae quaerendum sea.
+                </p>
+                <p><a class="btn btn-mini" href="#">Read more</a></p>
+            </div>
+        </div>
+        <div class="row-fluid details">
+            <i class="icon-user"></i> by <a href="#">Ashley</a> 
+            | <i class="icon-calendar"></i> January 16th, 2013
+            | <i class="icon-comment"></i> <a href="#">3 Comments</a>
+            | <i class="icon-share"></i> <a href="#">39 Shares</a>
+            | <i class="icon-tags"></i> Tags <a href="#"><span class="label label-info">Official</span></a> 
+            <a href="#"><span class="label label-info">Announcements</span></a> 
+            <a href="#"><span class="label label-info">News</span></a> 
+            <a href="#"><span class="label label-info">New Features</span></a>
+        </div>
+      </div>
+    </div>
+    
+    
+</div>
+
+                
+                <footer>
+                    <hr>
+                    <p class="pull-right">Design by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+                    <p>&copy; 2012 <a href="#">Your Company</a></p>
+                </footer>
+                
+            </div>
+        </div>
+    </div>
+    
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        $("[rel=tooltip]").tooltip();
+        $(function() {
+            $('.demo-cancel-click').click(function(){return false;});
+        });
+    </script>
+    
+  </body>
+</html>
+
+

@@ -1,0 +1,72 @@
+﻿<div class="span3">
+    @Html.Partial("__SideNav")
+</div>
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+        <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+        <li>WindFarm Simulation <span class="divider">/</span></li>
+        <li>Simulation</li>
+    </ul>
+    <h3>Simulation</h3>
+    <p>Now, you are ready to start simulation process. Just push <b>"Start simulation"</b> button and wait.
+       At the end of simulation process the another button <b>"Download result"</b> will be activated.
+    </p>
+    <p>
+        <a class="btn btn-primary btn-large" href="#" id="button-run">Run simulation</a>
+        <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
+    </p>
+    @*<label id="proclabel" class="label-info">Idle</label>*@
+
+    <p>
+        To download result click button below. It is a <b>zip-archive</b>. Save it on your local disk and unpack.
+    </p>
+    <p><a class="btn btn-success btn-large disabled" id="download-link" href="@Url.Action("DownloadResult", "WindFarm", new { area = "EngineeringTools" })">Download result</a></p>
+</div>
+
+@section scripts
+{
+    <script>
+        var interval_obj;
+        var canBeDownloaded = false;
+
+        function tick() {
+            $.ajax({
+                url: "@Url.Action("Tick", "WindFarm", new { area = "EngineeringTools" })",
+                dataType: "jsonp",
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function(progress) {
+                    var value = parseFloat(progress).toFixed(1);
+                    var text = value + "% completed";
+                    $('#proclabel').text(text);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+                
+            $('#download-link').click(function() {
+                return canBeDownloaded;
+            });
+
+            $('#button-run').click(function() {
+                $('#loader-gif').removeClass('hidden');
+                //interval_obj = setInterval(function() { tick(); }, 1000);
+                $.ajax({
+                    url: "@Url.Action("Run", "WindFarm", new { area = "EngineeringTools" })",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function() {
+                        //clearInterval(interval_obj);                        
+                        canBeDownloaded = true;
+                        $('#download-link').removeClass('disabled');
+                        $('#loader-gif').addClass('hidden');
+                    }                    
+                });
+
+            });
+        });
+    </script>
+}

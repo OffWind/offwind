@@ -47,9 +47,9 @@
 
             var applychanges = function(change, id) {
                 if (!isInitialize[id]) return;
-                
+
                 if ((change.length == 0) || (change[0][2] == change[0][3])) return;
-                
+
                 var d = $body[id].data('handsontable').getData();
                 var url = "/CFD/SystemControls/VSchemeSetData/" + id;
                 $.ajax({
@@ -60,7 +60,7 @@
                     data: JSON.stringify(d)
                 });
             };
-            
+
             $body[0].handsontable({
                 startRows: 1,
                 startCols: 2,

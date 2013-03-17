@@ -55,12 +55,19 @@ table th {
 
 .bs-docs-sidenav {
     background-color: #FFFFFF;
-    border-radius: 6px 6px 6px 6px;
+    border-radius: 4px 4px 4px 4px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
     margin: 0;
     padding: 0;
     cursor: pointer;
 }
+.bs-docs-sidenav > li:first-child > a {
+    border-radius: 4px 4px 0 0;
+}
+.bs-docs-sidenav > li:last-child > a {
+    border-radius: 0 0 4px 4px;
+}
+
 .bs-docs-sidenav > li > a {
     border: 1px solid #E5E5E5;
     display: block;

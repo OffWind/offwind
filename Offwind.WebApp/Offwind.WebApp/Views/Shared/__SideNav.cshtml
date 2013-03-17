@@ -1,19 +1,26 @@
 ﻿@model Offwind.WebApp.Models.VWebPage
 @using Offwind.WebApp.Infrastructure
 
-<div class="well well-small">
-    <ul class="nav nav-list">
-        @foreach (var grp in Model.Navigation)
+<ul class="nav nav-list bs-docs-sidenav">
+    @foreach (var grp in Model.Navigation)
+    {
+        var grpClass = "";
+        if (grp.IsActive)
         {
-            <li class="nav-header">@grp.Title</li>
-            foreach (var item in grp)
-            {
-                <li @this.ActiveIfCurrent(item.Url)>
-                    <a href="@this.GenerateUrl(item.Url)">
-                        @item.Title
-                    </a>
-                </li>
-            }
+            grpClass = "open";
         }
-    </ul>
-</div>
+        <li class="submenu @grpClass">
+            <a>@grp.Title</a>
+            <ul class="nav nav-list">
+                @foreach (var item in grp)
+                {
+                    <li @this.ActiveIfCurrent(item.Url)>
+                        <a href="@this.GenerateUrl(item.Url)">
+                            @item.Title
+                        </a>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

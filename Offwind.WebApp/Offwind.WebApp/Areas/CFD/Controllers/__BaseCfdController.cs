@@ -103,8 +103,13 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                 .AddItem("Simulation", new NavUrl("Simulation", "Processing", "CFD"))
                 .AddItem("History", new NavUrl("History", "Processing", "CFD"));
 
-            navigation.AddGroup("Processing")
+            navigation.AddGroup("Case Management")
                 .AddItem("Reset", new NavUrl("Reset", "CaseManagement", "CFD"));
+
+            foreach (var grp in navigation)
+            {
+                grp.IsActive = grp.Title == SectionTitle;
+            }
 
             ViewBag.SideNav = navigation;
         }

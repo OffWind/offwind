@@ -15,6 +15,11 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
     [Authorize(Roles = SystemRole.RegularUser)]
     public class WakeSimulationController : _BaseController
     {
+        public WakeSimulationController()
+        {
+            _currentGroup = "Wake Simulation";
+        }
+
         public ActionResult Index()
         {
             return View();

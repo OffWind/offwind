@@ -15,6 +15,11 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
     [Authorize(Roles = SystemRole.RegularUser)]
     public class WindWaveController : _BaseController
     {
+        public WindWaveController()
+        {
+            _currentGroup = "Wind Wave Power";
+        }
+
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);

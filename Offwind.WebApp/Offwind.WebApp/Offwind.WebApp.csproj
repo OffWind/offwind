@@ -274,6 +274,8 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="static\css\bs-docs.css" />
+    <Content Include="static\js\offwind.js" />
     <Content Include="static\theme\blog.html" />
     <Content Include="static\theme\calendar.html" />
     <Content Include="static\theme\components.html" />

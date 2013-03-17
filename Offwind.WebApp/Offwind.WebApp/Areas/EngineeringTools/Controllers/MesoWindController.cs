@@ -25,6 +25,11 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly DbSettings Settings = new DbSettings() { startLat = 0, showAll = ShowAll.yes, distance = 100 };
 
+        public MesoWindController()
+        {
+            _currentGroup = "Meso Wind";
+        }
+
         public ActionResult Index()
         {
             return View();

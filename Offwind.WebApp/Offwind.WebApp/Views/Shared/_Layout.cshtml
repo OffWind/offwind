@@ -37,7 +37,7 @@
             <div class="row-fluid">
             @if (Model.Navigation.Any())
             {
-                <div class="span3">
+                <div class="span3 bs-docs-sidebar">
                     @Html.Partial("~/Views/Shared/__SideNav.cshtml")
                 </div>
                 <div class="span9">
@@ -59,6 +59,7 @@
     @*<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>*@
     @Scripts.Render("~/static/js/jquery-1.7.1.min.js")
     @Scripts.Render("~/static/js/bootstrap.min.js")
+    @Scripts.Render("~/static/js/offwind.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

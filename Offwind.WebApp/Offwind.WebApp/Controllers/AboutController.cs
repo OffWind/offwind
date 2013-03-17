@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Controllers
 {
@@ -6,7 +7,7 @@ namespace Offwind.WebApp.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View(new VWebPage());
         }
     }
 }

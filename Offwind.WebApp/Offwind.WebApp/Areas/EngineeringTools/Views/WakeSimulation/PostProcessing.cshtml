@@ -1,52 +1,49 @@
-﻿<div class="span9">
-    <ul class="breadcrumb">
-        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
-        <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
-        <li>Wake Simulation <span class="divider">/</span></li>
-        <li>Post-processing</li>
-    </ul>
-    <h3>Post-processing</h3>
-    <p>To visualize your results you can use <a href="http://www.paraview.org/" target="_blank">Paraview</a>. It is an OpenSource post-processing software and awailable for Linux and Windows
-        platforms. Please, note that visualization steps are different for Linux and Windows (see below).</p>
-    <h4>Linux</h4>
-    <p>Follow these steps in order to get your visualized in Linux Paraview:</p>
-    <ol>
-        <li>Open Paraview</li>
-        <li>File->Open->Flow.xyz</li>
-        <li>Uncheck all the options and check only <b>"Two Dimensional Geometry"</b> option.</li>
-        <li>In "Function" check-out all the options and check-in <b>"Vector-Velocity"</b></li>
-        <li>In <b>"Q File Name"</b> upload the Flow.q</li>
-        <li>Press <b>Apply</b></li>
-        <li>You should get a result like this:<br/>
-            <ul class="thumbnails">
-                <li class="span3">
-                    <a href="@Url.Content("~\\static\\wake-sim\\linux.png")" target="_blank" class="thumbnail"><img src="@Url.Content("~\\static\\wake-sim\\linux.png")" alt="" /></a>
-                    <div class="caption">Linux Paraview: result</div>
-                </li>
-            </ul>
-        </li>
-    </ol>
-    <h4>Windows</h4>
-    <p>In Windows it is slightly different:</p>
-    <ol>
-        <li>Open Paraview</li>
-        <li>File->Open->Flow.xyz</li>
-        <li>After you load the file it will appear Open Data With… screen. In this moment you will click on <b>PLOT3d</b> Files</li>
-        <li>In the Properties you will activate Two Dimensional Geometry</li>
-        <li>"Functions": choose Vector - Velocity</li>
-        <li>"Q File Name": you choose FLOW.q</li>
-        <li>Click on Apply. After that it will appear new feature that are situated under "Display"</li>
-        <li>"Color": You choose Momentum</li>
-    </ol>
-    <ul class="thumbnails">
-        <li class="span3">
-            <a href="@Url.Content("~\\static\\wake-sim\\win-1.png")" target="_blank" class="thumbnail"><img src="@Url.Content("~\\static\\wake-sim\\win-1.png")" alt="" /></a>
-            <div class="caption">Windows Paraview: open XYZ file</div>
-        </li>
-        <li class="span3">
-            <a href="@Url.Content("~\\static\\wake-sim\\win-2.png")" target="_blank" class="thumbnail"><img src="@Url.Content("~\\static\\wake-sim\\win-2.png")" alt="" /></a>
-            <div class="caption">Windows Paraview: result</div>
-        </li>
-    </ul>
-
-</div>
+﻿<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>Wake Simulation <span class="divider">/</span></li>
+    <li>Post-processing</li>
+</ul>
+<h3>Post-processing</h3>
+<p>To visualize your results you can use <a href="http://www.paraview.org/" target="_blank">Paraview</a>. It is an OpenSource post-processing software and awailable for Linux and Windows
+    platforms. Please, note that visualization steps are different for Linux and Windows (see below).</p>
+<h4>Linux</h4>
+<p>Follow these steps in order to get your visualized in Linux Paraview:</p>
+<ol>
+    <li>Open Paraview</li>
+    <li>File->Open->Flow.xyz</li>
+    <li>Uncheck all the options and check only <b>"Two Dimensional Geometry"</b> option.</li>
+    <li>In "Function" check-out all the options and check-in <b>"Vector-Velocity"</b></li>
+    <li>In <b>"Q File Name"</b> upload the Flow.q</li>
+    <li>Press <b>Apply</b></li>
+    <li>You should get a result like this:<br/>
+        <ul class="thumbnails">
+            <li class="span3">
+                <a href="@Url.Content("~\\static\\wake-sim\\linux.png")" target="_blank" class="thumbnail"><img src="@Url.Content("~\\static\\wake-sim\\linux.png")" alt="" /></a>
+                <div class="caption">Linux Paraview: result</div>
+            </li>
+        </ul>
+    </li>
+</ol>
+<h4>Windows</h4>
+<p>In Windows it is slightly different:</p>
+<ol>
+    <li>Open Paraview</li>
+    <li>File->Open->Flow.xyz</li>
+    <li>After you load the file it will appear Open Data With… screen. In this moment you will click on <b>PLOT3d</b> Files</li>
+    <li>In the Properties you will activate Two Dimensional Geometry</li>
+    <li>"Functions": choose Vector - Velocity</li>
+    <li>"Q File Name": you choose FLOW.q</li>
+    <li>Click on Apply. After that it will appear new feature that are situated under "Display"</li>
+    <li>"Color": You choose Momentum</li>
+</ol>
+<ul class="thumbnails">
+    <li class="span3">
+        <a href="@Url.Content("~\\static\\wake-sim\\win-1.png")" target="_blank" class="thumbnail"><img src="@Url.Content("~\\static\\wake-sim\\win-1.png")" alt="" /></a>
+        <div class="caption">Windows Paraview: open XYZ file</div>
+    </li>
+    <li class="span3">
+        <a href="@Url.Content("~\\static\\wake-sim\\win-2.png")" target="_blank" class="thumbnail"><img src="@Url.Content("~\\static\\wake-sim\\win-2.png")" alt="" /></a>
+        <div class="caption">Windows Paraview: result</div>
+    </li>
+</ul>

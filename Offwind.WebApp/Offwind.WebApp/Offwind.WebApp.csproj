@@ -1471,9 +1471,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Copy of _Layout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\Web.config" />
     <Content Include="Areas\CFD\Views\Web.config" />
     <Content Include="Areas\CFD\Views\CFD\Index.cshtml" />
@@ -1768,7 +1765,6 @@
     <None Include="static\theme\lib\jquery-qrcode\README.md" />
     <None Include="static\theme\stylesheets\elements.less" />
     <None Include="static\theme\stylesheets\theme.less" />
-    <Content Include="Views\Shared\_LayoutWithSidebar.cshtml" />
     <Content Include="Views\Shared\__Footer.cshtml" />
     <Content Include="Views\Shared\__SideNav.cshtml" />
   </ItemGroup>

@@ -1,26 +1,24 @@
-﻿<div class="span9">
-    <ul class="breadcrumb">
-        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
-        <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
-        <li>Wake Simulation <span class="divider">/</span></li>
-        <li>Simulation</li>
-    </ul>
-    <h3>Simulation</h3>
-    <p>Now, you are ready to start simulation process. It takes about 10 seconds for default settings.
-        Just push <b>"Start simulation"</b> button and wait. When it finishes another button <b>"Download result"</b>
-        will be activated.
-    </p>
+﻿<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>Wake Simulation <span class="divider">/</span></li>
+    <li>Simulation</li>
+</ul>
+<h3>Simulation</h3>
+<p>Now, you are ready to start simulation process. It takes about 10 seconds for default settings.
+    Just push <b>"Start simulation"</b> button and wait. When it finishes another button <b>"Download result"</b>
+    will be activated.
+</p>
 
-    <p>
-        <a class="btn btn-primary btn-large" href="#" id="button-run">Run simulation</a>
-        <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
-    </p>
+<p>
+    <a class="btn btn-primary btn-large" href="#" id="button-run">Run simulation</a>
+    <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
+</p>
 
-    <p>
-        To download result click button below. It is a <b>zip-archive</b>. Save it on your local disk and unpack.
-    </p>
-    <p><a class="btn btn-success btn-large disabled" id="download-link" href="@Url.Action("DownloadResult", "WakeSimulation", new { area = "EngineeringTools" })">Download result</a></p>
-</div>
+<p>
+    To download result click button below. It is a <b>zip-archive</b>. Save it on your local disk and unpack.
+</p>
+<p><a class="btn btn-success btn-large disabled" id="download-link" href="@Url.Action("DownloadResult", "WakeSimulation", new { area = "EngineeringTools" })">Download result</a></p>
 @section scripts
 {
     <script>

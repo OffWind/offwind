@@ -3,32 +3,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model.Navigation.Any())
-{
-    @Html.Partial("~/Views/Shared/__SideNav.cshtml")
-}
-
-<div class="content">
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <ul class="breadcrumb">
-                <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
-                <li>CFD<span class="divider">/</span></li>
-                @*<li><a href="@Url.Action("Index", "CFD", new { area = "CFD" })">CFD</a> <span class="divider">/</span></li>*@
-                <li>@ViewBag.SectionTitle<span class="divider">/</span></li>
-                <li>@ViewBag.ShortTitle</li>
-            </ul>
-            <div id="alert-saved"  class="alert alert-success hidden" style="width: 10%">
-                <a class="close" data-dismiss="alert">×</a>
-                Saved
-            </div>
-
-            @RenderBody()
-
-            @Html.Partial("__Footer")
-        </div>
-    </div>
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li>CFD<span class="divider">/</span></li>
+    @*<li><a href="@Url.Action("Index", "CFD", new { area = "CFD" })">CFD</a> <span class="divider">/</span></li>*@
+    <li>@ViewBag.SectionTitle<span class="divider">/</span></li>
+    <li>@ViewBag.ShortTitle</li>
+</ul>
+<div id="alert-saved"  class="alert alert-success hidden" style="width: 10%">
+    <a class="close" data-dismiss="alert">×</a>
+    Saved
 </div>
+
+@RenderBody()
 
 @section styles
 {

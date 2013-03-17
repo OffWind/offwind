@@ -2,15 +2,13 @@
 {
     @Styles.Render("~/static/css/jquery.handsontable.full.css")
 }
-<div class="span9">
-    <ul class="breadcrumb">
-        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
-        <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
-        <li>Wind Wave<span class="divider">/</span></li>
-        <li>Power Output Advanced</li>
-    </ul>
-    <div id="example1"></div>
-</div>
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>Wind Wave<span class="divider">/</span></li>
+    <li>Power Output Advanced</li>
+</ul>
+<div id="example1"></div>
 @section scripts
 {
     @Scripts.Render("~/static/js/jquery.handsontable.full.js")

@@ -38,9 +38,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult Database()
         {
             ViewBag.Title = "Database | Mesoscale Wind Characteristics | Offwind";
-            var m = Settings;
-            InitNavigation(m.Navigation);
-            return View(m);
+            return View(Settings);
         }
 
         [ActionName("Database")]
@@ -52,25 +50,19 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             Settings.startLat = model.startLat;
             Settings.startLng = model.startLng;
             Settings.distance = model.distance;
-            var m = new VWebPageSimpleObject<DbSettings>();
-            m.SimpleObject = Settings;
-            InitNavigation(m.Navigation);
-            return View(m);
+            return View(Settings);
         }
 
         public ActionResult CurrentData()
         {
             ViewBag.Title = "Current Data | Mesoscale Wind Characteristics - Offwind";
-            var m = new VWebPage();
-            InitNavigation(m.Navigation);
-            return View(m);
+            return View(new VWebPage());
         }
         
         public ActionResult VelocityFreq()
         {
             ViewBag.Title = "Histogram | Mesoscale Wind Characteristics | Offwind";
             var m = new VWebPageSimpleObject<List<HPoint>>();
-            InitNavigation(m.Navigation);
             if (Session[CurrentFile] == null)
             {
                 m.SimpleObject = new List<HPoint>();
@@ -88,7 +80,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             ViewBag.Title = "Wind Roses | Mesoscale Wind Characteristics | Offwind";
             var model = new VWindRose();
-            InitNavigation(model.Navigation);
             if (Session[CurrentFile] == null)
             {
                 return View(model);

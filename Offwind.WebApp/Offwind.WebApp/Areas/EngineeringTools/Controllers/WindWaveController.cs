@@ -66,7 +66,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             m.TurbineDiameter = (decimal)d.Td;
             m.TurbineEfficiency = (decimal)d.Ef;
             m.WaveSpeed = (decimal)d.Cw;
-            InitNavigation(m.Navigation);
             return View(m);
         }
 
@@ -84,7 +83,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             d.Cw = (double)m.WaveSpeed;
             SetDbModel(d);
             if (Request.IsAjaxRequest()) return Json("OK");
-            InitNavigation(m.Navigation);
             return View(m);
         }
 
@@ -92,7 +90,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             ViewBag.Title = "Power Output | Wind Wave | Offwind";
             var m = new VWebPage();
-            InitNavigation(m.Navigation);
             return View(m);
         }
 
@@ -116,7 +113,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             ViewBag.Title = "Power Output Advanced | Wind Wave | Offwind";
             var m = new VWebPage();
-            InitNavigation(m.Navigation);
             return View(m);
         }
 

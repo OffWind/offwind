@@ -14,9 +14,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult Reset()
         {
             ShortTitle = "Reset";
-            var m = new VWebPage();
-            InitNavigation(m.Navigation);
-            return View(m);
+            return View(new VWebPage());
         }
 
         [ActionName("Reset")]
@@ -27,9 +25,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var sd = SolverData.GetDefaultModel();
             SetSolverData(sd);
             if (Request.IsAjaxRequest()) return Json("OK");
-            var m = new VWebPage();
-            InitNavigation(m.Navigation);
-            return View(m);
+            return View(new VWebPage());
         }
     }
 }

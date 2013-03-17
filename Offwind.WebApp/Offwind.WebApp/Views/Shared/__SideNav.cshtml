@@ -1,8 +1,12 @@
-﻿@model Offwind.WebApp.Models.VWebPage
-@using Offwind.WebApp.Infrastructure
+﻿@using Offwind.WebApp.Infrastructure
+@using Offwind.WebApp.Infrastructure.Navigation
+
+@{
+    var navigation = (NavItem<NavUrl>)ViewBag.SideNav;
+}
 
 <ul class="nav nav-list bs-docs-sidenav">
-    @foreach (var grp in Model.Navigation)
+    @foreach (var grp in navigation)
     {
         var grpClass = "";
         if (grp.IsActive)

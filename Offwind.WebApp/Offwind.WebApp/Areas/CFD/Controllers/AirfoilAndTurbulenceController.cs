@@ -16,9 +16,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult AirfoilProperties()
         {
             ShortTitle = "Airfoil Properties";
-            var m = new VWebPage();
-            InitNavigation(m.Navigation);
-            return View(m);
+            return View(new VWebPage());
         }
 
         public JsonResult VGetAirfoilsList()
@@ -48,7 +46,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             m.RASProperties.RasModelName = sd.TurbulenceProperties.RasProperties.RasModelName;
             m.RASProperties.Turbulence = sd.TurbulenceProperties.RasProperties.Turbulence;
             m.RASProperties.PrintCoeffs = sd.TurbulenceProperties.RasProperties.PrintCoeffs;
-            InitNavigation(m.Navigation);
 
             return View(m);
         }

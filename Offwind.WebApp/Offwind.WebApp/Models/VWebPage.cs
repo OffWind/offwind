@@ -8,7 +8,6 @@ namespace Offwind.WebApp.Models
     {
         public string SiteName { get; set; }
         public string BrowserTitle { get; set; }
-        public NavItem<NavUrl> Navigation { get; set; }
         public BreadcrumbsCollection Breadcrumbs { get; protected set; }
         public string CurrentCulture { get; set; }
 
@@ -17,7 +16,6 @@ namespace Offwind.WebApp.Models
             SiteName = ConfigurationManager.AppSettings["SiteName"];
             BrowserTitle = ConfigurationManager.AppSettings["SiteName"];
             Breadcrumbs = new BreadcrumbsCollection();
-            Navigation = new NavItem<NavUrl>();
         }
     }
 }

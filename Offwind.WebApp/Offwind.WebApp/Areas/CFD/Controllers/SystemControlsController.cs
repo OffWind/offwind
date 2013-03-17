@@ -26,7 +26,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var m = new VControlDict();
             var sd = GetSolverData();
             ObjectMapperManager.DefaultInstance.GetMapper<ControlDictData, VControlDict>().Map(sd.ControlDict, m);
-            InitNavigation(m.Navigation);
             return View(m);
         }
 
@@ -44,7 +43,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             ShortTitle = "Schemes";
             var m = new VSchemes(); // TODO
-            InitNavigation(m.Navigation);
             return View(m);
         }
 
@@ -201,7 +199,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var m = new VFvSolution();
             var sd = GetSolverData();
             ObjectMapperManager.DefaultInstance.GetMapper<FvSolutionData, VFvSolution>().Map(sd.FvSolution, m);
-            InitNavigation(m.Navigation);
             return View(m);
         }
 
@@ -261,7 +258,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var sd = GetSolverData();
             ObjectMapperManager.DefaultInstance.GetMapper<DecomposeParDictData, VParallelExecution>().Map(sd.DecomposeParDict, m);
             ObjectMapperManager.DefaultInstance.GetMapper<HierarchicalCoeffs, VHierarchicalCoeffs>().Map(sd.DecomposeParDict.hCoefs, m.coefs);
-            InitNavigation(m.Navigation);
             return View(m);
         }
 

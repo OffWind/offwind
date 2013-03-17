@@ -34,8 +34,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             m.GridY = sd.BlockMeshDict.MeshBlocks.numberOfCells[1];
             m.GridZ = sd.BlockMeshDict.MeshBlocks.numberOfCells[2];
 
-            InitNavigation(m.Navigation);
-
             return View(m);
         }
 
@@ -71,9 +69,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         {
             Title = "Earth Elevation STL Generator";
             ShortTitle = "STL Generator";
-            var m = new VWebPage();
-            InitNavigation(m.Navigation);
-            return View(m);
+            return View(new VWebPage());
         }
 
         public FileResult GenerateStl()
@@ -88,7 +84,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var m = new VTransportProperties();
             var sd = GetSolverData();
             ObjectMapperManager.DefaultInstance.GetMapper<TransportPropertiesData, VTransportProperties>().Map(sd.TransportProperties, m);
-            InitNavigation(m.Navigation);
             return View(m);
         }
 

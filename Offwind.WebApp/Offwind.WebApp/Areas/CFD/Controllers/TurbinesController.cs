@@ -22,7 +22,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var m = new VTurbineType();
             var sd = GetSolverData();
             ObjectMapperManager.DefaultInstance.GetMapper<TurbinePropertiesData, VTurbineType>().Map(sd.TurbineProperties, m);
-            InitNavigation(m.Navigation);
             return View(m);
         }
 
@@ -47,7 +46,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ObjectMapperManager.DefaultInstance.GetMapper<VTurbineType, TurbinePropertiesData>().Map(m, sd.TurbineProperties);
             SetSolverData(sd);
             if (Request.IsAjaxRequest()) return Json("OK");
-            InitNavigation(m.Navigation);
             return View(m);
         }
 
@@ -57,7 +55,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             var m = new VTurbineArray();
             var sd = GetSolverData();
             ObjectMapperManager.DefaultInstance.GetMapper<TurbineArrayPropData, VTurbineArray>().Map(sd.TurbineArrayProperties, m);
-            InitNavigation(m.Navigation);
             return View(m);
         }
 

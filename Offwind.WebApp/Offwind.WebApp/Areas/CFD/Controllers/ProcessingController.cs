@@ -31,9 +31,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
         public ActionResult Settings()
         {
             ShortTitle = "Settings";
-            var m = new VWebPage();
-            InitNavigation(m.Navigation);
-            return View(m);
+            return View(new VWebPage());
         }
 
         public ActionResult Simulation()
@@ -51,9 +49,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ViewBag.IsInProgress = jobActive;
             ViewBag.activeJobId = (jobActive) ? dCase.CurrentJobId.ToString() : ShortTitle;
             ViewBag.procTime = _procTime;
-            var m = new VWebPage();
-            InitNavigation(m.Navigation);
-            return View(m);
+            return View(new VWebPage());
         }
 
         public FileResult SimulationPreview()
@@ -132,7 +128,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
                 .OrderByDescending(dj => dj.Started);
             var m = new VWebPageSimpleObject<IEnumerable<DJob>>();
             m.SimpleObject = jobs;
-            InitNavigation(m.Navigation);
             return View(m);
         }
 

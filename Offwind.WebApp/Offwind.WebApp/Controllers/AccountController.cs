@@ -62,7 +62,8 @@ namespace Offwind.WebApp.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            var m = new RegisterModel();
+            return View(m);
         }
 
         //

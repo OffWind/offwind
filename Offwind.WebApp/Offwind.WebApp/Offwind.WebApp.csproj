@@ -218,6 +218,7 @@
     <Compile Include="Areas\EngineeringTools\Controllers\MesoWindController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WakeSimulationController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WindWaveController.cs" />
+    <Compile Include="Areas\EngineeringTools\Controllers\_BaseController.cs" />
     <Compile Include="Areas\EngineeringTools\EngineeringToolsAreaRegistration.cs" />
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\DatabaseItem.cs" />
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\DbSettings.cs" />

@@ -6,13 +6,14 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation;
 using Offwind.WebApp.Infrastructure;
+using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Account;
 using WakeCode;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
     [Authorize(Roles = SystemRole.RegularUser)]
-    public class WakeSimulationController : Controller
+    public class WakeSimulationController : _BaseController
     {
         public ActionResult Index()
         {
@@ -23,6 +24,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             ViewBag.Title = "General Properties | WakeSim | Offwind";
             var model = GetModelGeneral();
+            InitNavigation(model.Navigation);
             return View(model);
         }
 
@@ -37,13 +39,16 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 return View(model);
             }
             if (Request.IsAjaxRequest()) return Json("FAIL");
+            InitNavigation(model.Navigation);
             return View(model);
         }
 
         public ActionResult TurbineCoordinates()
         {
             ViewBag.Title = "Turbine Properties | WakeSim | Offwind";
-            return View();
+            var model = GetModelGeneral();
+            InitNavigation(model.Navigation);
+            return View(model);
         }
 
         public JsonResult TurbineCoordinatesData()
@@ -66,7 +71,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult Simulation()
         {
             ViewBag.Title = "Simulation | WakeSim | Offwind";
-            return View();
+            var m = new VWebPage();
+            InitNavigation(m.Navigation);
+            return View(m);
         }
 
         [HttpPost]
@@ -139,7 +146,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult PostProcessing()
         {
             ViewBag.Title = "Post-processing | WakeSim | Offwind";
-            return View();
+            var m = new VWebPage();
+            InitNavigation(m.Navigation);
+            return View(m);
         }
 
         private VGeneralProperties GetModelGeneral()

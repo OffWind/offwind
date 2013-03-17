@@ -11,7 +11,7 @@
             {
                 <li @this.ActiveIfCurrent(item.Url)>
                     <a href="@this.GenerateUrl(item.Url)">
-                        <i class="icon-asterisk"></i> @item.Title
+                        @*<i class="icon-asterisk"></i> *@@item.Title
                     </a>
                 </li>
             }

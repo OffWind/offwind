@@ -1,8 +1,5 @@
 ﻿@using System.Web.Script.Serialization
-@model List<Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind.HPoint>
-<div class="span3">
-    @Html.Partial("__SideNav")
-</div>
+@model Offwind.WebApp.Models.VWebPageSimpleObject<List<Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind.HPoint>>
 <div class="span9">
     <ul class="breadcrumb">
         <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
@@ -68,7 +65,7 @@
     @Scripts.Render("~/static/js/highcharts.js")
 
     <script type="text/javascript">
-        var chartData = @(Html.Raw(new JavaScriptSerializer().Serialize(Model)));
+        var chartData = @(Html.Raw(new JavaScriptSerializer().Serialize(Model.SimpleObject)));
         var chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'chartdiv'

@@ -1,6 +1,8 @@
-﻿namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation
+﻿using Offwind.WebApp.Models;
+
+namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation
 {
-    public class VGeneralProperties
+    public class VGeneralProperties : VWebPage
     {
         public string SolverState { get; set; }
 

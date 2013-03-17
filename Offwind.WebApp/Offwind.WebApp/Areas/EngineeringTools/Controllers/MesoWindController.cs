@@ -9,13 +9,14 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using NUnit.Framework;
 using Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind;
+using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Account;
 using log4net;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
     [Authorize(Roles = SystemRole.RegularUser)]
-    public class MesoWindController : Controller
+    public class MesoWindController : _BaseController
     {
         private static readonly List<DatabaseItem> _fnl   = new List<DatabaseItem>();
         private static readonly List<DatabaseItem> _merra = new List<DatabaseItem>();
@@ -32,7 +33,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult Database()
         {
             ViewBag.Title = "Database | Mesoscale Wind Characteristics | Offwind";
-            return View(Settings);
+            var m = Settings;
+            InitNavigation(m.Navigation);
+            return View(m);
         }
 
         [ActionName("Database")]
@@ -44,34 +47,43 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             Settings.startLat = model.startLat;
             Settings.startLng = model.startLng;
             Settings.distance = model.distance;
-            return View(Settings);
+            var m = new VWebPageSimpleObject<DbSettings>();
+            m.SimpleObject = Settings;
+            InitNavigation(m.Navigation);
+            return View(m);
         }
 
         public ActionResult CurrentData()
         {
             ViewBag.Title = "Current Data | Mesoscale Wind Characteristics - Offwind";
-            return View();
+            var m = new VWebPage();
+            InitNavigation(m.Navigation);
+            return View(m);
         }
         
         public ActionResult VelocityFreq()
         {
             ViewBag.Title = "Histogram | Mesoscale Wind Characteristics | Offwind";
-            var model = new List<HPoint>();
+            var m = new VWebPageSimpleObject<List<HPoint>>();
+            InitNavigation(m.Navigation);
             if (Session[CurrentFile] == null)
             {
-                return View(model);
+                m.SimpleObject = new List<HPoint>();
+                return View(m);
             }
 
             var file = (string)Session[CurrentFile];
             string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.type];
             var imported = ImportFile(DbDir, file);
-            return View(imported.VelocityFreq);
+            m.SimpleObject = imported.VelocityFreq;
+            return View(m);
         }
 
         public ActionResult WindRose()
         {
             ViewBag.Title = "Wind Roses | Mesoscale Wind Characteristics | Offwind";
             var model = new VWindRose();
+            InitNavigation(model.Navigation);
             if (Session[CurrentFile] == null)
             {
                 return View(model);

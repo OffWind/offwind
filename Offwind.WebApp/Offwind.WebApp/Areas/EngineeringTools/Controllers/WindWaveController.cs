@@ -13,7 +13,7 @@ using Offwind.WebApp.Models.Account;
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
     [Authorize(Roles = SystemRole.RegularUser)]
-    public class WindWaveController : Controller
+    public class WindWaveController : _BaseController
     {
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
@@ -61,6 +61,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             m.TurbineDiameter = (decimal)d.Td;
             m.TurbineEfficiency = (decimal)d.Ef;
             m.WaveSpeed = (decimal)d.Cw;
+            InitNavigation(m.Navigation);
             return View(m);
         }
 
@@ -78,13 +79,16 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             d.Cw = (double)m.WaveSpeed;
             SetDbModel(d);
             if (Request.IsAjaxRequest()) return Json("OK");
+            InitNavigation(m.Navigation);
             return View(m);
         }
 
         public ActionResult PowerOutput()
         {
             ViewBag.Title = "Power Output | Wind Wave | Offwind";
-            return View();
+            var m = new VWebPage();
+            InitNavigation(m.Navigation);
+            return View(m);
         }
 
         public JsonResult PowerOutputData()
@@ -106,7 +110,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult PowerOutputAdvanced()
         {
             ViewBag.Title = "Power Output Advanced | Wind Wave | Offwind";
-            return View();
+            var m = new VWebPage();
+            InitNavigation(m.Navigation);
+            return View(m);
         }
 
         public JsonResult PowerOutputAdvancedData()

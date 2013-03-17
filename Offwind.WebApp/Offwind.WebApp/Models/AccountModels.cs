@@ -52,7 +52,7 @@ namespace Offwind.WebApp.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class LoginModel
+    public class LoginModel : VWebPage
     {
         [Required]
         [Display(Name = "User name")]
@@ -67,7 +67,7 @@ namespace Offwind.WebApp.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterModel
+    public class RegisterModel : VWebPage
     {
         [Required]
         [Display(Name = "User name")]

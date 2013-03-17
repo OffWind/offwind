@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
 {
@@ -18,7 +19,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
         no
     };
 
-    public class DbSettings
+    public class DbSettings : VWebPage
     {
         [DisplayName("Latitude")]
         public decimal startLat { set; get; }

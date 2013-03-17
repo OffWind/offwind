@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Offwind.WebApp.Areas.EngineeringTools.Models.WindWave.Computations;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Models.WindWave
 {
-    public sealed class VWindWave
+    public sealed class VWindWave : VWebPage
     {
         public VWindWave()
         {

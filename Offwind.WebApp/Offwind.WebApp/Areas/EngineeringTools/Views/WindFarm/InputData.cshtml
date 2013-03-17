@@ -5,16 +5,12 @@
     @Styles.Render("~/static/css/jquery.handsontable.full.css")
 }
 
-<div class="span3">
-    @Html.Partial("__SideNav")
-</div>
-
 <div class="span9">
     <ul class="breadcrumb">
         <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
         <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
-        <li>Farm Control <span class="divider">/</span></li>
-        <li>Parameters</li>
+        <li>Wind Farm<span class="divider">/</span></li>
+        <li>Input Data</li>
     </ul>
     <div id="alert-saved"  class="alert alert-success hidden" style="width: 10%">
         <a class="close" data-dismiss="alert">×</a>
@@ -27,8 +23,11 @@
             @Html.EditorFor(m => m.TimeStep)
             @Html.EditorFor(m => m.Scale)
             
-            <div id="windturbine">
-            </div>
+            <fieldset>
+                <legend>Turbines list in windfarm</legend>
+                <div id="windturbine">
+                </div>
+            </fieldset>
 
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">Save</button>

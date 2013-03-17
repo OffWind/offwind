@@ -37,6 +37,10 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Power Output", new NavUrl("PowerOutput", "WindWave", "EngineeringTools"))
                 .AddItem("Power Output Adv.", new NavUrl("PowerOutputAdvanced", "WindWave", "EngineeringTools"));
 
+            navigation.AddGroup("Wind Farm")
+                .AddItem("Input Data", new NavUrl("InputData", "WindFarm", "EngineeringTools"))
+                .AddItem("Simulation", new NavUrl("Simulation", "WindFarm", "EngineeringTools"));
+
             foreach (var grp in navigation)
             {
                 grp.IsActive = grp.Title == _currentGroup;

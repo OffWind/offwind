@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Models.WindFarm
 {
-    public sealed class VWindFarm
+    public sealed class VWindFarm : VWebPage
     {
         public Double StartTime { set; get; }
         public Double StopTime { set; get; }
@@ -18,10 +19,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.WindFarm
 
         public VWindFarm()
         {
-            StartTime = 0;
-            StopTime = 1000;
-            TimeStep = 0.01;
-            Scale = 5000000;
             Turbines = new List<VWindTurbine>();
         }
     }

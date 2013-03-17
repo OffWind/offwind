@@ -15,8 +15,8 @@
     </div>
     <div class="span3">
         <div class="well well-small" style="background-color: white;">
-            <div class="row-fluid">            
-                <div class="span11" style="margin-bottom: 1em;">                    
+            <div class="row-fluid">
+                <div class="span11" style="margin-bottom: 1em;">
                     @Html.EditorFor(m => m.showAll)
                     @Html.EditorFor(m => m.startLng)
                     @Html.EditorFor(m => m.startLat)
@@ -56,7 +56,7 @@
     <script type="text/javascript" src="../../../../static/js/markerclusterer.js"></script>
 
     @Scripts.Render("~/static/js/jquery.dataTables.Pagination.js")
-    <script>
+    <script language="javascript">
         var map;
         var dbTable = null;
         var clusters = null;

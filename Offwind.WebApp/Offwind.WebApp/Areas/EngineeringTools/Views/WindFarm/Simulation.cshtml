@@ -1,11 +1,8 @@
-﻿<div class="span3">
-    @Html.Partial("__SideNav")
-</div>
-<div class="span9">
+﻿<div class="span9">
     <ul class="breadcrumb">
         <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
         <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
-        <li>WindFarm Simulation <span class="divider">/</span></li>
+        <li>Wind Farm<span class="divider">/</span></li>
         <li>Simulation</li>
     </ul>
     <h3>Simulation</h3>
@@ -26,7 +23,7 @@
 
 @section scripts
 {
-    <script>
+    <script language="javascript">
         var interval_obj;
         var canBeDownloaded = false;
 

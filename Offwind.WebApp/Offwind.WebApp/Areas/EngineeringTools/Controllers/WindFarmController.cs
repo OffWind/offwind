@@ -10,14 +10,20 @@ using System.Web.Mvc;
 using EmitMapper;
 using Offwind.WebApp.Areas.EngineeringTools.Models.WindFarm;
 using Offwind.WebApp.Infrastructure;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
-    public class WindFarmController : Controller
+    public class WindFarmController : _BaseController
     {
         private static VWindFarm _model = null;
         //private static Thread _thread = null;
         private double process = 0;
+
+        public WindFarmController()
+        {
+            _currentGroup = "Wind Farm";
+        }
 
         public ActionResult Index()
         {
@@ -30,7 +36,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             if (_model == null)
             {
                 _model = new VWindFarm();
-                _model.Turbines.Add(new VWindTurbine() {rho = 1, radius = 63, rated = 5, Cp = 0.45, speed = 12});
+                InitWindFarm();
             }
             ObjectMapperManager.DefaultInstance.GetMapper<VWindFarm, VWindFarm>().Map(_model, model);
             return View(model);
@@ -52,7 +58,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult Simulation()
         {
-            return View();
+            ViewBag.Title = "Simulation | WindFarm | Offwind";
+            return View(new VWebPage());
         }
 
         public JsonResult GetTurbines()
@@ -110,7 +117,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
         }
          */
-
         public JsonResult Run()
         {
             /*
@@ -166,7 +172,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
             SharpZipUtils.CompressFolder(wdir, Path.Combine(dir, "windfarm.zip"), null);
 
-            return Json("OK");
+            return Json("OK", JsonRequestBehavior.AllowGet);
         }
 
         public FileResult DownloadResult()
@@ -190,6 +196,16 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             double elapsed = ((process - _model.StartTime)/(_model.StopTime - _model.StartTime)) * 100;
             return Json(elapsed.ToString(CultureInfo.InvariantCulture));
+        }
+
+        private void InitWindFarm()
+        {
+            _model.StartTime = 0;
+            _model.StopTime = 1000;
+            _model.TimeStep = 0.01;
+            _model.Scale = 5000000;
+
+            _model.Turbines.Add(new VWindTurbine() {Cp = 0.45, radius = 63, rated = 1, rho = 0.1, speed = 12});
         }
     }
 }

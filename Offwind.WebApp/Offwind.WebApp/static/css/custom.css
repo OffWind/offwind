@@ -114,3 +114,26 @@ table th {
 {
     display: block;
 }
+.bs-docs-example {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    padding: 14px;
+    position: relative;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+.row-content-block
+{
+    margin-bottom: 14px;
+}
+.row-content-block .sub-block-fixed
+{
+    height: 220px;
+}
+
+.row-content-block .sub-block-fixed .btn
+{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}

@@ -8,6 +8,14 @@
 <h2>
     Please, choose what you would like to work with:
 </h2>
-<a href="@Url.Action("Database", "MesoWind", new { area = "EngineeringTools" })" class="btn btn-primary btn-info span6">Mesoscale Wind Characteristics Database</a> <br/> <br/>
-<a href="@Url.Action("GeneralProperties", "WakeSimulation", new { area = "EngineeringTools" })" class="btn btn-primary btn-info span6">Wake Simulation</a> <br/> <br/>
-<a href="@Url.Action("InputData", "WindWave", new { area = "EngineeringTools" })" class="btn btn-primary btn-info span6">Wind Wave Power Calculator</a> <br/> <br/>
+<ul class="">
+    <li>
+        <a href="@Url.Action("Database", "MesoWind", new { area = "EngineeringTools" })" class="btn btn-primary btn-info">Mesoscale Wind Characteristics Database</a> <br/> <br/>
+    </li>
+    <li>
+        <a href="@Url.Action("GeneralProperties", "WakeSimulation", new { area = "EngineeringTools" })" class="btn btn-primary btn-info">Wake Simulation</a> <br/> <br/>
+    </li>
+    <li>
+        <a href="@Url.Action("InputData", "WindWave", new { area = "EngineeringTools" })" class="btn btn-primary btn-info">Wind Wave Power Calculator</a> <br/> <br/>
+    </li>
+</ul>

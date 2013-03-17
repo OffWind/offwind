@@ -7,8 +7,11 @@ namespace Offwind.WebApp.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            return View(new VWebPage());
+        }
 
+        public ActionResult Contacts()
+        {
             return View(new VWebPage());
         }
     }

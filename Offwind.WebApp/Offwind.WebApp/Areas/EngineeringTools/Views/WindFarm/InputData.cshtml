@@ -1,0 +1,105 @@
+﻿@model Offwind.WebApp.Areas.EngineeringTools.Models.WindFarm.VWindFarm
+
+@section styles
+{
+    @Styles.Render("~/static/css/jquery.handsontable.full.css")
+}
+
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+        <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+        <li>Wind Farm<span class="divider">/</span></li>
+        <li>Input Data</li>
+    </ul>
+    <div id="alert-saved"  class="alert alert-success hidden" style="width: 10%">
+        <a class="close" data-dismiss="alert">×</a>
+        Saved
+    </div>
+    <form class="form-horizontal" method="post">
+        <fieldset>
+            @Html.EditorFor(m => m.StartTime)
+            @Html.EditorFor(m => m.StopTime)
+            @Html.EditorFor(m => m.TimeStep)
+            @Html.EditorFor(m => m.Scale)
+            
+            <fieldset>
+                <legend>Turbines list in windfarm</legend>
+                <div id="windturbine">
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn">Cancel</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+@section scripts
+{
+     @Scripts.Render("~/static/js/jquery.form.js")
+     @Scripts.Render("~/static/js/jquery.handsontable.full.js")
+     @Scripts.Render("~/static/js/handsontable.tools.js")
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var isInitialize = false;
+            $("#windturbine").handsontable({
+                startRows: 2,
+                startCols: 5,
+                columns: [
+                    { type: { renderer: td_renderer } },
+                    { type: { renderer: td_renderer } },
+                    { type: { renderer: td_renderer } },
+                    { type: { renderer: td_renderer } },
+                    { type: { renderer: td_renderer } }],
+                colHeaders: [
+                    "<b>Air density</b>",
+                    "<b>Rotor radius (m)</b>",
+                    "<b>Rated power (MW)</b>",
+                    "<b>Max Cp</b>",
+                    "<b>Wind speed (m/s)</b>"
+                ],
+                rowHeaders: true,
+                minSpareRows: 1,
+                contextMenu: true,
+                onBeforeChange: function(value) {
+                    return td_before_change(value, $("#windturbine"), ["0", "0", "0", "0", "0"]);
+                },
+                onChange: function(change, source) {
+                    if (!isInitialize) return;
+                    if ((change.length == 0) || (change[0][2] == change[0][3])) return;
+
+                    var d = $("#windturbine").data('handsontable').getData();
+                    $.ajax({
+                        url: "@Url.Action("SaveTurbines", "WindFarm", new { area = "EngineeringTools" })",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(d)
+                    });
+                }
+            });
+            $.ajax({
+                url: "@Url.Action("GetTurbines", "WindFarm", new { area = "EngineeringTools" })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    $("#windturbine").data('handsontable').loadData(res);
+                    isInitialize = true;
+                }
+            });
+
+            // save button push alert
+            $('form').ajaxForm(function() {
+                $('#alert-saved').removeClass('hidden').hide().fadeIn();
+            });
+            $('#alert-saved').bind('close', function() {
+                $('#alert-saved').fadeOut();
+                return false;
+            });
+        });
+    </script>
+}

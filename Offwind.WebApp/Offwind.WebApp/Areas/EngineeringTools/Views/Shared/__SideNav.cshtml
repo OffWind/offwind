@@ -63,5 +63,16 @@
                 <i class="icon-download"></i> Power Output Adv.
             </a>
         </li>
+        <li class="nav-header">Farm Control</li>
+        <li @this.ActiveIfCurrent("InputData", "WindFarm", "EngineeringTools")>
+            <a href="@Url.Action("InputData", "WindFarm", new { area = "EngineeringTools" })">
+                <i class="icon-cog"></i> Input Data
+            </a>
+        </li>
+        <li @this.ActiveIfCurrent("Simulation", "WindFarm", "EngineeringTools")>
+            <a href="@Url.Action("Simulation", "WindFarm", new { area = "EngineeringTools" })">
+                <i class="icon-play-circle"></i> Simulation
+            </a>
+        </li>
     </ul>
 </div>

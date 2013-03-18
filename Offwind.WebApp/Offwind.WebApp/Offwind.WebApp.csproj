@@ -217,6 +217,7 @@
     <Compile Include="Areas\EngineeringTools\Controllers\EngineeringToolsController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\MesoWindController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WakeSimulationController.cs" />
+    <Compile Include="Areas\EngineeringTools\Controllers\WindFarmController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WindWaveController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\_BaseController.cs" />
     <Compile Include="Areas\EngineeringTools\EngineeringToolsAreaRegistration.cs" />
@@ -228,6 +229,8 @@
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VGeneralProperties.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VTurbine.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VTurbineCoordinates.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WindFarm\VWindFarm.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WindFarm\VWindTurbine.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WindWave\Computations\AdvancedCfd.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WindWave\Computations\Calculator.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WindWave\Computations\WindWaveInput.cs" />
@@ -1769,6 +1772,13 @@
     <None Include="static\theme\stylesheets\theme.less" />
     <Content Include="Views\Shared\__Footer.cshtml" />
     <Content Include="Views\Shared\__SideNav.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\WindFarm\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\EngineeringTools\Views\WindFarm\Simulation.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

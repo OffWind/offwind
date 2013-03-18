@@ -1,32 +1,36 @@
 ﻿@using Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
 @model DbSettings
 
-<form class="form-horizontal indent" method="post">
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>Meso Wind <span class="divider">/</span></li>
+    <li>Database</li>
+</ul>
+<div class="row-fluid">
     <div class="span6">
-        <ul class="breadcrumb">
-            <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
-            <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
-            <li>Meso Wind <span class="divider">/</span></li>
-            <li>Database</li>
-        </ul>
         <div class="well well-small">
             <div id="map_canvas" style="width: auto; height: 480px;"></div>
         </div>
     </div>
-    <div class="span3">
+    <div class="span6">
         <div class="well well-small" style="background-color: white;">
-            <div class="row-fluid">            
-                <div class="span11" style="margin-bottom: 1em;">                    
-                    @Html.EditorFor(m => m.showAll)
-                    @Html.EditorFor(m => m.startLng)
-                    @Html.EditorFor(m => m.startLat)
-                    @Html.EditorFor(m => m.distance)
-                    @Html.EditorFor(m => m.type)
-                    <div style="text-align: center">
-                        <button type="submit" class="btn btn-primary">Apply settings</button>
-                    </div>
+            <div class="row-fluid">
+                <div class="span12" style="margin-bottom: 1em;">                    
+                    <form class="form-horizontal indent" method="post">
+                        @Html.EditorFor(m => m.showAll)
+                        @Html.EditorFor(m => m.startLng)
+                        @Html.EditorFor(m => m.startLat)
+                        @Html.EditorFor(m => m.distance)
+                        @Html.EditorFor(m => m.type)
+                        <div style="text-align: center">
+                            <button type="submit" class="btn btn-primary">Apply settings</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="span11">
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
                     <table id="database" class="table table-condensed table-hover table-bordered">
                         <thead>
                             <tr>
@@ -47,7 +51,7 @@
             </div>
         </div>
     </div>
-</form>
+</div>
 
 @section scripts
 {

@@ -32,7 +32,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            ViewBag.Title = "Overview | Mesoscale Wind Characteristics | Offwind";
+            return View(new VWebPage());
         }
 
         public ActionResult Database()

@@ -1,1 +1,77 @@
-﻿
+﻿<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>Meso Wind <span class="divider">/</span></li>
+    <li>Overview</li>
+</ul>
+<div class="row-fluid row-content-block">
+    <div class="span12 bs-docs-example">
+        <h4>Overview</h4>
+        <p>With this tool you can perform initial estimation of the local wind flow, in order to start designing a preliminary offshore wind farm layout.</p>
+        <p>Here some existing databases of meteorological data were adopted to provide fast and convenient access to them.</p>
+        <p><strong>Databases included here:</strong></p>
+        <ol>
+            <li>FNL/GFS</li>
+            <li>MERRA</li>
+        </ol>
+        <p>These databases were processed in the following way to be used here:</p>
+        <ul>
+            <li>identified the points of interest to limit the database to the
+                areas where the OFFWIND project is useful, i.e. areas on the planet where
+                off-shore wind farms can feasibly be implemented;</li>
+            <li>extraction of data to these locations;</li>
+            <li>processing of the extracted data to arrive at manageable condensed statistics.</li>
+        </ul>
+        <h4>FNL/GFS</h4>
+        <p>FNL/GFS database provides meteorological data on a 1º resolution grid. Thus the selection of points was also restricted to this grid.</p>
+        <p>As such, 7023 points of interest were identified based on two criteria:</p>
+        <ul>
+            <li>sea depth below 200m (3512 points, blue dots in the figure);</li>
+            <li>proximity to the coast below 1º (3493 points, red points in the figure).</li>
+        </ul>
+        <p>The database contains planetary snapshots of the atmosphere as predicted by the GFS model, at 4 times per day (at 0000, 0600, 1200, 1800),
+            since September 1999. Some data assimilation exists, but it is an <em>analysis</em> dataset, not a <em>reanalysis</em>.</p>
+        <p>Once all points of interest were identified, FNL/GFS wind data was extracted at each point, for the period 2000-2011. That is,
+            a 12-year time series with wind data at every 6 hours. Extracted data consists of wind velocities and direction at 1000
+            millibar pressure. In a standard atmosphere, this corresponds to 111m above sea level, though the actual height will vary
+            during the time series.</p>
+        <p>The time series produced by the extraction utility (7523 series, one per point of interest, 840KB each) are converted into <strong>TAB format</strong> (frequency domain)
+            which contain, in a tabular form, <em>wind direction frequency</em>, <em>mean wind speeds</em> and <em>velocity histograms</em>.
+        </p>
+        <p>
+            <a href="/static/eng-tools/meso-wind/db-fnl.png" target="_blank" data-toggle="tooltip" title="FNL database coverage. Click to open in separate window.">
+                <img src="/static/eng-tools/meso-wind/db-fnl.png" class="img-polaroid" alt="FNL database coverage. Click to open in separate window."/>
+            </a>
+        </p>
+        <h4>MERRA</h4>
+        <p>While FNL has a 1º resolution both in latitude and longitude, MERRA has 0.5º in latitude and 2/3º in longitude.</p>
+        <h4>Reference</h4>
+        <p>
+            <a href="/static/eng-tools/meso-wind/TAB-format-summary.pdf">TAB format summary (PDF, 126KB)</a>
+        </p>
+    </div>
+</div>
+
+@section styles
+{
+    <style>
+        p
+        {
+            margin-left: 2em;
+            margin-right: 2em;
+        }
+        ul, ol
+        {
+            margin-left: 5em;
+            margin-right: 2em;
+        }
+    </style>
+}
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+}

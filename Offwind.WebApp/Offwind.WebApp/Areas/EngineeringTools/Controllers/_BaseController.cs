@@ -21,6 +21,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             var navigation = new NavItem<NavUrl>();
             navigation.AddGroup("Meso Wind")
+                .AddItem("Overview", new NavUrl("Index", "MesoWind", "EngineeringTools"))
                 .AddItem("Database", new NavUrl("Database", "MesoWind", "EngineeringTools"))
                 .AddItem("Current Data", new NavUrl("CurrentData", "MesoWind", "EngineeringTools"))
                 .AddItem("Velocity Freq.", new NavUrl("VelocityFreq", "MesoWind", "EngineeringTools"))

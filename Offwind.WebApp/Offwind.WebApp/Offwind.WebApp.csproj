@@ -278,6 +278,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="static\css\bs-docs.css" />
+    <Content Include="static\eng-tools\meso-wind\db-fnl.png" />
     <Content Include="static\js\offwind.js" />
     <Content Include="static\theme\blog.html" />
     <Content Include="static\theme\calendar.html" />
@@ -1620,6 +1621,8 @@
     <Content Include="Areas\CFD\Views\Processing\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="static\eng-tools\meso-wind\TAB-format-summary.docx" />
+    <None Include="static\eng-tools\meso-wind\TAB-format-summary.pdf" />
     <None Include="static\theme\lib\bootstrap-formhelpers\README.md" />
     <None Include="static\theme\lib\bootstrap-timepicker\less\timepicker.less" />
     <None Include="static\theme\lib\bootstrap-timepicker\README.md" />

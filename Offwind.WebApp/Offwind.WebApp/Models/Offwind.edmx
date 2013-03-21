@@ -8,6 +8,16 @@
         <EntityContainer Name="u254697_offwindModelStoreContainer">
           <EntitySet Name="DCase" EntityType="u254697_offwindModel.Store.DCase" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DJob" EntityType="u254697_offwindModel.Store.DJob" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MesoscaleDatabases" EntityType="u254697_offwindModel.Store.MesoscaleDatabases" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MesoscaleTabFiles" EntityType="u254697_offwindModel.Store.MesoscaleTabFiles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SmallMesoscaleTabFiles" EntityType="u254697_offwindModel.Store.SmallMesoscaleTabFiles" store:Type="Views" store:Schema="dbo" store:Name="SmallMesoscaleTabFiles">
+            <DefiningQuery>SELECT 
+      [SmallMesoscaleTabFiles].[Id] AS [Id], 
+      [SmallMesoscaleTabFiles].[DatabaseId] AS [DatabaseId], 
+      [SmallMesoscaleTabFiles].[Latitude] AS [Latitude], 
+      [SmallMesoscaleTabFiles].[Longitude] AS [Longitude]
+      FROM [dbo].[SmallMesoscaleTabFiles] AS [SmallMesoscaleTabFiles]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
         <EntityType Name="DCase">
           <Key>
@@ -34,6 +44,38 @@
           <Property Name="Result" Type="nvarchar" MaxLength="20" />
           <Property Name="ResultData" Type="nvarchar" />
         </EntityType>
+        <EntityType Name="MesoscaleDatabases">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MesoscaleTabFiles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DatabaseId" Type="smallint" Nullable="false" />
+          <Property Name="Latitude" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="Longitude" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="Text" Type="text" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'u254697_offwind.dbo.SmallMesoscaleTabFiles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="SmallMesoscaleTabFiles">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DatabaseId" />
+            <PropertyRef Name="Latitude" />
+            <PropertyRef Name="Longitude" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DatabaseId" Type="smallint" Nullable="false" />
+          <Property Name="Latitude" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="Longitude" Type="decimal" Nullable="false" Scale="4" />
+        </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -41,6 +83,9 @@
         <EntityContainer Name="OffwindEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DCases" EntityType="Offwind.DbModels.DCase" />
           <EntitySet Name="DJobs" EntityType="Offwind.DbModels.DJob" />
+          <EntitySet Name="MesoscaleDatabases" EntityType="Offwind.DbModels.MesoscaleDatabas" />
+          <EntitySet Name="MesoscaleTabFiles" EntityType="Offwind.DbModels.MesoscaleTabFile" />
+          <EntitySet Name="SmallMesoscaleTabFiles" EntityType="Offwind.DbModels.SmallMesoscaleTabFile" />
         </EntityContainer>
         <EntityType Name="DCase">
           <Key>
@@ -66,6 +111,35 @@
           <Property Type="String" Name="State" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Result" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ResultData" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MesoscaleDatabas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int16" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MesoscaleTabFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
+          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SmallMesoscaleTabFile">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DatabaseId" />
+            <PropertyRef Name="Latitude" />
+            <PropertyRef Name="Longitude" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
+          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -100,6 +174,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MesoscaleDatabases">
+            <EntityTypeMapping TypeName="Offwind.DbModels.MesoscaleDatabas">
+              <MappingFragment StoreEntitySet="MesoscaleDatabases">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MesoscaleTabFiles">
+            <EntityTypeMapping TypeName="Offwind.DbModels.MesoscaleTabFile">
+              <MappingFragment StoreEntitySet="MesoscaleTabFiles">
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SmallMesoscaleTabFiles">
+            <EntityTypeMapping TypeName="Offwind.DbModels.SmallMesoscaleTabFile">
+              <MappingFragment StoreEntitySet="SmallMesoscaleTabFiles">
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -123,6 +226,9 @@
       <Diagram Name="Offwind">
         <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="0.75" PointY="0.75" Height="2.1725878906249996" />
         <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="2.75" PointY="0.75" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleDatabas" Width="1.5" PointX="0.75" PointY="4.75" Height="1.4033821614583317" />
+        <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleTabFile" Width="1.5" PointX="2.75" PointY="4.75" Height="1.9802864583333335" />
+        <EntityTypeShape EntityType="Offwind.DbModels.SmallMesoscaleTabFile" Width="1.5" PointX="5.375" PointY="0.75" Height="1.7879850260416674" />
       </Diagram>
     </Diagrams>
   </Designer>

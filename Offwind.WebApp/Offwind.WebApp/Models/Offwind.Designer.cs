@@ -96,6 +96,54 @@ namespace Offwind.WebApp.Models
             }
         }
         private ObjectSet<DJob> _DJobs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<MesoscaleDatabas> MesoscaleDatabases
+        {
+            get
+            {
+                if ((_MesoscaleDatabases == null))
+                {
+                    _MesoscaleDatabases = base.CreateObjectSet<MesoscaleDatabas>("MesoscaleDatabases");
+                }
+                return _MesoscaleDatabases;
+            }
+        }
+        private ObjectSet<MesoscaleDatabas> _MesoscaleDatabases;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<MesoscaleTabFile> MesoscaleTabFiles
+        {
+            get
+            {
+                if ((_MesoscaleTabFiles == null))
+                {
+                    _MesoscaleTabFiles = base.CreateObjectSet<MesoscaleTabFile>("MesoscaleTabFiles");
+                }
+                return _MesoscaleTabFiles;
+            }
+        }
+        private ObjectSet<MesoscaleTabFile> _MesoscaleTabFiles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SmallMesoscaleTabFile> SmallMesoscaleTabFiles
+        {
+            get
+            {
+                if ((_SmallMesoscaleTabFiles == null))
+                {
+                    _SmallMesoscaleTabFiles = base.CreateObjectSet<SmallMesoscaleTabFile>("SmallMesoscaleTabFiles");
+                }
+                return _SmallMesoscaleTabFiles;
+            }
+        }
+        private ObjectSet<SmallMesoscaleTabFile> _SmallMesoscaleTabFiles;
 
         #endregion
         #region AddTo Methods
@@ -114,6 +162,30 @@ namespace Offwind.WebApp.Models
         public void AddToDJobs(DJob dJob)
         {
             base.AddObject("DJobs", dJob);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the MesoscaleDatabases EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToMesoscaleDatabases(MesoscaleDatabas mesoscaleDatabas)
+        {
+            base.AddObject("MesoscaleDatabases", mesoscaleDatabas);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the MesoscaleTabFiles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToMesoscaleTabFiles(MesoscaleTabFile mesoscaleTabFile)
+        {
+            base.AddObject("MesoscaleTabFiles", mesoscaleTabFile);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SmallMesoscaleTabFiles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSmallMesoscaleTabFiles(SmallMesoscaleTabFile smallMesoscaleTabFile)
+        {
+            base.AddObject("SmallMesoscaleTabFiles", smallMesoscaleTabFile);
         }
 
         #endregion
@@ -557,6 +629,388 @@ namespace Offwind.WebApp.Models
         private global::System.String _ResultData;
         partial void OnResultDataChanging(global::System.String value);
         partial void OnResultDataChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="MesoscaleDatabas")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class MesoscaleDatabas : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new MesoscaleDatabas object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        public static MesoscaleDatabas CreateMesoscaleDatabas(global::System.Int16 id, global::System.String name)
+        {
+            MesoscaleDatabas mesoscaleDatabas = new MesoscaleDatabas();
+            mesoscaleDatabas.Id = id;
+            mesoscaleDatabas.Name = name;
+            return mesoscaleDatabas;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int16 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int16 _Id;
+        partial void OnIdChanging(global::System.Int16 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="MesoscaleTabFile")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class MesoscaleTabFile : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new MesoscaleTabFile object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="databaseId">Initial value of the DatabaseId property.</param>
+        /// <param name="latitude">Initial value of the Latitude property.</param>
+        /// <param name="longitude">Initial value of the Longitude property.</param>
+        /// <param name="text">Initial value of the Text property.</param>
+        public static MesoscaleTabFile CreateMesoscaleTabFile(global::System.Int32 id, global::System.Int16 databaseId, global::System.Decimal latitude, global::System.Decimal longitude, global::System.String text)
+        {
+            MesoscaleTabFile mesoscaleTabFile = new MesoscaleTabFile();
+            mesoscaleTabFile.Id = id;
+            mesoscaleTabFile.DatabaseId = databaseId;
+            mesoscaleTabFile.Latitude = latitude;
+            mesoscaleTabFile.Longitude = longitude;
+            mesoscaleTabFile.Text = text;
+            return mesoscaleTabFile;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int16 DatabaseId
+        {
+            get
+            {
+                return _DatabaseId;
+            }
+            set
+            {
+                OnDatabaseIdChanging(value);
+                ReportPropertyChanging("DatabaseId");
+                _DatabaseId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DatabaseId");
+                OnDatabaseIdChanged();
+            }
+        }
+        private global::System.Int16 _DatabaseId;
+        partial void OnDatabaseIdChanging(global::System.Int16 value);
+        partial void OnDatabaseIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Latitude
+        {
+            get
+            {
+                return _Latitude;
+            }
+            set
+            {
+                OnLatitudeChanging(value);
+                ReportPropertyChanging("Latitude");
+                _Latitude = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Latitude");
+                OnLatitudeChanged();
+            }
+        }
+        private global::System.Decimal _Latitude;
+        partial void OnLatitudeChanging(global::System.Decimal value);
+        partial void OnLatitudeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Longitude
+        {
+            get
+            {
+                return _Longitude;
+            }
+            set
+            {
+                OnLongitudeChanging(value);
+                ReportPropertyChanging("Longitude");
+                _Longitude = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Longitude");
+                OnLongitudeChanged();
+            }
+        }
+        private global::System.Decimal _Longitude;
+        partial void OnLongitudeChanging(global::System.Decimal value);
+        partial void OnLongitudeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Text
+        {
+            get
+            {
+                return _Text;
+            }
+            set
+            {
+                OnTextChanging(value);
+                ReportPropertyChanging("Text");
+                _Text = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Text");
+                OnTextChanged();
+            }
+        }
+        private global::System.String _Text;
+        partial void OnTextChanging(global::System.String value);
+        partial void OnTextChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="SmallMesoscaleTabFile")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SmallMesoscaleTabFile : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new SmallMesoscaleTabFile object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="databaseId">Initial value of the DatabaseId property.</param>
+        /// <param name="latitude">Initial value of the Latitude property.</param>
+        /// <param name="longitude">Initial value of the Longitude property.</param>
+        public static SmallMesoscaleTabFile CreateSmallMesoscaleTabFile(global::System.Int32 id, global::System.Int16 databaseId, global::System.Decimal latitude, global::System.Decimal longitude)
+        {
+            SmallMesoscaleTabFile smallMesoscaleTabFile = new SmallMesoscaleTabFile();
+            smallMesoscaleTabFile.Id = id;
+            smallMesoscaleTabFile.DatabaseId = databaseId;
+            smallMesoscaleTabFile.Latitude = latitude;
+            smallMesoscaleTabFile.Longitude = longitude;
+            return smallMesoscaleTabFile;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int16 DatabaseId
+        {
+            get
+            {
+                return _DatabaseId;
+            }
+            set
+            {
+                if (_DatabaseId != value)
+                {
+                    OnDatabaseIdChanging(value);
+                    ReportPropertyChanging("DatabaseId");
+                    _DatabaseId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("DatabaseId");
+                    OnDatabaseIdChanged();
+                }
+            }
+        }
+        private global::System.Int16 _DatabaseId;
+        partial void OnDatabaseIdChanging(global::System.Int16 value);
+        partial void OnDatabaseIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Latitude
+        {
+            get
+            {
+                return _Latitude;
+            }
+            set
+            {
+                if (_Latitude != value)
+                {
+                    OnLatitudeChanging(value);
+                    ReportPropertyChanging("Latitude");
+                    _Latitude = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Latitude");
+                    OnLatitudeChanged();
+                }
+            }
+        }
+        private global::System.Decimal _Latitude;
+        partial void OnLatitudeChanging(global::System.Decimal value);
+        partial void OnLatitudeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Longitude
+        {
+            get
+            {
+                return _Longitude;
+            }
+            set
+            {
+                if (_Longitude != value)
+                {
+                    OnLongitudeChanging(value);
+                    ReportPropertyChanging("Longitude");
+                    _Longitude = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Longitude");
+                    OnLongitudeChanged();
+                }
+            }
+        }
+        private global::System.Decimal _Longitude;
+        partial void OnLongitudeChanging(global::System.Decimal value);
+        partial void OnLongitudeChanged();
 
         #endregion
     

@@ -332,6 +332,15 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         private void FNL_Database(string home)
         {
+            foreach (var tabFile in _ctx.SmallMesoscaleTabFiles.Where(t => t.DatabaseId == 1))
+            {
+                var dbItem = new DatabaseItem();
+                dbItem.Longitude = tabFile.Longitude;
+                dbItem.Latitude = tabFile.Latitude;
+                dbItem.FileName = "";
+                _fnl.Add(dbItem);
+            }
+            return;
             foreach (var d in Directory.EnumerateFiles(home, "*.dat.tab", SearchOption.TopDirectoryOnly))
             {
                 var f = System.IO.Path.GetFileName(d);
@@ -353,6 +362,15 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         private void MERRA_Database(string home)
         {
+            foreach (var tabFile in _ctx.SmallMesoscaleTabFiles.Where(t => t.DatabaseId == 2))
+            {
+                var dbItem = new DatabaseItem();
+                dbItem.Longitude = tabFile.Longitude;
+                dbItem.Latitude = tabFile.Latitude;
+                dbItem.FileName = "";
+                _merra.Add(dbItem);
+            }
+            return;
             var reader = new StreamReader(Path.Combine(home, "merraseries.cfg"));
             string line;
             while ((line = reader.ReadLine()) != null)

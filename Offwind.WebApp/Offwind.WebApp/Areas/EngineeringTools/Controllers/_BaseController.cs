@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Offwind.WebApp.Infrastructure.Navigation;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
     public class _BaseController : Controller
     {
         protected string _currentGroup;
+        protected OffwindEntities _ctx = new OffwindEntities();
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {

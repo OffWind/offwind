@@ -7,11 +7,11 @@
     <title>@ViewBag.Title</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
-    @Styles.Render("~/static/css/bootstrap.css")
-    @Styles.Render("~/static/css/font-awesome.css")
-    @Styles.Render("~/static/css/custom.css")
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/font-awesome.css">
+    <link rel="stylesheet" href="/static/css/custom.css?v=@DateTime.UtcNow.Ticks.ToString()">
     @RenderSection("styles", required: false)
-    @Styles.Render("~/static/css/bootstrap-responsive.min.css")
+    <link rel="stylesheet" href="/static/css/bootstrap-responsive.min.css">
 </head>
 <body>
     <div id="wrap">
@@ -64,7 +64,7 @@
     @*<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>*@
     @Scripts.Render("~/static/js/jquery-1.7.1.min.js")
     @Scripts.Render("~/static/js/bootstrap.min.js")
-    @Scripts.Render("~/static/js/offwind.js")
+    <script type="text/javascript" charset="utf8" src="/static/js/offwind.js?v=@DateTime.UtcNow.Ticks.ToString()"></script>
     @RenderSection("scripts", required: false)
 
     <script type="text/javascript">

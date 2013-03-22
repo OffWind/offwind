@@ -4,5 +4,5 @@
 *.pyc
 bin/
 obj/
-/Offwind.WebApp/_ReSharper.Offwind.WebApp
 packages/
+_ReSharper.*/

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="u254697_offwindModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="u254697_offwindModelStoreContainer">
+          <EntitySet Name="MesoscaleDatabases" EntityType="u254697_offwindModel.Store.MesoscaleDatabases" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MesoscaleTabFiles" EntityType="u254697_offwindModel.Store.MesoscaleTabFiles" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="MesoscaleDatabases">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MesoscaleTabFiles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DatabaseId" Type="smallint" Nullable="false" />
+          <Property Name="Latitude" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="Longitude" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="Text" Type="text" Nullable="false" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="u254697_offwindModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="OffwindEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MesoscaleTabFiles" EntityType="u254697_offwindModel.MesoscaleTabFile" />
+          <EntitySet Name="MesoscaleDatabases" EntityType="u254697_offwindModel.MesoscaleDatabas" />
+        </EntityContainer>
+        <EntityType Name="MesoscaleTabFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatabaseId" Type="Int16" Nullable="false" />
+          <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="MesoscaleDatabas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int16" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="u254697_offwindModelStoreContainer" CdmEntityContainer="OffwindEntities">
+          <EntitySetMapping Name="MesoscaleTabFiles"><EntityTypeMapping TypeName="u254697_offwindModel.MesoscaleTabFile"><MappingFragment StoreEntitySet="MesoscaleTabFiles">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
+            <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+            <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+            <ScalarProperty Name="Text" ColumnName="Text" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MesoscaleDatabases">
+            <EntityTypeMapping TypeName="u254697_offwindModel.MesoscaleDatabas">
+              <MappingFragment StoreEntitySet="MesoscaleDatabases">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1">
+        <EntityTypeShape EntityType="u254697_offwindModel.MesoscaleTabFile" Width="1.5" PointX="2.75" PointY="0.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="u254697_offwindModel.MesoscaleDatabas" Width="1.5" PointX="0.75" PointY="3.75" Height="1.4033821614583322" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

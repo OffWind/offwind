@@ -4,27 +4,32 @@
 @{
     var navigation = (NavItem<NavUrl>)ViewBag.SideNav;
 }
-
-<ul class="nav nav-list bs-docs-sidenav">
+<div class="sidebar-nav">
+    @{
+        var counter = 0;
+    }
     @foreach (var grp in navigation)
     {
         var grpClass = "";
-        if (grp.IsActive)
+        var grpListClass = "in";
+        if (!grp.IsActive)
         {
-            grpClass = "open";
+            grpClass = "collapsed";
+            grpListClass = "";
         }
-        <li class="submenu @grpClass">
-            <a>@grp.Title</a>
-            <ul class="nav nav-list">
-                @foreach (var item in grp)
-                {
-                    <li @this.ActiveIfCurrent(item.Url)>
-                        <a href="@this.GenerateUrl(item.Url)">
-                            @item.Title
-                        </a>
-                    </li>
-                }
-            </ul>
-        </li>
+        var idstr = "menu-" + counter++;
+        <div class="nav-header @grpClass" data-toggle="collapse" data-target="#@idstr">@grp.Title</div>
+        <ul id="@idstr" class="nav nav-list collapse @grpListClass">
+            @foreach (var item in grp)
+            {
+                <li @this.ActiveIfCurrent(item.Url)>
+                    <a href="@this.GenerateUrl(item.Url)">
+                        @item.Title
+                    </a>
+                </li>
+            }
+        </ul>
     }
-</ul>
+</div>
+
+

@@ -54,6 +54,12 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return View(Settings);
         }
 
+        public ActionResult Search()
+        {
+            ViewBag.Title = "Search | Mesoscale Wind Characteristics - Offwind";
+            return View(Settings);
+        }
+
         public ActionResult CurrentData()
         {
             ViewBag.Title = "Current Data | Mesoscale Wind Characteristics - Offwind";

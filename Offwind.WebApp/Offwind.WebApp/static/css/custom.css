@@ -52,7 +52,7 @@ table th {
     background-color: #EFEFEF;
     background-image: -moz-linear-gradient(center top , #FDFDFD 0%, #EAEAEA 100%);
 }
-
+/*
 .bs-docs-sidenav {
     background-color: #FFFFFF;
     border-radius: 4px 4px 4px 4px;
@@ -121,7 +121,7 @@ table th {
     padding: 14px;
     position: relative;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-}
+}*/
 .row-content-block
 {
     margin-bottom: 14px;
@@ -129,6 +129,7 @@ table th {
 .row-content-block .sub-block-fixed
 {
     height: 180px;
+    position: relative;
 }
 
 .row-content-block .sub-block-fixed .btn

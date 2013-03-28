@@ -45,18 +45,17 @@
 </head>
 
 <body> 
-    
-    <div class="navbar">
+
+    <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
-            <div class="container-fluid">
+            <div class="container">
                 @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
                 <a class="brand" href="/"><span class="second">Offwind</span></a>
             </div>
         </div>
     </div>
-    
 
-    <div class="container-fluid">
+    <div id="main" class="container">
         <div class="row-fluid">
             @{
                 var navigation = (NavItem<NavUrl>)ViewBag.SideNav;
@@ -78,7 +77,10 @@
             }
         </div>
     </div>
-    @Html.Partial("~/Views/Shared/__Footer.cshtml")
+    <div class="container">
+        @Html.Partial("~/Views/Shared/__Footer.cshtml")
+    </div>
+
 
     <!-- Le javascript
     ================================================== -->

@@ -1533,7 +1533,6 @@
     <Content Include="Areas\CFD\Views\Preprocessing\StlGenerator.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\_ViewStart.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\Index.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\MesoWind\Database.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\CurrentData.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\VelocityFreq.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\WindRose.cshtml" />
@@ -1668,7 +1667,7 @@
     <Content Include="Areas\CFD\Views\Processing\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\EngineeringTools\Views\MesoWind\Search.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\MesoWind\Database.cshtml" />
     <None Include="static\.DS_Store" />
     <None Include="static\eng-tools\meso-wind\TAB-format-summary.docx" />
     <None Include="static\eng-tools\meso-wind\TAB-format-summary.pdf" />

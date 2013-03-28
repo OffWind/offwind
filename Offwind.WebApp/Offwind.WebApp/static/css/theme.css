@@ -49,6 +49,10 @@ hr {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #fff;
 }
+#main.container
+{
+    padding-top: 53px;
+}
 /*Navbar*/
 .navbar {
   margin: 0px 0px 1em 0px;
@@ -61,10 +65,10 @@ hr {
   color: #fff;
   text-shadow: none;
 }
-.navbar .nav > li:hover {
+.navbar .nav li:hover {
   background-color: #444;
 }
-.navbar .nav > li > a:hover {
+.navbar .nav li > a:hover {
   color: #fff;
 }
 .navbar .navbar-inner {
@@ -260,7 +264,7 @@ footer hr {
   background-clip: padding-box;
   border-bottom: 1px solid #aaa;
   font-size: 1em;
-  line-height: 3em;
+  line-height: 36px;
   text-transform: none;
   padding: 0em .75em;
   margin-bottom: 0px;
@@ -743,7 +747,13 @@ input[type="password"] {
   margin-bottom: 0em;
   padding-bottom: 0em;
 }
-/* Tweaks for mobile */
+
+@media (min-width: 768px) and (max-width: 979px) {
+    #main.container
+    {
+        padding-top: 5px;
+    }
+}
 @media (max-width: 480px) {
   h1 {
     text-align: center;
@@ -755,4 +765,8 @@ input[type="password"] {
     float: none;
     display: inline;
   }
+    #main.container
+    {
+        padding-top: 5px;
+    }
 }

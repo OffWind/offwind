@@ -12,10 +12,12 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
     {
         protected string _currentGroup;
         protected OffwindEntities _ctx = new OffwindEntities();
+        protected bool _noNavigation = false;
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             base.OnActionExecuted(filterContext);
+            if (_noNavigation) return;
             InitNavigation();
         }
 
@@ -25,7 +27,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             navigation.AddGroup("Meso Wind")
                 .AddItem("Overview", new NavUrl("Index", "MesoWind", "EngineeringTools"))
                 .AddItem("Database", new NavUrl("Database", "MesoWind", "EngineeringTools"))
-                .AddItem("Search", new NavUrl("Search", "MesoWind", "EngineeringTools"))
                 .AddItem("Current Data", new NavUrl("CurrentData", "MesoWind", "EngineeringTools"))
                 .AddItem("Velocity Freq.", new NavUrl("VelocityFreq", "MesoWind", "EngineeringTools"))
                 .AddItem("Wind Rose", new NavUrl("WindRose", "MesoWind", "EngineeringTools"));

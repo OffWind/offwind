@@ -6,6 +6,25 @@
     {
         padding: 4px;
     }
+    .modal-body p
+    {
+        margin-left: 12px;
+    }
+    .cluster_sample
+    {
+        background-image: url("/static/img/m3.png");
+        background-position: 0px 0px;
+        height: 66px;
+        line-height: 66px;
+        width: 66px;
+        text-align: center;
+        cursor: pointer;
+        color: black;
+        font-size: 11px;
+        font-family: Arial,sans-serif;
+        font-weight: bold;
+        display: inline-block;
+    }
 </style>
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
@@ -31,6 +50,7 @@
         <div class="well">
             <a href="#show_db" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-table"></i> Show data</a>
             <a href="#show_settings" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-search"></i>Search</a>
+            <a href="#show_help" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-question-sign"></i>Help</a>
         </div>
     </div>
 </div>
@@ -82,6 +102,33 @@
         <button type="button" class="btn btn-primary" id="do_import">Import Selected</button>
     </div>
 </div>
+
+<div id="show_help" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Help</h3>
+    </div>
+    <div class="modal-body">
+        <h5>Overview</h5>
+        <p>This map allows you to work with points in databases.</p>
+        <h5>Clusters</h5>
+        <p>Due to some technical restrictions, all points are not shown at once
+            (doing that will severely load your browser). Instead, these points are grouped into clusters.
+            Cluster shows a number of points it contains and it's size and density visually changes
+            depending on current map scaling.
+        </p>
+        <p><div class="cluster_sample">119</div> - this is an example of cluster that has 119 points grouped in it.</p>
+        <h5>Points</h5>
+        <p>Points - are the basic units that database contain. It directly corresponds to a physical location on earth defined by
+        coordinates - Latitude and Longitude.</p>
+        <p><img src="https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png" /> - this is an example of point.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+    </div>
+
+</div>
+
 @section scripts
 {
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>

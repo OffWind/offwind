@@ -9,6 +9,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
 {
     public enum DbType
     {
+        All,
         FNL,
         MERRA
     };
@@ -31,7 +32,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
         public ShowAll showAll { set; get; }
 
         [DisplayName("Select database")]
-        public DbType type { set; get; }
+        public DbType DbType { set; get; }
 
         [DisplayName("Search in area (km)")]
         public decimal distance { set; get; }

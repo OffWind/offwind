@@ -18,9 +18,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
     [Authorize(Roles = SystemRole.RegularUser)]
     public class MesoWindController : _BaseController
     {
-        private static readonly List<DatabaseItem> _fnl   = new List<DatabaseItem>();
-        private static readonly List<DatabaseItem> _merra = new List<DatabaseItem>();
-
         private const string CurrentFile = "CurrentFile";
         private ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly DbSettings Settings = new DbSettings() { startLat = 0, showAll = ShowAll.yes, distance = 100 };
@@ -39,6 +36,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult Database()
         {
             ViewBag.Title = "Database | Mesoscale Wind Characteristics | Offwind";
+            ViewBag.TotalCount = _ctx.SmallMesoscaleTabFiles.Count();
+            ViewBag.FnlCount = _ctx.SmallMesoscaleTabFiles.Count(t => t.DatabaseId == (int)DbType.FNL);
+            ViewBag.MerraCount = _ctx.SmallMesoscaleTabFiles.Count(t => t.DatabaseId == (int)DbType.MERRA);
             return View(Settings);
         }
 
@@ -46,7 +46,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         [HttpPost]
         public ActionResult ApplySettings(DbSettings model)
         {
-            Settings.type = model.type;
+            Settings.DbType = model.DbType;
             Settings.showAll = model.showAll;
             Settings.startLat = model.startLat;
             Settings.startLng = model.startLng;
@@ -71,7 +71,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
 
             var file = (string)Session[CurrentFile];
-            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.type];
+            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.DbType];
             var imported = ImportFile(DbDir, file);
             m.SimpleObject = imported.VelocityFreq;
             return View(m);
@@ -87,7 +87,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
 
             var file = (string)Session[CurrentFile];
-            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.type];
+            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.DbType];
             var imported = ImportFile(DbDir, file);
 
             for (var i = 0; i < imported.FreqByDirs.Count; i++)
@@ -117,7 +117,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             Session[CurrentFile] = file;
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult CurrentDataJson(int sEcho)
         {
             if (Session[CurrentFile] == null)
@@ -128,7 +128,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
 
             var file = (string)Session[CurrentFile];
-            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.type];
+            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.DbType];
             var imported = ImportFile(DbDir, file);
             
             var final = new List<string[]>();
@@ -287,7 +287,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         private IEnumerable<SmallMesoscaleTabFile> GetFiltered(decimal lat, decimal lng, decimal allowedDistance)
         {
-            var dbType = (int) Settings.type;
+            var dbType = (int) Settings.DbType;
 
             foreach (var item in _ctx.SmallMesoscaleTabFiles.Where(t => t.DatabaseId == dbType))
             {

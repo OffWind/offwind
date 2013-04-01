@@ -25,6 +25,10 @@
         font-weight: bold;
         display: inline-block;
     }
+    form
+    {
+        margin: 0;
+    }
 </style>
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
@@ -43,15 +47,20 @@
     </div>
     <div class="span3">
         <div class="well">
-            <form>
+            <form action="DatabaseSwitch">
+                @{
+                    var dbAllChecked = Model.DbType == DbType.All ? "checked" : "";
+                    var dbFNLChecked = Model.DbType == DbType.FNL ? "checked" : "";
+                    var dbMERRAChecked = Model.DbType == DbType.MERRA ? "checked" : "";
+                }
                 <label class="radio">
-                    <input type="radio" name="DbType" value="All"> All
+                    <input type="radio" name="DbType" value="0" @dbAllChecked> All (@ViewBag.TotalCount)
                 </label>
                 <label class="radio">
-                    <input type="radio" name="DbType" value="FNL"> FNL
+                    <input type="radio" name="DbType" value="1" @dbFNLChecked> FNL (@ViewBag.FnlCount)
                 </label>
                 <label class="radio">
-                    <input type="radio" name="DbType" value="MERRA"> MERRA
+                    <input type="radio" name="DbType" value="2" @dbMERRAChecked> MERRA (@ViewBag.MerraCount)
                 </label>
             </form>
         </div>
@@ -143,6 +152,9 @@
 
     @Scripts.Render("~/static/js/jquery.dataTables.Pagination.js")
     <script language="javascript">
+        (function() {
+
+        });
         var map;
         var dbTable = null;
         var clusters = null;
@@ -195,10 +207,10 @@
         
         function createClusterItem(dbItem, place) {
             var marker = new google.maps.Marker({
-                        position: place,
-                        draggable: false,
-                        title: dbItem[3] + ' [' +  dbItem[1] + '; ' + dbItem[2] + ']'
-                    });
+                position: place,
+                draggable: false,
+                title: dbItem[3] + ' [' +  dbItem[1] + '; ' + dbItem[2] + ']'
+            });
             marker.id = dbItem[0];
             marker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
             return marker;
@@ -217,7 +229,7 @@
                 
                 for (var i = 0; i < data.length; i++)
                 {
-                	var coord = new google.maps.LatLng(data[i][1], data[i][2]);
+                    var coord = new google.maps.LatLng(data[i][1], data[i][2]);
                     var m = createClusterItem(data[i], coord);
                     markers.push(m);
                 }
@@ -262,7 +274,7 @@
             e.preventDefault();
             e.stopPropagation();
             clusters.clearMarkers();
-      }
+        }
         
         /* Get the rows which are currently selected */
         function fnGetSelected(oTableLocal)
@@ -280,7 +292,7 @@
             return aReturn;
         }
         
-        $(document).ready(function() {            
+        $(document).ready(function() {
             $.extend($.fn.dataTableExt.oStdClasses, {
                 "sSortAsc": "header headerSortDown",
                 "sSortDesc": "header headerSortUp",
@@ -341,6 +353,9 @@
                 }).done(function() {
                 });
                 return false;
+            });
+
+            $("input:radio[name=DbType]").change(function() {
             });
         });
     </script>

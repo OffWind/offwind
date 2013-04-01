@@ -769,3 +769,7 @@ input[type="password"] {
         padding-top: 5px;
     }
 }
+[class^="icon-"], [class*=" icon-"]
+{
+    background: none;
+}

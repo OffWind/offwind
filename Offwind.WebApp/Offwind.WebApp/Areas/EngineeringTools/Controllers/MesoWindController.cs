@@ -241,128 +241,69 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return model;
         }
 
-        public bool AcceptPoint(DatabaseItem p)
-        {
-            if (Settings.showAll == ShowAll.no)
-            {
-                var sCoord = new GeoCoordinate((double) p.Latitude, (double) p.Longitude);
-                var eCoord = new GeoCoordinate((double) Settings.startLat, (double) Settings.startLng);
-
-                p.Distance = sCoord.GetDistanceTo(eCoord); //meters
-                if (p.Distance > (double) (Settings.distance*1000)) return false;
-            }
-            return true;
-        }
-
         public JsonResult GetDatabasePoints(int sEcho, int iDisplayLength, int iDisplayStart)
         {
-            var _items = (Settings.type == DbType.FNL) ? _fnl : _merra;
-
-            lock (_items)
+            List<object[]> goodPoints;
+            if (Settings.showAll == ShowAll.no)
             {
-                if (_items.Count == 0)
-                    InitDatabase();
-
-                var goodPoints = _items
-                    .Where(AcceptPoint)
-                    .Select(x => new object[] {0, x.Latitude, x.Longitude, x.Database})
+                var allowedDistance = Settings.distance * 1000;
+                goodPoints = GetFiltered(Settings.startLat, Settings.startLng, allowedDistance)
+                    .Select(MapDatabaseItem)
                     .ToList();
-
-                var filtered = goodPoints
-                    .Skip(iDisplayStart)
-                    .Take(iDisplayLength)
-                    .ToArray();
-
-                var data =
-                    new
-                        {
-                            sEcho,
-                            iTotalRecords = goodPoints.Count,
-                            iTotalDisplayRecords = goodPoints.Count,
-                            aaData = filtered
-                        };
-                return Json(data, JsonRequestBehavior.AllowGet);
             }
+            else
+            {
+                goodPoints = _ctx.SmallMesoscaleTabFiles
+                    .Select(MapDatabaseItem)
+                    .ToList();
+            }
+            var filtered = goodPoints
+                .Skip(iDisplayStart)
+                .Take(iDisplayLength)
+                .ToArray();
+
+            var data =
+                new
+                {
+                    sEcho,
+                    iTotalRecords = goodPoints.Count,
+                    iTotalDisplayRecords = goodPoints.Count,
+                    aaData = filtered
+                };
+            return Json(data, JsonRequestBehavior.AllowGet);
+
         }
 
         public JsonResult GetAllData()
         {
-            var _items = (Settings.type == DbType.FNL) ? _fnl : _merra;
-            lock (_items)
-            {
-                if (_items.Count == 0)
-                    InitDatabase();
+            if (Settings.showAll == ShowAll.yes)
+                return Json(_ctx.SmallMesoscaleTabFiles.Select(MapDatabaseItem).ToArray(), JsonRequestBehavior.AllowGet);
 
-                var filtered = _items
-                    .Where(AcceptPoint)
-                    .Select(x => new object[] {x.Latitude, x.Longitude, x.Database.Replace(".dat.tab", "")})
-                    .ToArray();
-                return Json(filtered, JsonRequestBehavior.AllowGet);
-            }
+            var filtered = GetFiltered(Settings.startLat, Settings.startLng, Settings.distance)
+                .Select(MapDatabaseItem)
+                .ToArray();
+            return Json(filtered, JsonRequestBehavior.AllowGet);
         }
 
-
-        public JsonResult GetDatabasePointsF(double lat, double lng)
+        private IEnumerable<SmallMesoscaleTabFile> GetFiltered(decimal lat, decimal lng, decimal allowedDistance)
         {
-            var _items = (Settings.type == DbType.FNL) ? _fnl : _merra;
-            lock (_items)
-            {
-                if (_items.Count == 0)
-                    InitDatabase();
-                return Json(GetFiltered(lat, lng), JsonRequestBehavior.AllowGet);
-            }
-        }
+            var dbType = (int) Settings.type;
 
-        private DatabaseItem[] GetFiltered(double lat, double lng)
-        {
-            var tmp = new List<DatabaseItem>();
-            var _items = (Settings.type == DbType.FNL) ? _fnl : _merra;
-
-            foreach (var item in _items)
+            foreach (var item in _ctx.SmallMesoscaleTabFiles.Where(t => t.DatabaseId == dbType))
             {
                 var sCoord = new GeoCoordinate((double)item.Latitude, (double)item.Longitude);
-                var eCoord = new GeoCoordinate(lat, lng);
+                var eCoord = new GeoCoordinate((double)lat, (double)lng);
 
-                item.Distance = sCoord.GetDistanceTo(eCoord); //meters
-                if (item.Distance > 100000) continue;
-                tmp.Add(item);
-            }
-            return tmp.ToArray();
-        }
-
-        private void FNL_Database(string home)
-        {
-            foreach (var tabFile in _ctx.SmallMesoscaleTabFiles.Where(t => t.DatabaseId == 1))
-            {
-                var dbItem = new DatabaseItem();
-                dbItem.Longitude = tabFile.Longitude;
-                dbItem.Latitude = tabFile.Latitude;
-                dbItem.Database = "FNL";
-                _fnl.Add(dbItem);
+                var distance = sCoord.GetDistanceTo(eCoord);
+                if (distance > (double)allowedDistance) continue;
+                yield return item;
             }
         }
 
-        private void MERRA_Database(string home)
+        private static object[] MapDatabaseItem(SmallMesoscaleTabFile x)
         {
-            foreach (var tabFile in _ctx.SmallMesoscaleTabFiles.Where(t => t.DatabaseId == 2))
-            {
-                var dbItem = new DatabaseItem();
-                dbItem.Longitude = tabFile.Longitude;
-                dbItem.Latitude = tabFile.Latitude;
-                dbItem.Database = "MERRA";
-                _merra.Add(dbItem);
-            }
-        }
-
-        private void InitDatabase()
-        {
-            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.type];
-            if (Settings.type == DbType.FNL)
-            {
-                FNL_Database(DbDir);
-                return;
-            }
-            MERRA_Database(DbDir);
+            var db = x.DatabaseId == (int) DbType.FNL ? "FNL" : "MERRA";
+            return new object[] { x.Id, x.Latitude, x.Longitude, db};
         }
 
         private int ParseInt(string input)

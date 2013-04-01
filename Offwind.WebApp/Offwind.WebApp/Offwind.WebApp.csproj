@@ -285,6 +285,7 @@
     <Content Include="static\bootstrap\img\glyphicons-halflings.png" />
     <Content Include="static\bootstrap\js\bootstrap.js" />
     <Content Include="static\bootstrap\js\bootstrap.min.js" />
+    <Content Include="static\bootstrap\js\offwind.js" />
     <Content Include="static\css\bs-docs.css" />
     <Content Include="static\css\elements.css" />
     <Content Include="static\css\myelements.css" />
@@ -1673,9 +1674,9 @@
     <None Include="static\eng-tools\meso-wind\TAB-format-summary.pdf" />
     <None Include="static\font-awesome\FontAwesome-Vectors.pdf" />
     <None Include="static\font-awesome\FontAwesome.ttf" />
-    <None Include="static\font-awesome\font\fontawesome-webfont.eot" />
-    <None Include="static\font-awesome\font\fontawesome-webfont.ttf" />
-    <None Include="static\font-awesome\font\fontawesome-webfont.woff" />
+    <Content Include="static\font-awesome\font\fontawesome-webfont.eot" />
+    <Content Include="static\font-awesome\font\fontawesome-webfont.ttf" />
+    <Content Include="static\font-awesome\font\fontawesome-webfont.woff" />
     <None Include="static\font-awesome\less\font-awesome-ie7.less" />
     <None Include="static\font-awesome\less\font-awesome.less" />
     <None Include="static\font-awesome\README.md" />

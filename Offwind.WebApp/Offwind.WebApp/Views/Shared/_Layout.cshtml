@@ -26,16 +26,17 @@
             width:800px;
             margin: 0px auto;
             margin-top: 1em;
-                    }
-        .brand { font-family: georgia, serif; }
-        .brand .first {
-            color: #ccc;
-            font-style: italic;
-                      }
-        .brand .second {
+        }
+        a.brand, a.brand:visited
+        {
+            font-family: georgia, serif;
             color: #fff;
             font-weight: bold;
-                       }
+        }
+        #main
+        {
+            padding-bottom: 4em;
+        }
     </style>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -50,7 +51,7 @@
         <div class="navbar-inner">
             <div class="container">
                 @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
-                <a class="brand" href="/"><span class="second">Offwind</span></a>
+                <a class="brand" href="/">Offwind</a>
             </div>
         </div>
     </div>
@@ -77,16 +78,14 @@
             }
         </div>
     </div>
-    <div class="container">
-        @Html.Partial("~/Views/Shared/__Footer.cshtml")
-    </div>
-
+    @Html.Partial("~/Views/Shared/__Footer.cshtml")
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/static/jquery-1.8.1.min.js" type="text/javascript"></script>
     <script src="/static/bootstrap/js/bootstrap.js"></script>
+    <script src="/static/bootstrap/js/offwind.js"></script>
     @RenderSection("scripts", required: false)
 
     <script type="text/javascript">

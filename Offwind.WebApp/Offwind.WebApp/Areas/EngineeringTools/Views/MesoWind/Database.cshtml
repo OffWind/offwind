@@ -35,14 +35,9 @@
 
 <div class="row-fluid">
     <div class="span9">
-        <div class="row-fluid">
-            <div class="block">
-                @*<div class="block-heading">
-                    Map search
-                </div>*@
-                <div id="map_container">
-                    <div id="map_canvas" style="width: auto; height: 410px;"></div>
-                </div>
+        <div class="well">
+            <div id="map_container">
+                <div id="map_canvas" style="width: auto; height: 410px;"></div>
             </div>
         </div>
     </div>
@@ -82,17 +77,25 @@
         <h3>Data</h3>
     </div>
     <div class="modal-body">
-        @Html.EditorFor(m => m.type)
+        <form>
+            <label class="radio inline">
+                <input type="radio" name="DbType" value="All"> All
+            </label>
+            <label class="radio inline">
+                <input type="radio" name="DbType" value="FNL"> FNL
+            </label>
+            <label class="radio inline">
+                <input type="radio" name="DbType" value="MERRA"> MERRA
+            </label>
+        </form>
+
         <table id="database" class="table table-condensed table-hover table-bordered">
             <thead>
                 <tr>
-                    <th>
-                        Lat. (&#176;)
-                    </th>
-                    <th>
-                        Lng. (&#176;)
-                    </th>
-                    <th>File</th>
+                    <th>#</th>
+                    <th>Lat. (&#176;)</th>
+                    <th>Lng. (&#176;)</th>
+                    <th>DB</th>
                 </tr>
             </thead>
         </table>
@@ -110,7 +113,7 @@
     </div>
     <div class="modal-body">
         <h5>Overview</h5>
-        <p>This map allows you to work with points in databases.</p>
+        <p>On this page you can work with points in databases. View, search and import them by using map or Search dialog.</p>
         <h5>Clusters</h5>
         <p>Due to some technical restrictions, all points are not shown at once
             (doing that will severely load your browser). Instead, these points are grouped into clusters.
@@ -230,6 +233,12 @@
                 center: centerPoint,
                 mapTypeId: google.maps.MapTypeId.SATELLITE
             };
+
+            var size = Utils.GetWindowSize();
+            console.debug(size);
+            //$("#map_canvas").css("width", size.width);
+            //$("#map_canvas").css("height", size.height);
+
             map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
             
             dbMarker = createMarker(new google.maps.LatLng(0, 0));
@@ -321,10 +330,10 @@
                 }
                 //var lat = $($(sel[0]).find('td')[0]).text();
                 //var lng = $($(sel[0]).find('td')[1]).text();
-                var file = $($(sel[0]).find('td')[2]).text();
+                var id = $($(sel[0]).find('td')[0]).text();
                 $.ajax({
                     url: "@Url.Action("Import", "MesoWind", new { area = "EngineeringTools" })",
-                    data: { file: file }
+                    data: { id: id }
                 }).done(function() {
                 });
                 return false;

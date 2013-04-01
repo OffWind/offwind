@@ -5,6 +5,6 @@
         public decimal Longitude { get; set; }
         public decimal Latitude { get; set; }
         public double Distance { get; set; }
-        public string FileName { get; set; }
+        public string Database { get; set; }
     }
 }

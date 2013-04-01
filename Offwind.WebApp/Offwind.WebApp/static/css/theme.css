@@ -98,14 +98,13 @@ hr {
   color: #fff;
 }
 footer {
-  padding: 1em;
-  margin-top: 4em;
   color: #666;
-  font-size: .85em;
-  line-height: 1.3em;
+  font-size: .9em;
 }
-footer hr {
-  margin: 2em -2em;
+footer p
+{
+    padding-top: 1.5em;
+    padding-bottom: 0.5em;
 }
 /*Quick Toolbar*/
 .btn-toolbar.quick-toolbar {

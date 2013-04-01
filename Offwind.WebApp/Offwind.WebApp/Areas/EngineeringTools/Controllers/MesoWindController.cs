@@ -265,7 +265,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
                 var goodPoints = _items
                     .Where(AcceptPoint)
-                    .Select(x => new object[] {x.Latitude, x.Longitude, x.FileName})
+                    .Select(x => new object[] {0, x.Latitude, x.Longitude, x.Database})
                     .ToList();
 
                 var filtered = goodPoints
@@ -295,7 +295,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
                 var filtered = _items
                     .Where(AcceptPoint)
-                    .Select(x => new object[] {x.Latitude, x.Longitude, x.FileName.Replace(".dat.tab", "")})
+                    .Select(x => new object[] {x.Latitude, x.Longitude, x.Database.Replace(".dat.tab", "")})
                     .ToArray();
                 return Json(filtered, JsonRequestBehavior.AllowGet);
             }
@@ -337,27 +337,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 var dbItem = new DatabaseItem();
                 dbItem.Longitude = tabFile.Longitude;
                 dbItem.Latitude = tabFile.Latitude;
-                dbItem.FileName = "";
+                dbItem.Database = "FNL";
                 _fnl.Add(dbItem);
             }
-            return;
-            foreach (var d in Directory.EnumerateFiles(home, "*.dat.tab", SearchOption.TopDirectoryOnly))
-            {
-                var f = System.IO.Path.GetFileName(d);
-                f = f.Replace(".dat.tab", "");
-                var parts = f.Split('_');
-
-                var longitude = ParseDecimal(parts[0].TrimEnd("NESW".ToCharArray()));
-                var latitude = ParseDecimal(parts[1].TrimEnd("NESW".ToCharArray()));
-                if (parts[0].EndsWith("W")) longitude = -longitude;
-                if (parts[1].EndsWith("S")) latitude = -latitude;
-
-                var dbItem = new DatabaseItem();
-                dbItem.Longitude = longitude;
-                dbItem.Latitude = latitude;
-                dbItem.FileName = System.IO.Path.GetFileName(d);
-                _fnl.Add(dbItem);
-            }            
         }
 
         private void MERRA_Database(string home)
@@ -367,23 +349,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 var dbItem = new DatabaseItem();
                 dbItem.Longitude = tabFile.Longitude;
                 dbItem.Latitude = tabFile.Latitude;
-                dbItem.FileName = "";
+                dbItem.Database = "MERRA";
                 _merra.Add(dbItem);
-            }
-            return;
-            var reader = new StreamReader(Path.Combine(home, "merraseries.cfg"));
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                var val = line.Trim().Split("\t ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                if (val.Length == 3)
-                {
-                    var dbItem = new DatabaseItem();
-                    dbItem.Latitude = ParseDecimal(val[0]);
-                    dbItem.Longitude = ParseDecimal(val[1]);
-                    dbItem.FileName = String.Format("50mMERRAnear_{0}.dat.tab", val[2]);
-                    _merra.Add(dbItem);
-                }
             }
         }
 

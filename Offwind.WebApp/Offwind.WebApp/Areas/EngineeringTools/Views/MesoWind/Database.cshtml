@@ -268,6 +268,16 @@
                 }
                 return aReturn;
             };
+
+            MapManager.setHover = function(point) {
+                dbHoverMarker.setPosition(point);
+                dbHoverMarker.title = "";
+                dbHoverMarker.visible = true;
+                map.setCenter(point);
+            };
+            MapManager.hideHover = function() {
+                dbHoverMarker.visible = false;
+            };
         })();
 
         (function() {
@@ -300,22 +310,18 @@
                     var row = $(event.target.parentNode);
                     var lat = $(row.find("td")[0]).text();
                     var lng = $(row.find("td")[1]).text();
-                
-                    var point = new google.maps.LatLng(lat, lng);                
-                    dbHoverMarker.setPosition(point);
-                    dbHoverMarker.title = "";
-                    dbHoverMarker.visible = true;
-                    map.setCenter(point);
+
+                    var point = new google.maps.LatLng(lat, lng);
+                    MapManager.setHover(point);
                 });
                 
                 $('#database tbody').on('mouseenter', 'tr', function() {
                     var lat = $($(this).find('td')[0]).text();
                     var lng = $($(this).find('td')[1]).text();
-                    dbHoverMarker.setPosition(new google.maps.LatLng(lat, lng));
-                    dbHoverMarker.title = "";
-                    dbHoverMarker.visible = true;
+                    var point = new google.maps.LatLng(lat, lng);
+                    MapManager.setHover(point);
                 }).on('mouseleave', 'tr', function() {
-                    dbHoverMarker.visible = false;
+                    MapManager.hideHover();
                 });
             };
         })();

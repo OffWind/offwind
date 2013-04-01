@@ -241,7 +241,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return model;
         }
 
-        public JsonResult GetDatabasePoints(int sEcho, int iDisplayLength, int iDisplayStart)
+        public JsonResult GetTableData(int sEcho, int iDisplayLength, int iDisplayStart)
         {
             List<object[]> goodPoints;
             if (Settings.showAll == ShowAll.no)
@@ -274,7 +274,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         }
 
-        public JsonResult GetAllData()
+        public JsonResult GetMapData()
         {
             if (Settings.showAll == ShowAll.yes)
                 return Json(_ctx.SmallMesoscaleTabFiles.Select(MapDatabaseItem).ToArray(), JsonRequestBehavior.AllowGet);

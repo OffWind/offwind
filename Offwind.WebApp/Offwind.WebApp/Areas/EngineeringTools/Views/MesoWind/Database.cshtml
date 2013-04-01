@@ -201,7 +201,7 @@
             MapManager.refreshMap = function() {
                 var data = null;
                 $.ajax({
-                    url: "@Url.Action("GetAllData", "MesoWind", new { area = "EngineeringTools" })",
+                    url: "@Url.Action("GetMapData", "MesoWind", new { area = "EngineeringTools" })",
                     dataType: "json",
                     data: data
                 }).done(function(data) {
@@ -282,7 +282,7 @@
 
         (function() {
             var dbTable = null;
-            var dburl = "@Url.Action("GetDatabasePoints", "MesoWind", new { are = "EngineeringTools" })";
+            var dburl = "@Url.Action("GetTableData", "MesoWind", new { are = "EngineeringTools" })";
 
             TableManager.initialize = function() {
                 $.extend($.fn.dataTableExt.oStdClasses, {

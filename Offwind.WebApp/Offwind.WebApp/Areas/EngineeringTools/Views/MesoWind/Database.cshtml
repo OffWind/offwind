@@ -29,6 +29,14 @@
     {
         margin: 0;
     }
+    #show_db_imported, #show_db_error
+    {
+        display: none;
+        position: absolute;
+        width: 80%;
+        margin: auto;
+        top: 15;
+    }
 </style>
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
@@ -100,7 +108,8 @@
         <h3>Data</h3>
     </div>
     <div class="modal-body">
-
+        <div id="show_db_imported" class="alert alert-success">Point imported</div>
+        <div id="show_db_error" class="alert alert-error">Please, select a record in table</div>
         <table id="database" class="table table-condensed table-hover table-bordered">
             <thead>
                 <tr>
@@ -161,20 +170,6 @@
             var dbMarker;
             var dbHoverMarker;
             var centerPoint = new google.maps.LatLng(11, 50);
-
-            var image = new google.maps.MarkerImage(
-                '@Url.Content("~/static/img/marker.png")',
-                new google.maps.Size(50, 60),
-                new google.maps.Point(0, 0),
-                new google.maps.Point(25, 60)
-            );
-
-            var shadow = new google.maps.MarkerImage(
-                '@Url.Content("~/static/img/marker-shadow.png")',
-                new google.maps.Size(84, 60),
-                new google.maps.Point(0, 0),
-                new google.maps.Point(25, 60)
-            );
 
             function createMarker (point, icon) {
                 return new google.maps.Marker({
@@ -255,19 +250,6 @@
                 e.stopPropagation();
                 clusters.clearMarkers();
             };
-        
-            /* Get the rows which are currently selected */
-            MapManager.fnGetSelected = function(oTableLocal) {
-                var aReturn = new Array();
-                var aTrs = oTableLocal.fnGetNodes();
-
-                for (var i = 0; i < aTrs.length; i++) {
-                    if ($(aTrs[i]).hasClass('table-row-selected')) {
-                        aReturn.push(aTrs[i]);
-                    }
-                }
-                return aReturn;
-            };
 
             MapManager.setHover = function(point) {
                 dbHoverMarker.setPosition(point);
@@ -324,6 +306,18 @@
                     MapManager.hideHover();
                 });
             };
+
+            /* Get the rows which are currently selected */
+            TableManager.fnGetSelected = function() {
+                var aReturn = new Array();
+                var aTrs = dbTable.fnGetNodes();
+                for (var i = 0; i < aTrs.length; i++) {
+                    if ($(aTrs[i]).hasClass('table-row-selected')) {
+                        aReturn.push(aTrs[i]);
+                    }
+                }
+                return aReturn;
+            };
         })();
         
         $(document).ready(function() {
@@ -332,8 +326,12 @@
             TableManager.initialize();
 
             $("#do_import").click(function() {
-                var sel = fnGetSelected(dbTable);
+                var sel = TableManager.fnGetSelected();
                 if (sel.length == 0) {
+                    $("#show_db_error").css("display", "block");
+                    setTimeout(function() {
+                        $("#show_db_error").fadeOut(300);
+                    }, 2000);
                     return false;
                 }
                 //var lat = $($(sel[0]).find('td')[0]).text();
@@ -343,6 +341,10 @@
                     url: "@Url.Action("Import", "MesoWind", new { area = "EngineeringTools" })",
                     data: { id: id }
                 }).done(function() {
+                    $("#show_db_imported").css("display", "block");
+                    setTimeout(function() {
+                        $("#show_db_imported").fadeOut(300);
+                    }, 2000);
                 });
                 return false;
             });

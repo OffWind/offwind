@@ -55,21 +55,23 @@
     </div>
     <div class="span3">
         <div class="well">
-            <form action="DatabaseSwitch">
+            <form action="">
                 @{
                     var dbAllChecked = Model.DbType == DbType.All ? "checked" : "";
                     var dbFNLChecked = Model.DbType == DbType.FNL ? "checked" : "";
                     var dbMERRAChecked = Model.DbType == DbType.MERRA ? "checked" : "";
                 }
                 <label class="radio">
-                    <input type="radio" name="DbType" value="0" @dbAllChecked> All (@ViewBag.TotalCount)
+                    <input type="radio" name="DbType" value="All" @dbAllChecked> All (@ViewBag.TotalCount)
                 </label>
                 <label class="radio">
-                    <input type="radio" name="DbType" value="1" @dbFNLChecked> FNL (@ViewBag.FnlCount)
+                    <input type="radio" name="DbType" value="FNL" @dbFNLChecked> FNL (@ViewBag.FnlCount)
                 </label>
                 <label class="radio">
-                    <input type="radio" name="DbType" value="2" @dbMERRAChecked> MERRA (@ViewBag.MerraCount)
+                    <input type="radio" name="DbType" value="MERRA" @dbMERRAChecked> MERRA (@ViewBag.MerraCount)
                 </label>
+                <br/>
+                <a href="@Url.Action("Reset", "MesoWind")" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-undo"></i>Reset</a>
             </form>
         </div>
         
@@ -86,19 +88,16 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>Search</h3>
     </div>
-    <div class="modal-body">
-        <form class="form-horizontal indent" method="post">
-            @Html.EditorFor(m => m.showAll)
+    <div class="modal-body" >
+        <form class="form-horizontal indent" method="post" id="search-params">
             @Html.EditorFor(m => m.startLng)
             @Html.EditorFor(m => m.startLat)
-            @Html.EditorFor(m => m.distance)
-            <div style="text-align: center">
+            @Html.EditorFor(m => m.distance)            
+            <div class="form-actions" align="right">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Search</button>
             </div>
         </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="do_search">Search</button>
     </div>
 </div>
 
@@ -305,7 +304,7 @@
                 }).on('mouseleave', 'tr', function() {
                     MapManager.hideHover();
                 });
-            };
+            };  
 
             /* Get the rows which are currently selected */
             TableManager.fnGetSelected = function() {
@@ -334,8 +333,6 @@
                     }, 2000);
                     return false;
                 }
-                //var lat = $($(sel[0]).find('td')[0]).text();
-                //var lng = $($(sel[0]).find('td')[1]).text();
                 var id = $($(sel[0]).find('td')[0]).text();
                 $.ajax({
                     url: "@Url.Action("Import", "MesoWind", new { area = "EngineeringTools" })",
@@ -345,13 +342,30 @@
                     setTimeout(function() {
                         $("#show_db_imported").fadeOut(300);
                     }, 2000);
+                    
                 });
                 return false;
             });
-
+                        
             $("input:radio[name=DbType]").change(function() {
+                var value = $("input[name=DbType]:checked").val();
+                $.ajax({
+                    url: "@Url.Action("DatabaseSwitch", "MesoWind", new { area = "EngineeringTools" })",
+                    data: { id: value }
+                }).done(function() {
+                    MapManager.refreshMap();
+                });
             });
         });
+        /*
+        function reset_view() {
+                $.ajax({
+                    url: "@Url.Action("Reset", "MesoWind", new { area = "EngineeringTools" })"
+                }).done(function() {
+                    MapManager.refreshMap();
+                });
+        };
+        */
     </script>
 
 }

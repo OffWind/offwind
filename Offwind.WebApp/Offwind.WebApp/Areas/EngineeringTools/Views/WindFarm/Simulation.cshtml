@@ -1,24 +1,26 @@
-﻿<div class="span9">
-    <ul class="breadcrumb">
-        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
-        <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
-        <li>Wind Farm<span class="divider">/</span></li>
-        <li>Simulation</li>
-    </ul>
-    <h3>Simulation</h3>
-    <p>Now, you are ready to start simulation process. Just push <b>"Start simulation"</b> button and wait.
-       At the end of simulation process the another button <b>"Download result"</b> will be activated.
-    </p>
-    <p>
-        <a class="btn btn-primary btn-large" href="#" id="button-run">Run simulation</a>
-        <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
-    </p>
-    @*<label id="proclabel" class="label-info">Idle</label>*@
+﻿<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>Wind Farm<span class="divider">/</span></li>
+    <li>Simulation</li>
+</ul>
+<div class="row-fluid row-content-block">
+    <div class="span12 well">
+        <h4>Simulation</h4>
+        <p>Now, you are ready to start simulation process. Just push <b>"Start simulation"</b> button and wait.
+           At the end of simulation process the another button <b>"Download result"</b> will be activated.
+        </p>
+        <p>
+            <a class="btn btn-primary btn-large" href="#" id="button-run">Run simulation</a>
+            <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
+        </p>
+        @*<label id="proclabel" class="label-info">Idle</label>*@
 
-    <p>
-        To download result click button below. It is a <b>zip-archive</b>. Save it on your local disk and unpack.
-    </p>
-    <p><a class="btn btn-success btn-large disabled" id="download-link" href="@Url.Action("DownloadResult", "WindFarm", new { area = "EngineeringTools" })">Download result</a></p>
+        <p>
+            To download result click button below. It is a <b>zip-archive</b>. Save it on your local disk and unpack.
+        </p>
+        <p><a class="btn btn-success btn-large disabled" id="download-link" href="@Url.Action("DownloadResult", "WindFarm", new { area = "EngineeringTools" })">Download result</a></p>
+    </div>
 </div>
 
 @section scripts

@@ -4,39 +4,39 @@
 {
     @Styles.Render("~/static/css/jquery.handsontable.full.css")
 }
-
-<div class="span9">
-    <ul class="breadcrumb">
-        <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
-        <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
-        <li>Wind Farm<span class="divider">/</span></li>
-        <li>Input Data</li>
-    </ul>
-    <div id="alert-saved"  class="alert alert-success hidden" style="width: 10%">
-        <a class="close" data-dismiss="alert">×</a>
-        Saved
-    </div>
-    <form class="form-horizontal" method="post">
-        <fieldset>
-            @Html.EditorFor(m => m.StartTime)
-            @Html.EditorFor(m => m.StopTime)
-            @Html.EditorFor(m => m.TimeStep)
-            @Html.EditorFor(m => m.Scale)
-            
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>Wind Farm<span class="divider">/</span></li>
+    <li>Input Data</li>
+</ul>
+<div id="alert-saved"  class="alert alert-success hidden" style="width: 10%">
+    <a class="close" data-dismiss="alert">×</a>
+    Saved
+</div>
+<div class="row-fluid row-content-block">
+    <div class="span12 well">
+        <form class="form-horizontal" method="post">
             <fieldset>
-                <legend>Turbines list in windfarm</legend>
-                <div id="windturbine">
+                @Html.EditorFor(m => m.StartTime)
+                @Html.EditorFor(m => m.StopTime)
+                @Html.EditorFor(m => m.TimeStep)
+                @Html.EditorFor(m => m.Scale)
+            
+                <fieldset>
+                    <legend>Turbines list in windfarm</legend>
+                    <div id="windturbine">
+                    </div>
+                </fieldset>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn">Cancel</button>
                 </div>
             </fieldset>
-
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <button type="button" class="btn">Cancel</button>
-            </div>
-        </fieldset>
-    </form>
+        </form>
+    </div>
 </div>
-
 @section scripts
 {
      @Scripts.Render("~/static/js/jquery.form.js")

@@ -1,0 +1,115 @@
+﻿<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>Wind Wave<span class="divider">/</span></li>
+    <li>Overview</li>
+</ul>
+<div class="row-fluid row-content-block">
+    <div class="span12 well text">
+        <h4>Overview</h4>
+        <p>The purpose of this tool is to calculate simple windwave
+            interactions by take into account the effect of the waves on the
+            wind speed.</p>
+        <p>The vertical profile of wind speed with height in neutral stability
+            condition is given by:<br/>
+            <img src="/static/eng-tools/wind-wave/formula-1.PNG" class="img-polaroid" width="50%"/>
+            </p>
+        <p>Where:<br/>
+            <span class="formula">U<sub>z</sub></span> - is the horizontal wind speed at the height Z above the ocean surface;<br/>
+            <span class="formula">u<sub>*</sub></span> - is the friction velocity;<br/>
+            <span class="formula">k</span> - is the von Kármán constant;<br/>
+            <span class="formula">Z<sub>0</sub></span> - is aerodynamic roughness length.<br/>
+        </p>
+        <p>The effects of the wave field on the wind vertical profile are
+            represented by the lumped constant <span class="formula">Z<sub>0</sub></span>. Usually this constant is
+            calculated by using Charnock expression for the aerodynamic roughness
+            height [1]:<br/>
+            <img src="/static/eng-tools/wind-wave/formula-2.PNG" class="img-polaroid" width="50%"/>
+        </p>
+        <p>Where <span class="formula">g</span> is the acceleration of gravity, and <span class="formula">&alpha;</span> is known as Charnock
+            constant which is given the value of 0.012 by Charnock. The Charnock
+            expression doesn’t include the effect of the wave characteristics such as
+            wave speed.</p>
+        <p>Stewart [2] suggested a modification for Charnock expression by
+            relating the aerodynamics roughness height to the wave age as
+            following:<br/>
+            <img src="/static/eng-tools/wind-wave/formula-3.PNG" class="img-polaroid" width="50%"/>
+        </p>
+        <p>Where <span class="formula">C<sub>p</sub></span> is the peak phase speed of the ocean wave, and <span class="formula">(C<sub>p</sub> / u<sub>*</sub>)</span> is the wave age.
+        </p>
+        <p>The A and B coefficients in Stewart expression are given different values in different studies.</p>
+        <p>The engineering toolkit code calculates the aerodynamics roughness height by using both the
+            Charnock expression and the one suggested by Stewart and compared between them. The coefficients,
+            A and B are given different values [3] depending on five different references as in table 1:</p>
+        <table class="table table-bordered table-condensed" style="width:60%">
+            <tr>
+                <th>Reference</th>
+                <th>A</th>
+                <th>B</th>
+            </tr>
+            <tr>
+                <td>Toba et al.</td>
+                <td>0.020</td>
+                <td>0.5</td>
+            </tr>
+            <tr>
+                <td>Sugimori et al.</td>
+                <td>0.020</td>
+                <td>0.7</td>
+            </tr>
+            <tr>
+                <td>Smith et al.</td>
+                <td>0.48</td>
+                <td>-1.0</td>
+            </tr>
+            <tr>
+                <td>Johanson et al.</td>
+                <td>1.89</td>
+                <td>-1.59</td>
+            </tr>
+            <tr>
+                <td>Drennan et al.</td>
+                <td>1.7</td>
+                <td>-1.7</td>
+            </tr>
+        </table>
+        <p>The calculated aerodynamic roughness is then used in equation (1) to calculate the velocity at the turbine hub height, which is needed to estimate the power output from the turbine.</p>
+        <p>The turbine power output is calculated as following:<br/>
+            <img src="/static/eng-tools/wind-wave/formula-4.PNG" class="img-polaroid" width="50%"/>
+        </p>
+        <p>Where the air density is taken to be 1.225, the energy pattern 1.91 (Rayleigh distribution), and the swept area is calculated depending on the turbine diameter.</p>
+
+        <h4>Code and example</h4>
+        <p>Skipped, see in attached file below.</p>
+        <h4>References</h4>
+        <p>
+            [1] Charnock H. 1955. Wind stress on a water surface. Quart J Roy Meteorology Soc, 81:639-640<br/>
+            [2] Stewart RW. 1974. The air-sea momentum exchange. Bound. Layer Meteor., 16, 151-167<br/>
+            [3] Shi Jian et al. 2011 Dependence of sea surface drag coefficient on wind-wave parameters<br/>
+            <a href="/static/eng-tools/wind-wave/wind-wave-toolkit.pdf">Wind-Wave interactions ToolKit (PDF, 881KB)</a>
+        </p>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/static/js/jquery.form.js")
+    @Scripts.Render("~/static/js/jquery.inputmask/jquery.inputmask.js")
+    @Scripts.Render("~/static/js/jquery.inputmask/jquery.inputmask.numeric.extensions.js")
+    <script language="javascript">
+        $(document).ready(function () {
+            $('.inputmask.decimal').inputmask("decimal");
+            $('.inputmask.integer').inputmask("integer");
+            $('form').ajaxForm(function () {
+                $('#alert-saved').removeClass('hidden').hide().fadeIn();
+                //$('#alert-saved').removeClass('hidden').hide().fadeIn();
+                //$('#alert-saved').addClass('in');
+                //$('#alert-saved').fadeIn('slow');
+            });
+            $('#alert-saved').bind('close', function () {
+                $('#alert-saved').fadeOut();
+                return false;
+            });
+        });        
+    </script>
+}

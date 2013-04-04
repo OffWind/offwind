@@ -55,6 +55,12 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             base.Initialize(requestContext);
         }
 
+        public ActionResult Index()
+        {
+            ViewBag.Title = "Overview | Wind Wave | Offwind";
+            return View(new VWebPage());
+        }
+
         public ActionResult InputData()
         {
             ViewBag.Title = "Input Data | Wind Wave | Offwind";

@@ -38,11 +38,12 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Post-processing", new NavUrl("PostProcessing", "WakeSimulation", "EngineeringTools"));
 
             navigation.AddGroup("Wind Wave Power")
+                .AddItem("Overview", new NavUrl("Index", "WindWave", "EngineeringTools"))
                 .AddItem("Input Data", new NavUrl("InputData", "WindWave", "EngineeringTools"))
                 .AddItem("Power Output", new NavUrl("PowerOutput", "WindWave", "EngineeringTools"))
                 .AddItem("Power Output Adv.", new NavUrl("PowerOutputAdvanced", "WindWave", "EngineeringTools"));
 
-            navigation.AddGroup("Wind Farm")
+            navigation.AddGroup("Wind Farm Control")
                 .AddItem("Input Data", new NavUrl("InputData", "WindFarm", "EngineeringTools"))
                 .AddItem("Simulation", new NavUrl("Simulation", "WindFarm", "EngineeringTools"));
 

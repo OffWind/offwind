@@ -22,7 +22,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public WindFarmController()
         {
-            _currentGroup = "Wind Farm";
+            _currentGroup = "Wind Farm Control";
         }
 
         public ActionResult Index()

@@ -773,3 +773,14 @@ input[type="password"] {
 {
     background: none;
 }
+.text p,
+.text table
+{
+    margin-left: 2em;
+    margin-right: 2em;
+}
+.text ul, .text ol
+{
+    margin-left: 5em;
+    margin-right: 2em;
+}

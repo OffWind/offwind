@@ -7,11 +7,15 @@ using System.IO;
 using System.Linq;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Xml.Serialization;
 using NUnit.Framework;
 using Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind;
+//using Offwind.WebApp.Areas.EngineeringTools.Models.WindWave.Computations;
+using Offwind.WebApp.Areas.EngineeringTools.Models.WindWave.Computations;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Account;
 using log4net;
+using System.Collections;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
@@ -27,6 +31,85 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             _currentGroup = "Meso Wind";
         }
 
+        private void ItemsCount(VMesoWind model)
+        {
+            if (model.UseSearchResults)
+            {
+                model.TotalCount = model.InterestingPoints.Count;
+                model.MerraCount = model.InterestingPoints.Count(t => t.DatabaseId == (short)DbType.MERRA);
+                model.FnlCount = model.InterestingPoints.Count(t => t.DatabaseId == (short)DbType.FNL);
+            }
+            else
+            {
+                model.TotalCount = _ctx.SmallMesoscaleTabFiles.Count();
+                model.FnlCount = _ctx.SmallMesoscaleTabFiles.Count(t => t.DatabaseId == (int)DbType.FNL);
+                model.MerraCount = _ctx.SmallMesoscaleTabFiles.Count(t => t.DatabaseId == (int)DbType.MERRA);
+            }            
+        }
+
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            Debug.Assert(Request.IsAuthenticated);
+
+            var user = User.Identity.Name;
+            using (var ctx = new OffwindEntities())
+            {
+                var dCase = ctx.DCases.FirstOrDefault(c => c.Owner == user && c.Name == StandardCases.MesoWind);
+                if (dCase == null)
+                {
+                    dCase = new DCase
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Name = StandardCases.MesoWind,
+                                    Owner = user,
+                                    Created = DateTime.UtcNow
+                                };
+                    // Model contains points from both databases by default
+                    var model = new VMesoWind();
+                    ItemsCount(model);
+
+                    var serializer = new XmlSerializer(typeof(VMesoWind));
+                    using (var writer = new StringWriter())
+                    {
+                        serializer.Serialize(writer, model);
+                        dCase.Model = writer.ToString();
+                        writer.Close();
+                    }
+                    ctx.DCases.AddObject(dCase);
+                    ctx.SaveChanges();
+                }
+            }
+            base.Initialize(requestContext);
+        }
+
+        private VMesoWind PopModel()
+        {
+            using (var ctx = new OffwindEntities())
+            {
+                var dCase = ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.MesoWind);
+                var serializer = new XmlSerializer(typeof(VMesoWind));
+                using (var reader = new StringReader(dCase.Model))
+                {
+                    return (VMesoWind)serializer.Deserialize(reader);
+                }
+            }
+        }
+
+        private void PushModel(VMesoWind model)
+        {
+            var serializer = new XmlSerializer(typeof(VMesoWind));
+            using (var ctx = new OffwindEntities())
+            using (var writer = new StringWriter())
+            {
+                var dCase = ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.MesoWind);
+                serializer.Serialize(writer, model);
+                dCase.Model = writer.ToString();
+                writer.Close();
+                ctx.SaveChanges();
+            }
+        }
+
         public ActionResult Index()
         {
             ViewBag.Title = "Overview | Mesoscale Wind Characteristics | Offwind";
@@ -36,22 +119,51 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult Database()
         {
             ViewBag.Title = "Database | Mesoscale Wind Characteristics | Offwind";
-            ViewBag.TotalCount = _ctx.SmallMesoscaleTabFiles.Count();
-            ViewBag.FnlCount = _ctx.SmallMesoscaleTabFiles.Count(t => t.DatabaseId == (int)DbType.FNL);
-            ViewBag.MerraCount = _ctx.SmallMesoscaleTabFiles.Count(t => t.DatabaseId == (int)DbType.MERRA);
+            var model = PopModel();
+            ItemsCount(model);
+            PushModel(model);
+
+            Settings.DbType = model.DbType;
+            ViewBag.TotalCount = model.TotalCount;
+            ViewBag.FnlCount = model.FnlCount;
+            ViewBag.MerraCount = model.MerraCount;
+
             return View(Settings);
         }
 
         [ActionName("Database")]
         [HttpPost]
-        public ActionResult ApplySettings(DbSettings model)
+        public ActionResult Search(DbSettings value)
         {
-            Settings.DbType = model.DbType;
-            Settings.showAll = model.showAll;
-            Settings.startLat = model.startLat;
-            Settings.startLng = model.startLng;
-            Settings.distance = model.distance;
-            return View(Settings);
+            var model = PopModel();
+            Settings.startLat = value.startLat;
+            Settings.startLng = value.startLng;
+            Settings.distance = value.distance;
+
+            model.UseSearchResults = true;
+            model.InterestingPoints.AddRange(GetFiltered(Settings.startLat, Settings.startLng, Settings.distance * 1000));
+            PushModel(model);
+            return RedirectToAction("Database");
+        }
+        
+
+        public JsonResult DatabaseSwitch(string id)
+        {
+            var model = PopModel();
+            model.DbType = (DbType) Enum.Parse(typeof(DbType), id);
+            PushModel(model);
+            return Json("OK", JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Reset()
+        {
+            var model = PopModel();
+            model.UseSearchResults = false;
+            model.InterestingPoints.Clear();
+            model.ImportedPoints.Clear();
+            ItemsCount(model);
+            PushModel(model);
+            return RedirectToAction("Database");
         }
 
         public ActionResult CurrentData()
@@ -63,16 +175,14 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult VelocityFreq()
         {
             ViewBag.Title = "Histogram | Mesoscale Wind Characteristics | Offwind";
+            var model = PopModel();
             var m = new VWebPageSimpleObject<List<HPoint>>();
-            if (Session[CurrentFile] == null)
+            if (model.ImportedPoints.Count == 0)
             {
                 m.SimpleObject = new List<HPoint>();
-                return View(m);
-            }
+                return View(m);            }
 
-            var file = (string)Session[CurrentFile];
-            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.DbType];
-            var imported = ImportFile(DbDir, file);
+            var imported = ImportFile(null, model.ImportedPoints[0].Text);
             m.SimpleObject = imported.VelocityFreq;
             return View(m);
         }
@@ -80,15 +190,14 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult WindRose()
         {
             ViewBag.Title = "Wind Roses | Mesoscale Wind Characteristics | Offwind";
+            var m = PopModel();
             var model = new VWindRose();
-            if (Session[CurrentFile] == null)
+            if (m.ImportedPoints.Count == 0)
             {
                 return View(model);
             }
 
-            var file = (string)Session[CurrentFile];
-            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.DbType];
-            var imported = ImportFile(DbDir, file);
+            var imported = ImportFile(null, m.ImportedPoints[0].Text);
 
             for (var i = 0; i < imported.FreqByDirs.Count; i++)
             {
@@ -112,24 +221,33 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return View();
         }
 
-        public JsonResult Import(string file)
+        public JsonResult Import(string id)
         {
-            Session[CurrentFile] = file;
+            var model = PopModel();
+            model.ImportedPoints.Clear(); // TODO: Only one point can be imported
+            //Session[CurrentFile] = id;
+            var Id = Convert.ToDecimal(id);
+            foreach (var item in _ctx.MesoscaleTabFiles.Where(item => item.Id == Id))
+            {
+                model.ImportedPoints.Add(item);
+                break;
+            }
+            PushModel(model);
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult CurrentDataJson(int sEcho)
         {
-            if (Session[CurrentFile] == null)
+            var model = PopModel();
+            if (model.ImportedPoints.Count == 0)
             {
                 _log.WarnFormat("CurrentFile is not set");
                 var dataEmpty = new { sEcho = sEcho, iTotalRecords = 0, iTotalDisplayRecords = 0, aaData = new List<decimal[]>() };
                 return Json(dataEmpty, JsonRequestBehavior.AllowGet);
             }
 
-            var file = (string)Session[CurrentFile];
             string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.DbType];
-            var imported = ImportFile(DbDir, file);
+            var imported = ImportFile(DbDir, model.ImportedPoints[0].Text);
             
             var final = new List<string[]>();
             var n = imported.NDirs + 1;
@@ -170,14 +288,17 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private VDataImport ImportFile(string dir, string fileName)
         {
             var model = new VDataImport();
-            var path = System.IO.Path.Combine(dir, fileName);
-            _log.InfoFormat("Importing file: {0}", path);
-            using (var f = new StreamReader(path))
+            //var path = System.IO.Path.Combine(dir, fileName);
+            //_log.InfoFormat("Importing file: {0}", path);
+            //using (var f = new StreamReader(path))
+            using (var f = new StringReader(fileName))
             {
                 var lineN = 0;
-                while (!f.EndOfStream)
+                //while (!f.EndOfStream)
+                while (true)
                 {
                     var line = f.ReadLine();
+                    if (line == null) break;
                     lineN++;
                     switch (lineN)
                     {
@@ -243,20 +364,14 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public JsonResult GetTableData(int sEcho, int iDisplayLength, int iDisplayStart)
         {
-            List<object[]> goodPoints;
-            if (Settings.showAll == ShowAll.no)
-            {
-                var allowedDistance = Settings.distance * 1000;
-                goodPoints = GetFiltered(Settings.startLat, Settings.startLng, allowedDistance)
-                    .Select(MapDatabaseItem)
-                    .ToList();
-            }
-            else
-            {
-                goodPoints = _ctx.SmallMesoscaleTabFiles
-                    .Select(MapDatabaseItem)
-                    .ToList();
-            }
+            var model = PopModel();
+            List<SmallMesoscaleTabFile> db = (model.UseSearchResults)
+                                                   ? model.InterestingPoints
+                                                   : _ctx.SmallMesoscaleTabFiles.ToList();
+
+            List<object[]> goodPoints =
+                db.Where(t => (t.DatabaseId == (short) model.DbType) || (model.DbType == DbType.All)).Select(MapDatabaseItem).ToList();
+
             var filtered = goodPoints
                 .Skip(iDisplayStart)
                 .Take(iDisplayLength)
@@ -276,34 +391,46 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public JsonResult GetMapData()
         {
-            if (Settings.showAll == ShowAll.yes)
-                return Json(_ctx.SmallMesoscaleTabFiles.Select(MapDatabaseItem).ToArray(), JsonRequestBehavior.AllowGet);
+            var model = PopModel();
+            object[][] filtered = null;
+            List<SmallMesoscaleTabFile> data = (model.UseSearchResults)
+                                                   ? model.InterestingPoints
+                                                   : _ctx.SmallMesoscaleTabFiles.ToList();
+            if (model.DbType == DbType.All)
+                return Json(data.Select(MapDatabaseItem).ToArray(), JsonRequestBehavior.AllowGet);
 
-            var filtered = GetFiltered(Settings.startLat, Settings.startLng, Settings.distance)
-                .Select(MapDatabaseItem)
-                .ToArray();
+            filtered =
+                data.Where(t => (t.DatabaseId == (short) model.DbType) || (model.DbType == DbType.All))
+                    .Select(MapDatabaseItem).ToArray();
             return Json(filtered, JsonRequestBehavior.AllowGet);
         }
 
         private IEnumerable<SmallMesoscaleTabFile> GetFiltered(decimal lat, decimal lng, decimal allowedDistance)
-        {
-            var dbType = (int) Settings.DbType;
-
-            foreach (var item in _ctx.SmallMesoscaleTabFiles.Where(t => t.DatabaseId == dbType))
+        {         
+            foreach (var item in _ctx.SmallMesoscaleTabFiles)
             {
-                var sCoord = new GeoCoordinate((double)item.Latitude, (double)item.Longitude);
-                var eCoord = new GeoCoordinate((double)lat, (double)lng);
+                GeoCoordinate sCoord;
+
+                if (item.DatabaseId == (short) DbType.FNL)
+                    sCoord = new GeoCoordinate((double)item.Latitude, (double)item.Longitude);
+                else
+                    sCoord = new GeoCoordinate((double)item.Longitude, (double)item.Latitude); // :)
+
+                var eCoord = new GeoCoordinate((double) lat, (double) lng);
 
                 var distance = sCoord.GetDistanceTo(eCoord);
-                if (distance > (double)allowedDistance) continue;
+                if (distance > (double) allowedDistance) continue;
                 yield return item;
             }
         }
 
+
         private static object[] MapDatabaseItem(SmallMesoscaleTabFile x)
         {
             var db = x.DatabaseId == (int) DbType.FNL ? "FNL" : "MERRA";
-            return new object[] { x.Id, x.Latitude, x.Longitude, db};
+            if (db == "FNL")
+                return new object[] {x.Id, x.Latitude, x.Longitude, db};
+            return new object[] {x.Id, x.Longitude, x.Latitude, db};
         }
 
         private int ParseInt(string input)

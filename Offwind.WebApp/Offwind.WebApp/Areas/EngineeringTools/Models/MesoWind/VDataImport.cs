@@ -5,7 +5,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
 {
     public class VDataImport
     {
-        public ObservableCollection<DatabaseItem> DatabaseItems { get; set; }
         public List<decimal> FreqByDirs { get; set; }
         public List<decimal[]> FreqByBins { get; set; }
         public List<decimal> MeanVelocityPerDir { get; set; }
@@ -16,7 +15,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
 
         public VDataImport()
         {
-            DatabaseItems = new ObservableCollection<DatabaseItem>();
             FreqByDirs = new List<decimal>();
             FreqByBins = new List<decimal[]>();
             MeanVelocityPerDir = new List<decimal>();

@@ -37,8 +37,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
         [DisplayName("Search in area (km)")]
         public decimal distance { set; get; }
 
-
-
         public DbSettings()
         {
             startLat = 512;

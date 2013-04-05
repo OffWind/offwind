@@ -291,7 +291,12 @@
     <Content Include="static\css\myelements.css" />
     <Content Include="static\css\theme.css" />
     <Content Include="static\eng-tools\meso-wind\db-fnl.png" />
+    <Content Include="static\eng-tools\wind-wave\algorithm.PNG" />
     <Content Include="static\eng-tools\wind-wave\formula-1.PNG" />
+    <Content Include="static\eng-tools\wind-wave\formula-2.PNG" />
+    <Content Include="static\eng-tools\wind-wave\formula-3.PNG" />
+    <Content Include="static\eng-tools\wind-wave\formula-4.PNG" />
+    <Content Include="static\eng-tools\wind-wave\formula-5.PNG" />
     <Content Include="static\font-awesome\.gitignore" />
     <Content Include="static\font-awesome\css\font-awesome-ie7.css" />
     <Content Include="static\font-awesome\css\font-awesome.css" />
@@ -1674,6 +1679,7 @@
     <None Include="static\.DS_Store" />
     <None Include="static\eng-tools\meso-wind\TAB-format-summary.docx" />
     <None Include="static\eng-tools\meso-wind\TAB-format-summary.pdf" />
+    <Content Include="static\eng-tools\wind-wave\wind-wave-toolkit.pdf" />
     <None Include="static\font-awesome\FontAwesome-Vectors.pdf" />
     <None Include="static\font-awesome\FontAwesome.ttf" />
     <Content Include="static\font-awesome\font\fontawesome-webfont.eot" />

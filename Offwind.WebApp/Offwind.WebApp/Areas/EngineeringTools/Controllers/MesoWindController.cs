@@ -409,13 +409,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {         
             foreach (var item in _ctx.SmallMesoscaleTabFiles)
             {
-                GeoCoordinate sCoord;
-
-                if (item.DatabaseId == (short) DbType.FNL)
-                    sCoord = new GeoCoordinate((double)item.Latitude, (double)item.Longitude);
-                else
-                    sCoord = new GeoCoordinate((double)item.Longitude, (double)item.Latitude); // :)
-
+                var sCoord = new GeoCoordinate((double)item.Latitude, (double)item.Longitude);
                 var eCoord = new GeoCoordinate((double) lat, (double) lng);
 
                 var distance = sCoord.GetDistanceTo(eCoord);
@@ -428,9 +422,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private static object[] MapDatabaseItem(SmallMesoscaleTabFile x)
         {
             var db = x.DatabaseId == (int) DbType.FNL ? "FNL" : "MERRA";
-            if (db == "FNL")
-                return new object[] {x.Id, x.Latitude, x.Longitude, db};
-            return new object[] {x.Id, x.Longitude, x.Latitude, db};
+            return new object[] {x.Id, x.Latitude, x.Longitude, db};
         }
 
         private int ParseInt(string input)

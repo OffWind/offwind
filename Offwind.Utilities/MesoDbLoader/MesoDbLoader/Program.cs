@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Configuration;
 using System.Globalization;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace MesoDbLoader
 {
@@ -9,8 +11,24 @@ namespace MesoDbLoader
     {
         static void Main(string[] args)
         {
+            ClearDb();
+
             LoadMerra();
             LoadFNL();
+        }
+
+
+        private static void ClearDb()
+        {
+            using (var ctx = new OffwindEntities())
+            {
+                ctx.MesoscaleTabFiles
+                    .ToList()
+                    .ForEach(t => ctx.MesoscaleTabFiles.DeleteObject(t));
+                ctx.SaveChanges();
+            }
+            Console.Write("Clear");
+            Console.WriteLine();
         }
 
         private static void LoadMerra()
@@ -31,8 +49,8 @@ namespace MesoDbLoader
                     }
 
                     var dbItem = new MesoscaleTabFile();
-                    dbItem.Longitude = ParseDecimal(val[0]); ;
-                    dbItem.Latitude = ParseDecimal(val[1]);
+                    dbItem.Longitude = ParseDecimal(val[1]); ;
+                    dbItem.Latitude = ParseDecimal(val[0]);
                     dbItem.DatabaseId = 2;
                     var path = System.IO.Path.Combine(home, String.Format("50mMERRAnear_{0}.dat.tab", val[2]));
 

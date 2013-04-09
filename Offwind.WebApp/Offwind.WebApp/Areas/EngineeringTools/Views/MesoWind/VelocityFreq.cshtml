@@ -12,60 +12,9 @@
     </div>
 </div>
 @section scripts
-{
-    @*
-    @Scripts.Render("~/static/js/amcharts.js")
-    <script type="text/javascript">
-        var chartData = @(Html.Raw(new JavaScriptSerializer().Serialize(Model)));
-        AmCharts.ready(function () {
-            // SERIAL CHART
-            chart = new AmCharts.AmSerialChart();
-            chart.dataProvider = chartData;
-            chart.categoryField = "Dir";
-            chart.startDuration = 1;
-            chart.plotAreaBorderColor = "#DADADA";
-            chart.plotAreaBorderAlpha = 1;
-            // this single line makes the chart a bar chart          
-            chart.rotate = false;
-
-            // AXES
-            // Category
-            var categoryAxis = chart.categoryAxis;
-            categoryAxis.gridPosition = "start";
-            categoryAxis.gridAlpha = 0.1;
-            categoryAxis.axisAlpha = 0;
-
-            // Value
-            var valueAxis = new AmCharts.ValueAxis();
-            valueAxis.axisAlpha = 0;
-            valueAxis.gridAlpha = 0.1;
-            valueAxis.position = "top";
-            chart.addValueAxis(valueAxis);
-
-            // GRAPHS
-            // first graph
-            var graph1 = new AmCharts.AmGraph();
-            graph1.type = "column";
-            graph1.title = "Velocity Frequencies";
-            graph1.valueField = "Frequency";
-            graph1.balloonText = "Frequency:[[value]]";
-            graph1.lineAlpha = 0;
-            graph1.fillColors = "#ADD981";
-            graph1.fillAlphas = 1;
-            chart.addGraph(graph1);
-
-            // LEGEND
-            var legend = new AmCharts.AmLegend();
-            chart.addLegend(legend);
-
-            // WRITE
-            chart.write("chartdiv");
-        });
-    </script>
-   *@
-   
+{   
     @Scripts.Render("~/static/js/highcharts.js")
-
+    @Scripts.Render("~/static/js/exporting.js")
     <script type="text/javascript">
         var chartData = @(Html.Raw(new JavaScriptSerializer().Serialize(Model.SimpleObject)));
         var chart = new Highcharts.Chart({

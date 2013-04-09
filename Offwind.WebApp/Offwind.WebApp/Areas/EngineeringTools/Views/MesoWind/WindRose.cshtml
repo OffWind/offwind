@@ -18,53 +18,55 @@
 </div>
 @section scripts
 {
-    @Scripts.Render("~/static/js/amcharts.js")
+    @Scripts.Render("~/static/js/highcharts.js")
+    @Scripts.Render("~/static/js/highcharts-more.js")
+    @Scripts.Render("~/static/js/exporting.js")
+
     <script type="text/javascript">
     @{
         var freqByDirs = Model.FreqByDirs.Select(x => new { direction = x.Dir, value = x.Frequency });
         var meanVelocityByDir = Model.MeanVelocityPerDir.Select(x => new { direction = x.Dir, value = x.Velocity });
-    }
+     }
         var freqByDir = @(Html.Raw(new JavaScriptSerializer().Serialize(freqByDirs)));
         var meanVelocityByDir = @(Html.Raw(new JavaScriptSerializer().Serialize(meanVelocityByDir)));
-        var plotChart = function(data, target, title, unit) {
-            var chart;
 
-            // RADAR CHART
-            chart = new AmCharts.AmRadarChart();
-            chart.dataProvider = data;
-            chart.categoryField = "direction";
-            chart.startDuration = 1;
+        var plotChart = function(data, target, title, name) {
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: target,
+                    polar: true
+                },
+                title: {
+                    text: title
+                },
+                pane: {
+                    startAngle: 0,
+                    endAngle: 360
+                },
+                xAxis: {
+                    tickInterval: 45,
+                    min: 0,
+                    max: 360,
+                    labels: {
+                        formatter: function() {
+                            return this.value + '°';
+                        }
+                    }
+                },
+                yAxis: {
+                    min: 0
+                },
+                series: [{ type: 'area', name: name }]
+            });
 
-            // TITLE
-            chart.addTitle(title, 15);
-
-            // VALUE AXIS
-            var valueAxis = new AmCharts.ValueAxis();
-            valueAxis.gridType = "circles";
-            valueAxis.fillAlpha = 0.05;
-            valueAxis.fillColor = "#000000";
-            valueAxis.axisAlpha = 0.2;
-            valueAxis.gridAlpha = 0;
-            valueAxis.fontWeight = "bold";
-            valueAxis.minimum = 0;
-            chart.addValueAxis(valueAxis);
-
-            // GRAPH
-            var graph = new AmCharts.AmGraph();
-            graph.lineColor = "#FFCC00";
-            graph.fillAlphas = 0.4;
-            graph.bullet = "round";
-            graph.valueField = "value";
-            graph.balloonText = "[[value]] " + unit;
-            chart.addGraph(graph);
-
-            // WRITE                
-            chart.write(target);
+            var graph = [];
+            for (var i = 0; i < data.length; i++ ) {
+                graph.push({ x: data[i].direction, y: data[i].value});
+            }
+            chart.series[0].setData(graph);
         };
 
-        AmCharts.ready(function() {
-            plotChart(freqByDir, "frequencyByDir", "Frequency by direction", "%");
-            plotChart(meanVelocityByDir, "meanVelocityByDir", "Mean velocity by direction", "m/s");
-        });
+        plotChart(freqByDir, "frequencyByDir", "Frequency by direction, %", "Frequency");
+        plotChart(meanVelocityByDir, "meanVelocityByDir", "Mean velocity by direction, m/s", "Velocity");
     </script>
 }

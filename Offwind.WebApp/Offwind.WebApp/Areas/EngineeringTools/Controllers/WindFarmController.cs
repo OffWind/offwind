@@ -14,11 +14,17 @@ using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
+    public class WindFarmControl
+    {
+        public decimal Time { get; set; }
+        public double Power { get; set; }
+    }
+
     public class WindFarmController : _BaseController
     {
         private static VWindFarm _model = null;
         //private static Thread _thread = null;
-        private double process = 0;
+        private decimal process = 0;
 
         public WindFarmController()
         {
@@ -117,6 +123,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
         }
          */
+
         public JsonResult Run()
         {
             /*
@@ -134,43 +141,28 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             var randomDir = Guid.NewGuid().ToString();
             Session["WindFarmDir"] = randomDir;
 
-            string dir = WebConfigurationManager.AppSettings["WindFarmSimulationDir"];
-            dir = Path.Combine(dir, randomDir);
-            Directory.CreateDirectory(dir);
-            string wdir = Path.Combine(dir, "windfarm");
-            Directory.CreateDirectory(wdir);
-            double delta = 0;
-            using (var f = System.IO.File.Open(Path.Combine(wdir, "windfarm.dat"), FileMode.OpenOrCreate, FileAccess.Write))
-            using (var b = new StreamWriter(f))
+            decimal delta = 0;
+            while (process < _model.StopTime)
             {
-                while (process < _model.StopTime)
+                double sum = 0;
+                for (var i = 0; i < turbines; i++)
                 {
-                    double sum = 0;
-                    for (var i = 0; i < turbines; i++)
-                    {
-                        var t = _model.Turbines[i];
-                        var val = (Math.PI/2)*t.rho*t.radius*t.radius*t.speed*t.speed*t.speed*t.Cp;
-                        res[i] = Math.Min(t.rated, val);
-                        sum += res[i];
-                    }
-
-                    b.Write(delta*_model.TimeStep);
-                    delta += 1;
-
-                    for (var i = 0; i < turbines; i++)
-                    {
-                        var t = _model.Turbines[i];
-                        var x = Math.Max(0, Math.Min(t.rated, _model.Scale*res[i]/sum));
-                        b.Write(" " + x);
-                    }
-                    b.WriteLine();
-                    process += _model.TimeStep;
+                    var t = _model.Turbines[i];
+                    var val = (Math.PI/2)*t.rho*t.radius*t.radius*t.speed*t.speed*t.speed*t.Cp;
+                    res[i] = Math.Min(t.rated, val);
+                    sum += res[i];
                 }
-                b.Close();
-                f.Close();
-            }
+                var wfc = new WindFarmControl();
+                wfc.Time = delta * _model.TimeStep;
+                delta += 1;
 
-            SharpZipUtils.CompressFolder(wdir, Path.Combine(dir, "windfarm.zip"), null);
+                for (var i = 0; i < turbines; i++)
+                {
+                    var t = _model.Turbines[i];
+                    wfc.Power = Math.Max(0, Math.Min(t.rated, _model.Scale * res[i] / sum));
+                }
+                process += _model.TimeStep;
+            }
 
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
@@ -194,7 +186,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public JsonResult Tick()
         {
-            double elapsed = ((process - _model.StartTime)/(_model.StopTime - _model.StartTime)) * 100;
+            var elapsed = ((process - _model.StartTime)/(_model.StopTime - _model.StartTime)) * 100;
             return Json(elapsed.ToString(CultureInfo.InvariantCulture));
         }
 
@@ -202,7 +194,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             _model.StartTime = 0;
             _model.StopTime = 1000;
-            _model.TimeStep = 0.01;
+            _model.TimeStep = 0.01m;
             _model.Scale = 5000000;
 
             _model.Turbines.Add(new VWindTurbine() {Cp = 0.45, radius = 63, rated = 1, rho = 0.1, speed = 12});

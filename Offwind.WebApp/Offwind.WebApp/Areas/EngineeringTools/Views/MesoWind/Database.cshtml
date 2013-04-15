@@ -70,14 +70,14 @@
                 <label class="radio">
                     <input type="radio" name="DbType" value="MERRA" @dbMERRAChecked> MERRA (@ViewBag.MerraCount)
                 </label>
-                <br/>
-                <a href="@Url.Action("Reset", "MesoWind")" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-undo"></i>Reset</a>
             </form>
         </div>
         
         <div class="well">
             <a href="#show_db" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-table"></i> Show data</a>
             <a href="#show_settings" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-search"></i>Search</a>
+            <a id="imported_dlg" href="#imported_table" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-list"></i>Imported List</a>
+            <a href="@Url.Action("Reset", "MesoWind")" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-undo"></i>Reset</a>
             <a href="#show_help" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-question-sign"></i>Help</a>
         </div>
     </div>
@@ -126,6 +126,21 @@
     </div>
 </div>
 
+<div id="imported_table" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Imported points</h3>
+    </div>
+
+    <div class="modal-body">
+        <div id="imported_db"></div>
+    </div>
+            
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+    </div>
+</div>
+
 <div id="show_help" class="modal hide fade">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -143,7 +158,7 @@
         <p><div class="cluster_sample">119</div> - this is an example of cluster that has 119 points grouped in it.</p>
         <h5>Points</h5>
         <p>Points - are the basic units that database contain. It directly corresponds to a physical location on earth defined by
-        coordinates - Latitude and Longitude.</p>
+            coordinates - Latitude and Longitude.</p>
         <p><img src="https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png" /> - this is an example of point.</p>
     </div>
     <div class="modal-footer">
@@ -152,6 +167,11 @@
 
 </div>
 
+@section styles
+{
+   @Styles.Render("~/static/css/jquery.handsontable.full.css")
+}
+
 @section scripts
 {
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
@@ -159,12 +179,17 @@
     <script type="text/javascript" src="../../../../static/js/markerclusterer.js"></script>
 
     @Scripts.Render("~/static/js/jquery.dataTables.Pagination.js")
-    <script language="javascript">
+    @Scripts.Render("~/static/js/jquery.handsontable.full.js")
+    @Scripts.Render("~/static/js/handsontable.tools.js")
+
+
+    <script type="text/javascript">
         var MapManager = { };
         var TableManager = { };
 
         (function() {
             var map;
+            var importMenu;
             var clusters = null;
             var dbMarker;
             var dbHoverMarker;
@@ -185,8 +210,41 @@
                 var marker = new google.maps.Marker({
                     position: place,
                     draggable: false,
+                    clickable: true,
                     title: dbItem[3] + ' [' + dbItem[1] + '; ' + dbItem[2] + ']'
                 });
+                google.maps.event.addListener(marker, 'rightclick', function(event) {                    
+                    var scale = Math.pow(2, map.getZoom());                    
+                    var corner = new google.maps.LatLng(map.getBounds().getNorthEast().lat(), map.getBounds().getSouthWest().lng());
+                    var left_point = map.getProjection().fromLatLngToPoint(corner);                    
+                    var cur_point = map.getProjection().fromLatLngToPoint(event.latLng);
+
+                    var inpixels = new google.maps.Point(
+                        Math.floor((cur_point.x - left_point.x) * scale),
+                        Math.floor((cur_point.y - left_point.y) * scale)
+                    );
+                    
+                    $('.contextmenu').css('left', inpixels.x);
+                    $('.contextmenu').css('top', inpixels.y);
+
+                    var ref = importMenu.getElementsByTagName('a');
+                    ref[0].name = event.latLng.toString();
+
+                    importMenu.style.visibility = "visible";
+                });
+
+                google.maps.event.addListener(map, "click", function(e) {
+                    importMenu.style.visibility = "";
+                });
+                
+                google.maps.event.addListener(map, "zoom_changed", function() {
+                    importMenu.style.visibility = "";
+                });
+                
+                google.maps.event.addListener(map, "dragstart", function() {
+                    importMenu.style.visibility = "";
+                });
+                
                 marker.id = dbItem[0];
                 marker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
                 return marker;
@@ -240,6 +298,23 @@
                 dbHoverMarker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/ltblue-dot.png");
                 dbHoverMarker.visible = false;
                 dbHoverMarker.zIndex = 2;
+                
+                $('.contextmenu').remove();
+                    
+                importMenu = document.createElement("div");
+                importMenu.className  = 'contextmenu';
+                importMenu.innerHTML = '<div><a href=\"#importMarker\"><i class=\"icon-save\"></i>Import</a></div>';
+                $(map.getDiv()).append(importMenu);
+
+                var x = importMenu.getElementsByTagName('a');
+
+                x[0].onclick = function() {
+                    $.ajax({
+                        url: "@Url.Action("Import", "MesoWind", new { area = "EngineeringTools" })",
+                        data: { id: "", coord: x[0].name }
+                    });
+                    importMenu.style.visibility = "";
+                };
 
                 MapManager.refreshMap();
             };
@@ -270,7 +345,7 @@
                     "sSortAsc": "header headerSortDown",
                     "sSortDesc": "header headerSortUp",
                     "sSortable": "header"
-                });
+                });                
                 dbTable = $('#database').dataTable({
                     "sDom": "tip<'row-fluid'r>",
                     //"sDom": "lfrtip",
@@ -287,23 +362,50 @@
                         $(this.nTr).removeClass('table-row-selected');
                     });
                     $(event.target.parentNode).addClass('table-row-selected');
-
+                    /*
                     var row = $(event.target.parentNode);
                     var lat = $(row.find("td")[0]).text();
                     var lng = $(row.find("td")[1]).text();
-
                     var point = new google.maps.LatLng(lat, lng);
                     MapManager.setHover(point);
+                    */
                 });
                 
+                $("#imported_db").handsontable({
+                    startRows: 1,
+                    startCols: 4,
+                    columns: [
+                        { type: { renderer: td_renderer }, readOnly: true },
+                        { type: { renderer: td_renderer }, readOnly: true },
+                        { type: { renderer: td_renderer }, readOnly: true },
+                        { type: { renderer: td_renderer }, readOnly: true }
+                    ],
+                    /*
+                    colHeaders: [
+                        "<b>Lat. (°)</b>",
+                        "<b>Lng. (°)</b>",
+                        "<b>Database</b>"
+                    ],
+                    */
+                    rowHeaders: true,
+                    colHeaders: false,
+                    minSpareCols: 0,
+                    minSpareRows: 0,
+                    contextMenu: true,
+                    onChange: function(change, source) {
+                    }
+                });
+
+                /*
                 $('#database tbody').on('mouseenter', 'tr', function() {
                     var lat = $($(this).find('td')[0]).text();
                     var lng = $($(this).find('td')[1]).text();
-                    var point = new google.maps.LatLng(lat, lng);
+                    var point = new google.maps.LatLng(lat, lng);                    
                     MapManager.setHover(point);
                 }).on('mouseleave', 'tr', function() {
                     MapManager.hideHover();
                 });
+                */
             };  
 
             /* Get the rows which are currently selected */
@@ -324,6 +426,17 @@
             MapManager.initialize();
             TableManager.initialize();
 
+            $("#imported_dlg").click(function() {
+                $.ajax({
+                    url: "@Url.Action("GetImportedData", "MesoWind", new { area = "EngineeringTools" })",
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function(res) {
+                        $("#imported_db").data('handsontable').loadData(res);
+                    }
+                });
+            });
+
             $("#do_import").click(function() {
                 var sel = TableManager.fnGetSelected();
                 if (sel.length == 0) {
@@ -336,7 +449,7 @@
                 var id = $($(sel[0]).find('td')[0]).text();
                 $.ajax({
                     url: "@Url.Action("Import", "MesoWind", new { area = "EngineeringTools" })",
-                    data: { id: id }
+                    data: { id: id, coord: "" }
                 }).done(function() {
                     $("#show_db_imported").css("display", "block");
                     setTimeout(function() {
@@ -357,15 +470,6 @@
                 });
             });
         });
-        /*
-        function reset_view() {
-                $.ajax({
-                    url: "@Url.Action("Reset", "MesoWind", new { area = "EngineeringTools" })"
-                }).done(function() {
-                    MapManager.refreshMap();
-                });
-        };
-        */
     </script>
 
 }

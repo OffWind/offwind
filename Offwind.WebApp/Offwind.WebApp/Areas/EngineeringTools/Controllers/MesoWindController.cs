@@ -180,8 +180,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             if (model.ImportedPoints.Count == 0)
             {
                 m.SimpleObject = new List<HPoint>();
-                return View(m);            }
-
+                return View(m);
+            }
             var imported = ImportFile(null, model.ImportedPoints[0].Text);
             m.SimpleObject = imported.VelocityFreq;
             return View(m);
@@ -221,19 +221,45 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return View();
         }
 
-        public JsonResult Import(string id)
+        public JsonResult Import(string id, string coord)
         {
             var model = PopModel();
-            model.ImportedPoints.Clear(); // TODO: Only one point can be imported
-            //Session[CurrentFile] = id;
-            var Id = Convert.ToDecimal(id);
-            foreach (var item in _ctx.MesoscaleTabFiles.Where(item => item.Id == Id))
+            //model.ImportedPoints.Clear(); // TODO: Only one point can be imported
+
+            if (id.Length > 0)
             {
-                model.ImportedPoints.Add(item);
-                break;
+                var Id = Convert.ToDecimal(id);
+                foreach (var item in _ctx.MesoscaleTabFiles.Where(item => item.Id == Id))
+                {
+                    model.ImportedPoints.Add(item);
+                    break;
+                }
             }
+            else if (coord.Length > 0)
+            {
+                var val = coord.Split("(),".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                var lat = Convert.ToDecimal(val[0]);
+                var lng = Convert.ToDecimal(val[1]);
+                const double eps = 1e-6;
+
+                foreach (var item in _ctx.MesoscaleTabFiles.Where(item => ((Math.Abs((double)(item.Latitude - lat)) < eps) && (Math.Abs((double)(item.Longitude - lng)) < eps))))
+                {
+                    model.ImportedPoints.Add(item);
+                    break;
+                }
+            }
+
             PushModel(model);
             return Json("OK", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetImportedData()
+        {
+            var model = PopModel();
+
+            IEnumerable<object[]> res = model.ImportedPoints.Select(t => new object[] { t.Id, t.Latitude, t.Longitude,
+                (t.DatabaseId == (short) DbType.FNL) ? "FNL" : "MERRA"});
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult CurrentDataJson(int sEcho)

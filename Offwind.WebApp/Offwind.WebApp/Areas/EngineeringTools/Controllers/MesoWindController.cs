@@ -224,7 +224,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public JsonResult Import(string id, string coord)
         {
             var model = PopModel();
-            //model.ImportedPoints.Clear(); // TODO: Only one point can be imported
 
             if (id.Length > 0)
             {

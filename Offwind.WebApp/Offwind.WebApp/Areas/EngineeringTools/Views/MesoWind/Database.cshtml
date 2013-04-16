@@ -10,6 +10,7 @@
     {
         margin-left: 12px;
     }
+
     .cluster_sample
     {
         background-image: url("/static/img/m3.png");
@@ -70,20 +71,22 @@
                 <label class="radio">
                     <input type="radio" name="DbType" value="MERRA" @dbMERRAChecked> MERRA (@ViewBag.MerraCount)
                 </label>
+                <br/>
+                <a href="#filter-mode" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-filter"></i>Add Filter</a>
+                <a href="@Url.Action("Reset", "MesoWind")" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-undo"></i>Reset</a>
             </form>
         </div>
         
         <div class="well">
-            <a href="#show_db" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-table"></i> Show data</a>
-            <a href="#show_settings" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-search"></i>Search</a>
-            <a id="imported_dlg" href="#imported_table" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-list"></i>Imported List</a>
-            <a href="@Url.Action("Reset", "MesoWind")" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-undo"></i>Reset</a>
+            <a href="" onclick="TableManager.show_filtered()" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-search"></i>Show Filtered Points</a>
+            <a href="" onclick="TableManager.show_imported()" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-info-sign"></i>Show Imported Points</a>
+            <a href="#show_db" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-table"></i>Mesoscale data</a>
             <a href="#show_help" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-question-sign"></i>Help</a>
         </div>
     </div>
 </div>
 
-<div id="show_settings" class="modal hide fade">
+<div id="filter-mode" class="modal hide fade">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>Search</h3>
@@ -126,21 +129,6 @@
     </div>
 </div>
 
-<div id="imported_table" class="modal hide fade">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Imported points</h3>
-    </div>
-
-    <div class="modal-body">
-        <div id="imported_db"></div>
-    </div>
-            
-    <div class="modal-footer">
-        <button type="button" class="btn" data-dismiss="modal">Close</button>
-    </div>
-</div>
-
 <div id="show_help" class="modal hide fade">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -160,17 +148,16 @@
         <p>Points - are the basic units that database contain. It directly corresponds to a physical location on earth defined by
             coordinates - Latitude and Longitude.</p>
         <p><img src="https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png" /> - this is an example of point.</p>
+        <h5>Pushpins</h5>
+        <p>Pushpins are using for showing the points from the imported list (points can be added to this list from the database view or from the map).
+            To view the Mesoscale data, WindRose and VelocityFreq diagrams for each imported point, click the appropriate pushpin</p>
+        <p><img src="http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png" /> - this is an example of pushpin.</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal">Close</button>
     </div>
 
 </div>
-
-@section styles
-{
-   @Styles.Render("~/static/css/jquery.handsontable.full.css")
-}
 
 @section scripts
 {
@@ -179,8 +166,6 @@
     <script type="text/javascript" src="../../../../static/js/markerclusterer.js"></script>
 
     @Scripts.Render("~/static/js/jquery.dataTables.Pagination.js")
-    @Scripts.Render("~/static/js/jquery.handsontable.full.js")
-    @Scripts.Render("~/static/js/handsontable.tools.js")
 
 
     <script type="text/javascript">
@@ -191,6 +176,7 @@
             var map;
             var importMenu;
             var clusters = null;
+            var imarkers = [];
             var dbMarker;
             var dbHoverMarker;
             var centerPoint = new google.maps.LatLng(11, 50);
@@ -250,17 +236,27 @@
                 return marker;
             }
 
+            MapManager.clearMap = function() {
+                if (clusters) {
+                    clusters.clearMarkers();
+                    clusters = null;
+                }
+                for (var i = 0; i < imarkers.length; i++) {
+                    imarkers[i].setMap(null);
+                }
+                imarkers.length = 0;
+            };
+
             MapManager.refreshMap = function() {
                 var data = null;
                 $.ajax({
                     url: "@Url.Action("GetMapData", "MesoWind", new { area = "EngineeringTools" })",
                     dataType: "json",
                     data: data
-                }).done(function(data) {
-                    if (clusters)
-                        clusters.clearMarkers();
+                }).done(function(data) {                    
                     var markers = [];
-
+                    
+                    MapManager.clearMap();                    
                     for (var i = 0; i < data.length; i++) {
                         var coord = new google.maps.LatLng(data[i][1], data[i][2]);
                         var m = createClusterItem(data[i], coord);
@@ -272,6 +268,20 @@
                         styles: null
                     });
                 });
+            };
+
+            MapManager.showImportedPoints = function(p) {
+                MapManager.clearMap();
+                for (var i = 0; i < p.length; i++) {
+                    var coord = new google.maps.LatLng(p[i][1], p[i][2]);
+                    var m = createClusterItem(p[i], coord);
+                    m.setIcon("http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png");
+                    m.setMap(map);
+                    google.maps.event.addListener(m, "click", function(e) {
+                        console.log("clicked + " + e.latLng.toString());
+                    });
+                    imarkers.push(m);
+                }                
             };
 
             MapManager.initialize = function() {
@@ -371,31 +381,6 @@
                     */
                 });
                 
-                $("#imported_db").handsontable({
-                    startRows: 1,
-                    startCols: 4,
-                    columns: [
-                        { type: { renderer: td_renderer }, readOnly: true },
-                        { type: { renderer: td_renderer }, readOnly: true },
-                        { type: { renderer: td_renderer }, readOnly: true },
-                        { type: { renderer: td_renderer }, readOnly: true }
-                    ],
-                    /*
-                    colHeaders: [
-                        "<b>Lat. (°)</b>",
-                        "<b>Lng. (°)</b>",
-                        "<b>Database</b>"
-                    ],
-                    */
-                    rowHeaders: true,
-                    colHeaders: false,
-                    minSpareCols: 0,
-                    minSpareRows: 0,
-                    contextMenu: true,
-                    onChange: function(change, source) {
-                    }
-                });
-
                 /*
                 $('#database tbody').on('mouseenter', 'tr', function() {
                     var lat = $($(this).find('td')[0]).text();
@@ -406,7 +391,7 @@
                     MapManager.hideHover();
                 });
                 */
-            };  
+            };
 
             /* Get the rows which are currently selected */
             TableManager.fnGetSelected = function() {
@@ -419,23 +404,28 @@
                 }
                 return aReturn;
             };
+            
+            TableManager.show_filtered = function() {
+                MapManager.refreshMap();
+            };
+            
+            TableManager.show_imported = function() {
+                $.ajax({
+                    url: "@Url.Action("GetImportedData", "MesoWind", new { area = "EngineeringTools" })",
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function(res) {
+                        MapManager.showImportedPoints(res);
+                    }
+                });
+            };            
+
         })();
         
         $(document).ready(function() {
 
             MapManager.initialize();
             TableManager.initialize();
-
-            $("#imported_dlg").click(function() {
-                $.ajax({
-                    url: "@Url.Action("GetImportedData", "MesoWind", new { area = "EngineeringTools" })",
-                    dataType: 'json',
-                    type: 'GET',
-                    success: function(res) {
-                        $("#imported_db").data('handsontable').loadData(res);
-                    }
-                });
-            });
 
             $("#do_import").click(function() {
                 var sel = TableManager.fnGetSelected();

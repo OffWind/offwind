@@ -187,6 +187,21 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return View(m);
         }
 
+        public JsonResult VelocityFreqJson()
+        {
+            var model = PopModel();
+            IEnumerable<object[]> res = null;
+
+            if (model.SelectedPoint == null)
+            {
+                return Json(res, JsonRequestBehavior.AllowGet);
+            }
+            var imported = ImportFile(null, model.SelectedPoint.Text);
+            res = imported.VelocityFreq.Select(t => new object[] {t.Dir, t.Frequency});
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult WindRose()
         {
             ViewBag.Title = "Wind Roses | Mesoscale Wind Characteristics | Offwind";
@@ -221,11 +236,30 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return View();
         }
 
-        public JsonResult Import(string id, string coord)
+        public JsonResult PointSelected(string id, string coord)
+        {
+            var model = PopModel();
+            var val = coord.Split("(),".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            var lat = Convert.ToDecimal(val[0]);
+            var lng = Convert.ToDecimal(val[1]);
+
+
+            foreach (var x in model.ImportedPoints.Where(x => (Math.Abs((double)(x.Latitude - lat)) < 1e-9) &&
+                             (Math.Abs((double)(x.Longitude - lng)) < 1e-9)))
+            {
+                model.SelectedPoint = x;
+                PushModel(model);
+                break;
+            }
+
+            return Json("OK", JsonRequestBehavior.AllowGet);
+        }
+
+       public JsonResult Import(string id, string coord)
         {
             var model = PopModel();
 
-            if (id.Length > 0)
+            if (coord.Length == 0)
             {
                 var Id = Convert.ToDecimal(id);
                 foreach (var item in _ctx.MesoscaleTabFiles.Where(item => item.Id == Id))
@@ -234,14 +268,20 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                     break;
                 }
             }
-            else if (coord.Length > 0)
+            else
             {
+                var dbId = (short) ((DbType)Enum.Parse(typeof(DbType), id));
                 var val = coord.Split("(),".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 var lat = Convert.ToDecimal(val[0]);
                 var lng = Convert.ToDecimal(val[1]);
                 const double eps = 1e-6;
 
-                foreach (var item in _ctx.MesoscaleTabFiles.Where(item => ((Math.Abs((double)(item.Latitude - lat)) < eps) && (Math.Abs((double)(item.Longitude - lng)) < eps))))
+                foreach (
+                    var item in
+                        _ctx.MesoscaleTabFiles.Where(
+                            item =>
+                            ((Math.Abs((double)(item.Latitude - lat)) < eps) &&
+                             (Math.Abs((double)(item.Longitude - lng)) < eps) && ((item.DatabaseId == dbId) || (dbId == 0)))))
                 {
                     model.ImportedPoints.Add(item);
                     break;
@@ -264,7 +304,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public JsonResult CurrentDataJson(int sEcho)
         {
             var model = PopModel();
-            if (model.ImportedPoints.Count == 0)
+            if (model.SelectedPoint == null)
             {
                 _log.WarnFormat("CurrentFile is not set");
                 var dataEmpty = new { sEcho = sEcho, iTotalRecords = 0, iTotalDisplayRecords = 0, aaData = new List<decimal[]>() };
@@ -272,7 +312,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
 
             string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.DbType];
-            var imported = ImportFile(DbDir, model.ImportedPoints[0].Text);
+            var imported = ImportFile(DbDir, model.SelectedPoint.Text);
             
             var final = new List<string[]>();
             var n = imported.NDirs + 1;

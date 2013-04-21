@@ -11,6 +11,7 @@
                 <i class="icon-globe"></i> Database
             </a>
         </li>
+        @*
         <li @this.ActiveIfCurrent("CurrentData", "MesoWind", "EngineeringTools")>
             <a href="@Url.Action("CurrentData", "MesoWind", new { area = "EngineeringTools" })">
                 <i class="icon-table"></i> Current Data
@@ -26,6 +27,7 @@
                 <i class="icon-asterisk"></i> Wind Roses
             </a>
         </li>
+        *@
         <li class="nav-header">Wake Simulation</li>
         <li @this.ActiveIfCurrent("GeneralProperties", "WakeSimulation", "EngineeringTools")>
             <a href="@Url.Action("GeneralProperties", "WakeSimulation", new { area = "EngineeringTools" })">

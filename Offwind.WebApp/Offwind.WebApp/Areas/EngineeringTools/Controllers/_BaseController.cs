@@ -26,11 +26,12 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             var navigation = new NavItem<NavUrl>();
             navigation.AddGroup("Meso Wind")
                 .AddItem("Overview", new NavUrl("Index", "MesoWind", "EngineeringTools"))
-                .AddItem("Database", new NavUrl("Database", "MesoWind", "EngineeringTools"))
+                .AddItem("Database", new NavUrl("Database", "MesoWind", "EngineeringTools"));
+            /*
                 .AddItem("Current Data", new NavUrl("CurrentData", "MesoWind", "EngineeringTools"))
                 .AddItem("Velocity Freq.", new NavUrl("VelocityFreq", "MesoWind", "EngineeringTools"))
                 .AddItem("Wind Rose", new NavUrl("WindRose", "MesoWind", "EngineeringTools"));
-
+            */
             navigation.AddGroup("Wake Simulation")
                 .AddItem("General Properties", new NavUrl("GeneralProperties", "WakeSimulation", "EngineeringTools"))
                 .AddItem("Turbine Coordinates", new NavUrl("TurbineCoordinates", "WakeSimulation", "EngineeringTools"))

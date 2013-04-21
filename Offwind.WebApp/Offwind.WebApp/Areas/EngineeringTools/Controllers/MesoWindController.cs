@@ -166,12 +166,12 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return RedirectToAction("Database");
         }
 
+        /*
         public ActionResult CurrentData()
         {
             ViewBag.Title = "Current Data | Mesoscale Wind Characteristics - Offwind";
             return View(new VWebPage());
         }
-        
         public ActionResult VelocityFreq()
         {
             ViewBag.Title = "Histogram | Mesoscale Wind Characteristics | Offwind";
@@ -186,22 +186,21 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             m.SimpleObject = imported.VelocityFreq;
             return View(m);
         }
+        */
 
         public JsonResult VelocityFreqJson()
         {
             var model = PopModel();
             IEnumerable<object[]> res = null;
 
-            if (model.SelectedPoint == null)
+            if (model.SelectedPoint != null)
             {
-                return Json(res, JsonRequestBehavior.AllowGet);
+                var imported = ImportFile(null, model.SelectedPoint.Text);
+                res = imported.VelocityFreq.Select(t => new object[] {t.Dir, t.Frequency});
             }
-            var imported = ImportFile(null, model.SelectedPoint.Text);
-            res = imported.VelocityFreq.Select(t => new object[] {t.Dir, t.Frequency});
-
             return Json(res, JsonRequestBehavior.AllowGet);
         }
-
+        /*
         public ActionResult WindRose()
         {
             ViewBag.Title = "Wind Roses | Mesoscale Wind Characteristics | Offwind";
@@ -230,6 +229,23 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
             return View(model);
         }
+        */
+
+        public JsonResult WindRoseJson()
+        {
+            var model = PopModel();
+            var res = new IEnumerable<object[]>[2];
+
+            if (model.SelectedPoint != null)
+            {
+                var imported = ImportFile(null, model.SelectedPoint.Text);
+                var i = 0;
+                res[0] = imported.FreqByDirs.Select(t => new object[] { i++ * 360 / imported.NDirs, t });
+                var j = 0;
+                res[1] = imported.MeanVelocityPerDir.Select(t => new object[] { j++ * 360 / imported.NDirs, t });
+            }
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Results()
         {
@@ -242,17 +258,18 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             var val = coord.Split("(),".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             var lat = Convert.ToDecimal(val[0]);
             var lng = Convert.ToDecimal(val[1]);
-
+            object[] info = null;
 
             foreach (var x in model.ImportedPoints.Where(x => (Math.Abs((double)(x.Latitude - lat)) < 1e-9) &&
                              (Math.Abs((double)(x.Longitude - lng)) < 1e-9)))
             {
                 model.SelectedPoint = x;
                 PushModel(model);
+                info = new object[] {x.Latitude, x.Longitude, (x.DatabaseId == (short) DbType.FNL) ? "FNL" : "MERRA"};
                 break;
             }
 
-            return Json("OK", JsonRequestBehavior.AllowGet);
+            return Json(info, JsonRequestBehavior.AllowGet);
         }
 
        public JsonResult Import(string id, string coord)
@@ -353,13 +370,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private VDataImport ImportFile(string dir, string fileName)
         {
             var model = new VDataImport();
-            //var path = System.IO.Path.Combine(dir, fileName);
-            //_log.InfoFormat("Importing file: {0}", path);
-            //using (var f = new StreamReader(path))
             using (var f = new StringReader(fileName))
             {
                 var lineN = 0;
-                //while (!f.EndOfStream)
                 while (true)
                 {
                     var line = f.ReadLine();

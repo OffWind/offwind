@@ -14,13 +14,19 @@
     .modal.meso-body
     {
         left: 40%;
-        width: 920px;        
+        width: 980px;
     }
     
     .modal-body.meso-body
     {
         margin-left: 2px;
-        width: 845px;
+        width: 920px;
+        max-height: 540px;
+    }
+    
+    .modal-footer.meso-body
+    {
+        top: auto;
     }
     
     .cluster_sample
@@ -148,9 +154,9 @@
     </div>
     <div class="modal-body meso-body" id="whatever">
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer meso-body">
         <button type="button" class="btn btn-primary" id="show_mesoscale">Mesoscale Data</button>
-        <button type="button" class="btn btn-primary" id="show_winddir">Wind Directions</button>
+        <button type="button" class="btn btn-primary" id="show_velfreq">Wind Directions</button>
         <button type="button" class="btn btn-primary" id="show_windrose">Wind Rose</button>
         <button type="button" class="btn" data-dismiss="modal">Close</button>
     </div>
@@ -175,10 +181,6 @@
         <p>Points - are the basic units that database contain. It directly corresponds to a physical location on earth defined by
             coordinates - Latitude and Longitude.</p>
         <p><img src="https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png" /> - this is an example of point.</p>
-        <h5>Pushpins</h5>
-        <p>Pushpins are using for showing the points from the imported list (points can be added to this list from the database view or from the map).
-            To view the Mesoscale data, WindRose and VelocityFreq diagrams for each imported point, click the appropriate pushpin</p>
-        <p><img src="http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png" /> - this is an example of pushpin.</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal">Close</button>
@@ -194,6 +196,7 @@
     <script type="text/javascript" src="../../../../static/js/markerclusterer.js"></script>
 
     @Scripts.Render("~/static/js/highcharts.js")
+    @Scripts.Render("~/static/js/highcharts-more.js")
     @Scripts.Render("~/static/js/exporting.js")
     @Scripts.Render("~/static/js/jquery.dataTables.Pagination.js")
 
@@ -306,15 +309,16 @@
                 for (var i = 0; i < p.length; i++) {
                     var coord = new google.maps.LatLng(p[i][1], p[i][2]);
                     var m = createClusterItem(p[i], coord);
-                    m.setIcon("http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png");
-                    m.setMap(map);
+                    m.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png");
+                    m.setMap(map);                    
                     google.maps.event.addListener(m, "click", function(e) {
-                        //console.log("clicked + " + e.latLng.toString());
                         $.ajax({
                             url: "@Url.Action("PointSelected", "MesoWind", new { area = "EngineeringTools" })",
                             dataType: "json",
                             data: { id: null, coord: e.latLng.toString() }
-                        }).done(function() {
+                        }).done(function(name) {
+                            var caption = $("#show_import_data").find('h3');
+                            caption[0].innerText = name[2] + " [" + name[0] + ":" + name[1] + "]";
                             $("#show_import_data").modal();
                         });
                     });
@@ -379,6 +383,7 @@
             };
         })();               
 
+        /* */
         (function() {
             var dbTable = null;
             var dburl = "@Url.Action("GetTableData", "MesoWind", new { are = "EngineeringTools" })";
@@ -405,25 +410,7 @@
                         $(this.nTr).removeClass('table-row-selected');
                     });
                     $(event.target.parentNode).addClass('table-row-selected');
-                    /*
-                    var row = $(event.target.parentNode);
-                    var lat = $(row.find("td")[0]).text();
-                    var lng = $(row.find("td")[1]).text();
-                    var point = new google.maps.LatLng(lat, lng);
-                    MapManager.setHover(point);
-                    */
                 });
-                
-                /*
-                $('#database tbody').on('mouseenter', 'tr', function() {
-                    var lat = $($(this).find('td')[0]).text();
-                    var lng = $($(this).find('td')[1]).text();
-                    var point = new google.maps.LatLng(lat, lng);                    
-                    MapManager.setHover(point);
-                }).on('mouseleave', 'tr', function() {
-                    MapManager.hideHover();
-                });
-                */
             };
 
             /* Get the rows which are currently selected */
@@ -455,6 +442,7 @@
 
         })();
 
+        /* Mesoscale data view */
         (function() {
             var dburl = "@Url.Action("CurrentDataJson", "MesoWind", new { area = "EngineeringTools" })";
             var dbTable = null;
@@ -465,7 +453,53 @@
                     "sSortDesc": "header headerSortUp",
                     "sSortable": "header"
                 });
+                
+                // Register 'show' event for the data update
+                $('#show_import_data').on('show', function() {
+                    $("#show_mesoscale").click();
+                });              
             };
+            /* Dialog body for the common mesoscale data */
+            $("#show_mesoscale").click(function() {                                
+                var body = "<table id=\"curdata\" class=\"table table-condensed table-hover table-bordered\">" +
+                        "<thead><tr>" +
+                        "<th>#</th><th>0 °</th>" +
+                        "<th>30 °</th>" +
+                        "<th>60 °</th>" +
+                        "<th>90 °</th>" +
+                        "<th>120 °</th>" +
+                        "<th>150 °</th>" +
+                        "<th>180 °</th>" +
+                        "<th>210 °</th>" +
+                        "<th>240 °</th>" +
+                        "<th>270 °</th>" +
+                        "<th>300 °</th>" +
+                        "<th>330 °</th>" +
+                        "</tr></thead></table>";
+                var div = $("#show_import_data").find('div')[1];
+                div.innerHTML = body;
+                MesoDataManager.update_db();
+            });
+            
+            /* Dialog body for the 'velocity frequency' graph view */
+            $("#show_velfreq").click(function() {
+                var body = "<div id=\"chartdiv\" style=\"width: 100%; height: 480px;\"></div>";
+                var div = $("#show_import_data").find('div')[1];
+                div.innerHTML = body;
+                MesoDataManager.draw_velfreq();
+            });
+
+            /* Dialog body for the 'windrose' graph view */
+            $("#show_windrose").click(function() {
+                var body = "<div class=\"span6 well\">" +
+                    "<div id=\"frequencyByDir\" style=\"width: 100%; height: 480px;\"></div></div>" +
+                        "<div class=\"span6 well\">" +
+                            "<div id=\"meanVelocityByDir\" style=\"width: 100%; height: 480px;\"></div></div>";
+                var div = $("#show_import_data").find('div')[1];
+                div.innerHTML = body;
+                MesoDataManager.draw_windrose();
+            });
+
             MesoDataManager.update_db = function() {
                 dbTable = $('#curdata').dataTable({
                     "bFilter": false,
@@ -476,7 +510,7 @@
                 });
             };
 
-            MesoDataManager.draw_winddir = function() {
+            MesoDataManager.draw_velfreq = function() {
                 var chart = new Highcharts.Chart({
                     chart: {
                         renderTo: 'chartdiv'
@@ -523,8 +557,7 @@
                 });
             };
 
-            MesoDataManager.draw_windrose = function() {
-                
+            MesoDataManager.draw_windrose = function() {                
                 var plotChart = function(data, target, title, name) {
                     var chart = new Highcharts.Chart({
                         chart: {
@@ -560,17 +593,21 @@
                     }
                     chart.series[0].setData(graph);
                 };
-
-                //plotChart(freqByDir, "frequencyByDir", "Frequency by direction, %", "Frequency");
-                //plotChart(meanVelocityByDir, "meanVelocityByDir", "Mean velocity by direction, m/s", "Velocity");
+                
+                $.ajax({
+                    url: "@Url.Action("WindRoseJson", "MesoWind", new { area = "EngineeringTools" })",
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function(res) {
+                        plotChart(res[0], "frequencyByDir", "Frequency by direction, %", "Frequency");
+                        plotChart(res[1], "meanVelocityByDir", "Mean velocity by direction, m/s", "Velocity");
+                    }
+                });
             };
 
         })();
 
-
-        
         $(document).ready(function() {
-
             MapManager.initialize();
             TableManager.initialize();
             MesoDataManager.initialize();
@@ -593,54 +630,10 @@
                     setTimeout(function() {
                         $("#show_db_imported").fadeOut(300);
                     }, 2000);
-                    
+
                 });
                 return false;
             });
-
-            $("#show_import_data").ready(function() {
-                $("#show_mesoscale").click();
-            });
-
-            $("#show_mesoscale").click(function() {                                
-                var body = "<table id=\"curdata\" class=\"table table-condensed table-hover table-bordered\">" +
-                        "<thead><tr>" +
-                        "<th>#</th><th>0 °</th>" +
-                        "<th>30 °</th>" +
-                        "<th>60 °</th>" +
-                        "<th>90 °</th>" +
-                        "<th>120 °</th>" +
-                        "<th>150 °</th>" +
-                        "<th>180 °</th>" +
-                        "<th>210 °</th>" +
-                        "<th>240 °</th>" +
-                        "<th>270 °</th>" +
-                        "<th>300 °</th>" +
-                        "<th>330 °</th>" +
-                        "</tr></thead></table>";
-
-                var div = $("#show_import_data").find('div')[1];
-                div.innerHTML = body;
-                MesoDataManager.update_db();
-            });
-            
-            $("#show_winddir").click(function() {
-                var body = "<div id=\"chartdiv\" style=\"width: 100%; height: 480px;\"></div>";
-                var div = $("#show_import_data").find('div')[1];
-                div.innerHTML = body;
-                MesoDataManager.draw_winddir();
-            });
-
-            $("#show_windrose").click(function() {
-                var body = "<div class=\"span6 well\">" +
-                    "<div id=\"frequencyByDir\" style=\"width: 100%; height: 480px;\"></div></div>" +
-                        "<div class=\"span6 well\">" +
-                            "<div id=\"meanVelocityByDir\" style=\"width: 100%; height: 480px;\"></div></div>";
-                var div = $("#show_import_data").find('div')[1];
-                div.innerHTML = body;
-                MesoDataManager.draw_windrose();
-            });
-                        
             $("input:radio[name=DbType]").change(function() {
                 var value = $("input[name=DbType]:checked").val();
                 $.ajax({
@@ -649,8 +642,9 @@
                 }).done(function() {
                     MapManager.refreshMap();
                 });
-            });
+            });            
         });
+        
     </script>
 
 }

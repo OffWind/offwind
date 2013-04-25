@@ -1678,6 +1678,7 @@
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\MesoWind\Database.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WindWave\Index.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\MesoWind\PointPage.cshtml" />
     <None Include="static\.DS_Store" />
     <None Include="static\eng-tools\meso-wind\TAB-format-summary.docx" />
     <None Include="static\eng-tools\meso-wind\TAB-format-summary.pdf" />

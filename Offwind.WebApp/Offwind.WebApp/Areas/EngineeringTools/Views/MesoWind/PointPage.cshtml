@@ -1,0 +1,227 @@
+﻿<style>
+     .row-fluid .span3
+     {
+         display: none;    
+     }    
+     .sidebar-nav
+     {        
+         display: none;
+     }
+ </style>
+ 
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>Meso Wind <span class="divider">/</span></li>
+    <li id="coord_keeper">@ViewBag.Db (@ViewBag.Lat:@ViewBag.Lng)</li>
+</ul>
+
+<div class="row-fluid">
+    <div class="span6 well">
+        <div id="map_container">
+            <div id="map_canvas" style="width: auto; height: 200px;"></div>
+        </div>
+    </div>
+    <div class="span6 well">
+        <div id="veocityFreq" style="width: 100%; height: 200px;"></div>
+    </div>
+    <div class="span6 well" style="margin-left: 0px">
+        <div id="frequencyByDir" style="width: auto; height: 200px"></div>
+    </div>
+    <div class="span6 well">
+        <div id="meanVelocityByDir" style="width: 100%; height: 200px;"></div>
+    </div>
+    <div class="span12 well" style="background-color: white; margin-left: 0px">
+        <table id="database" class="table table-condensed table-hover table-bordered" style="margin-left: -8px;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    @for (var i = 0; i < 360; i = i + 30)
+                    {
+                        <th>@i &#176;</th>
+                    }
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    @Scripts.Render("~/static/js/highcharts.js")
+    @Scripts.Render("~/static/js/highcharts-more.js")
+    @Scripts.Render("~/static/js/exporting.js")
+
+
+    <script type="text/javascript">
+
+        var SnapShot = {};
+        var TABData = {};
+        var VelocityFreq = {};
+        var WindRose = {};
+        
+        // Map snapshot
+
+        (function() {
+            SnapShot.show = function() {
+                var map;
+                var name = $("#coord_keeper")[0].textContent;
+                var arr = name.split(/[\s:()]+/);
+                var coord = new google.maps.LatLng(parseFloat(arr[1]), parseFloat(arr[2]));
+
+                var mapOptions = {
+                    zoom: 10,
+                    minZoom: 1,
+                    center: coord,
+                    mapTypeId: google.maps.MapTypeId.SATELLITE
+                };
+
+                map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+                var point = new google.maps.Marker({
+                    position: coord,
+                    draggable: false,
+                    raiseOnDrag: false,
+                    title: name,
+                    map: map
+                });
+                point.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png");
+                point.visible = true;
+            };
+        })();
+
+        // Mesoscale data view
+        (function() {
+            TABData.show = function() {
+                var dburl = "@Url.Action("CurrentDataJson", "MesoWind", new { area = "EngineeringTools" })";
+
+                $.extend($.fn.dataTableExt.oStdClasses, {
+                    "sSortAsc": "header headerSortDown",
+                    "sSortDesc": "header headerSortUp",
+                    "sSortable": "header"
+                });
+                $('#database').dataTable({
+                    "bFilter": false,
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "bPaginate": false,
+                    "sAjaxSource": dburl
+                });
+            };
+        })();
+        
+        // Velocityfreq graph
+        (function() {
+            VelocityFreq.show = function() {
+                var chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'veocityFreq'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Direction'
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Frequency'
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    }
+                });
+                chart.addSeries({
+                    name: "Frequency",
+                    visible: true,
+                    type: 'bar',
+                    marker: {
+                        enabled: false
+                    }
+                });
+
+                $.ajax({
+                    url: "@Url.Action("VelocityFreqJson", "MesoWind", new { area = "EngineeringTools" })",
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function(res) {
+                        var graph = [];
+                        for (var i = 0; i < res.length; i++) {
+                            graph.push({ x: res[i][0], y: res[i][1] });
+                        }
+                        chart.series[0].setData(graph);
+
+                    }
+                });
+            };
+        })();
+        
+        // WindRose graph
+        (function() {
+            WindRose.show = function() {
+                var plotChart = function(data, target, title, name) {
+                    var chart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: target,
+                            polar: true
+                        },
+                        title: {
+                            text: title
+                        },
+                        pane: {
+                            startAngle: 0,
+                            endAngle: 360
+                        },
+                        xAxis: {
+                            tickInterval: 45,
+                            min: 0,
+                            max: 360,
+                            labels: {
+                                formatter: function() {
+                                    return this.value + '°';
+                                }
+                            }
+                        },
+                        yAxis: {
+                            min: 0
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        series: [{ type: 'area', name: name }]
+                    });
+
+                    var graph = [];
+                    for (var i = 0; i < data.length; i++) {
+                        graph.push({ x: data[i][0], y: data[i][1] });
+                    }
+                    chart.series[0].setData(graph);
+                };
+
+                $.ajax({
+                    url: "@Url.Action("WindRoseJson", "MesoWind", new { area = "EngineeringTools" })",
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function(res) {
+                        plotChart(res[0], "frequencyByDir", "Frequency by direction, %", "Frequency");
+                        plotChart(res[1], "meanVelocityByDir", "Mean velocity by direction, m/s", "Velocity");
+                    }
+                });
+            };
+        })();
+
+        $(document).ready(function() {
+            SnapShot.show();
+            VelocityFreq.show();
+            WindRose.show();
+            TABData.show();            
+        });    
+    </script>
+}

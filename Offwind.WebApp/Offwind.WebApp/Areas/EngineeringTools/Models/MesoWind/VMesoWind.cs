@@ -16,7 +16,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
 
         public bool UseSearchResults { set; get; }
         public List<SmallMesoscaleTabFile> InterestingPoints { set; get; }
-        public List<MesoscaleTabFile> ImportedPoints { set; get; }
+        //public List<MesoscaleTabFile> ImportedPoints { set; get; }
         public MesoscaleTabFile SelectedPoint { set; get; }
 
         public VMesoWind()
@@ -24,7 +24,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
             DbType = DbType.All;
             UseSearchResults = false;
             InterestingPoints = new List<SmallMesoscaleTabFile>();
-            ImportedPoints = new List<MesoscaleTabFile>();
+            //ImportedPoints = new List<MesoscaleTabFile>();
         }
     }
 }

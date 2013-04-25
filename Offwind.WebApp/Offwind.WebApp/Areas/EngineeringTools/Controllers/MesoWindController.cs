@@ -160,33 +160,38 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             var model = PopModel();
             model.UseSearchResults = false;
             model.InterestingPoints.Clear();
-            model.ImportedPoints.Clear();
+            //model.ImportedPoints.Clear();
             ItemsCount(model);
             PushModel(model);
             return RedirectToAction("Database");
         }
 
-        /*
-        public ActionResult CurrentData()
+        public JsonResult SetPoint(string coord)
         {
-            ViewBag.Title = "Current Data | Mesoscale Wind Characteristics - Offwind";
-            return View(new VWebPage());
-        }
-        public ActionResult VelocityFreq()
-        {
-            ViewBag.Title = "Histogram | Mesoscale Wind Characteristics | Offwind";
             var model = PopModel();
-            var m = new VWebPageSimpleObject<List<HPoint>>();
-            if (model.ImportedPoints.Count == 0)
+
+            var val = coord.Split("(),".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            var lat = Convert.ToDecimal(val[0]);
+            var lng = Convert.ToDecimal(val[1]);
+
+            foreach (var x in _ctx.MesoscaleTabFiles.Where(x => (Math.Abs((double)(x.Latitude - lat)) < 1e-9) &&
+                             (Math.Abs((double)(x.Longitude - lng)) < 1e-9)))
             {
-                m.SimpleObject = new List<HPoint>();
-                return View(m);
+                model.SelectedPoint = x;
+                PushModel(model);
+                break;
             }
-            var imported = ImportFile(null, model.ImportedPoints[0].Text);
-            m.SimpleObject = imported.VelocityFreq;
-            return View(m);
+            return Json("OK", JsonRequestBehavior.AllowGet);
         }
-        */
+
+        public ActionResult PointPage()
+        {
+            var model = PopModel();
+            ViewBag.Lat = model.SelectedPoint.Latitude;
+            ViewBag.Lng = model.SelectedPoint.Longitude;
+            ViewBag.Db = (model.SelectedPoint.DatabaseId == (short) DbType.FNL) ? "FNL" : "MERRA";
+            return View();
+        }
 
         public JsonResult VelocityFreqJson()
         {
@@ -252,6 +257,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return View();
         }
 
+        /*
         public JsonResult PointSelected(string id, string coord)
         {
             var model = PopModel();
@@ -317,6 +323,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 (t.DatabaseId == (short) DbType.FNL) ? "FNL" : "MERRA"});
             return Json(res, JsonRequestBehavior.AllowGet);
         }
+        */
 
         public JsonResult CurrentDataJson(int sEcho)
         {

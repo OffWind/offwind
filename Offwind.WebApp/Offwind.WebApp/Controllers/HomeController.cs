@@ -3,7 +3,7 @@ using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {

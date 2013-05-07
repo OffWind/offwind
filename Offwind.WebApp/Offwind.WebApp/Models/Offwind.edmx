@@ -7,6 +7,8 @@
     <Schema Namespace="u254697_offwindModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="u254697_offwindModelStoreContainer">
           <EntitySet Name="DCase" EntityType="u254697_offwindModel.Store.DCase" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DContent" EntityType="u254697_offwindModel.Store.DContent" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DContentTypes" EntityType="u254697_offwindModel.Store.DContentTypes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DJob" EntityType="u254697_offwindModel.Store.DJob" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MesoscaleDatabases" EntityType="u254697_offwindModel.Store.MesoscaleDatabases" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MesoscaleTabFiles" EntityType="u254697_offwindModel.Store.MesoscaleTabFiles" store:Type="Tables" Schema="dbo" />
@@ -18,6 +20,10 @@
       [SmallMesoscaleTabFiles].[Longitude] AS [Longitude]
       FROM [dbo].[SmallMesoscaleTabFiles] AS [SmallMesoscaleTabFiles]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_DContent_DContentTypes" Association="u254697_offwindModel.Store.FK_DContent_DContentTypes">
+            <End Role="DContentTypes" EntitySet="DContentTypes" />
+            <End Role="DContent" EntitySet="DContent" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="DCase">
           <Key>
@@ -29,6 +35,29 @@
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="Model" Type="xml" Nullable="false" />
           <Property Name="CurrentJobId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="DContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TypeId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Route" Type="varchar" Nullable="false" MaxLength="800" />
+          <Property Name="BrowserTitle" Type="nvarchar" Nullable="false" MaxLength="1000" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="1000" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="1000" />
+          <Property Name="Announce" Type="nvarchar" Nullable="false" MaxLength="1000" />
+          <Property Name="Content" Type="ntext" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Updated" Type="datetime" Nullable="false" />
+          <Property Name="DisplayDateTime" Type="datetime" Nullable="false" />
+          <Property Name="IsPublished" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DContentTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="DJob">
           <Key>
@@ -76,6 +105,18 @@
           <Property Name="Latitude" Type="decimal" Nullable="false" Scale="4" />
           <Property Name="Longitude" Type="decimal" Nullable="false" Scale="4" />
         </EntityType>
+        <Association Name="FK_DContent_DContentTypes">
+          <End Role="DContentTypes" Type="u254697_offwindModel.Store.DContentTypes" Multiplicity="1" />
+          <End Role="DContent" Type="u254697_offwindModel.Store.DContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DContentTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DContent">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -86,6 +127,12 @@
           <EntitySet Name="MesoscaleDatabases" EntityType="Offwind.DbModels.MesoscaleDatabas" />
           <EntitySet Name="MesoscaleTabFiles" EntityType="Offwind.DbModels.MesoscaleTabFile" />
           <EntitySet Name="SmallMesoscaleTabFiles" EntityType="Offwind.DbModels.SmallMesoscaleTabFile" />
+          <EntitySet Name="DContentTypes" EntityType="Offwind.DbModels.DContentType" />
+          <EntitySet Name="DContents" EntityType="Offwind.DbModels.DContent" />
+          <AssociationSet Name="FK_DContent_DContentTypes" Association="Offwind.DbModels.FK_DContent_DContentTypes">
+            <End Role="DContentType" EntitySet="DContentTypes" />
+            <End Role="DContent" EntitySet="DContents" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="DCase">
           <Key>
@@ -141,6 +188,43 @@
           <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
           <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
         </EntityType>
+        <EntityType Name="DContentType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DContents" Relationship="Offwind.DbModels.FK_DContent_DContentTypes" FromRole="DContentType" ToRole="DContent" />
+        </EntityType>
+        <EntityType Name="DContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="TypeId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Route" Nullable="false" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BrowserTitle" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Announce" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Content" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Created" Nullable="false" />
+          <Property Type="DateTime" Name="Updated" Nullable="false" />
+          <Property Type="DateTime" Name="DisplayDateTime" Nullable="false" />
+          <Property Type="Boolean" Name="IsPublished" Nullable="false" />
+          <NavigationProperty Name="DContentType" Relationship="Offwind.DbModels.FK_DContent_DContentTypes" FromRole="DContent" ToRole="DContentType" />
+        </EntityType>
+        <Association Name="FK_DContent_DContentTypes">
+          <End Type="Offwind.DbModels.DContentType" Role="DContentType" Multiplicity="1" />
+          <End Type="Offwind.DbModels.DContent" Role="DContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DContentType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DContent">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -203,6 +287,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DContentTypes">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DContentType">
+              <MappingFragment StoreEntitySet="DContentTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DContents">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DContent">
+              <MappingFragment StoreEntitySet="DContent">
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+                <ScalarProperty Name="DisplayDateTime" ColumnName="DisplayDateTime" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Announce" ColumnName="Announce" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BrowserTitle" ColumnName="BrowserTitle" />
+                <ScalarProperty Name="Route" ColumnName="Route" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -229,6 +338,12 @@
         <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleDatabas" Width="1.5" PointX="0.75" PointY="4.75" Height="1.4033821614583317" />
         <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleTabFile" Width="1.5" PointX="2.75" PointY="4.75" Height="1.9802864583333335" />
         <EntityTypeShape EntityType="Offwind.DbModels.SmallMesoscaleTabFile" Width="1.5" PointX="5.375" PointY="0.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="8.5" PointY="1.25" Height="1.2110807291666674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="10.625" PointY="0.5" Height="3.5186979166666665" />
+        <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" >
+          <ConnectorPoint PointX="10" PointY="1.951691080729167" />
+          <ConnectorPoint PointX="10.625" PointY="1.951691080729167" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>

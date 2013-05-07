@@ -1,0 +1,34 @@
+﻿@model string
+@{
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
+    var description = ViewData.ModelMetadata.Description;
+    var functionName = fieldName + "_BrowseServer()";
+}
+<div class="control-group" id="@("EditorFor_" + fieldName)">
+    <label class="control-label" for="@fieldName">@displayName </label>
+    <span class="help-block">@description</span>
+    <div class="controls">
+        <input type="text" class="span3" id="@fieldName" name="@fieldName" placeholder="@ViewData.ModelMetadata.NullDisplayText" value="@Model" autocomplete="off" />
+        <input type="button" value="Выбрать изображение" onclick="@functionName;" />
+    </div>
+</div>
+<script type="text/javascript">
+
+    function @functionName {
+        // You can use the "CKFinder" class to render CKFinder in a page:
+        var finder = new CKFinder();
+        finder.basePath = '/static/ckfinder/'; // The path for the installation of CKFinder (default = "/ckfinder/").
+        finder.selectActionFunction = function(fileUrl) {
+            document.getElementById('@fieldName').value = fileUrl;
+        };
+        finder.popup();
+
+        // It can also be done in a single line, calling the "static"
+        // popup( basePath, width, height, selectFunction ) function:
+        // CKFinder.popup( '../', null, null, SetFileField ) ;
+        //
+        // The "popup" function can also accept an object as the only argument.
+        // CKFinder.popup( { basePath : '../', selectActionFunction : SetFileField } ) ;
+    }
+	</script>

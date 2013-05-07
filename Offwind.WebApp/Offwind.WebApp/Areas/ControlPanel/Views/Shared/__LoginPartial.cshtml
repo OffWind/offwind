@@ -1,0 +1,27 @@
+﻿<div class="btn-group pull-right">
+    
+    @if (Request.IsAuthenticated)
+    {
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user"></i>
+            @User.Identity.Name
+            <span class="caret"></span>
+        </a>                                                                
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("Profile", "Account", new { area = "" })">Profile</a></li>
+            <li class="divider"></li>
+            <li><a href="@Url.Action("LogOff", "Account", new { area = "" })">Sign Out</a></li>
+        </ul>
+    }
+    else
+    {
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user"></i>
+            <span>Anonymous</span>
+            <span class="caret"></span>
+        </a>                                                                
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("Register", "Account", new { area = "" })">Register</a></li>
+            <li class="divider"></li>
+            <li><a href="@Url.Action("Login", "Account", new { area = "" })">Log in</a></li>
+        </ul>
+    }
+</div>

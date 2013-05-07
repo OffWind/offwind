@@ -7,9 +7,14 @@
                 <i class="icon-caret-down"></i>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="@Url.Action("Profile", "Account", new { area = "" })">Profile</a></li>
+                <li><a href="@Url.Action("Profile", "Account", new {area = ""})">Profile</a></li>
                 <li class="divider"></li>
-                <li><a href="@Url.Action("LogOff", "Account", new { area = "" })">Sign Out</a></li>
+                <li><a href="@Url.Action("LogOff", "Account", new {area = ""})">Sign Out</a></li>
+                @if (ViewBag.IsAdmin)
+                {
+                    <li class="divider"></li>
+                    <li><a href="@Url.Action("Index", "HomeMgmt", new { area = "ControlPanel" })">Content management</a></li>
+                }
             </ul>
         </li>
     }

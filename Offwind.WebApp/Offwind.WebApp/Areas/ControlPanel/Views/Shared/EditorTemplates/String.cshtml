@@ -1,0 +1,42 @@
+﻿@model object
+@{
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
+    var description = ViewData.ModelMetadata.Description;
+}
+<div class="control-group" id="@("EditorFor_" + fieldName)">
+    <label class="control-label" for="@fieldName">@displayName </label>
+    <span class="help-block">@description</span>
+@if (Model is Enum)
+{
+    var enumType = Model.GetType();
+    Output.Write("<div class=\"controls\">");
+    if (ViewData.ModelMetadata.IsReadOnly)
+    {
+        Output.Write("<select disabled=\"\" id=\"{0}\" name=\"{0}\">", fieldName);
+    }
+    else
+    {
+        Output.Write("<select id=\"{0}\" name=\"{0}\">", fieldName);
+    }
+    foreach (var t in Enum.GetNames(enumType))
+    {
+        if (t == Model.ToString())
+        {
+            <option value="@t" selected="@t">@t</option>
+        }
+        else
+        {
+            <option value="@t">@t</option>
+        }
+    }
+    Output.Write("</select>");
+    Output.Write("</div>");
+}
+else
+{
+    <div class="controls">
+        <input type="text" class="span12" id="@fieldName" name="@fieldName" placeholder="@ViewData.ModelMetadata.NullDisplayText" value="@Model" autocomplete="off" />
+    </div>
+}
+</div>

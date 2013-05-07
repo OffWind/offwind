@@ -1,0 +1,11 @@
+﻿@model Boolean
+@{
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
+}
+<div class="control-group" id="@("EditorFor_" + fieldName)">
+    <label class="control-label" for="@fieldName">@displayName </label>
+    <div class="controls">
+        @Html.CheckBoxFor(m => m) @*добаляет hidden поле*@
+    </div>
+</div>

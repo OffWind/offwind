@@ -13,7 +13,7 @@ using WebMatrix.WebData;
 namespace Offwind.WebApp.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         //
         // GET: /Account/Login

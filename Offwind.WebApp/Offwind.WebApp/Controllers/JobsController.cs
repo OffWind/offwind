@@ -19,7 +19,7 @@ namespace Offwind.WebApp.Controllers
     /// /jobs/SetJobRunning?jobId=
     /// /jobs/SetJobFinished?jobId=
     /// </summary>
-    public class JobsController : Controller
+    public class JobsController : BaseController
     {
         private readonly OffwindEntities _ctx = new OffwindEntities();
 

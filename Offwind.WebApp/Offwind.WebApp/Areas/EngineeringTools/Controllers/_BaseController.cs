@@ -18,8 +18,12 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             base.OnActionExecuted(filterContext);
-            if (_noNavigation) return;
-            InitNavigation();
+            ViewBag.IsAdmin = Roles.GetRolesForUser(filterContext.HttpContext.User.Identity.Name).Contains("Admin");
+
+            if (!_noNavigation)
+            {
+                InitNavigation();
+            }
         }
 
         private void InitNavigation()

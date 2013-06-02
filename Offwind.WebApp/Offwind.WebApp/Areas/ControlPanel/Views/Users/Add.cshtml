@@ -1,0 +1,41 @@
+﻿@using Offwind.WebApp.Areas.ControlPanel.Models
+@model UserModel
+
+<h2>Add new account</h2>
+
+<style>
+.editor-label {
+    float: left;
+    width: 180px;
+}
+
+.editor-field {
+    margin-left: 180px;
+}
+
+.editor-field input {
+    width: 30%;    
+}
+
+</style>
+
+<form class="form-horizontal indent" method="post">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <fieldset>
+        <legend></legend>
+        <div class="editor-label"> @Html.LabelFor(m => m.NewName) </div>
+        <div class="editor-field"> @Html.TextBoxFor(m => m.NewName) </div><br/>
+        @Html.EditorFor(model => model.RoleT)
+               
+        <div class="editor-label"> @Html.LabelFor(m => m.Password) </div>
+        <div class="editor-field"> @Html.EditorFor(m => m.Password) </div><br/>
+        <div class="editor-label"> @Html.LabelFor(m => m.ConfirmPassword) </div>
+        <div class="editor-field"> @Html.EditorFor(m => m.ConfirmPassword) </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a class="btn" href="@Html.Action("Index", "Users")">Cancel</a>
+        </div>
+    </fieldset>
+</form>
+

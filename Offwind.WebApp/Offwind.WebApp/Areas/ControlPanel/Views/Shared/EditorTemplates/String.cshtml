@@ -35,8 +35,17 @@
 }
 else
 {
-    <div class="controls">
-        <input type="text" class="span12" id="@fieldName" name="@fieldName" placeholder="@ViewData.ModelMetadata.NullDisplayText" value="@Model" autocomplete="off" />
-    </div>
+    Output.Write("<div class=\"controls\">");
+    if (ViewData.ModelMetadata.IsReadOnly)
+    {
+        Output.Write("<input type=\"text\" class=\"span12\" id=\"{0}\" name=\"{0}\" placeholder=\"{1}\" value=\"{2}\" autocomplete=\"off\" disabled=\"disabled\"/>",
+                     fieldName, ViewData.ModelMetadata.NullDisplayText, Model);
+    }
+    else
+    {
+        Output.Write("<input type=\"text\" class=\"span12\" id=\"{0}\" name=\"{0}\" placeholder=\"{1}\" value=\"{2}\" autocomplete=\"off\"/>",
+                     fieldName, ViewData.ModelMetadata.NullDisplayText, Model);        
+    }
+    Output.Write("</div>");
 }
 </div>

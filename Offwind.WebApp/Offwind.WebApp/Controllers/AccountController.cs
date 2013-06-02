@@ -34,6 +34,10 @@ namespace Offwind.WebApp.Controllers
         public ActionResult Login(LoginModel model, string returnUrl)
         {
             model.RememberMe = true;
+
+            //var d = WebSecurity.GeneratePasswordResetToken("victor");
+            //WebSecurity.ResetPassword("ZRKyXNpvG7G6Ftx87jnh3g2", "1234567");
+
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);
@@ -275,14 +279,14 @@ namespace Offwind.WebApp.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                using (var db = new OffwindEntities())
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    var user = db.DUserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists
                     if (user == null)
                     {
                         // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        db.DUserProfiles.AddObject(new DUserProfile { UserName = model.UserName });
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);

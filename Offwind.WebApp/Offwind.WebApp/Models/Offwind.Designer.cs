@@ -19,6 +19,9 @@ using System.Runtime.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DContent_DContentTypes", "DContentType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DContentType), "DContent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DContent), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DUserProfile_Membership", "webpages_Membership", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.webpages_Membership), "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.WebApp.Models.DUserProfile), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DUserProfile_UsersInRoles", "webpages_UsersInRoles", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.webpages_UsersInRoles), "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.WebApp.Models.DUserProfile), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "fk_RoleId", "webpages_Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.webpages_Roles), "webpages_UsersInRoles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.webpages_UsersInRoles), true)]
 
 #endregion
 
@@ -181,6 +184,86 @@ namespace Offwind.WebApp.Models
             }
         }
         private ObjectSet<DContent> _DContents;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<webpages_OAuthMembership> webpages_OAuthMembership
+        {
+            get
+            {
+                if ((_webpages_OAuthMembership == null))
+                {
+                    _webpages_OAuthMembership = base.CreateObjectSet<webpages_OAuthMembership>("webpages_OAuthMembership");
+                }
+                return _webpages_OAuthMembership;
+            }
+        }
+        private ObjectSet<webpages_OAuthMembership> _webpages_OAuthMembership;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DUserProfile> DUserProfiles
+        {
+            get
+            {
+                if ((_DUserProfiles == null))
+                {
+                    _DUserProfiles = base.CreateObjectSet<DUserProfile>("DUserProfiles");
+                }
+                return _DUserProfiles;
+            }
+        }
+        private ObjectSet<DUserProfile> _DUserProfiles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<webpages_Membership> webpages_Membership
+        {
+            get
+            {
+                if ((_webpages_Membership == null))
+                {
+                    _webpages_Membership = base.CreateObjectSet<webpages_Membership>("webpages_Membership");
+                }
+                return _webpages_Membership;
+            }
+        }
+        private ObjectSet<webpages_Membership> _webpages_Membership;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<webpages_Roles> webpages_Roles
+        {
+            get
+            {
+                if ((_webpages_Roles == null))
+                {
+                    _webpages_Roles = base.CreateObjectSet<webpages_Roles>("webpages_Roles");
+                }
+                return _webpages_Roles;
+            }
+        }
+        private ObjectSet<webpages_Roles> _webpages_Roles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<webpages_UsersInRoles> webpages_UsersInRoles
+        {
+            get
+            {
+                if ((_webpages_UsersInRoles == null))
+                {
+                    _webpages_UsersInRoles = base.CreateObjectSet<webpages_UsersInRoles>("webpages_UsersInRoles");
+                }
+                return _webpages_UsersInRoles;
+            }
+        }
+        private ObjectSet<webpages_UsersInRoles> _webpages_UsersInRoles;
 
         #endregion
         #region AddTo Methods
@@ -239,6 +322,46 @@ namespace Offwind.WebApp.Models
         public void AddToDContents(DContent dContent)
         {
             base.AddObject("DContents", dContent);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the webpages_OAuthMembership EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTowebpages_OAuthMembership(webpages_OAuthMembership webpages_OAuthMembership)
+        {
+            base.AddObject("webpages_OAuthMembership", webpages_OAuthMembership);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DUserProfiles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDUserProfiles(DUserProfile dUserProfile)
+        {
+            base.AddObject("DUserProfiles", dUserProfile);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the webpages_Membership EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTowebpages_Membership(webpages_Membership webpages_Membership)
+        {
+            base.AddObject("webpages_Membership", webpages_Membership);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the webpages_Roles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTowebpages_Roles(webpages_Roles webpages_Roles)
+        {
+            base.AddObject("webpages_Roles", webpages_Roles);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the webpages_UsersInRoles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTowebpages_UsersInRoles(webpages_UsersInRoles webpages_UsersInRoles)
+        {
+            base.AddObject("webpages_UsersInRoles", webpages_UsersInRoles);
         }
 
         #endregion
@@ -1152,6 +1275,166 @@ namespace Offwind.WebApp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DUserProfile")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DUserProfile : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DUserProfile object.
+        /// </summary>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="userName">Initial value of the UserName property.</param>
+        public static DUserProfile CreateDUserProfile(global::System.Int32 userId, global::System.String userName)
+        {
+            DUserProfile dUserProfile = new DUserProfile();
+            dUserProfile.UserId = userId;
+            dUserProfile.UserName = userName;
+            return dUserProfile;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UserName
+        {
+            get
+            {
+                return _UserName;
+            }
+            set
+            {
+                OnUserNameChanging(value);
+                ReportPropertyChanging("UserName");
+                _UserName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UserName");
+                OnUserNameChanged();
+            }
+        }
+        private global::System.String _UserName;
+        partial void OnUserNameChanging(global::System.String value);
+        partial void OnUserNameChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DUserProfile_Membership", "webpages_Membership")]
+        public webpages_Membership webpages_Membership
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_Membership>("Offwind.DbModels.FK_DUserProfile_Membership", "webpages_Membership").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_Membership>("Offwind.DbModels.FK_DUserProfile_Membership", "webpages_Membership").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<webpages_Membership> webpages_MembershipReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_Membership>("Offwind.DbModels.FK_DUserProfile_Membership", "webpages_Membership");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<webpages_Membership>("Offwind.DbModels.FK_DUserProfile_Membership", "webpages_Membership", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DUserProfile_UsersInRoles", "webpages_UsersInRoles")]
+        public webpages_UsersInRoles webpages_UsersInRoles
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_UsersInRoles>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "webpages_UsersInRoles").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_UsersInRoles>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "webpages_UsersInRoles").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<webpages_UsersInRoles> webpages_UsersInRolesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_UsersInRoles>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "webpages_UsersInRoles");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<webpages_UsersInRoles>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "webpages_UsersInRoles", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="MesoscaleDatabas")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1529,6 +1812,724 @@ namespace Offwind.WebApp.Models
 
         #endregion
     
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="webpages_Membership")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class webpages_Membership : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new webpages_Membership object.
+        /// </summary>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="passwordFailuresSinceLastSuccess">Initial value of the PasswordFailuresSinceLastSuccess property.</param>
+        /// <param name="password">Initial value of the Password property.</param>
+        /// <param name="passwordSalt">Initial value of the PasswordSalt property.</param>
+        public static webpages_Membership Createwebpages_Membership(global::System.Int32 userId, global::System.Int32 passwordFailuresSinceLastSuccess, global::System.String password, global::System.String passwordSalt)
+        {
+            webpages_Membership webpages_Membership = new webpages_Membership();
+            webpages_Membership.UserId = userId;
+            webpages_Membership.PasswordFailuresSinceLastSuccess = passwordFailuresSinceLastSuccess;
+            webpages_Membership.Password = password;
+            webpages_Membership.PasswordSalt = passwordSalt;
+            return webpages_Membership;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CreateDate
+        {
+            get
+            {
+                return _CreateDate;
+            }
+            set
+            {
+                OnCreateDateChanging(value);
+                ReportPropertyChanging("CreateDate");
+                _CreateDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreateDate");
+                OnCreateDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CreateDate;
+        partial void OnCreateDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreateDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ConfirmationToken
+        {
+            get
+            {
+                return _ConfirmationToken;
+            }
+            set
+            {
+                OnConfirmationTokenChanging(value);
+                ReportPropertyChanging("ConfirmationToken");
+                _ConfirmationToken = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ConfirmationToken");
+                OnConfirmationTokenChanged();
+            }
+        }
+        private global::System.String _ConfirmationToken;
+        partial void OnConfirmationTokenChanging(global::System.String value);
+        partial void OnConfirmationTokenChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> IsConfirmed
+        {
+            get
+            {
+                return _IsConfirmed;
+            }
+            set
+            {
+                OnIsConfirmedChanging(value);
+                ReportPropertyChanging("IsConfirmed");
+                _IsConfirmed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsConfirmed");
+                OnIsConfirmedChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _IsConfirmed;
+        partial void OnIsConfirmedChanging(Nullable<global::System.Boolean> value);
+        partial void OnIsConfirmedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> LastPasswordFailureDate
+        {
+            get
+            {
+                return _LastPasswordFailureDate;
+            }
+            set
+            {
+                OnLastPasswordFailureDateChanging(value);
+                ReportPropertyChanging("LastPasswordFailureDate");
+                _LastPasswordFailureDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastPasswordFailureDate");
+                OnLastPasswordFailureDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _LastPasswordFailureDate;
+        partial void OnLastPasswordFailureDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnLastPasswordFailureDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PasswordFailuresSinceLastSuccess
+        {
+            get
+            {
+                return _PasswordFailuresSinceLastSuccess;
+            }
+            set
+            {
+                OnPasswordFailuresSinceLastSuccessChanging(value);
+                ReportPropertyChanging("PasswordFailuresSinceLastSuccess");
+                _PasswordFailuresSinceLastSuccess = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PasswordFailuresSinceLastSuccess");
+                OnPasswordFailuresSinceLastSuccessChanged();
+            }
+        }
+        private global::System.Int32 _PasswordFailuresSinceLastSuccess;
+        partial void OnPasswordFailuresSinceLastSuccessChanging(global::System.Int32 value);
+        partial void OnPasswordFailuresSinceLastSuccessChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Password
+        {
+            get
+            {
+                return _Password;
+            }
+            set
+            {
+                OnPasswordChanging(value);
+                ReportPropertyChanging("Password");
+                _Password = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Password");
+                OnPasswordChanged();
+            }
+        }
+        private global::System.String _Password;
+        partial void OnPasswordChanging(global::System.String value);
+        partial void OnPasswordChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> PasswordChangedDate
+        {
+            get
+            {
+                return _PasswordChangedDate;
+            }
+            set
+            {
+                OnPasswordChangedDateChanging(value);
+                ReportPropertyChanging("PasswordChangedDate");
+                _PasswordChangedDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PasswordChangedDate");
+                OnPasswordChangedDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _PasswordChangedDate;
+        partial void OnPasswordChangedDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnPasswordChangedDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String PasswordSalt
+        {
+            get
+            {
+                return _PasswordSalt;
+            }
+            set
+            {
+                OnPasswordSaltChanging(value);
+                ReportPropertyChanging("PasswordSalt");
+                _PasswordSalt = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("PasswordSalt");
+                OnPasswordSaltChanged();
+            }
+        }
+        private global::System.String _PasswordSalt;
+        partial void OnPasswordSaltChanging(global::System.String value);
+        partial void OnPasswordSaltChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PasswordVerificationToken
+        {
+            get
+            {
+                return _PasswordVerificationToken;
+            }
+            set
+            {
+                OnPasswordVerificationTokenChanging(value);
+                ReportPropertyChanging("PasswordVerificationToken");
+                _PasswordVerificationToken = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PasswordVerificationToken");
+                OnPasswordVerificationTokenChanged();
+            }
+        }
+        private global::System.String _PasswordVerificationToken;
+        partial void OnPasswordVerificationTokenChanging(global::System.String value);
+        partial void OnPasswordVerificationTokenChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> PasswordVerificationTokenExpirationDate
+        {
+            get
+            {
+                return _PasswordVerificationTokenExpirationDate;
+            }
+            set
+            {
+                OnPasswordVerificationTokenExpirationDateChanging(value);
+                ReportPropertyChanging("PasswordVerificationTokenExpirationDate");
+                _PasswordVerificationTokenExpirationDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PasswordVerificationTokenExpirationDate");
+                OnPasswordVerificationTokenExpirationDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _PasswordVerificationTokenExpirationDate;
+        partial void OnPasswordVerificationTokenExpirationDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnPasswordVerificationTokenExpirationDateChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DUserProfile_Membership", "DUserProfile")]
+        public DUserProfile DUserProfile
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_Membership", "DUserProfile").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_Membership", "DUserProfile").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DUserProfile> DUserProfileReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_Membership", "DUserProfile");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_Membership", "DUserProfile", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="webpages_OAuthMembership")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class webpages_OAuthMembership : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new webpages_OAuthMembership object.
+        /// </summary>
+        /// <param name="provider">Initial value of the Provider property.</param>
+        /// <param name="providerUserId">Initial value of the ProviderUserId property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        public static webpages_OAuthMembership Createwebpages_OAuthMembership(global::System.String provider, global::System.String providerUserId, global::System.Int32 userId)
+        {
+            webpages_OAuthMembership webpages_OAuthMembership = new webpages_OAuthMembership();
+            webpages_OAuthMembership.Provider = provider;
+            webpages_OAuthMembership.ProviderUserId = providerUserId;
+            webpages_OAuthMembership.UserId = userId;
+            return webpages_OAuthMembership;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Provider
+        {
+            get
+            {
+                return _Provider;
+            }
+            set
+            {
+                if (_Provider != value)
+                {
+                    OnProviderChanging(value);
+                    ReportPropertyChanging("Provider");
+                    _Provider = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Provider");
+                    OnProviderChanged();
+                }
+            }
+        }
+        private global::System.String _Provider;
+        partial void OnProviderChanging(global::System.String value);
+        partial void OnProviderChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ProviderUserId
+        {
+            get
+            {
+                return _ProviderUserId;
+            }
+            set
+            {
+                if (_ProviderUserId != value)
+                {
+                    OnProviderUserIdChanging(value);
+                    ReportPropertyChanging("ProviderUserId");
+                    _ProviderUserId = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("ProviderUserId");
+                    OnProviderUserIdChanged();
+                }
+            }
+        }
+        private global::System.String _ProviderUserId;
+        partial void OnProviderUserIdChanging(global::System.String value);
+        partial void OnProviderUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="webpages_Roles")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class webpages_Roles : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new webpages_Roles object.
+        /// </summary>
+        /// <param name="roleId">Initial value of the RoleId property.</param>
+        /// <param name="roleName">Initial value of the RoleName property.</param>
+        public static webpages_Roles Createwebpages_Roles(global::System.Int32 roleId, global::System.String roleName)
+        {
+            webpages_Roles webpages_Roles = new webpages_Roles();
+            webpages_Roles.RoleId = roleId;
+            webpages_Roles.RoleName = roleName;
+            return webpages_Roles;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoleId
+        {
+            get
+            {
+                return _RoleId;
+            }
+            set
+            {
+                if (_RoleId != value)
+                {
+                    OnRoleIdChanging(value);
+                    ReportPropertyChanging("RoleId");
+                    _RoleId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("RoleId");
+                    OnRoleIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _RoleId;
+        partial void OnRoleIdChanging(global::System.Int32 value);
+        partial void OnRoleIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String RoleName
+        {
+            get
+            {
+                return _RoleName;
+            }
+            set
+            {
+                OnRoleNameChanging(value);
+                ReportPropertyChanging("RoleName");
+                _RoleName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("RoleName");
+                OnRoleNameChanged();
+            }
+        }
+        private global::System.String _RoleName;
+        partial void OnRoleNameChanging(global::System.String value);
+        partial void OnRoleNameChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "fk_RoleId", "webpages_UsersInRoles")]
+        public EntityCollection<webpages_UsersInRoles> webpages_UsersInRoles
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<webpages_UsersInRoles>("Offwind.DbModels.fk_RoleId", "webpages_UsersInRoles");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<webpages_UsersInRoles>("Offwind.DbModels.fk_RoleId", "webpages_UsersInRoles", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="webpages_UsersInRoles")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class webpages_UsersInRoles : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new webpages_UsersInRoles object.
+        /// </summary>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="roleId">Initial value of the RoleId property.</param>
+        public static webpages_UsersInRoles Createwebpages_UsersInRoles(global::System.Int32 userId, global::System.Int32 roleId)
+        {
+            webpages_UsersInRoles webpages_UsersInRoles = new webpages_UsersInRoles();
+            webpages_UsersInRoles.UserId = userId;
+            webpages_UsersInRoles.RoleId = roleId;
+            return webpages_UsersInRoles;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoleId
+        {
+            get
+            {
+                return _RoleId;
+            }
+            set
+            {
+                OnRoleIdChanging(value);
+                ReportPropertyChanging("RoleId");
+                _RoleId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RoleId");
+                OnRoleIdChanged();
+            }
+        }
+        private global::System.Int32 _RoleId;
+        partial void OnRoleIdChanging(global::System.Int32 value);
+        partial void OnRoleIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DUserProfile_UsersInRoles", "DUserProfile")]
+        public DUserProfile DUserProfile
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "DUserProfile").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "DUserProfile").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DUserProfile> DUserProfileReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "DUserProfile");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "DUserProfile", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "fk_RoleId", "webpages_Roles")]
+        public webpages_Roles webpages_Roles
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_Roles>("Offwind.DbModels.fk_RoleId", "webpages_Roles").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_Roles>("Offwind.DbModels.fk_RoleId", "webpages_Roles").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<webpages_Roles> webpages_RolesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_Roles>("Offwind.DbModels.fk_RoleId", "webpages_Roles");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<webpages_Roles>("Offwind.DbModels.fk_RoleId", "webpages_Roles", value);
+                }
+            }
+        }
+
+        #endregion
     }
 
     #endregion

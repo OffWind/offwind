@@ -5,4 +5,9 @@
         public const string Admin = "Admin";
         public const string RegularUser = "RegularUser";
     }
+
+    public enum SystemRoleType
+    {
+        Admin, RegularUser
+    }
 }

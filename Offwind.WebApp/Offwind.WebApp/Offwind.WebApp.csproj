@@ -220,6 +220,7 @@
     <Compile Include="Areas\ControlPanel\Controllers\_BaseCmController.cs" />
     <Compile Include="Areas\ControlPanel\ControlPanelAreaRegistration.cs" />
     <Compile Include="Areas\ControlPanel\Models\ContentModel.cs" />
+    <Compile Include="Areas\ControlPanel\Models\UserModel.cs" />
     <Compile Include="Areas\ControlPanel\Tools\ContentTypeHelpers.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\EngineeringToolsController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\MesoWindController.cs" />
@@ -2073,6 +2074,9 @@
     <Content Include="Areas\ControlPanel\Views\Shared\__SideNav.cshtml" />
     <Content Include="Areas\ControlPanel\Views\_ViewStart.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Users\Index.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Users\Edit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Users\Add.cshtml" />
     <None Include="static\.DS_Store" />
     <None Include="static\ckeditor\CHANGES.md" />
     <None Include="static\ckeditor\LICENSE.md" />

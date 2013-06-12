@@ -19,7 +19,6 @@ using System.Collections;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
-    [Authorize(Roles = SystemRole.RegularUser)]
     public class MesoWindController : _BaseController
     {
         private const string CurrentFile = "CurrentFile";

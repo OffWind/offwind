@@ -87,6 +87,10 @@ namespace Offwind.WebApp.Controllers
                     WebSecurity.Login(model.UserName, model.Password);
 
                     var roles = (SimpleRoleProvider)Roles.Provider;
+                    if (!roles.RoleExists(SystemRole.Admin))
+                    {
+                        roles.CreateRole(SystemRole.Admin);
+                    }
                     if (!roles.RoleExists(SystemRole.RegularUser))
                     {
                         roles.CreateRole(SystemRole.RegularUser);

@@ -12,7 +12,6 @@ using Offwind.WebApp.Models.Account;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
-    [Authorize(Roles = SystemRole.RegularUser)]
     public class WindWaveController : _BaseController
     {
         public WindWaveController()

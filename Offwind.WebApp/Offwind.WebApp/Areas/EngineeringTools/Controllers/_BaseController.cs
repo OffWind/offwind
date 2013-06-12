@@ -9,6 +9,7 @@ using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
+    [Authorize(Roles = "Admin, RegularUser")]
     public class _BaseController : Controller
     {
         protected string _currentGroup;

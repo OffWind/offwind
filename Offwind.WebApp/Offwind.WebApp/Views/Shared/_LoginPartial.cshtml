@@ -8,6 +8,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li><a href="@Url.Action("Profile", "Account", new {area = ""})">Profile</a></li>
+                <li><a href="javascript: window.open('@Url.Action("Share", "Mailing", new { area = "" })');">Mailing</a></li>
                 <li class="divider"></li>
                 <li><a href="@Url.Action("LogOff", "Account", new {area = ""})">Sign Out</a></li>
                 @if (ViewBag.IsAdmin)

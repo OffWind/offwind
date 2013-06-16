@@ -20,8 +20,8 @@
                     @Html.ActionLink(@user.Name, "Edit", new { id = user.Id })
                 </p>
             </td>
-            <td>@user.Role</td>
-            <td>@DateTime.Now</td>
+            <td>@user.SelectedRoles</td>
+            <td>@user.LastVisit</td>
             <td>@user.CreateDate</td>
         </tr>        
     }

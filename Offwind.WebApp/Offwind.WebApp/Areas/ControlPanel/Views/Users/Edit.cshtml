@@ -2,21 +2,23 @@
 @using Offwind.WebApp.Models.Account
 @model UserModel
 
-<style>
-.editor-label {
-    float: left;
-    width: 180px;
-}
+@section styles
+{
+    <style>
+        .editor-label {
+            float: left;
+            width: 180px;
+        }
 
-.editor-field {
-    margin-left: 180px;
-}
+        .editor-field {
+            margin-left: 180px;
+        }
 
-.editor-field input {
-    width: 30%;    
+        .editor-field input {
+            width: 30%;    
+        }
+    </style>
 }
-
-</style>
 
 <form class="form-horizontal indent" method="post">
     @Html.AntiForgeryToken()

@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using Offwind.WebApp.Infrastructure.Breadcrumbs;
 using Offwind.WebApp.Infrastructure.Navigation;
 
@@ -10,7 +11,6 @@ namespace Offwind.WebApp.Models
         public string BrowserTitle { get; set; }
         public BreadcrumbsCollection Breadcrumbs { get; protected set; }
         public string CurrentCulture { get; set; }
-
         public VWebPage()
         {
             SiteName = ConfigurationManager.AppSettings["SiteName"];

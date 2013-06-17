@@ -1,0 +1,50 @@
+﻿@model Offwind.WebApp.Models.Mailing.MailingModel
+
+<h2>New mailing</h2>
+
+@section styles
+{
+    <style>
+        .listbox-label 
+        {
+            float: left;
+            display: inline-block;
+        }
+        .listbox-body 
+        {
+            margin-left: 180px;
+        }
+
+    </style>
+}
+
+<form class="form-horizontal indent" method="POST" action="">
+    <fieldset>
+        
+        <div class="listbox-label"> @Html.LabelFor(model => model.SelectedUsers) </div>
+        <div class="listbox-body"> @Html.ListBoxFor(model => model.SelectedUsers, new MultiSelectList(Model.Users, "UserName")) </div>
+        <br/>
+        @Html.EditorFor(model => model.Title)
+        @Html.EditorFor(model => model.MsgBody, "RtfEditor")
+    </fieldset>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Send</button>
+        <button type="reset" class="btn">Cancel</button>
+    </div>
+</form>
+
+@section scripts
+{
+    <script type="text/javascript" src="/static/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/static/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript">
+        var editor = CKEDITOR.replace('MsgBody', {
+            filebrowserBrowseUrl: '/static/ckfinder/ckfinder.html',
+            filebrowserImageBrowseUrl: '/static/ckfinder/ckfinder.html?Type=Images',
+            filebrowserFlashBrowseUrl: '/static/ckfinder/ckfinder.html?Type=Flash',
+            filebrowserUploadUrl: '/static/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files',
+            filebrowserImageUploadUrl: '/static/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images',
+            filebrowserFlashUploadUrl: '/static/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Flash'
+        });
+    </script>
+}

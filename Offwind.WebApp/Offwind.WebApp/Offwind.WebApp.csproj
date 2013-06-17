@@ -251,6 +251,7 @@
     <Compile Include="Areas\CFD\Controllers\CaseManagementController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
+    <Compile Include="Controllers\MailingController.cs" />
     <Compile Include="Infrastructure\Breadcrumbs\BreadcrumbsCollection.cs" />
     <Compile Include="Infrastructure\Breadcrumbs\BreadcrumbsItem.cs" />
     <Compile Include="Infrastructure\GuidConstraint.cs" />
@@ -272,6 +273,7 @@
     <Compile Include="Models\Jobs\Job.cs" />
     <Compile Include="Models\Jobs\JobResult.cs" />
     <Compile Include="Models\Jobs\JobState.cs" />
+    <Compile Include="Models\Mailing\MailingModel.cs" />
     <Compile Include="Models\Offwind.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2077,6 +2079,7 @@
     <Content Include="Areas\ControlPanel\Views\Users\Index.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Users\Edit.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Users\Add.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\UserRole.cshtml" />
     <None Include="static\.DS_Store" />
     <None Include="static\ckeditor\CHANGES.md" />
     <None Include="static\ckeditor\LICENSE.md" />
@@ -2251,6 +2254,7 @@
     <Content Include="Views\Shared\__SideNav.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WindFarm\Index.cshtml" />
     <Content Include="Views\Shared\Copy of _Layout.cshtml" />
+    <Content Include="Views\Mailing\Mailing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

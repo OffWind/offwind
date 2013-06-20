@@ -6,10 +6,11 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Offwind.WebApp.Infrastructure.Navigation;
 using Offwind.WebApp.Models;
+using Offwind.WebApp.Models.Account;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
-    [Authorize(Roles = "Admin, RegularUser")]
+    [Authorize(Roles = SystemRole.User)]
     public class _BaseController : Controller
     {
         protected string _currentGroup;

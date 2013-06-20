@@ -91,11 +91,15 @@ namespace Offwind.WebApp.Controllers
                     {
                         roles.CreateRole(SystemRole.Admin);
                     }
-                    if (!roles.RoleExists(SystemRole.RegularUser))
+                    if (!roles.RoleExists(SystemRole.Partner))
                     {
-                        roles.CreateRole(SystemRole.RegularUser);
+                        roles.CreateRole(SystemRole.Partner);
                     }
-                    roles.AddUsersToRoles(new[] { model.UserName }, new[] { SystemRole.RegularUser });
+                    if (!roles.RoleExists(SystemRole.User))
+                    {
+                        roles.CreateRole(SystemRole.User);
+                    }
+                    roles.AddUsersToRoles(new[] { model.UserName }, new[] { SystemRole.User });
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)

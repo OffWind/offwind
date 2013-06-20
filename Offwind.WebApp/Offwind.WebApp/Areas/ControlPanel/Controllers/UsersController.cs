@@ -86,7 +86,7 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
         public ActionResult Add()
         {
             var model = new UserModel();
-            model.RoleT = SystemRoleType.RegularUser;
+            model.RoleT = SystemRoleType.User;
             return View(model);
         }
 

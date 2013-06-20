@@ -14,7 +14,7 @@ using log4net;
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {
 // ReSharper disable InconsistentNaming
-    [Authorize(Roles = SystemRole.RegularUser)]
+    [Authorize(Roles = SystemRole.User)]
     public class __BaseCfdController : Controller
     {
         protected readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

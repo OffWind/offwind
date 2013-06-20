@@ -2255,6 +2255,9 @@
     <Content Include="Areas\EngineeringTools\Views\WindFarm\Index.cshtml" />
     <Content Include="Views\Shared\Copy of _Layout.cshtml" />
     <Content Include="Views\Mailing\Mailing.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\RtfEditor.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CKFinder.cshtml" />
+    <Content Include="Views\Shared\__CKEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

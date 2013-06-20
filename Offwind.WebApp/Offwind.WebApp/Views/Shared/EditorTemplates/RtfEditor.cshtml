@@ -1,0 +1,11 @@
+﻿@model string
+@{
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
+}
+<div class="control-group" id="@("EditorFor_" + fieldName)">
+    <label class="control-label" for="@fieldName">@displayName </label>
+    <div class="controls">
+        <textarea type="text" class="ckeditor" id="@fieldName" name="@fieldName" placeholder="@ViewData.ModelMetadata.NullDisplayText">@Model</textarea>
+    </div>
+</div>

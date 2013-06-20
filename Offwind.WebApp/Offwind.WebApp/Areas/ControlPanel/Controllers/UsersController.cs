@@ -73,17 +73,17 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
         {
             if (ModelState.IsValid)
             {
-                var roles = (SimpleRoleProvider)Roles.Provider;
+                var roles = (SimpleRoleProvider) Roles.Provider;
                 roles.RemoveUsersFromRoles(new[] {model.Name}, model.SelectedRoles.Split(';'));
                 model.SelectRoles();
                 roles.AddUsersToRoles(new[] {model.Name}, model.SelectedRoles.Split(';'));
 
-                var membershipUser = Membership.GetUser(model.Name);
+                var membershipUser = Enumerable.FirstOrDefault(_ctx.webpages_Membership.Where(x => x.UserId == model.Id));
                 if (membershipUser != null)
                 {
                     if (model.Password != model.OldPassword)
                     {
-                        var oldPas = membershipUser.GetPassword();
+                        var oldPas = "";// membershipUser.Password;
                         WebSecurity.ChangePassword(model.Name, oldPas, model.Password);
                     }
                     SetEmail(model.Id, model.Email);

@@ -12,6 +12,7 @@ using Offwind.WebApp.Models.Account;
 using WebMatrix.Data;
 using WebMatrix.WebData;
 using System.Collections;
+using System.IO;
 
 namespace Offwind.WebApp.Areas.ControlPanel.Controllers
 {
@@ -22,13 +23,22 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
 
         public ActionResult Index()
         {
+            var roles = (SimpleRoleProvider)Roles.Provider;
             _model = _ctx.DUserProfiles.Select(x => new UserModel()
                                                         {
                                                             Id = x.UserId,
                                                             Name = x.UserName,
-                                                            Role = x.webpages_UsersInRoles.webpages_Roles.RoleName,
-                                                            CreateDate = (DateTime) x.webpages_Membership.CreateDate
                                                         }).ToList();
+            foreach(var usr in _model)
+            {
+                var membershipUser = Membership.GetUser(usr.Name);
+                if (membershipUser != null)
+                {
+                    usr.CreateDate = membershipUser.CreationDate;
+                    usr.LastVisit = membershipUser.LastActivityDate;
+                    usr.SelectRoles(roles.GetRolesForUser(usr.Name));
+                }
+            }
             ViewBag.HTitle = "Users management";
             return View(_model);
         }
@@ -36,19 +46,25 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
         public ActionResult Edit(int id)
         {
             var db = _ctx.DUserProfiles;
-            UserModel u = Enumerable.FirstOrDefault(
+            var usr = Enumerable.FirstOrDefault(
                 db.Where(x => x.UserId == id).Select(x => new UserModel()
                                                               {
                                                                   Id = x.UserId,
                                                                   Name = x.UserName,
-                                                                  Role = x.webpages_UsersInRoles.webpages_Roles.RoleName,
                                                               }));
-            if (u != null)
-            {                
-                u.OldPassword = Membership.GeneratePassword(6, 0);
-                u.Password = u.ConfirmPassword = u.OldPassword;
+            if (usr != null)
+            {
+                var roles = (SimpleRoleProvider) Roles.Provider;
+                usr.SelectRoles(roles.GetRolesForUser(usr.Name));
+                usr.OldPassword = Membership.GeneratePassword(6, 0);
+                usr.Password = usr.ConfirmPassword = usr.OldPassword;
+                var ms = Enumerable.FirstOrDefault(_ctx.webpages_Membership.Where(x => x.UserId == id));
+                if (ms != null)
+                {
+                    usr.Email = ms.Email;
+                }
             }
-            return View(u);
+            return View(usr);
         }
 
         [HttpPost]
@@ -57,27 +73,21 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
         {
             if (ModelState.IsValid)
             {
-                var db = _ctx.DUserProfiles;
-                var profile = Enumerable.FirstOrDefault(db.Where(x => x.UserId == model.Id));
-                if (profile != null)
-                {
-                    profile.webpages_Membership.PasswordChangedDate = DateTime.Now;
-                    _ctx.SaveChanges();
+                var roles = (SimpleRoleProvider)Roles.Provider;
+                roles.RemoveUsersFromRoles(new[] {model.Name}, model.SelectedRoles.Split(';'));
+                model.SelectRoles();
+                roles.AddUsersToRoles(new[] {model.Name}, model.SelectedRoles.Split(';'));
 
-                    var roles = (SimpleRoleProvider)Roles.Provider;
-                    var userRole = model.RoleT.ToString();
-                    if (!roles.IsUserInRole(model.Name, userRole))
-                    {
-                        roles.RemoveUsersFromRoles(new[] {model.Name}, new[] {model.Role});
-                        model.Role = userRole;
-                        roles.AddUsersToRoles(new[] {model.Name}, new[] {model.Role});
-                    }
+                var membershipUser = Membership.GetUser(model.Name);
+                if (membershipUser != null)
+                {
                     if (model.Password != model.OldPassword)
                     {
-                        var oldPas = Convert.FromBase64String(profile.webpages_Membership.Password).ToString();
-                        WebSecurity.ChangePassword(profile.UserName, oldPas, model.Password);
+                        var oldPas = membershipUser.GetPassword();
+                        WebSecurity.ChangePassword(model.Name, oldPas, model.Password);
                     }
-                }
+                    SetEmail(model.Id, model.Email);
+                }               
                 return RedirectToAction("Index");    
             }
             return View(model);
@@ -86,7 +96,6 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
         public ActionResult Add()
         {
             var model = new UserModel();
-            model.RoleT = SystemRoleType.User;
             return View(model);
         }
 
@@ -96,22 +105,39 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
         {
             if (ModelState.IsValid)
             {
-                WebSecurity.CreateUserAndAccount(model.NewName, model.Password);
+                WebSecurity.CreateUserAndAccount(model.Name, model.Password);
                 var roles = (SimpleRoleProvider)Roles.Provider;
-                roles.AddUsersToRoles(new[] {model.NewName}, new[] {model.RoleT.ToString()});
-
+                model.SelectRoles();
+                roles.AddUsersToRoles(new[] {model.Name}, model.SelectedRoles.Split(';'));
+                var uid = WebSecurity.GetUserId(model.Name);
+                SetEmail(uid, model.Email);
                 return RedirectToAction("Index");
             }
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public JsonResult Delete(int id)
         {
-            var db = _ctx.DUserProfiles;
-            var entity = Enumerable.FirstOrDefault(db.Where(x => x.UserId == id));
-            db.DeleteObject(entity);
-            return RedirectToAction("Index");
+            var usr = Enumerable.FirstOrDefault(_ctx.DUserProfiles.Where(x => x.UserId == id));
+            if (usr != null)
+            {
+                Membership.DeleteUser(usr.UserName);
+            }
+            return Json("OK");
+        }
+
+        private void SetEmail(int id, string value)
+        {
+            var ms = Enumerable.FirstOrDefault(_ctx.webpages_Membership.Where(x => x.UserId == id));
+            if (ms != null)
+            {
+                if (ms.Email != value)
+                {
+                    ms.Email = value;
+                    _ctx.SaveChanges();
+                }
+            }            
         }
     }
 }

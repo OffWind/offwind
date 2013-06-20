@@ -19,9 +19,6 @@ using System.Runtime.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DContent_DContentTypes", "DContentType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DContentType), "DContent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DContent), true)]
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DUserProfile_Membership", "webpages_Membership", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.webpages_Membership), "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.WebApp.Models.DUserProfile), true)]
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DUserProfile_UsersInRoles", "webpages_UsersInRoles", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.webpages_UsersInRoles), "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.WebApp.Models.DUserProfile), true)]
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "fk_RoleId", "webpages_Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.webpages_Roles), "webpages_UsersInRoles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.webpages_UsersInRoles), true)]
 
 #endregion
 
@@ -1351,85 +1348,6 @@ namespace Offwind.WebApp.Models
 
         #endregion
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DUserProfile_Membership", "webpages_Membership")]
-        public webpages_Membership webpages_Membership
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_Membership>("Offwind.DbModels.FK_DUserProfile_Membership", "webpages_Membership").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_Membership>("Offwind.DbModels.FK_DUserProfile_Membership", "webpages_Membership").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<webpages_Membership> webpages_MembershipReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_Membership>("Offwind.DbModels.FK_DUserProfile_Membership", "webpages_Membership");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<webpages_Membership>("Offwind.DbModels.FK_DUserProfile_Membership", "webpages_Membership", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DUserProfile_UsersInRoles", "webpages_UsersInRoles")]
-        public webpages_UsersInRoles webpages_UsersInRoles
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_UsersInRoles>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "webpages_UsersInRoles").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_UsersInRoles>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "webpages_UsersInRoles").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<webpages_UsersInRoles> webpages_UsersInRolesReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_UsersInRoles>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "webpages_UsersInRoles");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<webpages_UsersInRoles>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "webpages_UsersInRoles", value);
-                }
-            }
-        }
-
-        #endregion
     }
     
     /// <summary>
@@ -2110,50 +2028,33 @@ namespace Offwind.WebApp.Models
         private Nullable<global::System.DateTime> _PasswordVerificationTokenExpirationDate;
         partial void OnPasswordVerificationTokenExpirationDateChanging(Nullable<global::System.DateTime> value);
         partial void OnPasswordVerificationTokenExpirationDateChanged();
-
-        #endregion
-    
-        #region Navigation Properties
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DUserProfile_Membership", "DUserProfile")]
-        public DUserProfile DUserProfile
+        public global::System.String Email
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_Membership", "DUserProfile").Value;
+                return _Email;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_Membership", "DUserProfile").Value = value;
+                OnEmailChanging(value);
+                ReportPropertyChanging("Email");
+                _Email = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Email");
+                OnEmailChanged();
             }
         }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<DUserProfile> DUserProfileReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_Membership", "DUserProfile");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_Membership", "DUserProfile", value);
-                }
-            }
-        }
+        private global::System.String _Email;
+        partial void OnEmailChanging(global::System.String value);
+        partial void OnEmailChanged();
 
         #endregion
+    
     }
     
     /// <summary>
@@ -2345,31 +2246,6 @@ namespace Offwind.WebApp.Models
 
         #endregion
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "fk_RoleId", "webpages_UsersInRoles")]
-        public EntityCollection<webpages_UsersInRoles> webpages_UsersInRoles
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<webpages_UsersInRoles>("Offwind.DbModels.fk_RoleId", "webpages_UsersInRoles");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<webpages_UsersInRoles>("Offwind.DbModels.fk_RoleId", "webpages_UsersInRoles", value);
-                }
-            }
-        }
-
-        #endregion
     }
     
     /// <summary>
@@ -2428,7 +2304,7 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 RoleId
         {
@@ -2438,11 +2314,14 @@ namespace Offwind.WebApp.Models
             }
             set
             {
-                OnRoleIdChanging(value);
-                ReportPropertyChanging("RoleId");
-                _RoleId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("RoleId");
-                OnRoleIdChanged();
+                if (_RoleId != value)
+                {
+                    OnRoleIdChanging(value);
+                    ReportPropertyChanging("RoleId");
+                    _RoleId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("RoleId");
+                    OnRoleIdChanged();
+                }
             }
         }
         private global::System.Int32 _RoleId;
@@ -2451,85 +2330,6 @@ namespace Offwind.WebApp.Models
 
         #endregion
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DUserProfile_UsersInRoles", "DUserProfile")]
-        public DUserProfile DUserProfile
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "DUserProfile").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "DUserProfile").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<DUserProfile> DUserProfileReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "DUserProfile");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DUserProfile>("Offwind.DbModels.FK_DUserProfile_UsersInRoles", "DUserProfile", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "fk_RoleId", "webpages_Roles")]
-        public webpages_Roles webpages_Roles
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_Roles>("Offwind.DbModels.fk_RoleId", "webpages_Roles").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_Roles>("Offwind.DbModels.fk_RoleId", "webpages_Roles").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<webpages_Roles> webpages_RolesReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<webpages_Roles>("Offwind.DbModels.fk_RoleId", "webpages_Roles");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<webpages_Roles>("Offwind.DbModels.fk_RoleId", "webpages_Roles", value);
-                }
-            }
-        }
-
-        #endregion
     }
 
     #endregion

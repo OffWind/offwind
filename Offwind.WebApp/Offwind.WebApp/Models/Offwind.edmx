@@ -29,18 +29,6 @@
             <End Role="DContentTypes" EntitySet="DContentTypes" />
             <End Role="DContent" EntitySet="DContent" />
           </AssociationSet>
-          <AssociationSet Name="FK_DUserProfile_Membership" Association="u254697_offwindModel.Store.FK_DUserProfile_Membership">
-            <End Role="webpages_Membership" EntitySet="webpages_Membership" />
-            <End Role="DUserProfile" EntitySet="DUserProfile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DUserProfile_UsersInRoles" Association="u254697_offwindModel.Store.FK_DUserProfile_UsersInRoles">
-            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
-            <End Role="DUserProfile" EntitySet="DUserProfile" />
-          </AssociationSet>
-          <AssociationSet Name="fk_RoleId" Association="u254697_offwindModel.Store.fk_RoleId">
-            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
-            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="DCase">
           <Key>
@@ -95,7 +83,7 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="56" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <EntityType Name="MesoscaleDatabases">
           <Key>
@@ -118,7 +106,7 @@
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
           <Property Name="IsConfirmed" Type="bit" />
@@ -129,6 +117,7 @@
           <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
           <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
           <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+          <Property Name="Email" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="webpages_OAuthMembership">
           <Key>
@@ -149,6 +138,7 @@
         <EntityType Name="webpages_UsersInRoles">
           <Key>
             <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
@@ -180,42 +170,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DUserProfile_Membership">
-          <End Role="webpages_Membership" Type="u254697_offwindModel.Store.webpages_Membership" Multiplicity="1" />
-          <End Role="DUserProfile" Type="u254697_offwindModel.Store.DUserProfile" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="webpages_Membership">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="DUserProfile">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DUserProfile_UsersInRoles">
-          <End Role="webpages_UsersInRoles" Type="u254697_offwindModel.Store.webpages_UsersInRoles" Multiplicity="1" />
-          <End Role="DUserProfile" Type="u254697_offwindModel.Store.DUserProfile" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="webpages_UsersInRoles">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="DUserProfile">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_RoleId">
-          <End Role="webpages_Roles" Type="u254697_offwindModel.Store.webpages_Roles" Multiplicity="1" />
-          <End Role="webpages_UsersInRoles" Type="u254697_offwindModel.Store.webpages_UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="webpages_Roles">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="webpages_UsersInRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -237,18 +191,6 @@
           <EntitySet Name="webpages_Membership" EntityType="Offwind.DbModels.webpages_Membership" />
           <EntitySet Name="webpages_Roles" EntityType="Offwind.DbModels.webpages_Roles" />
           <EntitySet Name="webpages_UsersInRoles" EntityType="Offwind.DbModels.webpages_UsersInRoles" />
-          <AssociationSet Name="FK_DUserProfile_Membership" Association="Offwind.DbModels.FK_DUserProfile_Membership">
-            <End Role="webpages_Membership" EntitySet="webpages_Membership" />
-            <End Role="DUserProfile" EntitySet="DUserProfiles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DUserProfile_UsersInRoles" Association="Offwind.DbModels.FK_DUserProfile_UsersInRoles">
-            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
-            <End Role="DUserProfile" EntitySet="DUserProfiles" />
-          </AssociationSet>
-          <AssociationSet Name="fk_RoleId" Association="Offwind.DbModels.fk_RoleId">
-            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
-            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
-          </AssociationSet>
           </EntityContainer>
         <EntityType Name="DCase">
           <Key>
@@ -355,15 +297,13 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="UserName" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="webpages_Membership" Relationship="Offwind.DbModels.FK_DUserProfile_Membership" FromRole="DUserProfile" ToRole="webpages_Membership" />
-          <NavigationProperty Name="webpages_UsersInRoles" Relationship="Offwind.DbModels.FK_DUserProfile_UsersInRoles" FromRole="DUserProfile" ToRole="webpages_UsersInRoles" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
           <Property Type="DateTime" Name="CreateDate" />
           <Property Type="String" Name="ConfirmationToken" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsConfirmed" />
@@ -374,7 +314,7 @@
           <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="PasswordVerificationToken" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="PasswordVerificationTokenExpirationDate" />
-          <NavigationProperty Name="DUserProfile" Relationship="Offwind.DbModels.FK_DUserProfile_Membership" FromRole="webpages_Membership" ToRole="DUserProfile" />
+          <Property Type="String" Name="Email" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="webpages_Roles">
           <Key>
@@ -382,53 +322,15 @@
           </Key>
           <Property Type="Int32" Name="RoleId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="webpages_UsersInRoles" Relationship="Offwind.DbModels.fk_RoleId" FromRole="webpages_Roles" ToRole="webpages_UsersInRoles" />
         </EntityType>
         <EntityType Name="webpages_UsersInRoles">
           <Key>
             <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
           </Key>
           <Property Type="Int32" Name="UserId" Nullable="false" />
           <Property Type="Int32" Name="RoleId" Nullable="false" />
-          <NavigationProperty Name="DUserProfile" Relationship="Offwind.DbModels.FK_DUserProfile_UsersInRoles" FromRole="webpages_UsersInRoles" ToRole="DUserProfile" />
-          <NavigationProperty Name="webpages_Roles" Relationship="Offwind.DbModels.fk_RoleId" FromRole="webpages_UsersInRoles" ToRole="webpages_Roles" />
         </EntityType>
-        <Association Name="FK_DUserProfile_Membership">
-          <End Type="Offwind.DbModels.webpages_Membership" Role="webpages_Membership" Multiplicity="1" />
-          <End Type="Offwind.DbModels.DUserProfile" Role="DUserProfile" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="webpages_Membership">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="DUserProfile">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DUserProfile_UsersInRoles">
-          <End Type="Offwind.DbModels.webpages_UsersInRoles" Role="webpages_UsersInRoles" Multiplicity="1" />
-          <End Type="Offwind.DbModels.DUserProfile" Role="DUserProfile" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="webpages_UsersInRoles">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="DUserProfile">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_RoleId">
-          <End Type="Offwind.DbModels.webpages_Roles" Role="webpages_Roles" Multiplicity="1" />
-          <End Type="Offwind.DbModels.webpages_UsersInRoles" Role="webpages_UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="webpages_Roles">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="webpages_UsersInRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -536,6 +438,7 @@
           <EntitySetMapping Name="webpages_Membership">
             <EntityTypeMapping TypeName="Offwind.DbModels.webpages_Membership">
               <MappingFragment StoreEntitySet="webpages_Membership">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
                 <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
                 <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
@@ -599,23 +502,10 @@
           <ConnectorPoint PointX="10.625" PointY="1.951691080729167" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="0.75" PointY="7.75" Height="1.5956835937500031" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="9.875" PointY="5.875" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="7.625" PointY="9.125" Height="3.3263964843750031" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="5.375" PointY="6" Height="1.5956835937500031" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_UsersInRoles" Width="1.5" PointX="7.625" PointY="5.875" Height="1.7879850260416674" />
-        <AssociationConnector Association="Offwind.DbModels.FK_DUserProfile_Membership" >
-          <ConnectorPoint PointX="9.125" PointY="10.788198242187502" />
-          <ConnectorPoint PointX="10.625" PointY="10.788198242187502" />
-          <ConnectorPoint PointX="10.625" PointY="7.6629850260416674" />
-        </AssociationConnector>
-        <AssociationConnector Association="Offwind.DbModels.FK_DUserProfile_UsersInRoles" >
-          <ConnectorPoint PointX="9.125" PointY="6.7689925130208337" />
-          <ConnectorPoint PointX="9.875" PointY="6.7689925130208337" />
-        </AssociationConnector>
-        <AssociationConnector Association="Offwind.DbModels.fk_RoleId" >
-          <ConnectorPoint PointX="6.875" PointY="6.7978417968750016" />
-          <ConnectorPoint PointX="7.625" PointY="6.7978417968750016" />
-        </AssociationConnector>
+        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="9.375" PointY="6.75" Height="1.4033821614583317" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="5.375" PointY="6.75" Height="3.1340950520833388" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="11.375" PointY="6.75" Height="1.4033821614583388" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_UsersInRoles" Width="1.5" PointX="7.375" PointY="6.75" Height="1.4033821614583388" />
         </Diagram>
     </Diagrams>
   </Designer>

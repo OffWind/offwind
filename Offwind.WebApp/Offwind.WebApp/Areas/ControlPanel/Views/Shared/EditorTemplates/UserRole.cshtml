@@ -1,0 +1,15 @@
+﻿@model Offwind.WebApp.Areas.ControlPanel.Models.UserRole
+
+<style>   
+.editor-checkbox {
+    display: inline-block;
+    margin-left: 40px;
+    text-align: center;
+}
+</style>
+
+<div class="editor-checkbox">
+    @Html.HiddenFor(x => x.Role)
+    @Html.LabelFor(x => x.IsSelected, Model.Role)
+    @Html.CheckBoxFor(x => x.IsSelected)
+</div>

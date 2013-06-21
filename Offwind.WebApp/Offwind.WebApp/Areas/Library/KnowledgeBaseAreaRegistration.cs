@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Offwind.WebApp.Areas.KnowledgeBase
+namespace Offwind.WebApp.Areas.Library
 {
     public class KnowledgeBaseAreaRegistration : AreaRegistration
     {
@@ -8,16 +8,16 @@ namespace Offwind.WebApp.Areas.KnowledgeBase
         {
             get
             {
-                return "KnowledgeBase";
+                return "Library";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "KnowledgeBase_default",
-                "kb/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                "Library_default",
+                "library/{controller}/{action}/{id}",
+                new { action = "Index", controller = "HomeLibrary", id = UrlParameter.Optional }
             );
         }
     }

@@ -10,6 +10,7 @@ namespace Offwind.WebApp.Areas.Partners.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Title = "Partners area | Offwind";
             return View();
         }
     }

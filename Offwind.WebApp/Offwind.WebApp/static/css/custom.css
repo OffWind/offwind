@@ -135,8 +135,13 @@ table th {
 .row-content-block .sub-block-fixed .btn
 {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
+    bottom: 15px;
+    left: 30px;
+}
+
+.row-content-block .sub-block-fixed h2
+{
+    margin: 0;
 }
 
 .contextmenu

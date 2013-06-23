@@ -1,0 +1,33 @@
+﻿@model IEnumerable<string>
+@{
+}
+<script type="text/javascript" src="/static/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/static/ckfinder/ckfinder.js"></script>
+<script type="text/javascript">
+    var params = {
+        filebrowserBrowseUrl: '/static/ckfinder/ckfinder.html',
+        filebrowserImageBrowseUrl: '/static/ckfinder/ckfinder.html?Type=Images',
+        filebrowserFlashBrowseUrl: '/static/ckfinder/ckfinder.html?Type=Flash',
+        filebrowserUploadUrl: '/static/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files',
+        filebrowserImageUploadUrl: '/static/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images',
+        filebrowserFlashUploadUrl: '/static/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Flash',
+        htmlEncodeOutput: true
+    };
+    
+    //CKEDITOR.replace(params);
+    //var editor = CKEDITOR.replace('Description', params);
+
+    @foreach(var item in Model)
+    {
+    <text>
+        CKEDITOR.replace('@item', params);
+    </text>
+    }
+
+    //editor.setData('<p>Just click the <b>Image</b> or <b>Link</b> button, and then <b>&quot;Browse Server&quot;</b>.</p>');
+
+    // Just call CKFinder.setupCKEditor and pass the CKEditor instance as the first argument.
+    // The second parameter (optional), is the path for the CKFinder installation (default = "/ckfinder/").
+    //CKFinder.setupCKEditor(editor, 'http://ck.megasushi-spb.ru/editor/');
+
+</script>

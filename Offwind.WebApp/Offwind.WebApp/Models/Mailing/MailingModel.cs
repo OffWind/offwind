@@ -7,13 +7,15 @@ namespace Offwind.WebApp.Models.Mailing
 {
     public sealed class MailingModel
     {
-        public List<string> Users;
+        public string Owner { set; get; }
+
+        public List<string> Users { set; get; }
 
         [DisplayName("Select recipients")]
         public List<string> SelectedUsers { set; get; }
 
-        [DisplayName("Message title")]
-        public string Title { set; get; }
+        [DisplayName("Subject")]
+        public string Subject { set; get; }
 
         [DisplayName("Message text")]
         public string MsgBody { set; get; }

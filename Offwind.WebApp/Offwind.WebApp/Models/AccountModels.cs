@@ -60,7 +60,7 @@ namespace Offwind.WebApp.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", Description = "Please, use strong password for security reasons.")]
         public string Password { get; set; }
 
         [Display(Name = "Remember me?")]
@@ -70,19 +70,26 @@ namespace Offwind.WebApp.Models
     public class RegisterModel : VWebPage
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Email", Description = "This will be used to log into system.")]
         public string UserName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", Description = "Please, use strong password for security reasons.")]
         public string Password { get; set; }
 
+        [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Confirm password", Description = "Password confirmation is used to avoid mistypings.")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Company name")]
+        public string CompanyName { get; set; }
+
+        [Display(Name = "Other information", Description = "Write any information, that you may think will be useful for us to know about you.")]
+        public string OtherInfo { get; set; }
     }
 
     public class ExternalLogin

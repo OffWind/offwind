@@ -2274,6 +2274,7 @@
     <Content Include="Views\Shared\EditorTemplates\CKFinder.cshtml" />
     <Content Include="Views\Shared\__CKEditor.cshtml" />
     <Content Include="Views\Shared\__MainMenu.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

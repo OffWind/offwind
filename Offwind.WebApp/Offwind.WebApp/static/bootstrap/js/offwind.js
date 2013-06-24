@@ -1,8 +1,8 @@
 var Utils = { };
 
-Utils.GetWindowSize = function () {
+Utils.GetWindowSize = function() {
     var myWidth = 0, myHeight = 0;
-    if (typeof (window.innerWidth) == 'number') {
+    if (typeof(window.innerWidth) == 'number') {
         //Non-IE
         myWidth = window.innerWidth;
         myHeight = window.innerHeight;
@@ -17,4 +17,16 @@ Utils.GetWindowSize = function () {
     }
 
     return { width: myWidth, height: myHeight };
-}
+};
+
+$(document).ready(function() {
+
+    // === Tooltips === //
+    $('.tip').tooltip();
+    $('.tip-left').tooltip({ placement: 'left' });
+    $('.tip-right').tooltip({ placement: 'right' });
+    $('.tip-top').tooltip({ placement: 'top' });
+    $('.tip-bottom').tooltip({ placement: 'bottom' });
+
+});
+

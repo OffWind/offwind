@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Xml.Serialization;
@@ -63,6 +64,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ViewBag.SectionTitle = SectionTitle;
             ViewBag.ShortTitle = ShortTitle ?? Title;
             ViewBag.Title = String.Format("{0} | {1} | CFD | Offwind", Title ?? ShortTitle, SectionTitle);
+            ViewBag.Version = WebConfigurationManager.AppSettings["AppVersion"];
             ViewBag.IsAdmin = Roles.GetRolesForUser(filterContext.HttpContext.User.Identity.Name).Contains("Admin");
 
             InitNavigation();

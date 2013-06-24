@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using Offwind.WebApp.Infrastructure.Navigation;
@@ -15,6 +16,7 @@ namespace Offwind.WebApp.Areas.Library.Controllers
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             base.OnActionExecuted(filterContext);
+            ViewBag.Version = WebConfigurationManager.AppSettings["AppVersion"];
             ViewBag.IsAdmin = Roles.GetRolesForUser(filterContext.HttpContext.User.Identity.Name).Contains("Admin");
 
             if (!_noNavigation)

@@ -45,6 +45,7 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
                     ViewBag.Title += ": " + a.DisplayName;
             }
 
+            ViewBag.Version = WebConfigurationManager.AppSettings["AppVersion"];
             base.OnActionExecuting(filterContext);
         }
 

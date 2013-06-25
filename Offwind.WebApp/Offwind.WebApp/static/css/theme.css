@@ -478,60 +478,7 @@ input[type="password"] {
   background-clip: padding-box;
 }
 /*Alerts*/
-.alert {
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  padding: .25em 1em;
-  border: 1px solid #f2e187;
-  background: #f7ecb5;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f7ecb5), color-stop(1, #fcf8e3));
-  background: -ms-linear-gradient(bottom, #f7ecb5, #fcf8e3);
-  background: -moz-linear-gradient(center bottom, #f7ecb5 0%, #fcf8e3 100%);
-  background: -o-linear-gradient(bottom, #f7ecb5, #fcf8e3);
-  filter: none;
-  filter: progid:dximagetransform.microsoft.gradient(startColorStr='#444444', EndColorStr='#555555');
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fcf8e3',EndColorStr='#f7ecb5')";
-}
-.alert .close {
-  right: -0.25em;
-}
-.alert.alert-error {
-  border: 1px solid #c77070;
-  background: #d59595;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #d59595), color-stop(1, #e4b9b9));
-  background: -ms-linear-gradient(bottom, #d59595, #e4b9b9);
-  background: -moz-linear-gradient(center bottom, #d59595 0%, #e4b9b9 100%);
-  background: -o-linear-gradient(bottom, #d59595, #e4b9b9);
-  filter: none;
-  filter: progid:dximagetransform.microsoft.gradient(startColorStr='#444444', EndColorStr='#555555');
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#e4b9b9',EndColorStr='#d59595')";
-}
-.alert.alert-info {
-  border: 1px solid #85c5e5;
-  background: #afd9ee;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #afd9ee), color-stop(1, #d9edf7));
-  background: -ms-linear-gradient(bottom, #afd9ee, #d9edf7);
-  background: -moz-linear-gradient(center bottom, #afd9ee 0%, #d9edf7 100%);
-  background: -o-linear-gradient(bottom, #afd9ee, #d9edf7);
-  filter: none;
-  filter: progid:dximagetransform.microsoft.gradient(startColorStr='#444444', EndColorStr='#555555');
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#d9edf7',EndColorStr='#afd9ee')";
-}
-.alert.alert-success {
-  border: 1px solid #a3d48e;
-  background: #c1e2b3;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #c1e2b3), color-stop(1, #dff0d8));
-  background: -ms-linear-gradient(bottom, #c1e2b3, #dff0d8);
-  background: -moz-linear-gradient(center bottom, #c1e2b3 0%, #dff0d8 100%);
-  background: -o-linear-gradient(bottom, #c1e2b3, #dff0d8);
-  filter: none;
-  filter: progid:dximagetransform.microsoft.gradient(startColorStr='#444444', EndColorStr='#555555');
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#dff0d8',EndColorStr='#c1e2b3')";
-}
+
 /*Error Pages*/
 .http-error {
   margin-top: 5em;
@@ -722,4 +669,8 @@ input[type="password"] {
 {
     margin-left: 5em;
     margin-right: 2em;
+}
+fieldset .control-group
+{
+    margin-left: 1em;
 }

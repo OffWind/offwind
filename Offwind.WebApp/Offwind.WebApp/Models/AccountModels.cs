@@ -55,12 +55,12 @@ namespace Offwind.WebApp.Models
     public class LoginModel : VWebPage
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Email")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password", Description = "Please, use strong password for security reasons.")]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
         [Display(Name = "Remember me?")]
@@ -70,7 +70,7 @@ namespace Offwind.WebApp.Models
     public class RegisterModel : VWebPage
     {
         [Required]
-        [Display(Name = "Email", Description = "This will be used to log into system.")]
+        [Display(Name = "Email", Description = "This will be used for logging into system.")]
         public string UserName { get; set; }
 
         [Required]

@@ -4,41 +4,37 @@
 @{
     ViewBag.Title = "Authentication";
 }
+<div class="row-fluid row-content-block">
+    <div class="span6 well">
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.BootstrapValidationSummary()
 
-<h3>@ViewBag.Title</h3>
-
-<p>Please, log in to system in order to use Offwind online tools. You can register if you don't have an account yet.</p>
-
-@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.BootstrapValidationSummary()
-
-    <fieldset>
-        <div class="control-group">
-            <label class="control-label" for="UserName">User name</label>
-            <div class="controls">
-                <input type="text" class="" id="UserName" name="UserName" value="@Model.UserName"/>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="Password">Password</label>
-            <div class="controls">
-                <input type="password" class="" id="Password" name="Password" value="@Model.Password"/>
-            </div>
-        </div>
-        @*<div class="control-group">
-            <label class="control-label" for="RememberMe">Remember me</label>
-            <div class="controls">
-                @Html.CheckBoxFor(m => m.RememberMe)
-                <input type="checkbox" class="" id="RememberMe" name="RememberMe" value="@Model.RememberMe"/>
-            </div>
-        </div>*@
-        
+        <fieldset>
+            <legend>Login</legend>
+            @Html.EditorFor(m => m.UserName)
+            @Html.EditorFor(m => m.Password)
+            @*@Html.EditorFor(m => m.RememberMe)*@
+        </fieldset>
         <input type="submit" class="btn btn-primary btn-large" value="Log in" />
-        or <a class="btn btn-success btn-large" href="@Url.Action("Register", "Account")">Register</a>
-    </fieldset>
-}
+    }
+    </div>
+    <div class="span6 well">
+        <h1>Log into Offwind</h1>
+        <p>You are here, because some of your actions require to be authorized. Please, use your existing account and password.
+        </p>
+        <h2>New user?</h2>
+        <p>You can create a new account if don't have one yet. The registration is simple and will take you not more than 3 minutes.</p>
+        <a class="btn btn-success btn-large" href="@Url.Action("Register", "Account")">Register</a> 
+        @*<h2>Forgot your password?</h2>
+        <p>Please, use this</p>*@
+    </div>
+</div>
+
+
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

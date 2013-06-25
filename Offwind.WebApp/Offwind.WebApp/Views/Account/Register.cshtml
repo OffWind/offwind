@@ -1,4 +1,5 @@
-﻿@model Offwind.WebApp.Models.RegisterModel
+﻿@using Offwind.WebApp.Infrastructure
+@model Offwind.WebApp.Models.RegisterModel
 @{
     ViewBag.Title = "Register";
 }
@@ -7,9 +8,7 @@
     <div class="span6 well">
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-        <div class="alert alert-error">
-            @Html.ValidationSummary()
-        </div>
+        @Html.BootstrapValidationSummary()
 
         <fieldset>
             <legend>Required fields</legend>
@@ -34,13 +33,14 @@
         <p>By registering you will get an access to tools and additional materials.
         Offwind can also inform you about interesting events and features if you subscribe for it.</p>
 
-        <h2>Is it safe?</h2>
-        <p>It is absolutely safe. We don't send unnecessary things to your email unless you request it.
-        Passwords are saved in encrypted form, which makes it proof to compromise.</p>
-
         <h2>Is it easy?</h2>
         <p>The registration process is very simple. After you enter
-        email and password (and probably additional information about you and your company) you will be notified by email for confirmation. That's it!</p>
+            email and password (and probably additional information about you and your company) you will be notified by email for confirmation.</p>
+            
+        <h2>Optional info</h2>
+        <p>We are asking to provide some more information about you and your company. This will help
+        us to make our tools better suit your needs.</p>
+
     </div>
 </div>
 

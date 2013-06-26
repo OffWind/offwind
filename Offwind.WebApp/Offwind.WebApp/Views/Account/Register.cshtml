@@ -3,34 +3,50 @@
     ViewBag.Title = "Register";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
-</hgroup>
+<style>
+    fieldset .control-group
+    {
+        margin-left: 1em;
+    }
+</style>
+<div class="row-fluid row-content-block">
+    <div class="span6 well">
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
+        <fieldset>
+            <legend>Required fields</legend>
+            @Html.EditorFor(m => m.UserName)
+            @Html.EditorFor(m => m.Password)
+            @Html.EditorFor(m => m.ConfirmPassword)
+        </fieldset>
 
-    <fieldset>
-        <legend>Registration Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        <input type="submit" value="Register" />
-    </fieldset>
-}
+        <fieldset>
+            <legend>Optional fields</legend>
+            @Html.EditorFor(m => m.CompanyName)
+            @Html.EditorFor(m => m.OtherInfo)
+        </fieldset>
+
+        <input type="submit" class="btn btn-primary btn-large" value="Register" />
+    }
+    </div>
+    <div class="span6 well">
+        <h1>Registration at Offwind</h1>
+
+        <h2>Why would you register?</h2>
+        <p>By registering you will get an access to tools and additional materials.
+        Offwind can also inform you about interesting events and features if you subscribe for it.</p>
+
+        <h2>Is it safe?</h2>
+        <p>It is absolutely safe. We don't send unnecessary things to your email unless you request it.
+        Passwords are saved in encrypted form, which makes it proof to compromise.</p>
+
+        <h2>Is it easy?</h2>
+        <p>The registration process is very simple. After you enter
+        email and password (and probably additional information about you and your company) you will be notified by email for confirmation. That's it!</p>
+    </div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

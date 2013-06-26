@@ -1,8 +1,33 @@
 ﻿<ul class="nav pull-right">
-    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a></li>
-    <li><a href="@Url.Action("Index", "CFD", new { area = "CFD" })">Advanced Tools</a></li>
+
     <li><a href="@Url.Action("Index", "HomePartners", new { area = "Partners" })">Partners</a></li>
-    
+    <li><a href="@Url.Action("Index", "HomeLibrary", new { area = "Library" })">Library</a></li>
+
+    <li id="fat-menu" class="dropdown">
+        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+            Tools <i class="icon-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a></li>
+                <li class="divider"></li>
+            <li><a href="@Url.Action("Index", "CFD", new { area = "CFD" })">Advanced Tools</a></li>
+        </ul>
+    </li>
+
+    <li id="fat-menu" class="dropdown">
+        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+            Management <i class="icon-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("Mailing", "Mailing", new { area = "" })">Mailing</a></li>
+            @if (ViewBag.IsAdmin)
+            {
+                <li class="divider"></li>
+                <li><a href="@Url.Action("Index", "HomeMgmt", new { area = "ControlPanel" })">Control panel</a></li>
+            }
+        </ul>
+    </li>
+
     @if (Request.IsAuthenticated)
     {
         <li id="fat-menu" class="dropdown">
@@ -12,14 +37,8 @@
             </a>
             <ul class="dropdown-menu">
                 <li><a href="@Url.Action("Profile", "Account", new {area = ""})">Profile</a></li>
-                <li><a href="javascript: window.open('@Url.Action("Mailing", "Mailing", new { area = "" })');">Mailing</a></li>
                 <li class="divider"></li>
                 <li><a href="@Url.Action("LogOff", "Account", new {area = ""})">Sign Out</a></li>
-                @if (ViewBag.IsAdmin)
-                {
-                    <li class="divider"></li>
-                    <li><a href="@Url.Action("Index", "HomeMgmt", new { area = "ControlPanel" })">Content management</a></li>
-                }
             </ul>
         </li>
     }
@@ -27,7 +46,7 @@
     {
         <li id="fat-menu" class="dropdown">
             <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-user"></i> Anonymous
+                <i class="icon-user"></i> Log in
                 <i class="icon-caret-down"></i>
             </a>
             <ul class="dropdown-menu">

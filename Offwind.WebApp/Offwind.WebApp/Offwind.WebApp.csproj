@@ -246,6 +246,12 @@
     <Compile Include="Areas\EngineeringTools\Models\WindWave\VAdvancedCfd.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WindWave\VPowerOutput.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WindWave\VWindWave.cs" />
+    <Compile Include="Areas\Library\Controllers\HomeLibraryController.cs" />
+    <Compile Include="Areas\Library\Controllers\_BaseController.cs" />
+    <Compile Include="Areas\Library\KnowledgeBaseAreaRegistration.cs" />
+    <Compile Include="Areas\Partners\Controllers\HomePartnersController.cs" />
+    <Compile Include="Areas\Partners\Controllers\_BaseController.cs" />
+    <Compile Include="Areas\Partners\PartnersAreaRegistration.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\CFD\Controllers\CaseManagementController.cs" />
@@ -1906,12 +1912,15 @@
     <Content Include="Views\Home\Contacts.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Library\Models\" />
+    <Folder Include="Areas\Library\Views\Shared\" />
+    <Folder Include="Areas\Partners\Models\" />
+    <Folder Include="Areas\Partners\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -2080,6 +2089,12 @@
     <Content Include="Areas\ControlPanel\Views\Users\Edit.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Users\Add.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\UserRole.cshtml" />
+    <Content Include="Areas\Partners\Views\HomePartners\Index.cshtml" />
+    <Content Include="Areas\Partners\Views\Web.config" />
+    <Content Include="Areas\Partners\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Library\Views\Web.config" />
+    <Content Include="Areas\Library\Views\HomeLibrary\Index.cshtml" />
+    <Content Include="Areas\Library\Views\_ViewStart.cshtml" />
     <None Include="static\.DS_Store" />
     <None Include="static\ckeditor\CHANGES.md" />
     <None Include="static\ckeditor\LICENSE.md" />
@@ -2258,6 +2273,8 @@
     <Content Include="Views\Shared\EditorTemplates\RtfEditor.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CKFinder.cshtml" />
     <Content Include="Views\Shared\__CKEditor.cshtml" />
+    <Content Include="Views\Shared\__MainMenu.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

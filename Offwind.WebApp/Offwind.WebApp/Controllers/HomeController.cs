@@ -7,7 +7,9 @@ namespace Offwind.WebApp.Controllers
     {
         public ActionResult Index()
         {
-            return View(new VWebPage());
+            var m = new VWebPage();
+            m.BrowserTitle = "Offwind - prediction tools for offshore wind energy generation";
+            return View(m);
         }
 
         public ActionResult Contacts()

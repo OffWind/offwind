@@ -2,9 +2,15 @@
 @{
     var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
     var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
+    var description = ViewData.ModelMetadata.Description;
 }
 <div class="control-group" id="@("EditorFor_" + fieldName)">
-    <label class="control-label" for="@fieldName">@displayName <i class="icon-question-sign"></i></label>
+    <label class="control-label" for="@fieldName">@displayName
+        @if (description != null && description.Trim().Length > 0)
+        {
+            <i class="icon-question-sign tip-right" title="@description"></i>
+        }
+    </label>
     <div class="controls">
         <input type="text" class="inputmask decimal" id="@fieldName" name="@fieldName" placeholder="0.0" value="@Model" autocomplete="off" />
     </div>

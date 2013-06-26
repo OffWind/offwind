@@ -1,40 +1,18 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model Offwind.WebApp.Models.VWebPage
+@{
+    ViewBag.Title = Model.BrowserTitle;
 }
 <div class="row-fluid row-content-block">
-    <div class="span12 well">
-        <h1>Offwind</h1>
-        <p>Prediction tools for Offshore wind energy generation.</p>
-        <p>
-            The flow of wind between windmills is influenced by other windmills – both on a small and large scale wind farm.
-            So predicting the interaction between wind farms and turbines becomes important for optimized wind energy 
-            production or large installations offshore.
+    <div class="span6 well sub-block-fixed">
+        <h1>About Offwind</h1>
+        <p>Offwind - is a set of prediction tools for offshore wind energy generation. It
+            is being actively developed by Offwind group which consists of several partners from
+            different countries in Europe.
         </p>
-    </div>
-</div>
-<div class="row-fluid row-content-block">
-    <div class="span6 well sub-block-fixed">
-        <h4>Engineering Tools</h4>
-        <p>Run a number of tools which will help you to make quick calculations and estimations.</p>
-        <a class="btn btn-info btn-large " href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Go to Engineering Tools &raquo;</a>
+        <a class="" href="@Url.Action("Index", "About", new { area = "" })">Read more...</a>
     </div>
     <div class="span6 well sub-block-fixed">
-        <h4>Advanced Tools</h4>
-        <p>
-            Utilize a power of CFD simulations based on OpenFOAM standard solvers. The simulations are being
-            run at Offwind's backend servers.
-        </p>
-        <a class="btn btn-info btn-large " href="@Url.Action("Index", "CFD", new { area = "CFD" })">Go to Advanced Tools &raquo;</a>
-    </div>
-</div>
-<div class="row-fluid row-content-block">
-    <div class="span6 well sub-block-fixed">
-        <h4>Partners</h4>
-        <p>A dedicated section for Offwind partners. Schedule, meetings, events and non-public materials.</p>
-        <a class="btn btn-info btn-large " href="@Url.Action("Index", "HomePartners", new { area = "Partners" })">Go to Partners &raquo;</a>
-    </div>
-    <div class="span6 well sub-block-fixed">
-        <h4>Contact us</h4>
+        <h2>Contact us</h2>
         <p>Jafar Mahmoudi, PhD<br/>
             Chief Scientist at IRIS, Professor II at UiS<br/>
             Office: (+47) 518 750 92<br/>
@@ -44,13 +22,43 @@
     </div>
 </div>
 <div class="row-fluid row-content-block">
+    <div class="span6 well sub-block-fixed">
+        <h2>Engineering Tools</h2>
+        <p>Run a number of tools which will help you to make quick calculations and estimations.
+         <i class="tip-right icon-info-sign" data-toggle="tooltip" title="A registration is required"></i>
+        </p>
+        <a class="btn btn-info btn " href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Go to Engineering Tools &raquo;</a>
+    </div>
+    <div class="span6 well sub-block-fixed">
+        <h2>Advanced Tools</h2>
+        <p>
+            Utilize a power of CFD simulations based on OpenFOAM standard solvers. The simulations are being
+            run at Offwind's backend servers.
+             <i class="tip-right icon-info-sign" data-toggle="tooltip" title="A registration is required"></i>
+        </p>
+        <a class="btn btn-info btn" href="@Url.Action("Index", "CFD", new { area = "CFD" })">Go to Advanced Tools &raquo;</a>
+    </div>
+</div>
+<div class="row-fluid row-content-block">
+    <div class="span6 well sub-block-fixed">
+        <h2>Partners area</h2>
+        <p>A dedicated section for Offwind partners. Schedule, meetings, events and non-public materials.</p>
+        <a class="btn btn-info btn" href="@Url.Action("Index", "HomePartners", new { area = "Partners" })">Go to Partners area &raquo;</a>
+    </div>
+    <div class="span6 well sub-block-fixed">
+        <h2>Library</h2>
+        <p>Here we collect different materials, articles, publications and manuals that can be interesting and helpful.</p>
+        <a class="btn btn-info btn" href="@Url.Action("Index", "HomeLibrary", new { area = "Library" })">Go to Library &raquo;</a>
+    </div>
+</div>
+<div class="row-fluid row-content-block">
     <div class="span12 well">
-        <h4>Latest news</h4>
+        <h2>Latest posts</h2>
         <div class="row-fluid">
             <div class="span4">
-                <h5>Added new version of MesoScale tool</h5>
+                <h4>Added new version of MesoScale tool</h4>
                 <p>A dedicated section for Offwind partners. Schedule, meetings, events and non-public materials.</p>
-                <a class="" href="@Url.Action("Index", "HomePartners", new { area = "Partners" })">Go to Partners &raquo;</a>
+                <a class="" href="@Url.Action("Index", "HomePartners", new { area = "Blog" })">Read more...</a>
             </div>
         </div>
     </div>

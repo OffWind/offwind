@@ -16,8 +16,8 @@ namespace Offwind.WebApp.Areas.Partners
         {
             context.MapRoute(
                 "Partners_default",
-                "Partners/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                "partners/{controller}/{action}/{id}",
+                new { action = "Index", controller = "HomePartners", id = UrlParameter.Optional }
             );
         }
     }

@@ -11,8 +11,11 @@
           <EntitySet Name="DContentTypes" EntityType="u254697_offwindModel.Store.DContentTypes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DJob" EntityType="u254697_offwindModel.Store.DJob" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DUserProfile" EntityType="u254697_offwindModel.Store.DUserProfile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Log" EntityType="u254697_offwindModel.Store.Log" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MesoscaleDatabases" EntityType="u254697_offwindModel.Store.MesoscaleDatabases" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MesoscaleTabFiles" EntityType="u254697_offwindModel.Store.MesoscaleTabFiles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Pages" EntityType="u254697_offwindModel.Store.Pages" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="u254697_offwindModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_Membership" EntityType="u254697_offwindModel.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="u254697_offwindModel.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_Roles" EntityType="u254697_offwindModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
@@ -28,6 +31,18 @@
           <AssociationSet Name="FK_DContent_DContentTypes" Association="u254697_offwindModel.Store.FK_DContent_DContentTypes">
             <End Role="DContentTypes" EntitySet="DContentTypes" />
             <End Role="DContent" EntitySet="DContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUserProfile_webpages_Membership" Association="u254697_offwindModel.Store.FK_DUserProfile_webpages_Membership">
+            <End Role="webpages_Membership" EntitySet="webpages_Membership" />
+            <End Role="DUserProfile" EntitySet="DUserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_webpages_UsersInRoles_DUserProfile" Association="u254697_offwindModel.Store.FK_webpages_UsersInRoles_DUserProfile">
+            <End Role="DUserProfile" EntitySet="DUserProfile" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_webpages_UsersInRoles_webpages_Roles" Association="u254697_offwindModel.Store.FK_webpages_UsersInRoles_webpages_Roles">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="DCase">
@@ -83,7 +98,21 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Info" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Thread" Type="varchar" Nullable="false" MaxLength="1000" />
+          <Property Name="Level" Type="varchar" Nullable="false" MaxLength="1000" />
+          <Property Name="Logger" Type="varchar" Nullable="false" MaxLength="1000" />
+          <Property Name="Message" Type="varchar" Nullable="false" />
+          <Property Name="Exception" Type="varchar" />
         </EntityType>
         <EntityType Name="MesoscaleDatabases">
           <Key>
@@ -101,6 +130,36 @@
           <Property Name="Latitude" Type="decimal" Nullable="false" Scale="4" />
           <Property Name="Longitude" Type="decimal" Nullable="false" Scale="4" />
           <Property Name="Text" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Slug" Type="varchar" MaxLength="250" />
+          <Property Name="PageType" Type="varchar" MaxLength="20" />
+          <Property Name="PageTitle" Type="nvarchar" MaxLength="1050" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Announce" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Text" Type="ntext" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Updated" Type="datetime" Nullable="false" />
+          <Property Name="Published" Type="datetime" Nullable="false" />
+          <Property Name="HomePage" Type="bit" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="250" />
+          <Property Name="Priority" Type="int" />
+          <Property Name="IsPublished" Type="bit" Nullable="false" />
+          <Property Name="Votes" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -144,7 +203,7 @@
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'u254697_offwind.dbo.SmallMesoscaleTabFiles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'offwind.dbo.SmallMesoscaleTabFiles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="SmallMesoscaleTabFiles">
           <Key>
@@ -170,28 +229,74 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DUserProfile_webpages_Membership">
+          <End Role="webpages_Membership" Type="u254697_offwindModel.Store.webpages_Membership" Multiplicity="1" />
+          <End Role="DUserProfile" Type="u254697_offwindModel.Store.DUserProfile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Membership">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="DUserProfile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_webpages_UsersInRoles_DUserProfile">
+          <End Role="DUserProfile" Type="u254697_offwindModel.Store.DUserProfile" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="u254697_offwindModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_webpages_UsersInRoles_webpages_Roles">
+          <End Role="webpages_Roles" Type="u254697_offwindModel.Store.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="u254697_offwindModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Offwind.DbModels" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="OffwindEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DCases" EntityType="Offwind.DbModels.DCase" />
+          <EntitySet Name="DContents" EntityType="Offwind.DbModels.DContent" />
+          <EntitySet Name="DContentTypes" EntityType="Offwind.DbModels.DContentType" />
           <EntitySet Name="DJobs" EntityType="Offwind.DbModels.DJob" />
+          <EntitySet Name="DUserProfiles" EntityType="Offwind.DbModels.DUserProfile" />
+          <EntitySet Name="Logs" EntityType="Offwind.DbModels.Log" />
           <EntitySet Name="MesoscaleDatabases" EntityType="Offwind.DbModels.MesoscaleDatabas" />
           <EntitySet Name="MesoscaleTabFiles" EntityType="Offwind.DbModels.MesoscaleTabFile" />
+          <EntitySet Name="Pages" EntityType="Offwind.DbModels.Page" />
+          <EntitySet Name="sysdiagrams" EntityType="Offwind.DbModels.sysdiagram" />
+          <EntitySet Name="webpages_Membership" EntityType="Offwind.DbModels.webpages_Membership" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="Offwind.DbModels.webpages_OAuthMembership" />
+          <EntitySet Name="webpages_Roles" EntityType="Offwind.DbModels.webpages_Roles" />
           <EntitySet Name="SmallMesoscaleTabFiles" EntityType="Offwind.DbModels.SmallMesoscaleTabFile" />
-          <EntitySet Name="DContentTypes" EntityType="Offwind.DbModels.DContentType" />
-          <EntitySet Name="DContents" EntityType="Offwind.DbModels.DContent" />
           <AssociationSet Name="FK_DContent_DContentTypes" Association="Offwind.DbModels.FK_DContent_DContentTypes">
             <End Role="DContentType" EntitySet="DContentTypes" />
             <End Role="DContent" EntitySet="DContents" />
           </AssociationSet>
-          <EntitySet Name="webpages_OAuthMembership" EntityType="Offwind.DbModels.webpages_OAuthMembership" />
-          <EntitySet Name="DUserProfiles" EntityType="Offwind.DbModels.DUserProfile" />
-          <EntitySet Name="webpages_Membership" EntityType="Offwind.DbModels.webpages_Membership" />
-          <EntitySet Name="webpages_Roles" EntityType="Offwind.DbModels.webpages_Roles" />
-          <EntitySet Name="webpages_UsersInRoles" EntityType="Offwind.DbModels.webpages_UsersInRoles" />
-          </EntityContainer>
+          <AssociationSet Name="FK_DUserProfile_webpages_Membership" Association="Offwind.DbModels.FK_DUserProfile_webpages_Membership">
+            <End Role="webpages_Membership" EntitySet="webpages_Membership" />
+            <End Role="DUserProfile" EntitySet="DUserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="webpages_UsersInRoles" Association="Offwind.DbModels.webpages_UsersInRoles">
+            <End Role="DUserProfile" EntitySet="DUserProfiles" />
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="DCase">
           <Key>
             <PropertyRef Name="Id" />
@@ -202,56 +307,6 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Model" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="CurrentJobId" />
-        </EntityType>
-        <EntityType Name="DJob">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="DateTime" Name="Started" Nullable="false" />
-          <Property Type="DateTime" Name="RunningSince" />
-          <Property Type="DateTime" Name="Finished" />
-          <Property Type="String" Name="Owner" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="State" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Result" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ResultData" MaxLength="4000" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="MesoscaleDatabas">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int16" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="MesoscaleTabFile">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
-          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="SmallMesoscaleTabFile">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="DatabaseId" />
-            <PropertyRef Name="Latitude" />
-            <PropertyRef Name="Longitude" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
-          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
-        </EntityType>
-        <EntityType Name="DContentType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DContents" Relationship="Offwind.DbModels.FK_DContent_DContentTypes" FromRole="DContentType" ToRole="DContent" />
         </EntityType>
         <EntityType Name="DContent">
           <Key>
@@ -271,33 +326,96 @@
           <Property Type="Boolean" Name="IsPublished" Nullable="false" />
           <NavigationProperty Name="DContentType" Relationship="Offwind.DbModels.FK_DContent_DContentTypes" FromRole="DContent" ToRole="DContentType" />
         </EntityType>
-        <Association Name="FK_DContent_DContentTypes">
-          <End Type="Offwind.DbModels.DContentType" Role="DContentType" Multiplicity="1" />
-          <End Type="Offwind.DbModels.DContent" Role="DContent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DContentType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DContent">
-              <PropertyRef Name="TypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="webpages_OAuthMembership">
+        <EntityType Name="DContentType">
           <Key>
-            <PropertyRef Name="Provider" />
-            <PropertyRef Name="ProviderUserId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Type="String" Name="Provider" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ProviderUserId" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DContents" Relationship="Offwind.DbModels.FK_DContent_DContentTypes" FromRole="DContentType" ToRole="DContent" />
+        </EntityType>
+        <EntityType Name="DJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="Started" Nullable="false" />
+          <Property Type="DateTime" Name="RunningSince" />
+          <Property Type="DateTime" Name="Finished" />
+          <Property Type="String" Name="Owner" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="State" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Result" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ResultData" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DUserProfile">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="UserName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CompanyName" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Info" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="webpages_Membership" Relationship="Offwind.DbModels.FK_DUserProfile_webpages_Membership" FromRole="DUserProfile" ToRole="webpages_Membership" />
+          <NavigationProperty Name="webpages_Roles" Relationship="Offwind.DbModels.webpages_UsersInRoles" FromRole="DUserProfile" ToRole="webpages_Roles" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="String" Name="Thread" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Level" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Logger" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Message" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Exception" MaxLength="8000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MesoscaleDatabas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int16" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MesoscaleTabFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
+          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Slug" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PageType" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PageTitle" MaxLength="1050" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Title" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Announce" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Text" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Created" Nullable="false" />
+          <Property Type="DateTime" Name="Updated" Nullable="false" />
+          <Property Type="DateTime" Name="Published" Nullable="false" />
+          <Property Type="Boolean" Name="HomePage" Nullable="false" />
+          <Property Type="String" Name="Url" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Priority" />
+          <Property Type="Boolean" Name="IsPublished" Nullable="false" />
+          <Property Type="Int32" Name="Votes" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="principal_id" Nullable="false" />
+          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="version" />
+          <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -315,6 +433,16 @@
           <Property Type="String" Name="PasswordVerificationToken" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="PasswordVerificationTokenExpirationDate" />
           <Property Type="String" Name="Email" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DUserProfile" Relationship="Offwind.DbModels.FK_DUserProfile_webpages_Membership" FromRole="webpages_Membership" ToRole="DUserProfile" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Type="String" Name="Provider" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProviderUserId" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
         </EntityType>
         <EntityType Name="webpages_Roles">
           <Key>
@@ -322,15 +450,48 @@
           </Key>
           <Property Type="Int32" Name="RoleId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DUserProfiles" Relationship="Offwind.DbModels.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="DUserProfile" />
         </EntityType>
-        <EntityType Name="webpages_UsersInRoles">
+        <EntityType Name="SmallMesoscaleTabFile">
           <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DatabaseId" />
+            <PropertyRef Name="Latitude" />
+            <PropertyRef Name="Longitude" />
           </Key>
-          <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
+          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
         </EntityType>
+        <Association Name="FK_DContent_DContentTypes">
+          <End Type="Offwind.DbModels.DContentType" Role="DContentType" Multiplicity="1" />
+          <End Type="Offwind.DbModels.DContent" Role="DContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DContentType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DContent">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUserProfile_webpages_Membership">
+          <End Type="Offwind.DbModels.webpages_Membership" Role="webpages_Membership" Multiplicity="1" />
+          <End Type="Offwind.DbModels.DUserProfile" Role="DUserProfile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Membership">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="DUserProfile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="webpages_UsersInRoles">
+          <End Type="Offwind.DbModels.DUserProfile" Role="DUserProfile" Multiplicity="*" />
+          <End Type="Offwind.DbModels.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -349,6 +510,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DContents">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DContent">
+              <MappingFragment StoreEntitySet="DContent">
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+                <ScalarProperty Name="DisplayDateTime" ColumnName="DisplayDateTime" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Announce" ColumnName="Announce" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BrowserTitle" ColumnName="BrowserTitle" />
+                <ScalarProperty Name="Route" ColumnName="Route" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DContentTypes">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DContentType">
+              <MappingFragment StoreEntitySet="DContentTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DJobs">
             <EntityTypeMapping TypeName="Offwind.DbModels.DJob">
               <MappingFragment StoreEntitySet="DJob">
@@ -360,6 +546,29 @@
                 <ScalarProperty Name="Finished" ColumnName="Finished" />
                 <ScalarProperty Name="RunningSince" ColumnName="RunningSince" />
                 <ScalarProperty Name="Started" ColumnName="Started" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DUserProfiles">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DUserProfile">
+              <MappingFragment StoreEntitySet="DUserProfile">
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="Offwind.DbModels.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="Exception" ColumnName="Exception" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Logger" ColumnName="Logger" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Thread" ColumnName="Thread" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -383,55 +592,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SmallMesoscaleTabFiles">
-            <EntityTypeMapping TypeName="Offwind.DbModels.SmallMesoscaleTabFile">
-              <MappingFragment StoreEntitySet="SmallMesoscaleTabFiles">
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DContentTypes">
-            <EntityTypeMapping TypeName="Offwind.DbModels.DContentType">
-              <MappingFragment StoreEntitySet="DContentTypes">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DContents">
-            <EntityTypeMapping TypeName="Offwind.DbModels.DContent">
-              <MappingFragment StoreEntitySet="DContent">
+          <EntitySetMapping Name="Pages">
+            <EntityTypeMapping TypeName="Offwind.DbModels.Page">
+              <MappingFragment StoreEntitySet="Pages">
+                <ScalarProperty Name="Votes" ColumnName="Votes" />
                 <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
-                <ScalarProperty Name="DisplayDateTime" ColumnName="DisplayDateTime" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="HomePage" ColumnName="HomePage" />
+                <ScalarProperty Name="Published" ColumnName="Published" />
                 <ScalarProperty Name="Updated" ColumnName="Updated" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="Announce" ColumnName="Announce" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="BrowserTitle" ColumnName="BrowserTitle" />
-                <ScalarProperty Name="Route" ColumnName="Route" />
-                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+                <ScalarProperty Name="PageType" ColumnName="PageType" />
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="webpages_OAuthMembership">
-            <EntityTypeMapping TypeName="Offwind.DbModels.webpages_OAuthMembership">
-              <MappingFragment StoreEntitySet="webpages_OAuthMembership">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
-                <ScalarProperty Name="Provider" ColumnName="Provider" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DUserProfiles">
-            <EntityTypeMapping TypeName="Offwind.DbModels.DUserProfile">
-              <MappingFragment StoreEntitySet="DUserProfile">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Offwind.DbModels.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -453,6 +642,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="webpages_OAuthMembership">
+            <EntityTypeMapping TypeName="Offwind.DbModels.webpages_OAuthMembership">
+              <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="webpages_Roles">
             <EntityTypeMapping TypeName="Offwind.DbModels.webpages_Roles">
               <MappingFragment StoreEntitySet="webpages_Roles">
@@ -461,15 +659,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="webpages_UsersInRoles">
-            <EntityTypeMapping TypeName="Offwind.DbModels.webpages_UsersInRoles">
-              <MappingFragment StoreEntitySet="webpages_UsersInRoles">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <EntitySetMapping Name="SmallMesoscaleTabFiles">
+            <EntityTypeMapping TypeName="Offwind.DbModels.SmallMesoscaleTabFile">
+              <MappingFragment StoreEntitySet="SmallMesoscaleTabFiles">
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+          <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="Offwind.DbModels.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
+            <EndProperty Name="webpages_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="DUserProfile">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
@@ -490,23 +698,33 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Offwind">
-        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="0.75" PointY="0.75" Height="2.1725878906249996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="2.75" PointY="0.75" Height="2.7494921874999996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleDatabas" Width="1.5" PointX="0.75" PointY="4.75" Height="1.4033821614583317" />
-        <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleTabFile" Width="1.5" PointX="2.75" PointY="4.75" Height="1.9802864583333335" />
-        <EntityTypeShape EntityType="Offwind.DbModels.SmallMesoscaleTabFile" Width="1.5" PointX="5.375" PointY="0.75" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="8.5" PointY="1.25" Height="1.2110807291666674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="10.625" PointY="0.5" Height="3.5186979166666665" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="7.75" PointY="0.75" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="5" PointY="5" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="2.75" PointY="6" Height="1.4033821614583388" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="7.75" PointY="3.75" Height="2.7494921875000031" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="3" PointY="1.625" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="7.75" PointY="7.75" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleDatabas" Width="1.5" PointX="0.75" PointY="8.75" Height="1.4033821614583388" />
+        <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleTabFile" Width="1.5" PointX="9.75" PointY="0.75" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="2.75" PointY="9.75" Height="3.9033007812500031" />
+        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="9.75" PointY="3.75" Height="1.9802864583333282" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="0.75" PointY="1" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="4.75" PointY="9.75" Height="1.5956835937500102" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="5.25" PointY="2" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="Offwind.DbModels.SmallMesoscaleTabFile" Width="1.5" PointX="9.75" PointY="6.75" Height="1.7879850260416674" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" >
-          <ConnectorPoint PointX="10" PointY="1.951691080729167" />
-          <ConnectorPoint PointX="10.625" PointY="1.951691080729167" />
+          <ConnectorPoint PointX="4.25" PointY="6.7016910807291694" />
+          <ConnectorPoint PointX="5" PointY="6.7016910807291694" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="0.75" PointY="7.75" Height="1.5956835937500031" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="9.375" PointY="6.75" Height="1.4033821614583317" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="5.375" PointY="6.75" Height="3.1340950520833388" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="11.375" PointY="6.75" Height="1.4033821614583388" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_UsersInRoles" Width="1.5" PointX="7.375" PointY="6.75" Height="1.4033821614583388" />
-        </Diagram>
+        <AssociationConnector Association="Offwind.DbModels.FK_DUserProfile_webpages_Membership" >
+          <ConnectorPoint PointX="2.25" PointY="2.711293945312498" />
+          <ConnectorPoint PointX="3" PointY="2.711293945312498" />
+        </AssociationConnector>
+        <AssociationConnector Association="Offwind.DbModels.webpages_UsersInRoles" >
+          <ConnectorPoint PointX="4.5" PointY="2.797841796874998" />
+          <ConnectorPoint PointX="5.25" PointY="2.797841796874998" />
+        </AssociationConnector>
+      </Diagram>
     </Diagrams>
   </Designer>
 </edmx:Edmx>

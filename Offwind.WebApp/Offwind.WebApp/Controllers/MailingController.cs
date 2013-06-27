@@ -12,6 +12,7 @@ using WebMatrix.WebData;
 
 namespace Offwind.WebApp.Controllers
 {
+    [Authorize]
     public class MailingController : BaseController
     {
         public ActionResult Mailing()

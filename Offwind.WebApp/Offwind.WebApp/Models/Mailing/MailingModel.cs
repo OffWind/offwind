@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Offwind.WebApp.Models.Mailing
@@ -11,13 +12,13 @@ namespace Offwind.WebApp.Models.Mailing
 
         public List<string> Users { set; get; }
 
-        [DisplayName("Select recipients")]
+        [Display(Name = "Select recipients")]
         public List<string> SelectedUsers { set; get; }
 
-        [DisplayName("Subject")]
+        [Display(Name = "Subject")]
         public string Subject { set; get; }
 
-        [DisplayName("Message text")]
+        [Display(Name = "Message text")]
         public string MsgBody { set; get; }
 
         public MailingModel()

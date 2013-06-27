@@ -39,7 +39,7 @@ namespace Offwind.WebApp.Filters
                     }
                     if (!WebSecurity.Initialized)
                     {
-                        WebSecurity.InitializeDatabaseConnection("DefaultConnection", "DUserProfile", "UserId", "UserName", autoCreateTables: true);
+                        WebSecurity.InitializeDatabaseConnection("DefaultConnection", "DUserProfile", "UserId", "UserName", autoCreateTables: false);
                     }
                 }
                 catch (Exception ex)

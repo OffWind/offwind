@@ -2,6 +2,11 @@
 @{
     var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
     var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
+<<<<<<< HEAD
+}
+<div class="control-group" id="@("EditorFor_" + fieldName)">
+    <label class="control-label" for="@fieldName">@displayName </label>
+=======
     var description = ViewData.ModelMetadata.Description;
 }
 <div class="control-group" id="@("EditorFor_" + fieldName)">
@@ -11,6 +16,7 @@
             <i class="icon-question-sign tip-right" title="@description"></i>
         }
     </label>
+>>>>>>> f79707474d93b41637db4e4c52e459fa31344a47
     <div class="controls">
         <textarea type="text" class="ckeditor" id="@fieldName" name="@fieldName" placeholder="@ViewData.ModelMetadata.NullDisplayText">@Model</textarea>
     </div>

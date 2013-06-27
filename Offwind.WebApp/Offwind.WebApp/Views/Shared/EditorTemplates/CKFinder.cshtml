@@ -6,12 +6,16 @@
     var functionName = fieldName + "_BrowseServer()";
 }
 <div class="control-group" id="@("EditorFor_" + fieldName)">
+<<<<<<< HEAD
+    <label class="control-label" for="@fieldName">@displayName </label>
+=======
     <label class="control-label" for="@fieldName">@displayName
         @if (description != null && description.Trim().Length > 0)
         {
             <i class="icon-question-sign tip-right" title="@description"></i>
         }
     </label>
+>>>>>>> f79707474d93b41637db4e4c52e459fa31344a47
     <span class="help-block">@description</span>
     <div class="controls">
         <input type="text" class="span3" id="@fieldName" name="@fieldName" placeholder="@ViewData.ModelMetadata.NullDisplayText" value="@Model" autocomplete="off" />

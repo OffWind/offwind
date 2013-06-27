@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model object
 @{
     var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
     var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
@@ -12,6 +12,6 @@
         }
     </label>
     <div class="controls">
-        <textarea type="text" class="ckeditor" id="@fieldName" name="@fieldName" placeholder="@ViewData.ModelMetadata.NullDisplayText">@Model</textarea>
+        <input type="email" class="" id="@fieldName" name="@fieldName" placeholder="@ViewData.ModelMetadata.NullDisplayText" value="@Model" autocomplete="off"/>
     </div>
 </div>

@@ -56,6 +56,7 @@ namespace Offwind.WebApp.Models
     {
         [Required]
         [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
         public string UserName { get; set; }
 
         [Required]
@@ -71,6 +72,7 @@ namespace Offwind.WebApp.Models
     {
         [Required]
         [Display(Name = "Email", Description = "This will be used for logging into system.")]
+        [DataType(DataType.EmailAddress)]
         public string UserName { get; set; }
 
         [Required]

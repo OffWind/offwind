@@ -9,6 +9,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using Offwind.WebApp.Areas.ControlPanel.Tools;
+using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Infrastructure.Navigation;
 using Offwind.WebApp.Models;
 
@@ -66,7 +67,7 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
 
             ViewBag.SideNav = navigation;
 
-            ViewBag.IsAdmin = Roles.GetRolesForUser(filterContext.HttpContext.User.Identity.Name).Contains("Admin");
+            ViewBag.IsAdmin = AccountsHelper.IsAdmin(filterContext.HttpContext.User.Identity.Name);
         }
 
     }

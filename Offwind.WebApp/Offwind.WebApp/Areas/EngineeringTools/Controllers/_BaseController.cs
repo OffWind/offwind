@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
+using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Infrastructure.Navigation;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Account;
@@ -22,7 +23,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             base.OnActionExecuted(filterContext);
             ViewBag.Version = WebConfigurationManager.AppSettings["AppVersion"];
-            ViewBag.IsAdmin = Roles.GetRolesForUser(filterContext.HttpContext.User.Identity.Name).Contains("Admin");
+            ViewBag.IsAdmin = AccountsHelper.IsAdmin(filterContext.HttpContext.User.Identity.Name);
 
             if (!_noNavigation)
             {

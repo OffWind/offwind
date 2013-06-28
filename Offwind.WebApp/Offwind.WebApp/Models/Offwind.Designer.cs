@@ -75,6 +75,22 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<SmallMesoscaleTabFile> SmallMesoscaleTabFiles
+        {
+            get
+            {
+                if ((_SmallMesoscaleTabFiles == null))
+                {
+                    _SmallMesoscaleTabFiles = base.CreateObjectSet<SmallMesoscaleTabFile>("SmallMesoscaleTabFiles");
+                }
+                return _SmallMesoscaleTabFiles;
+            }
+        }
+        private ObjectSet<SmallMesoscaleTabFile> _SmallMesoscaleTabFiles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<DCase> DCases
         {
             get
@@ -279,25 +295,17 @@ namespace Offwind.WebApp.Models
             }
         }
         private ObjectSet<webpages_Roles> _webpages_Roles;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<SmallMesoscaleTabFile> SmallMesoscaleTabFiles
-        {
-            get
-            {
-                if ((_SmallMesoscaleTabFiles == null))
-                {
-                    _SmallMesoscaleTabFiles = base.CreateObjectSet<SmallMesoscaleTabFile>("SmallMesoscaleTabFiles");
-                }
-                return _SmallMesoscaleTabFiles;
-            }
-        }
-        private ObjectSet<SmallMesoscaleTabFile> _SmallMesoscaleTabFiles;
 
         #endregion
         #region AddTo Methods
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SmallMesoscaleTabFiles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSmallMesoscaleTabFiles(SmallMesoscaleTabFile smallMesoscaleTabFile)
+        {
+            base.AddObject("SmallMesoscaleTabFiles", smallMesoscaleTabFile);
+        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the DCases EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -401,14 +409,6 @@ namespace Offwind.WebApp.Models
         public void AddTowebpages_Roles(webpages_Roles webpages_Roles)
         {
             base.AddObject("webpages_Roles", webpages_Roles);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the SmallMesoscaleTabFiles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSmallMesoscaleTabFiles(SmallMesoscaleTabFile smallMesoscaleTabFile)
-        {
-            base.AddObject("SmallMesoscaleTabFiles", smallMesoscaleTabFile);
         }
 
         #endregion
@@ -1334,11 +1334,13 @@ namespace Offwind.WebApp.Models
         /// </summary>
         /// <param name="userId">Initial value of the UserId property.</param>
         /// <param name="userName">Initial value of the UserName property.</param>
-        public static DUserProfile CreateDUserProfile(global::System.Int32 userId, global::System.String userName)
+        /// <param name="isVerified">Initial value of the IsVerified property.</param>
+        public static DUserProfile CreateDUserProfile(global::System.Int32 userId, global::System.String userName, global::System.Boolean isVerified)
         {
             DUserProfile dUserProfile = new DUserProfile();
             dUserProfile.UserId = userId;
             dUserProfile.UserName = userName;
+            dUserProfile.IsVerified = isVerified;
             return dUserProfile;
         }
 
@@ -1399,6 +1401,30 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsVerified
+        {
+            get
+            {
+                return _IsVerified;
+            }
+            set
+            {
+                OnIsVerifiedChanging(value);
+                ReportPropertyChanging("IsVerified");
+                _IsVerified = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsVerified");
+                OnIsVerifiedChanged();
+            }
+        }
+        private global::System.Boolean _IsVerified;
+        partial void OnIsVerifiedChanging(global::System.Boolean value);
+        partial void OnIsVerifiedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String CompanyName
@@ -1443,6 +1469,30 @@ namespace Offwind.WebApp.Models
         private global::System.String _Info;
         partial void OnInfoChanging(global::System.String value);
         partial void OnInfoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String VerificationCode
+        {
+            get
+            {
+                return _VerificationCode;
+            }
+            set
+            {
+                OnVerificationCodeChanging(value);
+                ReportPropertyChanging("VerificationCode");
+                _VerificationCode = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("VerificationCode");
+                OnVerificationCodeChanged();
+            }
+        }
+        private global::System.String _VerificationCode;
+        partial void OnVerificationCodeChanging(global::System.String value);
+        partial void OnVerificationCodeChanged();
 
         #endregion
     

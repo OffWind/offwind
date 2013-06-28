@@ -99,6 +99,8 @@
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="IsVerified" Type="bit" Nullable="false" />
+          <Property Name="VerificationCode" Type="varchar" MaxLength="150" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="1000" />
           <Property Name="Info" Type="ntext" />
         </EntityType>
@@ -270,6 +272,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Offwind.DbModels" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="OffwindEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SmallMesoscaleTabFiles" EntityType="Offwind.DbModels.SmallMesoscaleTabFile" />
           <EntitySet Name="DCases" EntityType="Offwind.DbModels.DCase" />
           <EntitySet Name="DContents" EntityType="Offwind.DbModels.DContent" />
           <EntitySet Name="DContentTypes" EntityType="Offwind.DbModels.DContentType" />
@@ -283,7 +286,6 @@
           <EntitySet Name="webpages_Membership" EntityType="Offwind.DbModels.webpages_Membership" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Offwind.DbModels.webpages_OAuthMembership" />
           <EntitySet Name="webpages_Roles" EntityType="Offwind.DbModels.webpages_Roles" />
-          <EntitySet Name="SmallMesoscaleTabFiles" EntityType="Offwind.DbModels.SmallMesoscaleTabFile" />
           <AssociationSet Name="FK_DContent_DContentTypes" Association="Offwind.DbModels.FK_DContent_DContentTypes">
             <End Role="DContentType" EntitySet="DContentTypes" />
             <End Role="DContent" EntitySet="DContents" />
@@ -297,6 +299,18 @@
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="SmallMesoscaleTabFile">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DatabaseId" />
+            <PropertyRef Name="Latitude" />
+            <PropertyRef Name="Longitude" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
+          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
+        </EntityType>
         <EntityType Name="DCase">
           <Key>
             <PropertyRef Name="Id" />
@@ -353,10 +367,12 @@
           </Key>
           <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsVerified" Nullable="false" />
           <Property Type="String" Name="CompanyName" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Info" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="webpages_Membership" Relationship="Offwind.DbModels.FK_DUserProfile_webpages_Membership" FromRole="DUserProfile" ToRole="webpages_Membership" />
           <NavigationProperty Name="webpages_Roles" Relationship="Offwind.DbModels.webpages_UsersInRoles" FromRole="DUserProfile" ToRole="webpages_Roles" />
+          <Property Type="String" Name="VerificationCode" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Log">
           <Key>
@@ -452,18 +468,6 @@
           <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DUserProfiles" Relationship="Offwind.DbModels.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="DUserProfile" />
         </EntityType>
-        <EntityType Name="SmallMesoscaleTabFile">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="DatabaseId" />
-            <PropertyRef Name="Latitude" />
-            <PropertyRef Name="Longitude" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
-          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
-        </EntityType>
         <Association Name="FK_DContent_DContentTypes">
           <End Type="Offwind.DbModels.DContentType" Role="DContentType" Multiplicity="1" />
           <End Type="Offwind.DbModels.DContent" Role="DContent" Multiplicity="*" />
@@ -498,6 +502,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="u254697_offwindModelStoreContainer" CdmEntityContainer="OffwindEntities">
+          <EntitySetMapping Name="SmallMesoscaleTabFiles">
+            <EntityTypeMapping TypeName="Offwind.DbModels.SmallMesoscaleTabFile">
+              <MappingFragment StoreEntitySet="SmallMesoscaleTabFiles">
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DCases">
             <EntityTypeMapping TypeName="Offwind.DbModels.DCase">
               <MappingFragment StoreEntitySet="DCase">
@@ -553,8 +567,10 @@
           <EntitySetMapping Name="DUserProfiles">
             <EntityTypeMapping TypeName="Offwind.DbModels.DUserProfile">
               <MappingFragment StoreEntitySet="DUserProfile">
+                <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
                 <ScalarProperty Name="Info" ColumnName="Info" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
@@ -659,16 +675,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SmallMesoscaleTabFiles">
-            <EntityTypeMapping TypeName="Offwind.DbModels.SmallMesoscaleTabFile">
-              <MappingFragment StoreEntitySet="SmallMesoscaleTabFiles">
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="Offwind.DbModels.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
             <EndProperty Name="webpages_Roles">
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
@@ -698,31 +704,31 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Offwind">
-        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="7.75" PointY="0.75" Height="2.1725878906250031" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="5" PointY="5" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="2.75" PointY="6" Height="1.4033821614583388" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="7.75" PointY="3.75" Height="2.7494921875000031" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="3" PointY="1.625" Height="2.172587890624996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="7.75" PointY="7.75" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleDatabas" Width="1.5" PointX="0.75" PointY="8.75" Height="1.4033821614583388" />
-        <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleTabFile" Width="1.5" PointX="9.75" PointY="0.75" Height="1.9802864583333388" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="2.75" PointY="9.75" Height="3.9033007812500031" />
-        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="9.75" PointY="3.75" Height="1.9802864583333282" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="0.75" PointY="1" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="4.75" PointY="9.75" Height="1.5956835937500102" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="5.25" PointY="2" Height="1.595683593749996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.SmallMesoscaleTabFile" Width="1.5" PointX="9.75" PointY="6.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.SmallMesoscaleTabFile" Width="1.5" PointX="0.75" PointY="0.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="5.75" PointY="4.75" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="3" PointY="6" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="0.75" PointY="7" Height="1.4033821614583388" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="7.75" PointY="4.75" Height="2.7494921875000031" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="6" PointY="1.625" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="5.75" PointY="8.75" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleDatabas" Width="1.5" PointX="0.75" PointY="3.75" Height="1.4033821614583282" />
+        <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleTabFile" Width="1.5" PointX="7.75" PointY="8.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="9.75" PointY="4.75" Height="3.9033007812500102" />
+        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="9.75" PointY="9.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="3.75" PointY="1" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="10.75" PointY="0.75" Height="1.5956835937500102" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="8.25" PointY="2" Height="1.595683593749996" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" >
-          <ConnectorPoint PointX="4.25" PointY="6.7016910807291694" />
-          <ConnectorPoint PointX="5" PointY="6.7016910807291694" />
+          <ConnectorPoint PointX="2.25" PointY="7.7016910807291694" />
+          <ConnectorPoint PointX="3" PointY="7.7016910807291694" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.FK_DUserProfile_webpages_Membership" >
-          <ConnectorPoint PointX="2.25" PointY="2.711293945312498" />
-          <ConnectorPoint PointX="3" PointY="2.711293945312498" />
+          <ConnectorPoint PointX="5.25" PointY="2.8074446614583337" />
+          <ConnectorPoint PointX="6" PointY="2.8074446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.webpages_UsersInRoles" >
-          <ConnectorPoint PointX="4.5" PointY="2.797841796874998" />
-          <ConnectorPoint PointX="5.25" PointY="2.797841796874998" />
+          <ConnectorPoint PointX="7.5" PointY="2.797841796874998" />
+          <ConnectorPoint PointX="8.25" PointY="2.797841796874998" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

@@ -78,38 +78,37 @@ namespace Offwind.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                // Attempt to register the user
-                try
-                {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
-
-                    var roles = (SimpleRoleProvider)Roles.Provider;
-                    if (!roles.RoleExists(SystemRole.Admin))
-                    {
-                        roles.CreateRole(SystemRole.Admin);
-                    }
-                    if (!roles.RoleExists(SystemRole.Partner))
-                    {
-                        roles.CreateRole(SystemRole.Partner);
-                    }
-                    if (!roles.RoleExists(SystemRole.User))
-                    {
-                        roles.CreateRole(SystemRole.User);
-                    }
-                    roles.AddUsersToRoles(new[] { model.UserName }, new[] { SystemRole.User });
-                    return RedirectToAction("Index", "Home");
-                }
-                catch (MembershipCreateUserException e)
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
-                }
+                return View(model);
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            // Attempt to register the user
+            try
+            {
+                WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                WebSecurity.Login(model.UserName, model.Password);
+
+                var roles = (SimpleRoleProvider) Roles.Provider;
+                if (!roles.RoleExists(SystemRole.Admin))
+                {
+                    roles.CreateRole(SystemRole.Admin);
+                }
+                if (!roles.RoleExists(SystemRole.Partner))
+                {
+                    roles.CreateRole(SystemRole.Partner);
+                }
+                if (!roles.RoleExists(SystemRole.User))
+                {
+                    roles.CreateRole(SystemRole.User);
+                }
+                roles.AddUsersToRoles(new[] {model.UserName}, new[] {SystemRole.User});
+            }
+            catch (MembershipCreateUserException e)
+            {
+                ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         //

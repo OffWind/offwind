@@ -113,7 +113,7 @@ namespace Offwind.WebApp.Controllers
             try
             {
                 WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                //WebSecurity.Login(model.UserName, model.Password);
+                WebSecurity.Login(model.UserName, model.Password);
                 roles.AddUsersToRoles(new[] {model.UserName}, new[] {SystemRole.User});
             }
             catch (MembershipCreateUserException e)

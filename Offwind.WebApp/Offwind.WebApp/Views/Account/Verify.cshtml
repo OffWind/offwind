@@ -1,0 +1,12 @@
+﻿@model Offwind.WebApp.Models.VerifyModel
+@{
+    ViewBag.Title = "Offwind registration: account verified";
+}
+<div class="row-fluid row-content-block">
+    <div class="span12 well">
+        <h1>Congratulations!</h1>
+        <p>Your account <strong>@Model.UserName</strong> has been successfully verified and activated.</p>
+        <p>Now you can log into system <a href="@Url.Action("Login", "Account", new { area = "" })">here</a>.</p>
+        @*<p>You may want to look at your profile <a href="@Url.Action("Profile", "Account", new {area = ""})">here</a>.</p>*@
+    </div>
+</div>

@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Transactions;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
+using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Account;
 using WebMatrix.WebData;
@@ -84,33 +90,103 @@ namespace Offwind.WebApp.Controllers
             }
 
             // Attempt to register the user
+            var roles = (SimpleRoleProvider)Roles.Provider;
+            if (!roles.RoleExists(SystemRole.Admin))
+            {
+                roles.CreateRole(SystemRole.Admin);
+            }
+            if (!roles.RoleExists(SystemRole.Partner))
+            {
+                roles.CreateRole(SystemRole.Partner);
+            }
+            if (!roles.RoleExists(SystemRole.User))
+            {
+                roles.CreateRole(SystemRole.User);
+            }
+
+            model.UserName = model.UserName.Trim();
+            model.Password = model.Password.Trim();
+            model.ConfirmPassword = model.ConfirmPassword.Trim();
+            model.CompanyName = model.CompanyName == null ? "" : model.CompanyName.Trim();
+
+            // Register user
             try
             {
                 WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                WebSecurity.Login(model.UserName, model.Password);
-
-                var roles = (SimpleRoleProvider) Roles.Provider;
-                if (!roles.RoleExists(SystemRole.Admin))
-                {
-                    roles.CreateRole(SystemRole.Admin);
-                }
-                if (!roles.RoleExists(SystemRole.Partner))
-                {
-                    roles.CreateRole(SystemRole.Partner);
-                }
-                if (!roles.RoleExists(SystemRole.User))
-                {
-                    roles.CreateRole(SystemRole.User);
-                }
+                //WebSecurity.Login(model.UserName, model.Password);
                 roles.AddUsersToRoles(new[] {model.UserName}, new[] {SystemRole.User});
             }
             catch (MembershipCreateUserException e)
             {
                 ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
             }
-            return RedirectToAction("Index", "Home");
+
+            // Generate verification code 
+            var verificationCode = Guid.NewGuid();
+            var profile = _ctx.DUserProfiles.First(p => p.UserName == model.UserName);
+            profile.VerificationCode = verificationCode;
+            _ctx.SaveChanges();
+
+            // Send verification email to user
+            try
+            {
+                var url = String.Format("{0}/account/verify/{1}",
+                    WebConfigurationManager.AppSettings["AppHost"],
+                    verificationCode);
+                var anchor = String.Format("<a href=\"{0}\" target=\"_blank\">{0}</a>", url);
+                using (var mail = new MailMessage())
+                {
+                    mail.From = new MailAddress("admin@offwind.eu", "Offwind Administrator");
+                    mail.To.Add(new MailAddress(model.UserName));
+                    mail.Subject = "Offwind registration: verify your account";
+
+                    var text = new StringBuilder();
+                    text.AppendFormat("Welcome to Offwind!<br /><br />");
+                    text.AppendFormat("You've registered a new account and verification is required in order to finish the process.<br /><br />");
+                    text.AppendFormat("Your account: {0}<br />", model.UserName);
+                    text.AppendFormat("Verification code: {0}<br />", verificationCode);
+                    text.AppendFormat("You can simply follow the link: {0}<br /><br />", anchor);
+                    text.AppendFormat("Best regards,<br />");
+                    text.AppendFormat("Offwind group");
+                    mail.Body = text.ToString();
+                    mail.IsBodyHtml = true;
+
+                    var smtpClient = new SmtpClient()
+                    {
+                        Host = WebConfigurationManager.AppSettings["SmtpHost"],
+                        Port = Convert.ToInt32(WebConfigurationManager.AppSettings["SmtpHostPort"]),
+                        EnableSsl = Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpEnableSSL"]),
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpUseDefaultCredentialas"]),
+                        Credentials = new NetworkCredential()
+                        {
+                            UserName = WebConfigurationManager.AppSettings["SmtpSenderMail"],
+                            Password = WebConfigurationManager.AppSettings["SmtpSenderPswd"]
+                        }
+                    };
+                    smtpClient.Send(mail);
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            //return RedirectToAction("Index", "Home");
+            return RedirectToAction("RegisterComplete", "Account");
         }
 
+        [AllowAnonymous]
+        public ActionResult RegisterComplete()
+        {
+            return View();
+        }
+
+        private bool UserWithCodeExists(string userName, Guid code)
+        {
+            var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName != userName && p.VerificationCode == code);
+            return profile != null;
+        }
         //
         // POST: /Account/Disassociate
 
@@ -349,6 +425,24 @@ namespace Offwind.WebApp.Controllers
 
             ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Verify(Guid id)
+        {
+            var m = new VerifyModel();
+            m.VerificationCode = id;
+            var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.VerificationCode == id);
+            if (profile == null)
+            {
+                return View("VerifyNotFound", m);
+            }
+
+            m.UserName = profile.UserName;
+
+            profile.IsVerified = true;
+            _ctx.SaveChanges();
+            return View(m);
         }
 
         #region Helpers

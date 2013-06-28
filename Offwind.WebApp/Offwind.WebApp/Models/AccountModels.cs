@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Web.Mvc;
@@ -92,6 +93,15 @@ namespace Offwind.WebApp.Models
 
         [Display(Name = "Other information", Description = "Write any information, that you may think will be useful for us to know about you.")]
         public string OtherInfo { get; set; }
+    }
+
+    public class VerifyModel : VWebPage
+    {
+        [Required]
+        public string UserName { get; set; }
+
+        [Required]
+        public Guid VerificationCode { get; set; }
     }
 
     public class ExternalLogin

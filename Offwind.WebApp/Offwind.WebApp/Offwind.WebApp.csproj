@@ -258,12 +258,14 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\MailingController.cs" />
+    <Compile Include="Infrastructure\AccountsHelper.cs" />
     <Compile Include="Infrastructure\Breadcrumbs\BreadcrumbsCollection.cs" />
     <Compile Include="Infrastructure\Breadcrumbs\BreadcrumbsItem.cs" />
     <Compile Include="Infrastructure\GuidConstraint.cs" />
     <Compile Include="Infrastructure\EmitMapperExtensions.cs" />
     <Compile Include="Infrastructure\Navigation\NavItem.cs" />
     <Compile Include="Infrastructure\Navigation\NavUrl.cs" />
+    <Compile Include="Infrastructure\StrongRandom.cs" />
     <Compile Include="Models\Account\ExternalLoginResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Account\ManageMessageId.cs" />
@@ -2276,6 +2278,9 @@
     <Content Include="Views\Shared\__MainMenu.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
+    <Content Include="Views\Account\Verify.cshtml" />
+    <Content Include="Views\Account\VerifyNotFound.cshtml" />
+    <Content Include="Views\Account\RegisterComplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

@@ -39,6 +39,7 @@ namespace Offwind.WebApp.Areas.ControlPanel.Models
         public string ConfirmPassword { set; get; }
 
         [Display(Name = "Email address")]
+        [DataType(DataType.EmailAddress)]
         public string Email { set; get; }
 
         public string OldPassword { set; get; }

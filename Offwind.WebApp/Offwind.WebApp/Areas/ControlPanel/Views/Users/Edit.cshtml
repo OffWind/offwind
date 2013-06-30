@@ -2,25 +2,7 @@
 @using Offwind.WebApp.Models.Account
 @model UserModel
 
-@section styles
-{
-    <style>
-        .editor-label {
-            float: left;
-            width: 180px;
-        }
-
-        .editor-field {
-            margin-left: 180px;
-        }
-
-        .editor-field input {
-            width: 30%;    
-        }
-    </style>
-}
-
-<form class="form-horizontal indent" method="post">
+<form class="form-horizontal indent" method="post" action="">
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
     <fieldset>
@@ -31,7 +13,6 @@
         
         @Html.EditorFor(m => m.Roles)
 
-        @Html.EditorFor(m => m.Email)
         @Html.EditorFor(m => m.Password)
         @Html.EditorFor(m => m.ConfirmPassword)
 

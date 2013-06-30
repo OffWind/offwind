@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Offwind.WebApp.Areas.ControlPanel.Models;
-using Offwind.WebApp.Filters;
-using Offwind.WebApp.Models;
-using Offwind.WebApp.Models.Account;
-using WebMatrix.Data;
 using WebMatrix.WebData;
-using System.Collections;
-using System.IO;
 
 namespace Offwind.WebApp.Areas.ControlPanel.Controllers
 {
@@ -58,11 +49,6 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
                 usr.SelectRoles(roles.GetRolesForUser(usr.Name));
                 usr.OldPassword = Membership.GeneratePassword(6, 0);
                 usr.Password = usr.ConfirmPassword = usr.OldPassword;
-                var ms = Enumerable.FirstOrDefault(_ctx.webpages_Membership.Where(x => x.UserId == id));
-                if (ms != null)
-                {
-                    usr.Email = ms.Email;
-                }
             }
             return View(usr);
         }
@@ -83,10 +69,9 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
                 {
                     if (model.Password != model.OldPassword)
                     {
-                        var oldPas = "";// membershipUser.Password;
+                        var oldPas = membershipUser.Password;
                         WebSecurity.ChangePassword(model.Name, oldPas, model.Password);
                     }
-                    SetEmail(model.Id, model.Email);
                 }               
                 return RedirectToAction("Index");    
             }
@@ -109,8 +94,6 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
                 var roles = (SimpleRoleProvider)Roles.Provider;
                 model.SelectRoles();
                 roles.AddUsersToRoles(new[] {model.Name}, model.SelectedRoles.Split(';'));
-                var uid = WebSecurity.GetUserId(model.Name);
-                SetEmail(uid, model.Email);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -125,19 +108,6 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
                 Membership.DeleteUser(usr.UserName);
             }
             return Json("OK");
-        }
-
-        private void SetEmail(int id, string value)
-        {
-            var ms = Enumerable.FirstOrDefault(_ctx.webpages_Membership.Where(x => x.UserId == id));
-            if (ms != null)
-            {
-                if (ms.Email != value)
-                {
-                    ms.Email = value;
-                    _ctx.SaveChanges();
-                }
-            }            
-        }
+        }        
     }
 }

@@ -19,7 +19,8 @@ namespace Offwind.WebApp.Areas.ControlPanel.Models
     public sealed class UserModel
     {
         public Int32 Id { set; get; }
-        [Display(Name = "User name")]
+        [Display(Name = "Email address")]
+        [DataType(DataType.EmailAddress)]
         public string Name { set; get; }
 
         public string SelectedRoles { set; get; }
@@ -37,10 +38,6 @@ namespace Offwind.WebApp.Areas.ControlPanel.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { set; get; }
-
-        [Display(Name = "Email address")]
-        public string Email { set; get; }
-
         public string OldPassword { set; get; }
 
         public UserModel()

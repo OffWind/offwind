@@ -2,43 +2,20 @@
 @using Offwind.WebApp.Models.Account
 @model UserModel
 
-@section styles
-{
-    <style>
-        .editor-label {
-            float: left;
-            width: 180px;
-        }
-
-        .editor-field {
-            margin-left: 180px;
-        }
-
-        .editor-field input {
-            width: 30%;    
-        }
-    </style>
-}
-
-<form class="form-horizontal indent" method="post">
+<form class="form-horizontal indent" method="post" action="">
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
     <fieldset>
-        <legend>Change account for user <h3 style="display: inline">@Model.Name</h3></legend>
+        <legend>Change account for user: <h3 style="display: inline">@Model.Name</h3></legend>
         @Html.HiddenFor(m => m.Name)        
-        @Html.EditorFor(m => m.Roles)
         @Html.HiddenFor(m => m.SelectedRoles)
         @Html.HiddenFor(m => m.OldPassword)
-        <br/><br/>
-
-        <div class="editor-label"> @Html.LabelFor(m => m.Email) </div>
-        <div class="editor-field"> @Html.TextBoxFor(m => m.Email) </div><br/>
-
-        <div class="editor-label"> @Html.LabelFor(m => m.Password) </div>
-        <div class="editor-field"> @Html.EditorFor(m => m.Password) </div><br/>
         
-        <div class="editor-label"> @Html.LabelFor(m => m.ConfirmPassword) </div>
-        <div class="editor-field"> @Html.EditorFor(m => m.ConfirmPassword) </div><br/>        
+        @Html.EditorFor(m => m.Roles)
+
+        @Html.EditorFor(m => m.Password)
+        @Html.EditorFor(m => m.ConfirmPassword)
+
 
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Save</button>

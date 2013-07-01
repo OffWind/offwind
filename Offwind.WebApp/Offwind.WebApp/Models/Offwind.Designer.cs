@@ -19,6 +19,8 @@ using System.Runtime.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DContent_DContentTypes", "DContentType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DContentType), "DContent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DContent), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingFile_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMeeting), "DMeetingFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMeetingFile), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingParticipant_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMeeting), "DMeetingParticipant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMeetingParticipant), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DUserProfile_webpages_Membership", "webpages_Membership", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.webpages_Membership), "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.WebApp.Models.DUserProfile), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "webpages_UsersInRoles", "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DUserProfile), "webpages_Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.webpages_Roles))]
 
@@ -135,6 +137,54 @@ namespace Offwind.WebApp.Models
             }
         }
         private ObjectSet<DJob> _DJobs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DMeeting> DMeetings
+        {
+            get
+            {
+                if ((_DMeetings == null))
+                {
+                    _DMeetings = base.CreateObjectSet<DMeeting>("DMeetings");
+                }
+                return _DMeetings;
+            }
+        }
+        private ObjectSet<DMeeting> _DMeetings;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DMeetingFile> DMeetingFiles
+        {
+            get
+            {
+                if ((_DMeetingFiles == null))
+                {
+                    _DMeetingFiles = base.CreateObjectSet<DMeetingFile>("DMeetingFiles");
+                }
+                return _DMeetingFiles;
+            }
+        }
+        private ObjectSet<DMeetingFile> _DMeetingFiles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DMeetingParticipant> DMeetingParticipants
+        {
+            get
+            {
+                if ((_DMeetingParticipants == null))
+                {
+                    _DMeetingParticipants = base.CreateObjectSet<DMeetingParticipant>("DMeetingParticipants");
+                }
+                return _DMeetingParticipants;
+            }
+        }
+        private ObjectSet<DMeetingParticipant> _DMeetingParticipants;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -295,6 +345,22 @@ namespace Offwind.WebApp.Models
             }
         }
         private ObjectSet<SmallMesoscaleTabFile> _SmallMesoscaleTabFiles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<VPartner> VPartners
+        {
+            get
+            {
+                if ((_VPartners == null))
+                {
+                    _VPartners = base.CreateObjectSet<VPartner>("VPartners");
+                }
+                return _VPartners;
+            }
+        }
+        private ObjectSet<VPartner> _VPartners;
 
         #endregion
         #region AddTo Methods
@@ -329,6 +395,30 @@ namespace Offwind.WebApp.Models
         public void AddToDJobs(DJob dJob)
         {
             base.AddObject("DJobs", dJob);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DMeetings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDMeetings(DMeeting dMeeting)
+        {
+            base.AddObject("DMeetings", dMeeting);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DMeetingFiles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDMeetingFiles(DMeetingFile dMeetingFile)
+        {
+            base.AddObject("DMeetingFiles", dMeetingFile);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DMeetingParticipants EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDMeetingParticipants(DMeetingParticipant dMeetingParticipant)
+        {
+            base.AddObject("DMeetingParticipants", dMeetingParticipant);
         }
     
         /// <summary>
@@ -409,6 +499,14 @@ namespace Offwind.WebApp.Models
         public void AddToSmallMesoscaleTabFiles(SmallMesoscaleTabFile smallMesoscaleTabFile)
         {
             base.AddObject("SmallMesoscaleTabFiles", smallMesoscaleTabFile);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the VPartners EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToVPartners(VPartner vPartner)
+        {
+            base.AddObject("VPartners", vPartner);
         }
 
         #endregion
@@ -1317,6 +1415,457 @@ namespace Offwind.WebApp.Models
 
         #endregion
     
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DMeeting")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DMeeting : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DMeeting object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="typeId">Initial value of the TypeId property.</param>
+        /// <param name="dateTime">Initial value of the DateTime property.</param>
+        public static DMeeting CreateDMeeting(global::System.Guid id, global::System.String typeId, global::System.DateTime dateTime)
+        {
+            DMeeting dMeeting = new DMeeting();
+            dMeeting.Id = id;
+            dMeeting.TypeId = typeId;
+            dMeeting.DateTime = dateTime;
+            return dMeeting;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String TypeId
+        {
+            get
+            {
+                return _TypeId;
+            }
+            set
+            {
+                OnTypeIdChanging(value);
+                ReportPropertyChanging("TypeId");
+                _TypeId = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("TypeId");
+                OnTypeIdChanged();
+            }
+        }
+        private global::System.String _TypeId;
+        partial void OnTypeIdChanging(global::System.String value);
+        partial void OnTypeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTime
+        {
+            get
+            {
+                return _DateTime;
+            }
+            set
+            {
+                OnDateTimeChanging(value);
+                ReportPropertyChanging("DateTime");
+                _DateTime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTime");
+                OnDateTimeChanged();
+            }
+        }
+        private global::System.DateTime _DateTime;
+        partial void OnDateTimeChanging(global::System.DateTime value);
+        partial void OnDateTimeChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DMeetingFile_DMeeting", "DMeetingFile")]
+        public EntityCollection<DMeetingFile> DMeetingFiles
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DMeetingFile>("Offwind.DbModels.FK_DMeetingFile_DMeeting", "DMeetingFile");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DMeetingFile>("Offwind.DbModels.FK_DMeetingFile_DMeeting", "DMeetingFile", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DMeetingParticipant_DMeeting", "DMeetingParticipant")]
+        public EntityCollection<DMeetingParticipant> DMeetingParticipants
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DMeetingParticipant>("Offwind.DbModels.FK_DMeetingParticipant_DMeeting", "DMeetingParticipant");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DMeetingParticipant>("Offwind.DbModels.FK_DMeetingParticipant_DMeeting", "DMeetingParticipant", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DMeetingFile")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DMeetingFile : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DMeetingFile object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="meetingId">Initial value of the MeetingId property.</param>
+        /// <param name="fileName">Initial value of the FileName property.</param>
+        public static DMeetingFile CreateDMeetingFile(global::System.Guid id, global::System.Guid meetingId, global::System.String fileName)
+        {
+            DMeetingFile dMeetingFile = new DMeetingFile();
+            dMeetingFile.Id = id;
+            dMeetingFile.MeetingId = meetingId;
+            dMeetingFile.FileName = fileName;
+            return dMeetingFile;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid MeetingId
+        {
+            get
+            {
+                return _MeetingId;
+            }
+            set
+            {
+                OnMeetingIdChanging(value);
+                ReportPropertyChanging("MeetingId");
+                _MeetingId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("MeetingId");
+                OnMeetingIdChanged();
+            }
+        }
+        private global::System.Guid _MeetingId;
+        partial void OnMeetingIdChanging(global::System.Guid value);
+        partial void OnMeetingIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String FileName
+        {
+            get
+            {
+                return _FileName;
+            }
+            set
+            {
+                OnFileNameChanging(value);
+                ReportPropertyChanging("FileName");
+                _FileName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FileName");
+                OnFileNameChanged();
+            }
+        }
+        private global::System.String _FileName;
+        partial void OnFileNameChanging(global::System.String value);
+        partial void OnFileNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] Data
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_Data);
+            }
+            set
+            {
+                OnDataChanging(value);
+                ReportPropertyChanging("Data");
+                _Data = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Data");
+                OnDataChanged();
+            }
+        }
+        private global::System.Byte[] _Data;
+        partial void OnDataChanging(global::System.Byte[] value);
+        partial void OnDataChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DMeetingFile_DMeeting", "DMeeting")]
+        public DMeeting DMeeting
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DMeeting>("Offwind.DbModels.FK_DMeetingFile_DMeeting", "DMeeting").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DMeeting>("Offwind.DbModels.FK_DMeetingFile_DMeeting", "DMeeting").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DMeeting> DMeetingReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DMeeting>("Offwind.DbModels.FK_DMeetingFile_DMeeting", "DMeeting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DMeeting>("Offwind.DbModels.FK_DMeetingFile_DMeeting", "DMeeting", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DMeetingParticipant")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DMeetingParticipant : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DMeetingParticipant object.
+        /// </summary>
+        /// <param name="meetingId">Initial value of the MeetingId property.</param>
+        /// <param name="participant">Initial value of the Participant property.</param>
+        public static DMeetingParticipant CreateDMeetingParticipant(global::System.Guid meetingId, global::System.String participant)
+        {
+            DMeetingParticipant dMeetingParticipant = new DMeetingParticipant();
+            dMeetingParticipant.MeetingId = meetingId;
+            dMeetingParticipant.Participant = participant;
+            return dMeetingParticipant;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid MeetingId
+        {
+            get
+            {
+                return _MeetingId;
+            }
+            set
+            {
+                if (_MeetingId != value)
+                {
+                    OnMeetingIdChanging(value);
+                    ReportPropertyChanging("MeetingId");
+                    _MeetingId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("MeetingId");
+                    OnMeetingIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _MeetingId;
+        partial void OnMeetingIdChanging(global::System.Guid value);
+        partial void OnMeetingIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Participant
+        {
+            get
+            {
+                return _Participant;
+            }
+            set
+            {
+                if (_Participant != value)
+                {
+                    OnParticipantChanging(value);
+                    ReportPropertyChanging("Participant");
+                    _Participant = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Participant");
+                    OnParticipantChanged();
+                }
+            }
+        }
+        private global::System.String _Participant;
+        partial void OnParticipantChanging(global::System.String value);
+        partial void OnParticipantChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DMeetingParticipant_DMeeting", "DMeeting")]
+        public DMeeting DMeeting
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DMeeting>("Offwind.DbModels.FK_DMeetingParticipant_DMeeting", "DMeeting").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DMeeting>("Offwind.DbModels.FK_DMeetingParticipant_DMeeting", "DMeeting").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DMeeting> DMeetingReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DMeeting>("Offwind.DbModels.FK_DMeetingParticipant_DMeeting", "DMeeting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DMeeting>("Offwind.DbModels.FK_DMeetingParticipant_DMeeting", "DMeeting", value);
+                }
+            }
+        }
+
+        #endregion
     }
     
     /// <summary>
@@ -2753,6 +3302,167 @@ namespace Offwind.WebApp.Models
         private global::System.Byte[] _definition;
         partial void OndefinitionChanging(global::System.Byte[] value);
         partial void OndefinitionChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="VPartner")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class VPartner : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new VPartner object.
+        /// </summary>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="userName">Initial value of the UserName property.</param>
+        /// <param name="roleId">Initial value of the RoleId property.</param>
+        public static VPartner CreateVPartner(global::System.Int32 userId, global::System.String userName, global::System.Int32 roleId)
+        {
+            VPartner vPartner = new VPartner();
+            vPartner.UserId = userId;
+            vPartner.UserName = userName;
+            vPartner.RoleId = roleId;
+            return vPartner;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UserName
+        {
+            get
+            {
+                return _UserName;
+            }
+            set
+            {
+                if (_UserName != value)
+                {
+                    OnUserNameChanging(value);
+                    ReportPropertyChanging("UserName");
+                    _UserName = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("UserName");
+                    OnUserNameChanged();
+                }
+            }
+        }
+        private global::System.String _UserName;
+        partial void OnUserNameChanging(global::System.String value);
+        partial void OnUserNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FullName
+        {
+            get
+            {
+                return _FullName;
+            }
+            set
+            {
+                OnFullNameChanging(value);
+                ReportPropertyChanging("FullName");
+                _FullName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FullName");
+                OnFullNameChanged();
+            }
+        }
+        private global::System.String _FullName;
+        partial void OnFullNameChanging(global::System.String value);
+        partial void OnFullNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CompanyName
+        {
+            get
+            {
+                return _CompanyName;
+            }
+            set
+            {
+                OnCompanyNameChanging(value);
+                ReportPropertyChanging("CompanyName");
+                _CompanyName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CompanyName");
+                OnCompanyNameChanged();
+            }
+        }
+        private global::System.String _CompanyName;
+        partial void OnCompanyNameChanging(global::System.String value);
+        partial void OnCompanyNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoleId
+        {
+            get
+            {
+                return _RoleId;
+            }
+            set
+            {
+                if (_RoleId != value)
+                {
+                    OnRoleIdChanging(value);
+                    ReportPropertyChanging("RoleId");
+                    _RoleId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("RoleId");
+                    OnRoleIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _RoleId;
+        partial void OnRoleIdChanging(global::System.Int32 value);
+        partial void OnRoleIdChanged();
 
         #endregion
     

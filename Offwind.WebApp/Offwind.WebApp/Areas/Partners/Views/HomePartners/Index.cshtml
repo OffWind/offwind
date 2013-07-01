@@ -1,1 +1,50 @@
-﻿
+﻿@model Offwind.WebApp.Areas.Partners.Models.VPartnersHome
+@{
+    ViewBag.Title = "Partners area | Offwind";
+}
+<style>
+    .ph
+    {
+        font-weight: bold;
+    }
+</style>
+
+<div class="row-fluid row-content-block">
+    <div class="span6 well">
+        <h1>Partners area</h1>
+        <h2>List of partners</h2>
+        <table class="table table-condensed table-hover table-bordered">
+            <tr>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Company</th>
+            </tr>
+            @foreach (var partner in Model.Partners)
+            {
+                <tr>
+                    <td>@partner.UserName</td>
+                    <td>@partner.FullName</td>
+                    <td>@partner.CompanyName</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="span6 well">
+        <h2>Meetings</h2>
+        <table class="table table-condensed table-hover table-bordered">
+            <tr>
+                <th>Date/time</th>
+                <th>Type</th>
+                <th>Participants</th>
+            </tr>
+            @foreach (var meeting in Model.Meetings)
+            {
+                <tr>
+                    <td>@meeting.DateTime</td>
+                    <td>@meeting.Type</td>
+                    <td>@meeting.FormattedParticipants()</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

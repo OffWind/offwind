@@ -251,6 +251,8 @@
     <Compile Include="Areas\Library\KnowledgeBaseAreaRegistration.cs" />
     <Compile Include="Areas\Partners\Controllers\HomePartnersController.cs" />
     <Compile Include="Areas\Partners\Controllers\_BaseController.cs" />
+    <Compile Include="Areas\Partners\Models\VMeeting.cs" />
+    <Compile Include="Areas\Partners\Models\VPartnersHome.cs" />
     <Compile Include="Areas\Partners\PartnersAreaRegistration.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -289,6 +291,8 @@
       <DependentUpon>Offwind.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\StandardCases.cs" />
+    <Compile Include="Models\VFile.cs" />
+    <Compile Include="Areas\Partners\Models\VPartner.cs" />
     <Compile Include="Models\VWebPage.cs" />
     <Compile Include="Models\VWebPageSimpleObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1922,7 +1926,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Library\Models\" />
     <Folder Include="Areas\Library\Views\Shared\" />
-    <Folder Include="Areas\Partners\Models\" />
     <Folder Include="Areas\Partners\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

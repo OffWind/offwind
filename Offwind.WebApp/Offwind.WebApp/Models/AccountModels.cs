@@ -16,7 +16,7 @@ namespace Offwind.WebApp.Models
         public DbSet<UserProfile> UserProfiles { get; set; }
     }
 
-    [Table("UserProfile")]
+    [Table("DUserProfile")]
     public class UserProfile
     {
         [Key]
@@ -72,6 +72,10 @@ namespace Offwind.WebApp.Models
     public class RegisterModel : VWebPage
     {
         [Required]
+        [Display(Name = "Your name")]
+        public string FullName { get; set; }
+
+        [Required]
         [Display(Name = "Email", Description = "This will be used for logging into system.")]
         [DataType(DataType.EmailAddress)]
         public string UserName { get; set; }
@@ -91,7 +95,7 @@ namespace Offwind.WebApp.Models
         [Display(Name = "Company name")]
         public string CompanyName { get; set; }
 
-        [Display(Name = "Other information", Description = "Write any information, that you may think will be useful for us to know about you.")]
+        [Display(Name = "About you", Description = "A short information about you or/and your company. This will be shown in your public profile.")]
         public string OtherInfo { get; set; }
     }
 

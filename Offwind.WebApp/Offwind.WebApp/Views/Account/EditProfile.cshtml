@@ -1,0 +1,27 @@
+﻿@using Offwind.WebApp.Infrastructure
+@model Offwind.WebApp.Models.Account.VUserProfile
+@{
+    ViewBag.Title = "Edit your profile at Offwind";
+}
+
+<div class="row-fluid row-content-block">
+    <div class="span6 well">
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.BootstrapValidationSummary()
+
+        <fieldset>
+            <legend>Required fields</legend>
+            @Html.EditorFor(m => m.FullName)
+            @Html.EditorFor(m => m.CompanyName)
+            @Html.EditorFor(m => m.Info, "TextEditor")
+        </fieldset>
+
+        <input type="submit" class="btn btn-primary btn-large" value="Save" />
+    }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

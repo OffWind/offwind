@@ -12,6 +12,7 @@
 
         <fieldset>
             <legend>Required fields</legend>
+            @Html.EditorFor(m => m.FullName)
             @Html.EditorFor(m => m.UserName)
             @Html.EditorFor(m => m.Password)
             @Html.EditorFor(m => m.ConfirmPassword)
@@ -20,7 +21,7 @@
         <fieldset>
             <legend>Optional fields</legend>
             @Html.EditorFor(m => m.CompanyName)
-            @Html.EditorFor(m => m.OtherInfo)
+            @Html.EditorFor(m => m.OtherInfo, "TextEditor")
         </fieldset>
 
         <input type="submit" class="btn btn-primary btn-large" value="Register" />

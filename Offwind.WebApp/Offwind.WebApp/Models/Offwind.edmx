@@ -51,7 +51,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Created" Type="datetime" Nullable="false" />
-          <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="Model" Type="xml" Nullable="false" />
           <Property Name="CurrentJobId" Type="uniqueidentifier" />
@@ -87,12 +87,16 @@
           <Property Name="Started" Type="datetime2" Nullable="false" />
           <Property Name="RunningSince" Type="datetime2" />
           <Property Name="Finished" Type="datetime2" />
-          <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Result" Type="nvarchar" MaxLength="20" />
           <Property Name="ResultData" Type="nvarchar" />
         </EntityType>
+        <!--Errors Found During Generation:
+      warning 6035: The relationship 'FK_DCase_DUserProfile' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+      warning 6035: The relationship 'FK_DJob_DUserProfile' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+      -->
         <EntityType Name="DUserProfile">
           <Key>
             <PropertyRef Name="UserId" />
@@ -101,6 +105,8 @@
           <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="IsVerified" Type="bit" Nullable="false" />
           <Property Name="VerificationCode" Type="uniqueidentifier" />
+          <Property Name="ResetPasswordCode" Type="uniqueidentifier" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="350" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="1000" />
           <Property Name="Info" Type="ntext" />
         </EntityType>
@@ -305,7 +311,7 @@
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="DateTime" Name="Created" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Owner" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Model" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="CurrentJobId" />
@@ -343,7 +349,7 @@
           <Property Type="DateTime" Name="Started" Nullable="false" />
           <Property Type="DateTime" Name="RunningSince" />
           <Property Type="DateTime" Name="Finished" />
-          <Property Type="String" Name="Owner" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Owner" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="State" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Result" MaxLength="20" FixedLength="false" Unicode="true" />
@@ -357,6 +363,8 @@
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsVerified" Nullable="false" />
           <Property Type="Guid" Name="VerificationCode" />
+          <Property Type="Guid" Name="ResetPasswordCode" />
+          <Property Type="String" Name="FullName" MaxLength="350" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="CompanyName" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Info" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="webpages_Membership" Relationship="Offwind.DbModels.FK_DUserProfile_webpages_Membership" FromRole="DUserProfile" ToRole="webpages_Membership" />
@@ -559,6 +567,8 @@
               <MappingFragment StoreEntitySet="DUserProfile">
                 <ScalarProperty Name="Info" ColumnName="Info" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
                 <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
                 <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -708,7 +718,7 @@
         <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="3" PointY="6" Height="3.5186979166666674" />
         <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="0.75" PointY="7" Height="1.4033821614583388" />
         <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="7.75" PointY="0.75" Height="2.7494921875000031" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="3" PointY="1.5" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="3" PointY="1.25" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="7.75" PointY="4.75" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleDatabas" Width="1.5" PointX="5.75" PointY="8.75" Height="1.4033821614583388" />
         <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleTabFile" Width="1.5" PointX="7.75" PointY="8.75" Height="1.9802864583333282" />
@@ -723,8 +733,8 @@
           <ConnectorPoint PointX="3" PointY="7.7016910807291694" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.FK_DUserProfile_webpages_Membership" >
-          <ConnectorPoint PointX="2.25" PointY="2.7785953776041694" />
-          <ConnectorPoint PointX="3" PointY="2.7785953776041694" />
+          <ConnectorPoint PointX="2.25" PointY="2.7208968098958337" />
+          <ConnectorPoint PointX="3" PointY="2.7208968098958337" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.webpages_UsersInRoles" >
           <ConnectorPoint PointX="4.5" PointY="2.797841796874998" />

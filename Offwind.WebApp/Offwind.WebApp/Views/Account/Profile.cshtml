@@ -1,20 +1,62 @@
-﻿@{
+﻿@model Offwind.WebApp.Models.Account.VUserProfile
+@{
     ViewBag.Title = "User Profile";
 }
+<style>
+    .ph
+    {
+        font-weight: bold;
+    }
+</style>
 
 <div class="row-fluid row-content-block">
-    <div class="span12 well">
+    <div class="span6 well">
         <h1>User profile</h1>
-        <a href="@Url.Action("ChangePassword", "Account")">Change password</a>
-        
+        <table class="table table-condensed table-hover table-bordered">
+            <tr>
+                <td class="ph">Name</td>
+                <td>@Model.FullName</td>
+            </tr>
+            <tr>
+                <td class="ph">Company name</td>
+                <td>@Model.CompanyName</td>
+            </tr>
+            <tr>
+                <td class="ph">Information</td>
+                <td>@Model.Info</td>
+            </tr>
+            <tr>
+                <td class="ph">Registration date</td>
+                <td>@Model.Created</td>
+            </tr>
+        </table>
 
-        @*        <section id="externalLogins">
+        <a class="btn btn-info" href="@Url.Action("EditProfile", "Account")">Edit profile</a>
+        <a class="btn btn-info" href="@Url.Action("ChangePassword", "Account")">Change password</a>
+
+        @* <section id="externalLogins">
             @Html.Action("RemoveExternalLogins")
 
             <h3>Add an external login</h3>
             @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
         </section>
 *@
+    </div>
+    <div class="span6 well">
+        <h2>Cases</h2>
+        <table class="table table-condensed table-hover table-bordered">
+            <tr>
+                <th>Created</th>
+                <th>Name</th>
+            </tr>
+            @foreach (var c in Model.Cases)
+            {
+                <tr>
+                    <td>@c.Created</td>
+                    <td><a href="#">@c.Name</a></td>
+                </tr>
+            }
+        </table>
     </div>
 </div>
 

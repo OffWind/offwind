@@ -277,6 +277,7 @@
     <Compile Include="Infrastructure\SharpZipUtils.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Account\SystemRole.cs" />
+    <Compile Include="Models\Account\VUserProfile.cs" />
     <Compile Include="Models\ContentType.cs" />
     <Compile Include="Models\Jobs\Job.cs" />
     <Compile Include="Models\Jobs\JobResult.cs" />
@@ -2281,6 +2282,8 @@
     <Content Include="Views\Account\Verify.cshtml" />
     <Content Include="Views\Account\VerifyNotFound.cshtml" />
     <Content Include="Views\Account\RegisterComplete.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TextEditor.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

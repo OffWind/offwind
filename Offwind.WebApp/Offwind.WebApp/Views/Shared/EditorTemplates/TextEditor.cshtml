@@ -1,0 +1,17 @@
+﻿@model string
+@{
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
+    var description = ViewData.ModelMetadata.Description;
+}
+<div class="control-group" id="@("EditorFor_" + fieldName)">
+    <label class="control-label" for="@fieldName">@displayName
+        @if (description != null && description.Trim().Length > 0)
+        {
+            <i class="icon-question-sign tip-right" title="@description"></i>
+        }
+    </label>
+    <div class="controls">
+        <textarea type="text" id="@fieldName" name="@fieldName" placeholder="@ViewData.ModelMetadata.NullDisplayText">@Model</textarea>
+    </div>
+</div>

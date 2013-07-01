@@ -1451,6 +1451,54 @@ namespace Offwind.WebApp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public Nullable<global::System.Guid> ResetPasswordCode
+        {
+            get
+            {
+                return _ResetPasswordCode;
+            }
+            set
+            {
+                OnResetPasswordCodeChanging(value);
+                ReportPropertyChanging("ResetPasswordCode");
+                _ResetPasswordCode = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ResetPasswordCode");
+                OnResetPasswordCodeChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _ResetPasswordCode;
+        partial void OnResetPasswordCodeChanging(Nullable<global::System.Guid> value);
+        partial void OnResetPasswordCodeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FullName
+        {
+            get
+            {
+                return _FullName;
+            }
+            set
+            {
+                OnFullNameChanging(value);
+                ReportPropertyChanging("FullName");
+                _FullName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FullName");
+                OnFullNameChanged();
+            }
+        }
+        private global::System.String _FullName;
+        partial void OnFullNameChanging(global::System.String value);
+        partial void OnFullNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public global::System.String CompanyName
         {
             get

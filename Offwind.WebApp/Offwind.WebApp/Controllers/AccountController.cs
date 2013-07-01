@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -119,12 +120,16 @@ namespace Offwind.WebApp.Controllers
             catch (MembershipCreateUserException e)
             {
                 ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                return View(model);
             }
 
             // Generate verification code 
             var verificationCode = Guid.NewGuid();
-            var profile = _ctx.DUserProfiles.First(p => p.UserName == model.UserName);
+            var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName == model.UserName);
             profile.VerificationCode = verificationCode;
+            profile.CompanyName = model.CompanyName;
+            profile.FullName = model.FullName;
+            profile.Info = model.OtherInfo;
             _ctx.SaveChanges();
 
             // Send verification email to user
@@ -170,7 +175,8 @@ namespace Offwind.WebApp.Controllers
             }
             catch (Exception)
             {
-                throw;
+                // TODO: Add logging
+                //throw;
             }
             //return RedirectToAction("Index", "Home");
             return RedirectToAction("RegisterComplete", "Account");
@@ -309,7 +315,32 @@ namespace Offwind.WebApp.Controllers
 
         public new ActionResult Profile()
         {
-            return View();
+            var m = new VUserProfile();
+            m.Cases = new List<VProfileCase>();
+            m.FullName = User.Identity.Name;
+
+            var profile = _ctx.DUserProfiles.First(p => p.UserName == User.Identity.Name);
+            if (profile == null)
+            {
+                // This is unlikely to happen
+                return View(m);
+            }
+
+            m.CompanyName = profile.CompanyName;
+            m.FullName = profile.FullName;
+            m.Info = profile.Info;
+
+            var mbr = _ctx.webpages_Membership.FirstOrDefault(p => p.UserId == profile.UserId);
+            if (mbr != null)
+            {
+                m.Created = mbr.CreateDate ?? DateTime.Now;
+            }
+
+            foreach (var dCase in _ctx.DCases.Where(c => c.Owner == User.Identity.Name))
+            {
+                m.Cases.Add(new VProfileCase {Created = dCase.Created, Name = dCase.Name, Id = dCase.Id});
+            }
+            return View(m);
         }
 
         //
@@ -412,6 +443,46 @@ namespace Offwind.WebApp.Controllers
             profile.IsVerified = true;
             _ctx.SaveChanges();
             return View(m);
+        }
+
+        public ActionResult EditProfile()
+        {
+            var model = new VUserProfile();
+
+            var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName == User.Identity.Name);
+            if (profile == null)
+            {
+                // This is unlikely to happen
+                return View(model);
+            }
+            model.FullName = profile.FullName;
+            model.CompanyName = profile.CompanyName;
+            model.Info = profile.Info;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("EditProfile")]
+        [ValidateInput(false)]
+        public ActionResult EditProfileSave(VUserProfile model)
+        {
+            if (ModelState.IsValid)
+            {
+                var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName == User.Identity.Name);
+                profile.FullName = model.FullName ?? "";
+                profile.CompanyName = model.CompanyName ?? "";
+                profile.Info = model.Info ?? "";
+                _ctx.SaveChanges();
+
+                return RedirectToAction("Profile");
+            }
+
+            return View("EditProfile", model);
+        }
+
+        private void SaveProfile(VUserProfile model)
+        {
         }
 
         #region Helpers

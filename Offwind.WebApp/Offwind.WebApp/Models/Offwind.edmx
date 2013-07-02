@@ -31,14 +31,21 @@
       [SmallMesoscaleTabFiles].[Longitude] AS [Longitude]
       FROM [dbo].[SmallMesoscaleTabFiles] AS [SmallMesoscaleTabFiles]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VPartners" EntityType="u254697_offwindModel.Store.VPartners" store:Type="Views" store:Schema="dbo" store:Name="VPartners">
+          <EntitySet Name="VPartner" EntityType="u254697_offwindModel.Store.VPartner" store:Type="Views" store:Schema="dbo" store:Name="VPartner">
             <DefiningQuery>SELECT 
-      [VPartners].[UserId] AS [UserId], 
-      [VPartners].[UserName] AS [UserName], 
-      [VPartners].[FullName] AS [FullName], 
-      [VPartners].[CompanyName] AS [CompanyName], 
-      [VPartners].[RoleId] AS [RoleId]
-      FROM [dbo].[VPartners] AS [VPartners]</DefiningQuery>
+      [VPartner].[UserId] AS [UserId], 
+      [VPartner].[UserName] AS [UserName], 
+      [VPartner].[FullName] AS [FullName], 
+      [VPartner].[CompanyName] AS [CompanyName], 
+      [VPartner].[RoleId] AS [RoleId]
+      FROM [dbo].[VPartner] AS [VPartner]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VUserRole" EntityType="u254697_offwindModel.Store.VUserRole" store:Type="Views" store:Schema="dbo" store:Name="VUserRole">
+            <DefiningQuery>SELECT 
+      [VUserRole].[UserId] AS [UserId], 
+      [VUserRole].[RoleId] AS [RoleId], 
+      [VUserRole].[RoleName] AS [RoleName]
+      FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_DContent_DContentTypes" Association="u254697_offwindModel.Store.FK_DContent_DContentTypes">
             <End Role="DContentTypes" EntitySet="DContentTypes" />
@@ -271,9 +278,9 @@
           <Property Name="Longitude" Type="decimal" Nullable="false" Scale="4" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'offwind.dbo.VPartners' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'offwind.dbo.VPartner' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
-        <EntityType Name="VPartners">
+        <EntityType Name="VPartner">
           <Key>
             <PropertyRef Name="UserId" />
             <PropertyRef Name="UserName" />
@@ -284,6 +291,19 @@
           <Property Name="FullName" Type="nvarchar" MaxLength="350" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="1000" />
           <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'offwind.dbo.VUserRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="VUserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="RoleName" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
         </EntityType>
         <Association Name="FK_DContent_DContentTypes">
           <End Role="DContentTypes" Type="u254697_offwindModel.Store.DContentTypes" Multiplicity="1" />
@@ -380,6 +400,7 @@
           <EntitySet Name="webpages_Roles" EntityType="Offwind.DbModels.webpages_Roles" />
           <EntitySet Name="SmallMesoscaleTabFiles" EntityType="Offwind.DbModels.SmallMesoscaleTabFile" />
           <EntitySet Name="VPartners" EntityType="Offwind.DbModels.VPartner" />
+          <EntitySet Name="VUserRoles" EntityType="Offwind.DbModels.VUserRole" />
           <AssociationSet Name="FK_DContent_DContentTypes" Association="Offwind.DbModels.FK_DContent_DContentTypes">
             <End Role="DContentType" EntitySet="DContentTypes" />
             <End Role="DContent" EntitySet="DContents" />
@@ -612,6 +633,16 @@
           <Property Type="String" Name="FullName" MaxLength="350" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="CompanyName" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="RoleId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VUserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="RoleName" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_DContent_DContentTypes">
           <End Type="Offwind.DbModels.DContentType" Role="DContentType" Multiplicity="1" />
@@ -875,11 +906,20 @@
           </EntitySetMapping>
           <EntitySetMapping Name="VPartners">
             <EntityTypeMapping TypeName="Offwind.DbModels.VPartner">
-              <MappingFragment StoreEntitySet="VPartners">
+              <MappingFragment StoreEntitySet="VPartner">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VUserRoles">
+            <EntityTypeMapping TypeName="Offwind.DbModels.VUserRole">
+              <MappingFragment StoreEntitySet="VUserRole">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -916,7 +956,7 @@
         <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="7.75" PointY="0.75" Height="2.1725878906250031" />
         <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="8" PointY="5" Height="3.5186979166666674" />
         <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="5.75" PointY="6" Height="1.4033821614583388" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="9.75" PointY="0.75" Height="2.7494921875000031" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="9.75" PointY="0.75" Height="2.7494921875000067" />
         <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="0.75" PointY="7.25" Height="1.9802864583333388" />
         <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="3" PointY="6" Height="1.9802864583333246" />
         <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="3" PointY="8.75" Height="1.595683593749996" />
@@ -931,6 +971,7 @@
         <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="5.25" PointY="2" Height="1.595683593749996" />
         <EntityTypeShape EntityType="Offwind.DbModels.SmallMesoscaleTabFile" Width="1.5" PointX="2.75" PointY="11.75" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="11.75" PointY="9.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="12.75" PointY="3.75" Height="1.5956835937500102" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" >
           <ConnectorPoint PointX="7.25" PointY="6.7016910807291694" />
           <ConnectorPoint PointX="8" PointY="6.7016910807291694" />

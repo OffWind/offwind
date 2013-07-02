@@ -316,7 +316,6 @@ namespace Offwind.WebApp.Controllers
         public new ActionResult Profile()
         {
             var m = new VUserProfile();
-            m.Cases = new List<VProfileCase>();
             m.FullName = User.Identity.Name;
 
             var profile = _ctx.DUserProfiles.First(p => p.UserName == User.Identity.Name);
@@ -335,6 +334,9 @@ namespace Offwind.WebApp.Controllers
             {
                 m.Created = mbr.CreateDate ?? DateTime.Now;
             }
+
+            var roles = _ctx.VUserRoles.Where(r => r.UserId == mbr.UserId).Select(r => r.RoleName);
+            m.Roles.AddRange(roles);
 
             foreach (var dCase in _ctx.DCases.Where(c => c.Owner == User.Identity.Name))
             {

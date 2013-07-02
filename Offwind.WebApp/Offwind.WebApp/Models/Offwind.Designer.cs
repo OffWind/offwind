@@ -361,6 +361,22 @@ namespace Offwind.WebApp.Models
             }
         }
         private ObjectSet<VPartner> _VPartners;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<VUserRole> VUserRoles
+        {
+            get
+            {
+                if ((_VUserRoles == null))
+                {
+                    _VUserRoles = base.CreateObjectSet<VUserRole>("VUserRoles");
+                }
+                return _VUserRoles;
+            }
+        }
+        private ObjectSet<VUserRole> _VUserRoles;
 
         #endregion
         #region AddTo Methods
@@ -507,6 +523,14 @@ namespace Offwind.WebApp.Models
         public void AddToVPartners(VPartner vPartner)
         {
             base.AddObject("VPartners", vPartner);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the VUserRoles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToVUserRoles(VUserRole vUserRole)
+        {
+            base.AddObject("VUserRoles", vUserRole);
         }
 
         #endregion
@@ -3463,6 +3487,119 @@ namespace Offwind.WebApp.Models
         private global::System.Int32 _RoleId;
         partial void OnRoleIdChanging(global::System.Int32 value);
         partial void OnRoleIdChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="VUserRole")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class VUserRole : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new VUserRole object.
+        /// </summary>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="roleId">Initial value of the RoleId property.</param>
+        /// <param name="roleName">Initial value of the RoleName property.</param>
+        public static VUserRole CreateVUserRole(global::System.Int32 userId, global::System.Int32 roleId, global::System.String roleName)
+        {
+            VUserRole vUserRole = new VUserRole();
+            vUserRole.UserId = userId;
+            vUserRole.RoleId = roleId;
+            vUserRole.RoleName = roleName;
+            return vUserRole;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoleId
+        {
+            get
+            {
+                return _RoleId;
+            }
+            set
+            {
+                if (_RoleId != value)
+                {
+                    OnRoleIdChanging(value);
+                    ReportPropertyChanging("RoleId");
+                    _RoleId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("RoleId");
+                    OnRoleIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _RoleId;
+        partial void OnRoleIdChanging(global::System.Int32 value);
+        partial void OnRoleIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String RoleName
+        {
+            get
+            {
+                return _RoleName;
+            }
+            set
+            {
+                if (_RoleName != value)
+                {
+                    OnRoleNameChanging(value);
+                    ReportPropertyChanging("RoleName");
+                    _RoleName = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("RoleName");
+                    OnRoleNameChanged();
+                }
+            }
+        }
+        private global::System.String _RoleName;
+        partial void OnRoleNameChanging(global::System.String value);
+        partial void OnRoleNameChanged();
 
         #endregion
     

@@ -185,7 +185,9 @@ namespace Offwind.WebApp.Controllers
         [AllowAnonymous]
         public ActionResult RegisterComplete()
         {
-            return View();
+            var m = new RegisterModel();
+            m.UserName = User.Identity.Name;
+            return View(m);
         }
 
         private bool UserWithCodeExists(string userName, Guid code)

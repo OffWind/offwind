@@ -22,7 +22,11 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingFile_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMeeting), "DMeetingFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMeetingFile), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingParticipant_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMeeting), "DMeetingParticipant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMeetingParticipant), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMesoscaleTabFile_DMesoscaleDatabase", "DMesoscaleDatabase", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMesoscaleDatabase), "DMesoscaleTabFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMesoscaleTabFile), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DTurbine_DTurbine", "DTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.WebApp.Models.DTurbine), "DTurbine1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DTurbine), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DTurbineParameter_DTurbine", "DTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DTurbine), "DTurbineParameter", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DTurbineParameter), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DTurbine", "DTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DTurbine), "DWindFarmTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DWindFarmTurbine), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DUserProfile_webpages_Membership", "webpages_Membership", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.webpages_Membership), "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.WebApp.Models.DUserProfile), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DWindFarm", "DWindFarm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DWindFarm), "DWindFarmTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DWindFarmTurbine), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "webpages_UsersInRoles", "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DUserProfile), "webpages_Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.webpages_Roles))]
 
 #endregion
@@ -90,6 +94,22 @@ namespace Offwind.WebApp.Models
             }
         }
         private ObjectSet<DCase> _DCases;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DComment> DComments
+        {
+            get
+            {
+                if ((_DComments == null))
+                {
+                    _DComments = base.CreateObjectSet<DComment>("DComments");
+                }
+                return _DComments;
+            }
+        }
+        private ObjectSet<DComment> _DComments;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -222,6 +242,38 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<DTurbine> DTurbines
+        {
+            get
+            {
+                if ((_DTurbines == null))
+                {
+                    _DTurbines = base.CreateObjectSet<DTurbine>("DTurbines");
+                }
+                return _DTurbines;
+            }
+        }
+        private ObjectSet<DTurbine> _DTurbines;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DTurbineParameter> DTurbineParameters
+        {
+            get
+            {
+                if ((_DTurbineParameters == null))
+                {
+                    _DTurbineParameters = base.CreateObjectSet<DTurbineParameter>("DTurbineParameters");
+                }
+                return _DTurbineParameters;
+            }
+        }
+        private ObjectSet<DTurbineParameter> _DTurbineParameters;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<DUserProfile> DUserProfiles
         {
             get
@@ -234,6 +286,38 @@ namespace Offwind.WebApp.Models
             }
         }
         private ObjectSet<DUserProfile> _DUserProfiles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DWindFarm> DWindFarms
+        {
+            get
+            {
+                if ((_DWindFarms == null))
+                {
+                    _DWindFarms = base.CreateObjectSet<DWindFarm>("DWindFarms");
+                }
+                return _DWindFarms;
+            }
+        }
+        private ObjectSet<DWindFarm> _DWindFarms;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DWindFarmTurbine> DWindFarmTurbines
+        {
+            get
+            {
+                if ((_DWindFarmTurbines == null))
+                {
+                    _DWindFarmTurbines = base.CreateObjectSet<DWindFarmTurbine>("DWindFarmTurbines");
+                }
+                return _DWindFarmTurbines;
+            }
+        }
+        private ObjectSet<DWindFarmTurbine> _DWindFarmTurbines;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -391,6 +475,14 @@ namespace Offwind.WebApp.Models
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the DComments EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDComments(DComment dComment)
+        {
+            base.AddObject("DComments", dComment);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the DContents EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToDContents(DContent dContent)
@@ -455,11 +547,43 @@ namespace Offwind.WebApp.Models
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the DTurbines EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDTurbines(DTurbine dTurbine)
+        {
+            base.AddObject("DTurbines", dTurbine);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DTurbineParameters EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDTurbineParameters(DTurbineParameter dTurbineParameter)
+        {
+            base.AddObject("DTurbineParameters", dTurbineParameter);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the DUserProfiles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToDUserProfiles(DUserProfile dUserProfile)
         {
             base.AddObject("DUserProfiles", dUserProfile);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DWindFarms EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDWindFarms(DWindFarm dWindFarm)
+        {
+            base.AddObject("DWindFarms", dWindFarm);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DWindFarmTurbines EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDWindFarmTurbines(DWindFarmTurbine dWindFarmTurbine)
+        {
+            base.AddObject("DWindFarmTurbines", dWindFarmTurbine);
         }
     
         /// <summary>
@@ -720,6 +844,163 @@ namespace Offwind.WebApp.Models
         private Nullable<global::System.Guid> _CurrentJobId;
         partial void OnCurrentJobIdChanging(Nullable<global::System.Guid> value);
         partial void OnCurrentJobIdChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DComment")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DComment : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DComment object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="created">Initial value of the Created property.</param>
+        /// <param name="author">Initial value of the Author property.</param>
+        /// <param name="text">Initial value of the Text property.</param>
+        public static DComment CreateDComment(global::System.Guid id, global::System.DateTime created, global::System.String author, global::System.String text)
+        {
+            DComment dComment = new DComment();
+            dComment.Id = id;
+            dComment.Created = created;
+            dComment.Author = author;
+            dComment.Text = text;
+            return dComment;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> ObjectUid
+        {
+            get
+            {
+                return _ObjectUid;
+            }
+            set
+            {
+                OnObjectUidChanging(value);
+                ReportPropertyChanging("ObjectUid");
+                _ObjectUid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ObjectUid");
+                OnObjectUidChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _ObjectUid;
+        partial void OnObjectUidChanging(Nullable<global::System.Guid> value);
+        partial void OnObjectUidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private global::System.DateTime _Created;
+        partial void OnCreatedChanging(global::System.DateTime value);
+        partial void OnCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Author
+        {
+            get
+            {
+                return _Author;
+            }
+            set
+            {
+                OnAuthorChanging(value);
+                ReportPropertyChanging("Author");
+                _Author = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Author");
+                OnAuthorChanged();
+            }
+        }
+        private global::System.String _Author;
+        partial void OnAuthorChanging(global::System.String value);
+        partial void OnAuthorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Text
+        {
+            get
+            {
+                return _Text;
+            }
+            set
+            {
+                OnTextChanging(value);
+                ReportPropertyChanging("Text");
+                _Text = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Text");
+                OnTextChanged();
+            }
+        }
+        private global::System.String _Text;
+        partial void OnTextChanging(global::System.String value);
+        partial void OnTextChanged();
 
         #endregion
     
@@ -2202,6 +2483,548 @@ namespace Offwind.WebApp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DTurbine")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DTurbine : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DTurbine object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="isOriginal">Initial value of the IsOriginal property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        /// <param name="updated">Initial value of the Updated property.</param>
+        /// <param name="url">Initial value of the Url property.</param>
+        public static DTurbine CreateDTurbine(global::System.Guid id, global::System.Boolean isOriginal, global::System.String name, global::System.String description, global::System.DateTime updated, global::System.String url)
+        {
+            DTurbine dTurbine = new DTurbine();
+            dTurbine.Id = id;
+            dTurbine.IsOriginal = isOriginal;
+            dTurbine.Name = name;
+            dTurbine.Description = description;
+            dTurbine.Updated = updated;
+            dTurbine.Url = url;
+            return dTurbine;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsOriginal
+        {
+            get
+            {
+                return _IsOriginal;
+            }
+            set
+            {
+                OnIsOriginalChanging(value);
+                ReportPropertyChanging("IsOriginal");
+                _IsOriginal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsOriginal");
+                OnIsOriginalChanged();
+            }
+        }
+        private global::System.Boolean _IsOriginal;
+        partial void OnIsOriginalChanging(global::System.Boolean value);
+        partial void OnIsOriginalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> OriginalTurbineId
+        {
+            get
+            {
+                return _OriginalTurbineId;
+            }
+            set
+            {
+                OnOriginalTurbineIdChanging(value);
+                ReportPropertyChanging("OriginalTurbineId");
+                _OriginalTurbineId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OriginalTurbineId");
+                OnOriginalTurbineIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _OriginalTurbineId;
+        partial void OnOriginalTurbineIdChanging(Nullable<global::System.Guid> value);
+        partial void OnOriginalTurbineIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Updated
+        {
+            get
+            {
+                return _Updated;
+            }
+            set
+            {
+                OnUpdatedChanging(value);
+                ReportPropertyChanging("Updated");
+                _Updated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Updated");
+                OnUpdatedChanged();
+            }
+        }
+        private global::System.DateTime _Updated;
+        partial void OnUpdatedChanging(global::System.DateTime value);
+        partial void OnUpdatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Url
+        {
+            get
+            {
+                return _Url;
+            }
+            set
+            {
+                OnUrlChanging(value);
+                ReportPropertyChanging("Url");
+                _Url = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Url");
+                OnUrlChanged();
+            }
+        }
+        private global::System.String _Url;
+        partial void OnUrlChanging(global::System.String value);
+        partial void OnUrlChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DTurbine_DTurbine", "DTurbine1")]
+        public EntityCollection<DTurbine> DTurbine1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DTurbine>("Offwind.DbModels.FK_DTurbine_DTurbine", "DTurbine1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DTurbine>("Offwind.DbModels.FK_DTurbine_DTurbine", "DTurbine1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DTurbine_DTurbine", "DTurbine")]
+        public DTurbine DTurbine2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DTurbine_DTurbine", "DTurbine").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DTurbine_DTurbine", "DTurbine").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DTurbine> DTurbine2Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DTurbine_DTurbine", "DTurbine");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DTurbine>("Offwind.DbModels.FK_DTurbine_DTurbine", "DTurbine", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DTurbineParameter_DTurbine", "DTurbineParameter")]
+        public EntityCollection<DTurbineParameter> DTurbineParameters
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DTurbineParameter>("Offwind.DbModels.FK_DTurbineParameter_DTurbine", "DTurbineParameter");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DTurbineParameter>("Offwind.DbModels.FK_DTurbineParameter_DTurbine", "DTurbineParameter", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DTurbine", "DWindFarmTurbine")]
+        public EntityCollection<DWindFarmTurbine> DWindFarmTurbines
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DWindFarmTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DTurbine", "DWindFarmTurbine");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DWindFarmTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DTurbine", "DWindFarmTurbine", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DTurbineParameter")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DTurbineParameter : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DTurbineParameter object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="turbineId">Initial value of the TurbineId property.</param>
+        /// <param name="group">Initial value of the Group property.</param>
+        /// <param name="parameter">Initial value of the Parameter property.</param>
+        /// <param name="value">Initial value of the Value property.</param>
+        /// <param name="type">Initial value of the Type property.</param>
+        public static DTurbineParameter CreateDTurbineParameter(global::System.Guid id, global::System.Guid turbineId, global::System.String group, global::System.String parameter, global::System.String value, global::System.String type)
+        {
+            DTurbineParameter dTurbineParameter = new DTurbineParameter();
+            dTurbineParameter.Id = id;
+            dTurbineParameter.TurbineId = turbineId;
+            dTurbineParameter.Group = group;
+            dTurbineParameter.Parameter = parameter;
+            dTurbineParameter.Value = value;
+            dTurbineParameter.Type = type;
+            return dTurbineParameter;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid TurbineId
+        {
+            get
+            {
+                return _TurbineId;
+            }
+            set
+            {
+                OnTurbineIdChanging(value);
+                ReportPropertyChanging("TurbineId");
+                _TurbineId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TurbineId");
+                OnTurbineIdChanged();
+            }
+        }
+        private global::System.Guid _TurbineId;
+        partial void OnTurbineIdChanging(global::System.Guid value);
+        partial void OnTurbineIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Group
+        {
+            get
+            {
+                return _Group;
+            }
+            set
+            {
+                OnGroupChanging(value);
+                ReportPropertyChanging("Group");
+                _Group = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Group");
+                OnGroupChanged();
+            }
+        }
+        private global::System.String _Group;
+        partial void OnGroupChanging(global::System.String value);
+        partial void OnGroupChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Parameter
+        {
+            get
+            {
+                return _Parameter;
+            }
+            set
+            {
+                OnParameterChanging(value);
+                ReportPropertyChanging("Parameter");
+                _Parameter = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Parameter");
+                OnParameterChanged();
+            }
+        }
+        private global::System.String _Parameter;
+        partial void OnParameterChanging(global::System.String value);
+        partial void OnParameterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Value
+        {
+            get
+            {
+                return _Value;
+            }
+            set
+            {
+                OnValueChanging(value);
+                ReportPropertyChanging("Value");
+                _Value = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Value");
+                OnValueChanged();
+            }
+        }
+        private global::System.String _Value;
+        partial void OnValueChanging(global::System.String value);
+        partial void OnValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Type
+        {
+            get
+            {
+                return _Type;
+            }
+            set
+            {
+                OnTypeChanging(value);
+                ReportPropertyChanging("Type");
+                _Type = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Type");
+                OnTypeChanged();
+            }
+        }
+        private global::System.String _Type;
+        partial void OnTypeChanging(global::System.String value);
+        partial void OnTypeChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DTurbineParameter_DTurbine", "DTurbine")]
+        public DTurbine DTurbine
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DTurbineParameter_DTurbine", "DTurbine").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DTurbineParameter_DTurbine", "DTurbine").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DTurbine> DTurbineReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DTurbineParameter_DTurbine", "DTurbine");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DTurbine>("Offwind.DbModels.FK_DTurbineParameter_DTurbine", "DTurbine", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DUserProfile")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2482,6 +3305,558 @@ namespace Offwind.WebApp.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<webpages_Roles>("Offwind.DbModels.webpages_UsersInRoles", "webpages_Roles", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DWindFarm")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DWindFarm : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DWindFarm object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="country">Initial value of the Country property.</param>
+        /// <param name="urlOfficial">Initial value of the UrlOfficial property.</param>
+        /// <param name="urlPublicWiki">Initial value of the UrlPublicWiki property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        /// <param name="geoLat">Initial value of the GeoLat property.</param>
+        /// <param name="geoLng">Initial value of the GeoLng property.</param>
+        /// <param name="totalCapacity">Initial value of the TotalCapacity property.</param>
+        public static DWindFarm CreateDWindFarm(global::System.Guid id, global::System.String name, global::System.String country, global::System.String urlOfficial, global::System.String urlPublicWiki, global::System.String description, global::System.Decimal geoLat, global::System.Decimal geoLng, global::System.Decimal totalCapacity)
+        {
+            DWindFarm dWindFarm = new DWindFarm();
+            dWindFarm.Id = id;
+            dWindFarm.Name = name;
+            dWindFarm.Country = country;
+            dWindFarm.UrlOfficial = urlOfficial;
+            dWindFarm.UrlPublicWiki = urlPublicWiki;
+            dWindFarm.Description = description;
+            dWindFarm.GeoLat = geoLat;
+            dWindFarm.GeoLng = geoLng;
+            dWindFarm.TotalCapacity = totalCapacity;
+            return dWindFarm;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Country
+        {
+            get
+            {
+                return _Country;
+            }
+            set
+            {
+                OnCountryChanging(value);
+                ReportPropertyChanging("Country");
+                _Country = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Country");
+                OnCountryChanged();
+            }
+        }
+        private global::System.String _Country;
+        partial void OnCountryChanging(global::System.String value);
+        partial void OnCountryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UrlOfficial
+        {
+            get
+            {
+                return _UrlOfficial;
+            }
+            set
+            {
+                OnUrlOfficialChanging(value);
+                ReportPropertyChanging("UrlOfficial");
+                _UrlOfficial = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UrlOfficial");
+                OnUrlOfficialChanged();
+            }
+        }
+        private global::System.String _UrlOfficial;
+        partial void OnUrlOfficialChanging(global::System.String value);
+        partial void OnUrlOfficialChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UrlPublicWiki
+        {
+            get
+            {
+                return _UrlPublicWiki;
+            }
+            set
+            {
+                OnUrlPublicWikiChanging(value);
+                ReportPropertyChanging("UrlPublicWiki");
+                _UrlPublicWiki = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UrlPublicWiki");
+                OnUrlPublicWikiChanged();
+            }
+        }
+        private global::System.String _UrlPublicWiki;
+        partial void OnUrlPublicWikiChanging(global::System.String value);
+        partial void OnUrlPublicWikiChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal GeoLat
+        {
+            get
+            {
+                return _GeoLat;
+            }
+            set
+            {
+                OnGeoLatChanging(value);
+                ReportPropertyChanging("GeoLat");
+                _GeoLat = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("GeoLat");
+                OnGeoLatChanged();
+            }
+        }
+        private global::System.Decimal _GeoLat;
+        partial void OnGeoLatChanging(global::System.Decimal value);
+        partial void OnGeoLatChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal GeoLng
+        {
+            get
+            {
+                return _GeoLng;
+            }
+            set
+            {
+                OnGeoLngChanging(value);
+                ReportPropertyChanging("GeoLng");
+                _GeoLng = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("GeoLng");
+                OnGeoLngChanged();
+            }
+        }
+        private global::System.Decimal _GeoLng;
+        partial void OnGeoLngChanging(global::System.Decimal value);
+        partial void OnGeoLngChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal TotalCapacity
+        {
+            get
+            {
+                return _TotalCapacity;
+            }
+            set
+            {
+                OnTotalCapacityChanging(value);
+                ReportPropertyChanging("TotalCapacity");
+                _TotalCapacity = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TotalCapacity");
+                OnTotalCapacityChanged();
+            }
+        }
+        private global::System.Decimal _TotalCapacity;
+        partial void OnTotalCapacityChanging(global::System.Decimal value);
+        partial void OnTotalCapacityChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DWindFarm", "DWindFarmTurbine")]
+        public EntityCollection<DWindFarmTurbine> DWindFarmTurbines
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DWindFarmTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm", "DWindFarmTurbine");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DWindFarmTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm", "DWindFarmTurbine", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DWindFarmTurbine")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DWindFarmTurbine : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DWindFarmTurbine object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="windFarmId">Initial value of the WindFarmId property.</param>
+        /// <param name="turbineId">Initial value of the TurbineId property.</param>
+        /// <param name="x">Initial value of the X property.</param>
+        /// <param name="y">Initial value of the Y property.</param>
+        /// <param name="z">Initial value of the Z property.</param>
+        public static DWindFarmTurbine CreateDWindFarmTurbine(global::System.Guid id, global::System.Guid windFarmId, global::System.Guid turbineId, global::System.Decimal x, global::System.Decimal y, global::System.Decimal z)
+        {
+            DWindFarmTurbine dWindFarmTurbine = new DWindFarmTurbine();
+            dWindFarmTurbine.Id = id;
+            dWindFarmTurbine.WindFarmId = windFarmId;
+            dWindFarmTurbine.TurbineId = turbineId;
+            dWindFarmTurbine.X = x;
+            dWindFarmTurbine.Y = y;
+            dWindFarmTurbine.Z = z;
+            return dWindFarmTurbine;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid WindFarmId
+        {
+            get
+            {
+                return _WindFarmId;
+            }
+            set
+            {
+                OnWindFarmIdChanging(value);
+                ReportPropertyChanging("WindFarmId");
+                _WindFarmId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WindFarmId");
+                OnWindFarmIdChanged();
+            }
+        }
+        private global::System.Guid _WindFarmId;
+        partial void OnWindFarmIdChanging(global::System.Guid value);
+        partial void OnWindFarmIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid TurbineId
+        {
+            get
+            {
+                return _TurbineId;
+            }
+            set
+            {
+                OnTurbineIdChanging(value);
+                ReportPropertyChanging("TurbineId");
+                _TurbineId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TurbineId");
+                OnTurbineIdChanged();
+            }
+        }
+        private global::System.Guid _TurbineId;
+        partial void OnTurbineIdChanging(global::System.Guid value);
+        partial void OnTurbineIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal X
+        {
+            get
+            {
+                return _X;
+            }
+            set
+            {
+                OnXChanging(value);
+                ReportPropertyChanging("X");
+                _X = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("X");
+                OnXChanged();
+            }
+        }
+        private global::System.Decimal _X;
+        partial void OnXChanging(global::System.Decimal value);
+        partial void OnXChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Y
+        {
+            get
+            {
+                return _Y;
+            }
+            set
+            {
+                OnYChanging(value);
+                ReportPropertyChanging("Y");
+                _Y = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Y");
+                OnYChanged();
+            }
+        }
+        private global::System.Decimal _Y;
+        partial void OnYChanging(global::System.Decimal value);
+        partial void OnYChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Z
+        {
+            get
+            {
+                return _Z;
+            }
+            set
+            {
+                OnZChanging(value);
+                ReportPropertyChanging("Z");
+                _Z = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Z");
+                OnZChanged();
+            }
+        }
+        private global::System.Decimal _Z;
+        partial void OnZChanging(global::System.Decimal value);
+        partial void OnZChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DTurbine", "DTurbine")]
+        public DTurbine DTurbine
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DTurbine", "DTurbine").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DTurbine", "DTurbine").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DTurbine> DTurbineReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DTurbine", "DTurbine");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DTurbine", "DTurbine", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DWindFarm", "DWindFarm")]
+        public DWindFarm DWindFarm
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DWindFarm>("Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm", "DWindFarm").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DWindFarm>("Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm", "DWindFarm").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DWindFarm> DWindFarmReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DWindFarm>("Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm", "DWindFarm");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DWindFarm>("Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm", "DWindFarm", value);
                 }
             }
         }

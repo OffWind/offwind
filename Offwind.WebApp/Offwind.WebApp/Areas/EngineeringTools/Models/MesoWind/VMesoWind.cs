@@ -15,15 +15,15 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
         public int MerraCount { set; get; }
 
         public bool UseSearchResults { set; get; }
-        public List<SmallMesoscaleTabFile> InterestingPoints { set; get; }
+        public List<VSmallMesoscaleTabFile> InterestingPoints { set; get; }
         //public List<MesoscaleTabFile> ImportedPoints { set; get; }
-        public MesoscaleTabFile SelectedPoint { set; get; }
+        public DMesoscaleTabFile SelectedPoint { set; get; }
 
         public VMesoWind()
         {
             DbType = DbType.All;
             UseSearchResults = false;
-            InterestingPoints = new List<SmallMesoscaleTabFile>();
+            InterestingPoints = new List<VSmallMesoscaleTabFile>();
             //ImportedPoints = new List<MesoscaleTabFile>();
         }
     }

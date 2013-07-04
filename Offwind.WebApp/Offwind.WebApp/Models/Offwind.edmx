@@ -13,24 +13,16 @@
           <EntitySet Name="DMeeting" EntityType="u254697_offwindModel.Store.DMeeting" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DMeetingFile" EntityType="u254697_offwindModel.Store.DMeetingFile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DMeetingParticipant" EntityType="u254697_offwindModel.Store.DMeetingParticipant" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DMesoscaleDatabase" EntityType="u254697_offwindModel.Store.DMesoscaleDatabase" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DMesoscaleTabFile" EntityType="u254697_offwindModel.Store.DMesoscaleTabFile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DUserProfile" EntityType="u254697_offwindModel.Store.DUserProfile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Log" EntityType="u254697_offwindModel.Store.Log" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="MesoscaleDatabases" EntityType="u254697_offwindModel.Store.MesoscaleDatabases" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="MesoscaleTabFiles" EntityType="u254697_offwindModel.Store.MesoscaleTabFiles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Pages" EntityType="u254697_offwindModel.Store.Pages" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="u254697_offwindModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_Membership" EntityType="u254697_offwindModel.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="u254697_offwindModel.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_Roles" EntityType="u254697_offwindModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_UsersInRoles" EntityType="u254697_offwindModel.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="SmallMesoscaleTabFiles" EntityType="u254697_offwindModel.Store.SmallMesoscaleTabFiles" store:Type="Views" store:Schema="dbo" store:Name="SmallMesoscaleTabFiles">
-            <DefiningQuery>SELECT 
-      [SmallMesoscaleTabFiles].[Id] AS [Id], 
-      [SmallMesoscaleTabFiles].[DatabaseId] AS [DatabaseId], 
-      [SmallMesoscaleTabFiles].[Latitude] AS [Latitude], 
-      [SmallMesoscaleTabFiles].[Longitude] AS [Longitude]
-      FROM [dbo].[SmallMesoscaleTabFiles] AS [SmallMesoscaleTabFiles]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="VPartner" EntityType="u254697_offwindModel.Store.VPartner" store:Type="Views" store:Schema="dbo" store:Name="VPartner">
             <DefiningQuery>SELECT 
       [VPartner].[UserId] AS [UserId], 
@@ -39,6 +31,14 @@
       [VPartner].[CompanyName] AS [CompanyName], 
       [VPartner].[RoleId] AS [RoleId]
       FROM [dbo].[VPartner] AS [VPartner]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VSmallMesoscaleTabFile" EntityType="u254697_offwindModel.Store.VSmallMesoscaleTabFile" store:Type="Views" store:Schema="dbo" store:Name="VSmallMesoscaleTabFile">
+            <DefiningQuery>SELECT 
+      [VSmallMesoscaleTabFile].[Id] AS [Id], 
+      [VSmallMesoscaleTabFile].[DatabaseId] AS [DatabaseId], 
+      [VSmallMesoscaleTabFile].[Latitude] AS [Latitude], 
+      [VSmallMesoscaleTabFile].[Longitude] AS [Longitude]
+      FROM [dbo].[VSmallMesoscaleTabFile] AS [VSmallMesoscaleTabFile]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VUserRole" EntityType="u254697_offwindModel.Store.VUserRole" store:Type="Views" store:Schema="dbo" store:Name="VUserRole">
             <DefiningQuery>SELECT 
@@ -58,6 +58,10 @@
           <AssociationSet Name="FK_DMeetingParticipant_DMeeting" Association="u254697_offwindModel.Store.FK_DMeetingParticipant_DMeeting">
             <End Role="DMeeting" EntitySet="DMeeting" />
             <End Role="DMeetingParticipant" EntitySet="DMeetingParticipant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DMesoscaleTabFile_DMesoscaleDatabase" Association="u254697_offwindModel.Store.FK_DMesoscaleTabFile_DMesoscaleDatabase">
+            <End Role="DMesoscaleDatabase" EntitySet="DMesoscaleDatabase" />
+            <End Role="DMesoscaleTabFile" EntitySet="DMesoscaleTabFile" />
           </AssociationSet>
           <AssociationSet Name="FK_DUserProfile_webpages_Membership" Association="u254697_offwindModel.Store.FK_DUserProfile_webpages_Membership">
             <End Role="webpages_Membership" EntitySet="webpages_Membership" />
@@ -145,6 +149,23 @@
           <Property Name="MeetingId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Participant" Type="nvarchar" Nullable="false" MaxLength="200" />
         </EntityType>
+        <EntityType Name="DMesoscaleDatabase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DMesoscaleTabFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DatabaseId" Type="smallint" Nullable="false" />
+          <Property Name="Latitude" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="Longitude" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="Text" Type="text" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
       warning 6035: The relationship 'FK_DCase_DUserProfile' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
       warning 6035: The relationship 'FK_DJob_DUserProfile' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
@@ -173,23 +194,6 @@
           <Property Name="Logger" Type="varchar" Nullable="false" MaxLength="1000" />
           <Property Name="Message" Type="varchar" Nullable="false" />
           <Property Name="Exception" Type="varchar" />
-        </EntityType>
-        <EntityType Name="MesoscaleDatabases">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="smallint" Nullable="false" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="MesoscaleTabFiles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="DatabaseId" Type="smallint" Nullable="false" />
-          <Property Name="Latitude" Type="decimal" Nullable="false" Scale="4" />
-          <Property Name="Longitude" Type="decimal" Nullable="false" Scale="4" />
-          <Property Name="Text" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="Pages">
           <Key>
@@ -263,21 +267,6 @@
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'offwind.dbo.SmallMesoscaleTabFiles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
-        <EntityType Name="SmallMesoscaleTabFiles">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="DatabaseId" />
-            <PropertyRef Name="Latitude" />
-            <PropertyRef Name="Longitude" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="DatabaseId" Type="smallint" Nullable="false" />
-          <Property Name="Latitude" Type="decimal" Nullable="false" Scale="4" />
-          <Property Name="Longitude" Type="decimal" Nullable="false" Scale="4" />
-        </EntityType>
-        <!--Errors Found During Generation:
       warning 6002: The table/view 'offwind.dbo.VPartner' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="VPartner">
@@ -291,6 +280,21 @@
           <Property Name="FullName" Type="nvarchar" MaxLength="350" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="1000" />
           <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'offwind.dbo.VSmallMesoscaleTabFile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="VSmallMesoscaleTabFile">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DatabaseId" />
+            <PropertyRef Name="Latitude" />
+            <PropertyRef Name="Longitude" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DatabaseId" Type="smallint" Nullable="false" />
+          <Property Name="Latitude" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="Longitude" Type="decimal" Nullable="false" Scale="4" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'offwind.dbo.VUserRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -338,6 +342,18 @@
             </Principal>
             <Dependent Role="DMeetingParticipant">
               <PropertyRef Name="MeetingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DMesoscaleTabFile_DMesoscaleDatabase">
+          <End Role="DMesoscaleDatabase" Type="u254697_offwindModel.Store.DMesoscaleDatabase" Multiplicity="1" />
+          <End Role="DMesoscaleTabFile" Type="u254697_offwindModel.Store.DMesoscaleTabFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DMesoscaleDatabase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DMesoscaleTabFile">
+              <PropertyRef Name="DatabaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -389,17 +405,17 @@
           <EntitySet Name="DMeetings" EntityType="Offwind.DbModels.DMeeting" />
           <EntitySet Name="DMeetingFiles" EntityType="Offwind.DbModels.DMeetingFile" />
           <EntitySet Name="DMeetingParticipants" EntityType="Offwind.DbModels.DMeetingParticipant" />
+          <EntitySet Name="DMesoscaleDatabases" EntityType="Offwind.DbModels.DMesoscaleDatabase" />
+          <EntitySet Name="DMesoscaleTabFiles" EntityType="Offwind.DbModels.DMesoscaleTabFile" />
           <EntitySet Name="DUserProfiles" EntityType="Offwind.DbModels.DUserProfile" />
           <EntitySet Name="Logs" EntityType="Offwind.DbModels.Log" />
-          <EntitySet Name="MesoscaleDatabases" EntityType="Offwind.DbModels.MesoscaleDatabas" />
-          <EntitySet Name="MesoscaleTabFiles" EntityType="Offwind.DbModels.MesoscaleTabFile" />
           <EntitySet Name="Pages" EntityType="Offwind.DbModels.Page" />
           <EntitySet Name="sysdiagrams" EntityType="Offwind.DbModels.sysdiagram" />
           <EntitySet Name="webpages_Membership" EntityType="Offwind.DbModels.webpages_Membership" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Offwind.DbModels.webpages_OAuthMembership" />
           <EntitySet Name="webpages_Roles" EntityType="Offwind.DbModels.webpages_Roles" />
-          <EntitySet Name="SmallMesoscaleTabFiles" EntityType="Offwind.DbModels.SmallMesoscaleTabFile" />
           <EntitySet Name="VPartners" EntityType="Offwind.DbModels.VPartner" />
+          <EntitySet Name="VSmallMesoscaleTabFiles" EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" />
           <EntitySet Name="VUserRoles" EntityType="Offwind.DbModels.VUserRole" />
           <AssociationSet Name="FK_DContent_DContentTypes" Association="Offwind.DbModels.FK_DContent_DContentTypes">
             <End Role="DContentType" EntitySet="DContentTypes" />
@@ -412,6 +428,10 @@
           <AssociationSet Name="FK_DMeetingParticipant_DMeeting" Association="Offwind.DbModels.FK_DMeetingParticipant_DMeeting">
             <End Role="DMeeting" EntitySet="DMeetings" />
             <End Role="DMeetingParticipant" EntitySet="DMeetingParticipants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DMesoscaleTabFile_DMesoscaleDatabase" Association="Offwind.DbModels.FK_DMesoscaleTabFile_DMesoscaleDatabase">
+            <End Role="DMesoscaleDatabase" EntitySet="DMesoscaleDatabases" />
+            <End Role="DMesoscaleTabFile" EntitySet="DMesoscaleTabFiles" />
           </AssociationSet>
           <AssociationSet Name="FK_DUserProfile_webpages_Membership" Association="Offwind.DbModels.FK_DUserProfile_webpages_Membership">
             <End Role="webpages_Membership" EntitySet="webpages_Membership" />
@@ -501,6 +521,25 @@
           <Property Type="String" Name="Participant" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DMeeting" Relationship="Offwind.DbModels.FK_DMeetingParticipant_DMeeting" FromRole="DMeetingParticipant" ToRole="DMeeting" />
         </EntityType>
+        <EntityType Name="DMesoscaleDatabase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int16" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DMesoscaleTabFiles" Relationship="Offwind.DbModels.FK_DMesoscaleTabFile_DMesoscaleDatabase" FromRole="DMesoscaleDatabase" ToRole="DMesoscaleTabFile" />
+        </EntityType>
+        <EntityType Name="DMesoscaleTabFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
+          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DMesoscaleDatabase" Relationship="Offwind.DbModels.FK_DMesoscaleTabFile_DMesoscaleDatabase" FromRole="DMesoscaleTabFile" ToRole="DMesoscaleDatabase" />
+        </EntityType>
         <EntityType Name="DUserProfile">
           <Key>
             <PropertyRef Name="UserId" />
@@ -527,23 +566,6 @@
           <Property Type="String" Name="Logger" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Message" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Exception" MaxLength="8000" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="MesoscaleDatabas">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int16" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="MesoscaleTabFile">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
-          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Page">
           <Key>
@@ -610,18 +632,6 @@
           <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DUserProfiles" Relationship="Offwind.DbModels.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="DUserProfile" />
         </EntityType>
-        <EntityType Name="SmallMesoscaleTabFile">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="DatabaseId" />
-            <PropertyRef Name="Latitude" />
-            <PropertyRef Name="Longitude" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
-          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
-        </EntityType>
         <EntityType Name="VPartner">
           <Key>
             <PropertyRef Name="UserId" />
@@ -633,6 +643,18 @@
           <Property Type="String" Name="FullName" MaxLength="350" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="CompanyName" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="RoleId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VSmallMesoscaleTabFile">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DatabaseId" />
+            <PropertyRef Name="Latitude" />
+            <PropertyRef Name="Longitude" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
+          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="VUserRole">
           <Key>
@@ -677,6 +699,18 @@
             </Principal>
             <Dependent Role="DMeetingParticipant">
               <PropertyRef Name="MeetingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DMesoscaleTabFile_DMesoscaleDatabase">
+          <End Type="Offwind.DbModels.DMesoscaleDatabase" Role="DMesoscaleDatabase" Multiplicity="1" />
+          <End Type="Offwind.DbModels.DMesoscaleTabFile" Role="DMesoscaleTabFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DMesoscaleDatabase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DMesoscaleTabFile">
+              <PropertyRef Name="DatabaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -781,6 +815,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DMesoscaleDatabases">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DMesoscaleDatabase">
+              <MappingFragment StoreEntitySet="DMesoscaleDatabase">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DMesoscaleTabFiles">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DMesoscaleTabFile">
+              <MappingFragment StoreEntitySet="DMesoscaleTabFile">
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DUserProfiles">
             <EntityTypeMapping TypeName="Offwind.DbModels.DUserProfile">
               <MappingFragment StoreEntitySet="DUserProfile">
@@ -804,25 +857,6 @@
                 <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="Thread" ColumnName="Thread" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MesoscaleDatabases">
-            <EntityTypeMapping TypeName="Offwind.DbModels.MesoscaleDatabas">
-              <MappingFragment StoreEntitySet="MesoscaleDatabases">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MesoscaleTabFiles">
-            <EntityTypeMapping TypeName="Offwind.DbModels.MesoscaleTabFile">
-              <MappingFragment StoreEntitySet="MesoscaleTabFiles">
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -894,16 +928,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SmallMesoscaleTabFiles">
-            <EntityTypeMapping TypeName="Offwind.DbModels.SmallMesoscaleTabFile">
-              <MappingFragment StoreEntitySet="SmallMesoscaleTabFiles">
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="VPartners">
             <EntityTypeMapping TypeName="Offwind.DbModels.VPartner">
               <MappingFragment StoreEntitySet="VPartner">
@@ -912,6 +936,16 @@
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VSmallMesoscaleTabFiles">
+            <EntityTypeMapping TypeName="Offwind.DbModels.VSmallMesoscaleTabFile">
+              <MappingFragment StoreEntitySet="VSmallMesoscaleTabFile">
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -954,27 +988,27 @@
     <Diagrams>
       <Diagram Name="Offwind">
         <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="7.75" PointY="0.75" Height="2.1725878906250031" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="8" PointY="5" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="5.75" PointY="6" Height="1.4033821614583388" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="9.75" PointY="0.75" Height="2.7494921875000067" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="8" PointY="9" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="5.75" PointY="10" Height="1.4033821614583282" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="9.75" PointY="0.75" Height="2.7494921875000102" />
         <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="0.75" PointY="7.25" Height="1.9802864583333388" />
         <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="3" PointY="6" Height="1.9802864583333246" />
         <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="3" PointY="8.75" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="5.75" PointY="5.25" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="8" PointY="4.875" Height="2.172587890624996" />
         <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="3" PointY="1.25" Height="2.9417936197916674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="5.75" PointY="9.75" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleDatabas" Width="1.5" PointX="7.75" PointY="9.75" Height="1.4033821614583246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.MesoscaleTabFile" Width="1.5" PointX="9.75" PointY="9.75" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="10.75" PointY="4.75" Height="3.9033007812500102" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="10.75" PointY="4.75" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="10.75" PointY="8.75" Height="3.9033007812500102" />
         <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="11.75" PointY="0.75" Height="1.9802864583333246" />
         <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="0.75" PointY="1" Height="3.5186979166666674" />
         <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="0.75" PointY="11.75" Height="1.5956835937500102" />
         <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="5.25" PointY="2" Height="1.595683593749996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.SmallMesoscaleTabFile" Width="1.5" PointX="2.75" PointY="11.75" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="11.75" PointY="9.75" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="12.75" PointY="3.75" Height="1.5956835937500102" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="2.75" PointY="11.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="12.75" PointY="3.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="4.75" PointY="12.75" Height="1.5956835937500102" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" >
-          <ConnectorPoint PointX="7.25" PointY="6.7016910807291694" />
-          <ConnectorPoint PointX="8" PointY="6.7016910807291694" />
+          <ConnectorPoint PointX="7.25" PointY="10.701691080729164" />
+          <ConnectorPoint PointX="8" PointY="10.701691080729164" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingFile_DMeeting" >
           <ConnectorPoint PointX="2.25" PointY="7.6151432291666623" />
@@ -983,6 +1017,10 @@
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingParticipant_DMeeting" >
           <ConnectorPoint PointX="2.25" PointY="8.99014322916667" />
           <ConnectorPoint PointX="3" PointY="8.99014322916667" />
+        </AssociationConnector>
+        <AssociationConnector Association="Offwind.DbModels.FK_DMesoscaleTabFile_DMesoscaleDatabase" >
+          <ConnectorPoint PointX="7.25" PointY="6.047841796874998" />
+          <ConnectorPoint PointX="8" PointY="6.047841796874998" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.FK_DUserProfile_webpages_Membership" >
           <ConnectorPoint PointX="2.25" PointY="2.7208968098958337" />

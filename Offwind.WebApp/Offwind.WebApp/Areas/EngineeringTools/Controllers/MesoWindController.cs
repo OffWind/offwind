@@ -40,9 +40,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
             else
             {
-                model.TotalCount = _ctx.SmallMesoscaleTabFiles.Count();
-                model.FnlCount = _ctx.SmallMesoscaleTabFiles.Count(t => t.DatabaseId == (int)DbType.FNL);
-                model.MerraCount = _ctx.SmallMesoscaleTabFiles.Count(t => t.DatabaseId == (int)DbType.MERRA);
+                model.TotalCount = _ctx.VSmallMesoscaleTabFiles.Count();
+                model.FnlCount = _ctx.VSmallMesoscaleTabFiles.Count(t => t.DatabaseId == (int)DbType.FNL);
+                model.MerraCount = _ctx.VSmallMesoscaleTabFiles.Count(t => t.DatabaseId == (int)DbType.MERRA);
             }            
         }
 
@@ -173,7 +173,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             var lat = Convert.ToDecimal(val[0]);
             var lng = Convert.ToDecimal(val[1]);
 
-            foreach (var x in _ctx.MesoscaleTabFiles.Where(x => (Math.Abs((double)(x.Latitude - lat)) < 1e-9) &&
+            foreach (var x in _ctx.DMesoscaleTabFiles.Where(x => (Math.Abs((double)(x.Latitude - lat)) < 1e-9) &&
                              (Math.Abs((double)(x.Longitude - lng)) < 1e-9)))
             {
                 model.SelectedPoint = x;
@@ -449,9 +449,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public JsonResult GetTableData(int sEcho, int iDisplayLength, int iDisplayStart)
         {
             var model = PopModel();
-            List<SmallMesoscaleTabFile> db = (model.UseSearchResults)
+            List<VSmallMesoscaleTabFile> db = (model.UseSearchResults)
                                                    ? model.InterestingPoints
-                                                   : _ctx.SmallMesoscaleTabFiles.ToList();
+                                                   : _ctx.VSmallMesoscaleTabFiles.ToList();
 
             List<object[]> goodPoints =
                 db.Where(t => (t.DatabaseId == (short) model.DbType) || (model.DbType == DbType.All)).Select(MapDatabaseItem).ToList();
@@ -477,9 +477,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             var model = PopModel();
             object[][] filtered = null;
-            List<SmallMesoscaleTabFile> data = (model.UseSearchResults)
+            List<VSmallMesoscaleTabFile> data = (model.UseSearchResults)
                                                    ? model.InterestingPoints
-                                                   : _ctx.SmallMesoscaleTabFiles.ToList();
+                                                   : _ctx.VSmallMesoscaleTabFiles.ToList();
             if (model.DbType == DbType.All)
                 return Json(data.Select(MapDatabaseItem).ToArray(), JsonRequestBehavior.AllowGet);
 
@@ -489,9 +489,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return Json(filtered, JsonRequestBehavior.AllowGet);
         }
 
-        private IEnumerable<SmallMesoscaleTabFile> GetFiltered(decimal lat, decimal lng, decimal allowedDistance)
-        {         
-            foreach (var item in _ctx.SmallMesoscaleTabFiles)
+        private IEnumerable<VSmallMesoscaleTabFile> GetFiltered(decimal lat, decimal lng, decimal allowedDistance)
+        {
+            foreach (var item in _ctx.VSmallMesoscaleTabFiles)
             {
                 var sCoord = new GeoCoordinate((double)item.Latitude, (double)item.Longitude);
                 var eCoord = new GeoCoordinate((double) lat, (double) lng);
@@ -503,7 +503,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         }
 
 
-        private static object[] MapDatabaseItem(SmallMesoscaleTabFile x)
+        private static object[] MapDatabaseItem(VSmallMesoscaleTabFile x)
         {
             var db = x.DatabaseId == (int) DbType.FNL ? "FNL" : "MERRA";
             return new object[] {x.Id, x.Latitude, x.Longitude, db};

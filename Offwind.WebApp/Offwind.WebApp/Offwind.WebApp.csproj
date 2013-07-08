@@ -254,6 +254,12 @@
     <Compile Include="Areas\Partners\Models\VMeeting.cs" />
     <Compile Include="Areas\Partners\Models\VPartnersHome.cs" />
     <Compile Include="Areas\Partners\PartnersAreaRegistration.cs" />
+    <Compile Include="Areas\WindFarms\Controllers\TurbineController.cs" />
+    <Compile Include="Areas\WindFarms\Controllers\WindFarmController.cs" />
+    <Compile Include="Areas\WindFarms\Controllers\HomeWindFarmsController.cs" />
+    <Compile Include="Areas\WindFarms\Controllers\_BaseController.cs" />
+    <Compile Include="Areas\WindFarms\Models\VWindFarmsHome.cs" />
+    <Compile Include="Areas\WindFarms\WindFarmsAreaRegistration.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\CFD\Controllers\CaseManagementController.cs" />
@@ -1927,6 +1933,8 @@
     <Folder Include="Areas\Library\Models\" />
     <Folder Include="Areas\Library\Views\Shared\" />
     <Folder Include="Areas\Partners\Views\Shared\" />
+    <Folder Include="Areas\WindFarms\Views\Shared\" />
+    <Folder Include="Models\WindFarms\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -2101,6 +2109,11 @@
     <Content Include="Areas\Library\Views\Web.config" />
     <Content Include="Areas\Library\Views\HomeLibrary\Index.cshtml" />
     <Content Include="Areas\Library\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\WindFarms\Views\Web.config" />
+    <Content Include="Areas\WindFarms\Views\HomeWindFarms\Index.cshtml" />
+    <Content Include="Areas\WindFarms\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\WindFarms\Views\WindFarm\Add.cshtml" />
+    <Content Include="Areas\WindFarms\Views\Turbine\Add.cshtml" />
     <None Include="static\.DS_Store" />
     <None Include="static\ckeditor\CHANGES.md" />
     <None Include="static\ckeditor\LICENSE.md" />

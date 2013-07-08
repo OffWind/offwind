@@ -1,0 +1,39 @@
+﻿@model Offwind.WebApp.Areas.WindFarms.Models.VWindFarmsHome
+
+@{
+    ViewBag.Title = "Wind Farms & Turbines Database | Offwind";
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li class="active">Wind Farms</li>
+</ul>
+<div class="row-fluid row-content-block">
+    <div class="span12 well sub-block-fixed">
+        <h2>Wind Farms</h2>
+        <table class="table table-condensed table-hover table-bordered">
+            <tr>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Capacity<br/>(MW)</th>
+            </tr>
+            @foreach (var partner in Model.WindFarms)
+            {
+                <tr>
+                    <td>@partner.Name</td>
+                    <td>@partner.Country</td>
+                    <td>@partner.TotalCapacity</td>
+                </tr>
+            }
+        </table>
+        <a href="@Url.Action("Add", "WindFarm", new { area = "WindFarms" })" class="btn btn-primary">Add new Wind Farm</a> <br/> <br/>
+    </div>
+</div>
+<div class="row-fluid row-content-block">
+    <div class="span12 well sub-block-fixed">
+        <h2>Turbines</h2>
+        <p>Calculate simple windwave interactions by taking into account the effect of the waves on the wind speed.</p>
+        <a href="@Url.Action("Add", "Turbine", new { area = "WindFarms" })" class="btn btn-primary">Add new Turbine</a> <br/> <br/>
+    </div>
+</div>
+

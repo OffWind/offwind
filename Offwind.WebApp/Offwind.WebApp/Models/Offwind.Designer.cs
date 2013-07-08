@@ -98,22 +98,6 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<DComment> DComments
-        {
-            get
-            {
-                if ((_DComments == null))
-                {
-                    _DComments = base.CreateObjectSet<DComment>("DComments");
-                }
-                return _DComments;
-            }
-        }
-        private ObjectSet<DComment> _DComments;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<DContent> DContents
         {
             get
@@ -472,14 +456,6 @@ namespace Offwind.WebApp.Models
         public void AddToDCases(DCase dCase)
         {
             base.AddObject("DCases", dCase);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the DComments EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDComments(DComment dComment)
-        {
-            base.AddObject("DComments", dComment);
         }
     
         /// <summary>
@@ -844,163 +820,6 @@ namespace Offwind.WebApp.Models
         private Nullable<global::System.Guid> _CurrentJobId;
         partial void OnCurrentJobIdChanging(Nullable<global::System.Guid> value);
         partial void OnCurrentJobIdChanged();
-
-        #endregion
-    
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DComment")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class DComment : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new DComment object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="created">Initial value of the Created property.</param>
-        /// <param name="author">Initial value of the Author property.</param>
-        /// <param name="text">Initial value of the Text property.</param>
-        public static DComment CreateDComment(global::System.Guid id, global::System.DateTime created, global::System.String author, global::System.String text)
-        {
-            DComment dComment = new DComment();
-            dComment.Id = id;
-            dComment.Created = created;
-            dComment.Author = author;
-            dComment.Text = text;
-            return dComment;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Guid _Id;
-        partial void OnIdChanging(global::System.Guid value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Guid> ObjectUid
-        {
-            get
-            {
-                return _ObjectUid;
-            }
-            set
-            {
-                OnObjectUidChanging(value);
-                ReportPropertyChanging("ObjectUid");
-                _ObjectUid = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ObjectUid");
-                OnObjectUidChanged();
-            }
-        }
-        private Nullable<global::System.Guid> _ObjectUid;
-        partial void OnObjectUidChanging(Nullable<global::System.Guid> value);
-        partial void OnObjectUidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime Created
-        {
-            get
-            {
-                return _Created;
-            }
-            set
-            {
-                OnCreatedChanging(value);
-                ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Created");
-                OnCreatedChanged();
-            }
-        }
-        private global::System.DateTime _Created;
-        partial void OnCreatedChanging(global::System.DateTime value);
-        partial void OnCreatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Author
-        {
-            get
-            {
-                return _Author;
-            }
-            set
-            {
-                OnAuthorChanging(value);
-                ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Author");
-                OnAuthorChanged();
-            }
-        }
-        private global::System.String _Author;
-        partial void OnAuthorChanging(global::System.String value);
-        partial void OnAuthorChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Text
-        {
-            get
-            {
-                return _Text;
-            }
-            set
-            {
-                OnTextChanging(value);
-                ReportPropertyChanging("Text");
-                _Text = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Text");
-                OnTextChanged();
-            }
-        }
-        private global::System.String _Text;
-        partial void OnTextChanging(global::System.String value);
-        partial void OnTextChanged();
 
         #endregion
     
@@ -2811,16 +2630,14 @@ namespace Offwind.WebApp.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="turbineId">Initial value of the TurbineId property.</param>
-        /// <param name="group">Initial value of the Group property.</param>
         /// <param name="parameter">Initial value of the Parameter property.</param>
         /// <param name="value">Initial value of the Value property.</param>
         /// <param name="type">Initial value of the Type property.</param>
-        public static DTurbineParameter CreateDTurbineParameter(global::System.Guid id, global::System.Guid turbineId, global::System.String group, global::System.String parameter, global::System.String value, global::System.String type)
+        public static DTurbineParameter CreateDTurbineParameter(global::System.Guid id, global::System.Guid turbineId, global::System.String parameter, global::System.String value, global::System.String type)
         {
             DTurbineParameter dTurbineParameter = new DTurbineParameter();
             dTurbineParameter.Id = id;
             dTurbineParameter.TurbineId = turbineId;
-            dTurbineParameter.Group = group;
             dTurbineParameter.Parameter = parameter;
             dTurbineParameter.Value = value;
             dTurbineParameter.Type = type;
@@ -2880,30 +2697,6 @@ namespace Offwind.WebApp.Models
         private global::System.Guid _TurbineId;
         partial void OnTurbineIdChanging(global::System.Guid value);
         partial void OnTurbineIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Group
-        {
-            get
-            {
-                return _Group;
-            }
-            set
-            {
-                OnGroupChanging(value);
-                ReportPropertyChanging("Group");
-                _Group = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Group");
-                OnGroupChanged();
-            }
-        }
-        private global::System.String _Group;
-        partial void OnGroupChanging(global::System.String value);
-        partial void OnGroupChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

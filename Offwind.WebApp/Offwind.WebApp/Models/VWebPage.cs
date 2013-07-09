@@ -8,6 +8,7 @@ namespace Offwind.WebApp.Models
     public class VWebPage
     {
         public string SiteName { get; set; }
+        public string H1 { get; set; }
         public string BrowserTitle { get; set; }
         public BreadcrumbsCollection Breadcrumbs { get; protected set; }
         public string CurrentCulture { get; set; }

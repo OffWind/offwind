@@ -146,6 +146,22 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<DCountry> DCountries
+        {
+            get
+            {
+                if ((_DCountries == null))
+                {
+                    _DCountries = base.CreateObjectSet<DCountry>("DCountries");
+                }
+                return _DCountries;
+            }
+        }
+        private ObjectSet<DCountry> _DCountries;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<DJob> DJobs
         {
             get
@@ -496,6 +512,14 @@ namespace Offwind.WebApp.Models
         public void AddToDContentTypes(DContentType dContentType)
         {
             base.AddObject("DContentTypes", dContentType);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DCountries EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDCountries(DCountry dCountry)
+        {
+            base.AddObject("DCountries", dCountry);
         }
     
         /// <summary>
@@ -1466,6 +1490,87 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DCountry")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DCountry : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DCountry object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        public static DCountry CreateDCountry(global::System.Int32 id, global::System.String name)
+        {
+            DCountry dCountry = new DCountry();
+            dCountry.Id = id;
+            dCountry.Name = name;
+            return dCountry;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+
+        #endregion
+    
     }
     
     /// <summary>
@@ -2813,16 +2918,14 @@ namespace Offwind.WebApp.Models
         /// <param name="turbineId">Initial value of the TurbineId property.</param>
         /// <param name="group">Initial value of the Group property.</param>
         /// <param name="parameter">Initial value of the Parameter property.</param>
-        /// <param name="value">Initial value of the Value property.</param>
         /// <param name="type">Initial value of the Type property.</param>
-        public static DTurbineParameter CreateDTurbineParameter(global::System.Guid id, global::System.Guid turbineId, global::System.String group, global::System.String parameter, global::System.String value, global::System.String type)
+        public static DTurbineParameter CreateDTurbineParameter(global::System.Guid id, global::System.Guid turbineId, global::System.String group, global::System.String parameter, global::System.String type)
         {
             DTurbineParameter dTurbineParameter = new DTurbineParameter();
             dTurbineParameter.Id = id;
             dTurbineParameter.TurbineId = turbineId;
             dTurbineParameter.Group = group;
             dTurbineParameter.Parameter = parameter;
-            dTurbineParameter.Value = value;
             dTurbineParameter.Type = type;
             return dTurbineParameter;
         }
@@ -2934,30 +3037,6 @@ namespace Offwind.WebApp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String Value
-        {
-            get
-            {
-                return _Value;
-            }
-            set
-            {
-                OnValueChanging(value);
-                ReportPropertyChanging("Value");
-                _Value = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Value");
-                OnValueChanged();
-            }
-        }
-        private global::System.String _Value;
-        partial void OnValueChanging(global::System.String value);
-        partial void OnValueChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.String Type
         {
             get
@@ -2976,6 +3055,54 @@ namespace Offwind.WebApp.Models
         private global::System.String _Type;
         partial void OnTypeChanging(global::System.String value);
         partial void OnTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ValueTxt
+        {
+            get
+            {
+                return _ValueTxt;
+            }
+            set
+            {
+                OnValueTxtChanging(value);
+                ReportPropertyChanging("ValueTxt");
+                _ValueTxt = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ValueTxt");
+                OnValueTxtChanged();
+            }
+        }
+        private global::System.String _ValueTxt;
+        partial void OnValueTxtChanging(global::System.String value);
+        partial void OnValueTxtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> ValueNumeric
+        {
+            get
+            {
+                return _ValueNumeric;
+            }
+            set
+            {
+                OnValueNumericChanging(value);
+                ReportPropertyChanging("ValueNumeric");
+                _ValueNumeric = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ValueNumeric");
+                OnValueNumericChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _ValueNumeric;
+        partial void OnValueNumericChanging(Nullable<global::System.Decimal> value);
+        partial void OnValueNumericChanged();
 
         #endregion
     
@@ -3378,6 +3505,78 @@ namespace Offwind.WebApp.Models
         private global::System.Guid _Id;
         partial void OnIdChanging(global::System.Guid value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Created;
+        partial void OnCreatedChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Updated
+        {
+            get
+            {
+                return _Updated;
+            }
+            set
+            {
+                OnUpdatedChanging(value);
+                ReportPropertyChanging("Updated");
+                _Updated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Updated");
+                OnUpdatedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Updated;
+        partial void OnUpdatedChanging(Nullable<global::System.DateTime> value);
+        partial void OnUpdatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Author
+        {
+            get
+            {
+                return _Author;
+            }
+            set
+            {
+                OnAuthorChanging(value);
+                ReportPropertyChanging("Author");
+                _Author = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Author");
+                OnAuthorChanged();
+            }
+        }
+        private global::System.String _Author;
+        partial void OnAuthorChanging(global::System.String value);
+        partial void OnAuthorChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

@@ -6,15 +6,11 @@ using System.Web.Mvc;
 
 namespace Offwind.WebApp.Areas.WindFarms.Controllers
 {
-    public class TurbineController : Controller
+    public class TurbineController : _BaseController
     {
-        //
-        // GET: /WindFarms/Turbine/
-
         public ActionResult Add()
         {
             return View();
         }
-
     }
 }

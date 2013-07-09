@@ -1,0 +1,18 @@
+﻿@model object
+@{
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
+    var description = ViewData.ModelMetadata.Description;
+}
+<div class="control-group" id="@("EditorFor_" + fieldName)">
+    <label class="control-label" for="@fieldName">@displayName
+        @if (description != null && description.Trim().Length > 0)
+        {
+            <i class="icon-question-sign tip-right" title="@description"></i>
+        }
+    </label>
+        
+    <div class="controls">
+        <input type="text" data-provide="typeahead" class="" id="@fieldName" name="@fieldName" placeholder="@ViewData.ModelMetadata.NullDisplayText" value="@Model" autocomplete="off"/>
+    </div>
+</div>

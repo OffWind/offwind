@@ -264,6 +264,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\CFD\Controllers\CaseManagementController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\MailingController.cs" />
     <Compile Include="Infrastructure\AccountsHelper.cs" />
@@ -2112,7 +2113,7 @@
     <Content Include="Areas\WindFarms\Views\Web.config" />
     <Content Include="Areas\WindFarms\Views\HomeWindFarms\Index.cshtml" />
     <Content Include="Areas\WindFarms\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\WindFarms\Views\WindFarm\Add.cshtml" />
+    <Content Include="Areas\WindFarms\Views\WindFarm\Edit.cshtml" />
     <Content Include="Areas\WindFarms\Views\Turbine\Add.cshtml" />
     <None Include="static\.DS_Store" />
     <None Include="static\ckeditor\CHANGES.md" />
@@ -2300,6 +2301,7 @@
     <Content Include="Views\Account\RegisterComplete.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\TextEditor.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Autocomplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

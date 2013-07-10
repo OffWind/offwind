@@ -9,6 +9,8 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
 {
     public class VWindFarmsHome : VWebPage
     {
+        public int TotalPublicWindFarms { get; set; }
+        public int TotalPublicTurbines { get; set; }
         public List<VWindFarm> WindFarms { get; set; }
         public List<VTurbine> Turbines { get; set; }
 
@@ -42,7 +44,25 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
 
         public string Description { get; set; }
 
+        [Display(Name = "Created by")]
+        public string Author { get; set; }
+
         public List<VTurbine> Turbines { get; set; }
+
+        public bool HasWikiLink()
+        {
+            return UrlPublicWiki != null && UrlPublicWiki.Trim().Length > 0;
+        }
+
+        public bool HasOfficialLink()
+        {
+            return UrlOfficial != null && UrlOfficial.Trim().Length > 0;
+        }
+
+        public bool HasLinks()
+        {
+            return HasWikiLink() || HasOfficialLink();
+        }
 
         public VWindFarm()
         {
@@ -54,8 +74,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public List<VParameter> Parameters { get; set; }
-        
+        public Dictionary<string, string> Parameters { get; set; }
     }
 
     public class VParameter

@@ -2115,6 +2115,9 @@
     <Content Include="Areas\WindFarms\Views\_ViewStart.cshtml" />
     <Content Include="Areas\WindFarms\Views\WindFarm\Edit.cshtml" />
     <Content Include="Areas\WindFarms\Views\Turbine\Add.cshtml" />
+    <Content Include="Areas\WindFarms\Views\HomeWindFarms\WindFarms.cshtml" />
+    <Content Include="Areas\WindFarms\Views\HomeWindFarms\Turbines.cshtml" />
+    <Content Include="Areas\WindFarms\Views\WindFarm\Details.cshtml" />
     <None Include="static\.DS_Store" />
     <None Include="static\ckeditor\CHANGES.md" />
     <None Include="static\ckeditor\LICENSE.md" />

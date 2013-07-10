@@ -16,7 +16,7 @@ namespace Offwind.WebApp.Areas.WindFarms
         {
             context.MapRoute(
                 "WindFarms_default",
-                "WindFarms/{controller}/{action}/{id}",
+                "wind-farms-db/{controller}/{action}/{id}",
                 new { action = "Index", controller = "HomeWindFarms", id = UrlParameter.Optional }
             );
         }

@@ -4,59 +4,54 @@
     ViewBag.Title = "Wind Farms & Turbines Database | Offwind";
 }
 
+<style>
+    div.btn-group:hover > ul.dropdown-menu
+    {
+        display: block;
+    }
+    div.btn-group ul.dropdown-menu 
+    {
+        margin-top: 0px;
+        }
+</style>
+
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
     <li class="active">Wind Farms & Turbines Database</li>
 </ul>
 <div class="row-fluid row-content-block">
-    <div class="span6 well">
+    <div class="span9 well">
+        <h1>Wind Farms & Turbines Database</h1>
+        <p>This is a database of the offshore wind farms that are used in our tools - Engineering and Advanced. This database has following main features:</p>
+        <ul>
+            <li>Wind farms and turbines database</li>
+            <li>Public and user-private wind farms and turbines</li>
+            <li>Wind farm layout editor <span class="badge badge-success">Coming soon!</span> </li>
+        </ul>
+        <h2>What the benefits?</h2>
+        <p>Easy reuse. It's possible to create some predefined sets of your wind farms and turbines and use them in different cases.
+            In some cases you might want to slightly change parameters without breaking other predefined sets - for that, you simply
+            create your own modification.</p>
+        <h2>Cooperation</h2>
+        <p>Create, chage, propose your own wind farms and turbines for public usage.</p>
+    </div>
+    <div class="span3 well">
         <h2>Wind Farms</h2>
-        <table class="table table-condensed table-hover table-bordered">
-            <tr>
-                <th>Name</th>
-                <th>Capacity<br/>(MW)</th>
-                <th>Country</th>
-                <th></th>
-            </tr>
-            @foreach (var farm in Model.WindFarms)
-            {
-                <tr>
-                    <td>@farm.Name</td>
-                    <td>@farm.TotalCapacity</td>
-                    <td>@farm.Country</td>
-                    <td>
-                        <a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="btn btn-primary">Edit</a> <br/> <br/>
-                    </td>
-                </tr>
-            }
-        </table>
-        <a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms" })" class="btn btn-primary">Add new Wind Farm</a> <br/> <br/>
+        <p>Total: @Model.TotalPublicWindFarms</p>
+        <p>
+            <a href="@Url.Action("wind-farms", "HomeWindFarms", new { area = "WindFarms" })" class="btn btn-primary">Show all</a>
+            <a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms" })" class="btn btn-primary">Add new</a>
+        </p>
     </div>
-    <div class="span6 well">
-        <h2>My Wind Farms</h2>
-        <table class="table table-condensed table-hover table-bordered">
-            <tr>
-                <th>Name</th>
-                <th>Country</th>
-                <th>Capacity<br/>(MW)</th>
-            </tr>
-            @foreach (var partner in Model.WindFarms)
-            {
-                <tr>
-                    <td>@partner.Name</td>
-                    <td>@partner.Country</td>
-                    <td>@partner.TotalCapacity</td>
-                </tr>
-            }
-        </table>
-        <a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms" })" class="btn btn-primary">Add new Wind Farm</a> <br/> <br/>
+    <div class="span3 well">
+    <h2>Turbines</h2>
+        <p>Total: @Model.TotalPublicTurbines</p>
+        <p>
+            <a href="@Url.Action("turbines", "HomeWindFarms", new { area = "WindFarms" })" class="btn btn-primary">Show all</a>
+            <a href="@Url.Action("Edit", "Turbine", new { area = "WindFarms" })" class="btn btn-primary">Add new</a>
+        </p>
+
     </div>
-</div>
-<div class="row-fluid row-content-block">
-    <div class="span12 well">
-        <h2>Turbines</h2>
-        <p>Calculate simple windwave interactions by taking into account the effect of the waves on the wind speed.</p>
-        <a href="@Url.Action("Add", "Turbine", new { area = "WindFarms" })" class="btn btn-primary">Add new Turbine</a> <br/> <br/>
-    </div>
+
 </div>
 

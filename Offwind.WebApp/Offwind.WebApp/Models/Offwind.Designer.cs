@@ -2599,19 +2599,19 @@ namespace Offwind.WebApp.Models
         /// Create a new DTurbine object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="isOriginal">Initial value of the IsOriginal property.</param>
+        /// <param name="updated">Initial value of the Updated property.</param>
+        /// <param name="isPublic">Initial value of the IsPublic property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="description">Initial value of the Description property.</param>
-        /// <param name="updated">Initial value of the Updated property.</param>
         /// <param name="url">Initial value of the Url property.</param>
-        public static DTurbine CreateDTurbine(global::System.Guid id, global::System.Boolean isOriginal, global::System.String name, global::System.String description, global::System.DateTime updated, global::System.String url)
+        public static DTurbine CreateDTurbine(global::System.Guid id, global::System.DateTime updated, global::System.Boolean isPublic, global::System.String name, global::System.String description, global::System.String url)
         {
             DTurbine dTurbine = new DTurbine();
             dTurbine.Id = id;
-            dTurbine.IsOriginal = isOriginal;
+            dTurbine.Updated = updated;
+            dTurbine.IsPublic = isPublic;
             dTurbine.Name = name;
             dTurbine.Description = description;
-            dTurbine.Updated = updated;
             dTurbine.Url = url;
             return dTurbine;
         }
@@ -2649,26 +2649,98 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Boolean IsOriginal
+        public Nullable<global::System.DateTime> Created
         {
             get
             {
-                return _IsOriginal;
+                return _Created;
             }
             set
             {
-                OnIsOriginalChanging(value);
-                ReportPropertyChanging("IsOriginal");
-                _IsOriginal = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("IsOriginal");
-                OnIsOriginalChanged();
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
             }
         }
-        private global::System.Boolean _IsOriginal;
-        partial void OnIsOriginalChanging(global::System.Boolean value);
-        partial void OnIsOriginalChanged();
+        private Nullable<global::System.DateTime> _Created;
+        partial void OnCreatedChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Updated
+        {
+            get
+            {
+                return _Updated;
+            }
+            set
+            {
+                OnUpdatedChanging(value);
+                ReportPropertyChanging("Updated");
+                _Updated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Updated");
+                OnUpdatedChanged();
+            }
+        }
+        private global::System.DateTime _Updated;
+        partial void OnUpdatedChanging(global::System.DateTime value);
+        partial void OnUpdatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Author
+        {
+            get
+            {
+                return _Author;
+            }
+            set
+            {
+                OnAuthorChanging(value);
+                ReportPropertyChanging("Author");
+                _Author = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Author");
+                OnAuthorChanged();
+            }
+        }
+        private global::System.String _Author;
+        partial void OnAuthorChanging(global::System.String value);
+        partial void OnAuthorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsPublic
+        {
+            get
+            {
+                return _IsPublic;
+            }
+            set
+            {
+                OnIsPublicChanging(value);
+                ReportPropertyChanging("IsPublic");
+                _IsPublic = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsPublic");
+                OnIsPublicChanged();
+            }
+        }
+        private global::System.Boolean _IsPublic;
+        partial void OnIsPublicChanging(global::System.Boolean value);
+        partial void OnIsPublicChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2741,30 +2813,6 @@ namespace Offwind.WebApp.Models
         private global::System.String _Description;
         partial void OnDescriptionChanging(global::System.String value);
         partial void OnDescriptionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime Updated
-        {
-            get
-            {
-                return _Updated;
-            }
-            set
-            {
-                OnUpdatedChanging(value);
-                ReportPropertyChanging("Updated");
-                _Updated = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Updated");
-                OnUpdatedChanged();
-            }
-        }
-        private global::System.DateTime _Updated;
-        partial void OnUpdatedChanging(global::System.DateTime value);
-        partial void OnUpdatedChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3453,6 +3501,7 @@ namespace Offwind.WebApp.Models
         /// Create a new DWindFarm object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="isPublic">Initial value of the IsPublic property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="country">Initial value of the Country property.</param>
         /// <param name="urlOfficial">Initial value of the UrlOfficial property.</param>
@@ -3461,10 +3510,11 @@ namespace Offwind.WebApp.Models
         /// <param name="geoLat">Initial value of the GeoLat property.</param>
         /// <param name="geoLng">Initial value of the GeoLng property.</param>
         /// <param name="totalCapacity">Initial value of the TotalCapacity property.</param>
-        public static DWindFarm CreateDWindFarm(global::System.Guid id, global::System.String name, global::System.String country, global::System.String urlOfficial, global::System.String urlPublicWiki, global::System.String description, global::System.Decimal geoLat, global::System.Decimal geoLng, global::System.Decimal totalCapacity)
+        public static DWindFarm CreateDWindFarm(global::System.Guid id, global::System.Boolean isPublic, global::System.String name, global::System.String country, global::System.String urlOfficial, global::System.String urlPublicWiki, global::System.String description, global::System.Decimal geoLat, global::System.Decimal geoLng, global::System.Decimal totalCapacity)
         {
             DWindFarm dWindFarm = new DWindFarm();
             dWindFarm.Id = id;
+            dWindFarm.IsPublic = isPublic;
             dWindFarm.Name = name;
             dWindFarm.Country = country;
             dWindFarm.UrlOfficial = urlOfficial;
@@ -3577,6 +3627,30 @@ namespace Offwind.WebApp.Models
         private global::System.String _Author;
         partial void OnAuthorChanging(global::System.String value);
         partial void OnAuthorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsPublic
+        {
+            get
+            {
+                return _IsPublic;
+            }
+            set
+            {
+                OnIsPublicChanging(value);
+                ReportPropertyChanging("IsPublic");
+                _IsPublic = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsPublic");
+                OnIsPublicChanged();
+            }
+        }
+        private global::System.Boolean _IsPublic;
+        partial void OnIsPublicChanging(global::System.Boolean value);
+        partial void OnIsPublicChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

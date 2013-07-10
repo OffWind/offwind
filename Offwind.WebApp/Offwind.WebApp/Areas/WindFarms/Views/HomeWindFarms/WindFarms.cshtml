@@ -1,0 +1,102 @@
+﻿@model Offwind.WebApp.Areas.WindFarms.Models.VWindFarmsHome
+
+@{
+    ViewBag.Title = "Wind Farms & Turbines Database | Offwind";
+}
+
+<style>
+    div.btn-group:hover > ul.dropdown-menu
+    {
+        display: block;
+    }
+    div.btn-group ul.dropdown-menu 
+    {
+        margin-top: 0px;
+    }
+    .post-note.alert
+    {
+        margin: 0;
+    }
+</style>
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "HomeWindFarms", new { area = "WindFarms" })">Wind Farms & Turbines Database</a> <span class="divider">/</span></li>
+    <li class="active">Wind Farms</li>
+</ul>
+<div class="row-fluid row-content-block">
+    <div class="span12 well">
+        <h2>Wind Farms</h2>
+        <p class=""><a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms" })" class="btn btn-primary">Add new</a></p>
+        <table class="table table-condensed table-hover table-bordered">
+            <tr>
+                <th>Name</th>
+                <th>Capacity<br/>(MW)</th>
+                <th>Country</th>
+                <th>Turbines</th>
+                <th>Created by</th>
+                <th></th>
+            </tr>
+            @foreach (var farm in Model.WindFarms)
+            {
+                <tr>
+                    <td>@farm.Name</td>
+                    <td>@farm.TotalCapacity</td>
+                    <td>@farm.Country</td>
+                    <td>
+                        @if (farm.Turbines.Count == 0)
+                        {
+                            <span class="badge badge-important">@farm.Turbines.Count</span>
+                        }
+                        else
+                        {
+                            @farm.Turbines.Count
+                        }
+                    </td>
+                    <td>
+                        @if (farm.Author == null || farm.Author.Trim().Length == 0)
+                        {
+                            <span class="badge badge-success">Admin</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-info">@farm.Author</span>
+                        }
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" href="#">
+                                <span class="icon-cog"></span><span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Details", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="">Details</a></li>
+                                <li><a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="">Edit</a></li>
+                                <li><a href="@Url.Action("Delete", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="">Delete</a></li>
+                                @if (farm.HasLinks())
+                                {
+                                    <li class="divider"></li>
+                                }
+                                @if (farm.HasOfficialLink())
+                                {
+                                    <li><a href="@farm.UrlOfficial" rel="nofollow" target="_blank">Official site</a></li>
+                                }
+                                @if (farm.HasWikiLink())
+                                {
+                                    <li><a href="@farm.UrlPublicWiki" rel="nofollow" target="_blank">Wikipedia</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<div class="row-fluid row-content-block">
+    <div class="span12 well">
+        <div class="alert post-note">
+            <p>Please, note that wind farms in this database may not reflect exact real original ones.</p>
+            <p>These are just models that are adopted for usage with other Offwind tools.</p>
+        </div>
+    </div>
+</div>

@@ -6,11 +6,12 @@
 
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
-    <li class="active">Wind Farms & Turbines Database</li>
+    <li><a href="@Url.Action("Index", "HomeWindFarms", new { area = "WindFarms" })">Wind Farms & Turbines Database</a> <span class="divider">/</span></li>
+    <li class="active">Wind Farm Editor</li>
 </ul>
 <div class="row-fluid row-content-block">
     <div class="span12 well">
-        <h1>@Model.H1</h1>
+        <h1>Wind Farm Editor</h1>
         <form class="form-horizontal indent" method="post">
             @Html.ValidationSummary(true)
             <fieldset>

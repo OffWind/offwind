@@ -12,18 +12,22 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
 {
     public class WindFarmController : _BaseController
     {
+        public ActionResult Details(Guid id)
+        {
+            var wfMapper = ObjectMapperManager.DefaultInstance.GetMapper<DWindFarm, VWindFarm>();
+            var dWindFarm = _ctx.DWindFarms.First(n => n.Id == id);
+            var model = wfMapper.Map(dWindFarm);
+            return View(model);
+        }
 
-        [DisplayName("Edit")]
         public ActionResult Edit(Guid? id)
         {
             var model = new VWindFarm();
             if (id == null)
             {
-                model.H1 = "New wind farm";
             }
             else
             {
-                model.H1 = "Edit wind farm";
                 var wfMapper = ObjectMapperManager.DefaultInstance.GetMapper<DWindFarm, VWindFarm>();
                 var dWindFarm = _ctx.DWindFarms.First(n => n.Id == id);
                 wfMapper.Map(dWindFarm, model);

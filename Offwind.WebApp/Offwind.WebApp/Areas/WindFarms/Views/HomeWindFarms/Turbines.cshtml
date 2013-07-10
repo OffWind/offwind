@@ -1,0 +1,61 @@
+﻿@model Offwind.WebApp.Areas.WindFarms.Models.VWindFarmsHome
+
+@{
+    ViewBag.Title = "Wind Farms & Turbines Database | Offwind";
+}
+
+<style>
+    div.btn-group:hover > ul.dropdown-menu
+    {
+        display: block;
+    }
+    div.btn-group ul.dropdown-menu 
+    {
+        margin-top: 0px;
+    }
+</style>
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "HomeWindFarms", new { area = "WindFarms" })">Wind Farms & Turbines Database</a> <span class="divider">/</span></li>
+    <li class="active">Turbines</li>
+</ul>
+<div class="row-fluid row-content-block">
+    <div class="span9 well">
+        <h2>Turbines</h2>
+        <table class="table table-condensed table-hover table-bordered">
+            <tr>
+                <th>Name</th>
+                <th>Power<br/>(MW)</th>
+                <th>Min. wind speed<br/>(m/s)</th>
+                <th>Max. wind speed<br/>(m/s)</th>
+                <th>Manufacturer</th>
+                <th>Created by</th>
+                <th></th>
+            </tr>
+            @foreach (var turbine in Model.Turbines)
+            {
+                <tr>
+                    <td colspan="6">@turbine.Name</td>
+                   
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" href="#">
+                                <span class="icon-cog"></span><span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Details", "Turbine", new { area = "WindFarms", id = turbine.Id })" class="">Details</a></li>
+                                <li><a href="@Url.Action("Edit", "Turbine", new { area = "WindFarms", id = turbine.Id })" class="">Edit</a></li>
+                                <li><a href="@Url.Action("Delete", "Turbine", new { area = "WindFarms", id = turbine.Id })" class="">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="span3 well">
+        <a href="@Url.Action("Edit", "Turbine", new { area = "WindFarms" })" class="btn btn-block">Add new</a>
+    </div>
+
+</div>

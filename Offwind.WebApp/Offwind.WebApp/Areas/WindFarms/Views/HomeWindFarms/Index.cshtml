@@ -4,23 +4,12 @@
     ViewBag.Title = "Wind Farms & Turbines Database | Offwind";
 }
 
-<style>
-    div.btn-group:hover > ul.dropdown-menu
-    {
-        display: block;
-    }
-    div.btn-group ul.dropdown-menu 
-    {
-        margin-top: 0px;
-        }
-</style>
-
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
     <li class="active">Wind Farms & Turbines Database</li>
 </ul>
 <div class="row-fluid row-content-block">
-    <div class="span9 well">
+    <div class="span12 well">
         <h1>Wind Farms & Turbines Database</h1>
         <p>This is a database of the offshore wind farms that are used in our tools - Engineering and Advanced. This database has following main features:</p>
         <ul>
@@ -34,17 +23,15 @@
             create your own modification.</p>
         <h2>Cooperation</h2>
         <p>Create, chage, propose your own wind farms and turbines for public usage.</p>
-    </div>
-    <div class="span3 well">
+
         <h2>Wind Farms</h2>
         <p>Total: @Model.TotalPublicWindFarms</p>
         <p>
             <a href="@Url.Action("wind-farms", "HomeWindFarms", new { area = "WindFarms" })" class="btn btn-primary">Show all</a>
             <a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms" })" class="btn btn-primary">Add new</a>
         </p>
-    </div>
-    <div class="span3 well">
-    <h2>Turbines</h2>
+
+        <h2>Turbines</h2>
         <p>Total: @Model.TotalPublicTurbines</p>
         <p>
             <a href="@Url.Action("turbines", "HomeWindFarms", new { area = "WindFarms" })" class="btn btn-primary">Show all</a>

@@ -4,21 +4,6 @@
     ViewBag.Title = "Wind Farms & Turbines Database | Offwind";
 }
 
-<style>
-    div.btn-group:hover > ul.dropdown-menu
-    {
-        display: block;
-    }
-    div.btn-group ul.dropdown-menu 
-    {
-        margin-top: 0px;
-    }
-    .post-note.alert
-    {
-        margin: 0;
-    }
-</style>
-
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
     <li><a href="@Url.Action("Index", "HomeWindFarms", new { area = "WindFarms" })">Wind Farms & Turbines Database</a> <span class="divider">/</span></li>
@@ -26,7 +11,7 @@
 </ul>
 <div class="row-fluid row-content-block">
     <div class="span12 well">
-        <h2>Wind Farms</h2>
+        <h1>Wind Farms</h1>
         <p class=""><a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms" })" class="btn btn-primary">Add new</a></p>
         <table class="table table-condensed table-hover table-bordered">
             <tr>
@@ -95,7 +80,7 @@
 <div class="row-fluid row-content-block">
     <div class="span12 well">
         <div class="alert post-note">
-            <p>Please, note that wind farms in this database may not reflect exact real original ones.</p>
+            <p>Please, note that information in this database may not reflect real objects.</p>
             <p>These are just models that are adopted for usage with other Offwind tools.</p>
         </div>
     </div>

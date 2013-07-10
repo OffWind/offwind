@@ -69,12 +69,61 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
             Turbines = new List<VTurbine>();
         }
     }
-
-    public class VTurbine
+    
+    public class VTurbine : VWebPage
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public string Manufacturer { get; set; }
+        public decimal RatedPower { get; set; }
+        public decimal RotorDiameter { get; set; }
+        public string RotorOrientation { get; set; }
+        public string RotorConfiguration { get; set; }
+        public string Control { get; set; }
+        public decimal HubHeight { get; set; }
+        public decimal HubDiameter { get; set; }
+        public decimal WindSpeedCutIn { get; set; }
+        public decimal WindSpeedRated { get; set; }
+        public decimal WindSpeedCutOut { get; set; }
+        public decimal RotorSpeedCutIn { get; set; }
+        public decimal RotorSpeedRated { get; set; }
+        public decimal TipSpeedRated { get; set; }
+        public decimal RotorMass { get; set; }
+        public decimal NacelleMass { get; set; }
+        public decimal TowerMass { get; set; }
         public Dictionary<string, string> Parameters { get; set; }
+
+        public static VTurbine MapFromDb(DTurbine db)
+        {
+            var model = new VTurbine();
+            MapFromDb(model, db);
+            return model;
+        }
+
+        public static void MapFromDb(VTurbine model, DTurbine db)
+        {
+            model.Id = db.Id;
+            model.Name = db.Name ?? "";
+            model.Description = db.Description ?? "";
+            model.Manufacturer = db.Manufacturer ?? "";
+            model.RatedPower = db.RatedPower ?? 0;
+            model.RotorDiameter = db.RotorDiameter ?? 0;
+            model.RotorOrientation = db.RotorOrientation ?? "";
+            model.RotorConfiguration = db.RotorConfiguration ?? "";
+            model.Control = db.Control ?? "";
+            model.HubHeight = db.HubHeight ?? 0;
+            model.HubDiameter = db.HubDiameter ?? 0;
+            model.WindSpeedCutIn = db.WindSpeedCutIn ?? 0;
+            model.WindSpeedRated = db.WindSpeedRated ?? 0;
+            model.WindSpeedCutOut = db.WindSpeedCutOut ?? 0;
+            model.RotorSpeedCutIn = db.RotorSpeedCutIn ?? 0;
+            model.RotorSpeedRated = db.RotorSpeedRated ?? 0;
+            model.TipSpeedRated = db.TipSpeedRated ?? 0;
+            model.RotorMass = db.RotorMass ?? 0;
+            model.NacelleMass = db.NacelleMass ?? 0;
+            model.TowerMass = db.TowerMass ?? 0;
+        }
     }
 
     public class VParameter

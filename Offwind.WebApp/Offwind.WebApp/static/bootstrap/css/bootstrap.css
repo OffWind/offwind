@@ -6149,3 +6149,24 @@ a.badge:focus {
 .affix {
   position: fixed;
 }
+
+div.btn-group:hover > ul.dropdown-menu
+{
+    display: block;
+}
+
+div.btn-group ul.dropdown-menu 
+{
+    margin-top: 0px;
+}
+
+table.model-view tr td:first-child
+{
+    font-weight: bold;
+    width: 30%;
+}
+
+.post-note.alert
+{
+    margin: 0;
+}

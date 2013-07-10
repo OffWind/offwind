@@ -2114,10 +2114,11 @@
     <Content Include="Areas\WindFarms\Views\HomeWindFarms\Index.cshtml" />
     <Content Include="Areas\WindFarms\Views\_ViewStart.cshtml" />
     <Content Include="Areas\WindFarms\Views\WindFarm\Edit.cshtml" />
-    <Content Include="Areas\WindFarms\Views\Turbine\Add.cshtml" />
     <Content Include="Areas\WindFarms\Views\HomeWindFarms\WindFarms.cshtml" />
     <Content Include="Areas\WindFarms\Views\HomeWindFarms\Turbines.cshtml" />
     <Content Include="Areas\WindFarms\Views\WindFarm\Details.cshtml" />
+    <Content Include="Areas\WindFarms\Views\Turbine\Details.cshtml" />
+    <Content Include="Areas\WindFarms\Views\Turbine\Edit.cshtml" />
     <None Include="static\.DS_Store" />
     <None Include="static\ckeditor\CHANGES.md" />
     <None Include="static\ckeditor\LICENSE.md" />
@@ -2305,6 +2306,7 @@
     <Content Include="Views\Shared\EditorTemplates\TextEditor.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Autocomplete.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Object.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

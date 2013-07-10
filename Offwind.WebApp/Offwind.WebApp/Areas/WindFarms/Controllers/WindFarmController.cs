@@ -71,28 +71,29 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
 
         private void SaveDB(VWindFarm model)
         {
-            DWindFarm dWindFarm;
+            DWindFarm db;
             if (model.Id == Guid.Empty)
             {
-                dWindFarm = new DWindFarm();
-                dWindFarm.Id = Guid.NewGuid();
-                dWindFarm.Created = DateTime.UtcNow;
-                _ctx.DWindFarms.AddObject(dWindFarm);
+                db = new DWindFarm();
+                db.Id = Guid.NewGuid();
+                db.Created = DateTime.UtcNow;
+                db.Author = HttpContext.User.Identity.Name;
+                _ctx.DWindFarms.AddObject(db);
             }
             else
             {
-                dWindFarm = _ctx.DWindFarms.First(n => n.Id == model.Id);
+                db = _ctx.DWindFarms.First(n => n.Id == model.Id);
             }
 
-            dWindFarm.Updated = DateTime.UtcNow;
-            dWindFarm.Name = model.Name ?? "";
-            dWindFarm.Country = model.Country ?? "";
-            dWindFarm.Description = model.Description ?? "";
-            dWindFarm.GeoLat = model.GeoLat;
-            dWindFarm.GeoLng = model.GeoLng;
-            dWindFarm.TotalCapacity = model.TotalCapacity;
-            dWindFarm.UrlOfficial = model.UrlOfficial ?? "";
-            dWindFarm.UrlPublicWiki = model.UrlPublicWiki ?? "";
+            db.Updated = DateTime.UtcNow;
+            db.Name = model.Name ?? "";
+            db.Country = model.Country ?? "";
+            db.Description = model.Description ?? "";
+            db.GeoLat = model.GeoLat;
+            db.GeoLng = model.GeoLng;
+            db.TotalCapacity = model.TotalCapacity;
+            db.UrlOfficial = model.UrlOfficial ?? "";
+            db.UrlPublicWiki = model.UrlPublicWiki ?? "";
 
             _ctx.SaveChanges();
         }

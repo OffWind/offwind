@@ -10,7 +10,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
     [Authorize(Roles = SystemRole.User)]
     public class _BaseController : Controller
     {
-        protected string _currentGroup;
+        protected string _currentGroup = "Wind Farms & Turbines";
         protected OffwindEntities _ctx = new OffwindEntities();
         protected bool _noNavigation = false;
 
@@ -29,6 +29,10 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
         private void InitNavigation()
         {
             var navigation = new NavItem<NavUrl>();
+            navigation.AddGroup("Wind Farms & Turbines")
+                .AddItem("Overview", new NavUrl("Index", "HomeWindFarms", "WindFarms"))
+                .AddItem("Wind Farms", new NavUrl("wind-farms", "HomeWindFarms", "WindFarms"))
+                .AddItem("Turbines", new NavUrl("turbines", "HomeWindFarms", "WindFarms"));
 
             foreach (var grp in navigation)
             {

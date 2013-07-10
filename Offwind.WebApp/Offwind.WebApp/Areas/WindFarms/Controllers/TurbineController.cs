@@ -3,14 +3,88 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using EmitMapper;
+using Offwind.WebApp.Areas.WindFarms.Models;
+using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.WindFarms.Controllers
 {
     public class TurbineController : _BaseController
     {
-        public ActionResult Add()
+        public ActionResult Details(Guid id)
         {
-            return View();
+            var db = _ctx.DTurbines.First(n => n.Id == id);
+            var model = VTurbine.MapFromDb(db);
+            return View(model);
+        }
+
+        public ActionResult Edit(Guid? id)
+        {
+            var model = new VTurbine();
+            if (id == null)
+            {
+            }
+            else
+            {
+                var db = _ctx.DTurbines.First(n => n.Id == id);
+                model = VTurbine.MapFromDb(db);
+            }
+
+            return View("Edit", model);
+        }
+
+        [HttpPost]
+        [ActionName("Edit")]
+        [ValidateInput(false)]
+        public ActionResult EditSave(VTurbine model)
+        {
+            if (ModelState.IsValid)
+            {
+                SaveDB(model);
+                return RedirectToAction("turbines", "HomeWindFarms", new {area = "WindFarms"});
+            }
+
+            return View("Edit", model);
+        }
+
+        private void SaveDB(VTurbine model)
+        {
+            DTurbine db;
+            if (model.Id == Guid.Empty)
+            {
+                db = new DTurbine();
+                db.Id = Guid.NewGuid();
+                db.Created = DateTime.UtcNow;
+                db.Author = HttpContext.User.Identity.Name;
+                _ctx.DTurbines.AddObject(db);
+            }
+            else
+            {
+                db = _ctx.DTurbines.First(n => n.Id == model.Id);
+                db.Updated = DateTime.UtcNow;
+            }
+
+            db.Name = model.Name ?? "";
+            db.Description = model.Description ?? "";
+            db.Manufacturer = model.Manufacturer ?? "";
+            db.RatedPower = model.RatedPower;
+            db.RotorDiameter = model.RotorDiameter;
+            db.RotorOrientation = model.RotorOrientation ?? "";
+            db.RotorConfiguration = model.RotorConfiguration ?? "";
+            db.Control = model.Control ?? "";
+            db.HubHeight = model.HubHeight;
+            db.HubDiameter = model.HubDiameter;
+            db.WindSpeedCutIn = model.WindSpeedCutIn;
+            db.WindSpeedRated = model.WindSpeedRated;
+            db.WindSpeedCutOut = model.WindSpeedCutOut;
+            db.RotorSpeedCutIn = model.RotorSpeedCutIn;
+            db.RotorSpeedRated = model.RotorSpeedRated;
+            db.TipSpeedRated = model.TipSpeedRated;
+            db.RotorMass = model.RotorMass;
+            db.NacelleMass = model.NacelleMass;
+            db.TowerMass = model.TowerMass;
+
+            _ctx.SaveChanges();
         }
     }
 }

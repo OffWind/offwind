@@ -8,6 +8,11 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
 {
     public class HomeWindFarmsController : _BaseController
     {
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            base.OnActionExecuted(filterContext);
+        }
+
         public ActionResult Index()
         {
             var m = new VWindFarmsHome();
@@ -33,11 +38,9 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
         public ActionResult Turbines()
         {
             var m = new VWindFarmsHome();
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<DTurbine, VTurbine>();
-
             foreach (var db in _ctx.DTurbines)
             {
-                m.Turbines.Add(mapper.Map(db));
+                m.Turbines.Add(VTurbine.MapFromDb(db));
             }
             return View("Turbines", m);
         }

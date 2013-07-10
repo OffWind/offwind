@@ -22,7 +22,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingFile_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMeeting), "DMeetingFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMeetingFile), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingParticipant_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMeeting), "DMeetingParticipant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMeetingParticipant), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMesoscaleTabFile_DMesoscaleDatabase", "DMesoscaleDatabase", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMesoscaleDatabase), "DMesoscaleTabFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMesoscaleTabFile), true)]
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DTurbine_DTurbine", "DTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.WebApp.Models.DTurbine), "DTurbine1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DTurbine), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DTurbineParameter_DTurbine", "DTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DTurbine), "DTurbineParameter", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DTurbineParameter), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DTurbine", "DTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DTurbine), "DWindFarmTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DWindFarmTurbine), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DUserProfile_webpages_Membership", "webpages_Membership", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.webpages_Membership), "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.WebApp.Models.DUserProfile), true)]
@@ -2599,20 +2598,20 @@ namespace Offwind.WebApp.Models
         /// Create a new DTurbine object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="created">Initial value of the Created property.</param>
         /// <param name="updated">Initial value of the Updated property.</param>
         /// <param name="isPublic">Initial value of the IsPublic property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="description">Initial value of the Description property.</param>
-        /// <param name="url">Initial value of the Url property.</param>
-        public static DTurbine CreateDTurbine(global::System.Guid id, global::System.DateTime updated, global::System.Boolean isPublic, global::System.String name, global::System.String description, global::System.String url)
+        public static DTurbine CreateDTurbine(global::System.Guid id, global::System.DateTime created, global::System.DateTime updated, global::System.Boolean isPublic, global::System.String name, global::System.String description)
         {
             DTurbine dTurbine = new DTurbine();
             dTurbine.Id = id;
+            dTurbine.Created = created;
             dTurbine.Updated = updated;
             dTurbine.IsPublic = isPublic;
             dTurbine.Name = name;
             dTurbine.Description = description;
-            dTurbine.Url = url;
             return dTurbine;
         }
 
@@ -2649,9 +2648,9 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> Created
+        public global::System.DateTime Created
         {
             get
             {
@@ -2666,8 +2665,8 @@ namespace Offwind.WebApp.Models
                 OnCreatedChanged();
             }
         }
-        private Nullable<global::System.DateTime> _Created;
-        partial void OnCreatedChanging(Nullable<global::System.DateTime> value);
+        private global::System.DateTime _Created;
+        partial void OnCreatedChanging(global::System.DateTime value);
         partial void OnCreatedChanged();
     
         /// <summary>
@@ -2745,30 +2744,6 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Guid> OriginalTurbineId
-        {
-            get
-            {
-                return _OriginalTurbineId;
-            }
-            set
-            {
-                OnOriginalTurbineIdChanging(value);
-                ReportPropertyChanging("OriginalTurbineId");
-                _OriginalTurbineId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("OriginalTurbineId");
-                OnOriginalTurbineIdChanged();
-            }
-        }
-        private Nullable<global::System.Guid> _OriginalTurbineId;
-        partial void OnOriginalTurbineIdChanging(Nullable<global::System.Guid> value);
-        partial void OnOriginalTurbineIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Name
@@ -2817,90 +2792,414 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Url
+        public global::System.String Manufacturer
         {
             get
             {
-                return _Url;
+                return _Manufacturer;
             }
             set
             {
-                OnUrlChanging(value);
-                ReportPropertyChanging("Url");
-                _Url = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Url");
-                OnUrlChanged();
+                OnManufacturerChanging(value);
+                ReportPropertyChanging("Manufacturer");
+                _Manufacturer = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Manufacturer");
+                OnManufacturerChanged();
             }
         }
-        private global::System.String _Url;
-        partial void OnUrlChanging(global::System.String value);
-        partial void OnUrlChanged();
+        private global::System.String _Manufacturer;
+        partial void OnManufacturerChanging(global::System.String value);
+        partial void OnManufacturerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> RatedPower
+        {
+            get
+            {
+                return _RatedPower;
+            }
+            set
+            {
+                OnRatedPowerChanging(value);
+                ReportPropertyChanging("RatedPower");
+                _RatedPower = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RatedPower");
+                OnRatedPowerChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _RatedPower;
+        partial void OnRatedPowerChanging(Nullable<global::System.Decimal> value);
+        partial void OnRatedPowerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> RotorDiameter
+        {
+            get
+            {
+                return _RotorDiameter;
+            }
+            set
+            {
+                OnRotorDiameterChanging(value);
+                ReportPropertyChanging("RotorDiameter");
+                _RotorDiameter = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RotorDiameter");
+                OnRotorDiameterChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _RotorDiameter;
+        partial void OnRotorDiameterChanging(Nullable<global::System.Decimal> value);
+        partial void OnRotorDiameterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RotorOrientation
+        {
+            get
+            {
+                return _RotorOrientation;
+            }
+            set
+            {
+                OnRotorOrientationChanging(value);
+                ReportPropertyChanging("RotorOrientation");
+                _RotorOrientation = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RotorOrientation");
+                OnRotorOrientationChanged();
+            }
+        }
+        private global::System.String _RotorOrientation;
+        partial void OnRotorOrientationChanging(global::System.String value);
+        partial void OnRotorOrientationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RotorConfiguration
+        {
+            get
+            {
+                return _RotorConfiguration;
+            }
+            set
+            {
+                OnRotorConfigurationChanging(value);
+                ReportPropertyChanging("RotorConfiguration");
+                _RotorConfiguration = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RotorConfiguration");
+                OnRotorConfigurationChanged();
+            }
+        }
+        private global::System.String _RotorConfiguration;
+        partial void OnRotorConfigurationChanging(global::System.String value);
+        partial void OnRotorConfigurationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Control
+        {
+            get
+            {
+                return _Control;
+            }
+            set
+            {
+                OnControlChanging(value);
+                ReportPropertyChanging("Control");
+                _Control = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Control");
+                OnControlChanged();
+            }
+        }
+        private global::System.String _Control;
+        partial void OnControlChanging(global::System.String value);
+        partial void OnControlChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> HubHeight
+        {
+            get
+            {
+                return _HubHeight;
+            }
+            set
+            {
+                OnHubHeightChanging(value);
+                ReportPropertyChanging("HubHeight");
+                _HubHeight = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("HubHeight");
+                OnHubHeightChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _HubHeight;
+        partial void OnHubHeightChanging(Nullable<global::System.Decimal> value);
+        partial void OnHubHeightChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> HubDiameter
+        {
+            get
+            {
+                return _HubDiameter;
+            }
+            set
+            {
+                OnHubDiameterChanging(value);
+                ReportPropertyChanging("HubDiameter");
+                _HubDiameter = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("HubDiameter");
+                OnHubDiameterChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _HubDiameter;
+        partial void OnHubDiameterChanging(Nullable<global::System.Decimal> value);
+        partial void OnHubDiameterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> WindSpeedCutIn
+        {
+            get
+            {
+                return _WindSpeedCutIn;
+            }
+            set
+            {
+                OnWindSpeedCutInChanging(value);
+                ReportPropertyChanging("WindSpeedCutIn");
+                _WindSpeedCutIn = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WindSpeedCutIn");
+                OnWindSpeedCutInChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _WindSpeedCutIn;
+        partial void OnWindSpeedCutInChanging(Nullable<global::System.Decimal> value);
+        partial void OnWindSpeedCutInChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> WindSpeedRated
+        {
+            get
+            {
+                return _WindSpeedRated;
+            }
+            set
+            {
+                OnWindSpeedRatedChanging(value);
+                ReportPropertyChanging("WindSpeedRated");
+                _WindSpeedRated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WindSpeedRated");
+                OnWindSpeedRatedChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _WindSpeedRated;
+        partial void OnWindSpeedRatedChanging(Nullable<global::System.Decimal> value);
+        partial void OnWindSpeedRatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> WindSpeedCutOut
+        {
+            get
+            {
+                return _WindSpeedCutOut;
+            }
+            set
+            {
+                OnWindSpeedCutOutChanging(value);
+                ReportPropertyChanging("WindSpeedCutOut");
+                _WindSpeedCutOut = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WindSpeedCutOut");
+                OnWindSpeedCutOutChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _WindSpeedCutOut;
+        partial void OnWindSpeedCutOutChanging(Nullable<global::System.Decimal> value);
+        partial void OnWindSpeedCutOutChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> RotorSpeedCutIn
+        {
+            get
+            {
+                return _RotorSpeedCutIn;
+            }
+            set
+            {
+                OnRotorSpeedCutInChanging(value);
+                ReportPropertyChanging("RotorSpeedCutIn");
+                _RotorSpeedCutIn = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RotorSpeedCutIn");
+                OnRotorSpeedCutInChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _RotorSpeedCutIn;
+        partial void OnRotorSpeedCutInChanging(Nullable<global::System.Decimal> value);
+        partial void OnRotorSpeedCutInChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> RotorSpeedRated
+        {
+            get
+            {
+                return _RotorSpeedRated;
+            }
+            set
+            {
+                OnRotorSpeedRatedChanging(value);
+                ReportPropertyChanging("RotorSpeedRated");
+                _RotorSpeedRated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RotorSpeedRated");
+                OnRotorSpeedRatedChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _RotorSpeedRated;
+        partial void OnRotorSpeedRatedChanging(Nullable<global::System.Decimal> value);
+        partial void OnRotorSpeedRatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> TipSpeedRated
+        {
+            get
+            {
+                return _TipSpeedRated;
+            }
+            set
+            {
+                OnTipSpeedRatedChanging(value);
+                ReportPropertyChanging("TipSpeedRated");
+                _TipSpeedRated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TipSpeedRated");
+                OnTipSpeedRatedChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _TipSpeedRated;
+        partial void OnTipSpeedRatedChanging(Nullable<global::System.Decimal> value);
+        partial void OnTipSpeedRatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> RotorMass
+        {
+            get
+            {
+                return _RotorMass;
+            }
+            set
+            {
+                OnRotorMassChanging(value);
+                ReportPropertyChanging("RotorMass");
+                _RotorMass = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RotorMass");
+                OnRotorMassChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _RotorMass;
+        partial void OnRotorMassChanging(Nullable<global::System.Decimal> value);
+        partial void OnRotorMassChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> NacelleMass
+        {
+            get
+            {
+                return _NacelleMass;
+            }
+            set
+            {
+                OnNacelleMassChanging(value);
+                ReportPropertyChanging("NacelleMass");
+                _NacelleMass = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NacelleMass");
+                OnNacelleMassChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _NacelleMass;
+        partial void OnNacelleMassChanging(Nullable<global::System.Decimal> value);
+        partial void OnNacelleMassChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> TowerMass
+        {
+            get
+            {
+                return _TowerMass;
+            }
+            set
+            {
+                OnTowerMassChanging(value);
+                ReportPropertyChanging("TowerMass");
+                _TowerMass = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TowerMass");
+                OnTowerMassChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _TowerMass;
+        partial void OnTowerMassChanging(Nullable<global::System.Decimal> value);
+        partial void OnTowerMassChanged();
 
         #endregion
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DTurbine_DTurbine", "DTurbine1")]
-        public EntityCollection<DTurbine> DTurbine1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DTurbine>("Offwind.DbModels.FK_DTurbine_DTurbine", "DTurbine1");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DTurbine>("Offwind.DbModels.FK_DTurbine_DTurbine", "DTurbine1", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DTurbine_DTurbine", "DTurbine")]
-        public DTurbine DTurbine2
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DTurbine_DTurbine", "DTurbine").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DTurbine_DTurbine", "DTurbine").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<DTurbine> DTurbine2Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DTurbine_DTurbine", "DTurbine");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DTurbine>("Offwind.DbModels.FK_DTurbine_DTurbine", "DTurbine", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.

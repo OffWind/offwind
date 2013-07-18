@@ -738,6 +738,9 @@
     <Content Include="static\img\140x140.gif" />
     <Content Include="static\img\170x170.gif" />
     <Content Include="static\img\background.png" />
+    <Content Include="static\img\Depositphotos_11951183_m_2.jpg" />
+    <Content Include="static\img\Depositphotos_11951183_m_3.jpg" />
+    <Content Include="static\img\Depositphotos_7548530.jpg" />
     <Content Include="static\img\dust.png" />
     <Content Include="static\img\furley_bg.png" />
     <Content Include="static\img\middleman.png" />

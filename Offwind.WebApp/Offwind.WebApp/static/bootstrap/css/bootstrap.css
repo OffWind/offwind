@@ -6079,26 +6079,46 @@ a.badge:focus {
 
 .carousel-caption {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  right: 500px;
+  bottom: 20px;
+  left: 20px;
   padding: 15px;
   background: #333333;
   background: rgba(0, 0, 0, 0.75);
 }
 
-.carousel-caption h4,
+.carousel-caption h1,
 .carousel-caption p {
   line-height: 20px;
   color: #ffffff;
 }
 
-.carousel-caption h4 {
-  margin: 0 0 5px;
+.carousel-caption h1 {
+  margin: 0 0 15px;
 }
 
 .carousel-caption p {
-  margin-bottom: 0;
+  margin-bottom: 10px;
+}
+
+.carousel-caption a 
+{
+    color: #fff;
+    text-decoration: underline;
+}
+
+@media (max-width: 1200px) {
+    .carousel-caption
+    {
+        right: 240px;
+    }
+    .carousel-caption h1
+    {
+        font-size: 19.5px;
+    }
+    .carousel-caption h1, .carousel-caption p {
+        line-height: 18px;
+    }
 }
 
 .hero-unit {

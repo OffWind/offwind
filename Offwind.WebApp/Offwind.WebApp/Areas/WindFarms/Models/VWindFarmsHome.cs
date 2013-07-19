@@ -28,9 +28,11 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
         public string Country { get; set; }
 
         [Display(Name = "Wikipedia URL")]
+        [DataType(DataType.Url)]
         public string UrlPublicWiki { get; set; }
 
         [Display(Name = "Official site URL")]
+        [DataType(DataType.Url)]
         public string UrlOfficial { get; set; }
 
         [Display(Name = "Latitude")]

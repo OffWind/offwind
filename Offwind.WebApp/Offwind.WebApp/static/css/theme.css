@@ -472,15 +472,7 @@ footer p
 .row-fluid [class*="span"].dialog:first-child .remember-me {
   padding: .5em 0em 0em 0em;
 }
-input[type="text"],
-input[type="password"] {
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-}
+
 /*Alerts*/
 
 /*Error Pages*/

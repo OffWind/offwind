@@ -750,6 +750,13 @@
     <Content Include="static\js\graphDemo.js" />
     <Content Include="static\js\highcharts-more.js" />
     <Content Include="static\js\offwind.js" />
+    <Content Include="static\js\standard\jquery.unobtrusive-ajax.js" />
+    <Content Include="static\js\standard\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="static\js\standard\jquery.validate-vsdoc.js" />
+    <Content Include="static\js\standard\jquery.validate.js" />
+    <Content Include="static\js\standard\jquery.validate.min.js" />
+    <Content Include="static\js\standard\jquery.validate.unobtrusive.js" />
+    <Content Include="static\js\standard\jquery.validate.unobtrusive.min.js" />
     <Content Include="static\theme\blog.html" />
     <Content Include="static\theme\calendar.html" />
     <Content Include="static\theme\components.html" />
@@ -2310,6 +2317,7 @@
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Autocomplete.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Object.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

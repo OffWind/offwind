@@ -24,23 +24,30 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
     public class VWindFarm : VWebPage
     {
         public Guid Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string Country { get; set; }
 
-        [Display(Name = "Wikipedia URL")]
+        [Display(Name = "Wikipedia URL", Description = "Ex.: \"http://offwind.eu\"")]
         [DataType(DataType.Url)]
         public string UrlPublicWiki { get; set; }
 
-        [Display(Name = "Official site URL")]
+        [Display(Name = "Official site URL", Description = "Ex.: \"http://offwind.eu\"")]
         [DataType(DataType.Url)]
         public string UrlOfficial { get; set; }
 
-        [Display(Name = "Latitude")]
+        [Display(Name = "Latitude", Description = "-90 .. 90")]
+        [Range(-90f, 90f)]
         public decimal GeoLat { get; set; }
 
-        [Display(Name = "Longitude")]
+        [Display(Name = "Longitude", Description = "-90 .. 90")]
+        [Range(-90f, 90f)]
         public decimal GeoLng { get; set; }
 
+        [Required]
         [Display(Name = "Total capacity (MW)")]
         public decimal TotalCapacity { get; set; }
 

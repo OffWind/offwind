@@ -3,6 +3,8 @@
     var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
     var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
     var description = ViewData.ModelMetadata.Description;
+    var htmlAttributes = new Dictionary<string, object>();
+    //htmlAttributes["autocomplete"] = "email";
 }
 <div class="control-group" id="@("EditorFor_" + fieldName)">
     <label class="control-label" for="@fieldName">@displayName
@@ -11,37 +13,36 @@
             <i class="icon-question-sign tip-right" title="@description"></i>
         }
     </label>
-@if (Model is Enum)
-{
-    var enumType = Model.GetType();
-    Output.Write("<div class=\"controls\">");
-    if (ViewData.ModelMetadata.IsReadOnly)
+    <div class="controls">
+    @if (Model is Enum)
     {
-        Output.Write("<select disabled=\"\" id=\"{0}\" name=\"{0}\">", fieldName);
-    }
-    else
-    {
-        Output.Write("<select id=\"{0}\" name=\"{0}\">", fieldName);
-    }
-    foreach (var t in Enum.GetNames(enumType))
-    {
-        if (t == Model.ToString())
+        var enumType = Model.GetType();
+        if (ViewData.ModelMetadata.IsReadOnly)
         {
-            <option value="@t" selected="@t">@t</option>
+            Output.Write("<select disabled=\"\" id=\"{0}\" name=\"{0}\">", fieldName);
         }
         else
         {
-            <option value="@t">@t</option>
+            Output.Write("<select id=\"{0}\" name=\"{0}\">", fieldName);
         }
+        foreach (var t in Enum.GetNames(enumType))
+        {
+            if (t == Model.ToString())
+            {
+                <option value="@t" selected="@t">@t</option>
+            }
+            else
+            {
+                <option value="@t">@t</option>
+            }
+        }
+        Output.Write("</select>");
     }
-    Output.Write("</select>");
-    Output.Write("</div>");
-}
-else
-{
-        
-    <div class="controls">
-        <input type="text" class="" id="@fieldName" name="@fieldName" placeholder="@ViewData.ModelMetadata.NullDisplayText" value="@Model" autocomplete="off"/>
+    else
+    {
+        @Html.TextBox("", Model, htmlAttributes)
+    }
+
+        <div class="validation-msg">@Html.ValidationMessage("")</div>
     </div>
-}
 </div>

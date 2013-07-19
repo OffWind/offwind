@@ -1,4 +1,5 @@
-﻿@model Offwind.WebApp.Areas.WindFarms.Models.VWindFarm
+﻿@using Offwind.WebApp.Infrastructure
+@model Offwind.WebApp.Areas.WindFarms.Models.VWindFarm
 
 @{
     ViewBag.Title = "Wind Farm Editor | Wind Farms & Turbines Database | Offwind";
@@ -13,8 +14,8 @@
 <div class="row-fluid row-content-block">
     <div class="span12 well">
         <h1>Wind Farm Editor</h1>
-        <form class="form-horizontal indent" method="post">
-            @Html.ValidationSummary(true)
+        <form class="form-horizontal indent" method="post" novalidate="">
+            @*@Html.ValidationSummary("", new { @class = "alert alert-error" })*@
             <fieldset>
                 @Html.HiddenFor(model => model.Id)
                 @Html.EditorFor(model => model.Name)
@@ -35,6 +36,7 @@
 </div>
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         $('#Country').typeahead({
             source: function (query, process) {

@@ -670,3 +670,32 @@ fieldset .control-group
 {
     margin-left: 1em;
 }
+
+input.input-validation-error,
+textarea.input-validation-error,
+select.input-validation-error
+{
+  color: #b94a48;
+  border-color: #ee5f5b;
+}
+
+input.input-validation-error:focus,
+textarea.input-validation-error:focus,
+select.input-validation-error:focus
+{
+  border-color: #e9322d;
+  -webkit-box-shadow: 0 0 8px #f8b9b7;
+     -moz-box-shadow: 0 0 8px #f8b9b7;
+          box-shadow: 0 0 8px #f8b9b7;
+}
+
+.tooltip {
+  font-size: 12px;
+}
+
+.form-horizontal .validation-msg 
+{
+    margin-top: 5px;
+    font-size: 12px;
+    color: #B94A48;
+}

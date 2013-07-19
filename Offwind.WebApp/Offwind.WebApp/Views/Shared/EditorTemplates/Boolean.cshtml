@@ -12,13 +12,7 @@
         }
     </label>
     <div class="controls">
-        @if (Model)
-        {
-            Output.WriteLine("<input type=\"checkbox\" class=\"\" id=\"{0}\" name=\"{0}\" value=\"true\" checked />", fieldName);
-        }
-        else
-        {
-            Output.WriteLine("<input type=\"checkbox\" class=\"\" id=\"{0}\" name=\"{0}\" value=\"false\" />", fieldName);
-        }
+        @Html.CheckBox("", Model)
+        <div class="validation-msg">@Html.ValidationMessage("")</div>
     </div>
 </div>

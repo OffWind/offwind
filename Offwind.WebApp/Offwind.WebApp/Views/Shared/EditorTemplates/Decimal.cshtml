@@ -3,6 +3,9 @@
     var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
     var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
     var description = ViewData.ModelMetadata.Description;
+    var htmlAttributes = new Dictionary<string, object>();
+    htmlAttributes["type"] = "number";
+    //htmlAttributes["autocomplete"] = "off";
 }
 <div class="control-group" id="@("EditorFor_" + fieldName)">
     <label class="control-label" for="@fieldName">@displayName
@@ -12,6 +15,7 @@
         }
     </label>
     <div class="controls">
-        <input type="text" class="inputmask decimal" id="@fieldName" name="@fieldName" placeholder="0.0" value="@Model" autocomplete="off" />
+        @Html.TextBox("", Model, htmlAttributes)
+        <div class="validation-msg">@Html.ValidationMessage("")</div>
     </div>
 </div>

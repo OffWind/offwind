@@ -12,6 +12,7 @@
         }
     </label>
     <div class="controls">
-        <textarea type="text" id="@fieldName" name="@fieldName" placeholder="@ViewData.ModelMetadata.NullDisplayText">@Model</textarea>
+        @Html.TextArea("", Model)
+        <div class="validation-msg">@Html.ValidationMessage("")</div>
     </div>
 </div>

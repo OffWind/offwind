@@ -44,7 +44,8 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             if (ModelState.IsValid)
             {
                 SaveDB(model);
-                return RedirectToAction("Index", "HomeWindFarms", new { area = "WindFarms" });
+                if (model.ReturnTo == "list") return RedirectToAction("wind-farms", "HomeWindFarms", new { area = "WindFarms" });
+                return RedirectToAction("Details", "WindFarm", new { area = "WindFarms", id = model.Id });
             }
 
             return View("Edit", model);
@@ -78,6 +79,9 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
                 db.Id = Guid.NewGuid();
                 db.Created = DateTime.UtcNow;
                 db.Author = HttpContext.User.Identity.Name;
+
+                model.Id = db.Id;
+
                 _ctx.DWindFarms.AddObject(db);
             }
             else

@@ -25,7 +25,7 @@
             @foreach (var farm in Model.WindFarms)
             {
                 <tr>
-                    <td>@farm.Name</td>
+                    <td><a href="@Url.Action("Details", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="">@farm.Name</a></td>
                     <td>@farm.TotalCapacity</td>
                     <td>@farm.Country</td>
                     <td>
@@ -55,7 +55,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="@Url.Action("Details", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="">Details</a></li>
-                                <li><a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="">Edit</a></li>
+                                <li><a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms", id = farm.Id, returnTo = "list" })" class="">Edit</a></li>
                                 <li><a href="@Url.Action("Delete", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="">Delete</a></li>
                                 @if (farm.HasLinks())
                                 {

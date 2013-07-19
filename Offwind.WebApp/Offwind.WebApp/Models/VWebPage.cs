@@ -12,6 +12,8 @@ namespace Offwind.WebApp.Models
         public string BrowserTitle { get; set; }
         public BreadcrumbsCollection Breadcrumbs { get; protected set; }
         public string CurrentCulture { get; set; }
+        public string ReturnTo { get; set; }
+
         public VWebPage()
         {
             SiteName = ConfigurationManager.AppSettings["SiteName"];

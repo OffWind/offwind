@@ -11,6 +11,11 @@
         font-weight: bold;
         width: 30%;
     }
+    table span.indent
+    {
+        margin-left: 1em;
+        font-weight: normal;
+    }
 </style>
 
 <ul class="breadcrumb">
@@ -20,40 +25,61 @@
     <li class="active">Wind Farm Details</li>
 </ul>
 <div class="row-fluid row-content-block">
-    <div class="span6 well">
+    <div class="span12 well actionable-page">
         <h1>@Model.Name</h1>
-        <h3>General
-            (<a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms", id = Model.Id })" class="">change</a>)
-        </h3>
-        <p>
-            <table class="table table-bordered general-params">
-                <tr>
-                    <td>Country</td>
-                    <td>@Model.Country</td>
-                </tr>
-                <tr>
-                    <td>Total capacity (MW)</td>
-                    <td>@Model.TotalCapacity</td>
-                </tr>
-                @if (Model.HasLinks())
-                {
-                    <tr>
-                        <td>Links</td>
-                        <td>
-                            @if (Model.HasOfficialLink())
-                            {
-                                <a href="@Model.UrlOfficial.AnchorUrl()" rel="nofollow" target="_blank">Official site</a><br/>
-                            }
+        <div class="actions-block">
+            <a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms", id = Model.Id })" class="btn btn-primary">Edit</a>
+            <a href="@Url.Action("Delete", "WindFarm", new { area = "WindFarms", id = Model.Id })" class="btn btn-danger">Delete</a>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <h3>Properties</h3>
+                <p>
+                    <table class="table table-bordered general-params">
+                        <tr>
+                            <td>Country</td>
+                            <td>@Model.Country</td>
+                        </tr>
+                        <tr>
+                            <td>Total capacity (MW)</td>
+                            <td>@Model.TotalCapacity</td>
+                        </tr>
+                        <tr>
+                            <td>Coordinates<br/>
+                                <span class="indent">Latitude</span><br/>
+                                <span class="indent">Longitude</span>
+                            </td>
+                            <td><br/>
+                                @Model.GeoLat<br/>@Model.GeoLng
+                            </td>
+                        </tr>
+                        @if (Model.HasLinks())
+                        {
+                            <tr>
+                                <td>Links</td>
+                                <td>
+                                    @if (Model.HasOfficialLink())
+                                    {
+                                        <a href="@Model.UrlOfficial.AnchorUrl()" rel="nofollow" target="_blank">Official site</a><br/>
+                                    }
 
-                            @if (Model.HasWikiLink())
-                            {
-                                <a href="@Model.UrlPublicWiki.AnchorUrl()" rel="nofollow" target="_blank">Wikipedia</a>
-                            }
-                        </td>
-                    </tr>
-                }
-            </table>
-        </p>
+                                    @if (Model.HasWikiLink())
+                                    {
+                                        <a href="@Model.UrlPublicWiki.AnchorUrl()" rel="nofollow" target="_blank">Wikipedia</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </p>
+            </div>
+            <div class="span6">
+                <h3>Location</h3>
+                <div id="map_container">
+                    <div id="map_canvas" style="width: auto; height: 400px;"></div>
+                </div>
+            </div>
+        </div>
 
         <h3>Description</h3>
         @if (Model.Description == null || Model.Description.Trim().Length <= 0)
@@ -66,13 +92,6 @@
         {
             @Html.Raw(Model.Description)
         }
-    </div>
-    <div class="span6 well">
-        <h3>Location</h3>
-        <p>Coordinates: @Model.GeoLat, @Model.GeoLng</p>
-        <div id="map_container">
-            <div id="map_canvas" style="width: auto; height: 400px;"></div>
-        </div>
     </div>
 </div>
 <div class="row-fluid row-content-block">

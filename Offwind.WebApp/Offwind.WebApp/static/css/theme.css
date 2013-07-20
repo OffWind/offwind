@@ -699,3 +699,18 @@ form .validation-msg
     font-size: 12px;
     color: #B94A48;
 }
+.actionable-page.span12.well
+{
+    position: relative;
+}
+.actionable-page .actions-block
+{
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    opacity: 0.5;
+}
+.actionable-page .actions-block:hover
+{
+    opacity: 1;
+}

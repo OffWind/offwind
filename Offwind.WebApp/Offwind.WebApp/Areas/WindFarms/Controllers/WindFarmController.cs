@@ -20,9 +20,10 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             return View(model);
         }
 
-        public ActionResult Edit(Guid? id)
+        public ActionResult Edit(Guid? id, string returnTo)
         {
             var model = new VWindFarm();
+            model.ReturnTo = returnTo;
             if (id == null)
             {
             }

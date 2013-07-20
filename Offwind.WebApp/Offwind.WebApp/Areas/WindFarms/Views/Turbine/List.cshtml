@@ -42,8 +42,11 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="@Url.Action("Details", "Turbine", new { area = "WindFarms", id = turbine.Id })" class="">Details</a></li>
-                                <li><a href="@Url.Action("Edit", "Turbine", new { area = "WindFarms", id = turbine.Id })" class="">Edit</a></li>
-                                <li><a href="@Url.Action("Delete", "Turbine", new { area = "WindFarms", id = turbine.Id })" class="">Delete</a></li>
+                                @if (turbine.CanEdit)
+                                {
+                                    <li><a href="@Url.Action("Edit", "Turbine", new { area = "WindFarms", id = turbine.Id })" class="">Edit</a></li>
+                                    <li><a href="@Url.Action("Delete", "Turbine", new { area = "WindFarms", id = turbine.Id })" class="">Delete</a></li>
+                                }
                             </ul>
                         </div>
                     </td>

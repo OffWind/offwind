@@ -58,8 +58,11 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="@Url.Action("Details", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="">Details</a></li>
-                                <li><a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms", id = farm.Id, returnTo = "list" })" class="">Edit</a></li>
-                                <li><a href="@Url.Action("Delete", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="">Delete</a></li>
+                                @if (farm.CanEdit)
+                                {
+                                    <li><a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms", id = farm.Id, returnTo = "list" })" class="">Edit</a></li>
+                                    <li><a href="@Url.Action("Delete", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="">Delete</a></li>
+                                }
                                 @if (farm.HasLinks())
                                 {
                                     <li class="divider"></li>

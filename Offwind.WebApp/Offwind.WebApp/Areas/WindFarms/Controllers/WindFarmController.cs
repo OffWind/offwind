@@ -12,11 +12,21 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
 {
     public class WindFarmController : _BaseController
     {
+        public ActionResult List()
+        {
+            var m = new VWindFarmsHome();
+
+            foreach (var db in _ctx.DWindFarms)
+            {
+                m.WindFarms.Add(VWindFarm.MapFromDb(db, User));
+            }
+            return View(m);
+        }
+
         public ActionResult Details(Guid id)
         {
-            var wfMapper = ObjectMapperManager.DefaultInstance.GetMapper<DWindFarm, VWindFarm>();
             var dWindFarm = _ctx.DWindFarms.First(n => n.Id == id);
-            var model = wfMapper.Map(dWindFarm);
+            var model = VWindFarm.MapFromDb(dWindFarm, User);
             return View(model);
         }
 
@@ -45,7 +55,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             if (ModelState.IsValid)
             {
                 SaveDB(model);
-                if (model.ReturnTo == "list") return RedirectToAction("wind-farms", "HomeWindFarms", new { area = "WindFarms" });
+                if (model.ReturnTo == "list") return RedirectToAction("List", "WindFarm", new { area = "WindFarms" });
                 return RedirectToAction("Details", "WindFarm", new { area = "WindFarms", id = model.Id });
             }
 

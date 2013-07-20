@@ -3,7 +3,7 @@
     <button type="submit" class="btn btn-primary">Save</button>
     @if (Model.ReturnTo == "list" || Model.Id == Guid.Empty)
     {
-        <a href="@Url.Action("turbines", "HomeWindFarms", new { area = "WindFarms" })" class="btn">Cancel</a>
+        <a href="@Url.Action("List", "Turbine", new { area = "WindFarms" })" class="btn">Cancel</a>
     }
     else
     {

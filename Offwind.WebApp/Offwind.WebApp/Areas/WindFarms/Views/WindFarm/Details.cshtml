@@ -21,16 +21,13 @@
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
     <li><a href="@Url.Action("Index", "HomeWindFarms", new { area = "WindFarms" })">Wind Farms & Turbines Database</a> <span class="divider">/</span></li>
-    <li><a href="@Url.Action("wind-farms", "HomeWindFarms", new { area = "WindFarms" })">Wind Farms</a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("List", "WindFarm", new { area = "WindFarms" })">Wind Farms</a> <span class="divider">/</span></li>
     <li class="active">Wind Farm Details</li>
 </ul>
 <div class="row-fluid row-content-block">
     <div class="span12 well actionable-page">
         <h1>@Model.Name</h1>
-        <div class="actions-block">
-            <a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms", id = Model.Id })" class="btn btn-primary">Edit</a>
-            <a href="@Url.Action("Delete", "WindFarm", new { area = "WindFarms", id = Model.Id })" class="btn btn-danger">Delete</a>
-        </div>
+        @Html.Partial("__DetailsActions")
         <div class="row-fluid">
             <div class="span6">
                 <h3>Properties</h3>

@@ -31,8 +31,8 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             var navigation = new NavItem<NavUrl>();
             navigation.AddGroup("Wind Farms & Turbines")
                 .AddItem("Overview", new NavUrl("Index", "HomeWindFarms", "WindFarms"))
-                .AddItem("Wind Farms", new NavUrl("wind-farms", "HomeWindFarms", "WindFarms"))
-                .AddItem("Turbines", new NavUrl("turbines", "HomeWindFarms", "WindFarms"));
+                .AddItem("Wind Farms", new NavUrl("List", "WindFarm", "WindFarms"))
+                .AddItem("Turbines", new NavUrl("List", "Turbine", "WindFarms"));
 
             foreach (var grp in navigation)
             {

@@ -1,0 +1,8 @@
+﻿@model Offwind.WebApp.Areas.WindFarms.Models.VTurbine
+<div class="actions-block">
+    @if (Model.CanEdit)
+    {
+        <a href="@Url.Action("Edit", "Turbine", new { area = "WindFarms", id = Model.Id })" class="btn btn-primary">Edit</a>
+        <a href="@Url.Action("Delete", "Turbine", new { area = "WindFarms", id = Model.Id })" class="btn btn-danger">Delete</a>
+    }
+</div>

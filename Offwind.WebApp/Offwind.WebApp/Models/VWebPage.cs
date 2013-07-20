@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using Offwind.WebApp.Infrastructure.Breadcrumbs;
-using Offwind.WebApp.Infrastructure.Navigation;
 
 namespace Offwind.WebApp.Models
 {
@@ -13,6 +11,8 @@ namespace Offwind.WebApp.Models
         public BreadcrumbsCollection Breadcrumbs { get; protected set; }
         public string CurrentCulture { get; set; }
         public string ReturnTo { get; set; }
+
+        public bool CanEdit { get; set; }
 
         public VWebPage()
         {

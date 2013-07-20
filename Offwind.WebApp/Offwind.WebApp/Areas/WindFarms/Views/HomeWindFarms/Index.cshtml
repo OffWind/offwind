@@ -27,14 +27,14 @@
         <h2>Wind Farms</h2>
         <p>Total: @Model.TotalPublicWindFarms</p>
         <p>
-            <a href="@Url.Action("wind-farms", "HomeWindFarms", new { area = "WindFarms" })" class="btn btn-primary">Show all</a>
+            <a href="@Url.Action("List", "WindFarm", new { area = "WindFarms" })" class="btn btn-primary">Show all</a>
             <a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms" })" class="btn btn-primary">Add new</a>
         </p>
 
         <h2>Turbines</h2>
         <p>Total: @Model.TotalPublicTurbines</p>
         <p>
-            <a href="@Url.Action("turbines", "HomeWindFarms", new { area = "WindFarms" })" class="btn btn-primary">Show all</a>
+            <a href="@Url.Action("List", "Turbine", new { area = "WindFarms" })" class="btn btn-primary">Show all</a>
             <a href="@Url.Action("Edit", "Turbine", new { area = "WindFarms" })" class="btn btn-primary">Add new</a>
         </p>
 

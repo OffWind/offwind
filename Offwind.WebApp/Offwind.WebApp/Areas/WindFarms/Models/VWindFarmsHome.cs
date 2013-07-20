@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
+using EmitMapper;
 using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.WindFarms.Models
@@ -77,6 +79,20 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
         {
             Turbines = new List<VTurbine>();
         }
+
+        public static VWindFarm MapFromDb(DWindFarm db, IPrincipal user)
+        {
+            var model = new VWindFarm();
+            MapFromDb(model, db, user);
+            return model;
+        }
+
+        public static void MapFromDb(VWindFarm model, DWindFarm db, IPrincipal user)
+        {
+            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<DWindFarm, VWindFarm>();
+            mapper.Map(db, model);
+            model.CanEdit = db.Author == user.Identity.Name;
+        }
     }
     
     public class VTurbine : VWebPage
@@ -106,14 +122,14 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
         public decimal TowerMass { get; set; }
         public Dictionary<string, string> Parameters { get; set; }
 
-        public static VTurbine MapFromDb(DTurbine db)
+        public static VTurbine MapFromDb(DTurbine db, IPrincipal user)
         {
             var model = new VTurbine();
-            MapFromDb(model, db);
+            MapFromDb(model, db, user);
             return model;
         }
 
-        public static void MapFromDb(VTurbine model, DTurbine db)
+        public static void MapFromDb(VTurbine model, DTurbine db, IPrincipal user)
         {
             model.Id = db.Id;
             model.Name = db.Name ?? "";
@@ -135,6 +151,8 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
             model.RotorMass = db.RotorMass ?? 0;
             model.NacelleMass = db.NacelleMass ?? 0;
             model.TowerMass = db.TowerMass ?? 0;
+
+            model.CanEdit = db.Author == user.Identity.Name;
         }
     }
 

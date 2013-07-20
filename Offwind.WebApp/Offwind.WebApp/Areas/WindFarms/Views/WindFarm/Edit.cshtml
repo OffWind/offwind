@@ -14,18 +14,7 @@
     <div class="span12 well actionable-page">
         <form class="form-horizontal indent" method="post" novalidate="">
             <h1>Wind Farm Editor</h1>
-            <div class="actions-block">
-                <button type="submit" class="btn btn-primary">Save</button>
-                @if (Model.ReturnTo == "list" || Model.Id == Guid.Empty)
-                {
-                    <a href="@Url.Action("wind-farms", "HomeWindFarms", new { area = "WindFarms" })" class="btn">Cancel</a>
-                }
-                else
-                {
-                    <a href="@Url.Action("Details", "WindFarm", new { area = "WindFarms", id = Model.Id })" class="btn">Cancel</a>
-                }
-            </div>
-            @*@Html.ValidationSummary("", new { @class = "alert alert-error" })*@
+            @Html.Partial("__EditorActions")
             <fieldset>
                 @Html.HiddenFor(model => model.Id)
                 @Html.EditorFor(model => model.Name)

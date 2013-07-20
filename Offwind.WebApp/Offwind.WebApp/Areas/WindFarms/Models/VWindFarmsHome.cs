@@ -82,7 +82,10 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
     public class VTurbine : VWebPage
     {
         public Guid Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
         public string Description { get; set; }
         public string Manufacturer { get; set; }
         public decimal RatedPower { get; set; }

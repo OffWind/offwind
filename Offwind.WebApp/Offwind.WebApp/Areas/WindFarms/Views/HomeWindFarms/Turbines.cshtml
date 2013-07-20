@@ -10,10 +10,11 @@
     <li class="active">Turbines</li>
 </ul>
 <div class="row-fluid row-content-block">
-    <div class="span12 well">
+    <div class="span12 well actionable-page">
         <h1>Turbines</h1>
-
-        <p><a href="@Url.Action("Edit", "Turbine", new { area = "WindFarms" })" class="btn btn-primary">Add new</a></p>
+        <div class="actions-block">
+            <a href="@Url.Action("Edit", "Turbine", new { area = "WindFarms" })" class="btn btn-primary">Add new</a>
+        </div>
         
         <table class="table table-condensed table-hover table-bordered">
             <tr>
@@ -28,7 +29,7 @@
             @foreach (var turbine in Model.Turbines)
             {
                 <tr>
-                    <td>@turbine.Name</td>
+                    <td><a href="@Url.Action("Details", "Turbine", new { area = "WindFarms", id = turbine.Id })" class="">@turbine.Name</a></td>
                     <td>@turbine.RatedPower</td>
                     <td>@turbine.Manufacturer</td>
                     <td>@turbine.WindSpeedCutIn</td>

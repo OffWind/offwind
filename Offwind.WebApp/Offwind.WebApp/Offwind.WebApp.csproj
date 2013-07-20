@@ -2130,6 +2130,7 @@
     <Content Include="Areas\WindFarms\Views\WindFarm\Details.cshtml" />
     <Content Include="Areas\WindFarms\Views\Turbine\Details.cshtml" />
     <Content Include="Areas\WindFarms\Views\Turbine\Edit.cshtml" />
+    <Content Include="Areas\WindFarms\Views\Turbine\__EditorActions.cshtml" />
     <None Include="static\.DS_Store" />
     <None Include="static\ckeditor\CHANGES.md" />
     <None Include="static\ckeditor\LICENSE.md" />
@@ -2319,6 +2320,7 @@
     <Content Include="Views\Shared\EditorTemplates\Autocomplete.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Object.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
+    <Content Include="Areas\WindFarms\Views\WindFarm\__EditorActions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

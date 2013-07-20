@@ -41,7 +41,8 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             if (ModelState.IsValid)
             {
                 SaveDB(model);
-                return RedirectToAction("turbines", "HomeWindFarms", new {area = "WindFarms"});
+                if (model.ReturnTo == "list") return RedirectToAction("turbines", "HomeWindFarms", new { area = "WindFarms" });
+                return RedirectToAction("Details", "Turbine", new { area = "WindFarms", id = model.Id });
             }
 
             return View("Edit", model);
@@ -50,20 +51,24 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
         private void SaveDB(VTurbine model)
         {
             DTurbine db;
+            var now = DateTime.UtcNow;
             if (model.Id == Guid.Empty)
             {
                 db = new DTurbine();
                 db.Id = Guid.NewGuid();
-                db.Created = DateTime.UtcNow;
+                db.Created = now;
                 db.Author = HttpContext.User.Identity.Name;
+
+                model.Id = db.Id;
+
                 _ctx.DTurbines.AddObject(db);
             }
             else
             {
                 db = _ctx.DTurbines.First(n => n.Id == model.Id);
-                db.Updated = DateTime.UtcNow;
             }
 
+            db.Updated = now;
             db.Name = model.Name ?? "";
             db.Description = model.Description ?? "";
             db.Manufacturer = model.Manufacturer ?? "";

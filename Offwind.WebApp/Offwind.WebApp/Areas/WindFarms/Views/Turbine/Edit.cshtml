@@ -11,10 +11,10 @@
     <li class="active">Turbine Editor</li>
 </ul>
 <div class="row-fluid row-content-block">
-    <div class="span12 well">
-        <h1>Turbine Editor</h1>
+    <div class="span12 well actionable-page">
         <form class="form-horizontal indent" method="post">
-            @Html.ValidationSummary(true)
+            <h1>Turbine Editor</h1>
+            @Html.Partial("__EditorActions")
             @Html.HiddenFor(model => model.Id)
             <fieldset>
                 <legend>General</legend>
@@ -46,16 +46,12 @@
                 @Html.EditorFor(model => model.RotorMass)
                 
             </fieldset> 
-
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-
         </form>
     </div>
 </div>
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
     </script>
 }

@@ -4,6 +4,7 @@
     var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
     var description = ViewData.ModelMetadata.Description;
     var htmlAttributes = new Dictionary<string, object>();
+    htmlAttributes["class"] = "span6";
     //htmlAttributes["autocomplete"] = "email";
 }
 <div class="control-group" id="@("EditorFor_" + fieldName)">
@@ -13,17 +14,17 @@
             <i class="icon-question-sign tip-right" title="@description"></i>
         }
     </label>
-    <div class="controls">
+    <div class="controls controls-row">
     @if (Model is Enum)
     {
         var enumType = Model.GetType();
         if (ViewData.ModelMetadata.IsReadOnly)
         {
-            Output.Write("<select disabled=\"\" id=\"{0}\" name=\"{0}\">", fieldName);
+            Output.Write("<select class=\"span6\" disabled=\"\" id=\"{0}\" name=\"{0}\">", fieldName);
         }
         else
         {
-            Output.Write("<select id=\"{0}\" name=\"{0}\">", fieldName);
+            Output.Write("<select class=\"span6\" id=\"{0}\" name=\"{0}\">", fieldName);
         }
         foreach (var t in Enum.GetNames(enumType))
         {
@@ -43,6 +44,6 @@
         @Html.TextBox("", Model, htmlAttributes)
     }
 
-        <div class="validation-msg">@Html.ValidationMessage("")</div>
+        <div class="validation-msg span6">@Html.ValidationMessage("")</div>
     </div>
 </div>

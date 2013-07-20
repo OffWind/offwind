@@ -3,6 +3,8 @@
     var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
     var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
     var description = ViewData.ModelMetadata.Description;
+    var htmlAttributes = new Dictionary<string, object>();
+    htmlAttributes["class"] = "span6";
 }
 <div class="control-group" id="@("EditorFor_" + fieldName)">
     <label class="control-label" for="@fieldName">@displayName
@@ -11,8 +13,8 @@
             <i class="icon-question-sign tip-right" title="@description"></i>
         }
     </label>
-    <div class="controls">
-        @Html.CheckBox("", Model)
-        <div class="validation-msg">@Html.ValidationMessage("")</div>
+    <div class="controls controls-row">
+        @Html.CheckBox("", Model, htmlAttributes)
+        <div class="validation-msg span6">@Html.ValidationMessage("")</div>
     </div>
 </div>

@@ -5,7 +5,7 @@
     var description = ViewData.ModelMetadata.Description;
     var htmlAttributes = new Dictionary<string, object>();
     htmlAttributes["type"] = "url";
-    htmlAttributes["novalidate"] = null;
+    htmlAttributes["class"] = "span6";
     //htmlAttributes["autocomplete"] = "off";
 }
 <div class="control-group" id="@("EditorFor_" + fieldName)">
@@ -15,8 +15,8 @@
             <i class="icon-question-sign tip-right" title="@description"></i>
         }
     </label>
-    <div class="controls">
+    <div class="controls controls-row">
         @Html.TextBox("", Model, htmlAttributes)
-        <div class="validation-msg">@Html.ValidationMessage("")</div>
+        <div class="validation-msg span6">@Html.ValidationMessage("")</div>
     </div>
 </div>

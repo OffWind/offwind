@@ -4,6 +4,7 @@
     var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
     var description = ViewData.ModelMetadata.Description;
     var htmlAttributes = new Dictionary<string, object>();
+    htmlAttributes["class"] = "span6";
     //htmlAttributes["data-provide"] = "typeahead";
     htmlAttributes["autocomplete"] = "off";
 }
@@ -15,8 +16,8 @@
         }
     </label>
         
-    <div class="controls">
+    <div class="controls controls-row">
         @Html.TextBox("", Model, htmlAttributes)
-        <div class="validation-msg">@Html.ValidationMessage("")</div>
+        <div class="validation-msg span6">@Html.ValidationMessage("")</div>
     </div>
 </div>

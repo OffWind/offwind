@@ -4,6 +4,8 @@
     var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
     var description = ViewData.ModelMetadata.Description;
     var functionName = fieldName + "_BrowseServer()";
+    var htmlAttributes = new Dictionary<string, object>();
+    htmlAttributes["class"] = "span6";
 }
 <div class="control-group" id="@("EditorFor_" + fieldName)">
 <<<<<<< HEAD

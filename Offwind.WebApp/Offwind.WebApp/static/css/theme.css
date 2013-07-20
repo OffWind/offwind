@@ -693,7 +693,7 @@ select.input-validation-error:focus
   font-size: 12px;
 }
 
-.form-horizontal .validation-msg 
+form .validation-msg 
 {
     margin-top: 5px;
     font-size: 12px;

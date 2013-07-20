@@ -1,4 +1,5 @@
-﻿@model Offwind.WebApp.Areas.WindFarms.Models.VWindFarm
+﻿@using Offwind.WebApp.Infrastructure
+@model Offwind.WebApp.Areas.WindFarms.Models.VWindFarm
 
 @{
     ViewBag.Title = "Wind Farm Editor | Wind Farms & Turbines Database | Offwind";
@@ -41,12 +42,12 @@
                         <td>
                             @if (Model.HasOfficialLink())
                             {
-                                <a href="@Model.UrlOfficial" rel="nofollow" target="_blank">Official site</a><br/>
+                                <a href="@Model.UrlOfficial.AnchorUrl()" rel="nofollow" target="_blank">Official site</a><br/>
                             }
 
                             @if (Model.HasWikiLink())
                             {
-                                <a href="@Model.UrlPublicWiki" rel="nofollow" target="_blank">Wikipedia</a>
+                                <a href="@Model.UrlPublicWiki.AnchorUrl()" rel="nofollow" target="_blank">Wikipedia</a>
                             }
                         </td>
                     </tr>

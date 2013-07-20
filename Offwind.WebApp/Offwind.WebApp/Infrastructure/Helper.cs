@@ -62,6 +62,15 @@ namespace Offwind.WebApp.Infrastructure
             retVal += "</ul></div>";
             return html.Raw(retVal);
         }
+
+        public static string AnchorUrl(this string txt)
+        {
+            if (txt == null || txt.Trim().Length <= 0) return "";
+            if (txt.StartsWith("http://")) return txt;
+            if (txt.StartsWith("https://")) return txt;
+            if (txt.StartsWith("ftp://")) return txt;
+            return "http://" + txt;
+        }
         /*
         public static BlockModel GetBlock(string route)
         {

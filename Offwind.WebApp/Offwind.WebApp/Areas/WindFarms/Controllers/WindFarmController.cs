@@ -39,9 +39,8 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             }
             else
             {
-                var wfMapper = ObjectMapperManager.DefaultInstance.GetMapper<DWindFarm, VWindFarm>();
                 var dWindFarm = _ctx.DWindFarms.First(n => n.Id == id);
-                wfMapper.Map(dWindFarm, model);
+                VWindFarm.MapFromDb(model, dWindFarm, User);
             }
 
             return View("Edit", model);
@@ -62,23 +61,23 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             return View("Edit", model);
         }
 
-        [DisplayName("Delete")]
-        public ActionResult Delete(Guid id, string type)
+        public ActionResult Delete(Guid id, string returnTo)
         {
-            ViewBag.ContentType = type ?? "";
-            var page = _ctx.DContents.Single(p => p.Id == id);
-            return View(page);
+            var dWindFarm = _ctx.DWindFarms.Single(n => n.Id == id);
+            var model = VWindFarm.MapFromDb(dWindFarm, User);
+            model.ReturnTo = returnTo;
+            return View(model);
         }
 
         [HttpPost]
         [ActionName("Delete")]
         [ValidateInput(false)]
-        public ActionResult DeleteConfirmed(Guid id, string type)
+        public ActionResult DeleteConfirmed(Guid id, string returnTo)
         {
-            var page = _ctx.DContents.Single(p => p.Id == id);
-            _ctx.DContents.DeleteObject(page);
+            var dWindFarm = _ctx.DWindFarms.Single(n => n.Id == id);
+            _ctx.DWindFarms.DeleteObject(dWindFarm);
             _ctx.SaveChanges();
-            return RedirectToAction("Index", new { type });
+            return RedirectToAction("List", "WindFarm", new { area = "WindFarms" });
         }
 
         private void SaveDB(VWindFarm model)

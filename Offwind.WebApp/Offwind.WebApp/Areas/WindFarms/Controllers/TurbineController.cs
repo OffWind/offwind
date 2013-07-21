@@ -101,5 +101,24 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
 
             _ctx.SaveChanges();
         }
+
+        public ActionResult Delete(Guid id, string type)
+        {
+            ViewBag.ContentType = type ?? "";
+            var page = _ctx.DContents.Single(p => p.Id == id);
+            return View(page);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateInput(false)]
+        public ActionResult DeleteConfirmed(Guid id, string type)
+        {
+            var page = _ctx.DContents.Single(p => p.Id == id);
+            _ctx.DContents.DeleteObject(page);
+            _ctx.SaveChanges();
+            return RedirectToAction("Index", new { type });
+        }
+
     }
 }

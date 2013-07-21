@@ -13,7 +13,7 @@ namespace Offwind.WebApp.Infrastructure
         public static IHtmlString ActiveIfCurrent(this WebViewPage page, NavUrl navUrl)
         {
             var request = page.Request;
-            string areaName = (string)request.RequestContext.RouteData.Values["area"] ?? "";
+            string areaName = (string)request.RequestContext.RouteData.DataTokens["area"] ?? "";
             string controllerName = (string)request.RequestContext.RouteData.Values["controller"] ?? "";
             string actionName = (string)request.RequestContext.RouteData.Values["action"] ?? "";
 

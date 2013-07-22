@@ -15,19 +15,17 @@
 </ul>
 <div class="row-fluid row-content-block">
     <div class="span12 well actionable-page">
-        <h1>@Model.Name</h1>
+        <h1>Turbine Details</h1>
         @Html.Partial("__DetailsActions")
-        <h2>Properties</h2>
+        <h3>Properties</h3>
         <p>
             <table class="table table-bordered model-view">
-                <tr>
-                    <td>Manufacturer</td>
-                    <td>@Model.Manufacturer</td>
-                </tr>
-                <tr>
-                    <td>Rated power (MW)</td>
-                    <td>@Model.RatedPower</td>
-                </tr>
+
+                @Html.DisplayFor(m => m.Name)
+                @Html.DisplayFor(m => m.RatedPower)
+                @Html.DisplayFor(m => m.RotorDiameter)
+                @Html.DisplayFor(m => m.Manufacturer)
+
             </table>
         </p>
 
@@ -43,8 +41,6 @@
             @Html.Raw(Model.Description)
         }
         
-        <h3>Whole</h3>
-        @Html.DisplayForModel()
     </div>
 
 </div>

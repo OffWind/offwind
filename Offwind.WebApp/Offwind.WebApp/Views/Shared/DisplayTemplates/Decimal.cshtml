@@ -1,0 +1,13 @@
+﻿@model object
+@{
+    var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
+}
+
+<tr>
+    <td>
+        @displayName
+    </td>
+    <td>
+        @ViewData.TemplateInfo.FormattedModelValue
+    </td>
+</tr>

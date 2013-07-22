@@ -53,6 +53,10 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
         [Display(Name = "Total capacity (MW)")]
         public decimal TotalCapacity { get; set; }
 
+        [Required]
+        [Display(Name = "Turbine type", Description = "Turbine of this type will be used in this wind-farm")]
+        public Guid TurbineTypeId { get; set; }
+
         public string Description { get; set; }
 
         [Display(Name = "Created by")]
@@ -104,8 +108,15 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
 
         public string Description { get; set; }
         public string Manufacturer { get; set; }
+
+        [Required]
+        [Display(Name = "Rated power (MW)", Description = "Designed max power production for the turbine")]
         public decimal RatedPower { get; set; }
+
+        [Required]
+        [Display(Name = "Rotor diameter (m)", Description = "The diameter of the rotor plane")]
         public decimal RotorDiameter { get; set; }
+
         public string RotorOrientation { get; set; }
         public string RotorConfiguration { get; set; }
         public string Control { get; set; }

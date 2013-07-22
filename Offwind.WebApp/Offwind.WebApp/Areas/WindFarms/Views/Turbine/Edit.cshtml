@@ -21,37 +21,13 @@
                 @Html.EditorFor(model => model.Name)
                 @Html.EditorFor(model => model.Manufacturer)
                 @Html.EditorFor(model => model.Description, "RtfEditor")
-                
                 @Html.EditorFor(model => model.RatedPower)
-                @Html.EditorFor(model => model.HubHeight)
-                @Html.EditorFor(model => model.HubDiameter)
-
-                @Html.EditorFor(model => model.WindSpeedCutIn)
-                @Html.EditorFor(model => model.WindSpeedRated)
-                @Html.EditorFor(model => model.WindSpeedCutOut)
-
-                @Html.EditorFor(model => model.TipSpeedRated)
-                @Html.EditorFor(model => model.NacelleMass)
-                @Html.EditorFor(model => model.TowerMass)
-
-            </fieldset>
-            <fieldset>
-                <legend>Rotor</legend>
                 @Html.EditorFor(model => model.RotorDiameter)
-                @Html.EditorFor(model => model.RotorOrientation)
-                @Html.EditorFor(model => model.RotorConfiguration)
-                @Html.EditorFor(model => model.Control)
-                @Html.EditorFor(model => model.RotorSpeedCutIn)
-                @Html.EditorFor(model => model.RotorSpeedRated)
-                @Html.EditorFor(model => model.RotorMass)
-                
-            </fieldset> 
+            </fieldset>
         </form>
     </div>
 </div>
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-    </script>
 }

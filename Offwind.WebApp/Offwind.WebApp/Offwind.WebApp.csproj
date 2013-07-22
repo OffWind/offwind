@@ -2325,6 +2325,8 @@
     <Content Include="Views\Shared\DisplayTemplates\Object.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Areas\WindFarms\Views\WindFarm\__EditorActions.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Decimal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

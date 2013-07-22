@@ -6,11 +6,6 @@
 }
 
 <style>
-    table.general-params tr td:first-child
-    {
-        font-weight: bold;
-        width: 30%;
-    }
     table span.indent
     {
         margin-left: 1em;
@@ -26,21 +21,16 @@
 </ul>
 <div class="row-fluid row-content-block">
     <div class="span12 well actionable-page">
-        <h1>@Model.Name</h1>
+        <h1>Wind Farm Details</h1>
         @Html.Partial("__DetailsActions")
         <div class="row-fluid">
             <div class="span6">
                 <h3>Properties</h3>
                 <p>
-                    <table class="table table-bordered general-params">
-                        <tr>
-                            <td>Country</td>
-                            <td>@Model.Country</td>
-                        </tr>
-                        <tr>
-                            <td>Total capacity (MW)</td>
-                            <td>@Model.TotalCapacity</td>
-                        </tr>
+                    <table class="table table-bordered general-params model-view">
+                        @Html.DisplayFor(m => m.Name)
+                        @Html.DisplayFor(m => m.Country)
+                        @Html.DisplayFor(m => m.TotalCapacity)
                         <tr>
                             <td>Coordinates<br/>
                                 <span class="indent">Latitude</span><br/>
@@ -73,7 +63,7 @@
             <div class="span6">
                 <h3>Location</h3>
                 <div id="map_container" class="img-polaroid">
-                    <div id="map_canvas" style="width: auto; height: 400px;"></div>
+                    <div id="map_canvas" style="width: auto; height: 300px;"></div>
                 </div>
             </div>
         </div>

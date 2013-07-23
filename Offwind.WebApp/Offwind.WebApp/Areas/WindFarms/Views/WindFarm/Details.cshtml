@@ -102,7 +102,16 @@
                 </a>
             }
         </div>
-        <div id="example1"></div>
+            @if (!Model.CanEdit && Model.Turbines.Count <= 0)
+            {
+                <div class="alert">
+                    No turbine coordinates specified
+                </div>
+            }
+            else
+            {
+                <div id="example1"></div>
+            }
 
         @*<table class="table table-bordered">
             <tr>
@@ -227,14 +236,22 @@
                         data: JSON.stringify(d)
                     });
                 };
-
+                @{
+                    var spareRows = 1;
+                    var columnTypes = "[{ type: { renderer: td_renderer } }, { type: { renderer: td_renderer } }]";
+                    if (!Model.CanEdit)
+                    {
+                        spareRows = 0;
+                        columnTypes = "[{ type: { renderer: td_renderer }, readOnly: true }, { type: { renderer: td_renderer }, readOnly: true }]";
+                    }
+                }
                 $container.handsontable({
                     startRows: 1,
                     startCols: 2,
-                    columns: [{ type: { renderer: td_renderer} }, { type: { renderer: td_renderer} }],
+                    columns: @columnTypes,
                     colHeaders: ["<b>X</b>", "<b>Y</b>"],
                     rowHeaders: true,
-                    minSpareRows: 1,
+                    minSpareRows: @spareRows,
                     onChange: changed
                 });
 

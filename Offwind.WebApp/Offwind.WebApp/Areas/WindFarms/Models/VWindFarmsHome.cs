@@ -95,6 +95,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
         {
             var mapper = ObjectMapperManager.DefaultInstance.GetMapper<DWindFarm, VWindFarm>();
             mapper.Map(db, model);
+            model.Turbines.AddRange(new VTurbine[db.DWindFarmTurbines.Count]);
             model.CanEdit = db.Author == user.Identity.Name;
         }
     }
@@ -105,6 +106,8 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
 
         [Required]
         public string Name { get; set; }
+
+        public string Author { get; set; }
 
         public string Description { get; set; }
         public string Manufacturer { get; set; }
@@ -142,6 +145,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
         public static void MapFromDb(VTurbine model, DTurbine db, IPrincipal user)
         {
             model.Id = db.Id;
+            model.Author = db.Author ?? "";
             model.Name = db.Name ?? "";
             model.Description = db.Description ?? "";
             model.Manufacturer = db.Manufacturer ?? "";

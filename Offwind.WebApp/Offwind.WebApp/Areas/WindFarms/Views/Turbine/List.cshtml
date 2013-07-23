@@ -24,6 +24,7 @@
                 <th>Wind speed<br/>cut-in<br/>(m/s)</th>
                 <th>Wind speed<br/>rated<br/>(m/s)</th>
                 <th>Wind speed<br/>cut-out<br/>(m/s)</th>
+                <th>Created by</th>
                 <th></th>
             </tr>
             @foreach (var turbine in Model.Turbines)
@@ -35,6 +36,16 @@
                     <td>@turbine.WindSpeedCutIn</td>
                     <td>@turbine.WindSpeedRated</td>
                     <td>@turbine.WindSpeedCutOut</td>
+                    <td>
+                        @if (turbine.Author == null || turbine.Author.Trim().Length == 0)
+                        {
+                            <span class="badge badge-success">Admin</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-info">@turbine.Author</span>
+                        }
+                    </td>
                     <td>
                         <div class="btn-group">
                             <a class="btn dropdown-toggle" href="#">

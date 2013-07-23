@@ -31,16 +31,7 @@
                     <td><a href="@Url.Action("Details", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="">@farm.Name</a></td>
                     <td>@farm.TotalCapacity</td>
                     <td>@farm.Country</td>
-                    <td>
-                        @if (farm.Turbines.Count == 0)
-                        {
-                            <span class="badge badge-important">@farm.Turbines.Count</span>
-                        }
-                        else
-                        {
-                            @farm.Turbines.Count
-                        }
-                    </td>
+                    <td>@farm.Turbines.Count</td>
                     <td>
                         @if (farm.Author == null || farm.Author.Trim().Length == 0)
                         {

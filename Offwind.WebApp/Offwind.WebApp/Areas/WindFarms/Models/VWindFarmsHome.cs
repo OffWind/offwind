@@ -53,7 +53,6 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
         [Display(Name = "Total capacity (MW)")]
         public decimal TotalCapacity { get; set; }
 
-        [Required]
         [Display(Name = "Turbine type", Description = "Turbine of this type will be used in this wind-farm")]
         public Guid? TurbineTypeId { get; set; }
 

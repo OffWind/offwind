@@ -681,6 +681,28 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+        #region Function Imports
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="windFarmId">No Metadata Documentation available.</param>
+        public int WindFarm_DeleteTurbines(Nullable<global::System.Guid> windFarmId)
+        {
+            ObjectParameter windFarmIdParameter;
+            if (windFarmId.HasValue)
+            {
+                windFarmIdParameter = new ObjectParameter("windFarmId", windFarmId);
+            }
+            else
+            {
+                windFarmIdParameter = new ObjectParameter("windFarmId", typeof(global::System.Guid));
+            }
+    
+            return base.ExecuteFunction("WindFarm_DeleteTurbines", windFarmIdParameter);
+        }
+
+        #endregion
     }
     
 

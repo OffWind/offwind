@@ -746,6 +746,10 @@
     <Content Include="static\img\middleman.png" />
     <Content Include="static\img\subtle_surface.png" />
     <Content Include="static\jquery-1.8.1.min.js" />
+    <Content Include="static\handsontable-0.9.9\jquery.handsontable.css" />
+    <Content Include="static\handsontable-0.9.9\jquery.handsontable.full.css" />
+    <Content Include="static\handsontable-0.9.9\jquery.handsontable.full.js" />
+    <Content Include="static\handsontable-0.9.9\jquery.handsontable.js" />
     <Content Include="static\js\exporting.js" />
     <Content Include="static\js\graphDemo.js" />
     <Content Include="static\js\highcharts-more.js" />
@@ -2155,6 +2159,7 @@
     <None Include="static\font-awesome\sass\font-awesome.sass" />
     <None Include="static\font-awesome\sass\font-awesome.scss" />
     <None Include="static\fullcalendar-1.5.3\demos\json-events.php" />
+    <None Include="static\handsontable-0.9.9\README.md" />
     <None Include="static\theme\lib\bootstrap-formhelpers\README.md" />
     <None Include="static\theme\lib\bootstrap-timepicker\less\timepicker.less" />
     <None Include="static\theme\lib\bootstrap-timepicker\README.md" />

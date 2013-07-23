@@ -519,6 +519,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="WindFarm_DeleteTurbines" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="windFarmId" Type="uniqueidentifier" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -581,6 +584,9 @@
             <End Role="DUserProfile" EntitySet="DUserProfiles" />
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
           </AssociationSet>
+          <FunctionImport Name="WindFarm_DeleteTurbines">
+            <Parameter Name="windFarmId" Mode="In" Type="Guid" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="DCase">
           <Key>
@@ -1316,6 +1322,7 @@
               <ScalarProperty Name="UserId" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="WindFarm_DeleteTurbines" FunctionName="u254697_offwindModel.Store.WindFarm_DeleteTurbines" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

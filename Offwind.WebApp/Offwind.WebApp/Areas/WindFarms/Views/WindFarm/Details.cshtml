@@ -153,6 +153,7 @@
 {
     <script src="/static/js/standard/jquery.validate.js"></script>
     @Scripts.Render("~/static/js/jquery.handsontable.full.js")
+    @Scripts.Render("~/static/js/handsontable.tools.js")
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -212,11 +213,6 @@
                     $("input#TurbinesCount").select().focus();
                 });
 
-                var renderer = function (instance, td) {
-                    Handsontable.TextCell.renderer.apply(this, arguments);
-                    $(td).css({ textAlign: "right" });
-                    return td;
-                };
                 var isInitialized = false;
                 var $container = $("#example1");
 
@@ -235,7 +231,7 @@
                 $container.handsontable({
                     startRows: 1,
                     startCols: 2,
-                    columns: [{ type: { renderer: renderer} }, { type: { renderer: renderer} }],
+                    columns: [{ type: { renderer: td_renderer} }, { type: { renderer: td_renderer} }],
                     colHeaders: ["<b>X</b>", "<b>Y</b>"],
                     rowHeaders: true,
                     minSpareRows: 1,
@@ -250,6 +246,24 @@
                         $container.data('handsontable').loadData(res);
                         isInitialized = true;
                     }
+                });
+                
+                $("#action-remove-turbines").click(function () {
+                    url = "@Url.Action("RemoveAllTurbines", "WindFarm", new { area = "WindFarms", windFarmId = Model.Id })";
+                    $.ajax({
+                        url: url,
+                        dataType: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8'
+                    });
+                    $.ajax({
+                        url: "@Url.Action("TurbineCoordinatesData", "WindFarm", new { area = "WindFarms", windFarmId = Model.Id })",
+                        dataType: 'json',
+                        type: 'GET',
+                        success: function (res) {
+                            $container.data('handsontable').loadData(res);
+                        }
+                    });
                 });
             })();
         });

@@ -55,7 +55,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
 
         [Required]
         [Display(Name = "Turbine type", Description = "Turbine of this type will be used in this wind-farm")]
-        public Guid TurbineTypeId { get; set; }
+        public Guid? TurbineTypeId { get; set; }
 
         public string Description { get; set; }
 
@@ -131,7 +131,6 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
         public decimal RotorMass { get; set; }
         public decimal NacelleMass { get; set; }
         public decimal TowerMass { get; set; }
-        public Dictionary<string, string> Parameters { get; set; }
 
         public static VTurbine MapFromDb(DTurbine db, IPrincipal user)
         {

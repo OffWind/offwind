@@ -5,13 +5,17 @@
     ViewBag.Title = "Wind Farm Editor | Wind Farms & Turbines Database | Offwind";
 }
 
-<style>
-    table span.indent
-    {
-        margin-left: 1em;
-        font-weight: normal;
-    }
-</style>
+@section styles
+{
+    @Styles.Render("~/static/css/jquery.handsontable.full.css")
+    <style>
+        table span.indent
+        {
+            margin-left: 1em;
+            font-weight: normal;
+        }
+    </style>
+}
 
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
@@ -82,42 +86,172 @@
     </div>
 </div>
 <div class="row-fluid row-content-block">
-    <div class="span12 well">
-        <h3>Turbines & Layout</h3>
+    <div class="span12 well actionable-page">
+        <h3>Turbines Layout</h3>
+        <div class="actions-block">
+            @if (Model.CanEdit)
+            {
+                @*<a class="btn btn-primary" role="button" data-toggle="modal"  href="#action_add_turbines" title="Add turbines" id="action-add-turbines">
+                    <i class="icon-plus icon-white"></i>
+                </a>*@
+                <a class="btn btn-primary" role="button" data-toggle="modal"  href="#action_upload_turbines" title="Upload turbines" id="action-upload-turbines">
+                    <i class="icon-upload-alt icon-white"></i>
+                </a>
+                <a class="btn btn-danger"  role="button" data-toggle="modal"  href="#action_remove_turbines" title="Remove all turbines" id="action-remove-turbines">
+                    <i class="icon-remove icon-white"></i>
+                </a>
+            }
+        </div>
+        <div id="example1"></div>
+
+        @*<table class="table table-bordered">
+            <tr>
+                <th>X</th>
+                <th>Y</th>
+                <th width="50%"></th>
+            </tr>
         @if (Model.Turbines.Count == 0)
         {
-            <div class="alert">
-                No turbines specified
-            </div>
+            <tr>
+                <td colspan="3"  class="alert">
+                    No coordinates specified
+                </td>
+            </tr>
         }
+        </table>*@
+
     </div>
 </div>
 
+@*<div id="action_add_turbines" class="modal hide fade">
+    <form id="form-add-turbines" class="form-horizontal indent" method="post" novalidate="">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Add Turbines</h3>
+        </div>
+        <div class="modal-body">
+            <h3>How many turbines you want to add?</h3>
+                <div class="control-group controls-row" id="EditorFor_TurbinesCount">
+                    @{
+                        var htmla = new Dictionary<string, object>();
+                        //htmla["data-val-required"] = "The Name field is required";
+                        //htmla["data-val"] = "true";
+                        htmla["class"] = "span6";
+                    }
+                    @Html.TextBox("TurbinesCount", 0, htmla)
+                    <div class="validation-msg span6" id="fat-tcount-err">
+                    </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="action-add-turbines-ok">OK</button>
+            <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+        </div>
+    </form>
+</div>*@
 @section scripts
 {
+    <script src="/static/js/standard/jquery.validate.js"></script>
+    @Scripts.Render("~/static/js/jquery.handsontable.full.js")
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            var map;
-            var coord = new google.maps.LatLng(@Model.GeoLat, @Model.GeoLng);
-            var mapOptions = {
-                zoom: 10,
-                minZoom: 1,
-                center: coord,
-                mapTypeId: google.maps.MapTypeId.SATELLITE
-            };
+            (function() {
+                var map;
+                var coord = new google.maps.LatLng(@Model.GeoLat, @Model.GeoLng);
+                var mapOptions = {
+                    zoom: 10,
+                    minZoom: 1,
+                    center: coord,
+                    mapTypeId: google.maps.MapTypeId.SATELLITE
+                };
 
-            map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+                map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
-            var point = new google.maps.Marker({
-                position: coord,
-                draggable: false,
-                raiseOnDrag: false,
-                title: name,
-                map: map
-            });
-            point.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
-            point.visible = true;
-        });    
+                var point = new google.maps.Marker({
+                    position: coord,
+                    draggable: false,
+                    raiseOnDrag: false,
+                    title: name,
+                    map: map
+                });
+                point.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
+                point.visible = true;
+            })();
+
+            (function() {
+                /*$("#form-add-turbines").validate({
+                    errorLabelContainer: "#fat-tcount-err",
+                    rules: {
+                        TurbinesCount: { required: true, digits: true, range: [1, 9999] }
+                    },
+                    submitHandler: function(form) {
+                        var turbinesCount = $("#TurbinesCount").val();
+                        $("#action_add_turbines").modal("hide");
+                        url = "@Url.Action("AddTurbines", "WindFarm", new { area = "WindFarms", windFarmId = Model.Id })" + "&n=" + turbinesCount;
+                        $.ajax({
+                            url: url,
+                            dataType: "json",
+                            type: "POST",
+                            contentType: 'application/json; charset=utf-8'
+                        });
+                        try {
+                            var ht = $('#example1').data('handsontable');
+                            for (i=0; i < turbinesCount; i++) {
+                                ht.alter ('insert_row', null, turbinesCount);
+                            }
+                        } catch(e) {
+                            console.debug(e)
+                        } 
+                        return false;
+                    }
+                });*/
+
+                $("#action_add_turbines").on("shown", function() {
+                    $("input#TurbinesCount").val("1");
+                    $("input#TurbinesCount").select().focus();
+                });
+
+                var renderer = function (instance, td) {
+                    Handsontable.TextCell.renderer.apply(this, arguments);
+                    $(td).css({ textAlign: "right" });
+                    return td;
+                };
+                var isInitialized = false;
+                var $container = $("#example1");
+
+                var changed = function(change, source) {
+                    if (!isInitialized) return;
+                    var d = $container.data('handsontable').getData();
+                    $.ajax({
+                        url: "@Url.Action("TurbineCoordinatesSave", "WindFarm", new { area = "WindFarms", windFarmId = Model.Id })",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(d)
+                    });
+                };
+
+                $container.handsontable({
+                    startRows: 1,
+                    startCols: 2,
+                    columns: [{ type: { renderer: renderer} }, { type: { renderer: renderer} }],
+                    colHeaders: ["<b>X</b>", "<b>Y</b>"],
+                    rowHeaders: true,
+                    minSpareRows: 1,
+                    onChange: changed
+                });
+
+                $.ajax({
+                    url: "@Url.Action("TurbineCoordinatesData", "WindFarm", new { area = "WindFarms", windFarmId = Model.Id })",
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function (res) {
+                        $container.data('handsontable').loadData(res);
+                        isInitialized = true;
+                    }
+                });
+            })();
+        });
     </script>
 }

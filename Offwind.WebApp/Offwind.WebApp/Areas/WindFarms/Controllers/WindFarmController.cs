@@ -80,6 +80,44 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             return RedirectToAction("List", "WindFarm", new { area = "WindFarms" });
         }
 
+        [HttpPost]
+        public ActionResult AddTurbines(Guid windFarmId, int n)
+        {
+            if (n <= 0) return Json("Invalid argument N");
+            var dWindFarm = _ctx.DWindFarms.Single(wf => wf.Id == windFarmId);
+            var maxN = dWindFarm.DWindFarmTurbines.Select(wft => wft.Number).Concat(new[] {0}).Max();
+            maxN++;
+            for (int i = 0; i < n; i++)
+            {
+                _ctx.DWindFarmTurbines.AddObject(new DWindFarmTurbine { Id = Guid.NewGuid(), WindFarmId = windFarmId, Number = maxN++ });
+            }
+            _ctx.SaveChanges();
+            return Json("OK");
+        }
+
+        public JsonResult TurbineCoordinatesData(Guid windFarmId)
+        {
+            var dWindFarm = _ctx.DWindFarms.Single(wf => wf.Id == windFarmId);
+            var arr = dWindFarm.DWindFarmTurbines.OrderBy(t => t.Number).Select(t => new[] { t.X, t.Y }).ToArray();
+            return Json(arr, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult TurbineCoordinatesSave(Guid windFarmId, List<decimal[]> turbines)
+        {
+            if (turbines == null) return Json("Bad model");
+            var dWindFarm = _ctx.DWindFarms.Single(wf => wf.Id == windFarmId);
+            var arr = dWindFarm.DWindFarmTurbines.OrderBy(t => t.Number).ToArray();
+            for (int i = 0; i < turbines.Count; i++)
+            {
+                var item = arr.FirstOrDefault(t => t.Number == i + 1);
+                if (item == null) continue;
+                item.X = turbines[i][0];
+                item.Y = turbines[i][1];
+            }
+            _ctx.SaveChanges();
+            return Json("OK");
+        }
+
         private void SaveDB(VWindFarm model)
         {
             DWindFarm db;

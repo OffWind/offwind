@@ -77,10 +77,6 @@
             <End Role="webpages_Membership" EntitySet="webpages_Membership" />
             <End Role="DUserProfile" EntitySet="DUserProfile" />
           </AssociationSet>
-          <AssociationSet Name="FK_DWindFarmTurbine_DTurbine" Association="u254697_offwindModel.Store.FK_DWindFarmTurbine_DTurbine">
-            <End Role="DTurbine" EntitySet="DTurbine" />
-            <End Role="DWindFarmTurbine" EntitySet="DWindFarmTurbine" />
-          </AssociationSet>
           <AssociationSet Name="FK_DWindFarmTurbine_DWindFarm" Association="u254697_offwindModel.Store.FK_DWindFarmTurbine_DWindFarm">
             <End Role="DWindFarm" EntitySet="DWindFarm" />
             <End Role="DWindFarmTurbine" EntitySet="DWindFarmTurbine" />
@@ -267,6 +263,7 @@
           <Property Name="Created" Type="datetime" />
           <Property Name="Updated" Type="datetime" />
           <Property Name="Author" Type="nvarchar" MaxLength="200" />
+          <Property Name="TurbineTypeId" Type="uniqueidentifier" />
           <Property Name="IsPublic" Type="bit" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Country" Type="nvarchar" Nullable="false" MaxLength="150" />
@@ -283,7 +280,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="WindFarmId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="TurbineId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
           <Property Name="X" Type="decimal" Nullable="false" Scale="6" />
           <Property Name="Y" Type="decimal" Nullable="false" Scale="6" />
           <Property Name="Z" Type="decimal" Nullable="false" Scale="6" />
@@ -486,18 +483,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DWindFarmTurbine_DTurbine">
-          <End Role="DTurbine" Type="u254697_offwindModel.Store.DTurbine" Multiplicity="1" />
-          <End Role="DWindFarmTurbine" Type="u254697_offwindModel.Store.DWindFarmTurbine" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DTurbine">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DWindFarmTurbine">
-              <PropertyRef Name="TurbineId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DWindFarmTurbine_DWindFarm">
           <End Role="DWindFarm" Type="u254697_offwindModel.Store.DWindFarm" Multiplicity="1" />
           <End Role="DWindFarmTurbine" Type="u254697_offwindModel.Store.DWindFarmTurbine" Multiplicity="*" />
@@ -583,10 +568,6 @@
           <AssociationSet Name="FK_DTurbineParameter_DTurbine" Association="Offwind.DbModels.FK_DTurbineParameter_DTurbine">
             <End Role="DTurbine" EntitySet="DTurbines" />
             <End Role="DTurbineParameter" EntitySet="DTurbineParameters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DWindFarmTurbine_DTurbine" Association="Offwind.DbModels.FK_DWindFarmTurbine_DTurbine">
-            <End Role="DTurbine" EntitySet="DTurbines" />
-            <End Role="DWindFarmTurbine" EntitySet="DWindFarmTurbines" />
           </AssociationSet>
           <AssociationSet Name="FK_DUserProfile_webpages_Membership" Association="Offwind.DbModels.FK_DUserProfile_webpages_Membership">
             <End Role="webpages_Membership" EntitySet="webpages_Membership" />
@@ -745,7 +726,6 @@
           <Property Type="Decimal" Name="NacelleMass" Precision="8" Scale="2" />
           <Property Type="Decimal" Name="TowerMass" Precision="8" Scale="2" />
           <NavigationProperty Name="DTurbineParameters" Relationship="Offwind.DbModels.FK_DTurbineParameter_DTurbine" FromRole="DTurbine" ToRole="DTurbineParameter" />
-          <NavigationProperty Name="DWindFarmTurbines" Relationship="Offwind.DbModels.FK_DWindFarmTurbine_DTurbine" FromRole="DTurbine" ToRole="DWindFarmTurbine" />
         </EntityType>
         <EntityType Name="DTurbineParameter">
           <Key>
@@ -783,6 +763,7 @@
           <Property Type="DateTime" Name="Created" />
           <Property Type="DateTime" Name="Updated" />
           <Property Type="String" Name="Author" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="TurbineTypeId" />
           <Property Type="Boolean" Name="IsPublic" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Country" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
@@ -800,11 +781,10 @@
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="WindFarmId" Nullable="false" />
-          <Property Type="Guid" Name="TurbineId" Nullable="false" />
+          <Property Type="Int32" Name="Number" Nullable="false" />
           <Property Type="Decimal" Name="X" Nullable="false" Precision="18" Scale="6" />
           <Property Type="Decimal" Name="Y" Nullable="false" Precision="18" Scale="6" />
           <Property Type="Decimal" Name="Z" Nullable="false" Precision="18" Scale="6" />
-          <NavigationProperty Name="DTurbine" Relationship="Offwind.DbModels.FK_DWindFarmTurbine_DTurbine" FromRole="DWindFarmTurbine" ToRole="DTurbine" />
           <NavigationProperty Name="DWindFarm" Relationship="Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm" FromRole="DWindFarmTurbine" ToRole="DWindFarm" />
         </EntityType>
         <EntityType Name="Log">
@@ -974,18 +954,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="DTurbineParameter">
-              <PropertyRef Name="TurbineId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DWindFarmTurbine_DTurbine">
-          <End Type="Offwind.DbModels.DTurbine" Role="DTurbine" Multiplicity="1" />
-          <End Type="Offwind.DbModels.DWindFarmTurbine" Role="DWindFarmTurbine" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DTurbine">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DWindFarmTurbine">
               <PropertyRef Name="TurbineId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1210,6 +1178,7 @@
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="TurbineTypeId" ColumnName="TurbineTypeId" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="Updated" ColumnName="Updated" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
@@ -1223,7 +1192,7 @@
                 <ScalarProperty Name="Z" ColumnName="Z" />
                 <ScalarProperty Name="Y" ColumnName="Y" />
                 <ScalarProperty Name="X" ColumnName="X" />
-                <ScalarProperty Name="TurbineId" ColumnName="TurbineId" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="WindFarmId" ColumnName="WindFarmId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1368,68 +1337,62 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Offwind">
-        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="0.75" PointY="14.25" Height="2.1725878906250102" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="2.75" PointY="14.25" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="10" PointY="13.5" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="7.75" PointY="14.5" Height="1.4033821614583246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DCountry" Width="1.5" PointX="4.75" PointY="14.25" Height="1.4033821614583246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="12.75" PointY="13.25" Height="2.7494921875000102" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="8.75" PointY="4.625" Height="1.9802864583333388" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="11" PointY="3.5" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="11" PointY="6.25" Height="1.595683593749996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="9.75" PointY="9.75" Height="1.595683593749996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="12" PointY="9.375" Height="2.172587890624996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DTurbine" Width="1.5" PointX="0.75" PointY="3.625" Height="6.0186165364583388" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DTurbineParameter" Width="1.5" PointX="3" PointY="5.375" Height="2.5571907552083246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="5" PointY="9.75" Height="2.9417936197916674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarm" Width="1.5" PointX="3.75" PointY="0.75" Height="3.7109993489583246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarmTurbine" Width="1.5" PointX="6" PointY="5.375" Height="2.5571907552083388" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="13.75" PointY="3.25" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="0.75" PointY="17.25" Height="3.9033007812500102" />
-        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="2.75" PointY="17.25" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="2.75" PointY="9.5" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="14.75" PointY="7.25" Height="1.5956835937499827" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="7.25" PointY="10.375" Height="1.5956835937499818" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="4.75" PointY="17.25" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="6.75" PointY="17.25" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="14.75" PointY="10.25" Height="1.5956835937499818" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="10.75" PointY="9.75" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="0.75" PointY="11.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="13" PointY="5" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="10.75" PointY="6" Height="1.4033821614583246" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCountry" Width="1.5" PointX="2.75" PointY="11.75" Height="1.4033821614583246" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="12.75" PointY="0.75" Height="2.7494921875000102" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="0.75" PointY="7.25" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="3" PointY="6" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="3" PointY="8.75" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="7.75" PointY="1.25" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="10" PointY="0.875" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DTurbine" Width="1.5" PointX="5.75" PointY="10.125" Height="5.8263151041666674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DTurbineParameter" Width="1.5" PointX="8" PointY="11.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="3" PointY="1.25" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarm" Width="1.5" PointX="5.75" PointY="5" Height="3.903300781249996" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarmTurbine" Width="1.5" PointX="8" PointY="5.75" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="12.75" PointY="9.75" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="10.75" PointY="13.75" Height="3.9033007812500102" />
+        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="12.75" PointY="13.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="0.75" PointY="1" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="14.75" PointY="0.75" Height="1.5956835937499818" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="5.25" PointY="2" Height="1.5956835937499818" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="0.75" PointY="14.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="2.75" PointY="14.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="14.75" PointY="9.75" Height="1.5956835937499818" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" >
-          <ConnectorPoint PointX="9.25" PointY="15.201691080729162" />
-          <ConnectorPoint PointX="10" PointY="15.201691080729162" />
+          <ConnectorPoint PointX="12.25" PointY="6.7016910807291623" />
+          <ConnectorPoint PointX="13" PointY="6.7016910807291623" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingFile_DMeeting" >
-          <ConnectorPoint PointX="10.25" PointY="5.0526432291666623" />
-          <ConnectorPoint PointX="11" PointY="5.0526432291666623" />
+          <ConnectorPoint PointX="2.25" PointY="7.6151432291666623" />
+          <ConnectorPoint PointX="3" PointY="7.6151432291666623" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingParticipant_DMeeting" >
-          <ConnectorPoint PointX="10.25" PointY="6.4276432291666694" />
-          <ConnectorPoint PointX="11" PointY="6.4276432291666694" />
+          <ConnectorPoint PointX="2.25" PointY="8.99014322916667" />
+          <ConnectorPoint PointX="3" PointY="8.99014322916667" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.FK_DMesoscaleTabFile_DMesoscaleDatabase" >
-          <ConnectorPoint PointX="11.25" PointY="10.547841796874998" />
-          <ConnectorPoint PointX="12" PointY="10.547841796874998" />
+          <ConnectorPoint PointX="9.25" PointY="2.047841796874998" />
+          <ConnectorPoint PointX="10" PointY="2.047841796874998" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.FK_DTurbineParameter_DTurbine" >
-          <ConnectorPoint PointX="2.25" PointY="6.6535953776041623" />
-          <ConnectorPoint PointX="3" PointY="6.6535953776041623" />
-        </AssociationConnector>
-        <AssociationConnector Association="Offwind.DbModels.FK_DWindFarmTurbine_DTurbine" >
-          <ConnectorPoint PointX="2.25" PointY="8.68484587760417" />
-          <ConnectorPoint PointX="6.75" PointY="8.68484587760417" />
-          <ConnectorPoint PointX="6.75" PointY="7.9321907552083388" />
+          <ConnectorPoint PointX="7.25" PointY="13.028595377604162" />
+          <ConnectorPoint PointX="8" PointY="13.028595377604162" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.FK_DUserProfile_webpages_Membership" >
-          <ConnectorPoint PointX="4.25" PointY="11.220896809895834" />
-          <ConnectorPoint PointX="5" PointY="11.220896809895834" />
+          <ConnectorPoint PointX="2.25" PointY="2.7208968098958337" />
+          <ConnectorPoint PointX="3" PointY="2.7208968098958337" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm" >
-          <ConnectorPoint PointX="5.25" PointY="2.6054996744791623" />
-          <ConnectorPoint PointX="6.75" PointY="2.6054996744791623" />
-          <ConnectorPoint PointX="6.75" PointY="5.375" />
+          <ConnectorPoint PointX="7.25" PointY="6.9324446614583337" />
+          <ConnectorPoint PointX="8" PointY="6.9324446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="Offwind.DbModels.webpages_UsersInRoles" >
-          <ConnectorPoint PointX="6.5" PointY="11.172841796874991" />
-          <ConnectorPoint PointX="7.25" PointY="11.172841796874991" />
+          <ConnectorPoint PointX="4.5" PointY="2.7978417968749909" />
+          <ConnectorPoint PointX="5.25" PointY="2.7978417968749909" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

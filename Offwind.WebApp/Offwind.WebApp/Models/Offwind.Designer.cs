@@ -23,7 +23,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingParticipant_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMeeting), "DMeetingParticipant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMeetingParticipant), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMesoscaleTabFile_DMesoscaleDatabase", "DMesoscaleDatabase", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMesoscaleDatabase), "DMesoscaleTabFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMesoscaleTabFile), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DTurbineParameter_DTurbine", "DTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DTurbine), "DTurbineParameter", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DTurbineParameter), true)]
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DTurbine", "DTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DTurbine), "DWindFarmTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DWindFarmTurbine), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DUserProfile_webpages_Membership", "webpages_Membership", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.webpages_Membership), "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.WebApp.Models.DUserProfile), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DWindFarm", "DWindFarm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DWindFarm), "DWindFarmTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DWindFarmTurbine), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "webpages_UsersInRoles", "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DUserProfile), "webpages_Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.webpages_Roles))]
@@ -3222,28 +3221,6 @@ namespace Offwind.WebApp.Models
                 }
             }
         }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DTurbine", "DWindFarmTurbine")]
-        public EntityCollection<DWindFarmTurbine> DWindFarmTurbines
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DWindFarmTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DTurbine", "DWindFarmTurbine");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DWindFarmTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DTurbine", "DWindFarmTurbine", value);
-                }
-            }
-        }
 
         #endregion
     }
@@ -3930,6 +3907,30 @@ namespace Offwind.WebApp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> TurbineTypeId
+        {
+            get
+            {
+                return _TurbineTypeId;
+            }
+            set
+            {
+                OnTurbineTypeIdChanging(value);
+                ReportPropertyChanging("TurbineTypeId");
+                _TurbineTypeId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TurbineTypeId");
+                OnTurbineTypeIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _TurbineTypeId;
+        partial void OnTurbineTypeIdChanging(Nullable<global::System.Guid> value);
+        partial void OnTurbineTypeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Boolean IsPublic
@@ -4187,16 +4188,16 @@ namespace Offwind.WebApp.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="windFarmId">Initial value of the WindFarmId property.</param>
-        /// <param name="turbineId">Initial value of the TurbineId property.</param>
+        /// <param name="number">Initial value of the Number property.</param>
         /// <param name="x">Initial value of the X property.</param>
         /// <param name="y">Initial value of the Y property.</param>
         /// <param name="z">Initial value of the Z property.</param>
-        public static DWindFarmTurbine CreateDWindFarmTurbine(global::System.Guid id, global::System.Guid windFarmId, global::System.Guid turbineId, global::System.Decimal x, global::System.Decimal y, global::System.Decimal z)
+        public static DWindFarmTurbine CreateDWindFarmTurbine(global::System.Guid id, global::System.Guid windFarmId, global::System.Int32 number, global::System.Decimal x, global::System.Decimal y, global::System.Decimal z)
         {
             DWindFarmTurbine dWindFarmTurbine = new DWindFarmTurbine();
             dWindFarmTurbine.Id = id;
             dWindFarmTurbine.WindFarmId = windFarmId;
-            dWindFarmTurbine.TurbineId = turbineId;
+            dWindFarmTurbine.Number = number;
             dWindFarmTurbine.X = x;
             dWindFarmTurbine.Y = y;
             dWindFarmTurbine.Z = z;
@@ -4262,24 +4263,24 @@ namespace Offwind.WebApp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Guid TurbineId
+        public global::System.Int32 Number
         {
             get
             {
-                return _TurbineId;
+                return _Number;
             }
             set
             {
-                OnTurbineIdChanging(value);
-                ReportPropertyChanging("TurbineId");
-                _TurbineId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("TurbineId");
-                OnTurbineIdChanged();
+                OnNumberChanging(value);
+                ReportPropertyChanging("Number");
+                _Number = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Number");
+                OnNumberChanged();
             }
         }
-        private global::System.Guid _TurbineId;
-        partial void OnTurbineIdChanging(global::System.Guid value);
-        partial void OnTurbineIdChanged();
+        private global::System.Int32 _Number;
+        partial void OnNumberChanging(global::System.Int32 value);
+        partial void OnNumberChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4356,44 +4357,6 @@ namespace Offwind.WebApp.Models
         #endregion
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DTurbine", "DTurbine")]
-        public DTurbine DTurbine
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DTurbine", "DTurbine").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DTurbine", "DTurbine").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<DTurbine> DTurbineReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DTurbine", "DTurbine");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DTurbine>("Offwind.DbModels.FK_DWindFarmTurbine_DTurbine", "DTurbine", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.

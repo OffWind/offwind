@@ -102,23 +102,23 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             _ctx.SaveChanges();
         }
 
-        public ActionResult Delete(Guid id, string type)
+        public ActionResult Delete(Guid id, string returnTo)
         {
-            ViewBag.ContentType = type ?? "";
-            var page = _ctx.DContents.Single(p => p.Id == id);
-            return View(page);
+            var db = _ctx.DTurbines.Single(n => n.Id == id);
+            var model = VTurbine.MapFromDb(db, User);
+            model.ReturnTo = returnTo;
+            return View(model);
         }
 
         [HttpPost]
         [ActionName("Delete")]
         [ValidateInput(false)]
-        public ActionResult DeleteConfirmed(Guid id, string type)
+        public ActionResult DeleteConfirmed(Guid id, string returnTo)
         {
-            var page = _ctx.DContents.Single(p => p.Id == id);
-            _ctx.DContents.DeleteObject(page);
+            var db = _ctx.DTurbines.Single(n => n.Id == id);
+            _ctx.DTurbines.DeleteObject(db);
             _ctx.SaveChanges();
-            return RedirectToAction("Index", new { type });
+            return RedirectToAction("List", "Turbine", new { area = "WindFarms" });
         }
-
     }
 }

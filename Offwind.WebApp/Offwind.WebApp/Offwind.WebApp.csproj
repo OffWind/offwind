@@ -224,6 +224,7 @@
     <Compile Include="Areas\ControlPanel\Tools\ContentTypeHelpers.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\EngineeringToolsController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\MesoWindController.cs" />
+    <Compile Include="Areas\EngineeringTools\Controllers\WakeSimulation2Controller.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WakeSimulationController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WindFarmController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WindWaveController.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\VDataImport.cs" />
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\VMesoWind.cs" />
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\VWindRose.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WakeSimulation2\VGeneralProperties.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VGeneralProperties.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VTurbine.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VTurbineCoordinates.cs" />
@@ -2139,6 +2141,7 @@
     <Content Include="Areas\WindFarms\Views\Turbine\__DetailsActions.cshtml" />
     <Content Include="Areas\WindFarms\Views\WindFarm\Delete.cshtml" />
     <Content Include="Areas\WindFarms\Views\Turbine\Delete.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\WakeSimulation2\Index.cshtml" />
     <None Include="static\.DS_Store" />
     <None Include="static\ckeditor\CHANGES.md" />
     <None Include="static\ckeditor\LICENSE.md" />

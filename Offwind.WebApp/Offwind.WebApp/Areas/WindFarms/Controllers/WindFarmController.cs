@@ -23,10 +23,11 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             return View(m);
         }
 
-        public ActionResult Details(Guid id)
+        public ActionResult Details(Guid id, string returnTo = "")
         {
             var dWindFarm = _ctx.DWindFarms.First(n => n.Id == id);
             var model = VWindFarm.MapFromDb(dWindFarm, User);
+            model.ReturnTo = returnTo;
             return View(model);
         }
 

@@ -58,6 +58,10 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Input Data", new NavUrl("InputData", "WindFarm", "EngineeringTools"))
                 .AddItem("Simulation", new NavUrl("Simulation", "WindFarm", "EngineeringTools"));
 
+            navigation.AddGroup("Wake Simulation II")
+                .AddItem("Simulation", new NavUrl("Index", "WakeSimulation2", "EngineeringTools"));
+
+
             foreach (var grp in navigation)
             {
                 grp.IsActive = grp.Title == _currentGroup;

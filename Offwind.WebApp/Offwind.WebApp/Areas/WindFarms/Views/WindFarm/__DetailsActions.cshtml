@@ -5,5 +5,12 @@
         <a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms", id = Model.Id })" class="btn btn-primary">Edit</a>
         <a href="@Url.Action("Delete", "WindFarm", new { area = "WindFarms", id = Model.Id })" class="btn btn-danger">Delete</a>
     }
-    <a href="@Url.Action("List", "WindFarm", new { area = "WindFarms" })" class="btn">Back to list</a>
+    @if (Model.ReturnTo == "WakeSimulator2")
+    {
+        <a href="@Url.Action("Index", "WakeSimulation2", new { area = "EngineeringTools" })" class="btn">Back to list</a>
+    }
+    else
+    {
+        <a href="@Url.Action("List", "WindFarm", new { area = "WindFarms" })" class="btn">Back to list</a>
+    }
 </div>

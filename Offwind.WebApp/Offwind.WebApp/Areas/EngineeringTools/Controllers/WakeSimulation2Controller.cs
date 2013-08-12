@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using EmitMapper;
 using Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2;
-using Offwind.WebApp.Areas.WindFarms.Models;
+using WakeFarmControl;
+
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
@@ -36,6 +37,21 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 model.WindFarm = _model.WindFarm;
                 ObjectMapperManager.DefaultInstance.GetMapper<VGeneralProperties, VGeneralProperties>().Map(model, _model);
             }
+            var dWindFarm = _ctx.DWindFarms.First(e => _model.WindFarm == e.Name);
+            var result = FarmControl.Simulation(new WakeFarmControlConfig()
+                                       {
+                                           Tstart = (double) _model.StartTime,
+                                           Tend = (double)_model.StopTime,
+                                           DT = _model.TimeStep,
+                                           NTurbines = dWindFarm.DWindFarmTurbines.Count(),
+                                           NREL5MW_MatFile = WebConfigurationManager.AppSettings["WakeFarmControlNREL5MW"],
+                                           Wind_MatFile = WebConfigurationManager.AppSettings["WakeFarmControlWind"],
+                                           EnablePowerDistribution = true,
+                                           EnableTurbineDynamics = true,
+                                           PowerRefInterpolation = true,
+                                           Pdemand = 3*5e6,
+                                           PRefSampleTime = 5
+                                       });
             return View(_model);
         }
 

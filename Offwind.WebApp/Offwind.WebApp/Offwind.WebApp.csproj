@@ -1986,6 +1986,10 @@
     <Content Include="Views\Shared\EditorTemplates\Int32.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Offwind.WakeFarmControl\WakeFarmControl\WakeFarmControl.csproj">
+      <Project>{E0BAA49A-86ED-4DBE-8587-C60E3636035B}</Project>
+      <Name>WakeFarmControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Offwind.Wake\csharp\WakeCode\WakeCode.csproj">
       <Project>{E37CB3E6-1575-4241-BEC6-86E2650ECAED}</Project>
       <Name>WakeCode</Name>

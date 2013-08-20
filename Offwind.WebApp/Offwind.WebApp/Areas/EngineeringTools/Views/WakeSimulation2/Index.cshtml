@@ -30,21 +30,54 @@
                         <a href="@Url.Action("WindFarmInfo", "WakeSimulation2", new { area = "EngineeringTools" })" class="btn btn-info">View details</a>
                     </div>
                 </div>
-                @Html.EditorFor(m => m.Rho)
+                <!-- @Html.EditorFor(m => m.Rho) -->
             </fieldset>
             
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">Run</button>
                 <button type="button" class="btn">Cancel</button>
             </div>
+            
+            <div id="simResult" class="hidden">
+                
+                <div class="span12 well" style="margin-left: 0pt">
+                    <div id="rotorSpeed" style="width: 100%; height: 200px;"></div>
+                </div>
+                <div class="span12 well" style="margin-left: 0pt">
+                    <div id="bladePitchAngle" style="width: 100%; height: 200px;"></div>
+                </div>
+
+                <div class="span12 well" style="margin-left: 0pt">
+                    <div id="turbinePowerReference" style="width: 100%; height: 200px;"></div>
+                </div>
+                <div class="span12 well" style="margin-left: 0pt">
+                    <div id="availablePower" style="width: 100%; height: 200px;"></div>
+                </div>
+
+                <div class="span12 well" style="margin-left: 0pt">
+                    <div id="windSpeed" style="width: 100%; height: 200px;"></div>
+                </div>
+                <div class="span12 well" style="margin-left: 0pt">
+                    <div id="totalFarmPower" style="width: 100%; height: 200px;"></div>
+                </div>
+
+                <div class="span12 well" style="margin-left: 0pt">
+                    <div id="totalPower" style="width: 100%; height: 200px;"></div>
+                </div>
+                <div class="span12 well" style="margin-left: 0pt">
+                    <div id="powerProduced" style="width: 100%; height: 200px;"></div>
+                </div>
+            </div>            
         </form>
     </div>
 </div>
 
 @section scripts
 {
+    @Scripts.Render("~/static/js/highcharts.js")
+
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function () {            
             $.ajax({
                 url: "@Url.Action("GetAvailWinFarms", "WakeSimulation2", new { area = "EngineeringTools" })",
                 dataType: 'json',
@@ -60,6 +93,29 @@
                     windfarm_change();
                 }
             });
+
+            $.ajax({
+                url: "@Url.Action("GetSimulationResults", "WakeSimulation2", new { area = "EngineeringTools" })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    if (res != null) {
+                        $("#simResult").removeClass("hidden");
+                        
+                        show_graph(res, "rotorSpeed", "Rotor Speed", "", "", 1);
+                        show_graph(res, "bladePitchAngle", "Blade pitch angle", "", "", 2);
+                        show_graph(res, "turbinePowerReference", "Individual turbine power reference", "", "", 3);
+                        show_graph(res, "availablePower", "Available power", "", "", 6);
+                        show_graph(res, "windSpeed", "Wind speed", "", "", 0);
+                        
+                        /*
+                        show_graph(res, "rotorSpeed", "Total farm power", "", "", 1);
+                        show_graph(res, "rotorSpeed", "Total power", "", "", 1);
+                        show_graph(res, "rotorSpeed", "Total power produced", "", "", 1);
+                        */
+                    }
+                }
+            });
         });
         
         function windfarm_change() {            
@@ -68,11 +124,51 @@
             $.ajax({
                 url: url,
                 dataType: 'json',
-                type: 'GET'
-            });           
+                type: 'POST',
+                success: function() {                    
+                }
+            });
         };
-
-        function windfarm_info() {
-        };
+        
+        function show_graph(data, place, title, x_title, y_title, pos) {
+            var nturbines = (data[0][0].length - 7) / 10;
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: place
+                },
+                title: {
+                    text: title
+                },
+                xAxis: {
+                    min: 0,
+                    title: {
+                        text: x_title
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: y_title
+                    }
+                },
+                legend: {
+                    enabled: false
+                }
+            });
+            var shift = pos * nturbines + 1;
+            for (var i = 0; i < nturbines; i++)
+            {
+                chart.addSeries({
+                    type: 'line'
+                });
+                var func = [];
+                for (var j = 0; j < data.length; j++) {
+                    func[j] = {
+                        x: data[j][0][0],
+                        y: data[j][0][shift + i]
+                    };
+                }
+                chart.series[i].setData(func);
+            }
+        }        
     </script>
 }

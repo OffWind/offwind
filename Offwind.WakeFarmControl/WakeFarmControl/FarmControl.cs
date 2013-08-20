@@ -97,7 +97,7 @@ namespace WakeFarmControl
             u0 = (beta0 * ILMath.ones(parm.N, 1)).Concat((power0 * ILMath.ones(parm.N, 1)), 1);
             u = u0.C;
             Mg_old = u[ILMath.full, 1];
-            P_ref = ILMath.zeros(parm.N, config.TimeLine()); //Initialize matrix to save the power production history for each turbine
+            P_ref = ILMath.zeros(parm.N, (int) config.TimeLine()); //Initialize matrix to save the power production history for each turbine
             Pa = P_ref.C; //Initialize available power matrix
             Power = P_ref.C;
             Ct = parm.Ct.C; //Initialize Ct - is this correct?
@@ -112,7 +112,8 @@ namespace WakeFarmControl
             var turbineModel = new TurbineDrivetrainModel();
 
             //% Simulate wind farm operation
-            for (var i = 2; i <= config.TimeLine(); i++) //At each sample time(DT) from Tstart to Tend
+            var timeLine = (int) config.TimeLine();
+            for (var i = 2; i <= timeLine; i++) //At each sample time(DT) from Tstart to Tend
             {
                 //Calculate the wake using the current Ct values
                 {
@@ -224,7 +225,7 @@ namespace WakeFarmControl
             }
 
             //% Save output data
-            out_ = (config.DT * (ILMath.counter(0, 1, ((config.Tend - config.Tstart) / config.DT))));
+            out_ = (config.DT * (ILMath.counter(0, 1, config.TimeLine())));
             out_ = out_.Concat(v_nac.T, 1);
             out_ = out_.Concat(Omega.T, 1);
             out_ = out_.Concat(beta.T, 1);
@@ -236,11 +237,14 @@ namespace WakeFarmControl
             out_ = out_.Concat(Power.T, 1);
 
             //Ttotal power demand
-            var r = config.NTurbines*4;
-            var l = r - config.NTurbines - 1;
+            var l = config.NTurbines*3 + 1;
+            var r = l + config.NTurbines - 1;
+
             out_ = out_.Concat(ILMath.sum(out_[ILMath.full, ILMath.r(l, r)], 1) / 1e6, 1);    // P_ref sum
-            r = config.NTurbines*7;
-            l = r - config.NTurbines - 1;
+
+            l = config.NTurbines*6 + 1;
+            r = l + config.NTurbines - 1;
+
             out_ = out_.Concat(ILMath.sum(out_[ILMath.full, ILMath.r(l, r)], 1) / 1e6, 1);    // Pa sum. 'Power Demand'
             out_ = out_.Concat(ILMath.sum(Power).T / 1e6, 1);                                   // 'Actual Production'
 

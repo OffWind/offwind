@@ -15,6 +15,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
     {
         private static VGeneralProperties _model = null;
         private static List<string> _wfl = null;
+        static private double[][] _simulation;
 
         public ActionResult Index()
         {
@@ -22,6 +23,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             {
                 _model = new VGeneralProperties();
                 _wfl = new List<string>();
+                _simulation = null;
             }
             var model = new VGeneralProperties();
             ObjectMapperManager.DefaultInstance.GetMapper<VGeneralProperties, VGeneralProperties>().Map(_model, model);
@@ -38,21 +40,36 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 ObjectMapperManager.DefaultInstance.GetMapper<VGeneralProperties, VGeneralProperties>().Map(model, _model);
             }
             var dWindFarm = _ctx.DWindFarms.First(e => _model.WindFarm == e.Name);
-            var result = FarmControl.Simulation(new WakeFarmControlConfig()
-                                       {
-                                           Tstart = (double) _model.StartTime,
-                                           Tend = (double)_model.StopTime,
-                                           DT = _model.TimeStep,
-                                           NTurbines = dWindFarm.DWindFarmTurbines.Count(),
-                                           NREL5MW_MatFile = WebConfigurationManager.AppSettings["WakeFarmControlNREL5MW"],
-                                           Wind_MatFile = WebConfigurationManager.AppSettings["WakeFarmControlWind"],
-                                           EnablePowerDistribution = true,
-                                           EnableTurbineDynamics = true,
-                                           PowerRefInterpolation = true,
-                                           Pdemand = 3*5e6,
-                                           PRefSampleTime = 5
-                                       });
+            _model.NTurbines = dWindFarm.DWindFarmTurbines.Count();
+            _simulation = FarmControl.Simulation(new WakeFarmControlConfig()
+                                                     {
+                                                         Tstart = (double) _model.StartTime,
+                                                         Tend = (double) _model.StopTime,
+                                                         DT = _model.TimeStep,
+                                                         NTurbines = _model.NTurbines,
+                                                         NREL5MW_MatFile =
+                                                             WebConfigurationManager.AppSettings[
+                                                                 "WakeFarmControlNREL5MW"],
+                                                         Wind_MatFile =
+                                                             WebConfigurationManager.AppSettings[
+                                                                 "WakeFarmControlWind"],
+                                                         EnablePowerDistribution = true,
+                                                         EnableTurbineDynamics = true,
+                                                         PowerRefInterpolation = true,
+                                                         Pdemand = 3*5e6,
+                                                         PRefSampleTime = 5
+                                                     });
             return View(_model);
+        }
+
+        public JsonResult GetSimulationResults()
+        {
+            if (_simulation != null)
+            {
+                var res = _simulation.Select(x => new object[] {x}).ToArray();
+                return Json(res, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAvailWinFarms()
@@ -75,6 +92,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return Json(_wfl, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult WindFarmSelected(int id)
         {
             lock(_model)

@@ -22,9 +22,9 @@ namespace WakeFarmControl
 
         public bool PowerRefInterpolation;
 
-        public int TimeLine()
+        public double TimeLine()
         {
-            return (int) ((Tend - Tstart)/DT);
+            return ((Tend - Tstart)/DT);
         }
     }
 }

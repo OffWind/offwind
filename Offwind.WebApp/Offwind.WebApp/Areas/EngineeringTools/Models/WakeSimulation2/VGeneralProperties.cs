@@ -18,6 +18,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2
 
         public string WindFarm { set; get; }
 
+        public int NTurbines { set; get; }
+
         public VGeneralProperties()
         {
             StartTime = 0;

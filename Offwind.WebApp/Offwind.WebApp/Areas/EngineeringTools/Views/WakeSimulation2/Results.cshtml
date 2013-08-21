@@ -1,4 +1,5 @@
-﻿@model Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2.VGeneralProperties
+﻿@using System.Web.Script.Serialization
+@model object[]
 
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
@@ -18,7 +19,7 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="result-1">
-                    <div class="chart" id="rotorSpeed" style="height: 400px;"></div>
+                    <div class="chart" id="rotorSpeed" style="width: 100px; height: 400px;"></div>
                 </div>
                 <div class="tab-pane" id="result-2">
                     <div class="chart" id="bladePitchAngle" style="height: 400px;"></div>
@@ -42,28 +43,20 @@
     @Scripts.Render("~/static/Highcharts-3.0.4/highcharts.js")
 
     <script type="text/javascript">
-        $(document).ready(function () {            
+        $(document).ready(function () {
             $.ajax({
                 url: "@Url.Action("GetSimulationResults", "WakeSimulation2", new { area = "EngineeringTools" })",
                 dataType: 'json',
                 type: 'GET',
                 success: function(res) {
-                    if (res == null) return;
+                    if (!res) return;
                     var w = $('.tab-content').width();
-                    console.debug(w);
                     $('.chart').width(w);
-                    
                     show_graph(res, "rotorSpeed", "Rotor Speed", "", "", 1);
                     show_graph(res, "bladePitchAngle", "Blade pitch angle", "", "", 2);
                     show_graph(res, "turbinePowerReference", "Individual turbine power reference", "", "", 3);
                     show_graph(res, "availablePower", "Available power", "", "", 6);
                     show_graph(res, "windSpeed", "Wind speed", "", "", 0);
-                        
-                    /*
-                    show_graph(res, "rotorSpeed", "Total farm power", "", "", 1);
-                    show_graph(res, "rotorSpeed", "Total power", "", "", 1);
-                    show_graph(res, "rotorSpeed", "Total power produced", "", "", 1);
-                    */
                 }
             });
         });
@@ -92,16 +85,34 @@
                     enabled: false
                 }
             });
-            //chart.showLoading('Loading data...');
+            chart.showLoading('Loading data...');
             var shift = pos * nturbines + 1;
+            var skip = function(jx) {
+                return false;
+            };
+            if (data.length > 900) {
+                var step = Math.ceil(data.length / 1000);
+                skip = function(jx) {
+                    if (jx == 0) return false;
+                    if (jx % step != 0) {
+                        return true;
+                    }
+                    return false;
+                };
+            }
             for (var i = 0; i < nturbines; i++)
             {
                 var func = [];
                 for (var j = 0; j < data.length; j++) {
-                    func[j] = {
+                    if (skip(j)) continue;
+                    func.push({
                         x: data[j][0][0],
                         y: data[j][0][shift + i]
-                    };
+                    });
+                    /*func[j] = {
+                        x: data[j][0][0],
+                        y: data[j][0][shift + i]
+                    };*/
                 }
                 var series = chart.addSeries({
                     type: 'line',
@@ -114,7 +125,7 @@
                 series.setData(func, false);
             }
             chart.redraw();
-            //chart.hideLoading();
+            chart.hideLoading();
         }
     </script>
 }

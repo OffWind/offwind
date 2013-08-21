@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using EmitMapper;
 using Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2;
 using WakeFarmControl;
@@ -71,18 +72,36 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult Results()
         {
-            var model = new VGeneralProperties();
-            return View(model);
-        }
-
-        public JsonResult GetSimulationResults()
-        {
             if (_simulation != null)
             {
-                var res = _simulation.Select(x => new object[] {x}).ToArray();
-                return Json(res, JsonRequestBehavior.AllowGet);
+                var res = _simulation.Select(x => new object[] { x }).ToArray();
+                return View(res);
             }
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return View(new object[0]);
+        }
+
+        public ContentResult GetSimulationResults()
+        {
+            var serializer = new JavaScriptSerializer();
+
+            // For simplicity just use Int32's max value.
+            // You could always read the value from the config section mentioned above.
+            serializer.MaxJsonLength = Int32.MaxValue;
+
+            var res = _simulation.Select(x => new object[] { x }).ToArray();
+            var result = new ContentResult
+            {
+                Content = serializer.Serialize(res),
+                ContentType = "application/json"
+            };
+            return result;
+
+            //if (_simulation != null)
+            //{
+            //    var res = _simulation.Select(x => new object[] { x }).ToArray();
+            //    return Json(res, JsonRequestBehavior.AllowGet);
+            //}
+            //return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAvailWinFarms()

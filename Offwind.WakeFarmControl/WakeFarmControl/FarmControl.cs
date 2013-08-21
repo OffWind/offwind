@@ -92,27 +92,30 @@ namespace WakeFarmControl
             omega0 = 1.267; //Rotation speed
             beta0 = 0;      //Pitch
 
+            var timeLine = (int)config.TimeLine();
+
             power0 = parm.rated.GetValue(0); //Power production
             x = (omega0 * ILMath.ones(parm.N, 1)).Concat((wind.GetArray<double>("wind").GetValue(0, 1) * ILMath.ones(parm.N, 1)), 1);
             u0 = (beta0 * ILMath.ones(parm.N, 1)).Concat((power0 * ILMath.ones(parm.N, 1)), 1);
             u = u0.C;
             Mg_old = u[ILMath.full, 1];
-            P_ref = ILMath.zeros(parm.N, (int) config.TimeLine()); //Initialize matrix to save the power production history for each turbine
+            P_ref = ILMath.zeros(parm.N, (int)config.TimeLine()); //Initialize matrix to save the power production history for each turbine
             Pa = P_ref.C; //Initialize available power matrix
             Power = P_ref.C;
             Ct = parm.Ct.C; //Initialize Ct - is this correct?
+            Ct[timeLine - 1, ILMath.full] = Ct[0, ILMath.full];
             P_ref_new = power0 * ILMath.ones(config.NTurbines, 1);
 
-            v_nac = ILMath.empty(Ct.Size[1], 0);
-            Mg = ILMath.empty(u.Size[0], 0);
-            beta = ILMath.empty(u.Size[0], 0);
-            Omega = ILMath.empty(Ct.Size[1], 0);
-            Cp = ILMath.empty(0, parm.Cp.Size[1]);
+            v_nac = ILMath.zeros(Ct.Size[1], timeLine);
+            Mg = ILMath.zeros(u.Size[0], timeLine);
+            beta = ILMath.zeros(u.Size[0], timeLine);
+            Omega = ILMath.zeros(Ct.Size[1], timeLine);
+            Cp = ILMath.zeros(timeLine, parm.Cp.Size[1]);
 
             var turbineModel = new TurbineDrivetrainModel();
 
             //% Simulate wind farm operation
-            var timeLine = (int) config.TimeLine();
+            //var timeLine = (int) config.TimeLine();
             for (var i = 2; i <= timeLine; i++) //At each sample time(DT) from Tstart to Tend
             {
                 //Calculate the wake using the current Ct values
@@ -237,12 +240,12 @@ namespace WakeFarmControl
             out_ = out_.Concat(Power.T, 1);
 
             //Ttotal power demand
-            var l = config.NTurbines*3 + 1;
+            var l = config.NTurbines * 3 + 1;
             var r = l + config.NTurbines - 1;
 
             out_ = out_.Concat(ILMath.sum(out_[ILMath.full, ILMath.r(l, r)], 1) / 1e6, 1);    // P_ref sum
 
-            l = config.NTurbines*6 + 1;
+            l = config.NTurbines * 6 + 1;
             r = l + config.NTurbines - 1;
 
             out_ = out_.Concat(ILMath.sum(out_[ILMath.full, ILMath.r(l, r)], 1) / 1e6, 1);    // Pa sum. 'Power Demand'

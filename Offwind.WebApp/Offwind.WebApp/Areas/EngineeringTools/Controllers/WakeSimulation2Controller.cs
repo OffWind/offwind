@@ -17,6 +17,11 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private static List<string> _wfl = null;
         static private double[][] _simulation;
 
+        public WakeSimulation2Controller()
+        {
+            _currentGroup = "Wake Simulation II";
+        }
+
         public ActionResult Index()
         {
             if (_model == null)
@@ -60,7 +65,14 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                                                          Pdemand = 3*5e6,
                                                          PRefSampleTime = 5
                                                      });
+            return RedirectToAction("Results");
             return View(_model);
+        }
+
+        public ActionResult Results()
+        {
+            var model = new VGeneralProperties();
+            return View(model);
         }
 
         public JsonResult GetSimulationResults()

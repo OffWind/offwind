@@ -1,0 +1,120 @@
+﻿@model Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2.VGeneralProperties
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>WakeSimulation II</li>
+</ul>
+
+<div class="row-fluid row-content-block">
+    <div class="span12 well">
+        <div class="fancy-tab-container">
+            <ul class="nav nav-tabs fancy">
+                <li class="active"><a href="#result-1" data-toggle="tab">Rotor Speed</a></li>
+                <li><a href="#result-2" data-toggle="tab">Blade pitch angle</a></li>
+                <li><a href="#result-3" data-toggle="tab">Individual turbine power reference</a></li>
+                <li><a href="#result-4" data-toggle="tab">Available power</a></li>
+                <li><a href="#result-5" data-toggle="tab">Wind speed</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="result-1">
+                    <div class="chart" id="rotorSpeed" style="height: 400px;"></div>
+                </div>
+                <div class="tab-pane" id="result-2">
+                    <div class="chart" id="bladePitchAngle" style="height: 400px;"></div>
+                </div>
+                <div class="tab-pane" id="result-3">
+                    <div class="chart" id="turbinePowerReference" style="width: 100%; height: 400px;"></div>
+                </div>
+                <div class="tab-pane" id="result-4">
+                    <div class="chart" id="availablePower" style="height: 400px;"></div>
+                </div>
+                <div class="tab-pane" id="result-5">
+                    <div class="chart" id="windSpeed" style="height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/static/Highcharts-3.0.4/highcharts.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {            
+            $.ajax({
+                url: "@Url.Action("GetSimulationResults", "WakeSimulation2", new { area = "EngineeringTools" })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    if (res == null) return;
+                    var w = $('.tab-content').width();
+                    console.debug(w);
+                    $('.chart').width(w);
+                    
+                    show_graph(res, "rotorSpeed", "Rotor Speed", "", "", 1);
+                    show_graph(res, "bladePitchAngle", "Blade pitch angle", "", "", 2);
+                    show_graph(res, "turbinePowerReference", "Individual turbine power reference", "", "", 3);
+                    show_graph(res, "availablePower", "Available power", "", "", 6);
+                    show_graph(res, "windSpeed", "Wind speed", "", "", 0);
+                        
+                    /*
+                    show_graph(res, "rotorSpeed", "Total farm power", "", "", 1);
+                    show_graph(res, "rotorSpeed", "Total power", "", "", 1);
+                    show_graph(res, "rotorSpeed", "Total power produced", "", "", 1);
+                    */
+                }
+            });
+        });
+        
+        function show_graph(data, place, title, x_title, y_title, pos) {
+            var nturbines = (data[0][0].length - 7) / 10;
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: place
+                },
+                title: {
+                    text: title
+                },
+                xAxis: {
+                    min: 0,
+                    title: {
+                        text: x_title
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: y_title
+                    }
+                },
+                legend: {
+                    enabled: false
+                }
+            });
+            //chart.showLoading('Loading data...');
+            var shift = pos * nturbines + 1;
+            for (var i = 0; i < nturbines; i++)
+            {
+                var func = [];
+                for (var j = 0; j < data.length; j++) {
+                    func[j] = {
+                        x: data[j][0][0],
+                        y: data[j][0][shift + i]
+                    };
+                }
+                var series = chart.addSeries({
+                    type: 'line',
+                    shadow: false,
+                    lineWidth: 2,
+                    marker: {
+                        enabled: false
+                    }
+                }, false);
+                series.setData(func, false);
+            }
+            chart.redraw();
+            //chart.hideLoading();
+        }
+    </script>
+}

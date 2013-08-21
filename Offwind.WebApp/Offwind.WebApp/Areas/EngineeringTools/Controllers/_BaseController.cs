@@ -59,7 +59,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Simulation", new NavUrl("Simulation", "WindFarm", "EngineeringTools"));
 
             navigation.AddGroup("Wake Simulation II")
-                .AddItem("Simulation", new NavUrl("Index", "WakeSimulation2", "EngineeringTools"));
+                .AddItem("Simulation", new NavUrl("Index", "WakeSimulation2", "EngineeringTools"))
+                .AddItem("Results", new NavUrl("Results", "WakeSimulation2", "EngineeringTools"));
 
 
             foreach (var grp in navigation)

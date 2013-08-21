@@ -46,7 +46,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                                                          Tstart = (double) _model.StartTime,
                                                          Tend = (double) _model.StopTime,
                                                          DT = _model.TimeStep,
-                                                         NTurbines = _model.NTurbines,
+                                                         //NTurbines = _model.NTurbines,
+                                                         NTurbines = 4,
                                                          NREL5MW_MatFile =
                                                              WebConfigurationManager.AppSettings[
                                                                  "WakeFarmControlNREL5MW"],

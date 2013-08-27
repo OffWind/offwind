@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeCode", "..\Offwind.Wake
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Offwind.OpenFoam", "Offwind.OpenFoam\Offwind.OpenFoam.csproj", "{E191C60E-F3E8-4262-A924-EF75E79FCC7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeFarmControl", "..\Offwind.WakeFarmControl\WakeFarmControl\WakeFarmControl.csproj", "{E0BAA49A-86ED-4DBE-8587-C60E3636035B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,12 +35,6 @@ Global
 		{E191C60E-F3E8-4262-A924-EF75E79FCC7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E191C60E-F3E8-4262-A924-EF75E79FCC7C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E191C60E-F3E8-4262-A924-EF75E79FCC7C}.Release|x86.ActiveCfg = Release|Any CPU
-		{E0BAA49A-86ED-4DBE-8587-C60E3636035B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0BAA49A-86ED-4DBE-8587-C60E3636035B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0BAA49A-86ED-4DBE-8587-C60E3636035B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E0BAA49A-86ED-4DBE-8587-C60E3636035B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0BAA49A-86ED-4DBE-8587-C60E3636035B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0BAA49A-86ED-4DBE-8587-C60E3636035B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

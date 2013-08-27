@@ -4,7 +4,7 @@
     var displayName = ViewData.ModelMetadata.DisplayName ?? ViewData.TemplateInfo.HtmlFieldPrefix;
     var description = ViewData.ModelMetadata.Description;
     var htmlAttributes = new Dictionary<string, object>();
-    htmlAttributes["type"] = "number";
+    //htmlAttributes["type"] = "number";
     htmlAttributes["class"] = "inputmask integer span6";
 }
 <div class="control-group" id="@("EditorFor_" + fieldName)">

@@ -8,6 +8,7 @@ using System.Web.Script.Serialization;
 using EmitMapper;
 using Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2;
 using WakeFarmControl;
+using WakeFarmControl.Input;
 
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
@@ -47,25 +48,25 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
             var dWindFarm = _ctx.DWindFarms.First(e => _model.WindFarm == e.Name);
             _model.NTurbines = dWindFarm.DWindFarmTurbines.Count();
-            _simulation = FarmControl.Simulation(new WakeFarmControlConfig()
-                                                     {
-                                                         Tstart = (double) _model.StartTime,
-                                                         Tend = (double) _model.StopTime,
-                                                         DT = _model.TimeStep,
-                                                         //NTurbines = _model.NTurbines,
-                                                         NTurbines = 4,
-                                                         NREL5MW_MatFile =
-                                                             WebConfigurationManager.AppSettings[
-                                                                 "WakeFarmControlNREL5MW"],
-                                                         Wind_MatFile =
-                                                             WebConfigurationManager.AppSettings[
-                                                                 "WakeFarmControlWind"],
-                                                         EnablePowerDistribution = true,
-                                                         EnableTurbineDynamics = true,
-                                                         PowerRefInterpolation = true,
-                                                         Pdemand = 3*5e6,
-                                                         PRefSampleTime = 5
-                                                     });
+
+            var input = new Simulation()
+            {
+                Tstart = (double)_model.StartTime,
+                Tend = (double)_model.StopTime,
+                DT = (double)_model.TimeStep,
+                NTurbines = _model.NTurbines,
+                RatedPower = 5,
+                EnablePowerDistribution = true,
+                EnableTurbineDynamics = true,
+                PowerRefInterpolation = true,
+                Pdemand = 3 * 5e6,
+                PRefSampleTime = 5
+            };
+
+            input.LoadNREL5MW_MatFile(WebConfigurationManager.AppSettings["WakeFarmControlNREL5MW"]);
+            input.LoadWind_MatFile(WebConfigurationManager.AppSettings["WakeFarmControlWind"]);
+
+            _simulation = FarmControl2.Simulation(input);
             return RedirectToAction("Results");
             return View(_model);
         }

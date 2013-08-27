@@ -41,12 +41,24 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\Prebuilt\SharpZipLib\net-20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="ILNumerics, Version=3.2.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Offwind.WakeFarmControl\WakeFarmControl\x32\ILNumerics.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="nunit.framework">
       <HintPath>..\..\Prebuilt\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Offwind.WakeFarmControl\WakeFarmControl\x32\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Offwind.WakeFarmControl\WakeFarmControl\x32\OpenTK.GLControl.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -126,6 +138,10 @@
     <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WakeFarmControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Offwind.WakeFarmControl\WakeFarmControl\x32\WakeFarmControl.dll</HintPath>
     </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -2013,10 +2029,6 @@
     <Content Include="Views\Shared\EditorTemplates\Int32.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Offwind.WakeFarmControl\WakeFarmControl\WakeFarmControl.csproj">
-      <Project>{E0BAA49A-86ED-4DBE-8587-C60E3636035B}</Project>
-      <Name>WakeFarmControl</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Offwind.Wake\csharp\WakeCode\WakeCode.csproj">
       <Project>{E37CB3E6-1575-4241-BEC6-86E2650ECAED}</Project>
       <Name>WakeCode</Name>

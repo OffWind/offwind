@@ -1,0 +1,934 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OffwindModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="OffwindModelStoreContainer">
+          <EntitySet Name="aspnet_Applications" EntityType="OffwindModel.Store.aspnet_Applications" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_Membership" EntityType="OffwindModel.Store.aspnet_Membership" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_Paths" EntityType="OffwindModel.Store.aspnet_Paths" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_PersonalizationAllUsers" EntityType="OffwindModel.Store.aspnet_PersonalizationAllUsers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_PersonalizationPerUser" EntityType="OffwindModel.Store.aspnet_PersonalizationPerUser" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_Profile" EntityType="OffwindModel.Store.aspnet_Profile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_Roles" EntityType="OffwindModel.Store.aspnet_Roles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_SchemaVersions" EntityType="OffwindModel.Store.aspnet_SchemaVersions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_Users" EntityType="OffwindModel.Store.aspnet_Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_UsersInRoles" EntityType="OffwindModel.Store.aspnet_UsersInRoles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_WebEvent_Events" EntityType="OffwindModel.Store.aspnet_WebEvent_Events" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Pages" EntityType="OffwindModel.Store.Pages" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__aspnet_Me__Appli__267ABA7A" Association="OffwindModel.Store.FK__aspnet_Me__Appli__267ABA7A">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__276EDEB3" Association="OffwindModel.Store.FK__aspnet_Me__UserI__276EDEB3">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__5FB337D6" Association="OffwindModel.Store.FK__aspnet_Pa__Appli__5FB337D6">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__6754599E" Association="OffwindModel.Store.FK__aspnet_Pe__PathI__6754599E">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationAllUsers" EntitySet="aspnet_PersonalizationAllUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__6D0D32F4" Association="OffwindModel.Store.FK__aspnet_Pe__PathI__6D0D32F4">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__UserI__6E01572D" Association="OffwindModel.Store.FK__aspnet_Pe__UserI__6E01572D">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pr__UserI__3D5E1FD2" Association="OffwindModel.Store.FK__aspnet_Pr__UserI__3D5E1FD2">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Profile" EntitySet="aspnet_Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Ro__Appli__48CFD27E" Association="OffwindModel.Store.FK__aspnet_Ro__Appli__48CFD27E">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__Appli__1273C1CD" Association="OffwindModel.Store.FK__aspnet_Us__Appli__1273C1CD">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__RoleI__4F7CD00D" Association="OffwindModel.Store.FK__aspnet_Us__RoleI__4F7CD00D">
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+            <End Role="aspnet_UsersInRoles" EntitySet="aspnet_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__UserI__4E88ABD4" Association="OffwindModel.Store.FK__aspnet_Us__UserI__4E88ABD4">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_UsersInRoles" EntitySet="aspnet_UsersInRoles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="aspnet_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredApplicationName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="aspnet_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="PasswordFormat" Type="int" Nullable="false" />
+          <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="MobilePIN" Type="nvarchar" MaxLength="16" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="ntext" />
+        </EntityType>
+        <EntityType Name="aspnet_Paths">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredPath" Type="nvarchar" Nullable="false" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationAllUsers">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PageSettings" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationPerUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PathId" Type="uniqueidentifier" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="PageSettings" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Profile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PropertyNames" Type="ntext" Nullable="false" />
+          <Property Name="PropertyValuesString" Type="ntext" Nullable="false" />
+          <Property Name="PropertyValuesBinary" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredRoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="aspnet_SchemaVersions">
+          <Key>
+            <PropertyRef Name="Feature" />
+            <PropertyRef Name="CompatibleSchemaVersion" />
+          </Key>
+          <Property Name="Feature" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="CompatibleSchemaVersion" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="IsCurrentVersion" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredUserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
+          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_WebEvent_Events">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="char" Nullable="false" MaxLength="32" />
+          <Property Name="EventTimeUtc" Type="datetime" Nullable="false" />
+          <Property Name="EventTime" Type="datetime" Nullable="false" />
+          <Property Name="EventType" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="EventSequence" Type="decimal" Nullable="false" Precision="19" />
+          <Property Name="EventOccurrence" Type="decimal" Nullable="false" Precision="19" />
+          <Property Name="EventCode" Type="int" Nullable="false" />
+          <Property Name="EventDetailCode" Type="int" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="1024" />
+          <Property Name="ApplicationPath" Type="nvarchar" MaxLength="256" />
+          <Property Name="ApplicationVirtualPath" Type="nvarchar" MaxLength="256" />
+          <Property Name="MachineName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="RequestUrl" Type="nvarchar" MaxLength="1024" />
+          <Property Name="ExceptionType" Type="nvarchar" MaxLength="256" />
+          <Property Name="Details" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Pages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Slug" Type="varchar" MaxLength="250" />
+          <Property Name="PageType" Type="varchar" MaxLength="20" />
+          <Property Name="PageTitle" Type="nvarchar" MaxLength="1050" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Announce" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Text" Type="ntext" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Updated" Type="datetime" Nullable="false" />
+          <Property Name="Published" Type="datetime" Nullable="false" />
+          <Property Name="HomePage" Type="bit" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="250" />
+          <Property Name="Priority" Type="int" />
+          <Property Name="IsPublished" Type="bit" Nullable="false" />
+          <Property Name="Votes" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__aspnet_Me__Appli__267ABA7A">
+          <End Role="aspnet_Applications" Type="OffwindModel.Store.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Membership" Type="OffwindModel.Store.aspnet_Membership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__UserI__276EDEB3">
+          <End Role="aspnet_Users" Type="OffwindModel.Store.aspnet_Users" Multiplicity="1" />
+          <End Role="aspnet_Membership" Type="OffwindModel.Store.aspnet_Membership" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__5FB337D6">
+          <End Role="aspnet_Applications" Type="OffwindModel.Store.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Paths" Type="OffwindModel.Store.aspnet_Paths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Paths">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__6754599E">
+          <End Role="aspnet_Paths" Type="OffwindModel.Store.aspnet_Paths" Multiplicity="1" />
+          <End Role="aspnet_PersonalizationAllUsers" Type="OffwindModel.Store.aspnet_PersonalizationAllUsers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationAllUsers">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__6D0D32F4">
+          <End Role="aspnet_Paths" Type="OffwindModel.Store.aspnet_Paths" Multiplicity="0..1" />
+          <End Role="aspnet_PersonalizationPerUser" Type="OffwindModel.Store.aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__UserI__6E01572D">
+          <End Role="aspnet_Users" Type="OffwindModel.Store.aspnet_Users" Multiplicity="0..1" />
+          <End Role="aspnet_PersonalizationPerUser" Type="OffwindModel.Store.aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pr__UserI__3D5E1FD2">
+          <End Role="aspnet_Users" Type="OffwindModel.Store.aspnet_Users" Multiplicity="1" />
+          <End Role="aspnet_Profile" Type="OffwindModel.Store.aspnet_Profile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Profile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Ro__Appli__48CFD27E">
+          <End Role="aspnet_Applications" Type="OffwindModel.Store.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Roles" Type="OffwindModel.Store.aspnet_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Roles">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__Appli__1273C1CD">
+          <End Role="aspnet_Applications" Type="OffwindModel.Store.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Users" Type="OffwindModel.Store.aspnet_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Users">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__RoleI__4F7CD00D">
+          <End Role="aspnet_Roles" Type="OffwindModel.Store.aspnet_Roles" Multiplicity="1" />
+          <End Role="aspnet_UsersInRoles" Type="OffwindModel.Store.aspnet_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="aspnet_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__UserI__4E88ABD4">
+          <End Role="aspnet_Users" Type="OffwindModel.Store.aspnet_Users" Multiplicity="1" />
+          <End Role="aspnet_UsersInRoles" Type="OffwindModel.Store.aspnet_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OffwindModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="OffwindEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="aspnet_Applications" EntityType="OffwindModel.aspnet_Applications" />
+          <EntitySet Name="aspnet_Membership" EntityType="OffwindModel.aspnet_Membership" />
+          <EntitySet Name="aspnet_Paths" EntityType="OffwindModel.aspnet_Paths" />
+          <EntitySet Name="aspnet_PersonalizationAllUsers" EntityType="OffwindModel.aspnet_PersonalizationAllUsers" />
+          <EntitySet Name="aspnet_PersonalizationPerUser" EntityType="OffwindModel.aspnet_PersonalizationPerUser" />
+          <EntitySet Name="aspnet_Profile" EntityType="OffwindModel.aspnet_Profile" />
+          <EntitySet Name="aspnet_Roles" EntityType="OffwindModel.aspnet_Roles" />
+          <EntitySet Name="aspnet_SchemaVersions" EntityType="OffwindModel.aspnet_SchemaVersions" />
+          <EntitySet Name="aspnet_Users" EntityType="OffwindModel.aspnet_Users" />
+          <EntitySet Name="aspnet_WebEvent_Events" EntityType="OffwindModel.aspnet_WebEvent_Events" />
+          <EntitySet Name="Pages" EntityType="OffwindModel.Page" />
+          <AssociationSet Name="FK__aspnet_Me__Appli__267ABA7A" Association="OffwindModel.FK__aspnet_Me__Appli__267ABA7A">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__5FB337D6" Association="OffwindModel.FK__aspnet_Pa__Appli__5FB337D6">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Ro__Appli__48CFD27E" Association="OffwindModel.FK__aspnet_Ro__Appli__48CFD27E">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__Appli__1273C1CD" Association="OffwindModel.FK__aspnet_Us__Appli__1273C1CD">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__276EDEB3" Association="OffwindModel.FK__aspnet_Me__UserI__276EDEB3">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__6754599E" Association="OffwindModel.FK__aspnet_Pe__PathI__6754599E">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationAllUsers" EntitySet="aspnet_PersonalizationAllUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__6D0D32F4" Association="OffwindModel.FK__aspnet_Pe__PathI__6D0D32F4">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__UserI__6E01572D" Association="OffwindModel.FK__aspnet_Pe__UserI__6E01572D">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pr__UserI__3D5E1FD2" Association="OffwindModel.FK__aspnet_Pr__UserI__3D5E1FD2">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Profile" EntitySet="aspnet_Profile" />
+          </AssociationSet>
+          <AssociationSet Name="aspnet_UsersInRoles" Association="OffwindModel.aspnet_UsersInRoles">
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="aspnet_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Type="String" Name="ApplicationName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredApplicationName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="String" Name="Description" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Membership" Relationship="OffwindModel.FK__aspnet_Me__Appli__267ABA7A" FromRole="aspnet_Applications" ToRole="aspnet_Membership" />
+          <NavigationProperty Name="aspnet_Paths" Relationship="OffwindModel.FK__aspnet_Pa__Appli__5FB337D6" FromRole="aspnet_Applications" ToRole="aspnet_Paths" />
+          <NavigationProperty Name="aspnet_Roles" Relationship="OffwindModel.FK__aspnet_Ro__Appli__48CFD27E" FromRole="aspnet_Applications" ToRole="aspnet_Roles" />
+          <NavigationProperty Name="aspnet_Users" Relationship="OffwindModel.FK__aspnet_Us__Appli__1273C1CD" FromRole="aspnet_Applications" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PasswordFormat" Nullable="false" />
+          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MobilePIN" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredEmail" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordQuestion" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordAnswer" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="false" />
+          <Property Type="Boolean" Name="IsLockedOut" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+          <Property Type="DateTime" Name="LastLoginDate" Nullable="false" />
+          <Property Type="DateTime" Name="LastPasswordChangedDate" Nullable="false" />
+          <Property Type="DateTime" Name="LastLockoutDate" Nullable="false" />
+          <Property Type="Int32" Name="FailedPasswordAttemptCount" Nullable="false" />
+          <Property Type="DateTime" Name="FailedPasswordAttemptWindowStart" Nullable="false" />
+          <Property Type="Int32" Name="FailedPasswordAnswerAttemptCount" Nullable="false" />
+          <Property Type="DateTime" Name="FailedPasswordAnswerAttemptWindowStart" Nullable="false" />
+          <Property Type="String" Name="Comment" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="OffwindModel.FK__aspnet_Me__Appli__267ABA7A" FromRole="aspnet_Membership" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_Users" Relationship="OffwindModel.FK__aspnet_Me__UserI__276EDEB3" FromRole="aspnet_Membership" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Paths">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="PathId" Nullable="false" />
+          <Property Type="String" Name="Path" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredPath" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="OffwindModel.FK__aspnet_Pa__Appli__5FB337D6" FromRole="aspnet_Paths" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_PersonalizationAllUsers" Relationship="OffwindModel.FK__aspnet_Pe__PathI__6754599E" FromRole="aspnet_Paths" ToRole="aspnet_PersonalizationAllUsers" />
+          <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="OffwindModel.FK__aspnet_Pe__PathI__6D0D32F4" FromRole="aspnet_Paths" ToRole="aspnet_PersonalizationPerUser" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationAllUsers">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Type="Guid" Name="PathId" Nullable="false" />
+          <Property Type="Binary" Name="PageSettings" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <NavigationProperty Name="aspnet_Paths" Relationship="OffwindModel.FK__aspnet_Pe__PathI__6754599E" FromRole="aspnet_PersonalizationAllUsers" ToRole="aspnet_Paths" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationPerUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="PathId" />
+          <Property Type="Guid" Name="UserId" />
+          <Property Type="Binary" Name="PageSettings" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <NavigationProperty Name="aspnet_Paths" Relationship="OffwindModel.FK__aspnet_Pe__PathI__6D0D32F4" FromRole="aspnet_PersonalizationPerUser" ToRole="aspnet_Paths" />
+          <NavigationProperty Name="aspnet_Users" Relationship="OffwindModel.FK__aspnet_Pe__UserI__6E01572D" FromRole="aspnet_PersonalizationPerUser" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Profile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="PropertyNames" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PropertyValuesString" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="PropertyValuesBinary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <NavigationProperty Name="aspnet_Users" Relationship="OffwindModel.FK__aspnet_Pr__UserI__3D5E1FD2" FromRole="aspnet_Profile" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="RoleId" Nullable="false" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredRoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="OffwindModel.FK__aspnet_Ro__Appli__48CFD27E" FromRole="aspnet_Roles" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_Users" Relationship="OffwindModel.aspnet_UsersInRoles" FromRole="aspnet_Roles" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_SchemaVersions">
+          <Key>
+            <PropertyRef Name="Feature" />
+            <PropertyRef Name="CompatibleSchemaVersion" />
+          </Key>
+          <Property Type="String" Name="Feature" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CompatibleSchemaVersion" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsCurrentVersion" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredUserName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MobileAlias" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsAnonymous" Nullable="false" />
+          <Property Type="DateTime" Name="LastActivityDate" Nullable="false" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="OffwindModel.FK__aspnet_Us__Appli__1273C1CD" FromRole="aspnet_Users" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_Membership" Relationship="OffwindModel.FK__aspnet_Me__UserI__276EDEB3" FromRole="aspnet_Users" ToRole="aspnet_Membership" />
+          <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="OffwindModel.FK__aspnet_Pe__UserI__6E01572D" FromRole="aspnet_Users" ToRole="aspnet_PersonalizationPerUser" />
+          <NavigationProperty Name="aspnet_Profile" Relationship="OffwindModel.FK__aspnet_Pr__UserI__3D5E1FD2" FromRole="aspnet_Users" ToRole="aspnet_Profile" />
+          <NavigationProperty Name="aspnet_Roles" Relationship="OffwindModel.aspnet_UsersInRoles" FromRole="aspnet_Users" ToRole="aspnet_Roles" />
+        </EntityType>
+        <EntityType Name="aspnet_WebEvent_Events">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Type="String" Name="EventId" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Type="DateTime" Name="EventTimeUtc" Nullable="false" />
+          <Property Type="DateTime" Name="EventTime" Nullable="false" />
+          <Property Type="String" Name="EventType" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="EventSequence" Nullable="false" Precision="19" Scale="0" />
+          <Property Type="Decimal" Name="EventOccurrence" Nullable="false" Precision="19" Scale="0" />
+          <Property Type="Int32" Name="EventCode" Nullable="false" />
+          <Property Type="Int32" Name="EventDetailCode" Nullable="false" />
+          <Property Type="String" Name="Message" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ApplicationPath" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ApplicationVirtualPath" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MachineName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="RequestUrl" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ExceptionType" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Details" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Slug" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PageType" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PageTitle" MaxLength="1050" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Title" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Announce" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Text" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Created" Nullable="false" />
+          <Property Type="DateTime" Name="Updated" Nullable="false" />
+          <Property Type="DateTime" Name="Published" Nullable="false" />
+          <Property Type="Boolean" Name="HomePage" Nullable="false" />
+          <Property Type="String" Name="Url" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Priority" />
+          <Property Type="Boolean" Name="IsPublished" Nullable="false" />
+          <Property Type="Int32" Name="Votes" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__aspnet_Me__Appli__267ABA7A">
+          <End Type="OffwindModel.aspnet_Applications" Role="aspnet_Applications" Multiplicity="1" />
+          <End Type="OffwindModel.aspnet_Membership" Role="aspnet_Membership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__5FB337D6">
+          <End Type="OffwindModel.aspnet_Applications" Role="aspnet_Applications" Multiplicity="1" />
+          <End Type="OffwindModel.aspnet_Paths" Role="aspnet_Paths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Paths">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Ro__Appli__48CFD27E">
+          <End Type="OffwindModel.aspnet_Applications" Role="aspnet_Applications" Multiplicity="1" />
+          <End Type="OffwindModel.aspnet_Roles" Role="aspnet_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Roles">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__Appli__1273C1CD">
+          <End Type="OffwindModel.aspnet_Applications" Role="aspnet_Applications" Multiplicity="1" />
+          <End Type="OffwindModel.aspnet_Users" Role="aspnet_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Users">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__UserI__276EDEB3">
+          <End Type="OffwindModel.aspnet_Users" Role="aspnet_Users" Multiplicity="1" />
+          <End Type="OffwindModel.aspnet_Membership" Role="aspnet_Membership" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__6754599E">
+          <End Type="OffwindModel.aspnet_Paths" Role="aspnet_Paths" Multiplicity="1" />
+          <End Type="OffwindModel.aspnet_PersonalizationAllUsers" Role="aspnet_PersonalizationAllUsers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationAllUsers">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__6D0D32F4">
+          <End Type="OffwindModel.aspnet_Paths" Role="aspnet_Paths" Multiplicity="0..1" />
+          <End Type="OffwindModel.aspnet_PersonalizationPerUser" Role="aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__UserI__6E01572D">
+          <End Type="OffwindModel.aspnet_Users" Role="aspnet_Users" Multiplicity="0..1" />
+          <End Type="OffwindModel.aspnet_PersonalizationPerUser" Role="aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pr__UserI__3D5E1FD2">
+          <End Type="OffwindModel.aspnet_Users" Role="aspnet_Users" Multiplicity="1" />
+          <End Type="OffwindModel.aspnet_Profile" Role="aspnet_Profile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Profile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="aspnet_UsersInRoles">
+          <End Type="OffwindModel.aspnet_Roles" Role="aspnet_Roles" Multiplicity="*" />
+          <End Type="OffwindModel.aspnet_Users" Role="aspnet_Users" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OffwindModelStoreContainer" CdmEntityContainer="OffwindEntities">
+          <EntitySetMapping Name="aspnet_Applications">
+            <EntityTypeMapping TypeName="OffwindModel.aspnet_Applications">
+              <MappingFragment StoreEntitySet="aspnet_Applications">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Membership">
+            <EntityTypeMapping TypeName="OffwindModel.aspnet_Membership">
+              <MappingFragment StoreEntitySet="aspnet_Membership">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Paths">
+            <EntityTypeMapping TypeName="OffwindModel.aspnet_Paths">
+              <MappingFragment StoreEntitySet="aspnet_Paths">
+                <ScalarProperty Name="LoweredPath" ColumnName="LoweredPath" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_PersonalizationAllUsers">
+            <EntityTypeMapping TypeName="OffwindModel.aspnet_PersonalizationAllUsers">
+              <MappingFragment StoreEntitySet="aspnet_PersonalizationAllUsers">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="PageSettings" ColumnName="PageSettings" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_PersonalizationPerUser">
+            <EntityTypeMapping TypeName="OffwindModel.aspnet_PersonalizationPerUser">
+              <MappingFragment StoreEntitySet="aspnet_PersonalizationPerUser">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="PageSettings" ColumnName="PageSettings" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Profile">
+            <EntityTypeMapping TypeName="OffwindModel.aspnet_Profile">
+              <MappingFragment StoreEntitySet="aspnet_Profile">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="PropertyValuesBinary" ColumnName="PropertyValuesBinary" />
+                <ScalarProperty Name="PropertyValuesString" ColumnName="PropertyValuesString" />
+                <ScalarProperty Name="PropertyNames" ColumnName="PropertyNames" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Roles">
+            <EntityTypeMapping TypeName="OffwindModel.aspnet_Roles">
+              <MappingFragment StoreEntitySet="aspnet_Roles">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LoweredRoleName" ColumnName="LoweredRoleName" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_SchemaVersions">
+            <EntityTypeMapping TypeName="OffwindModel.aspnet_SchemaVersions">
+              <MappingFragment StoreEntitySet="aspnet_SchemaVersions">
+                <ScalarProperty Name="IsCurrentVersion" ColumnName="IsCurrentVersion" />
+                <ScalarProperty Name="CompatibleSchemaVersion" ColumnName="CompatibleSchemaVersion" />
+                <ScalarProperty Name="Feature" ColumnName="Feature" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Users">
+            <EntityTypeMapping TypeName="OffwindModel.aspnet_Users">
+              <MappingFragment StoreEntitySet="aspnet_Users">
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+                <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_WebEvent_Events">
+            <EntityTypeMapping TypeName="OffwindModel.aspnet_WebEvent_Events">
+              <MappingFragment StoreEntitySet="aspnet_WebEvent_Events">
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
+                <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="ApplicationVirtualPath" ColumnName="ApplicationVirtualPath" />
+                <ScalarProperty Name="ApplicationPath" ColumnName="ApplicationPath" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="EventDetailCode" ColumnName="EventDetailCode" />
+                <ScalarProperty Name="EventCode" ColumnName="EventCode" />
+                <ScalarProperty Name="EventOccurrence" ColumnName="EventOccurrence" />
+                <ScalarProperty Name="EventSequence" ColumnName="EventSequence" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="EventTime" ColumnName="EventTime" />
+                <ScalarProperty Name="EventTimeUtc" ColumnName="EventTimeUtc" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pages">
+            <EntityTypeMapping TypeName="OffwindModel.Page">
+              <MappingFragment StoreEntitySet="Pages">
+                <ScalarProperty Name="Votes" ColumnName="Votes" />
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="HomePage" ColumnName="HomePage" />
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Announce" ColumnName="Announce" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+                <ScalarProperty Name="PageType" ColumnName="PageType" />
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="aspnet_UsersInRoles" TypeName="OffwindModel.aspnet_UsersInRoles" StoreEntitySet="aspnet_UsersInRoles">
+            <EndProperty Name="aspnet_Users">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="aspnet_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Offwind">
+        <EntityTypeShape EntityType="OffwindModel.aspnet_Applications" Width="1.5" PointX="0.75" PointY="7.875" Height="2.5571907552083317" />
+        <EntityTypeShape EntityType="OffwindModel.aspnet_Membership" Width="1.5" PointX="6" PointY="9.5" Height="5.4417122395833317" />
+        <EntityTypeShape EntityType="OffwindModel.aspnet_Paths" Width="1.5" PointX="3" PointY="6.375" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="OffwindModel.aspnet_PersonalizationAllUsers" Width="1.5" PointX="5.25" PointY="6.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="OffwindModel.aspnet_PersonalizationPerUser" Width="1.5" PointX="5.25" PointY="3.375" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="OffwindModel.aspnet_Profile" Width="1.5" PointX="10.5" PointY="11.875" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="OffwindModel.aspnet_Roles" Width="1.5" PointX="3" PointY="15.75" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="OffwindModel.aspnet_SchemaVersions" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937500031" />
+        <EntityTypeShape EntityType="OffwindModel.aspnet_Users" Width="1.5" PointX="8.25" PointY="11.375" Height="3.326396484374996" />
+        <EntityTypeShape EntityType="OffwindModel.aspnet_WebEvent_Events" Width="1.5" PointX="7.75" PointY="0.75" Height="3.9033007812500031" />
+        <EntityTypeShape EntityType="OffwindModel.Page" Width="1.5" PointX="8.75" PointY="5.75" Height="3.9033007812500067" />
+        <AssociationConnector Association="OffwindModel.FK__aspnet_Me__Appli__267ABA7A" >
+          <ConnectorPoint PointX="2.25" PointY="9.9660953776041659" />
+          <ConnectorPoint PointX="6" PointY="9.9660953776041659" />
+        </AssociationConnector>
+        <AssociationConnector Association="OffwindModel.FK__aspnet_Pa__Appli__5FB337D6" >
+          <ConnectorPoint PointX="2.25" PointY="8.3074446614583337" />
+          <ConnectorPoint PointX="3" PointY="8.3074446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="OffwindModel.FK__aspnet_Ro__Appli__48CFD27E" >
+          <ConnectorPoint PointX="1.5" PointY="10.432190755208332" />
+          <ConnectorPoint PointX="1.5" PointY="16.932444661458334" />
+          <ConnectorPoint PointX="3" PointY="16.932444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="OffwindModel.FK__aspnet_Us__Appli__1273C1CD" >
+          <ConnectorPoint PointX="2.25" PointY="9.1199446614583337" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="9.1199446614583337" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="9.1199446614583337" />
+          <ConnectorPoint PointX="8.5" PointY="9.1199446614583337" />
+          <ConnectorPoint PointX="8.5" PointY="9.9033007812500067" />
+          <ConnectorPoint PointX="9" PointY="9.9033007812500067" />
+          <ConnectorPoint PointX="9" PointY="11.375" />
+        </AssociationConnector>
+        <AssociationConnector Association="OffwindModel.FK__aspnet_Me__UserI__276EDEB3" >
+          <ConnectorPoint PointX="8.25" PointY="13.038198242187498" />
+          <ConnectorPoint PointX="7.5" PointY="13.038198242187498" />
+        </AssociationConnector>
+        <AssociationConnector Association="OffwindModel.FK__aspnet_Pe__PathI__6754599E" >
+          <ConnectorPoint PointX="4.5" PointY="7.6439925130208337" />
+          <ConnectorPoint PointX="5.25" PointY="7.6439925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="OffwindModel.FK__aspnet_Pe__PathI__6D0D32F4" >
+          <ConnectorPoint PointX="3.75" PointY="6.375" />
+          <ConnectorPoint PointX="3.75" PointY="4.5574446614583337" />
+          <ConnectorPoint PointX="5.25" PointY="4.5574446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="OffwindModel.FK__aspnet_Pe__UserI__6E01572D" >
+          <ConnectorPoint PointX="8.25" PointY="11.375" />
+          <ConnectorPoint PointX="7.875" PointY="11" />
+          <ConnectorPoint PointX="7.875" PointY="6.1148893229166674" />
+          <ConnectorPoint PointX="7.125" PointY="6.1148893229166674" />
+          <ConnectorPoint PointX="6.75" PointY="5.7398893229166674" />
+        </AssociationConnector>
+        <AssociationConnector Association="OffwindModel.FK__aspnet_Pr__UserI__3D5E1FD2" >
+          <ConnectorPoint PointX="9.75" PointY="12.961293945312502" />
+          <ConnectorPoint PointX="10.5" PointY="12.961293945312502" />
+        </AssociationConnector>
+        <AssociationConnector Association="OffwindModel.aspnet_UsersInRoles" >
+          <ConnectorPoint PointX="4.5" PointY="16.932444661458334" />
+          <ConnectorPoint PointX="9" PointY="16.932444661458334" />
+          <ConnectorPoint PointX="9" PointY="14.701396484374996" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

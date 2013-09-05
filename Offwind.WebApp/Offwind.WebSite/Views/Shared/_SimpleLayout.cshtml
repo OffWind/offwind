@@ -1,0 +1,97 @@
+﻿@using Offwind.Web.Core.Breadcrumbs
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.BrowserTitle</title>
+    <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.8.2.min.js")" type="text/javascript"></script>
+	<!--[if IE]>
+		<link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/ie.css")" />
+	<![endif]-->
+</head>
+<body>
+	<div class="b-top-holder">
+        @*        <ul class="b-languages">
+            <li class="active"><a href="@Url.Action("culture", "account", new { lang = "en" })">English</a></li>
+            <li><a href="@Url.Action("culture", "account", new { lang = "sv" })">Swedish</a></li>
+            <li><a href="@Url.Action("culture", "account", new { lang = "de" })">German</a></li>
+            <li><a href="@Url.Action("culture", "account", new { lang = "da" })">Danish</a></li>
+            <li><a href="@Url.Action("culture", "account", new { lang = "pt" })">Portuguese</a></li>
+            <li><a href="@Url.Action("culture", "account", new { lang = "ru" })">Russian</a></li>
+        </ul>
+*@
+		<div class="b-top-panel">
+            <span class="b-login">
+                @if (Request.IsAuthenticated)
+                {
+                    @*<text>Welcome <strong>@User.Identity.Name</strong>!</text>*@
+                    <a href="@Url.Action("logoff", "account")">Log Out</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("logon", "account")">Log In</a>
+                }
+            </span>
+            @*<span class="b-print"><a href="#">Print</span></a></span>
+			<span class="b-help"><a href="#">Help</a></span>*@
+		</div>
+		<div class="b-search-holder">
+    		<span>Search</span>
+			<form action="#" method="get">
+				<fieldset>
+					<input type="text" name="serach" />
+					<input type="submit" class="b-submit-search" />
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	<div class="b-banner-holder">
+		<div class="b-banner">
+			<div class="b-logo-holder">
+				<a href="/" class="b-logo"><img src="@Url.Content("~/images/logo.png")" width="254" height="85" alt="logo" /></a>
+			</div>
+		</div>
+	</div>
+	<div class="b-wrapper">
+		<div class="b-main wide">
+            @*			<ul class="b-main-nav">
+				<li><a href="#">OFFWIND</a></li>
+				<li><a href="#">Download OFFWIND</a></li>
+				<li><a href="#">OFFWIND Wps</a></li>
+				<li><a href="#">OFFWIND News</a></li>
+				<li><a href="#">Contact US</a></li>
+			</ul>
+*@
+            @if (ViewBag.Breadcrumbs.Count > 1)
+            {
+			    <ul class="b-breadcrumbs">
+                    @foreach (BreadcrumbsItem item in ViewBag.Breadcrumbs)
+                    {
+                        <li><a href="@item.Url">@item.Title</a></li>
+                    }
+                </ul>
+            }
+            @RenderBody()
+		</div>
+	</div>
+	<div class="b-footer">
+		<div class="b-footer-holder">
+			<div class="b-copyright">
+				<div>&copy;<b>Offwind, 2012</b></div>
+				<div>All rights reserved.</div>
+			</div>
+			<ul class="b-footer-nav">
+				<li><a href="#">Discussion</a></li>
+				<li><a href="#">Library</a></li>
+				<li><a href="#">Tasks</a></li>
+				<li><a href="#">Index</a></li>
+				<li><a href="#">Calendar</a></li>
+			</ul>
+			<div class="b-createdby">
+				Create by Offwind Team
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -26,6 +26,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Title = "Input | Wake Simulation II | Offwind";
             if (_model == null)
             {
                 _model = new VGeneralProperties();
@@ -41,7 +42,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         [ActionName("Index")]
         public ActionResult Save(VGeneralProperties model)
         {
-            lock(_model)
+            ViewBag.Title = "Input | Wake Simulation II | Offwind";
+            lock (_model)
             {
                 model.WindFarm = _model.WindFarm;
                 ObjectMapperManager.DefaultInstance.GetMapper<VGeneralProperties, VGeneralProperties>().Map(model, _model);
@@ -73,6 +75,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult Results()
         {
+            ViewBag.Title = "Results | Wake Simulation II | Offwind";
             if (_simulation != null)
             {
                 var res = _simulation.Select(x => new object[] { x }).ToArray();

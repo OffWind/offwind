@@ -1,0 +1,24 @@
+﻿@model Offwind.Web.Models.VPageDelete
+
+<h1>Delete page</h1>
+<h2>Are you sure you want to delete this page?</h2>
+
+@using (Html.BeginForm())
+{
+    <div class=edit_form_title>
+        <label>Created:</label>
+    </div>
+    <div class=edit_form_created>
+        @Html.TextAreaFor(model => model.Created)
+        @Html.ValidationMessageFor(model => model.Created)
+    </div>
+    <div class=edit_form_title>
+        <label>Short description:</label>
+    </div>
+    <div class = edit_form_announce>
+        @Html.TextAreaFor(model => model.Announce)
+        @Html.ValidationMessageFor(model => model.Announce)
+    </div>
+    <input type="submit" value = "Delete" />
+    <a href="@Url.Action("index", "news")">Cancel</a>
+}

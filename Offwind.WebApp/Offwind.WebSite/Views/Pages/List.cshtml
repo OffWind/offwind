@@ -1,0 +1,28 @@
+﻿@using Offwind.Web.Helpers
+@model Offwind.Web.Models.VPagesList
+<h1>@Model.Title</h1>
+
+@if ((bool)ViewBag.IsAdmin)
+{
+    <div class="page-actions">
+        <a href="@Url.Action("edit", "pages", new { id = "", pageType = Model.PageType })">Add</a>
+    </div>
+}
+<ul class="page-list">
+    @foreach(var item in Model.Pages)
+    {
+        <li>
+            <h4><a href="@Url.Action("show", "pages", new {id = item.Id})">@item.NTitle</a></h4>
+            <div class="created">@item.Published.FormatAsLongDate()</div>
+            <p>@Html.Raw(item.Announce)</p>
+
+            @if ((bool)ViewBag.IsAdmin)
+            {
+                <div class="page-actions">
+                    <a href="@Url.Action("delete", "pages", new { id = item.Id })">Delete</a>
+                    <a href="@Url.Action("edit", "pages", new { id = item.Id })">Edit</a>
+                </div>
+            }
+        </li>
+    }
+</ul>

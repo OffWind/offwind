@@ -1,0 +1,18 @@
+﻿@using Offwind.Web.Helpers
+@model Offwind.Web.Models.VPage
+<h1>@Model.NTitle</h1>
+
+@if ((bool)ViewBag.IsAdmin)
+{
+    <div class="page-actions">
+        <a href="@Url.Action("edit", "pages", new { id = Model.Id })">Edit</a>
+        @*<a href="@Url.Action("delete", "pages", new { id = Model.Id })">Delete</a>*@
+    </div>
+}
+
+@Html.Raw(Model.Text)
+
+<div class="page-updated">
+    Updated:
+    @Model.Updated.FormatAsLongDate()
+</div>

@@ -310,11 +310,6 @@
     <Compile Include="Models\Jobs\JobResult.cs" />
     <Compile Include="Models\Jobs\JobState.cs" />
     <Compile Include="Models\Mailing\MailingModel.cs" />
-    <Compile Include="Models\Offwind.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Offwind.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\StandardCases.cs" />
     <Compile Include="Models\VFile.cs" />
     <Compile Include="Areas\Partners\Models\VPartner.cs" />
@@ -2037,6 +2032,10 @@
       <Project>{E191C60E-F3E8-4262-A924-EF75E79FCC7C}</Project>
       <Name>Offwind.OpenFoam</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Offwind.Web.Core\Offwind.Web.Core.csproj">
+      <Project>{e614638e-5d39-4eaa-9514-baecf385de63}</Project>
+      <Name>Offwind.Web.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\CFD\Views\BoundaryConditions\Index.cshtml" />
@@ -2085,12 +2084,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\CFD\Views\BoundaryConditions\FieldU.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Models\Offwind.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Offwind.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\CFD\Views\Preprocessing\TransportProperties.cshtml" />

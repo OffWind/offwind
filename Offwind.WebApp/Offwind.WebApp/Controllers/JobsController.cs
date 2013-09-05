@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using Offwind.Web.Core;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Jobs;
 

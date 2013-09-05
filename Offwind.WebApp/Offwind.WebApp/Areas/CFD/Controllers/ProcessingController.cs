@@ -15,6 +15,7 @@ using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Jobs;
 using System.Drawing;
+using Offwind.Web.Core;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {

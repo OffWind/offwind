@@ -4,32 +4,32 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="u254697_offwindModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="u254697_offwindModelStoreContainer">
-          <EntitySet Name="DCase" EntityType="u254697_offwindModel.Store.DCase" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DComment" EntityType="u254697_offwindModel.Store.DComment" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DContent" EntityType="u254697_offwindModel.Store.DContent" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DContentTypes" EntityType="u254697_offwindModel.Store.DContentTypes" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DCountry" EntityType="u254697_offwindModel.Store.DCountry" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DJob" EntityType="u254697_offwindModel.Store.DJob" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMeeting" EntityType="u254697_offwindModel.Store.DMeeting" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMeetingFile" EntityType="u254697_offwindModel.Store.DMeetingFile" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMeetingParticipant" EntityType="u254697_offwindModel.Store.DMeetingParticipant" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMesoscaleDatabase" EntityType="u254697_offwindModel.Store.DMesoscaleDatabase" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMesoscaleTabFile" EntityType="u254697_offwindModel.Store.DMesoscaleTabFile" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DTurbine" EntityType="u254697_offwindModel.Store.DTurbine" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DTurbineParameter" EntityType="u254697_offwindModel.Store.DTurbineParameter" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DUserProfile" EntityType="u254697_offwindModel.Store.DUserProfile" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DWindFarm" EntityType="u254697_offwindModel.Store.DWindFarm" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DWindFarmTurbine" EntityType="u254697_offwindModel.Store.DWindFarmTurbine" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Log" EntityType="u254697_offwindModel.Store.Log" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Pages" EntityType="u254697_offwindModel.Store.Pages" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="sysdiagrams" EntityType="u254697_offwindModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="webpages_Membership" EntityType="u254697_offwindModel.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="webpages_OAuthMembership" EntityType="u254697_offwindModel.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="webpages_Roles" EntityType="u254697_offwindModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="webpages_UsersInRoles" EntityType="u254697_offwindModel.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="VPartner" EntityType="u254697_offwindModel.Store.VPartner" store:Type="Views" store:Schema="dbo" store:Name="VPartner">
+    <Schema Namespace="Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="StoreContainer">
+          <EntitySet Name="DCase" EntityType="Store.DCase" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DComment" EntityType="Store.DComment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DContent" EntityType="Store.DContent" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DContentTypes" EntityType="Store.DContentTypes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DCountry" EntityType="Store.DCountry" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DJob" EntityType="Store.DJob" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DMeeting" EntityType="Store.DMeeting" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DMeetingFile" EntityType="Store.DMeetingFile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DMeetingParticipant" EntityType="Store.DMeetingParticipant" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DMesoscaleDatabase" EntityType="Store.DMesoscaleDatabase" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DMesoscaleTabFile" EntityType="Store.DMesoscaleTabFile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DTurbine" EntityType="Store.DTurbine" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DTurbineParameter" EntityType="Store.DTurbineParameter" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DUserProfile" EntityType="Store.DUserProfile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DWindFarm" EntityType="Store.DWindFarm" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DWindFarmTurbine" EntityType="Store.DWindFarmTurbine" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Log" EntityType="Store.Log" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Pages" EntityType="Store.Pages" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_Membership" EntityType="Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_Roles" EntityType="Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VPartner" EntityType="Store.VPartner" store:Type="Views" store:Schema="dbo" store:Name="VPartner">
             <DefiningQuery>SELECT 
       [VPartner].[UserId] AS [UserId], 
       [VPartner].[UserName] AS [UserName], 
@@ -38,7 +38,7 @@
       [VPartner].[RoleId] AS [RoleId]
       FROM [dbo].[VPartner] AS [VPartner]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VSmallMesoscaleTabFile" EntityType="u254697_offwindModel.Store.VSmallMesoscaleTabFile" store:Type="Views" store:Schema="dbo" store:Name="VSmallMesoscaleTabFile">
+          <EntitySet Name="VSmallMesoscaleTabFile" EntityType="Store.VSmallMesoscaleTabFile" store:Type="Views" store:Schema="dbo" store:Name="VSmallMesoscaleTabFile">
             <DefiningQuery>SELECT 
       [VSmallMesoscaleTabFile].[Id] AS [Id], 
       [VSmallMesoscaleTabFile].[DatabaseId] AS [DatabaseId], 
@@ -46,46 +46,46 @@
       [VSmallMesoscaleTabFile].[Longitude] AS [Longitude]
       FROM [dbo].[VSmallMesoscaleTabFile] AS [VSmallMesoscaleTabFile]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VUserRole" EntityType="u254697_offwindModel.Store.VUserRole" store:Type="Views" store:Schema="dbo" store:Name="VUserRole">
+          <EntitySet Name="VUserRole" EntityType="Store.VUserRole" store:Type="Views" store:Schema="dbo" store:Name="VUserRole">
             <DefiningQuery>SELECT 
       [VUserRole].[UserId] AS [UserId], 
       [VUserRole].[RoleId] AS [RoleId], 
       [VUserRole].[RoleName] AS [RoleName]
       FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_DContent_DContentTypes" Association="u254697_offwindModel.Store.FK_DContent_DContentTypes">
+          <AssociationSet Name="FK_DContent_DContentTypes" Association="Store.FK_DContent_DContentTypes">
             <End Role="DContentTypes" EntitySet="DContentTypes" />
             <End Role="DContent" EntitySet="DContent" />
           </AssociationSet>
-          <AssociationSet Name="FK_DMeetingFile_DMeeting" Association="u254697_offwindModel.Store.FK_DMeetingFile_DMeeting">
+          <AssociationSet Name="FK_DMeetingFile_DMeeting" Association="Store.FK_DMeetingFile_DMeeting">
             <End Role="DMeeting" EntitySet="DMeeting" />
             <End Role="DMeetingFile" EntitySet="DMeetingFile" />
           </AssociationSet>
-          <AssociationSet Name="FK_DMeetingParticipant_DMeeting" Association="u254697_offwindModel.Store.FK_DMeetingParticipant_DMeeting">
+          <AssociationSet Name="FK_DMeetingParticipant_DMeeting" Association="Store.FK_DMeetingParticipant_DMeeting">
             <End Role="DMeeting" EntitySet="DMeeting" />
             <End Role="DMeetingParticipant" EntitySet="DMeetingParticipant" />
           </AssociationSet>
-          <AssociationSet Name="FK_DMesoscaleTabFile_DMesoscaleDatabase" Association="u254697_offwindModel.Store.FK_DMesoscaleTabFile_DMesoscaleDatabase">
+          <AssociationSet Name="FK_DMesoscaleTabFile_DMesoscaleDatabase" Association="Store.FK_DMesoscaleTabFile_DMesoscaleDatabase">
             <End Role="DMesoscaleDatabase" EntitySet="DMesoscaleDatabase" />
             <End Role="DMesoscaleTabFile" EntitySet="DMesoscaleTabFile" />
           </AssociationSet>
-          <AssociationSet Name="FK_DTurbineParameter_DTurbine" Association="u254697_offwindModel.Store.FK_DTurbineParameter_DTurbine">
+          <AssociationSet Name="FK_DTurbineParameter_DTurbine" Association="Store.FK_DTurbineParameter_DTurbine">
             <End Role="DTurbine" EntitySet="DTurbine" />
             <End Role="DTurbineParameter" EntitySet="DTurbineParameter" />
           </AssociationSet>
-          <AssociationSet Name="FK_DUserProfile_webpages_Membership" Association="u254697_offwindModel.Store.FK_DUserProfile_webpages_Membership">
+          <AssociationSet Name="FK_DUserProfile_webpages_Membership" Association="Store.FK_DUserProfile_webpages_Membership">
             <End Role="webpages_Membership" EntitySet="webpages_Membership" />
             <End Role="DUserProfile" EntitySet="DUserProfile" />
           </AssociationSet>
-          <AssociationSet Name="FK_DWindFarmTurbine_DWindFarm" Association="u254697_offwindModel.Store.FK_DWindFarmTurbine_DWindFarm">
+          <AssociationSet Name="FK_DWindFarmTurbine_DWindFarm" Association="Store.FK_DWindFarmTurbine_DWindFarm">
             <End Role="DWindFarm" EntitySet="DWindFarm" />
             <End Role="DWindFarmTurbine" EntitySet="DWindFarmTurbine" />
           </AssociationSet>
-          <AssociationSet Name="FK_webpages_UsersInRoles_DUserProfile" Association="u254697_offwindModel.Store.FK_webpages_UsersInRoles_DUserProfile">
+          <AssociationSet Name="FK_webpages_UsersInRoles_DUserProfile" Association="Store.FK_webpages_UsersInRoles_DUserProfile">
             <End Role="DUserProfile" EntitySet="DUserProfile" />
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK_webpages_UsersInRoles_webpages_Roles" Association="u254697_offwindModel.Store.FK_webpages_UsersInRoles_webpages_Roles">
+          <AssociationSet Name="FK_webpages_UsersInRoles_webpages_Roles" Association="Store.FK_webpages_UsersInRoles_webpages_Roles">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
@@ -412,8 +412,8 @@
           <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
         </EntityType>
         <Association Name="FK_DContent_DContentTypes">
-          <End Role="DContentTypes" Type="u254697_offwindModel.Store.DContentTypes" Multiplicity="1" />
-          <End Role="DContent" Type="u254697_offwindModel.Store.DContent" Multiplicity="*" />
+          <End Role="DContentTypes" Type="Store.DContentTypes" Multiplicity="1" />
+          <End Role="DContent" Type="Store.DContent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DContentTypes">
               <PropertyRef Name="Id" />
@@ -424,8 +424,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DMeetingFile_DMeeting">
-          <End Role="DMeeting" Type="u254697_offwindModel.Store.DMeeting" Multiplicity="1" />
-          <End Role="DMeetingFile" Type="u254697_offwindModel.Store.DMeetingFile" Multiplicity="*" />
+          <End Role="DMeeting" Type="Store.DMeeting" Multiplicity="1" />
+          <End Role="DMeetingFile" Type="Store.DMeetingFile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DMeeting">
               <PropertyRef Name="Id" />
@@ -436,8 +436,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DMeetingParticipant_DMeeting">
-          <End Role="DMeeting" Type="u254697_offwindModel.Store.DMeeting" Multiplicity="1" />
-          <End Role="DMeetingParticipant" Type="u254697_offwindModel.Store.DMeetingParticipant" Multiplicity="*" />
+          <End Role="DMeeting" Type="Store.DMeeting" Multiplicity="1" />
+          <End Role="DMeetingParticipant" Type="Store.DMeetingParticipant" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DMeeting">
               <PropertyRef Name="Id" />
@@ -448,8 +448,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DMesoscaleTabFile_DMesoscaleDatabase">
-          <End Role="DMesoscaleDatabase" Type="u254697_offwindModel.Store.DMesoscaleDatabase" Multiplicity="1" />
-          <End Role="DMesoscaleTabFile" Type="u254697_offwindModel.Store.DMesoscaleTabFile" Multiplicity="*" />
+          <End Role="DMesoscaleDatabase" Type="Store.DMesoscaleDatabase" Multiplicity="1" />
+          <End Role="DMesoscaleTabFile" Type="Store.DMesoscaleTabFile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DMesoscaleDatabase">
               <PropertyRef Name="Id" />
@@ -460,8 +460,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DTurbineParameter_DTurbine">
-          <End Role="DTurbine" Type="u254697_offwindModel.Store.DTurbine" Multiplicity="1" />
-          <End Role="DTurbineParameter" Type="u254697_offwindModel.Store.DTurbineParameter" Multiplicity="*" />
+          <End Role="DTurbine" Type="Store.DTurbine" Multiplicity="1" />
+          <End Role="DTurbineParameter" Type="Store.DTurbineParameter" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DTurbine">
               <PropertyRef Name="Id" />
@@ -472,8 +472,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DUserProfile_webpages_Membership">
-          <End Role="webpages_Membership" Type="u254697_offwindModel.Store.webpages_Membership" Multiplicity="1" />
-          <End Role="DUserProfile" Type="u254697_offwindModel.Store.DUserProfile" Multiplicity="0..1" />
+          <End Role="webpages_Membership" Type="Store.webpages_Membership" Multiplicity="1" />
+          <End Role="DUserProfile" Type="Store.DUserProfile" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="webpages_Membership">
               <PropertyRef Name="UserId" />
@@ -484,8 +484,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DWindFarmTurbine_DWindFarm">
-          <End Role="DWindFarm" Type="u254697_offwindModel.Store.DWindFarm" Multiplicity="1" />
-          <End Role="DWindFarmTurbine" Type="u254697_offwindModel.Store.DWindFarmTurbine" Multiplicity="*" />
+          <End Role="DWindFarm" Type="Store.DWindFarm" Multiplicity="1" />
+          <End Role="DWindFarmTurbine" Type="Store.DWindFarmTurbine" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DWindFarm">
               <PropertyRef Name="Id" />
@@ -496,8 +496,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_webpages_UsersInRoles_DUserProfile">
-          <End Role="DUserProfile" Type="u254697_offwindModel.Store.DUserProfile" Multiplicity="1" />
-          <End Role="webpages_UsersInRoles" Type="u254697_offwindModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <End Role="DUserProfile" Type="Store.DUserProfile" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Store.webpages_UsersInRoles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DUserProfile">
               <PropertyRef Name="UserId" />
@@ -508,8 +508,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_webpages_UsersInRoles_webpages_Roles">
-          <End Role="webpages_Roles" Type="u254697_offwindModel.Store.webpages_Roles" Multiplicity="1" />
-          <End Role="webpages_UsersInRoles" Type="u254697_offwindModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <End Role="webpages_Roles" Type="Store.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Store.webpages_UsersInRoles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="webpages_Roles">
               <PropertyRef Name="RoleId" />
@@ -519,6 +519,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="WindFarm_DeleteTurbines" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="windFarmId" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -527,6 +558,9 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Offwind.DbModels" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="OffwindEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="WindFarm_DeleteTurbines">
+            <Parameter Name="windFarmId" Mode="In" Type="Guid" />
+          </FunctionImport>
           <EntitySet Name="DCases" EntityType="Offwind.DbModels.DCase" />
           <EntitySet Name="DComments" EntityType="Offwind.DbModels.DComment" />
           <EntitySet Name="DContents" EntityType="Offwind.DbModels.DContent" />
@@ -584,7 +618,37 @@
             <End Role="DUserProfile" EntitySet="DUserProfiles" />
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
           </AssociationSet>
-          <FunctionImport Name="WindFarm_DeleteTurbines">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Offwind.DbModels.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Offwind.DbModels.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="WindFarm_DeleteTurbines1">
             <Parameter Name="windFarmId" Mode="In" Type="Guid" />
           </FunctionImport>
         </EntityContainer>
@@ -593,7 +657,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="DateTime" Name="Created" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
           <Property Type="String" Name="Owner" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Model" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -605,7 +669,7 @@
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="ObjectUid" />
-          <Property Type="DateTime" Name="Created" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
           <Property Type="String" Name="Author" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -621,9 +685,9 @@
           <Property Type="String" Name="Title" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Announce" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Content" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="Created" Nullable="false" />
-          <Property Type="DateTime" Name="Updated" Nullable="false" />
-          <Property Type="DateTime" Name="DisplayDateTime" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="Updated" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="DisplayDateTime" Nullable="false" Precision="3" />
           <Property Type="Boolean" Name="IsPublished" Nullable="false" />
           <NavigationProperty Name="DContentType" Relationship="Offwind.DbModels.FK_DContent_DContentTypes" FromRole="DContent" ToRole="DContentType" />
         </EntityType>
@@ -646,9 +710,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="DateTime" Name="Started" Nullable="false" />
-          <Property Type="DateTime" Name="RunningSince" />
-          <Property Type="DateTime" Name="Finished" />
+          <Property Type="DateTime" Name="Started" Nullable="false" Precision="7" />
+          <Property Type="DateTime" Name="RunningSince" Precision="7" />
+          <Property Type="DateTime" Name="Finished" Precision="7" />
           <Property Type="String" Name="Owner" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="State" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -661,7 +725,7 @@
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="String" Name="TypeId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="DateTime" Nullable="false" />
+          <Property Type="DateTime" Name="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DMeetingFiles" Relationship="Offwind.DbModels.FK_DMeetingFile_DMeeting" FromRole="DMeeting" ToRole="DMeetingFile" />
           <NavigationProperty Name="DMeetingParticipants" Relationship="Offwind.DbModels.FK_DMeetingParticipant_DMeeting" FromRole="DMeeting" ToRole="DMeetingParticipant" />
         </EntityType>
@@ -708,8 +772,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="DateTime" Name="Created" Nullable="false" />
-          <Property Type="DateTime" Name="Updated" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="Updated" Nullable="false" Precision="3" />
           <Property Type="String" Name="Author" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsPublic" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -766,8 +830,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="DateTime" Name="Created" />
-          <Property Type="DateTime" Name="Updated" />
+          <Property Type="DateTime" Name="Created" Precision="3" />
+          <Property Type="DateTime" Name="Updated" Precision="3" />
           <Property Type="String" Name="Author" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="TurbineTypeId" />
           <Property Type="Boolean" Name="IsPublic" Nullable="false" />
@@ -798,7 +862,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" Precision="3" />
           <Property Type="String" Name="Thread" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Level" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Logger" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
@@ -816,9 +880,9 @@
           <Property Type="String" Name="Title" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Announce" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Text" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="Created" Nullable="false" />
-          <Property Type="DateTime" Name="Updated" Nullable="false" />
-          <Property Type="DateTime" Name="Published" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="Updated" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="Published" Nullable="false" Precision="3" />
           <Property Type="Boolean" Name="HomePage" Nullable="false" />
           <Property Type="String" Name="Url" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Priority" />
@@ -840,16 +904,16 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="DateTime" Name="CreateDate" />
+          <Property Type="DateTime" Name="CreateDate" Precision="3" />
           <Property Type="String" Name="ConfirmationToken" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsConfirmed" />
-          <Property Type="DateTime" Name="LastPasswordFailureDate" />
+          <Property Type="DateTime" Name="LastPasswordFailureDate" Precision="3" />
           <Property Type="Int32" Name="PasswordFailuresSinceLastSuccess" Nullable="false" />
           <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="PasswordChangedDate" />
+          <Property Type="DateTime" Name="PasswordChangedDate" Precision="3" />
           <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="PasswordVerificationToken" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="PasswordVerificationTokenExpirationDate" />
+          <Property Type="DateTime" Name="PasswordVerificationTokenExpirationDate" Precision="3" />
           <Property Type="String" Name="Email" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DUserProfile" Relationship="Offwind.DbModels.FK_DUserProfile_webpages_Membership" FromRole="webpages_Membership" ToRole="DUserProfile" />
         </EntityType>
@@ -992,12 +1056,23 @@
           <End Type="Offwind.DbModels.DUserProfile" Role="DUserProfile" Multiplicity="*" />
           <End Type="Offwind.DbModels.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
         </Association>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="u254697_offwindModelStoreContainer" CdmEntityContainer="OffwindEntities">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="OffwindEntities" >
           <EntitySetMapping Name="DCases">
             <EntityTypeMapping TypeName="Offwind.DbModels.DCase">
               <MappingFragment StoreEntitySet="DCase">
@@ -1322,10 +1397,33 @@
               <ScalarProperty Name="UserId" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="WindFarm_DeleteTurbines" FunctionName="u254697_offwindModel.Store.WindFarm_DeleteTurbines" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Offwind.DbModels.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Offwind.DbModels.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="WindFarm_DeleteTurbines1" FunctionName="Store.WindFarm_DeleteTurbines" />
         </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
@@ -1343,64 +1441,40 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Offwind">
-        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="10.75" PointY="9.75" Height="2.1725878906250102" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="0.75" PointY="11.75" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="13" PointY="5" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="10.75" PointY="6" Height="1.4033821614583246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DCountry" Width="1.5" PointX="2.75" PointY="11.75" Height="1.4033821614583246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="12.75" PointY="0.75" Height="2.7494921875000102" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="0.75" PointY="7.25" Height="1.9802864583333388" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="3" PointY="6" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="3" PointY="8.75" Height="1.595683593749996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="7.75" PointY="1.25" Height="1.595683593749996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="10" PointY="0.875" Height="2.172587890624996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DTurbine" Width="1.5" PointX="5.75" PointY="10.125" Height="5.8263151041666674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DTurbineParameter" Width="1.5" PointX="8" PointY="11.75" Height="2.5571907552083246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="3" PointY="1.25" Height="2.9417936197916674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarm" Width="1.5" PointX="5.75" PointY="5" Height="3.903300781249996" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarmTurbine" Width="1.5" PointX="8" PointY="5.75" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="12.75" PointY="9.75" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="10.75" PointY="13.75" Height="3.9033007812500102" />
-        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="12.75" PointY="13.75" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="0.75" PointY="1" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="14.75" PointY="0.75" Height="1.5956835937499818" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="5.25" PointY="2" Height="1.5956835937499818" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="0.75" PointY="14.75" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="2.75" PointY="14.75" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="14.75" PointY="9.75" Height="1.5956835937499818" />
-        <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" >
-          <ConnectorPoint PointX="12.25" PointY="6.7016910807291623" />
-          <ConnectorPoint PointX="13" PointY="6.7016910807291623" />
-        </AssociationConnector>
-        <AssociationConnector Association="Offwind.DbModels.FK_DMeetingFile_DMeeting" >
-          <ConnectorPoint PointX="2.25" PointY="7.6151432291666623" />
-          <ConnectorPoint PointX="3" PointY="7.6151432291666623" />
-        </AssociationConnector>
-        <AssociationConnector Association="Offwind.DbModels.FK_DMeetingParticipant_DMeeting" >
-          <ConnectorPoint PointX="2.25" PointY="8.99014322916667" />
-          <ConnectorPoint PointX="3" PointY="8.99014322916667" />
-        </AssociationConnector>
-        <AssociationConnector Association="Offwind.DbModels.FK_DMesoscaleTabFile_DMesoscaleDatabase" >
-          <ConnectorPoint PointX="9.25" PointY="2.047841796874998" />
-          <ConnectorPoint PointX="10" PointY="2.047841796874998" />
-        </AssociationConnector>
-        <AssociationConnector Association="Offwind.DbModels.FK_DTurbineParameter_DTurbine" >
-          <ConnectorPoint PointX="7.25" PointY="13.028595377604162" />
-          <ConnectorPoint PointX="8" PointY="13.028595377604162" />
-        </AssociationConnector>
-        <AssociationConnector Association="Offwind.DbModels.FK_DUserProfile_webpages_Membership" >
-          <ConnectorPoint PointX="2.25" PointY="2.7208968098958337" />
-          <ConnectorPoint PointX="3" PointY="2.7208968098958337" />
-        </AssociationConnector>
-        <AssociationConnector Association="Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm" >
-          <ConnectorPoint PointX="7.25" PointY="6.9324446614583337" />
-          <ConnectorPoint PointX="8" PointY="6.9324446614583337" />
-        </AssociationConnector>
-        <AssociationConnector Association="Offwind.DbModels.webpages_UsersInRoles" >
-          <ConnectorPoint PointX="4.5" PointY="2.7978417968749909" />
-          <ConnectorPoint PointX="5.25" PointY="2.7978417968749909" />
-        </AssociationConnector>
+      <Diagram Name="Offwind" ZoomLevel="40">
+        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="9.739851212939179" PointY="5.5043719883562865" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="6.0600481415447067" PointY="19.47239949715901" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="8.68213328564639" PointY="13.468931636525753" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="10.003710127437351" PointY="21.266046951183139" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCountry" Width="1.5" PointX="7.0816076393619216" PointY="19.217612320192909" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="5.1530257412945044" PointY="16.212518803874271" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="10.325555243680977" PointY="28.460408164402661" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="5.4925937212503486" PointY="2.6512328994698975" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="4.055435860555356" PointY="28.738788081677065" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="8.1587692853802682" PointY="31.3689255264443" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="4.9250934631214918" PointY="22.085273201617074" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DTurbine" Width="1.5" PointX="5.3592143400382319" PointY="30.550571917812608" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DTurbineParameter" Width="1.5" PointX="8.7206579487401328" PointY="8.9259422910054873" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="2.725827836769553" PointY="1.2404383128697232" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarm" Width="1.5" PointX="3.4826986116742242" PointY="15.421097449688752" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarmTurbine" Width="1.5" PointX="6.5077603806312005" PointY="7.2474760446918554" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="8.5196033495103958" PointY="14.139385557798383" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="3.7847395147125891" PointY="4.1006534863732069" />
+        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="10.264390261035594" PointY="10.019728918569037" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="11.974760457861592" PointY="18.609862291538093" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="7.4375461020681755" PointY="30.214141606452941" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="10.817532296673178" PointY="13.270646757106597" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="11.180974674961053" PointY="21.608993197609202" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="2.4564728692436928" PointY="10.459966351492314" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="7.7960033434424574" PointY="18.256973990358865" />
+        <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" />
+        <AssociationConnector Association="Offwind.DbModels.FK_DMeetingFile_DMeeting" />
+        <AssociationConnector Association="Offwind.DbModels.FK_DMeetingParticipant_DMeeting" />
+        <AssociationConnector Association="Offwind.DbModels.FK_DMesoscaleTabFile_DMesoscaleDatabase" />
+        <AssociationConnector Association="Offwind.DbModels.FK_DTurbineParameter_DTurbine" />
+        <AssociationConnector Association="Offwind.DbModels.FK_DUserProfile_webpages_Membership" />
+        <AssociationConnector Association="Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm" />
+        <AssociationConnector Association="Offwind.DbModels.webpages_UsersInRoles" />
       </Diagram>
     </Diagrams>
   </Designer>

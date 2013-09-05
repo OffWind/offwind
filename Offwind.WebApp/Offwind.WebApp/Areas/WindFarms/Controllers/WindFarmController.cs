@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EmitMapper;
+using Offwind.Web.Core;
 using Offwind.WebApp.Areas.WindFarms.Models;
 using Offwind.WebApp.Models;
 

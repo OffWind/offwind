@@ -8,28 +8,29 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DContent_DContentTypes", "DContentType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DContentType), "DContent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DContent), true)]
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingFile_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMeeting), "DMeetingFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMeetingFile), true)]
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingParticipant_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMeeting), "DMeetingParticipant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMeetingParticipant), true)]
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMesoscaleTabFile_DMesoscaleDatabase", "DMesoscaleDatabase", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DMesoscaleDatabase), "DMesoscaleTabFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DMesoscaleTabFile), true)]
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DTurbineParameter_DTurbine", "DTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DTurbine), "DTurbineParameter", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DTurbineParameter), true)]
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DUserProfile_webpages_Membership", "webpages_Membership", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.webpages_Membership), "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.WebApp.Models.DUserProfile), true)]
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DWindFarm", "DWindFarm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.WebApp.Models.DWindFarm), "DWindFarmTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DWindFarmTurbine), true)]
-[assembly: EdmRelationshipAttribute("Offwind.DbModels", "webpages_UsersInRoles", "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.DUserProfile), "webpages_Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.WebApp.Models.webpages_Roles))]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DContent_DContentTypes", "DContentType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.Web.Core.DContentType), "DContent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.Web.Core.DContent), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingFile_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.Web.Core.DMeeting), "DMeetingFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.Web.Core.DMeetingFile), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingParticipant_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.Web.Core.DMeeting), "DMeetingParticipant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.Web.Core.DMeetingParticipant), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMesoscaleTabFile_DMesoscaleDatabase", "DMesoscaleDatabase", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.Web.Core.DMesoscaleDatabase), "DMesoscaleTabFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.Web.Core.DMesoscaleTabFile), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DTurbineParameter_DTurbine", "DTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.Web.Core.DTurbine), "DTurbineParameter", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.Web.Core.DTurbineParameter), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DUserProfile_webpages_Membership", "webpages_Membership", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.Web.Core.webpages_Membership), "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.Web.Core.DUserProfile), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DWindFarmTurbine_DWindFarm", "DWindFarm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.Web.Core.DWindFarm), "DWindFarmTurbine", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.Web.Core.DWindFarmTurbine), true)]
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "webpages_UsersInRoles", "DUserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.Web.Core.DUserProfile), "webpages_Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.Web.Core.webpages_Roles))]
 
 #endregion
 
-namespace Offwind.WebApp.Models
+namespace Offwind.Web.Core
 {
     #region Contexts
     
@@ -478,6 +479,7 @@ namespace Offwind.WebApp.Models
         private ObjectSet<VUserRole> _VUserRoles;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -681,6 +683,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Function Imports
     
         /// <summary>
@@ -701,13 +704,275 @@ namespace Offwind.WebApp.Models
     
             return base.ExecuteFunction("WindFarm_DeleteTurbines", windFarmIdParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="diagramname">No Metadata Documentation available.</param>
+        /// <param name="owner_id">No Metadata Documentation available.</param>
+        /// <param name="version">No Metadata Documentation available.</param>
+        /// <param name="definition">No Metadata Documentation available.</param>
+        public int sp_alterdiagram(global::System.String diagramname, Nullable<global::System.Int32> owner_id, Nullable<global::System.Int32> version, global::System.Byte[] definition)
+        {
+            ObjectParameter diagramnameParameter;
+            if (diagramname != null)
+            {
+                diagramnameParameter = new ObjectParameter("diagramname", diagramname);
+            }
+            else
+            {
+                diagramnameParameter = new ObjectParameter("diagramname", typeof(global::System.String));
+            }
+    
+            ObjectParameter owner_idParameter;
+            if (owner_id.HasValue)
+            {
+                owner_idParameter = new ObjectParameter("owner_id", owner_id);
+            }
+            else
+            {
+                owner_idParameter = new ObjectParameter("owner_id", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter versionParameter;
+            if (version.HasValue)
+            {
+                versionParameter = new ObjectParameter("version", version);
+            }
+            else
+            {
+                versionParameter = new ObjectParameter("version", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter definitionParameter;
+            if (definition != null)
+            {
+                definitionParameter = new ObjectParameter("definition", definition);
+            }
+            else
+            {
+                definitionParameter = new ObjectParameter("definition", typeof(global::System.Byte[]));
+            }
+    
+            return base.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="diagramname">No Metadata Documentation available.</param>
+        /// <param name="owner_id">No Metadata Documentation available.</param>
+        /// <param name="version">No Metadata Documentation available.</param>
+        /// <param name="definition">No Metadata Documentation available.</param>
+        public int sp_creatediagram(global::System.String diagramname, Nullable<global::System.Int32> owner_id, Nullable<global::System.Int32> version, global::System.Byte[] definition)
+        {
+            ObjectParameter diagramnameParameter;
+            if (diagramname != null)
+            {
+                diagramnameParameter = new ObjectParameter("diagramname", diagramname);
+            }
+            else
+            {
+                diagramnameParameter = new ObjectParameter("diagramname", typeof(global::System.String));
+            }
+    
+            ObjectParameter owner_idParameter;
+            if (owner_id.HasValue)
+            {
+                owner_idParameter = new ObjectParameter("owner_id", owner_id);
+            }
+            else
+            {
+                owner_idParameter = new ObjectParameter("owner_id", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter versionParameter;
+            if (version.HasValue)
+            {
+                versionParameter = new ObjectParameter("version", version);
+            }
+            else
+            {
+                versionParameter = new ObjectParameter("version", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter definitionParameter;
+            if (definition != null)
+            {
+                definitionParameter = new ObjectParameter("definition", definition);
+            }
+            else
+            {
+                definitionParameter = new ObjectParameter("definition", typeof(global::System.Byte[]));
+            }
+    
+            return base.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="diagramname">No Metadata Documentation available.</param>
+        /// <param name="owner_id">No Metadata Documentation available.</param>
+        public int sp_dropdiagram(global::System.String diagramname, Nullable<global::System.Int32> owner_id)
+        {
+            ObjectParameter diagramnameParameter;
+            if (diagramname != null)
+            {
+                diagramnameParameter = new ObjectParameter("diagramname", diagramname);
+            }
+            else
+            {
+                diagramnameParameter = new ObjectParameter("diagramname", typeof(global::System.String));
+            }
+    
+            ObjectParameter owner_idParameter;
+            if (owner_id.HasValue)
+            {
+                owner_idParameter = new ObjectParameter("owner_id", owner_id);
+            }
+            else
+            {
+                owner_idParameter = new ObjectParameter("owner_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="diagramname">No Metadata Documentation available.</param>
+        /// <param name="owner_id">No Metadata Documentation available.</param>
+        public ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(global::System.String diagramname, Nullable<global::System.Int32> owner_id)
+        {
+            ObjectParameter diagramnameParameter;
+            if (diagramname != null)
+            {
+                diagramnameParameter = new ObjectParameter("diagramname", diagramname);
+            }
+            else
+            {
+                diagramnameParameter = new ObjectParameter("diagramname", typeof(global::System.String));
+            }
+    
+            ObjectParameter owner_idParameter;
+            if (owner_id.HasValue)
+            {
+                owner_idParameter = new ObjectParameter("owner_id", owner_id);
+            }
+            else
+            {
+                owner_idParameter = new ObjectParameter("owner_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="diagramname">No Metadata Documentation available.</param>
+        /// <param name="owner_id">No Metadata Documentation available.</param>
+        public ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(global::System.String diagramname, Nullable<global::System.Int32> owner_id)
+        {
+            ObjectParameter diagramnameParameter;
+            if (diagramname != null)
+            {
+                diagramnameParameter = new ObjectParameter("diagramname", diagramname);
+            }
+            else
+            {
+                diagramnameParameter = new ObjectParameter("diagramname", typeof(global::System.String));
+            }
+    
+            ObjectParameter owner_idParameter;
+            if (owner_id.HasValue)
+            {
+                owner_idParameter = new ObjectParameter("owner_id", owner_id);
+            }
+            else
+            {
+                owner_idParameter = new ObjectParameter("owner_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="diagramname">No Metadata Documentation available.</param>
+        /// <param name="owner_id">No Metadata Documentation available.</param>
+        /// <param name="new_diagramname">No Metadata Documentation available.</param>
+        public int sp_renamediagram(global::System.String diagramname, Nullable<global::System.Int32> owner_id, global::System.String new_diagramname)
+        {
+            ObjectParameter diagramnameParameter;
+            if (diagramname != null)
+            {
+                diagramnameParameter = new ObjectParameter("diagramname", diagramname);
+            }
+            else
+            {
+                diagramnameParameter = new ObjectParameter("diagramname", typeof(global::System.String));
+            }
+    
+            ObjectParameter owner_idParameter;
+            if (owner_id.HasValue)
+            {
+                owner_idParameter = new ObjectParameter("owner_id", owner_id);
+            }
+            else
+            {
+                owner_idParameter = new ObjectParameter("owner_id", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter new_diagramnameParameter;
+            if (new_diagramname != null)
+            {
+                new_diagramnameParameter = new ObjectParameter("new_diagramname", new_diagramname);
+            }
+            else
+            {
+                new_diagramnameParameter = new ObjectParameter("new_diagramname", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public int sp_upgraddiagrams()
+        {
+            return base.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="windFarmId">No Metadata Documentation available.</param>
+        public int WindFarm_DeleteTurbines1(Nullable<global::System.Guid> windFarmId)
+        {
+            ObjectParameter windFarmIdParameter;
+            if (windFarmId.HasValue)
+            {
+                windFarmIdParameter = new ObjectParameter("windFarmId", windFarmId);
+            }
+            else
+            {
+                windFarmIdParameter = new ObjectParameter("windFarmId", typeof(global::System.Guid));
+            }
+    
+            return base.ExecuteFunction("WindFarm_DeleteTurbines1", windFarmIdParameter);
+        }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -740,6 +1005,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -890,6 +1156,7 @@ namespace Offwind.WebApp.Models
         partial void OnCurrentJobIdChanged();
 
         #endregion
+
     
     }
     
@@ -921,6 +1188,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1047,6 +1315,7 @@ namespace Offwind.WebApp.Models
         partial void OnTextChanged();
 
         #endregion
+
     
     }
     
@@ -1094,6 +1363,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1388,6 +1658,7 @@ namespace Offwind.WebApp.Models
         partial void OnIsPublishedChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1430,6 +1701,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1454,6 +1726,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1484,6 +1757,7 @@ namespace Offwind.WebApp.Models
         partial void OnIdChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1510,6 +1784,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1536,6 +1811,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1590,6 +1866,7 @@ namespace Offwind.WebApp.Models
         partial void OnNameChanged();
 
         #endregion
+
     
     }
     
@@ -1623,6 +1900,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1845,6 +2123,7 @@ namespace Offwind.WebApp.Models
         partial void OnResultDataChanged();
 
         #endregion
+
     
     }
     
@@ -1874,6 +2153,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1952,6 +2232,7 @@ namespace Offwind.WebApp.Models
         partial void OnDateTimeChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2000,6 +2281,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2028,6 +2310,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2130,6 +2413,7 @@ namespace Offwind.WebApp.Models
         partial void OnDataChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2172,6 +2456,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2198,6 +2483,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2255,6 +2541,7 @@ namespace Offwind.WebApp.Models
         partial void OnParticipantChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2297,6 +2584,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2323,6 +2611,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2377,6 +2666,7 @@ namespace Offwind.WebApp.Models
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2403,6 +2693,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2435,6 +2726,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2561,6 +2853,7 @@ namespace Offwind.WebApp.Models
         partial void OnTextChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2603,6 +2896,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2637,6 +2931,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3219,6 +3514,7 @@ namespace Offwind.WebApp.Models
         partial void OnTowerMassChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3245,6 +3541,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3277,6 +3574,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3451,6 +3749,7 @@ namespace Offwind.WebApp.Models
         partial void OnValueNumericChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3493,6 +3792,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3521,6 +3821,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3719,6 +4020,7 @@ namespace Offwind.WebApp.Models
         partial void OnInfoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3783,6 +4085,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3825,6 +4128,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4167,6 +4471,7 @@ namespace Offwind.WebApp.Models
         partial void OnTotalCapacityChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4193,6 +4498,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4227,6 +4533,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4377,6 +4684,7 @@ namespace Offwind.WebApp.Models
         partial void OnZChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4419,6 +4727,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4453,6 +4762,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4627,6 +4937,7 @@ namespace Offwind.WebApp.Models
         partial void OnExceptionChanged();
 
         #endregion
+
     
     }
     
@@ -4664,6 +4975,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5030,6 +5342,7 @@ namespace Offwind.WebApp.Models
         partial void OnVotesChanged();
 
         #endregion
+
     
     }
     
@@ -5059,6 +5372,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5185,6 +5499,7 @@ namespace Offwind.WebApp.Models
         partial void OndefinitionChanged();
 
         #endregion
+
     
     }
     
@@ -5214,6 +5529,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5346,6 +5662,7 @@ namespace Offwind.WebApp.Models
         partial void OnRoleIdChanged();
 
         #endregion
+
     
     }
     
@@ -5377,6 +5694,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5488,6 +5806,7 @@ namespace Offwind.WebApp.Models
         partial void OnLongitudeChanged();
 
         #endregion
+
     
     }
     
@@ -5517,6 +5836,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5601,6 +5921,7 @@ namespace Offwind.WebApp.Models
         partial void OnRoleNameChanged();
 
         #endregion
+
     
     }
     
@@ -5632,6 +5953,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5926,6 +6248,7 @@ namespace Offwind.WebApp.Models
         partial void OnEmailChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -5968,6 +6291,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -5996,6 +6320,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6077,6 +6402,7 @@ namespace Offwind.WebApp.Models
         partial void OnUserIdChanged();
 
         #endregion
+
     
     }
     
@@ -6104,6 +6430,7 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6158,6 +6485,7 @@ namespace Offwind.WebApp.Models
         partial void OnRoleNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -6184,8 +6512,229 @@ namespace Offwind.WebApp.Models
         }
 
         #endregion
+
     }
 
     #endregion
+
+    #region ComplexTypes
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="Offwind.DbModels", Name="sp_helpdiagramdefinition_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class sp_helpdiagramdefinition_Result : ComplexObject
+    {
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> version
+        {
+            get
+            {
+                return _version;
+            }
+            set
+            {
+                OnversionChanging(value);
+                ReportPropertyChanging("version");
+                _version = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("version");
+                OnversionChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _version;
+        partial void OnversionChanging(Nullable<global::System.Int32> value);
+        partial void OnversionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] definition
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_definition);
+            }
+            set
+            {
+                OndefinitionChanging(value);
+                ReportPropertyChanging("definition");
+                _definition = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("definition");
+                OndefinitionChanged();
+            }
+        }
+        private global::System.Byte[] _definition;
+        partial void OndefinitionChanging(global::System.Byte[] value);
+        partial void OndefinitionChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="Offwind.DbModels", Name="sp_helpdiagrams_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class sp_helpdiagrams_Result : ComplexObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new sp_helpdiagrams_Result object.
+        /// </summary>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="ownerID">Initial value of the OwnerID property.</param>
+        public static sp_helpdiagrams_Result Createsp_helpdiagrams_Result(global::System.String name, global::System.Int32 id, global::System.Int32 ownerID)
+        {
+            sp_helpdiagrams_Result sp_helpdiagrams_Result = new sp_helpdiagrams_Result();
+            sp_helpdiagrams_Result.Name = name;
+            sp_helpdiagrams_Result.ID = id;
+            sp_helpdiagrams_Result.OwnerID = ownerID;
+            return sp_helpdiagrams_Result;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Database
+        {
+            get
+            {
+                return _Database;
+            }
+            set
+            {
+                OnDatabaseChanging(value);
+                ReportPropertyChanging("Database");
+                _Database = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Database");
+                OnDatabaseChanged();
+            }
+        }
+        private global::System.String _Database;
+        partial void OnDatabaseChanging(global::System.String value);
+        partial void OnDatabaseChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                OnIDChanging(value);
+                ReportPropertyChanging("ID");
+                _ID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ID");
+                OnIDChanged();
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Owner
+        {
+            get
+            {
+                return _Owner;
+            }
+            set
+            {
+                OnOwnerChanging(value);
+                ReportPropertyChanging("Owner");
+                _Owner = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Owner");
+                OnOwnerChanged();
+            }
+        }
+        private global::System.String _Owner;
+        partial void OnOwnerChanging(global::System.String value);
+        partial void OnOwnerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OwnerID
+        {
+            get
+            {
+                return _OwnerID;
+            }
+            set
+            {
+                OnOwnerIDChanging(value);
+                ReportPropertyChanging("OwnerID");
+                _OwnerID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OwnerID");
+                OnOwnerIDChanged();
+            }
+        }
+        private global::System.Int32 _OwnerID;
+        partial void OnOwnerIDChanging(global::System.Int32 value);
+        partial void OnOwnerIDChanged();
+
+        #endregion
+
+    }
+
+    #endregion
+
     
 }

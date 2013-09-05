@@ -12,6 +12,7 @@ using Offwind.WebApp.Infrastructure.Navigation;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Account;
 using log4net;
+using Offwind.Web.Core;
 
 namespace Offwind.WebApp.Areas.CFD.Controllers
 {

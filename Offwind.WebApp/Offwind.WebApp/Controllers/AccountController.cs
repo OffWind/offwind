@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
+using Offwind.Web.Core;
 using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Account;

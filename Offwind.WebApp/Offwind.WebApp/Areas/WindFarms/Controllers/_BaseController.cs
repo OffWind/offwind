@@ -1,5 +1,6 @@
 ﻿using System.Web.Configuration;
 using System.Web.Mvc;
+using Offwind.Web.Core;
 using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Infrastructure.Navigation;
 using Offwind.WebApp.Models;

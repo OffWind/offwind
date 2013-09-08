@@ -1,0 +1,75 @@
+﻿@using Offwind.Web.Helpers
+@model Offwind.Web.Models.VPage
+           @{
+               Layout = "~/Views/Shared/_SimpleLayout.cshtml";
+           }
+<h1>Edit Content</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.PageType)
+    @Html.HiddenFor(m => m.Id)
+    <ul class="form_editor">
+@*
+        <li>
+            <div class="field_name inline"><label>ID </label></div>
+            <div class="inline">@Model.Id</div>
+        </li>
+*@
+        <li>
+            <div class="field_name inline"><label for="Created">Date </label></div>
+            <div class="inline">@Html.TextBoxFor(model => model.Published)</div>
+        </li>
+        @*
+        <li>
+            <div class="field_name"><label for="Slug">Адрес </label></div>
+            <div class="validation">@Html.ValidationMessageFor(model => model.Slug)</div>
+            <div class="small">@Html.TextBoxFor(model => model.Slug)</div>
+        </li>
+        <li>
+            <div class="field_name"><label for="PageTitle">Browser Title</label></div>
+            <div class="validation">@Html.ValidationMessageFor(model => model.PageTitle)</div>
+            <div class="small">@Html.TextAreaFor(model => model.PageTitle)</div>
+        </li>
+*@
+        <li>
+            <div class="field_name"><label for="NTitle">Title </label></div>
+            <div class="validation">@Html.ValidationMessageFor(model => model.NTitle)</div>
+            <div class="small">@Html.TextAreaFor(model => model.NTitle)</div>
+        </li>
+        <li>
+            <div class="field_name"><label for="Announce">Short Description</label></div>
+            <div class="validation">@Html.ValidationMessageFor(model => model.Announce)</div>
+            <div class="small">@Html.TextAreaFor(model => model.Announce)</div>
+        </li>
+        <li>
+            <div class="field_name"><label for="Text">Text</label></div>
+            <div class="validation">@Html.ValidationMessageFor(model => model.Text)</div>
+            <div class="large">@Html.TextAreaFor(model => model.Text)</div>
+        </li>
+    </ul>      
+      
+    <input type="submit" value="Save" />
+    @*<input type="submit" name="SaveAndAdd" value="Сохранить и добавить новое" />*@
+    <a href="@Model.ReturnUrl">Cancel</a>
+}
+
+<script src="@Url.Content("~/Scripts/tiny_mce/tiny_mce.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    // Creates a new editor instance
+    var ed = new tinymce.Editor('Text', {
+        theme: "advanced",
+        plugins: "fullscreen,table,preview",
+        height: 600,
+        theme_advanced_toolbar_location: "top",
+        theme_advanced_toolbar_align: "left",
+        theme_advanced_buttons2_add: "fullscreen",
+        theme_advanced_buttons3_add: "tablecontrols"
+    });
+    ed.render();
+</script>
+
+@*<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+*@

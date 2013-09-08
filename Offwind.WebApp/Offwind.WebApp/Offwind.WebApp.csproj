@@ -287,6 +287,7 @@
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\MailingController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Infrastructure\AccountsHelper.cs" />
     <Compile Include="Infrastructure\Breadcrumbs\BreadcrumbsCollection.cs" />
     <Compile Include="Infrastructure\Breadcrumbs\BreadcrumbsItem.cs" />
@@ -312,6 +313,7 @@
     <Compile Include="Models\Jobs\JobResult.cs" />
     <Compile Include="Models\Jobs\JobState.cs" />
     <Compile Include="Models\Mailing\MailingModel.cs" />
+    <Compile Include="Models\News\NewsItem.cs" />
     <Compile Include="Models\StandardCases.cs" />
     <Compile Include="Models\VFile.cs" />
     <Compile Include="Areas\Partners\Models\VPartner.cs" />
@@ -2376,6 +2378,8 @@
     <Content Include="Areas\WindFarms\Views\WindFarm\__EditorActions.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Decimal.cshtml" />
+    <Content Include="Views\Home\__LatestPosts.cshtml" />
+    <Content Include="Views\News\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

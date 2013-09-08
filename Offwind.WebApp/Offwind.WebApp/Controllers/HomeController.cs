@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using System.Linq;
+using Offwind.Web.Core.News;
 using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Controllers
@@ -9,6 +11,13 @@ namespace Offwind.WebApp.Controllers
         {
             var m = new VWebPage();
             m.BrowserTitle = "Offwind - prediction tools for offshore wind energy generation";
+            ViewBag.LatestPosts = _ctx.Pages
+                .Where(p => p.PageType == "News")
+                .OrderByDescending(p => p.Published)
+                .Take(3)
+                .ToList()
+                .Select(p => new NewsItem(p))
+                .ToList();
             return View(m);
         }
 

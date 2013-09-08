@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Offwind.WebSite", "Offwind.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Offwind.WebSite.New", "Offwind.WebSite.New\Offwind.WebSite.New.csproj", "{0C16EAFC-1C2D-4190-8C8A-CCC98B8BA0D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Offwind.Web.Core", "Offwind.Web.Core\Offwind.Web.Core.csproj", "{E614638E-5D39-4EAA-9514-BAECF385DE63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,12 @@ Global
 		{0C16EAFC-1C2D-4190-8C8A-CCC98B8BA0D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C16EAFC-1C2D-4190-8C8A-CCC98B8BA0D2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0C16EAFC-1C2D-4190-8C8A-CCC98B8BA0D2}.Release|x86.ActiveCfg = Release|Any CPU
+		{E614638E-5D39-4EAA-9514-BAECF385DE63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E614638E-5D39-4EAA-9514-BAECF385DE63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E614638E-5D39-4EAA-9514-BAECF385DE63}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E614638E-5D39-4EAA-9514-BAECF385DE63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E614638E-5D39-4EAA-9514-BAECF385DE63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E614638E-5D39-4EAA-9514-BAECF385DE63}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

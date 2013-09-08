@@ -1,0 +1,21 @@
+﻿@using Offwind.WebApp.Infrastructure
+
+@{
+    var posts = (List<Offwind.Web.Core.News.NewsItem>)ViewBag.LatestPosts;
+}
+
+<div class="row-fluid">
+    <div class="span12 block">
+        <div class="block-heading">News</div>
+        <div class="row-fluid">
+            @foreach (var item in posts)
+            {
+                <div class="span4 news-item">
+                    <h2>@item.Title</h2>
+                    <p>@item.Announce</p>
+                    <a class="" href="@Url.Action("Show", "News", new { id = item.Id })">Read more...</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

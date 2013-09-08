@@ -1,0 +1,16 @@
+﻿@model Offwind.Web.Core.Page
+
+@{
+    ViewBag.Title = Model.Title + " | News | Offwind";
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "News", new { area = "" })">News</a> <span class="divider">/</span></li>
+    <li class="active">@Model.Title</li>
+</ul>
+<div class="row-fluid">
+    <div class="span12 well">
+        <h1>@Model.Title</h1>
+        @Html.Raw(Model.Text)
+    </div>
+</div>

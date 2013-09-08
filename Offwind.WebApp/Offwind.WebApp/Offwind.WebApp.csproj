@@ -285,6 +285,7 @@
     <Compile Include="Areas\CFD\Controllers\CaseManagementController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\GlobalMeetingController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\MailingController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
@@ -326,6 +327,10 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="static\backbone-js-1.0.0\backbone-min.js" />
+    <Content Include="static\backbone-js-1.0.0\backbone.js" />
+    <Content Include="static\backbone-js-1.0.0\underscore-min.js" />
+    <Content Include="static\backbone-js-1.0.0\underscore.js" />
     <Content Include="static\bootstrap\css\bootstrap-responsive.css" />
     <Content Include="static\bootstrap\css\bootstrap-responsive.min.css" />
     <Content Include="static\bootstrap\css\bootstrap.css" />
@@ -752,6 +757,8 @@
     <Content Include="static\fullcalendar-1.5.3\jquery\jquery-1.7.1.min.js" />
     <Content Include="static\fullcalendar-1.5.3\jquery\jquery-ui-1.8.17.custom.min.js" />
     <Content Include="static\fullcalendar-1.5.3\MIT-LICENSE.txt" />
+    <Content Include="static\handlebars\handlebars-1.0.0-rc.4.js" />
+    <Content Include="static\handlebars\handlebars-1.0.0.js" />
     <Content Include="static\Highcharts-3.0.4\adapters\mootools-adapter.js" />
     <Content Include="static\Highcharts-3.0.4\adapters\mootools-adapter.src.js" />
     <Content Include="static\Highcharts-3.0.4\adapters\prototype-adapter.js" />
@@ -2380,6 +2387,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Decimal.cshtml" />
     <Content Include="Views\Home\__LatestPosts.cshtml" />
     <Content Include="Views\News\Show.cshtml" />
+    <Content Include="Views\GlobalMeeting\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

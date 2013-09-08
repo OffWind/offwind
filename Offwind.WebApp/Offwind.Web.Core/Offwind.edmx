@@ -11,6 +11,7 @@
           <EntitySet Name="DContent" EntityType="Store.DContent" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DContentTypes" EntityType="Store.DContentTypes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DCountry" EntityType="Store.DCountry" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DEventApplication" EntityType="Store.DEventApplication" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DJob" EntityType="Store.DJob" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DMeeting" EntityType="Store.DMeeting" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DMeetingFile" EntityType="Store.DMeetingFile" store:Type="Tables" Schema="dbo" />
@@ -140,6 +141,19 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="DEventApplication">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Updated" Type="datetime" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="Company" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="Phone" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="DJob">
           <Key>
@@ -316,6 +330,7 @@
           <Property Name="Priority" Type="int" />
           <Property Name="IsPublished" Type="bit" Nullable="false" />
           <Property Name="Votes" Type="int" Nullable="false" />
+          <Property Name="ExtraModule" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -561,11 +576,45 @@
           <FunctionImport Name="WindFarm_DeleteTurbines">
             <Parameter Name="windFarmId" Mode="In" Type="Guid" />
           </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Offwind.DbModels.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Offwind.DbModels.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="WindFarm_DeleteTurbines1">
+          <Parameter Name="windFarmId" Mode="In" Type="Guid" />
+          </FunctionImport>
           <EntitySet Name="DCases" EntityType="Offwind.DbModels.DCase" />
           <EntitySet Name="DComments" EntityType="Offwind.DbModels.DComment" />
           <EntitySet Name="DContents" EntityType="Offwind.DbModels.DContent" />
           <EntitySet Name="DContentTypes" EntityType="Offwind.DbModels.DContentType" />
           <EntitySet Name="DCountries" EntityType="Offwind.DbModels.DCountry" />
+          <EntitySet Name="DEventApplications" EntityType="Offwind.DbModels.DEventApplication" />
           <EntitySet Name="DJobs" EntityType="Offwind.DbModels.DJob" />
           <EntitySet Name="DMeetings" EntityType="Offwind.DbModels.DMeeting" />
           <EntitySet Name="DMeetingFiles" EntityType="Offwind.DbModels.DMeetingFile" />
@@ -618,40 +667,18 @@
             <End Role="DUserProfile" EntitySet="DUserProfiles" />
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
           </AssociationSet>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Offwind.DbModels.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Offwind.DbModels.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
-          <FunctionImport Name="WindFarm_DeleteTurbines1">
-            <Parameter Name="windFarmId" Mode="In" Type="Guid" />
-          </FunctionImport>
-        </EntityContainer>
+          </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         <EntityType Name="DCase">
           <Key>
             <PropertyRef Name="Id" />
@@ -704,6 +731,19 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DEventApplication">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="Updated" Nullable="false" Precision="3" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Company" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Comment" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DJob">
           <Key>
@@ -888,6 +928,7 @@
           <Property Type="Int32" Name="Priority" />
           <Property Type="Boolean" Name="IsPublished" Nullable="false" />
           <Property Type="Int32" Name="Votes" Nullable="false" />
+          <Property Type="String" Name="ExtraModule" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1056,23 +1097,37 @@
           <End Type="Offwind.DbModels.DUserProfile" Role="DUserProfile" Multiplicity="*" />
           <End Type="Offwind.DbModels.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
         </Association>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="OffwindEntities" >
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Offwind.DbModels.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Offwind.DbModels.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="WindFarm_DeleteTurbines1" FunctionName="Store.WindFarm_DeleteTurbines" />
           <EntitySetMapping Name="DCases">
             <EntityTypeMapping TypeName="Offwind.DbModels.DCase">
               <MappingFragment StoreEntitySet="DCase">
@@ -1125,6 +1180,20 @@
             <EntityTypeMapping TypeName="Offwind.DbModels.DCountry">
               <MappingFragment StoreEntitySet="DCountry">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEventApplications">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DEventApplication">
+              <MappingFragment StoreEntitySet="DEventApplication">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1295,6 +1364,7 @@
           <EntitySetMapping Name="Pages">
             <EntityTypeMapping TypeName="Offwind.DbModels.Page">
               <MappingFragment StoreEntitySet="Pages">
+                <ScalarProperty Name="ExtraModule" ColumnName="ExtraModule" />
                 <ScalarProperty Name="Votes" ColumnName="Votes" />
                 <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
@@ -1397,32 +1467,7 @@
               <ScalarProperty Name="UserId" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Offwind.DbModels.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Offwind.DbModels.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="WindFarm_DeleteTurbines1" FunctionName="Store.WindFarm_DeleteTurbines" />
-        </EntityContainerMapping>
+          </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
@@ -1442,31 +1487,32 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Offwind" ZoomLevel="40">
-        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="9.739851212939179" PointY="5.5043719883562865" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="6.0600481415447067" PointY="19.47239949715901" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="8.68213328564639" PointY="13.468931636525753" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="10.003710127437351" PointY="21.266046951183139" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DCountry" Width="1.5" PointX="7.0816076393619216" PointY="19.217612320192909" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="5.1530257412945044" PointY="16.212518803874271" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="10.325555243680977" PointY="28.460408164402661" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="5.4925937212503486" PointY="2.6512328994698975" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="4.055435860555356" PointY="28.738788081677065" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="8.1587692853802682" PointY="31.3689255264443" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="4.9250934631214918" PointY="22.085273201617074" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DTurbine" Width="1.5" PointX="5.3592143400382319" PointY="30.550571917812608" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DTurbineParameter" Width="1.5" PointX="8.7206579487401328" PointY="8.9259422910054873" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="2.725827836769553" PointY="1.2404383128697232" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarm" Width="1.5" PointX="3.4826986116742242" PointY="15.421097449688752" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarmTurbine" Width="1.5" PointX="6.5077603806312005" PointY="7.2474760446918554" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="8.5196033495103958" PointY="14.139385557798383" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="3.7847395147125891" PointY="4.1006534863732069" />
-        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="10.264390261035594" PointY="10.019728918569037" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="11.974760457861592" PointY="18.609862291538093" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="7.4375461020681755" PointY="30.214141606452941" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="10.817532296673178" PointY="13.270646757106597" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="11.180974674961053" PointY="21.608993197609202" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="2.4564728692436928" PointY="10.459966351492314" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="7.7960033434424574" PointY="18.256973990358865" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="2.1539629093156956" PointY="25.148756530670802" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="7.6706167048172169" PointY="7.24750154057867" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="2.9996214914133872" PointY="5.4716597969977467" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="1.8431983673214905" PointY="11.28874372471531" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCountry" Width="1.5" PointX="1.6234478324760908" PointY="11.943120485145188" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DEventApplication" Width="1.5" PointX="5.7964578782191776" PointY="15.247520707197264" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="4.4362659717147546" PointY="5.03696720536657" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="2.2510663076541695" PointY="30.425499006372643" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="6.3457715466366018" PointY="25.774985414824908" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="6.642118175813053" PointY="27.191116703297531" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="10.065230620124019" PointY="9.4513780518674189" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="9.58791657238636" PointY="15.689881466184687" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DTurbine" Width="1.5" PointX="11.75738718721894" PointY="18.796609425356895" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DTurbineParameter" Width="1.5" PointX="3.1198259960486672" PointY="3.6804432439061081" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="4.6633230897892837" PointY="21.878986860569096" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarm" Width="1.5" PointX="8.1870409698165219" PointY="19.799005607049448" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarmTurbine" Width="1.5" PointX="10.980100202830554" PointY="26.562045541853664" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="5.4983113023910253" PointY="31.340671598604263" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="5.7675472413038591" PointY="0.33742342905021433" />
+        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="6.2298721886379047" PointY="0.54939565088106113" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="3.95597791297174" PointY="25.226092305605341" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="0.42314973120724308" PointY="30.926286234951711" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="2.8976135286025766" PointY="17.80577305788443" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="3.5211628580098795" PointY="23.054304237968431" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="3.1536247856699049" PointY="10.88408367842626" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="4.3351989501785484" PointY="30.674558594205678" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" />
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingFile_DMeeting" />
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingParticipant_DMeeting" />

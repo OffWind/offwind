@@ -1,0 +1,97 @@
+﻿@model Offwind.Web.Core.Page
+
+@{
+    ViewBag.Title = "Offwind Global Expert Meeting 2013 | Events | Offwind";
+}
+@section Styles
+{
+    <style>
+        table tr td
+        {
+            padding: 8px;
+        }
+        table tr td:first-child
+        {
+            font-weight: bold;
+        }
+    </style>   
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a><span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "Events", new { area = "" })">Events</a> <span class="divider">/</span></li>
+    <li class="active">Offwind Global Expert Meeting 2013</li>
+</ul>
+<div class="row-fluid">
+    <div class="span6 well">
+        <h1>Offwind Global Expert Meeting 2013</h1>
+        <p>
+            This Workshop will present the Offwind platform in its various components: climatology database, CFD wake modelling,
+            development of a wave/wake model, and other avenues of research such as wind turbine control and now-casting.
+            Moreover, it will invite participants to contribute their own models and procedures, in order to advance knowledge in this important area.
+        </p>
+        <p>
+            You can join this event for free.
+        </p>
+        <h2>Information</h2>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>Place</td>
+                    <td>IRIS, Stavanger (more detailed information will be announced later)</td>
+                </tr>
+                <tr>
+                    <td>Time</td>
+                    <td>22-23, Oct, 2013</td>
+                </tr>
+                <tr>
+                    <td>Contact</td>
+                    <td>Jafar Mahmoudi, PhD</td>
+                </tr>
+                <tr>
+                    <td>Mobile</td>
+                    <td>(+47) 970 783 39</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>jafar.mahmoudi@iris.no</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="span6 well">
+
+        <h2>Registration</h2>
+        <form id="form-registration" class="form" method="post" novalidate="">
+                <label class="control-label" for="FullName">Your name</label>
+                <div class="controls controls-row">
+                    @Html.TextBox("FullName")
+                </div>
+                
+                <label class="control-label" for="Email">Email</label>
+                <div class="controls controls-row">
+                    @Html.TextBox("Email", "", new { autocomplete = "off" })
+                </div>
+                
+                <label class="control-label" for="Phone">Phone</label>
+                <div class="controls controls-row">
+                    @Html.TextBox("Phone", "", new { autocomplete = "off" })
+                </div>
+
+                <label class="control-label" for="Company">Company</label>
+                <div class="controls controls-row">
+                    @Html.TextBox("Company", "", new { autocomplete = "off" })
+                </div>
+                    
+                <label class="control-label" for="Comment">Comment</label>
+                <div class="controls controls-row">
+                    @Html.TextArea("Comment")
+                </div>
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </form>
+
+    </div>
+</div>

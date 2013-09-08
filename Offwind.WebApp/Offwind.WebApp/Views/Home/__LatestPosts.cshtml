@@ -1,7 +1,7 @@
 ﻿@using Offwind.WebApp.Infrastructure
 
 @{
-    var posts = (List<Offwind.Web.Core.News.NewsItem>)ViewBag.LatestPosts;
+    var posts = (List<Offwind.Web.Core.Page>)ViewBag.LatestPosts;
 }
 
 <div class="row-fluid">
@@ -13,7 +13,14 @@
                 <div class="span4 news-item">
                     <h2>@item.Title</h2>
                     <p>@item.Announce</p>
-                    <a class="" href="@Url.Action("Show", "News", new { id = item.Id })">Read more...</a>
+                    @{
+                        var url = Url.Action("Show", "News", new { id = item.Id });
+                        if (item.ExtraModule == "global-meeting-2013")
+                        {
+                            url = Url.Action("Index", "GlobalMeeting");
+                        }
+                    }
+                    <a class="" href="@url">Read more...</a>
                 </div>
             }
         </div>

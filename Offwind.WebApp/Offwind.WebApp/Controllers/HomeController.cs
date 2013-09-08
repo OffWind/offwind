@@ -15,8 +15,6 @@ namespace Offwind.WebApp.Controllers
                 .Where(p => p.PageType == "News")
                 .OrderByDescending(p => p.Published)
                 .Take(3)
-                .ToList()
-                .Select(p => new NewsItem(p))
                 .ToList();
             return View(m);
         }

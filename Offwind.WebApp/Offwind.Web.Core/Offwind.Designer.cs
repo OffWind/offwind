@@ -161,6 +161,22 @@ namespace Offwind.Web.Core
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<DEventApplication> DEventApplications
+        {
+            get
+            {
+                if ((_DEventApplications == null))
+                {
+                    _DEventApplications = base.CreateObjectSet<DEventApplication>("DEventApplications");
+                }
+                return _DEventApplications;
+            }
+        }
+        private ObjectSet<DEventApplication> _DEventApplications;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<DJob> DJobs
         {
             get
@@ -520,6 +536,14 @@ namespace Offwind.Web.Core
         public void AddToDCountries(DCountry dCountry)
         {
             base.AddObject("DCountries", dCountry);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DEventApplications EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDEventApplications(DEventApplication dEventApplication)
+        {
+            base.AddObject("DEventApplications", dEventApplication);
         }
     
         /// <summary>
@@ -1864,6 +1888,245 @@ namespace Offwind.Web.Core
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DEventApplication")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DEventApplication : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DEventApplication object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="created">Initial value of the Created property.</param>
+        /// <param name="updated">Initial value of the Updated property.</param>
+        /// <param name="fullName">Initial value of the FullName property.</param>
+        /// <param name="email">Initial value of the Email property.</param>
+        /// <param name="company">Initial value of the Company property.</param>
+        /// <param name="phone">Initial value of the Phone property.</param>
+        /// <param name="comment">Initial value of the Comment property.</param>
+        public static DEventApplication CreateDEventApplication(global::System.Guid id, global::System.DateTime created, global::System.DateTime updated, global::System.String fullName, global::System.String email, global::System.String company, global::System.String phone, global::System.String comment)
+        {
+            DEventApplication dEventApplication = new DEventApplication();
+            dEventApplication.Id = id;
+            dEventApplication.Created = created;
+            dEventApplication.Updated = updated;
+            dEventApplication.FullName = fullName;
+            dEventApplication.Email = email;
+            dEventApplication.Company = company;
+            dEventApplication.Phone = phone;
+            dEventApplication.Comment = comment;
+            return dEventApplication;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private global::System.DateTime _Created;
+        partial void OnCreatedChanging(global::System.DateTime value);
+        partial void OnCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Updated
+        {
+            get
+            {
+                return _Updated;
+            }
+            set
+            {
+                OnUpdatedChanging(value);
+                ReportPropertyChanging("Updated");
+                _Updated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Updated");
+                OnUpdatedChanged();
+            }
+        }
+        private global::System.DateTime _Updated;
+        partial void OnUpdatedChanging(global::System.DateTime value);
+        partial void OnUpdatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String FullName
+        {
+            get
+            {
+                return _FullName;
+            }
+            set
+            {
+                OnFullNameChanging(value);
+                ReportPropertyChanging("FullName");
+                _FullName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FullName");
+                OnFullNameChanged();
+            }
+        }
+        private global::System.String _FullName;
+        partial void OnFullNameChanging(global::System.String value);
+        partial void OnFullNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                OnEmailChanging(value);
+                ReportPropertyChanging("Email");
+                _Email = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Email");
+                OnEmailChanged();
+            }
+        }
+        private global::System.String _Email;
+        partial void OnEmailChanging(global::System.String value);
+        partial void OnEmailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Company
+        {
+            get
+            {
+                return _Company;
+            }
+            set
+            {
+                OnCompanyChanging(value);
+                ReportPropertyChanging("Company");
+                _Company = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Company");
+                OnCompanyChanged();
+            }
+        }
+        private global::System.String _Company;
+        partial void OnCompanyChanging(global::System.String value);
+        partial void OnCompanyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Phone
+        {
+            get
+            {
+                return _Phone;
+            }
+            set
+            {
+                OnPhoneChanging(value);
+                ReportPropertyChanging("Phone");
+                _Phone = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Phone");
+                OnPhoneChanged();
+            }
+        }
+        private global::System.String _Phone;
+        partial void OnPhoneChanging(global::System.String value);
+        partial void OnPhoneChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Comment
+        {
+            get
+            {
+                return _Comment;
+            }
+            set
+            {
+                OnCommentChanging(value);
+                ReportPropertyChanging("Comment");
+                _Comment = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Comment");
+                OnCommentChanged();
+            }
+        }
+        private global::System.String _Comment;
+        partial void OnCommentChanging(global::System.String value);
+        partial void OnCommentChanged();
 
         #endregion
 
@@ -5340,6 +5603,30 @@ namespace Offwind.Web.Core
         private global::System.Int32 _Votes;
         partial void OnVotesChanging(global::System.Int32 value);
         partial void OnVotesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ExtraModule
+        {
+            get
+            {
+                return _ExtraModule;
+            }
+            set
+            {
+                OnExtraModuleChanging(value);
+                ReportPropertyChanging("ExtraModule");
+                _ExtraModule = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ExtraModule");
+                OnExtraModuleChanged();
+            }
+        }
+        private global::System.String _ExtraModule;
+        partial void OnExtraModuleChanging(global::System.String value);
+        partial void OnExtraModuleChanged();
 
         #endregion
 

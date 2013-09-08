@@ -6079,15 +6079,16 @@ a.badge:focus {
 
 .carousel-caption {
   position: absolute;
-  right: 500px;
-  bottom: 20px;
-  left: 20px;
+  right: 0;
+  bottom: 0;
+  left: 0;
   padding: 15px;
   background: #333333;
   background: rgba(0, 0, 0, 0.75);
 }
 
 .carousel-caption h1,
+.carousel-caption h2,
 .carousel-caption p {
   line-height: 20px;
   color: #ffffff;
@@ -6107,10 +6108,26 @@ a.badge:focus {
     text-decoration: underline;
 }
 
+.well.main-right
+{
+    position: relative;
+    height: 322px;
+}
+
+.well.main-right a.btn
+{
+    position: absolute;
+    width: 308px;
+    bottom: 20px;
+}
+
 @media (max-width: 1200px) {
+    body *
+    {
+    }
     .carousel-caption
     {
-        right: 240px;
+        right: 0;
     }
     .carousel-caption h1
     {
@@ -6118,6 +6135,14 @@ a.badge:focus {
     }
     .carousel-caption h1, .carousel-caption p {
         line-height: 18px;
+    }
+    #main
+    {
+        font-size: 0.9em;
+    }
+    .well.main-right a.btn
+    {
+        width: 238px;
     }
 }
 

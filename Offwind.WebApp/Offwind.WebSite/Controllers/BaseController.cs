@@ -33,13 +33,13 @@ namespace Offwind.Web.Controllers
 
             _navItems
                 .Add("Home", "/", IsActiveSection(filterContext, "Home"))
-                .Add("Downloads", "/Downloads", IsActiveSection(filterContext, "Downloads"))
+                //.Add("Downloads", "/Downloads", IsActiveSection(filterContext, "Downloads"))
                 .Add("News", "/News", IsActiveSection(filterContext, "News"))
-                .Add("Tasks", "/Tasks", IsActiveSection(filterContext, "Tasks"))
-                .Add("Calendar", "/Calendar", IsActiveSection(filterContext, "Calendar"))
-                .Add("Partners", "/Partners", IsActiveSection(filterContext, "Partners"))
-                .Add("Discussions", "/Discussions", IsActiveSection(filterContext, "Discussions"))
-                .Add("Library", "/Library", IsActiveSection(filterContext, "Library"))
+                //.Add("Tasks", "/Tasks", IsActiveSection(filterContext, "Tasks"))
+                //.Add("Calendar", "/Calendar", IsActiveSection(filterContext, "Calendar"))
+                //.Add("Partners", "/Partners", IsActiveSection(filterContext, "Partners"))
+                //.Add("Discussions", "/Discussions", IsActiveSection(filterContext, "Discussions"))
+                //.Add("Library", "/Library", IsActiveSection(filterContext, "Library"))
                 .Add("Contacts", "/Contacts", IsActiveSection(filterContext, "Contacts"));
 
             var activeNavItem = _navItems.FirstOrDefault(i => i.IsActive);

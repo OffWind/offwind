@@ -785,6 +785,8 @@
     <Content Include="static\img\Depositphotos_7548530.jpg" />
     <Content Include="static\img\dust.png" />
     <Content Include="static\img\furley_bg.png" />
+    <Content Include="static\img\iStock_000026570439Small.jpg" />
+    <Content Include="static\img\meeting.jpg" />
     <Content Include="static\img\middleman.png" />
     <Content Include="static\img\subtle_surface.png" />
     <Content Include="static\jquery-1.8.1.min.js" />

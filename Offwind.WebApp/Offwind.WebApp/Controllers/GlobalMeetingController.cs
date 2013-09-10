@@ -12,5 +12,16 @@ namespace Offwind.WebApp.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        public ActionResult RegisterComplete()
+        {
+            return View();
+        }
     }
 }

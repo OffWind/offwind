@@ -7,3 +7,4 @@ obj/
 packages/
 _ReSharper.*/
 /Offwind.WebApp/*.user
+/Offwind.WebApp/Offwind.WebApp/Properties/PublishProfiles/*.pubxml

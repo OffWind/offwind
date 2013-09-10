@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -71,7 +72,18 @@ namespace Offwind.WebApp.Infrastructure
             if (txt.StartsWith("ftp://")) return txt;
             return "http://" + txt;
         }
-        /*
+
+        public static void InitEmptyStrings(this object target)
+        {
+            var type = target.GetType();
+            foreach (PropertyInfo info in type.GetProperties())
+            {
+                if (info.PropertyType != typeof(string)) continue;
+                var currentValue = info.GetValue(target, null);
+                if (currentValue != null) continue;
+                info.SetValue(target, "", null);
+            }
+        }       /*
         public static BlockModel GetBlock(string route)
         {
             using (var ctx = new OffwindEntities())

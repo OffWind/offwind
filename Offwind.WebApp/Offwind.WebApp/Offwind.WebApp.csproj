@@ -310,6 +310,7 @@
     <Compile Include="Models\Account\SystemRole.cs" />
     <Compile Include="Models\Account\VUserProfile.cs" />
     <Compile Include="Models\ContentType.cs" />
+    <Compile Include="Models\Event\VEventApplication.cs" />
     <Compile Include="Models\Jobs\Job.cs" />
     <Compile Include="Models\Jobs\JobResult.cs" />
     <Compile Include="Models\Jobs\JobState.cs" />
@@ -797,6 +798,7 @@
     <Content Include="static\img\iStock_000026570439Small.jpg" />
     <Content Include="static\img\meeting.jpg" />
     <Content Include="static\img\middleman.png" />
+    <Content Include="static\img\offwind-logo.png" />
     <Content Include="static\img\subtle_surface.png" />
     <Content Include="static\jquery-1.8.1.min.js" />
     <Content Include="static\handsontable-0.9.9\jquery.handsontable.css" />
@@ -2003,7 +2005,6 @@
     <Folder Include="Areas\Library\Views\Shared\" />
     <Folder Include="Areas\Partners\Views\Shared\" />
     <Folder Include="Areas\WindFarms\Views\Shared\" />
-    <Folder Include="Models\Event\" />
     <Folder Include="Models\WindFarms\" />
   </ItemGroup>
   <ItemGroup>
@@ -2390,6 +2391,8 @@
     <Content Include="Views\Home\__LatestPosts.cshtml" />
     <Content Include="Views\News\Show.cshtml" />
     <Content Include="Views\GlobalMeeting\Index.cshtml" />
+    <Content Include="Views\GlobalMeeting\RegisterComplete.cshtml" />
+    <Content Include="Views\GlobalMeeting\__EventDescription.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

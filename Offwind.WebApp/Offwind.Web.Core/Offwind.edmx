@@ -1487,32 +1487,32 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Offwind" ZoomLevel="40">
-        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="2.1539629093156956" PointY="25.148756530670802" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="7.6706167048172169" PointY="7.24750154057867" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="2.9996214914133872" PointY="5.4716597969977467" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="1.8431983673214905" PointY="11.28874372471531" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DCountry" Width="1.5" PointX="1.6234478324760908" PointY="11.943120485145188" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DEventApplication" Width="1.5" PointX="5.7964578782191776" PointY="15.247520707197264" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="4.4362659717147546" PointY="5.03696720536657" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="2.2510663076541695" PointY="30.425499006372643" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="6.3457715466366018" PointY="25.774985414824908" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="6.642118175813053" PointY="27.191116703297531" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="10.065230620124019" PointY="9.4513780518674189" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="9.58791657238636" PointY="15.689881466184687" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DTurbine" Width="1.5" PointX="11.75738718721894" PointY="18.796609425356895" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DTurbineParameter" Width="1.5" PointX="3.1198259960486672" PointY="3.6804432439061081" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="4.6633230897892837" PointY="21.878986860569096" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarm" Width="1.5" PointX="8.1870409698165219" PointY="19.799005607049448" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarmTurbine" Width="1.5" PointX="10.980100202830554" PointY="26.562045541853664" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="5.4983113023910253" PointY="31.340671598604263" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="5.7675472413038591" PointY="0.33742342905021433" />
-        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="6.2298721886379047" PointY="0.54939565088106113" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="3.95597791297174" PointY="25.226092305605341" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="0.42314973120724308" PointY="30.926286234951711" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="2.8976135286025766" PointY="17.80577305788443" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="3.5211628580098795" PointY="23.054304237968431" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="3.1536247856699049" PointY="10.88408367842626" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="4.3351989501785484" PointY="30.674558594205678" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="1.3380992381545247" PointY="25.453365367582705" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="7.49361254065" PointY="29.62983259448308" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="4.180399553934298" PointY="3.0070192380840979" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="9.1035752208454426" PointY="27.4476857313177" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCountry" Width="1.5" PointX="0.16890932441172624" PointY="5.8334444639428726" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DEventApplication" Width="1.5" PointX="6.444096232971221" PointY="15.217790878944934" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="11.158231772090417" PointY="23.049707050924052" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="10.257650601797575" PointY="7.3168508444525537" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="3.0460849176375593" PointY="22.780536826132117" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="9.3320469247792133" PointY="15.721706680823912" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="8.4004085233436943" PointY="15.263772569253934" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="4.4778197596212008" PointY="11.25666465389387" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DTurbine" Width="1.5" PointX="0.39633258636870072" PointY="6.38573533593944" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DTurbineParameter" Width="1.5" PointX="3.8709466009731157" PointY="11.364020665811385" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="9.36447520617604" PointY="24.292083244906777" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarm" Width="1.5" PointX="2.3553490463436346" PointY="21.5263062070712" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarmTurbine" Width="1.5" PointX="10.185907696460332" PointY="10.717777599914827" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="6.4805739514904914" PointY="1.5472172505907795" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="4.3977466003958821" PointY="1.8543313005260804" />
+        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="3.0226313970157088" PointY="21.133085305398836" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="11.863880362298284" PointY="5.9952610312007648" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="7.842655977160975" PointY="9.5993748202917057" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="11.397375801297546" PointY="24.317407410739644" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="0.032199081048462114" PointY="18.721820989028469" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="10.115233472602085" PointY="6.3480710714813648" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="9.4561242263094165" PointY="15.975579000998092" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" />
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingFile_DMeeting" />
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingParticipant_DMeeting" />

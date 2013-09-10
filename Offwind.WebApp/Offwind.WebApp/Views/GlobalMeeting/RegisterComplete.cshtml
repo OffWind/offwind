@@ -1,0 +1,32 @@
+﻿@model Offwind.WebApp.Models.Event.VEventApplication
+@{
+    ViewBag.Title = "Offwind Global Expert Meeting 2013 | Events | Offwind";
+}
+@section Styles
+{
+    <style>
+        table tr td
+        {
+            padding: 8px;
+        }
+        table tr td:first-child
+        {
+            font-weight: bold;
+        }
+    </style>   
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a><span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "Events", new { area = "" })">Events</a> <span class="divider">/</span></li>
+    <li class="active">Offwind Global Expert Meeting 2013</li>
+</ul>
+<div class="row-fluid">
+    <div class="span6 well">
+        @Html.Partial("__EventDescription")
+    </div>
+    <div class="span6 well">
+        <h2>Thank you for registration!</h2>
+        <p>An email with date and contact information is sent to email <strong>@Model.Email</strong>.</p>
+        <p>See you soon!</p>
+    </div>
+</div>

@@ -232,7 +232,6 @@
     <Compile Include="Areas\CFD\Models\Turbines\VTurbineInstance.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VTurbineType.cs" />
     <Compile Include="Areas\CFD\Models\VVertice.cs" />
-    <Compile Include="Areas\ControlPanel\Controllers\ContentMgmtController.cs" />
     <Compile Include="Areas\ControlPanel\Controllers\HomeMgmtController.cs" />
     <Compile Include="Areas\ControlPanel\Controllers\UsersController.cs" />
     <Compile Include="Areas\ControlPanel\Controllers\_BaseCmController.cs" />
@@ -309,6 +308,7 @@
     <Compile Include="Models\Account\AccountModels.cs" />
     <Compile Include="Models\Account\SystemRole.cs" />
     <Compile Include="Models\Account\VUserProfile.cs" />
+    <Compile Include="Models\BlockModel.cs" />
     <Compile Include="Models\ContentType.cs" />
     <Compile Include="Models\Event\VEventApplication.cs" />
     <Compile Include="Models\Jobs\Job.cs" />

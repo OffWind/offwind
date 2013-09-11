@@ -83,7 +83,36 @@ namespace Offwind.WebApp.Infrastructure
                 if (currentValue != null) continue;
                 info.SetValue(target, "", null);
             }
-        }       /*
+        }
+
+        public static IHtmlString BlockTitle(this HtmlHelper html, string name)
+        {
+            var block = BlockModel(html, name);
+            return new HtmlString(block.Title);
+        }
+
+        public static IHtmlString BlockContent(this HtmlHelper html, string name)
+        {
+            var block = BlockModel(html, name);
+            return new HtmlString(block.Content);
+        }
+
+        private static BlockModel BlockModel(HtmlHelper html, string name)
+        {
+            BlockModel block;
+            if (html.ViewData.ContainsKey(name))
+            {
+                block = (BlockModel) html.ViewData[name];
+            }
+            else
+            {
+                block = Models.BlockModel.GetBlock(name);
+                html.ViewData[name] = block;
+            }
+            return block;
+        }
+
+        /*
         public static BlockModel GetBlock(string route)
         {
             using (var ctx = new OffwindEntities())

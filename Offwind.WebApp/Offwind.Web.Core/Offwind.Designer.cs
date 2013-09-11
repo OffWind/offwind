@@ -1360,28 +1360,34 @@ namespace Offwind.Web.Core
         /// <param name="typeId">Initial value of the TypeId property.</param>
         /// <param name="route">Initial value of the Route property.</param>
         /// <param name="browserTitle">Initial value of the BrowserTitle property.</param>
+        /// <param name="metaDescription">Initial value of the MetaDescription property.</param>
+        /// <param name="metaKeywords">Initial value of the MetaKeywords property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="title">Initial value of the Title property.</param>
         /// <param name="announce">Initial value of the Announce property.</param>
         /// <param name="content">Initial value of the Content property.</param>
         /// <param name="created">Initial value of the Created property.</param>
         /// <param name="updated">Initial value of the Updated property.</param>
-        /// <param name="displayDateTime">Initial value of the DisplayDateTime property.</param>
+        /// <param name="publishDate">Initial value of the PublishDate property.</param>
+        /// <param name="expirationDate">Initial value of the ExpirationDate property.</param>
         /// <param name="isPublished">Initial value of the IsPublished property.</param>
-        public static DContent CreateDContent(global::System.Guid id, global::System.String typeId, global::System.String route, global::System.String browserTitle, global::System.String name, global::System.String title, global::System.String announce, global::System.String content, global::System.DateTime created, global::System.DateTime updated, global::System.DateTime displayDateTime, global::System.Boolean isPublished)
+        public static DContent CreateDContent(global::System.Guid id, global::System.String typeId, global::System.String route, global::System.String browserTitle, global::System.String metaDescription, global::System.String metaKeywords, global::System.String name, global::System.String title, global::System.String announce, global::System.String content, global::System.DateTime created, global::System.DateTime updated, global::System.DateTime publishDate, global::System.DateTime expirationDate, global::System.Boolean isPublished)
         {
             DContent dContent = new DContent();
             dContent.Id = id;
             dContent.TypeId = typeId;
             dContent.Route = route;
             dContent.BrowserTitle = browserTitle;
+            dContent.MetaDescription = metaDescription;
+            dContent.MetaKeywords = metaKeywords;
             dContent.Name = name;
             dContent.Title = title;
             dContent.Announce = announce;
             dContent.Content = content;
             dContent.Created = created;
             dContent.Updated = updated;
-            dContent.DisplayDateTime = displayDateTime;
+            dContent.PublishDate = publishDate;
+            dContent.ExpirationDate = expirationDate;
             dContent.IsPublished = isPublished;
             return dContent;
         }
@@ -1488,6 +1494,54 @@ namespace Offwind.Web.Core
         private global::System.String _BrowserTitle;
         partial void OnBrowserTitleChanging(global::System.String value);
         partial void OnBrowserTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MetaDescription
+        {
+            get
+            {
+                return _MetaDescription;
+            }
+            set
+            {
+                OnMetaDescriptionChanging(value);
+                ReportPropertyChanging("MetaDescription");
+                _MetaDescription = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MetaDescription");
+                OnMetaDescriptionChanged();
+            }
+        }
+        private global::System.String _MetaDescription;
+        partial void OnMetaDescriptionChanging(global::System.String value);
+        partial void OnMetaDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MetaKeywords
+        {
+            get
+            {
+                return _MetaKeywords;
+            }
+            set
+            {
+                OnMetaKeywordsChanging(value);
+                ReportPropertyChanging("MetaKeywords");
+                _MetaKeywords = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MetaKeywords");
+                OnMetaKeywordsChanged();
+            }
+        }
+        private global::System.String _MetaKeywords;
+        partial void OnMetaKeywordsChanging(global::System.String value);
+        partial void OnMetaKeywordsChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1638,24 +1692,48 @@ namespace Offwind.Web.Core
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.DateTime DisplayDateTime
+        public global::System.DateTime PublishDate
         {
             get
             {
-                return _DisplayDateTime;
+                return _PublishDate;
             }
             set
             {
-                OnDisplayDateTimeChanging(value);
-                ReportPropertyChanging("DisplayDateTime");
-                _DisplayDateTime = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DisplayDateTime");
-                OnDisplayDateTimeChanged();
+                OnPublishDateChanging(value);
+                ReportPropertyChanging("PublishDate");
+                _PublishDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PublishDate");
+                OnPublishDateChanged();
             }
         }
-        private global::System.DateTime _DisplayDateTime;
-        partial void OnDisplayDateTimeChanging(global::System.DateTime value);
-        partial void OnDisplayDateTimeChanged();
+        private global::System.DateTime _PublishDate;
+        partial void OnPublishDateChanging(global::System.DateTime value);
+        partial void OnPublishDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime ExpirationDate
+        {
+            get
+            {
+                return _ExpirationDate;
+            }
+            set
+            {
+                OnExpirationDateChanging(value);
+                ReportPropertyChanging("ExpirationDate");
+                _ExpirationDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ExpirationDate");
+                OnExpirationDateChanged();
+            }
+        }
+        private global::System.DateTime _ExpirationDate;
+        partial void OnExpirationDateChanging(global::System.DateTime value);
+        partial void OnExpirationDateChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

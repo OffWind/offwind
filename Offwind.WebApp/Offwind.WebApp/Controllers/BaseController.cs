@@ -21,5 +21,19 @@ namespace Offwind.WebApp.Controllers
             ViewBag.IsAdmin = AccountsHelper.IsAdmin(filterContext.HttpContext.User.Identity.Name);
             base.OnActionExecuted(filterContext);
         }
+
+        protected BlockModel GetBlock(string name)
+        {
+            var ctBlock = ContentType.Block.ToString();
+            var content = _ctx.DContents.FirstOrDefault(c => c.TypeId == ctBlock && c.Name == name);
+            var block = new BlockModel();
+            if (content != null)
+            {
+                block.Name = content.Name;
+                block.Title = content.Title;
+                block.Content = content.Content;
+            }
+            return block;
+        }
     }
 }

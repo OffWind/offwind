@@ -1,0 +1,10 @@
+﻿@model Offwind.Web.Core.DContent
+@{
+    ViewBag.Title = Model.BrowserTitle;
+}
+
+<div class="row-fluid row-content-block">
+    <div class="span12 well">
+        @Html.Raw(Model.Content)
+    </div>
+</div>

@@ -278,11 +278,11 @@
     <Compile Include="Areas\WindFarms\Controllers\_BaseController.cs" />
     <Compile Include="Areas\WindFarms\Models\VWindFarmsHome.cs" />
     <Compile Include="Areas\WindFarms\WindFarmsAreaRegistration.cs" />
-    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\CFD\Controllers\CaseManagementController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Controllers\GlobalMeetingController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\MailingController.cs" />
@@ -2028,7 +2028,6 @@
     <Content Include="Areas\EngineeringTools\Views\MesoWind\Results.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\PostProcessing.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\EngineeringTools\Index.cshtml" />
-    <Content Include="Views\About\Index.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\Shared\__SideNav.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -2388,6 +2387,7 @@
     <Content Include="Views\GlobalMeeting\Index.cshtml" />
     <Content Include="Views\GlobalMeeting\RegisterComplete.cshtml" />
     <Content Include="Views\GlobalMeeting\__EventDescription.cshtml" />
+    <Content Include="Views\Content\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

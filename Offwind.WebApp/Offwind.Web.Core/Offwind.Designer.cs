@@ -273,6 +273,22 @@ namespace Offwind.Web.Core
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<DProperty> DProperties
+        {
+            get
+            {
+                if ((_DProperties == null))
+                {
+                    _DProperties = base.CreateObjectSet<DProperty>("DProperties");
+                }
+                return _DProperties;
+            }
+        }
+        private ObjectSet<DProperty> _DProperties;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<DTurbine> DTurbines
         {
             get
@@ -592,6 +608,14 @@ namespace Offwind.Web.Core
         public void AddToDMesoscaleTabFiles(DMesoscaleTabFile dMesoscaleTabFile)
         {
             base.AddObject("DMesoscaleTabFiles", dMesoscaleTabFile);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DProperties EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDProperties(DProperty dProperty)
+        {
+            base.AddObject("DProperties", dProperty);
         }
     
         /// <summary>
@@ -3238,6 +3262,89 @@ namespace Offwind.Web.Core
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DProperty")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DProperty : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DProperty object.
+        /// </summary>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="value">Initial value of the Value property.</param>
+        public static DProperty CreateDProperty(global::System.String name, global::System.String value)
+        {
+            DProperty dProperty = new DProperty();
+            dProperty.Name = name;
+            dProperty.Value = value;
+            return dProperty;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                if (_Name != value)
+                {
+                    OnNameChanging(value);
+                    ReportPropertyChanging("Name");
+                    _Name = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Name");
+                    OnNameChanged();
+                }
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Value
+        {
+            get
+            {
+                return _Value;
+            }
+            set
+            {
+                OnValueChanging(value);
+                ReportPropertyChanging("Value");
+                _Value = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Value");
+                OnValueChanged();
+            }
+        }
+        private global::System.String _Value;
+        partial void OnValueChanging(global::System.String value);
+        partial void OnValueChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>

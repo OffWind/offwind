@@ -1,0 +1,35 @@
+﻿@using Offwind.WebApp.Infrastructure
+@using Offwind.WebApp.Infrastructure.Navigation
+
+@{
+    var navigation = (NavItem<string>)ViewBag.SideNav;
+}
+<div class="sidebar-nav">
+    @{
+        var counter = 0;
+    }
+    @foreach (var grp in navigation)
+    {
+        var grpClass = "";
+        var grpListClass = "in";
+        if (!grp.IsActive)
+        {
+            grpClass = "collapsed";
+            grpListClass = "";
+        }
+        var idstr = "menu-" + counter++;
+        <div class="nav-header @grpClass" data-toggle="collapse" data-target="#@idstr">@grp.Title</div>
+        <ul id="@idstr" class="nav nav-list collapse @grpListClass">
+            @foreach (var item in grp)
+            {
+                <li @this.ActiveIfCurrent(item.Url)>
+                    <a href="@item.Url">
+                        @item.Title
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+

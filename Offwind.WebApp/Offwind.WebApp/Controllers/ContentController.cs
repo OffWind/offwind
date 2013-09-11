@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Offwind.Web.Core;
+using Offwind.WebApp.Infrastructure.Navigation;
 
 namespace Offwind.WebApp.Controllers
 {
@@ -34,8 +35,26 @@ namespace Offwind.WebApp.Controllers
                 ViewBag.MetaDescription = dPage.MetaDescription;
             }
 
+            InitNavigation();
+
             return View("Show", dPage);
         }
 
+        private void InitNavigation()
+        {
+            var navigation = new NavItem<string>();
+            navigation.AddGroup("Information")
+                .AddItem("About", "/info-about")
+                .AddItem("Partners", "/info-partners")
+                .AddItem("Offwind Project", "/info-offwind-project")
+                .AddItem("Offwind Toolkit", "/info-offwind-toolkit")
+                ;
+
+            foreach (var grp in navigation)
+            {
+                grp.IsActive = true;
+            }
+            ViewBag.SideNav = navigation;
+        }
     }
 }

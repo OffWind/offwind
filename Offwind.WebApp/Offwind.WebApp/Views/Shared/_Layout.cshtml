@@ -56,13 +56,19 @@
 
     <div id="main" class="container">
         <div class="row-fluid">
-            @{
-                var navigation = (NavItem<NavUrl>)ViewBag.SideNav;
-            }
-            @if (navigation != null && navigation.Any())
+            @if (ViewBag.SideNav as NavItem<NavUrl> != null)
             {
                 <div class="span3">
                     @Html.Partial("~/Views/Shared/__SideNav.cshtml")
+                </div>
+                <div class="span9">
+                    @RenderBody()
+                </div>
+            }
+            else if (ViewBag.SideNav as NavItem<string> != null)
+            {
+                <div class="span3">
+                    @Html.Partial("~/Views/Shared/__SideNavStrings.cshtml")
                 </div>
                 <div class="span9">
                     @RenderBody()

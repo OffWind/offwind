@@ -236,7 +236,6 @@
     <Compile Include="Areas\ControlPanel\Controllers\UsersController.cs" />
     <Compile Include="Areas\ControlPanel\Controllers\_BaseCmController.cs" />
     <Compile Include="Areas\ControlPanel\ControlPanelAreaRegistration.cs" />
-    <Compile Include="Areas\ControlPanel\Models\ContentModel.cs" />
     <Compile Include="Areas\ControlPanel\Models\UserModel.cs" />
     <Compile Include="Areas\ControlPanel\Tools\ContentTypeHelpers.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\EngineeringToolsController.cs" />
@@ -2153,10 +2152,6 @@
     <Content Include="Areas\EngineeringTools\Views\WindWave\Index.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\PointPage.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Web.config" />
-    <Content Include="Areas\ControlPanel\Views\ContentMgmt\Delete.cshtml" />
-    <Content Include="Areas\ControlPanel\Views\ContentMgmt\Edit.cshtml" />
-    <Content Include="Areas\ControlPanel\Views\ContentMgmt\Index.cshtml" />
-    <Content Include="Areas\ControlPanel\Views\ContentMgmt\Show.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\Boolean.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\CKFinder.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\Decimal.cshtml" />

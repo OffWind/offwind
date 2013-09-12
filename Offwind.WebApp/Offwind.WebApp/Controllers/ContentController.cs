@@ -43,12 +43,12 @@ namespace Offwind.WebApp.Controllers
         private void InitNavigation()
         {
             var navigation = new NavItem<string>();
-            navigation.AddGroup("Information")
-                .AddItem("About", "/info-about")
-                .AddItem("Partners", "/info-partners")
-                .AddItem("Offwind Project", "/info-offwind-project")
-                .AddItem("Offwind Toolkit", "/info-offwind-toolkit")
-                ;
+            var group = navigation.AddGroup("Information");
+            var cid = Guid.Parse("9EC610BF-4F5B-4E02-A3DA-DA6C853F9B64");
+            foreach (var ri in _ctx.VRouteItems.Where(ri => ri.CategoryId == cid).OrderBy(ri => ri.Position))
+            {
+                group.AddItem(ri.RouteTitle, ri.Route);
+            }
 
             foreach (var grp in navigation)
             {

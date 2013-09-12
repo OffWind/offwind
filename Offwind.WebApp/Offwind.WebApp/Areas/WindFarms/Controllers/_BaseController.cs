@@ -1,6 +1,7 @@
 ﻿using System.Web.Configuration;
 using System.Web.Mvc;
 using Offwind.Web.Core;
+using Offwind.WebApp.Controllers;
 using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Infrastructure.Navigation;
 using Offwind.WebApp.Models;
@@ -9,7 +10,7 @@ using Offwind.WebApp.Models.Account;
 namespace Offwind.WebApp.Areas.WindFarms.Controllers
 {
     [Authorize(Roles = SystemRole.User)]
-    public class _BaseController : Controller
+    public class _BaseController : BaseController
     {
         protected string _currentGroup = "Wind Farms & Turbines";
         protected OffwindEntities _ctx = new OffwindEntities();

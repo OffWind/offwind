@@ -6,6 +6,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using Offwind.Web.Core;
+using Offwind.WebApp.Controllers;
 using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Infrastructure.Navigation;
 using Offwind.WebApp.Models;
@@ -14,7 +15,7 @@ using Offwind.WebApp.Models.Account;
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
     [Authorize(Roles = SystemRole.User)]
-    public class _BaseController : Controller
+    public class _BaseController : BaseController
     {
         protected string _currentGroup;
         protected OffwindEntities _ctx = new OffwindEntities();

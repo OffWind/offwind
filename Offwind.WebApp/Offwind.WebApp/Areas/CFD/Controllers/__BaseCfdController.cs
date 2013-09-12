@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Xml.Serialization;
 using Offwind.OpenFoam.Sintef;
+using Offwind.WebApp.Controllers;
 using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Infrastructure.Navigation;
 using Offwind.WebApp.Models;
@@ -18,7 +19,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 {
 // ReSharper disable InconsistentNaming
     [Authorize(Roles = SystemRole.User)]
-    public class __BaseCfdController : Controller
+    public class __BaseCfdController : BaseController
     {
         protected readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 

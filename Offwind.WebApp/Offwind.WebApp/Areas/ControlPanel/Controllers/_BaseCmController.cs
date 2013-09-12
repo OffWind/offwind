@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Offwind.Web.Core;
 using Offwind.WebApp.Areas.ControlPanel.Tools;
+using Offwind.WebApp.Controllers;
 using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Infrastructure.Navigation;
 using Offwind.WebApp.Models;
@@ -17,7 +18,7 @@ using Offwind.WebApp.Models;
 namespace Offwind.WebApp.Areas.ControlPanel.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class _BaseCmController : Controller
+    public class _BaseCmController : BaseController
     {
         protected OffwindEntities _ctx = new OffwindEntities();
 

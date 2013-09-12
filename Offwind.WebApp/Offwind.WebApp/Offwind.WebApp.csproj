@@ -2389,6 +2389,7 @@
     <Content Include="Views\GlobalMeeting\__EventDescription.cshtml" />
     <Content Include="Views\Content\Show.cshtml" />
     <Content Include="Views\Shared\__SideNavStrings.cshtml" />
+    <Content Include="Views\Shared\__MainMenuCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

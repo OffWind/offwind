@@ -6,8 +6,11 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using Offwind.Web.Core;
+using Offwind.WebApp.Areas.ControlPanel.Tools;
 using Offwind.WebApp.Infrastructure;
+using Offwind.WebApp.Infrastructure.Navigation;
 using Offwind.WebApp.Models;
+using WebGrease.Css.Extensions;
 
 namespace Offwind.WebApp.Controllers
 {
@@ -19,6 +22,22 @@ namespace Offwind.WebApp.Controllers
         {
             ViewBag.Version = WebConfigurationManager.AppSettings["AppVersion"];
             ViewBag.IsAdmin = AccountsHelper.IsAdmin(filterContext.HttpContext.User.Identity.Name);
+
+            var mainMenu = new Dictionary<string, NavItem<string>>();
+            foreach (var cat in _ctx.DContentCategories)
+            {
+                var navGroup = new NavItem<string>();
+                navGroup.Title = cat.Title;
+                navGroup.Url = cat.Route;
+                foreach (var routeItem in _ctx.VRouteItems.Where(ri => ri.CategoryId == cat.Id))
+                {
+                    navGroup.AddItem(routeItem.RouteTitle, routeItem.Route);
+                }
+                mainMenu[cat.Name] = navGroup;
+            }
+
+            ViewBag.MainMenu = mainMenu;
+
             base.OnActionExecuted(filterContext);
         }
 

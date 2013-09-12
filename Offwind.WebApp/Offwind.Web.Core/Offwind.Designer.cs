@@ -19,6 +19,7 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
+[assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DContent_DContentCategory", "DContentCategory", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Offwind.Web.Core.DContentCategory), "DContent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.Web.Core.DContent), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DContent_DContentTypes", "DContentType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.Web.Core.DContentType), "DContent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.Web.Core.DContent), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingFile_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.Web.Core.DMeeting), "DMeetingFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.Web.Core.DMeetingFile), true)]
 [assembly: EdmRelationshipAttribute("Offwind.DbModels", "FK_DMeetingParticipant_DMeeting", "DMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Offwind.Web.Core.DMeeting), "DMeetingParticipant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Offwind.Web.Core.DMeetingParticipant), true)]
@@ -125,6 +126,22 @@ namespace Offwind.Web.Core
             }
         }
         private ObjectSet<DContent> _DContents;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DContentCategory> DContentCategories
+        {
+            get
+            {
+                if ((_DContentCategories == null))
+                {
+                    _DContentCategories = base.CreateObjectSet<DContentCategory>("DContentCategories");
+                }
+                return _DContentCategories;
+            }
+        }
+        private ObjectSet<DContentCategory> _DContentCategories;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -481,6 +498,22 @@ namespace Offwind.Web.Core
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<VRouteItem> VRouteItems
+        {
+            get
+            {
+                if ((_VRouteItems == null))
+                {
+                    _VRouteItems = base.CreateObjectSet<VRouteItem>("VRouteItems");
+                }
+                return _VRouteItems;
+            }
+        }
+        private ObjectSet<VRouteItem> _VRouteItems;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<VSmallMesoscaleTabFile> VSmallMesoscaleTabFiles
         {
             get
@@ -536,6 +569,14 @@ namespace Offwind.Web.Core
         public void AddToDContents(DContent dContent)
         {
             base.AddObject("DContents", dContent);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DContentCategories EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDContentCategories(DContentCategory dContentCategory)
+        {
+            base.AddObject("DContentCategories", dContentCategory);
         }
     
         /// <summary>
@@ -712,6 +753,14 @@ namespace Offwind.Web.Core
         public void AddToVPartners(VPartner vPartner)
         {
             base.AddObject("VPartners", vPartner);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the VRouteItems EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToVRouteItems(VRouteItem vRouteItem)
+        {
+            base.AddObject("VRouteItems", vRouteItem);
         }
     
         /// <summary>
@@ -1450,6 +1499,30 @@ namespace Offwind.Web.Core
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> ParentId
+        {
+            get
+            {
+                return _ParentId;
+            }
+            set
+            {
+                OnParentIdChanging(value);
+                ReportPropertyChanging("ParentId");
+                _ParentId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ParentId");
+                OnParentIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _ParentId;
+        partial void OnParentIdChanging(Nullable<global::System.Guid> value);
+        partial void OnParentIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String TypeId
@@ -1470,6 +1543,54 @@ namespace Offwind.Web.Core
         private global::System.String _TypeId;
         partial void OnTypeIdChanging(global::System.String value);
         partial void OnTypeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> CategoryId
+        {
+            get
+            {
+                return _CategoryId;
+            }
+            set
+            {
+                OnCategoryIdChanging(value);
+                ReportPropertyChanging("CategoryId");
+                _CategoryId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CategoryId");
+                OnCategoryIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _CategoryId;
+        partial void OnCategoryIdChanging(Nullable<global::System.Guid> value);
+        partial void OnCategoryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RouteTitle
+        {
+            get
+            {
+                return _RouteTitle;
+            }
+            set
+            {
+                OnRouteTitleChanging(value);
+                ReportPropertyChanging("RouteTitle");
+                _RouteTitle = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RouteTitle");
+                OnRouteTitleChanged();
+            }
+        }
+        private global::System.String _RouteTitle;
+        partial void OnRouteTitleChanging(global::System.String value);
+        partial void OnRouteTitleChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1794,6 +1915,44 @@ namespace Offwind.Web.Core
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DContent_DContentCategory", "DContentCategory")]
+        public DContentCategory DContentCategory
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DContentCategory>("Offwind.DbModels.FK_DContent_DContentCategory", "DContentCategory").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DContentCategory>("Offwind.DbModels.FK_DContent_DContentCategory", "DContentCategory").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DContentCategory> DContentCategoryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DContentCategory>("Offwind.DbModels.FK_DContent_DContentCategory", "DContentCategory");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DContentCategory>("Offwind.DbModels.FK_DContent_DContentCategory", "DContentCategory", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DContent_DContentTypes", "DContentType")]
         public DContentType DContentType
         {
@@ -1822,6 +1981,165 @@ namespace Offwind.Web.Core
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DContentType>("Offwind.DbModels.FK_DContent_DContentTypes", "DContentType", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DContentCategory")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DContentCategory : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DContentCategory object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="title">Initial value of the Title property.</param>
+        public static DContentCategory CreateDContentCategory(global::System.Guid id, global::System.String name, global::System.String title)
+        {
+            DContentCategory dContentCategory = new DContentCategory();
+            dContentCategory.Id = id;
+            dContentCategory.Name = name;
+            dContentCategory.Title = title;
+            return dContentCategory;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Title
+        {
+            get
+            {
+                return _Title;
+            }
+            set
+            {
+                OnTitleChanging(value);
+                ReportPropertyChanging("Title");
+                _Title = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Title");
+                OnTitleChanged();
+            }
+        }
+        private global::System.String _Title;
+        partial void OnTitleChanging(global::System.String value);
+        partial void OnTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Route
+        {
+            get
+            {
+                return _Route;
+            }
+            set
+            {
+                OnRouteChanging(value);
+                ReportPropertyChanging("Route");
+                _Route = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Route");
+                OnRouteChanged();
+            }
+        }
+        private global::System.String _Route;
+        partial void OnRouteChanging(global::System.String value);
+        partial void OnRouteChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Offwind.DbModels", "FK_DContent_DContentCategory", "DContent")]
+        public EntityCollection<DContent> DContents
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DContent>("Offwind.DbModels.FK_DContent_DContentCategory", "DContent");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DContent>("Offwind.DbModels.FK_DContent_DContentCategory", "DContent", value);
                 }
             }
         }
@@ -6132,6 +6450,193 @@ namespace Offwind.Web.Core
         private global::System.Int32 _RoleId;
         partial void OnRoleIdChanging(global::System.Int32 value);
         partial void OnRoleIdChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="VRouteItem")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class VRouteItem : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new VRouteItem object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="typeId">Initial value of the TypeId property.</param>
+        /// <param name="route">Initial value of the Route property.</param>
+        public static VRouteItem CreateVRouteItem(global::System.Guid id, global::System.String typeId, global::System.String route)
+        {
+            VRouteItem vRouteItem = new VRouteItem();
+            vRouteItem.Id = id;
+            vRouteItem.TypeId = typeId;
+            vRouteItem.Route = route;
+            return vRouteItem;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> ParentId
+        {
+            get
+            {
+                return _ParentId;
+            }
+            set
+            {
+                OnParentIdChanging(value);
+                ReportPropertyChanging("ParentId");
+                _ParentId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ParentId");
+                OnParentIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _ParentId;
+        partial void OnParentIdChanging(Nullable<global::System.Guid> value);
+        partial void OnParentIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String TypeId
+        {
+            get
+            {
+                return _TypeId;
+            }
+            set
+            {
+                if (_TypeId != value)
+                {
+                    OnTypeIdChanging(value);
+                    ReportPropertyChanging("TypeId");
+                    _TypeId = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("TypeId");
+                    OnTypeIdChanged();
+                }
+            }
+        }
+        private global::System.String _TypeId;
+        partial void OnTypeIdChanging(global::System.String value);
+        partial void OnTypeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> CategoryId
+        {
+            get
+            {
+                return _CategoryId;
+            }
+            set
+            {
+                OnCategoryIdChanging(value);
+                ReportPropertyChanging("CategoryId");
+                _CategoryId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CategoryId");
+                OnCategoryIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _CategoryId;
+        partial void OnCategoryIdChanging(Nullable<global::System.Guid> value);
+        partial void OnCategoryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RouteTitle
+        {
+            get
+            {
+                return _RouteTitle;
+            }
+            set
+            {
+                OnRouteTitleChanging(value);
+                ReportPropertyChanging("RouteTitle");
+                _RouteTitle = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RouteTitle");
+                OnRouteTitleChanged();
+            }
+        }
+        private global::System.String _RouteTitle;
+        partial void OnRouteTitleChanging(global::System.String value);
+        partial void OnRouteTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Route
+        {
+            get
+            {
+                return _Route;
+            }
+            set
+            {
+                if (_Route != value)
+                {
+                    OnRouteChanging(value);
+                    ReportPropertyChanging("Route");
+                    _Route = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Route");
+                    OnRouteChanged();
+                }
+            }
+        }
+        private global::System.String _Route;
+        partial void OnRouteChanging(global::System.String value);
+        partial void OnRouteChanged();
 
         #endregion
 

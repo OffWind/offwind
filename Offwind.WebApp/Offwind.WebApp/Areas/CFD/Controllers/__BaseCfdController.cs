@@ -67,8 +67,6 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
             ViewBag.SectionTitle = SectionTitle;
             ViewBag.ShortTitle = ShortTitle ?? Title;
             ViewBag.Title = String.Format("{0} | {1} | CFD | Offwind", Title ?? ShortTitle, SectionTitle);
-            ViewBag.Version = WebConfigurationManager.AppSettings["AppVersion"];
-            ViewBag.IsAdmin = AccountsHelper.IsAdmin(filterContext.HttpContext.User.Identity.Name);
 
             InitNavigation();
         }

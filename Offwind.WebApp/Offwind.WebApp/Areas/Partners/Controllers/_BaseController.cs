@@ -20,8 +20,6 @@ namespace Offwind.WebApp.Areas.Partners.Controllers
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             base.OnActionExecuted(filterContext);
-            ViewBag.Version = WebConfigurationManager.AppSettings["AppVersion"];
-            ViewBag.IsAdmin = AccountsHelper.IsAdmin(filterContext.HttpContext.User.Identity.Name);
 
             if (!_noNavigation)
             {

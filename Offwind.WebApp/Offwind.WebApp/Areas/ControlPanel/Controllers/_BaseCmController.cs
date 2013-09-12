@@ -24,10 +24,10 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            base.OnActionExecuting(filterContext);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
 
-            ViewBag.SiteName = WebConfigurationManager.AppSettings["SiteName"];
             ViewBag.Title = "Control Panel";
 
             // Get current controller metadata
@@ -47,9 +47,6 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
                 if (a.DisplayName != null && a.DisplayName.Trim().Length > 0)
                     ViewBag.Title += ": " + a.DisplayName;
             }
-
-            ViewBag.Version = WebConfigurationManager.AppSettings["AppVersion"];
-            base.OnActionExecuting(filterContext);
         }
 
 

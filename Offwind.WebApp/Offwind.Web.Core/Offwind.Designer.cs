@@ -1432,6 +1432,7 @@ namespace Offwind.Web.Core
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="typeId">Initial value of the TypeId property.</param>
         /// <param name="route">Initial value of the Route property.</param>
+        /// <param name="position">Initial value of the Position property.</param>
         /// <param name="browserTitle">Initial value of the BrowserTitle property.</param>
         /// <param name="metaDescription">Initial value of the MetaDescription property.</param>
         /// <param name="metaKeywords">Initial value of the MetaKeywords property.</param>
@@ -1444,12 +1445,13 @@ namespace Offwind.Web.Core
         /// <param name="publishDate">Initial value of the PublishDate property.</param>
         /// <param name="expirationDate">Initial value of the ExpirationDate property.</param>
         /// <param name="isPublished">Initial value of the IsPublished property.</param>
-        public static DContent CreateDContent(global::System.Guid id, global::System.String typeId, global::System.String route, global::System.String browserTitle, global::System.String metaDescription, global::System.String metaKeywords, global::System.String name, global::System.String title, global::System.String announce, global::System.String content, global::System.DateTime created, global::System.DateTime updated, global::System.DateTime publishDate, global::System.DateTime expirationDate, global::System.Boolean isPublished)
+        public static DContent CreateDContent(global::System.Guid id, global::System.String typeId, global::System.String route, global::System.Int32 position, global::System.String browserTitle, global::System.String metaDescription, global::System.String metaKeywords, global::System.String name, global::System.String title, global::System.String announce, global::System.String content, global::System.DateTime created, global::System.DateTime updated, global::System.DateTime publishDate, global::System.DateTime expirationDate, global::System.Boolean isPublished)
         {
             DContent dContent = new DContent();
             dContent.Id = id;
             dContent.TypeId = typeId;
             dContent.Route = route;
+            dContent.Position = position;
             dContent.BrowserTitle = browserTitle;
             dContent.MetaDescription = metaDescription;
             dContent.MetaKeywords = metaKeywords;
@@ -1615,6 +1617,30 @@ namespace Offwind.Web.Core
         private global::System.String _Route;
         partial void OnRouteChanging(global::System.String value);
         partial void OnRouteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Position
+        {
+            get
+            {
+                return _Position;
+            }
+            set
+            {
+                OnPositionChanging(value);
+                ReportPropertyChanging("Position");
+                _Position = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Position");
+                OnPositionChanged();
+            }
+        }
+        private global::System.Int32 _Position;
+        partial void OnPositionChanging(global::System.Int32 value);
+        partial void OnPositionChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6472,12 +6498,14 @@ namespace Offwind.Web.Core
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="typeId">Initial value of the TypeId property.</param>
         /// <param name="route">Initial value of the Route property.</param>
-        public static VRouteItem CreateVRouteItem(global::System.Guid id, global::System.String typeId, global::System.String route)
+        /// <param name="position">Initial value of the Position property.</param>
+        public static VRouteItem CreateVRouteItem(global::System.Guid id, global::System.String typeId, global::System.String route, global::System.Int32 position)
         {
             VRouteItem vRouteItem = new VRouteItem();
             vRouteItem.Id = id;
             vRouteItem.TypeId = typeId;
             vRouteItem.Route = route;
+            vRouteItem.Position = position;
             return vRouteItem;
         }
 
@@ -6637,6 +6665,33 @@ namespace Offwind.Web.Core
         private global::System.String _Route;
         partial void OnRouteChanging(global::System.String value);
         partial void OnRouteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Position
+        {
+            get
+            {
+                return _Position;
+            }
+            set
+            {
+                if (_Position != value)
+                {
+                    OnPositionChanging(value);
+                    ReportPropertyChanging("Position");
+                    _Position = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Position");
+                    OnPositionChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Position;
+        partial void OnPositionChanging(global::System.Int32 value);
+        partial void OnPositionChanged();
 
         #endregion
 

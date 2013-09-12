@@ -29,7 +29,7 @@ namespace Offwind.WebApp.Controllers
                 var navGroup = new NavItem<string>();
                 navGroup.Title = cat.Title;
                 navGroup.Url = cat.Route;
-                foreach (var routeItem in _ctx.VRouteItems.Where(ri => ri.CategoryId == cat.Id))
+                foreach (var routeItem in _ctx.VRouteItems.Where(ri => ri.CategoryId == cat.Id).OrderBy(ri => ri.Position))
                 {
                     navGroup.AddItem(routeItem.RouteTitle, routeItem.Route);
                 }

@@ -34,7 +34,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private void InitNavigation()
         {
             var navigation = new NavItem<NavUrl>();
-            navigation.AddGroup("Meso Wind")
+            navigation.AddGroup("Mesoscale Wind Database")
                 .AddItem("Overview", new NavUrl("Index", "MesoWind", "EngineeringTools"))
                 .AddItem("Database", new NavUrl("Database", "MesoWind", "EngineeringTools"));
             /*
@@ -48,19 +48,19 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Simulation", new NavUrl("Simulation", "WakeSimulation", "EngineeringTools"))
                 .AddItem("Post-processing", new NavUrl("PostProcessing", "WakeSimulation", "EngineeringTools"));
 
-            navigation.AddGroup("Wind Wave Power")
+            navigation.AddGroup("Wind Farm Control")
+                .AddItem("Simulation", new NavUrl("Index", "WakeSimulation2", "EngineeringTools"))
+                .AddItem("Results", new NavUrl("Results", "WakeSimulation2", "EngineeringTools"));
+
+            navigation.AddGroup("Wind Farm Power Calculator")
                 .AddItem("Overview", new NavUrl("Index", "WindWave", "EngineeringTools"))
                 .AddItem("Input Data", new NavUrl("InputData", "WindWave", "EngineeringTools"))
                 .AddItem("Power Output", new NavUrl("PowerOutput", "WindWave", "EngineeringTools"))
                 .AddItem("Power Output Adv.", new NavUrl("PowerOutputAdvanced", "WindWave", "EngineeringTools"));
 
-            navigation.AddGroup("Wind Farm Control")
-                .AddItem("Input Data", new NavUrl("InputData", "WindFarm", "EngineeringTools"))
-                .AddItem("Simulation", new NavUrl("Simulation", "WindFarm", "EngineeringTools"));
-
-            navigation.AddGroup("Wake Simulation II")
-                .AddItem("Simulation", new NavUrl("Index", "WakeSimulation2", "EngineeringTools"))
-                .AddItem("Results", new NavUrl("Results", "WakeSimulation2", "EngineeringTools"));
+            //navigation.AddGroup("Wind Farm Control")
+            //    .AddItem("Input Data", new NavUrl("InputData", "WindFarm", "EngineeringTools"))
+            //    .AddItem("Simulation", new NavUrl("Simulation", "WindFarm", "EngineeringTools"));
 
 
             foreach (var grp in navigation)

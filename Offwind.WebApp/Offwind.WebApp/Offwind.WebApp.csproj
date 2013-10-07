@@ -51,6 +51,15 @@
       <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoRepository">
+      <HintPath>..\packages\MongoRepository.1.5.2\lib\MongoRepository.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\Prebuilt\NUnit\nunit.framework.dll</HintPath>
     </Reference>
@@ -714,6 +723,8 @@
     <Content Include="static\css\myelements.css" />
     <Content Include="static\css\theme.css" />
     <Content Include="static\eng-tools\meso-wind\db-fnl.png" />
+    <Content Include="static\eng-tools\wake-model\turbine-partial-shadowing.png" />
+    <Content Include="static\eng-tools\wake-model\wake-model-that-assumes-linear-expansion-of-wake-cone.png" />
     <Content Include="static\eng-tools\wind-wave\algorithm.PNG" />
     <Content Include="static\eng-tools\wind-wave\formula-1.PNG" />
     <Content Include="static\eng-tools\wind-wave\formula-2.PNG" />
@@ -2189,6 +2200,7 @@
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2\Simulation.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2\Results.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2\Index.cshtml" />
+    <Content Include="Documentation.chm" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />
     <None Include="static\ckeditor\CHANGES.md" />

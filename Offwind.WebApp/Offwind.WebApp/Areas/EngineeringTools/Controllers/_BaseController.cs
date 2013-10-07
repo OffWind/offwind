@@ -37,6 +37,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Wind Rose", new NavUrl("WindRose", "MesoWind", "EngineeringTools"));
             */
             navigation.AddGroup("Wake Simulation", isActive: controller == "WakeSimulation")
+                .AddItem("Overview", new NavUrl("Index", "WakeSimulation", "EngineeringTools"))
                 .AddItem("General Properties", new NavUrl("GeneralProperties", "WakeSimulation", "EngineeringTools"))
                 .AddItem("Turbine Coordinates", new NavUrl("TurbineCoordinates", "WakeSimulation", "EngineeringTools"))
                 .AddItem("Simulation", new NavUrl("Simulation", "WakeSimulation", "EngineeringTools"))

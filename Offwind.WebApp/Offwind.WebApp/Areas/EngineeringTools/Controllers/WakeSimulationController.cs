@@ -15,12 +15,13 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Title = "Overview | Wake Simulation | Offwind";
             return View();
         }
 
         public ActionResult GeneralProperties()
         {
-            ViewBag.Title = "General Properties | WakeSim | Offwind";
+            ViewBag.Title = "General Properties | Wake Simulation | Offwind";
             var model = GetModelGeneral();
             return View(model);
         }
@@ -41,7 +42,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult TurbineCoordinates()
         {
-            ViewBag.Title = "Turbine Properties | WakeSim | Offwind";
+            ViewBag.Title = "Turbine Properties | Wake Simulation | Offwind";
             var model = GetModelGeneral();
             return View(model);
         }
@@ -65,7 +66,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult Simulation()
         {
-            ViewBag.Title = "Simulation | WakeSim | Offwind";
+            ViewBag.Title = "Simulation | Wake Simulation | Offwind";
             return View(new VWebPage());
         }
 
@@ -138,7 +139,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult PostProcessing()
         {
-            ViewBag.Title = "Post-processing | WakeSim | Offwind";
+            ViewBag.Title = "Post-processing | Wake Simulation | Offwind";
             return View(new VWebPage());
         }
 

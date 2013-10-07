@@ -19,11 +19,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private static List<string> _wfl = null;
         static private double[][] _simulation;
 
-        public WakeSimulation2Controller()
-        {
-            _currentGroup = "Wake Simulation II";
-        }
-
         public ActionResult Index()
         {
             ViewBag.Title = "Input | Wake Simulation II | Offwind";

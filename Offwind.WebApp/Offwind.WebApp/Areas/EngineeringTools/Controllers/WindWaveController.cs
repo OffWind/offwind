@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -9,17 +8,11 @@ using Offwind.Web.Core;
 using Offwind.WebApp.Areas.EngineeringTools.Models.WindWave;
 using Offwind.WebApp.Areas.EngineeringTools.Models.WindWave.Computations;
 using Offwind.WebApp.Models;
-using Offwind.WebApp.Models.Account;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
     public class WindWaveController : _BaseController
     {
-        public WindWaveController()
-        {
-            _currentGroup = "Wind Wave Power";
-        }
-
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);

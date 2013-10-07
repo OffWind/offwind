@@ -2000,6 +2000,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\EngineeringTools\Views\Shared\" />
     <Folder Include="Areas\Library\Models\" />
     <Folder Include="Areas\Library\Views\Shared\" />
     <Folder Include="Areas\Partners\Views\Shared\" />
@@ -2028,7 +2029,6 @@
     <Content Include="Areas\EngineeringTools\Views\MesoWind\Results.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\PostProcessing.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\EngineeringTools\Index.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\Shared\__SideNav.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />

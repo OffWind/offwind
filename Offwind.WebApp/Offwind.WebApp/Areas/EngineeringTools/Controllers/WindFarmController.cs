@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using EmitMapper;
 using Offwind.WebApp.Areas.EngineeringTools.Models.WindFarm;
-using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
@@ -25,11 +22,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private static VWindFarm _model = null;
         //private static Thread _thread = null;
         private decimal process = 0;
-
-        public WindFarmController()
-        {
-            _currentGroup = "Wind Farm Control";
-        }
 
         public ActionResult Index()
         {

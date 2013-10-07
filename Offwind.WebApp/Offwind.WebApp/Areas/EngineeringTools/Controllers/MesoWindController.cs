@@ -8,14 +8,9 @@ using System.Linq;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Xml.Serialization;
-using NUnit.Framework;
 using Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind;
-//using Offwind.WebApp.Areas.EngineeringTools.Models.WindWave.Computations;
-using Offwind.WebApp.Areas.EngineeringTools.Models.WindWave.Computations;
 using Offwind.WebApp.Models;
-using Offwind.WebApp.Models.Account;
 using log4net;
-using System.Collections;
 using Offwind.Web.Core;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
@@ -25,11 +20,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private const string CurrentFile = "CurrentFile";
         private ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly DbSettings Settings = new DbSettings() { startLat = 0, showAll = ShowAll.yes, distance = 100 };
-
-        public MesoWindController()
-        {
-            _currentGroup = "Meso Wind";
-        }
 
         private void ItemsCount(VMesoWind model)
         {

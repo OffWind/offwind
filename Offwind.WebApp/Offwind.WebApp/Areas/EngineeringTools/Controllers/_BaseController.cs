@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Configuration;
-using System.Web.Mvc;
-using System.Web.Security;
+﻿using System.Web.Mvc;
+using NUnit.Framework;
 using Offwind.Web.Core;
 using Offwind.WebApp.Controllers;
-using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Infrastructure.Navigation;
-using Offwind.WebApp.Models;
 using Offwind.WebApp.Models.Account;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
@@ -17,7 +10,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
     [Authorize(Roles = SystemRole.User)]
     public class _BaseController : BaseController
     {
-        protected string _currentGroup;
+
         protected OffwindEntities _ctx = new OffwindEntities();
         protected bool _noNavigation = false;
 
@@ -27,14 +20,15 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
             if (!_noNavigation)
             {
-                InitNavigation();
+                var controllerName = filterContext.RequestContext.RouteData.Values["controller"].ToString();
+                InitNavigation(controllerName);
             }
         }
 
-        private void InitNavigation()
+        private void InitNavigation(string controller)
         {
             var navigation = new NavItem<NavUrl>();
-            navigation.AddGroup("Mesoscale Wind Database")
+            navigation.AddGroup("Mesoscale Wind Database", isActive: controller == "MesoWind")
                 .AddItem("Overview", new NavUrl("Index", "MesoWind", "EngineeringTools"))
                 .AddItem("Database", new NavUrl("Database", "MesoWind", "EngineeringTools"));
             /*
@@ -42,31 +36,26 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Velocity Freq.", new NavUrl("VelocityFreq", "MesoWind", "EngineeringTools"))
                 .AddItem("Wind Rose", new NavUrl("WindRose", "MesoWind", "EngineeringTools"));
             */
-            navigation.AddGroup("Wake Simulation")
+            navigation.AddGroup("Wake Simulation", isActive: controller == "WakeSimulation")
                 .AddItem("General Properties", new NavUrl("GeneralProperties", "WakeSimulation", "EngineeringTools"))
                 .AddItem("Turbine Coordinates", new NavUrl("TurbineCoordinates", "WakeSimulation", "EngineeringTools"))
                 .AddItem("Simulation", new NavUrl("Simulation", "WakeSimulation", "EngineeringTools"))
                 .AddItem("Post-processing", new NavUrl("PostProcessing", "WakeSimulation", "EngineeringTools"));
 
-            navigation.AddGroup("Wind Farm Control")
+            navigation.AddGroup("Wind Farm Control", isActive: controller == "WakeSimulation2")
                 .AddItem("Simulation", new NavUrl("Index", "WakeSimulation2", "EngineeringTools"))
                 .AddItem("Results", new NavUrl("Results", "WakeSimulation2", "EngineeringTools"));
 
-            navigation.AddGroup("Wind Farm Power Calculator")
+            navigation.AddGroup("Wind Farm Power Calculator", isActive: controller == "WindWave")
                 .AddItem("Overview", new NavUrl("Index", "WindWave", "EngineeringTools"))
                 .AddItem("Input Data", new NavUrl("InputData", "WindWave", "EngineeringTools"))
                 .AddItem("Power Output", new NavUrl("PowerOutput", "WindWave", "EngineeringTools"))
                 .AddItem("Power Output Adv.", new NavUrl("PowerOutputAdvanced", "WindWave", "EngineeringTools"));
 
-            //navigation.AddGroup("Wind Farm Control")
+            //navigation.AddGroup("Wind Farm Control", isActive: controller == "WindFarm")
             //    .AddItem("Input Data", new NavUrl("InputData", "WindFarm", "EngineeringTools"))
             //    .AddItem("Simulation", new NavUrl("Simulation", "WindFarm", "EngineeringTools"));
 
-
-            foreach (var grp in navigation)
-            {
-                grp.IsActive = grp.Title == _currentGroup;
-            }
             ViewBag.SideNav = navigation;
         }
     }

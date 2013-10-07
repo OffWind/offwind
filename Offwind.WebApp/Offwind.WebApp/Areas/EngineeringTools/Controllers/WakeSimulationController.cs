@@ -7,18 +7,12 @@ using System.Web.Mvc;
 using Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation;
 using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Models;
-using Offwind.WebApp.Models.Account;
 using WakeCode;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
     public class WakeSimulationController : _BaseController
     {
-        public WakeSimulationController()
-        {
-            _currentGroup = "Wake Simulation";
-        }
-
         public ActionResult Index()
         {
             return View();

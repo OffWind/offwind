@@ -36,6 +36,12 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Velocity Freq.", new NavUrl("VelocityFreq", "MesoWind", "EngineeringTools"))
                 .AddItem("Wind Rose", new NavUrl("WindRose", "MesoWind", "EngineeringTools"));
             */
+            navigation.AddGroup("Wind Farm Power Calculator", isActive: controller == "WindWave")
+                .AddItem("Overview", new NavUrl("Index", "WindWave", "EngineeringTools"))
+                .AddItem("Input Data", new NavUrl("InputData", "WindWave", "EngineeringTools"))
+                .AddItem("Power Output", new NavUrl("PowerOutput", "WindWave", "EngineeringTools"))
+                .AddItem("Power Output Adv.", new NavUrl("PowerOutputAdvanced", "WindWave", "EngineeringTools"));
+
             navigation.AddGroup("Wake Simulation", isActive: controller == "WakeSimulation")
                 .AddItem("Overview", new NavUrl("Index", "WakeSimulation", "EngineeringTools"))
                 .AddItem("General Properties", new NavUrl("GeneralProperties", "WakeSimulation", "EngineeringTools"))
@@ -47,12 +53,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Overview", new NavUrl("Index", "WakeSimulation2", "EngineeringTools"))
                 .AddItem("Simulation", new NavUrl("Simulation", "WakeSimulation2", "EngineeringTools"))
                 .AddItem("Results", new NavUrl("Results", "WakeSimulation2", "EngineeringTools"));
-
-            navigation.AddGroup("Wind Farm Power Calculator", isActive: controller == "WindWave")
-                .AddItem("Overview", new NavUrl("Index", "WindWave", "EngineeringTools"))
-                .AddItem("Input Data", new NavUrl("InputData", "WindWave", "EngineeringTools"))
-                .AddItem("Power Output", new NavUrl("PowerOutput", "WindWave", "EngineeringTools"))
-                .AddItem("Power Output Adv.", new NavUrl("PowerOutputAdvanced", "WindWave", "EngineeringTools"));
 
             //navigation.AddGroup("Wind Farm Control", isActive: controller == "WindFarm")
             //    .AddItem("Input Data", new NavUrl("InputData", "WindFarm", "EngineeringTools"))

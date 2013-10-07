@@ -1,0 +1,106 @@
+﻿@model Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2.VGeneralProperties
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>WakeSimulation II</li>
+</ul>
+
+<div id="alert-saved"  class="alert alert-success hidden" style="width: 10%">
+    <a class="close" data-dismiss="alert">×</a>
+    Saved
+</div>
+<div class="row-fluid row-content-block">
+    <div class="span12 well">
+        
+        <form class="form-horizontal" method="post">
+        <div class="fancy-tab-container">
+            <ul class="nav nav-tabs fancy">
+                <li class="active"><a href="#result-1" data-toggle="tab">General</a></li>
+                <li><a href="#result-2" data-toggle="tab">Wind</a></li>
+                <li><a href="#result-3" data-toggle="tab">Simulation</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="result-1">
+                    <br/>
+                    <fieldset>
+                        @Html.EditorFor(m => m.GridX)
+                        @Html.EditorFor(m => m.GridY)
+                        @Html.EditorFor(m => m.WakeExpansion)
+                        <div class="control-group">
+                            <label class="control-label">Select WindFarm</label>
+                            <div class="controls">
+                                <select class="input-xlarge" id="windfarmsel" onchange="windfarm_change();">
+                                </select>
+                                <a href="@Url.Action("WindFarmInfo", "WakeSimulation2", new { area = "EngineeringTools" })" class="btn btn-info">View details</a>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="tab-pane" id="result-2">
+                    <br/>
+                    <fieldset>
+                        @Html.EditorFor(m => m.RotationAngle)
+                        @Html.EditorFor(m => m.Rho)
+                        @Html.EditorFor(m => m.MeanWind)
+                        @Html.EditorFor(m => m.Cp)
+                        @Html.EditorFor(m => m.Ct)
+                    </fieldset>
+                </div>
+                <div class="tab-pane" id="result-3">
+                    <br/>
+                    <fieldset>
+                        @Html.EditorFor(m => m.StartTime)
+                        @Html.EditorFor(m => m.StopTime)
+                        @Html.EditorFor(m => m.TimeStep)
+                    </fieldset>
+                </div>
+
+            </div>
+        </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Run</button>
+                <button type="button" class="btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/static/Highcharts-3.0.4/highcharts.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {            
+            $.ajax({
+                url: "@Url.Action("GetAvailWinFarms", "WakeSimulation2", new { area = "EngineeringTools" })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    var lbox = document.getElementById("windfarmsel");
+                    for (var i = 0; i < res.length-1; i++) {
+                        var opt = document.createElement("option");
+                        opt.label = res[i];
+                        lbox.appendChild(opt);
+                    }
+                    lbox.selectedIndex = parseInt(res[i]);
+                    windfarm_change();
+                }
+            });
+        });
+        
+        function windfarm_change() {            
+            var list = document.getElementById("windfarmsel");
+            var url = "/EngineeringTools/WakeSimulation2/WindFarmSelected/" + list.selectedIndex;
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type: 'POST',
+                success: function() {                    
+                }
+            });
+        };
+        
+    </script>
+}

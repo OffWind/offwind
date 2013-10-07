@@ -43,7 +43,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Post-processing", new NavUrl("PostProcessing", "WakeSimulation", "EngineeringTools"));
 
             navigation.AddGroup("Wind Farm Control", isActive: controller == "WakeSimulation2")
-                .AddItem("Simulation", new NavUrl("Index", "WakeSimulation2", "EngineeringTools"))
+                .AddItem("Overview", new NavUrl("Index", "WakeSimulation2", "EngineeringTools"))
+                .AddItem("Simulation", new NavUrl("Simulation", "WakeSimulation2", "EngineeringTools"))
                 .AddItem("Results", new NavUrl("Results", "WakeSimulation2", "EngineeringTools"));
 
             navigation.AddGroup("Wind Farm Power Calculator", isActive: controller == "WindWave")

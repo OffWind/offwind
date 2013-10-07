@@ -21,6 +21,12 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Title = "Overview | Wake Simulation II | Offwind";
+            return View();
+        }
+
+        public ActionResult Simulation()
+        {
             ViewBag.Title = "Input | Wake Simulation II | Offwind";
             if (_model == null)
             {
@@ -65,7 +71,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
             _simulation = FarmControl2.Simulation(input);
             return RedirectToAction("Results");
-            return View(_model);
         }
 
         public ActionResult Results()

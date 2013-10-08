@@ -7,10 +7,10 @@ namespace Offwind.WebApp.Areas.Help.Controllers
     {
         public ActionResult Index()
         {
+            _noNavigation = true;
             var m = new VWebPage();
             ViewBag.Title = "Help | Offwind";
             return View(m);
         }
-
     }
 }

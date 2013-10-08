@@ -2211,6 +2211,7 @@
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2\Index.cshtml" />
     <Content Include="Areas\Help\Views\Web.config" />
     <Content Include="Areas\Help\Views\HomeHelp\Index.cshtml" />
+    <Content Include="Areas\Help\Views\_ViewStart.cshtml" />
     <None Include="Documentation.chm" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />

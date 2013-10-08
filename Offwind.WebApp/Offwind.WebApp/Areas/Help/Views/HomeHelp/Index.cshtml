@@ -1,2 +1,14 @@
-﻿@model Offwind.WebApp.Models.VWebPage
+﻿@using Offwind.WebApp.Infrastructure
+@model Offwind.WebApp.Models.VWebPage
 
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li class="active">Help</li>
+</ul>
+<div class="row-fluid">
+    <div class="span12 well">
+        <h2>@Html.BlockTitle("eng-tools-meso-wind-db")</h2>
+        @Html.BlockContent("eng-tools-meso-wind-db")
+        <a href="@Url.Action("Index", "MesoWind", new { area = "EngineeringTools" })" class="btn btn-primary btn-info">Open</a> <br/> <br/>
+    </div>
+</div>

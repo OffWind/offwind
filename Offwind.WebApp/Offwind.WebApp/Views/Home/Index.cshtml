@@ -67,10 +67,15 @@
      <a class="" href="@Url.Action("Index", "HomePartners", new { area = "Partners" })">Go to Partners area &raquo;</a>
     </div>
     <div class="span4 well sub-block-fixed">
+         <h2>@Html.BlockTitle("Help")</h2>
+        @Html.BlockContent("Help")
+        <a class="" href="@Url.Action("Index", "HomeHelp", new { area = "Help" })">Go to Help &raquo;</a>
+    </div>
+@*    <div class="span4 well sub-block-fixed">
          <h2>@Html.BlockTitle("Library")</h2>
         @Html.BlockContent("Library")
         <a class="" href="@Url.Action("Index", "HomeLibrary", new { area = "Library" })">Go to Library &raquo;</a>
-    </div>
+    </div>*@
     <div class="span4 well sub-block-fixed">
         <h2>@Html.BlockTitle("Contact us")</h2>
         @Html.BlockContent("Contact us")

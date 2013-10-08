@@ -273,6 +273,9 @@
     <Compile Include="Areas\EngineeringTools\Models\WindWave\VAdvancedCfd.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WindWave\VPowerOutput.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WindWave\VWindWave.cs" />
+    <Compile Include="Areas\Help\Controllers\HomeHelpController.cs" />
+    <Compile Include="Areas\Help\Controllers\_BaseController.cs" />
+    <Compile Include="Areas\Help\HelpAreaRegistration.cs" />
     <Compile Include="Areas\Library\Controllers\HomeLibraryController.cs" />
     <Compile Include="Areas\Library\Controllers\_BaseController.cs" />
     <Compile Include="Areas\Library\KnowledgeBaseAreaRegistration.cs" />
@@ -2016,6 +2019,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\EngineeringTools\Views\Shared\" />
+    <Folder Include="Areas\Help\Models\" />
+    <Folder Include="Areas\Help\Views\Shared\" />
     <Folder Include="Areas\Library\Models\" />
     <Folder Include="Areas\Library\Views\Shared\" />
     <Folder Include="Areas\Partners\Views\Shared\" />
@@ -2204,6 +2209,8 @@
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2\Simulation.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2\Results.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2\Index.cshtml" />
+    <Content Include="Areas\Help\Views\Web.config" />
+    <Content Include="Areas\Help\Views\HomeHelp\Index.cshtml" />
     <None Include="Documentation.chm" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />

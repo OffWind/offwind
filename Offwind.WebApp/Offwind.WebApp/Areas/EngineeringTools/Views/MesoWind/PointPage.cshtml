@@ -35,7 +35,7 @@
         <div id="meanVelocityByDir" style="width: 100%; height: 200px;"></div>
     </div>
     <div class="span12 well" style="background-color: white; margin-left: 0px">
-        <table id="database" class="table table-condensed table-hover table-bordered" style="margin-left: -8px;">
+        <table id="database" class="table table-hover table-bordered" style="margin-left: -8px;">
             <thead>
                 <tr>
                     <th>#</th>
@@ -45,9 +45,21 @@
                     }
                 </tr>
             </thead>
+            <tbody>
+                @foreach (var item in Model.Data)
+                {
+                    <tr>
+                    @foreach (var cell in item)
+                    {
+                        <td>@cell</td>
+                    }
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 </div>
+
 
 @section scripts
 {
@@ -61,10 +73,8 @@
     <script type="text/javascript">
         var velocityFreqData = @Html.Raw(new JavaScriptSerializer().Serialize(Model.VelocityFreq));
         var windRoseData = @Html.Raw(new JavaScriptSerializer().Serialize(Model.WindRose));
-        var tableData = @Html.Raw(new JavaScriptSerializer().Serialize(Model.Data));
 
         var SnapShot = {};
-        var TABData = {};
         var VelocityFreq = {};
         var WindRose = {};
         
@@ -95,26 +105,6 @@
                 });
                 point.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png");
                 point.visible = true;
-            };
-        })();
-
-        // Mesoscale data view
-        (function() {
-            TABData.show = function() {
-
-                $.extend($.fn.dataTableExt.oStdClasses, {
-                    "sSortAsc": "header headerSortDown",
-                    "sSortDesc": "header headerSortUp",
-                    "sSortable": "header"
-                });
-                $('#database').dataTable({
-                    "bFilter": false,
-                    "bProcessing": true,
-                    "bServerSide": true,
-                    "bPaginate": false,
-                    "aaData": tableData
-                    //"sAjaxSource": dburl
-                });
             };
         })();
         
@@ -215,7 +205,6 @@
             SnapShot.show();
             VelocityFreq.show();
             WindRose.show();
-            TABData.show();            
         });    
     </script>
 }

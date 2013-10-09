@@ -166,12 +166,17 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult PointPage()
+        public ActionResult PointPage(int id)
         {
-            var model = PopModel();
-            ViewBag.Lat = model.SelectedPoint.Latitude;
-            ViewBag.Lng = model.SelectedPoint.Longitude;
-            ViewBag.Db = (model.SelectedPoint.DatabaseId == (short) DbType.FNL) ? "FNL" : "MERRA";
+            var tab = _ctx.DMesoscaleTabFiles.FirstOrDefault(t => t.Id == id);
+            if (tab != null)
+            {
+                ViewBag.Lat = tab.Latitude;
+                ViewBag.Lng = tab.Longitude;
+                ViewBag.Db = (tab.DatabaseId == (short)DbType.FNL) ? "FNL" : "MERRA";
+                ViewBag.Title = String.Format("{0} ({1}; {2})", ViewBag.Db, tab.Latitude, tab.Longitude);
+                return View();
+            }
             return View();
         }
 

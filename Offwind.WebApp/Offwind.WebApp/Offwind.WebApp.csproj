@@ -2218,9 +2218,12 @@
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseSearch.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseActions.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__WaitScreen.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\MesoWind\__MarkerInfo.cshtml" />
     <None Include="Documentation.chm" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />
+    <Content Include="static\backbone-js-1.0.0\backbone-min.map" />
+    <Content Include="static\backbone-js-1.0.0\underscore-min.map" />
     <None Include="static\ckeditor\CHANGES.md" />
     <None Include="static\ckeditor\LICENSE.md" />
     <None Include="static\ckeditor\README.md" />

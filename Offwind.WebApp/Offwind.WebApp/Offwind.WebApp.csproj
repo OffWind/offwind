@@ -2217,6 +2217,7 @@
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseData.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseSearch.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseActions.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\MesoWind\__WaitScreen.cshtml" />
     <None Include="Documentation.chm" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />

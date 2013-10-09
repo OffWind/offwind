@@ -70,6 +70,9 @@ var UrlDatabaseSwitch = '';
                 gridSize: null,
                 styles: null
             });
+            setTimeout(function() {
+                $('#wait_dlg').modal('hide');
+            }, 1000);
         });
     };
 
@@ -114,14 +117,18 @@ var UrlDatabaseSwitch = '';
 })();
 
 $(document).ready(function () {
+    $('#wait_dlg').modal('show');
     MapManager.initialize();
     $("input:radio[name=DbType]").change(function () {
         var value = $("input[name=DbType]:checked").val();
-        $.ajax({
-            url: UrlDatabaseSwitch,
-            data: { id: value }
-        }).done(function () {
-            MapManager.refreshMap();
-        });
+        $('#wait_dlg').modal('show');
+        setTimeout(function() {
+            $.ajax({
+                url: UrlDatabaseSwitch,
+                data: { id: value }
+            }).done(function() {
+                MapManager.refreshMap();
+            });
+        }, 1000);
     });
 });

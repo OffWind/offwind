@@ -17,7 +17,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
     public class MesoWindController : _BaseController
     {
-        private const string CurrentFile = "CurrentFile";
         private ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly DbSettings Settings = new DbSettings() { startLat = 0, showAll = ShowAll.yes, distance = 100 };
 

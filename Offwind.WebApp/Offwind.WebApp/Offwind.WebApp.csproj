@@ -259,6 +259,7 @@
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\HPoint.cs" />
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\VDataImport.cs" />
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\VMesoWind.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\MesoWind\VPointPage.cs" />
     <Compile Include="Areas\EngineeringTools\Models\MesoWind\VWindRose.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation2\VGeneralProperties.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation\VGeneralProperties.cs" />

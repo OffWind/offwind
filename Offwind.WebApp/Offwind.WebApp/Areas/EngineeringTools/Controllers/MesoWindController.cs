@@ -127,7 +127,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             PushModel(model);
             return RedirectToAction("Database");
         }
-        
 
         public JsonResult DatabaseSwitch(string id)
         {
@@ -168,75 +167,33 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult PointPage(int id)
         {
+            var m = new VPointPage();
             var tab = _ctx.DMesoscaleTabFiles.FirstOrDefault(t => t.Id == id);
             if (tab != null)
             {
-                ViewBag.Lat = tab.Latitude;
-                ViewBag.Lng = tab.Longitude;
-                ViewBag.Db = (tab.DatabaseId == (short)DbType.FNL) ? "FNL" : "MERRA";
-                ViewBag.Title = String.Format("{0} ({1}; {2})", ViewBag.Db, tab.Latitude, tab.Longitude);
-                return View();
-            }
-            return View();
-        }
+                var imported = ImportFile(null, tab.Text);
 
-        public JsonResult VelocityFreqJson()
-        {
-            var model = PopModel();
-            IEnumerable<object[]> res = null;
+                m.Lat = tab.Latitude;
+                m.Lng = tab.Longitude;
+                m.Db = (tab.DatabaseId == (short)DbType.FNL) ? "FNL" : "MERRA";
+                
+                // === //
+                m.VelocityFreq = imported.VelocityFreq.Select(t => new object[] { t.Dir, t.Frequency }).ToArray();
 
-            if (model.SelectedPoint != null)
-            {
-                var imported = ImportFile(null, model.SelectedPoint.Text);
-                res = imported.VelocityFreq.Select(t => new object[] {t.Dir, t.Frequency});
-            }
-            return Json(res, JsonRequestBehavior.AllowGet);
-        }
-        /*
-        public ActionResult WindRose()
-        {
-            ViewBag.Title = "Wind Roses | Mesoscale Wind Characteristics | Offwind";
-            var m = PopModel();
-            var model = new VWindRose();
-            if (m.ImportedPoints.Count == 0)
-            {
-                return View(model);
-            }
-
-            var imported = ImportFile(null, m.ImportedPoints[0].Text);
-
-            for (var i = 0; i < imported.FreqByDirs.Count; i++)
-            {
-                var freq = imported.FreqByDirs[i];
-                var dir = i * 360 / imported.NDirs;
-                model.FreqByDirs.Add(new HPoint(dir, 0, freq));
-            }
-
-            for (var i = 0; i < imported.MeanVelocityPerDir.Count; i++)
-            {
-                var vel = imported.MeanVelocityPerDir[i];
-                var dir = i * 360/imported.NDirs;
-                model.MeanVelocityPerDir.Add(new HPoint(dir, vel, 0));
-            }
-
-            return View(model);
-        }
-        */
-
-        public JsonResult WindRoseJson()
-        {
-            var model = PopModel();
-            var res = new IEnumerable<object[]>[2];
-
-            if (model.SelectedPoint != null)
-            {
-                var imported = ImportFile(null, model.SelectedPoint.Text);
+                // === //
+                m.WindRose = new IEnumerable<object[]>[2];
                 var i = 0;
-                res[0] = imported.FreqByDirs.Select(t => new object[] { i++ * 360 / imported.NDirs, t });
+                m.WindRose[0] = imported.FreqByDirs.Select(t => new object[] { i++ * 360 / imported.NDirs, t });
                 var j = 0;
-                res[1] = imported.MeanVelocityPerDir.Select(t => new object[] { j++ * 360 / imported.NDirs, t });
+                m.WindRose[1] = imported.MeanVelocityPerDir.Select(t => new object[] { j++ * 360 / imported.NDirs, t });
+                
+                // === //
+                CurrentDataJson(imported, m);
+
+                ViewBag.Title = String.Format("{0} ({1}; {2})", m.Db, tab.Latitude, tab.Longitude);
+                return View(m);
             }
-            return Json(res, JsonRequestBehavior.AllowGet);
+            return View(m);
         }
 
         public ActionResult Results()
@@ -244,86 +201,18 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return View();
         }
 
-        /*
-        public JsonResult PointSelected(string id, string coord)
-        {
-            var model = PopModel();
-            var val = coord.Split("(),".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            var lat = Convert.ToDecimal(val[0]);
-            var lng = Convert.ToDecimal(val[1]);
-            object[] info = null;
-
-            foreach (var x in model.ImportedPoints.Where(x => (Math.Abs((double)(x.Latitude - lat)) < 1e-9) &&
-                             (Math.Abs((double)(x.Longitude - lng)) < 1e-9)))
-            {
-                model.SelectedPoint = x;
-                PushModel(model);
-                info = new object[] {x.Latitude, x.Longitude, (x.DatabaseId == (short) DbType.FNL) ? "FNL" : "MERRA"};
-                break;
-            }
-
-            return Json(info, JsonRequestBehavior.AllowGet);
-        }
-
-       public JsonResult Import(string id, string coord)
-        {
-            var model = PopModel();
-
-            if (coord.Length == 0)
-            {
-                var Id = Convert.ToDecimal(id);
-                foreach (var item in _ctx.MesoscaleTabFiles.Where(item => item.Id == Id))
-                {
-                    model.ImportedPoints.Add(item);
-                    break;
-                }
-            }
-            else
-            {
-                var dbId = (short) ((DbType)Enum.Parse(typeof(DbType), id));
-                var val = coord.Split("(),".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                var lat = Convert.ToDecimal(val[0]);
-                var lng = Convert.ToDecimal(val[1]);
-                const double eps = 1e-6;
-
-                foreach (
-                    var item in
-                        _ctx.MesoscaleTabFiles.Where(
-                            item =>
-                            ((Math.Abs((double)(item.Latitude - lat)) < eps) &&
-                             (Math.Abs((double)(item.Longitude - lng)) < eps) && ((item.DatabaseId == dbId) || (dbId == 0)))))
-                {
-                    model.ImportedPoints.Add(item);
-                    break;
-                }
-            }
-
-            PushModel(model);
-            return Json("OK", JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult GetImportedData()
-        {
-            var model = PopModel();
-
-            IEnumerable<object[]> res = model.ImportedPoints.Select(t => new object[] { t.Id, t.Latitude, t.Longitude,
-                (t.DatabaseId == (short) DbType.FNL) ? "FNL" : "MERRA"});
-            return Json(res, JsonRequestBehavior.AllowGet);
-        }
-        */
-
-        public JsonResult CurrentDataJson(int sEcho)
+        public JsonResult CurrentDataJson(VDataImport imported, VPointPage vpp)
         {
             var model = PopModel();
             if (model.SelectedPoint == null)
             {
                 _log.WarnFormat("CurrentFile is not set");
-                var dataEmpty = new { sEcho = sEcho, iTotalRecords = 0, iTotalDisplayRecords = 0, aaData = new List<decimal[]>() };
+                var dataEmpty = new { sEcho = 0, iTotalRecords = 0, iTotalDisplayRecords = 0, aaData = new List<decimal[]>() };
                 return Json(dataEmpty, JsonRequestBehavior.AllowGet);
             }
 
-            string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.DbType];
-            var imported = ImportFile(DbDir, model.SelectedPoint.Text);
+            //string DbDir = WebConfigurationManager.AppSettings["MesoWindTabDir" + Settings.DbType];
+            //var imported = ImportFile(DbDir, model.SelectedPoint.Text);
             
             var final = new List<string[]>();
             var n = imported.NDirs + 1;
@@ -356,8 +245,10 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
             final.Add(mean);
 
-            var data = new { sEcho = sEcho, iTotalRecords = imported.NBins, iTotalDisplayRecords = imported.NBins, aaData = final };
-
+            var data = new { sEcho = 0, iTotalRecords = imported.NBins, iTotalDisplayRecords = imported.NBins, aaData = final };
+            vpp.iTotalRecords = imported.NBins;
+            vpp.iTotalDisplayRecords = imported.NBins;
+            vpp.Data = final;
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

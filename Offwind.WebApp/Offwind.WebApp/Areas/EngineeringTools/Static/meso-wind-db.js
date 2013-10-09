@@ -1,7 +1,5 @@
 ﻿var MapManager = {};
 var TableManager = {};
-var UrlSetPoint = '';
-var UrlPointPage = '';
 var UrlGetMapData = '';
 var UrlDatabaseSwitch = '';
 
@@ -32,16 +30,6 @@ var UrlDatabaseSwitch = '';
             clickable: true,
             id: dbItem[0],
             db: dbItem[3]
-        });
-        google.maps.event.addListener(marker, 'click', function (e) {
-            return;
-            $.ajax({
-                url: UrlSetPoint,
-                dataType: "json",
-                data: { coord: e.latLng.toString() }
-            }).done(function () {
-                window.open(UrlPointPage);
-            });
         });
         google.maps.event.addListener(marker, 'mouseover', function (e) {
             var html = _tplMarkerInfo({

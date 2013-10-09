@@ -1,4 +1,6 @@
-﻿<style>
+﻿@using System.Web.Script.Serialization
+@model Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind.VPointPage
+<style>
      .row-fluid .span3
      {
          display: none;    
@@ -14,7 +16,7 @@
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
     <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
     <li>Meso Wind <span class="divider">/</span></li>
-    <li id="coord_keeper">@ViewBag.Db (@ViewBag.Lat:@ViewBag.Lng)</li>
+    <li id="coord_keeper">@Model.Db (@Model.Lat:@Model.Lng)</li>
 </ul>
 
 <div class="row-fluid">
@@ -57,6 +59,9 @@
 
 
     <script type="text/javascript">
+        var velocityFreqData = @Html.Raw(new JavaScriptSerializer().Serialize(Model.VelocityFreq));
+        var windRoseData = @Html.Raw(new JavaScriptSerializer().Serialize(Model.WindRose));
+        var tableData = @Html.Raw(new JavaScriptSerializer().Serialize(Model.Data));
 
         var SnapShot = {};
         var TABData = {};
@@ -96,7 +101,6 @@
         // Mesoscale data view
         (function() {
             TABData.show = function() {
-                var dburl = "@Url.Action("CurrentDataJson", "MesoWind", new { area = "EngineeringTools" })";
 
                 $.extend($.fn.dataTableExt.oStdClasses, {
                     "sSortAsc": "header headerSortDown",
@@ -108,7 +112,8 @@
                     "bProcessing": true,
                     "bServerSide": true,
                     "bPaginate": false,
-                    "sAjaxSource": dburl
+                    "aaData": tableData
+                    //"sAjaxSource": dburl
                 });
             };
         })();
@@ -147,19 +152,13 @@
                     }
                 });
 
-                $.ajax({
-                    url: "@Url.Action("VelocityFreqJson", "MesoWind", new { area = "EngineeringTools" })",
-                    dataType: 'json',
-                    type: 'GET',
-                    success: function(res) {
-                        var graph = [];
-                        for (var i = 0; i < res.length; i++) {
-                            graph.push({ x: res[i][0], y: res[i][1] });
-                        }
-                        chart.series[0].setData(graph);
-
-                    }
-                });
+                // Generating data
+                var res = velocityFreqData;
+                var graph = [];
+                for (var i = 0; i < res.length; i++) {
+                    graph.push({ x: res[i][0], y: res[i][1] });
+                }
+                chart.series[0].setData(graph);
             };
         })();
         
@@ -205,15 +204,10 @@
                     chart.series[0].setData(graph);
                 };
 
-                $.ajax({
-                    url: "@Url.Action("WindRoseJson", "MesoWind", new { area = "EngineeringTools" })",
-                    dataType: 'json',
-                    type: 'GET',
-                    success: function(res) {
-                        plotChart(res[0], "frequencyByDir", "Frequency by direction, %", "Frequency");
-                        plotChart(res[1], "meanVelocityByDir", "Mean velocity by direction, m/s", "Velocity");
-                    }
-                });
+                // Generating data
+                var res = windRoseData;
+                plotChart(res[0], "frequencyByDir", "Frequency by direction, %", "Frequency");
+                plotChart(res[1], "meanVelocityByDir", "Mean velocity by direction, m/s", "Velocity");
             };
         })();
 

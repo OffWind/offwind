@@ -56,6 +56,22 @@
         margin: auto;
         top: 15;
     }
+    .marker-info
+    {
+        padding: 20px;
+    }
+    .marker-info table th, 
+    .marker-info table td
+    {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid #ccc;
+    }
+    .marker-info table td[colspan="2"]
+    {
+        text-align: center;
+    }
+
 </style>
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
@@ -84,6 +100,7 @@
 @Html.Partial("__DatabaseData")
 @Html.Partial("__DatabaseHelp")
 @Html.Partial("__WaitScreen")
+@Html.Partial("__MarkerInfo")
 
 @section scripts
 {

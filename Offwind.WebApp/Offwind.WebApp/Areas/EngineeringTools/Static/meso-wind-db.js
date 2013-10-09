@@ -6,7 +6,9 @@ var UrlGetMapData = '';
 var UrlDatabaseSwitch = '';
 
 (function () {
-    var map;
+    var _map;
+    var _markerInfo;
+    var _tplMarkerInfo;
     var clusters = null;
     var dbMarker;
     var dbHoverMarker;
@@ -19,7 +21,7 @@ var UrlDatabaseSwitch = '';
             raiseOnDrag: false,
             icon: icon,
             title: 'Sample',
-            map: map
+            map: _map
         });
     }
 
@@ -28,9 +30,11 @@ var UrlDatabaseSwitch = '';
             position: place,
             draggable: false,
             clickable: true,
-            title: dbItem[3] + ' [' + dbItem[1] + '; ' + dbItem[2] + ']'
+            id: dbItem[0],
+            db: dbItem[3]
         });
         google.maps.event.addListener(marker, 'click', function (e) {
+            return;
             $.ajax({
                 url: UrlSetPoint,
                 dataType: "json",
@@ -39,7 +43,17 @@ var UrlDatabaseSwitch = '';
                 window.open(UrlPointPage);
             });
         });
-        marker.id = dbItem[0];
+        google.maps.event.addListener(marker, 'mouseover', function (e) {
+            var html = _tplMarkerInfo({
+                id: marker.id,
+                db: marker.db,
+                lat: e.latLng.lat(),
+                lng: e.latLng.lng()
+            });
+            _markerInfo.setContent(html);
+            _markerInfo.open(_map, marker);
+        });
+
         marker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
         return marker;
     }
@@ -65,12 +79,12 @@ var UrlDatabaseSwitch = '';
                 var m = createClusterItem(data[i], coord);
                 markers.push(m);
             }
-            clusters = new MarkerClusterer(map, markers, {
+            clusters = new MarkerClusterer(_map, markers, {
                 maxZoom: 20,
                 gridSize: null,
                 styles: null
             });
-            setTimeout(function() {
+            setTimeout(function () {
                 $('#wait_dlg').modal('hide');
             }, 1000);
         });
@@ -84,7 +98,12 @@ var UrlDatabaseSwitch = '';
             center: centerPoint,
             mapTypeId: google.maps.MapTypeId.SATELLITE
         };
-        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+        _map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+        _tplMarkerInfo = Handlebars.compile($("#tpl-marker-info").html());
+        _markerInfo = new google.maps.InfoWindow({
+            content: ''
+        });
 
         dbMarker = createMarker(new google.maps.LatLng(0, 0));
         dbMarker.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
@@ -109,7 +128,7 @@ var UrlDatabaseSwitch = '';
         dbHoverMarker.setPosition(point);
         dbHoverMarker.title = "";
         dbHoverMarker.visible = true;
-        map.setCenter(point);
+        _map.setCenter(point);
     };
     MapManager.hideHover = function () {
         dbHoverMarker.visible = false;
@@ -122,11 +141,11 @@ $(document).ready(function () {
     $("input:radio[name=DbType]").change(function () {
         var value = $("input[name=DbType]:checked").val();
         $('#wait_dlg').modal('show');
-        setTimeout(function() {
+        setTimeout(function () {
             $.ajax({
                 url: UrlDatabaseSwitch,
                 data: { id: value }
-            }).done(function() {
+            }).done(function () {
                 MapManager.refreshMap();
             });
         }, 1000);

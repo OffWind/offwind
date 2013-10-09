@@ -6140,9 +6140,16 @@ a.badge:focus {
     {
         font-size: 0.9em;
     }
+    .well.main-right
+    {
+        height: 246px;
+    }
     .well.main-right a.btn
     {
+        height: 38px;
         width: 238px;
+        bottom: 12px;
+        line-height: 14px;
     }
 }
 

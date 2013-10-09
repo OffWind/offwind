@@ -626,7 +626,7 @@ footer p
   padding-bottom: 0em;
 }
 
-@media (min-width: 768px) and (max-width: 979px) {
+/*@media (min-width: 768px) and (max-width: 979px) {
     #main.container
     {
         padding-top: 5px;
@@ -647,7 +647,7 @@ footer p
     {
         padding-top: 5px;
     }
-}
+}*/
 [class^="icon-"], [class*=" icon-"]
 {
     background: none;

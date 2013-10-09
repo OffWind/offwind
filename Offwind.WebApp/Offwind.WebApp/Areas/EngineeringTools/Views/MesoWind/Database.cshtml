@@ -2,35 +2,30 @@
 @model DbSettings
 
 <style>
-    #map_container
-    {
+    #map_container {
         padding: 4px;
     }
-    .modal-body p
-    {
+
+    .modal-body p {
         margin-left: 12px;
     }
-    
-    .modal.meso-body
-    {
+
+    .modal.meso-body {
         left: 40%;
         width: 980px;
     }
-    
-    .modal-body.meso-body
-    {
+
+    .modal-body.meso-body {
         margin-left: 2px;
         width: 920px;
         max-height: 540px;
     }
-    
-    .modal-footer.meso-body
-    {
+
+    .modal-footer.meso-body {
         top: auto;
     }
-    
-    .cluster_sample
-    {
+
+    .cluster_sample {
         background-image: url("/static/img/m3.png");
         background-position: 0px 0px;
         height: 66px;
@@ -44,37 +39,36 @@
         font-weight: bold;
         display: inline-block;
     }
-    form
-    {
+
+    form {
         margin: 0;
     }
-    #show_db_imported, #show_db_error
-    {
+
+    #show_db_imported, #show_db_error {
         display: none;
         position: absolute;
         width: 80%;
         margin: auto;
         top: 15;
     }
-    .marker-info
-    {
+
+    .marker-info {
         padding: 20px;
     }
-    .marker-info table th, 
-    .marker-info table td
-    {
+
+    .marker-info table th,
+    .marker-info table td {
         padding: 8px;
         text-align: left;
         border: 1px solid #ccc;
     }
-    .marker-info table td[colspan="2"]
-    {
+
+    .marker-info table td[colspan="2"] {
         text-align: center;
     }
-
 </style>
 <ul class="breadcrumb">
-    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a><span class="divider">/</span></li>
     <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
     <li>Meso Wind <span class="divider">/</span></li>
     <li>Database</li>
@@ -83,6 +77,12 @@
 <div class="row-fluid">
     <div class="span9">
         <div class="well">
+            @if (ViewBag.TotalCount == 0)
+            {
+                <div class="alert alert-danger">
+                    No results. You may try reset search results and try another parameters.
+                </div>
+            }
             <div id="map_container">
                 <div id="map_canvas" style="width: auto; height: 410px;"></div>
             </div>
@@ -101,6 +101,7 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqueryval")
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="../../../../static/js/markerclusterer.js"></script>

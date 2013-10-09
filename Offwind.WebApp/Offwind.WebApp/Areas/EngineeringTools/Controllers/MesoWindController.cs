@@ -196,11 +196,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             return View(m);
         }
 
-        public ActionResult Results()
-        {
-            return View();
-        }
-
         public JsonResult CurrentDataJson(VDataImport imported, VPointPage vpp)
         {
             var model = PopModel();

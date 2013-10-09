@@ -2039,16 +2039,12 @@
     <Content Include="Areas\CFD\Views\Preprocessing\StlGenerator.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\_ViewStart.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\Index.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\MesoWind\CurrentData.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\MesoWind\VelocityFreq.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\MesoWind\WindRose.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WindWave\InputData.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\Index.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\Simulation.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\GeneralProperties.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\TurbineCoordinates.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WindWave\PowerOutput.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\MesoWind\Results.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\PostProcessing.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\EngineeringTools\Index.cshtml" />
   </ItemGroup>

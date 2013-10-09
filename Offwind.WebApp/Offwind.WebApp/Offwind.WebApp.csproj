@@ -2212,6 +2212,9 @@
     <Content Include="Areas\Help\Views\Web.config" />
     <Content Include="Areas\Help\Views\HomeHelp\Index.cshtml" />
     <Content Include="Areas\Help\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseHelp.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseData.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseSearch.cshtml" />
     <None Include="Documentation.chm" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />

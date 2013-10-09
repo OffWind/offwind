@@ -1,0 +1,28 @@
+﻿<div class="well">
+    <form action="">
+        @{
+            var dbAllChecked = Model.DbType == DbType.All ? "checked" : "";
+            var dbFNLChecked = Model.DbType == DbType.FNL ? "checked" : "";
+            var dbMERRAChecked = Model.DbType == DbType.MERRA ? "checked" : "";
+        }
+        <label class="radio">
+            <input type="radio" name="DbType" value="All" @dbAllChecked>
+            All (@ViewBag.TotalCount)
+        </label>
+        <label class="radio">
+            <input type="radio" name="DbType" value="FNL" @dbFNLChecked>
+            FNL (@ViewBag.FnlCount)
+        </label>
+        <label class="radio">
+            <input type="radio" name="DbType" value="MERRA" @dbMERRAChecked>
+            MERRA (@ViewBag.MerraCount)
+        </label>
+    </form>
+</div>
+
+<div class="well">
+    <a href="#search_dlg" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-search"></i>Search in area</a>
+    <a href="@Url.Action("Reset", "MesoWind")" role="button" class="btn btn-block" ><i class="icon-undo"></i>Reset</a>
+    @*<a href="#show_db" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-table"></i>Mesoscale data</a>*@
+    <a href="#show_help" role="button" class="btn btn-block" data-toggle="modal"><i class="icon-question-sign"></i>Help</a>
+</div>

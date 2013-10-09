@@ -1,0 +1,24 @@
+﻿<div id="show_db" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Data</h3>
+    </div>
+    <div class="modal-body">
+        <div id="show_db_imported" class="alert alert-success">Point imported</div>
+        <div id="show_db_error" class="alert alert-error">Please, select a record in table</div>
+        <table id="database" class="table table-condensed table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Lat. (&#176;)</th>
+                    <th>Lng. (&#176;)</th>
+                    <th>DB</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="do_import">Import Selected</button>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+﻿@model Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind.DbSettings
+
+<div id="search_dlg" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Search</h3>
+    </div>
+    <div class="modal-body" >
+        <form class="form-horizontal indent" method="post" id="search-params">
+            @Html.EditorFor(m => m.startLng)
+            @Html.EditorFor(m => m.startLat)
+            @Html.EditorFor(m => m.distance)            
+            <div class="form-actions" align="right">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
+</div>

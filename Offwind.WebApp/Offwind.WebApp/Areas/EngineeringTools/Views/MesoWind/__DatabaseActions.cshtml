@@ -1,4 +1,7 @@
-﻿<div class="well">
+﻿@using Offwind.WebApp.Areas.EngineeringTools.Models.MesoWind
+@model DbSettings
+
+<div class="well">
     <form action="">
         @{
             var dbAllChecked = Model.DbType == DbType.All ? "checked" : "";

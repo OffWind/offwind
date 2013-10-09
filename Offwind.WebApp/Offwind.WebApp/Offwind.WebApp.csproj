@@ -337,6 +337,7 @@
     <Compile Include="Tests\SolverTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\EngineeringTools\Static\meso-wind-db.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="static\backbone-js-1.0.0\backbone-min.js" />
@@ -2215,6 +2216,7 @@
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseHelp.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseData.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseSearch.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseActions.cshtml" />
     <None Include="Documentation.chm" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />

@@ -34,7 +34,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 model.TotalCount = _ctx.VSmallMesoscaleTabFiles.Count();
                 model.FnlCount = _ctx.VSmallMesoscaleTabFiles.Count(t => t.DatabaseId == (int)DbType.FNL);
                 model.MerraCount = _ctx.VSmallMesoscaleTabFiles.Count(t => t.DatabaseId == (int)DbType.MERRA);
-            }            
+            }
         }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
@@ -43,60 +43,53 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             Debug.Assert(Request.IsAuthenticated);
 
             var user = User.Identity.Name;
-            using (var ctx = new OffwindEntities())
+            var dCase = _ctx.DCases.FirstOrDefault(c => c.Owner == user && c.Name == StandardCases.MesoWind);
+            if (dCase == null)
             {
-                var dCase = ctx.DCases.FirstOrDefault(c => c.Owner == user && c.Name == StandardCases.MesoWind);
-                if (dCase == null)
+                dCase = new DCase
                 {
-                    dCase = new DCase
-                                {
-                                    Id = Guid.NewGuid(),
-                                    Name = StandardCases.MesoWind,
-                                    Owner = user,
-                                    Created = DateTime.UtcNow
-                                };
-                    // Model contains points from both databases by default
-                    var model = new VMesoWind();
-                    ItemsCount(model);
+                    Id = Guid.NewGuid(),
+                    Name = StandardCases.MesoWind,
+                    Owner = user,
+                    Created = DateTime.UtcNow
+                };
+                // Model contains points from both databases by default
+                var model = new VMesoWind();
+                ItemsCount(model);
 
-                    var serializer = new XmlSerializer(typeof(VMesoWind));
-                    using (var writer = new StringWriter())
-                    {
-                        serializer.Serialize(writer, model);
-                        dCase.Model = writer.ToString();
-                        writer.Close();
-                    }
-                    ctx.DCases.AddObject(dCase);
-                    ctx.SaveChanges();
+                var serializer = new XmlSerializer(typeof (VMesoWind));
+                using (var writer = new StringWriter())
+                {
+                    serializer.Serialize(writer, model);
+                    dCase.Model = writer.ToString();
+                    writer.Close();
                 }
+                _ctx.DCases.AddObject(dCase);
+                _ctx.SaveChanges();
             }
             base.Initialize(requestContext);
         }
 
         private VMesoWind PopModel()
         {
-            using (var ctx = new OffwindEntities())
+            var dCase = _ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.MesoWind);
+            var serializer = new XmlSerializer(typeof (VMesoWind));
+            using (var reader = new StringReader(dCase.Model))
             {
-                var dCase = ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.MesoWind);
-                var serializer = new XmlSerializer(typeof(VMesoWind));
-                using (var reader = new StringReader(dCase.Model))
-                {
-                    return (VMesoWind)serializer.Deserialize(reader);
-                }
+                return (VMesoWind) serializer.Deserialize(reader);
             }
         }
 
         private void PushModel(VMesoWind model)
         {
             var serializer = new XmlSerializer(typeof(VMesoWind));
-            using (var ctx = new OffwindEntities())
             using (var writer = new StringWriter())
             {
-                var dCase = ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.MesoWind);
+                var dCase = _ctx.DCases.First(c => c.Owner == User.Identity.Name && c.Name == StandardCases.MesoWind);
                 serializer.Serialize(writer, model);
                 dCase.Model = writer.ToString();
                 writer.Close();
-                ctx.SaveChanges();
+                _ctx.SaveChanges();
             }
         }
 

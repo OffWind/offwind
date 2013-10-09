@@ -28,7 +28,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private void InitNavigation(string controller)
         {
             var navigation = new NavItem<NavUrl>();
-            navigation.AddGroup("Mesoscale Wind Database", isActive: controller == "MesoWind")
+            navigation.AddGroup("Meso. Wind Database", isActive: controller == "MesoWind")
                 .AddItem("Overview", new NavUrl("Index", "MesoWind", "EngineeringTools"))
                 .AddItem("Database", new NavUrl("Database", "MesoWind", "EngineeringTools"));
             /*
@@ -36,7 +36,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Velocity Freq.", new NavUrl("VelocityFreq", "MesoWind", "EngineeringTools"))
                 .AddItem("Wind Rose", new NavUrl("WindRose", "MesoWind", "EngineeringTools"));
             */
-            navigation.AddGroup("Wind Farm Power Calculator", isActive: controller == "WindWave")
+            navigation.AddGroup("Power Calculator", isActive: controller == "WindWave")
                 .AddItem("Overview", new NavUrl("Index", "WindWave", "EngineeringTools"))
                 .AddItem("Input Data", new NavUrl("InputData", "WindWave", "EngineeringTools"))
                 .AddItem("Power Output", new NavUrl("PowerOutput", "WindWave", "EngineeringTools"))

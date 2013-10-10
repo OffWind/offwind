@@ -1,5 +1,5 @@
 ﻿@using System.Globalization
-@model Offwind.WebApp.Models.VWebPageSimpleObject<IEnumerable<Offwind.WebApp.Models.DJob>>
+@model Offwind.WebApp.Models.VWebPageSimpleObject<IEnumerable<Offwind.Web.Core.DJob>>
 <p>
     <a class="btn btn-warning" href="@Url.Action("ClearHistory", "Processing", new { area = "CFD" })">Clear idle jobs</a>
     <a class="btn btn-warning" href="@Url.Action("ClearAllJobs", "Processing", new { area = "CFD" })">Clear all jobs</a>

@@ -9,6 +9,7 @@ namespace Offwind.Products.OpenFoam.Parsing
     {
         public static IEnumerable<ParseTreeNode> FindDictEntries(this ParseTreeNode dictionaryContentNode, string name)
         {
+            if (dictionaryContentNode == null) yield break;
             foreach (ParseTreeNode node in dictionaryContentNode.ChildNodes)
             {
                 if (node.ChildNodes.Count == 0) continue;

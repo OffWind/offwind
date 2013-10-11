@@ -274,6 +274,11 @@
     <Compile Include="Areas\EngineeringTools\Models\WindWave\VAdvancedCfd.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WindWave\VPowerOutput.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WindWave\VWindWave.cs" />
+    <Compile Include="Areas\Help\Controllers\AdvancedToolsHelpController.cs" />
+    <Compile Include="Areas\Help\Controllers\EngWindFarmControlController.cs" />
+    <Compile Include="Areas\Help\Controllers\EngWindSimController.cs" />
+    <Compile Include="Areas\Help\Controllers\EngPowerCalcController.cs" />
+    <Compile Include="Areas\Help\Controllers\EngMesoWindController.cs" />
     <Compile Include="Areas\Help\Controllers\HomeHelpController.cs" />
     <Compile Include="Areas\Help\Controllers\_BaseController.cs" />
     <Compile Include="Areas\Help\HelpAreaRegistration.cs" />
@@ -2038,7 +2043,7 @@
     <Content Include="Areas\CFD\Views\CFD\Index.cshtml" />
     <Content Include="Areas\CFD\Views\Preprocessing\StlGenerator.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\MesoWind\Index.cshtml" />
+    <Content Include="Areas\Help\Views\EngMesoWind\Index.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WindWave\InputData.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\Index.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\Simulation.cshtml" />
@@ -2210,12 +2215,15 @@
     <Content Include="Areas\Help\Views\Web.config" />
     <Content Include="Areas\Help\Views\HomeHelp\Index.cshtml" />
     <Content Include="Areas\Help\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseHelp.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseData.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseSearch.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__DatabaseActions.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__WaitScreen.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\__MarkerInfo.cshtml" />
+    <Content Include="Areas\Help\Views\EngPowerCalc\Index.cshtml" />
+    <Content Include="Areas\Help\Views\EngWindSim\Index.cshtml" />
+    <Content Include="Areas\Help\Views\EngWindFarmControl\Index.cshtml" />
+    <Content Include="Areas\Help\Views\AdvancedToolsHelp\Index.cshtml" />
     <None Include="Documentation.chm" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />

@@ -22,8 +22,14 @@
         <ul id="@idstr" class="nav nav-list collapse @grpListClass">
             @foreach (var item in grp)
             {
+                var targetBlank = "";
+                if (item.OpenInNewWindow)
+                {
+                    targetBlank = "target=\"_blank\"";
+                }
+
                 <li @this.ActiveIfCurrent(item.Url)>
-                    <a href="@this.GenerateUrl(item.Url)">
+                    <a href="@this.GenerateUrl(item.Url)" @Html.Raw(targetBlank)>
                         @item.Title
                     </a>
                 </li>

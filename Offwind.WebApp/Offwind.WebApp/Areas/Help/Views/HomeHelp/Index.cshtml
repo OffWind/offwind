@@ -2,12 +2,51 @@
 @model Offwind.WebApp.Models.VWebPage
 
 <ul class="breadcrumb">
-    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a><span class="divider">/</span></li>
     <li class="active">Help</li>
 </ul>
 <div class="row-fluid">
     <div class="span12 well">
         <h2>Offwind Tools Help</h2>
-        <p>This is in progress</p>
+        <p>Offwind consists of the following main parts:</p>
+        <ul>
+            <li>Engineering Tools</li>
+            <li>Advanced CFD Tools</li>
+            <li>Wind Farms & Turbines database</li>
+            <li>Information area</li>
+        </ul>
+
+        <h2>Engineering Tools</h2>
+        <p>These are a set of small utilities that help you to make some preliminary estimates and calculations. They are good quick and rough analysis that can help you with further advanced methods.</p>
+        <p>Engineering Tools consist of several modules:</p>
+        <ul>
+            <li>Mesoscale Wind Database</li>
+            <li>Wind Farm Power Calculator</li>
+            <li>Wake Simulation</li>
+            <li>Wind Farm Control</li>
+        </ul>
+
+        <h3>Mesoscale Wind Database</h3>
+        <p>
+            This database is intended for getting information about wind characteristics in a certain area. The data in database was being collected during
+            a long period of time and is stored in TAB-format.
+        </p>
+        <p>Read more in <a href="/Help/EngMesoWind">Mesoscale Wind Database Help</a></p>
+
+        <h3>Wind Farm Power Calculator</h3>
+        <p></p>
+        <p>Read more in <a href="/Help/EngPowerCalc">Wind Farm Power Calculator Help</a></p>
+
+        <h3>Wake Simulation</h3>
+        <p></p>
+        <p>Read more in <a href="/Help/EngWindSim">Wake Simulation Help</a></p>
+
+        <h3>Wind Farm Control</h3>
+        <p></p>
+        <p>Read more in <a href="/Help/EngWindFarmControl">Wind Farm Control Help</a></p>
+
+        <h2>Advanced CFD Tools</h2>
+        <p>This set of tools is also known as OffwindSolver which is based on OpenFoam package and performs simulation of wind farm operating in offshore area.</p>
+        <p>Read more in <a href="/Help/AdvancedToolsHelp">Advanced CFD Tools Help</a></p>
     </div>
 </div>

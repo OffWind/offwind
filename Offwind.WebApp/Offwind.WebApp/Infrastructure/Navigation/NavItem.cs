@@ -12,6 +12,7 @@ namespace Offwind.WebApp.Infrastructure.Navigation
         public TUrl Url { get; set; }
         public string Icon { get; set; }
         public bool IsActive { get; set; }
+        public bool OpenInNewWindow { get; set; }
 
         /// <summary>
         /// Add new subgroup
@@ -19,11 +20,12 @@ namespace Offwind.WebApp.Infrastructure.Navigation
         /// <param name="title">Group title</param>
         /// <param name="url">Group URL</param>
         /// <param name="isActive">[Optional, false] Is group active (visible, expanded etc.)</param>
+        /// <param name="openInNewWindow">[Optional, false] Indicates that link will be opened in new window</param>
         /// <param name="icon">[Optional, ""] Icon for this item</param>
         /// <returns>Newly created subgroup</returns>
-        public NavItem<TUrl> AddGroup(string title, TUrl url = null, bool isActive = false, string icon = "")
+        public NavItem<TUrl> AddGroup(string title, TUrl url = null, bool isActive = false, bool openInNewWindow = false, string icon = "")
         {
-            var subGroup = new NavItem<TUrl> { Title = title, Url = url, IsActive = isActive };
+            var subGroup = new NavItem<TUrl> { Title = title, Url = url, IsActive = isActive, OpenInNewWindow = openInNewWindow };
             _inner.Add(subGroup);
             return subGroup;
         }
@@ -34,11 +36,12 @@ namespace Offwind.WebApp.Infrastructure.Navigation
         /// <param name="title">Item title</param>
         /// <param name="url">Item URL</param>
         /// <param name="isActive">[Optional, false] Is item active (visible, expanded etc.)</param>
+        /// <param name="openInNewWindow">[Optional, false] Indicates that link will be opened in new window</param>
         /// <param name="icon">[Optional, ""] Icon for this item</param>
         /// <returns>Returns this group so that you can continue adding more items</returns>
-        public NavItem<TUrl> AddItem(string title, TUrl url = null, bool isActive = false, string icon = "")
+        public NavItem<TUrl> AddItem(string title, TUrl url = null, bool isActive = false, bool openInNewWindow = false, string icon = "")
         {
-            _inner.Add(new NavItem<TUrl> { Title = title, Url = url });
+            _inner.Add(new NavItem<TUrl> { Title = title, Url = url, IsActive = isActive, OpenInNewWindow = openInNewWindow });
             return this;
         }
 

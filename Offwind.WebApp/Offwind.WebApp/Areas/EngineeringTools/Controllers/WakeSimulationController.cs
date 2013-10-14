@@ -13,12 +13,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
     public class WakeSimulationController : _BaseController
     {
-        public ActionResult Index()
-        {
-            ViewBag.Title = "Overview | Wake Simulation | Offwind";
-            return View();
-        }
-
         public ActionResult GeneralProperties()
         {
             ViewBag.Title = "General Properties | Wake Simulation | Offwind";

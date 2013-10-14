@@ -2045,7 +2045,6 @@
     <Content Include="Areas\EngineeringTools\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Help\Views\EngMesoWind\Index.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WindWave\InputData.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\WakeSimulation\Index.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\Simulation.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\GeneralProperties.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation\TurbineCoordinates.cshtml" />
@@ -2210,7 +2209,6 @@
     <Content Include="Areas\WindFarms\Views\Turbine\Delete.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2\Simulation.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2\Results.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\WakeSimulation2\Index.cshtml" />
     <Content Include="Areas\Help\Views\Web.config" />
     <Content Include="Areas\Help\Views\HomeHelp\Index.cshtml" />
     <Content Include="Areas\Help\Views\_ViewStart.cshtml" />

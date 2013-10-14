@@ -19,12 +19,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private static List<string> _wfl = null;
         static private double[][] _simulation;
 
-        public ActionResult Index()
-        {
-            ViewBag.Title = "Overview | Wake Simulation II | Offwind";
-            return View();
-        }
-
         public ActionResult Simulation()
         {
             ViewBag.Title = "Input | Wake Simulation II | Offwind";
@@ -40,8 +34,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         }
 
         [HttpPost]
-        [ActionName("Index")]
-        public ActionResult Save(VGeneralProperties model)
+        public ActionResult Simulation(VGeneralProperties model)
         {
             ViewBag.Title = "Input | Wake Simulation II | Offwind";
             lock (_model)

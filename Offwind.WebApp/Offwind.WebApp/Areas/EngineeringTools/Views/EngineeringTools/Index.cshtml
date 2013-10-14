@@ -20,12 +20,12 @@
     <div class="span6 well sub-block-fixed">
         <h2>@Html.BlockTitle("eng-tools-wake-sim")</h2>
         @Html.BlockContent("eng-tools-wake-sim")
-        <a href="@Url.Action("Index", "WakeSimulation", new { area = "EngineeringTools" })" class="btn btn-primary btn-info">Open</a> <br/> <br/>
+        <a href="@Url.Action("GeneralProperties", "WakeSimulation", new { area = "EngineeringTools" })" class="btn btn-primary btn-info">Open</a> <br/> <br/>
     </div>
 
     <div class="span6 well sub-block-fixed">
         <h2>@Html.BlockTitle("eng-tools-wind-farm-control")</h2>
         @Html.BlockContent("eng-tools-wind-farm-control")
-        <a href="@Url.Action("Index", "WakeSimulation2", new { area = "EngineeringTools" })" class="btn btn-primary btn-info">Open</a> <br/> <br/>
+        <a href="@Url.Action("Simulation", "WakeSimulation2", new { area = "EngineeringTools" })" class="btn btn-primary btn-info">Open</a> <br/> <br/>
     </div>
 </div>

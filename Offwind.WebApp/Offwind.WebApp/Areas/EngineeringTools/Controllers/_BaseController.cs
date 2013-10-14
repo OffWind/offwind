@@ -43,16 +43,16 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Help", new NavUrl("Index", "EngPowerCalc", "Help"), openInNewWindow: true);
 
             navigation.AddGroup("Wake Simulation", isActive: controller == "WakeSimulation")
-                .AddItem("Overview", new NavUrl("Index", "WakeSimulation", "EngineeringTools"))
                 .AddItem("General Properties", new NavUrl("GeneralProperties", "WakeSimulation", "EngineeringTools"))
                 .AddItem("Turbine Coordinates", new NavUrl("TurbineCoordinates", "WakeSimulation", "EngineeringTools"))
                 .AddItem("Simulation", new NavUrl("Simulation", "WakeSimulation", "EngineeringTools"))
-                .AddItem("Post-processing", new NavUrl("PostProcessing", "WakeSimulation", "EngineeringTools"));
+                .AddItem("Post-processing", new NavUrl("PostProcessing", "WakeSimulation", "EngineeringTools"))
+                .AddItem("Help", new NavUrl("Index", "EngWindSim", "Help"), openInNewWindow: true);
 
             navigation.AddGroup("Wind Farm Control", isActive: controller == "WakeSimulation2")
-                .AddItem("Overview", new NavUrl("Index", "WakeSimulation2", "EngineeringTools"))
                 .AddItem("Simulation", new NavUrl("Simulation", "WakeSimulation2", "EngineeringTools"))
-                .AddItem("Results", new NavUrl("Results", "WakeSimulation2", "EngineeringTools"));
+                .AddItem("Results", new NavUrl("Results", "WakeSimulation2", "EngineeringTools"))
+                .AddItem("Help", new NavUrl("Index", "EngWindSim", "Help"), openInNewWindow: true);
 
             //navigation.AddGroup("Wind Farm Control", isActive: controller == "WindFarm")
             //    .AddItem("Input Data", new NavUrl("InputData", "WindFarm", "EngineeringTools"))

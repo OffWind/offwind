@@ -2171,7 +2171,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\MesoWind\Database.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\WindWave\Index.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\MesoWind\PointPage.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Web.config" />
     <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\Boolean.cshtml" />

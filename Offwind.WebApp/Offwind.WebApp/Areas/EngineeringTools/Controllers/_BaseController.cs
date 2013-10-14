@@ -28,7 +28,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private void InitNavigation(string controller)
         {
             var navigation = new NavItem<NavUrl>();
-            navigation.AddGroup("Meso. Wind Database", isActive: controller == "MesoWind")
+            navigation.AddGroup("Meso. Wind DB", isActive: controller == "MesoWind")
                 .AddItem("Database", new NavUrl("Database", "MesoWind", "EngineeringTools"))
                 .AddItem("Help", new NavUrl("Index", "EngMesoWind", "Help"), openInNewWindow: true);
             /*
@@ -37,10 +37,10 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Wind Rose", new NavUrl("WindRose", "MesoWind", "EngineeringTools"));
             */
             navigation.AddGroup("Power Calculator", isActive: controller == "WindWave")
-                .AddItem("Overview", new NavUrl("Index", "WindWave", "EngineeringTools"))
                 .AddItem("Input Data", new NavUrl("InputData", "WindWave", "EngineeringTools"))
                 .AddItem("Power Output", new NavUrl("PowerOutput", "WindWave", "EngineeringTools"))
-                .AddItem("Power Output Adv.", new NavUrl("PowerOutputAdvanced", "WindWave", "EngineeringTools"));
+                .AddItem("Power Output Adv.", new NavUrl("PowerOutputAdvanced", "WindWave", "EngineeringTools"))
+                .AddItem("Help", new NavUrl("Index", "EngPowerCalc", "Help"), openInNewWindow: true);
 
             navigation.AddGroup("Wake Simulation", isActive: controller == "WakeSimulation")
                 .AddItem("Overview", new NavUrl("Index", "WakeSimulation", "EngineeringTools"))

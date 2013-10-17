@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Offwind.WebApp.Models;
 
-namespace Offwind.WebApp.Areas.Partners.Models
+namespace Offwind.WebApp.Areas.Partners.Models.Events
 {
-    public class VMeeting
+    public class Event
     {
         public DateTime DateTime { get; set; }
-        public string Type { get; set; }
-        public List<VFile> Files { get; set; }
-        public List<VPartner> Participants { get; set; }
+        public EventType Type { get; set; }
+        public List<EventParticipant> Participants { get; set; }
 
-        public VMeeting()
+        public Event()
         {
-            Files = new List<VFile>();
-            Participants = new List<VPartner>();
+            Participants = new List<EventParticipant>();
         }
 
         public string FormattedParticipants()
@@ -24,7 +21,7 @@ namespace Offwind.WebApp.Areas.Partners.Models
             foreach(var p in Participants)
             {
                 if (txt.Length > 0) txt.Append("; ");
-                txt.Append(p.UserName);
+                //txt.Append(p.UserName);
             }
             return txt.ToString();
         }

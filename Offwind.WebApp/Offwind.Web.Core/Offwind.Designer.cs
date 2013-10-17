@@ -178,6 +178,22 @@ namespace Offwind.Web.Core
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<DEvent> DEvents
+        {
+            get
+            {
+                if ((_DEvents == null))
+                {
+                    _DEvents = base.CreateObjectSet<DEvent>("DEvents");
+                }
+                return _DEvents;
+            }
+        }
+        private ObjectSet<DEvent> _DEvents;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<DEventApplication> DEventApplications
         {
             get
@@ -190,6 +206,22 @@ namespace Offwind.Web.Core
             }
         }
         private ObjectSet<DEventApplication> _DEventApplications;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DEventParticipant> DEventParticipants
+        {
+            get
+            {
+                if ((_DEventParticipants == null))
+                {
+                    _DEventParticipants = base.CreateObjectSet<DEventParticipant>("DEventParticipants");
+                }
+                return _DEventParticipants;
+            }
+        }
+        private ObjectSet<DEventParticipant> _DEventParticipants;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -596,11 +628,27 @@ namespace Offwind.Web.Core
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the DEvents EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDEvents(DEvent dEvent)
+        {
+            base.AddObject("DEvents", dEvent);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the DEventApplications EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToDEventApplications(DEventApplication dEventApplication)
         {
             base.AddObject("DEventApplications", dEventApplication);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DEventParticipants EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDEventParticipants(DEventParticipant dEventParticipant)
+        {
+            base.AddObject("DEventParticipants", dEventParticipant);
         }
     
         /// <summary>
@@ -2343,6 +2391,135 @@ namespace Offwind.Web.Core
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DEvent")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DEvent : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DEvent object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static DEvent CreateDEvent(global::System.Guid id)
+        {
+            DEvent dEvent = new DEvent();
+            dEvent.Id = id;
+            return dEvent;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Data
+        {
+            get
+            {
+                return _Data;
+            }
+            set
+            {
+                OnDataChanging(value);
+                ReportPropertyChanging("Data");
+                _Data = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Data");
+                OnDataChanged();
+            }
+        }
+        private global::System.String _Data;
+        partial void OnDataChanging(global::System.String value);
+        partial void OnDataChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MinutesData
+        {
+            get
+            {
+                return _MinutesData;
+            }
+            set
+            {
+                OnMinutesDataChanging(value);
+                ReportPropertyChanging("MinutesData");
+                _MinutesData = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("MinutesData");
+                OnMinutesDataChanged();
+            }
+        }
+        private global::System.String _MinutesData;
+        partial void OnMinutesDataChanging(global::System.String value);
+        partial void OnMinutesDataChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] MinutesBinary
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_MinutesBinary);
+            }
+            set
+            {
+                OnMinutesBinaryChanging(value);
+                ReportPropertyChanging("MinutesBinary");
+                _MinutesBinary = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("MinutesBinary");
+                OnMinutesBinaryChanged();
+            }
+        }
+        private global::System.Byte[] _MinutesBinary;
+        partial void OnMinutesBinaryChanging(global::System.Byte[] value);
+        partial void OnMinutesBinaryChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DEventApplication")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2354,6 +2531,7 @@ namespace Offwind.Web.Core
         /// Create a new DEventApplication object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="eventId">Initial value of the EventId property.</param>
         /// <param name="created">Initial value of the Created property.</param>
         /// <param name="updated">Initial value of the Updated property.</param>
         /// <param name="fullName">Initial value of the FullName property.</param>
@@ -2361,10 +2539,11 @@ namespace Offwind.Web.Core
         /// <param name="company">Initial value of the Company property.</param>
         /// <param name="phone">Initial value of the Phone property.</param>
         /// <param name="comment">Initial value of the Comment property.</param>
-        public static DEventApplication CreateDEventApplication(global::System.Guid id, global::System.DateTime created, global::System.DateTime updated, global::System.String fullName, global::System.String email, global::System.String company, global::System.String phone, global::System.String comment)
+        public static DEventApplication CreateDEventApplication(global::System.Guid id, global::System.Guid eventId, global::System.DateTime created, global::System.DateTime updated, global::System.String fullName, global::System.String email, global::System.String company, global::System.String phone, global::System.String comment)
         {
             DEventApplication dEventApplication = new DEventApplication();
             dEventApplication.Id = id;
+            dEventApplication.EventId = eventId;
             dEventApplication.Created = created;
             dEventApplication.Updated = updated;
             dEventApplication.FullName = fullName;
@@ -2405,6 +2584,30 @@ namespace Offwind.Web.Core
         private global::System.Guid _Id;
         partial void OnIdChanging(global::System.Guid value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid EventId
+        {
+            get
+            {
+                return _EventId;
+            }
+            set
+            {
+                OnEventIdChanging(value);
+                ReportPropertyChanging("EventId");
+                _EventId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EventId");
+                OnEventIdChanged();
+            }
+        }
+        private global::System.Guid _EventId;
+        partial void OnEventIdChanging(global::System.Guid value);
+        partial void OnEventIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2477,6 +2680,30 @@ namespace Offwind.Web.Core
         private global::System.String _FullName;
         partial void OnFullNameChanging(global::System.String value);
         partial void OnFullNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RegisteredBy
+        {
+            get
+            {
+                return _RegisteredBy;
+            }
+            set
+            {
+                OnRegisteredByChanging(value);
+                ReportPropertyChanging("RegisteredBy");
+                _RegisteredBy = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RegisteredBy");
+                OnRegisteredByChanged();
+            }
+        }
+        private global::System.String _RegisteredBy;
+        partial void OnRegisteredByChanging(global::System.String value);
+        partial void OnRegisteredByChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2573,6 +2800,233 @@ namespace Offwind.Web.Core
         private global::System.String _Comment;
         partial void OnCommentChanging(global::System.String value);
         partial void OnCommentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FirstName
+        {
+            get
+            {
+                return _FirstName;
+            }
+            set
+            {
+                OnFirstNameChanging(value);
+                ReportPropertyChanging("FirstName");
+                _FirstName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FirstName");
+                OnFirstNameChanged();
+            }
+        }
+        private global::System.String _FirstName;
+        partial void OnFirstNameChanging(global::System.String value);
+        partial void OnFirstNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Surname
+        {
+            get
+            {
+                return _Surname;
+            }
+            set
+            {
+                OnSurnameChanging(value);
+                ReportPropertyChanging("Surname");
+                _Surname = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Surname");
+                OnSurnameChanged();
+            }
+        }
+        private global::System.String _Surname;
+        partial void OnSurnameChanging(global::System.String value);
+        partial void OnSurnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Organization
+        {
+            get
+            {
+                return _Organization;
+            }
+            set
+            {
+                OnOrganizationChanging(value);
+                ReportPropertyChanging("Organization");
+                _Organization = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Organization");
+                OnOrganizationChanged();
+            }
+        }
+        private global::System.String _Organization;
+        partial void OnOrganizationChanging(global::System.String value);
+        partial void OnOrganizationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Country
+        {
+            get
+            {
+                return _Country;
+            }
+            set
+            {
+                OnCountryChanging(value);
+                ReportPropertyChanging("Country");
+                _Country = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Country");
+                OnCountryChanged();
+            }
+        }
+        private global::System.String _Country;
+        partial void OnCountryChanging(global::System.String value);
+        partial void OnCountryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Comments
+        {
+            get
+            {
+                return _Comments;
+            }
+            set
+            {
+                OnCommentsChanging(value);
+                ReportPropertyChanging("Comments");
+                _Comments = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Comments");
+                OnCommentsChanged();
+            }
+        }
+        private global::System.String _Comments;
+        partial void OnCommentsChanging(global::System.String value);
+        partial void OnCommentsChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DEventParticipant")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DEventParticipant : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DEventParticipant object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="eventId">Initial value of the EventId property.</param>
+        public static DEventParticipant CreateDEventParticipant(global::System.Guid id, global::System.Guid eventId)
+        {
+            DEventParticipant dEventParticipant = new DEventParticipant();
+            dEventParticipant.Id = id;
+            dEventParticipant.EventId = eventId;
+            return dEventParticipant;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid EventId
+        {
+            get
+            {
+                return _EventId;
+            }
+            set
+            {
+                OnEventIdChanging(value);
+                ReportPropertyChanging("EventId");
+                _EventId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EventId");
+                OnEventIdChanged();
+            }
+        }
+        private global::System.Guid _EventId;
+        partial void OnEventIdChanging(global::System.Guid value);
+        partial void OnEventIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Data
+        {
+            get
+            {
+                return _Data;
+            }
+            set
+            {
+                OnDataChanging(value);
+                ReportPropertyChanging("Data");
+                _Data = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Data");
+                OnDataChanged();
+            }
+        }
+        private global::System.String _Data;
+        partial void OnDataChanging(global::System.String value);
+        partial void OnDataChanged();
 
         #endregion
 

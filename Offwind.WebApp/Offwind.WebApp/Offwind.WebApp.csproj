@@ -285,9 +285,13 @@
     <Compile Include="Areas\Library\Controllers\HomeLibraryController.cs" />
     <Compile Include="Areas\Library\Controllers\_BaseController.cs" />
     <Compile Include="Areas\Library\KnowledgeBaseAreaRegistration.cs" />
+    <Compile Include="Areas\Partners\Controllers\EventsController.cs" />
     <Compile Include="Areas\Partners\Controllers\HomePartnersController.cs" />
     <Compile Include="Areas\Partners\Controllers\_BaseController.cs" />
-    <Compile Include="Areas\Partners\Models\VMeeting.cs" />
+    <Compile Include="Areas\Partners\Models\Events\EventParticipant.cs" />
+    <Compile Include="Areas\Partners\Models\Events\EventsHome.cs" />
+    <Compile Include="Areas\Partners\Models\Events\EventType.cs" />
+    <Compile Include="Areas\Partners\Models\Events\Event.cs" />
     <Compile Include="Areas\Partners\Models\VPartnersHome.cs" />
     <Compile Include="Areas\Partners\PartnersAreaRegistration.cs" />
     <Compile Include="Areas\WindFarms\Controllers\TurbineController.cs" />
@@ -344,8 +348,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Static\meso-wind-db.js" />
+    <Content Include="Areas\Partners\Static\Events\events-models.js" />
+    <Content Include="Areas\Partners\Static\Events\events-controller.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="static\app.js" />
     <Content Include="static\backbone-js-1.0.0\backbone-min.js" />
     <Content Include="static\backbone-js-1.0.0\backbone.js" />
     <Content Include="static\backbone-js-1.0.0\underscore-min.js" />
@@ -819,7 +826,10 @@
     <Content Include="static\img\Depositphotos_7548530.jpg" />
     <Content Include="static\img\dust.png" />
     <Content Include="static\img\furley_bg.png" />
+    <Content Include="static\img\iStock_000020978195Small.jpg" />
     <Content Include="static\img\iStock_000026570439Small.jpg" />
+    <Content Include="static\img\iStock_000026570439Small_2.jpg" />
+    <Content Include="static\img\meeting-december.png" />
     <Content Include="static\img\meeting.jpg" />
     <Content Include="static\img\middleman.png" />
     <Content Include="static\img\offwind-logo.png" />
@@ -2221,6 +2231,7 @@
     <Content Include="Areas\Help\Views\EngWindSim\Index.cshtml" />
     <Content Include="Areas\Help\Views\EngWindFarmControl\Index.cshtml" />
     <Content Include="Areas\Help\Views\AdvancedToolsHelp\Index.cshtml" />
+    <Content Include="Areas\Partners\Views\Events\Index.cshtml" />
     <None Include="Documentation.chm" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />

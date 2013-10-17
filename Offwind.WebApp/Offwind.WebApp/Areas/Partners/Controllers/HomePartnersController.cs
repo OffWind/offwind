@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Offwind.WebApp.Areas.Partners.Models;
 
@@ -19,5 +16,6 @@ namespace Offwind.WebApp.Areas.Partners.Controllers
             m.Partners.AddRange(partners);
             return View(m);
         }
+
     }
 }

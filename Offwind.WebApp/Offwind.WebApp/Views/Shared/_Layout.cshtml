@@ -88,7 +88,8 @@
     <script src="/static/bootstrap/js/bootstrap.js?v=@ViewBag.Version"></script>
     <script src="/static/bootstrap/js/offwind.js?v=@ViewBag.Version"></script>
     @Scripts.Render("~/bundles/backbone")
-    @RenderSection("scripts", required: false)
+    <script src="/static/app.js?v=@ViewBag.Version"></script>
+    @RenderSection("scripts", false)
 
     <script type="text/javascript">
 

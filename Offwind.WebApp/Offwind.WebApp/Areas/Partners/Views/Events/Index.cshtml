@@ -1,0 +1,42 @@
+﻿@using System.Web.Script.Serialization
+@using Offwind.WebApp.Areas.Partners.Models.Events
+@model List<Event>
+
+@{
+    ViewBag.Title = "title";
+}
+<div class="row-fluid row-content-block">
+    <div class="span12 well">
+        <h1>Events</h1>
+        <table class="table table-condensed table-hover table-bordered" id="events">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function() {
+            @{ var serialized = new JavaScriptSerializer().Serialize(Model); }
+            var serverModel = @Html.Raw(serialized);
+
+
+            var commentsModel = @Html.Raw(new JavaScriptSerializer().Serialize(ViewBag.Comments));
+            for (i = 0; i < commentsModel.length; i++) {
+                Utils.fixDateTime(commentsModel[i], 'Created');
+            }
+            new CommentsController().initialize(commentsModel);
+        });
+    </script>
+}

@@ -12,7 +12,9 @@
           <EntitySet Name="DContentCategory" EntityType="Store.DContentCategory" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DContentTypes" EntityType="Store.DContentTypes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DCountry" EntityType="Store.DCountry" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DEvent" EntityType="Store.DEvent" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DEventApplication" EntityType="Store.DEventApplication" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DEventParticipant" EntityType="Store.DEventParticipant" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DJob" EntityType="Store.DJob" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DMeeting" EntityType="Store.DMeeting" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DMeetingFile" EntityType="Store.DMeetingFile" store:Type="Tables" Schema="dbo" />
@@ -175,18 +177,42 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
         </EntityType>
+        <EntityType Name="DEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Data" Type="nvarchar(max)" />
+          <Property Name="MinutesData" Type="nvarchar(max)" />
+          <Property Name="MinutesBinary" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="DEventApplication">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EventId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="Updated" Type="datetime" Nullable="false" />
           <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RegisteredBy" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="500" />
           <Property Name="Company" Type="nvarchar" Nullable="false" MaxLength="500" />
           <Property Name="Phone" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="250" />
+          <Property Name="Organization" Type="nvarchar" MaxLength="500" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DEventParticipant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EventId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Data" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="DJob">
           <Key>
@@ -685,7 +711,9 @@
           <EntitySet Name="DContentCategories" EntityType="Offwind.DbModels.DContentCategory" />
           <EntitySet Name="DContentTypes" EntityType="Offwind.DbModels.DContentType" />
           <EntitySet Name="DCountries" EntityType="Offwind.DbModels.DCountry" />
+          <EntitySet Name="DEvents" EntityType="Offwind.DbModels.DEvent" />
           <EntitySet Name="DEventApplications" EntityType="Offwind.DbModels.DEventApplication" />
+          <EntitySet Name="DEventParticipants" EntityType="Offwind.DbModels.DEventParticipant" />
           <EntitySet Name="DJobs" EntityType="Offwind.DbModels.DJob" />
           <EntitySet Name="DMeetings" EntityType="Offwind.DbModels.DMeeting" />
           <EntitySet Name="DMeetingFiles" EntityType="Offwind.DbModels.DMeetingFile" />
@@ -827,18 +855,42 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="DEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Data" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MinutesData" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="MinutesBinary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="DEventApplication">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="EventId" Nullable="false" />
           <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
           <Property Type="DateTime" Name="Updated" Nullable="false" Precision="3" />
           <Property Type="String" Name="FullName" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="RegisteredBy" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Email" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Company" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Phone" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Comment" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FirstName" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Surname" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Organization" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Country" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Comments" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DEventParticipant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="EventId" Nullable="false" />
+          <Property Type="String" Name="Data" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DJob">
           <Key>
@@ -1330,16 +1382,42 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DEvents">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DEvent">
+              <MappingFragment StoreEntitySet="DEvent">
+                <ScalarProperty Name="MinutesBinary" ColumnName="MinutesBinary" />
+                <ScalarProperty Name="MinutesData" ColumnName="MinutesData" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DEventApplications">
             <EntityTypeMapping TypeName="Offwind.DbModels.DEventApplication">
               <MappingFragment StoreEntitySet="DEventApplication">
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Company" ColumnName="Company" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RegisteredBy" ColumnName="RegisteredBy" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="Updated" ColumnName="Updated" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEventParticipants">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DEventParticipant">
+              <MappingFragment StoreEntitySet="DEventParticipant">
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1654,35 +1732,37 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Offwind" ZoomLevel="40">
-        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="8.1090627834708719" PointY="31.23446872794743" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="6.1834049067382733" PointY="25.695527252599376" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="10.430680089830737" PointY="25.661361065535509" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContentCategory" Width="1.5" PointX="2.948087337868329" PointY="4.132967727320719" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="10.993474646934065" PointY="11.041165014282411" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DCountry" Width="1.5" PointX="1.8796344054302359" PointY="2.4190500985919732" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DEventApplication" Width="1.5" PointX="10.277443404438646" PointY="6.5804060728197946" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="10.080446501299946" PointY="12.31514056600404" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="3.272681377489437" PointY="28.428564710742126" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="11.381037773276232" PointY="18.035033159905595" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="5.5586869165108945" PointY="20.147892648423042" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="11.727222651116188" PointY="19.270727419886146" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="8.3957968505079847" PointY="0.23457014571622487" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DProperty" Width="1.5" PointX="10.248076004091686" PointY="24.802527945862398" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DTurbine" Width="1.5" PointX="11.164848541452013" PointY="16.301210053405356" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DTurbineParameter" Width="1.5" PointX="1.0395291079951119" PointY="7.68047869563125" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="5.5202197588608692" PointY="6.276102694811347" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarm" Width="1.5" PointX="6.9794168337152414" PointY="20.990192363499752" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarmTurbine" Width="1.5" PointX="3.7937517481826957" PointY="25.623090562235141" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="7.9513685963821459" PointY="14.949193588900004" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="4.9178696316284451" PointY="11.29777546753072" />
-        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="10.527684212908001" PointY="24.889828008082617" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="6.9785006358188113" PointY="15.582366965516641" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="9.6063248690247178" PointY="27.445091766978191" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="7.652585873218527" PointY="11.251449575299141" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="10.480124880783318" PointY="24.545410510406555" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VRouteItem" Width="1.5" PointX="3.7269494942049262" PointY="18.081997879819014" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="1.3109275667513383" PointY="1.4762747741659521" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="11.985703121864098" PointY="29.218352331415915" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="8.0792002696912739" PointY="3.1281555905603597" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="6.0103980666074888" PointY="22.232731471877887" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="6.7849759863619585" PointY="27.018000421588308" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContentCategory" Width="1.5" PointX="7.7054562083005234" PointY="26.386268553503914" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="6.7081542567853605" PointY="6.5440749407485477" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCountry" Width="1.5" PointX="8.7674627251771575" PointY="12.460873669227992" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DEvent" Width="1.5" PointX="7.4602103994508333" PointY="17.413430222036983" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DEventApplication" Width="1.5" PointX="10.667722736796234" PointY="8.7057979296454224" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DEventParticipant" Width="1.5" PointX="9.4269049621312426" PointY="0.055972099330263259" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="5.9360191421285364" PointY="8.840494636837624" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="8.39597338456473" PointY="12.774072533833827" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="10.789999583172612" PointY="14.762427605112283" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="3.6987397967366222" PointY="31.477843284363786" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="3.7913177217316427" PointY="23.111536051664284" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="9.5625848572526984" PointY="5.1747322851674316" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DProperty" Width="1.5" PointX="4.5244027844278154" PointY="26.479187888316432" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DTurbine" Width="1.5" PointX="3.8861033394402371" PointY="28.979492648029463" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DTurbineParameter" Width="1.5" PointX="7.5466140134011468" PointY="10.459072982174844" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="2.138250266266172" PointY="4.6873324237239231" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarm" Width="1.5" PointX="9.6671284631207257" PointY="5.9030962762902943" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarmTurbine" Width="1.5" PointX="2.692168879645024" PointY="13.792542016968383" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="2.0564484512696266" PointY="4.770650687055034" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="11.453436607240437" PointY="25.903170865915328" />
+        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="9.8649910045159" PointY="30.355541764924091" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="4.9402225804236828" PointY="10.615329851682917" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="4.1359134074933426" PointY="9.0005302769134428" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="4.9040838987119884" PointY="31.9112246483151" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="3.3167846274174684" PointY="8.7704615186762354" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VRouteItem" Width="1.5" PointX="2.3830587632875231" PointY="1.2653005725076891" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="4.638534505217585" PointY="18.615426012601436" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="6.3404324363639732" PointY="29.436347170470444" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentCategory" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" />
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingFile_DMeeting" />

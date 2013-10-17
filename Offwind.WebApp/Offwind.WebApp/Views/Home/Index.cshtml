@@ -4,6 +4,15 @@
     ViewBag.Title = Model.BrowserTitle;
 }
 
+<style>
+    .carousel-caption.meeting-december
+    {
+        width: 400px;
+        right: 30px;
+        bottom: 30px;
+        left: auto;
+    }
+</style>
 <div class="row-fluid">
     <div class="span8">
         <div id="myCarousel" class="carousel slide">
@@ -13,6 +22,13 @@
                 </ol>*@
                 <div class="carousel-inner">
                 <div class="active item">
+                    <img src="/static/img/meeting-december.png" alt="" />
+                    <div class="carousel-caption meeting-december">
+                        <h2><a href="@Url.Action("Index", "GlobalMeeting")">@Html.BlockTitle("event-global-expert-meeting-2013-postpone")</a></h2>
+                        @Html.BlockContent("event-global-expert-meeting-2013-postpone")
+                    </div>
+                </div>
+                <div class="item">
                     <img src="/static/img/meeting.jpg" alt="" />
                     <div class="carousel-caption">
                         <h2><a href="@Url.Action("Index", "GlobalMeeting")">Offwind Global Expert Meeting</a></h2>

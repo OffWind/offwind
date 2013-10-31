@@ -6,8 +6,8 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
     <fieldset>
-        <legend>Change account for user: <h3 style="display: inline">@Model.Name</h3></legend>
-        @Html.HiddenFor(m => m.Name)        
+        <legend>Change account for user: <h3 style="display: inline">@Model.UserName</h3></legend>
+        @Html.HiddenFor(m => m.UserName)        
         @Html.HiddenFor(m => m.SelectedRoles)
         @Html.HiddenFor(m => m.OldPassword)
         

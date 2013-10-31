@@ -4,132 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="StoreContainer">
-          <EntitySet Name="DBPlanProfitLossCustom" EntityType="Store.DBPlanProfitLossCustom" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DCase" EntityType="Store.DCase" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DComment" EntityType="Store.DComment" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DContent" EntityType="Store.DContent" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DContentCategory" EntityType="Store.DContentCategory" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DContentTypes" EntityType="Store.DContentTypes" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DCountry" EntityType="Store.DCountry" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DEvent" EntityType="Store.DEvent" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DEventApplication" EntityType="Store.DEventApplication" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DEventParticipant" EntityType="Store.DEventParticipant" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DJob" EntityType="Store.DJob" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMeeting" EntityType="Store.DMeeting" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMeetingFile" EntityType="Store.DMeetingFile" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMeetingParticipant" EntityType="Store.DMeetingParticipant" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMesoscaleDatabase" EntityType="Store.DMesoscaleDatabase" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMesoscaleTabFile" EntityType="Store.DMesoscaleTabFile" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DProperties" EntityType="Store.DProperties" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DTurbine" EntityType="Store.DTurbine" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DTurbineParameter" EntityType="Store.DTurbineParameter" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DUserProfile" EntityType="Store.DUserProfile" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DWindFarm" EntityType="Store.DWindFarm" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DWindFarmTurbine" EntityType="Store.DWindFarmTurbine" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Log" EntityType="Store.Log" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Pages" EntityType="Store.Pages" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="sysdiagrams" EntityType="Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="webpages_Membership" EntityType="Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="webpages_OAuthMembership" EntityType="Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="webpages_Roles" EntityType="Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="webpages_UsersInRoles" EntityType="Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="VPartner" EntityType="Store.VPartner" store:Type="Views" store:Schema="dbo" store:Name="VPartner">
-            <DefiningQuery>SELECT 
-      [VPartner].[UserId] AS [UserId], 
-      [VPartner].[UserName] AS [UserName], 
-      [VPartner].[FullName] AS [FullName], 
-      [VPartner].[CompanyName] AS [CompanyName], 
-      [VPartner].[RoleId] AS [RoleId]
-      FROM [dbo].[VPartner] AS [VPartner]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="VRouteItem" EntityType="Store.VRouteItem" store:Type="Views" store:Schema="dbo" store:Name="VRouteItem">
-            <DefiningQuery>SELECT 
-      [VRouteItem].[Id] AS [Id], 
-      [VRouteItem].[ParentId] AS [ParentId], 
-      [VRouteItem].[TypeId] AS [TypeId], 
-      [VRouteItem].[CategoryId] AS [CategoryId], 
-      [VRouteItem].[RouteTitle] AS [RouteTitle], 
-      [VRouteItem].[Route] AS [Route], 
-      [VRouteItem].[Position] AS [Position]
-      FROM [dbo].[VRouteItem] AS [VRouteItem]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="VSmallMesoscaleTabFile" EntityType="Store.VSmallMesoscaleTabFile" store:Type="Views" store:Schema="dbo" store:Name="VSmallMesoscaleTabFile">
-            <DefiningQuery>SELECT 
-      [VSmallMesoscaleTabFile].[Id] AS [Id], 
-      [VSmallMesoscaleTabFile].[DatabaseId] AS [DatabaseId], 
-      [VSmallMesoscaleTabFile].[Latitude] AS [Latitude], 
-      [VSmallMesoscaleTabFile].[Longitude] AS [Longitude]
-      FROM [dbo].[VSmallMesoscaleTabFile] AS [VSmallMesoscaleTabFile]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="VUserRole" EntityType="Store.VUserRole" store:Type="Views" store:Schema="dbo" store:Name="VUserRole">
-            <DefiningQuery>SELECT 
-      [VUserRole].[UserId] AS [UserId], 
-      [VUserRole].[RoleId] AS [RoleId], 
-      [VUserRole].[RoleName] AS [RoleName]
-      FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_DContent_DContentCategory" Association="Store.FK_DContent_DContentCategory">
-            <End Role="DContentCategory" EntitySet="DContentCategory" />
-            <End Role="DContent" EntitySet="DContent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DContent_DContentTypes" Association="Store.FK_DContent_DContentTypes">
-            <End Role="DContentTypes" EntitySet="DContentTypes" />
-            <End Role="DContent" EntitySet="DContent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DMeetingFile_DMeeting" Association="Store.FK_DMeetingFile_DMeeting">
-            <End Role="DMeeting" EntitySet="DMeeting" />
-            <End Role="DMeetingFile" EntitySet="DMeetingFile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DMeetingParticipant_DMeeting" Association="Store.FK_DMeetingParticipant_DMeeting">
-            <End Role="DMeeting" EntitySet="DMeeting" />
-            <End Role="DMeetingParticipant" EntitySet="DMeetingParticipant" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DMesoscaleTabFile_DMesoscaleDatabase" Association="Store.FK_DMesoscaleTabFile_DMesoscaleDatabase">
-            <End Role="DMesoscaleDatabase" EntitySet="DMesoscaleDatabase" />
-            <End Role="DMesoscaleTabFile" EntitySet="DMesoscaleTabFile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DTurbineParameter_DTurbine" Association="Store.FK_DTurbineParameter_DTurbine">
-            <End Role="DTurbine" EntitySet="DTurbine" />
-            <End Role="DTurbineParameter" EntitySet="DTurbineParameter" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DUserProfile_webpages_Membership" Association="Store.FK_DUserProfile_webpages_Membership">
-            <End Role="webpages_Membership" EntitySet="webpages_Membership" />
-            <End Role="DUserProfile" EntitySet="DUserProfile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DWindFarmTurbine_DWindFarm" Association="Store.FK_DWindFarmTurbine_DWindFarm">
-            <End Role="DWindFarm" EntitySet="DWindFarm" />
-            <End Role="DWindFarmTurbine" EntitySet="DWindFarmTurbine" />
-          </AssociationSet>
-          <AssociationSet Name="FK_webpages_UsersInRoles_DUserProfile" Association="Store.FK_webpages_UsersInRoles_DUserProfile">
-            <End Role="DUserProfile" EntitySet="DUserProfile" />
-            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_webpages_UsersInRoles_webpages_Roles" Association="Store.FK_webpages_UsersInRoles_webpages_Roles">
-            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
-            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="DBPlanProfitLossCustom">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="BusinessPlanId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="255" />
-          <Property Name="MonthlyView" Type="xml" Nullable="false" />
-          <Property Name="Type" Type="int" Nullable="false" />
-          <Property Name="Category" Type="int" Nullable="false" />
-        </EntityType>
+    <Schema Namespace="Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityType Name="DCase">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Created" Type="datetime" Nullable="false" />
-          <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="200" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="Owner" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Model" Type="xml" Nullable="false" />
           <Property Name="CurrentJobId" Type="uniqueidentifier" />
         </EntityType>
@@ -140,7 +23,7 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ObjectUid" Type="uniqueidentifier" />
           <Property Name="Created" Type="datetime" Nullable="false" />
-          <Property Name="Author" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Author" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="DContent">
@@ -149,7 +32,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ParentId" Type="uniqueidentifier" />
-          <Property Name="TypeId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="TypeId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CategoryId" Type="uniqueidentifier" />
           <Property Name="RouteTitle" Type="nvarchar(max)" />
           <Property Name="Route" Type="nvarchar(max)" Nullable="false" />
@@ -180,14 +63,14 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="DCountry">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="DEvent">
           <Key>
@@ -208,9 +91,9 @@
           <Property Name="Updated" Type="datetime" Nullable="false" />
           <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="RegisteredBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="500" />
-          <Property Name="Company" Type="nvarchar" Nullable="false" MaxLength="500" />
-          <Property Name="Phone" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Company" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="250" />
           <Property Name="Surname" Type="nvarchar" MaxLength="250" />
@@ -231,21 +114,21 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Started" Type="datetime2" Nullable="false" />
-          <Property Name="RunningSince" Type="datetime2" />
-          <Property Name="Finished" Type="datetime2" />
-          <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="200" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
-          <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Started" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="RunningSince" Type="datetime2" Precision="7" />
+          <Property Name="Finished" Type="datetime2" Precision="7" />
+          <Property Name="Owner" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Result" Type="nvarchar" MaxLength="20" />
-          <Property Name="ResultData" Type="nvarchar" />
+          <Property Name="ResultData" Type="nvarchar" MaxLength="4000" />
         </EntityType>
         <EntityType Name="DMeeting">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="TypeId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="TypeId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DateTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="DMeetingFile">
@@ -254,7 +137,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="MeetingId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="FileName" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Data" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="DMeetingParticipant">
@@ -263,30 +146,30 @@
             <PropertyRef Name="Participant" />
           </Key>
           <Property Name="MeetingId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Participant" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Participant" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="DMesoscaleDatabase">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="smallint" Nullable="false" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="DMesoscaleTabFile">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DatabaseId" Type="smallint" Nullable="false" />
-          <Property Name="Latitude" Type="decimal" Nullable="false" Scale="4" />
-          <Property Name="Longitude" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="Latitude" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Longitude" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="Text" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="DProperties">
           <Key>
             <PropertyRef Name="Name" />
           </Key>
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="Name" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="DTurbine">
@@ -324,29 +207,42 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="TurbineId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Group" Type="nvarchar" Nullable="false" MaxLength="150" />
-          <Property Name="Parameter" Type="nvarchar" Nullable="false" MaxLength="250" />
-          <Property Name="Type" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="Group" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Parameter" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="ValueTxt" Type="varchar" MaxLength="250" />
           <Property Name="ValueNumeric" Type="decimal" Precision="38" Scale="10" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6035: The relationship 'FK_DCase_DUserProfile' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-      warning 6035: The relationship 'FK_DJob_DUserProfile' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-      -->
         <EntityType Name="DUserProfile">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="IsVerified" Type="bit" Nullable="false" />
           <Property Name="VerificationCode" Type="uniqueidentifier" />
           <Property Name="ResetPasswordCode" Type="uniqueidentifier" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="350" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="350" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="350" />
           <Property Name="FullName" Type="nvarchar" MaxLength="350" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="1000" />
           <Property Name="Info" Type="ntext" />
           <Property Name="LastActivity" Type="datetime" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Position" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AcademicDegree" Type="nvarchar" MaxLength="350" />
+          <Property Name="WorkEmail" Type="nvarchar" MaxLength="350" />
+        </EntityType>
+        <EntityType Name="DUserProfileComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Author" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="DWindFarm">
           <Key>
@@ -359,13 +255,13 @@
           <Property Name="TurbineTypeId" Type="uniqueidentifier" />
           <Property Name="IsPublic" Type="bit" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Country" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="Country" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="UrlOfficial" Type="nvarchar(max)" Nullable="false" />
           <Property Name="UrlPublicWiki" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="GeoLat" Type="decimal" Nullable="false" Precision="8" Scale="6" />
-          <Property Name="GeoLng" Type="decimal" Nullable="false" Precision="8" Scale="6" />
-          <Property Name="TotalCapacity" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="GeoLat" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+          <Property Name="GeoLng" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+          <Property Name="TotalCapacity" Type="decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="DWindFarmTurbine">
           <Key>
@@ -374,27 +270,27 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="WindFarmId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Number" Type="int" Nullable="false" />
-          <Property Name="X" Type="decimal" Nullable="false" Scale="6" />
-          <Property Name="Y" Type="decimal" Nullable="false" Scale="6" />
-          <Property Name="Z" Type="decimal" Nullable="false" Scale="6" />
+          <Property Name="X" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="Y" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="Z" Type="decimal" Precision="18" Scale="6" Nullable="false" />
         </EntityType>
         <EntityType Name="Log">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="Thread" Type="varchar" Nullable="false" MaxLength="1000" />
-          <Property Name="Level" Type="varchar" Nullable="false" MaxLength="1000" />
-          <Property Name="Logger" Type="varchar" Nullable="false" MaxLength="1000" />
-          <Property Name="Message" Type="varchar" Nullable="false" />
-          <Property Name="Exception" Type="varchar" />
+          <Property Name="Thread" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Level" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Logger" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Message" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="Exception" Type="varchar" MaxLength="8000" />
         </EntityType>
         <EntityType Name="Pages">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Slug" Type="varchar" MaxLength="250" />
           <Property Name="PageType" Type="varchar" MaxLength="20" />
           <Property Name="PageTitle" Type="nvarchar" MaxLength="1050" />
@@ -415,9 +311,9 @@
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
@@ -431,9 +327,9 @@
           <Property Name="IsConfirmed" Type="bit" />
           <Property Name="LastPasswordFailureDate" Type="datetime" />
           <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="PasswordChangedDate" Type="datetime" />
-          <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
           <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
           <Property Name="Email" Type="nvarchar" MaxLength="128" />
@@ -443,16 +339,16 @@
             <PropertyRef Name="Provider" />
             <PropertyRef Name="ProviderUserId" />
           </Key>
-          <Property Name="Provider" Type="nvarchar" Nullable="false" MaxLength="30" />
-          <Property Name="ProviderUserId" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="webpages_Roles">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="webpages_UsersInRoles">
           <Key>
@@ -463,8 +359,36 @@
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'offwind.dbo.VPartner' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
+warning 6002: The table/view 'offwind.dbo.DVUserProfile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DVUserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="IsVerified" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsVerified" Type="bit" Nullable="false" />
+          <Property Name="VerificationCode" Type="uniqueidentifier" />
+          <Property Name="ResetPasswordCode" Type="uniqueidentifier" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="350" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="350" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="350" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="350" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Info" Type="ntext" />
+          <Property Name="LastActivity" Type="datetime" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Position" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AcademicDegree" Type="nvarchar" MaxLength="350" />
+          <Property Name="WorkEmail" Type="nvarchar" MaxLength="350" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="IsConfirmed" Type="bit" />
+          <Property Name="Email" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'offwind.dbo.VPartner' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VPartner">
           <Key>
             <PropertyRef Name="UserId" />
@@ -472,14 +396,13 @@
             <PropertyRef Name="RoleId" />
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="350" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="1000" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'offwind.dbo.VRouteItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
+warning 6002: The table/view 'offwind.dbo.VRouteItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VRouteItem">
           <Key>
             <PropertyRef Name="Id" />
@@ -489,15 +412,14 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ParentId" Type="uniqueidentifier" />
-          <Property Name="TypeId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="TypeId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CategoryId" Type="uniqueidentifier" />
           <Property Name="RouteTitle" Type="nvarchar(max)" />
           <Property Name="Route" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Position" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'offwind.dbo.VSmallMesoscaleTabFile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
+warning 6002: The table/view 'offwind.dbo.VSmallMesoscaleTabFile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VSmallMesoscaleTabFile">
           <Key>
             <PropertyRef Name="Id" />
@@ -505,14 +427,13 @@
             <PropertyRef Name="Latitude" />
             <PropertyRef Name="Longitude" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DatabaseId" Type="smallint" Nullable="false" />
-          <Property Name="Latitude" Type="decimal" Nullable="false" Scale="4" />
-          <Property Name="Longitude" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="Latitude" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Longitude" Type="decimal" Precision="18" Scale="4" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'offwind.dbo.VUserRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
+warning 6002: The table/view 'offwind.dbo.VUserRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VUserRole">
           <Key>
             <PropertyRef Name="UserId" />
@@ -521,11 +442,14 @@
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
-          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_DCase_DUserProfile' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_DCase_DUserProfile" />-->
         <Association Name="FK_DContent_DContentCategory">
-          <End Role="DContentCategory" Type="Store.DContentCategory" Multiplicity="0..1" />
-          <End Role="DContent" Type="Store.DContent" Multiplicity="*" />
+          <End Role="DContentCategory" Type="Self.DContentCategory" Multiplicity="0..1" />
+          <End Role="DContent" Type="Self.DContent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DContentCategory">
               <PropertyRef Name="Id" />
@@ -536,8 +460,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DContent_DContentTypes">
-          <End Role="DContentTypes" Type="Store.DContentTypes" Multiplicity="1" />
-          <End Role="DContent" Type="Store.DContent" Multiplicity="*" />
+          <End Role="DContentTypes" Type="Self.DContentTypes" Multiplicity="1" />
+          <End Role="DContent" Type="Self.DContent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DContentTypes">
               <PropertyRef Name="Id" />
@@ -547,9 +471,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_DJob_DUserProfile' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_DJob_DUserProfile" />-->
         <Association Name="FK_DMeetingFile_DMeeting">
-          <End Role="DMeeting" Type="Store.DMeeting" Multiplicity="1" />
-          <End Role="DMeetingFile" Type="Store.DMeetingFile" Multiplicity="*" />
+          <End Role="DMeeting" Type="Self.DMeeting" Multiplicity="1" />
+          <End Role="DMeetingFile" Type="Self.DMeetingFile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DMeeting">
               <PropertyRef Name="Id" />
@@ -560,8 +487,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DMeetingParticipant_DMeeting">
-          <End Role="DMeeting" Type="Store.DMeeting" Multiplicity="1" />
-          <End Role="DMeetingParticipant" Type="Store.DMeetingParticipant" Multiplicity="*" />
+          <End Role="DMeeting" Type="Self.DMeeting" Multiplicity="1" />
+          <End Role="DMeetingParticipant" Type="Self.DMeetingParticipant" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DMeeting">
               <PropertyRef Name="Id" />
@@ -572,8 +499,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DMesoscaleTabFile_DMesoscaleDatabase">
-          <End Role="DMesoscaleDatabase" Type="Store.DMesoscaleDatabase" Multiplicity="1" />
-          <End Role="DMesoscaleTabFile" Type="Store.DMesoscaleTabFile" Multiplicity="*" />
+          <End Role="DMesoscaleDatabase" Type="Self.DMesoscaleDatabase" Multiplicity="1" />
+          <End Role="DMesoscaleTabFile" Type="Self.DMesoscaleTabFile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DMesoscaleDatabase">
               <PropertyRef Name="Id" />
@@ -584,8 +511,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DTurbineParameter_DTurbine">
-          <End Role="DTurbine" Type="Store.DTurbine" Multiplicity="1" />
-          <End Role="DTurbineParameter" Type="Store.DTurbineParameter" Multiplicity="*" />
+          <End Role="DTurbine" Type="Self.DTurbine" Multiplicity="1" />
+          <End Role="DTurbineParameter" Type="Self.DTurbineParameter" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DTurbine">
               <PropertyRef Name="Id" />
@@ -595,21 +522,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DUserProfile_webpages_Membership">
-          <End Role="webpages_Membership" Type="Store.webpages_Membership" Multiplicity="1" />
-          <End Role="DUserProfile" Type="Store.DUserProfile" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="webpages_Membership">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="DUserProfile">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DWindFarmTurbine_DWindFarm">
-          <End Role="DWindFarm" Type="Store.DWindFarm" Multiplicity="1" />
-          <End Role="DWindFarmTurbine" Type="Store.DWindFarmTurbine" Multiplicity="*" />
+          <End Role="DWindFarm" Type="Self.DWindFarm" Multiplicity="1" />
+          <End Role="DWindFarmTurbine" Type="Self.DWindFarmTurbine" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DWindFarm">
               <PropertyRef Name="Id" />
@@ -620,8 +535,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_webpages_UsersInRoles_DUserProfile">
-          <End Role="DUserProfile" Type="Store.DUserProfile" Multiplicity="1" />
-          <End Role="webpages_UsersInRoles" Type="Store.webpages_UsersInRoles" Multiplicity="*" />
+          <End Role="DUserProfile" Type="Self.DUserProfile" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DUserProfile">
               <PropertyRef Name="UserId" />
@@ -632,8 +547,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_webpages_UsersInRoles_webpages_Roles">
-          <End Role="webpages_Roles" Type="Store.webpages_Roles" Multiplicity="1" />
-          <End Role="webpages_UsersInRoles" Type="Store.webpages_UsersInRoles" Multiplicity="*" />
+          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="webpages_Roles">
               <PropertyRef Name="RoleId" />
@@ -643,7 +558,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -681,6 +596,132 @@
         <Function Name="WindFarm_DeleteTurbines" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="windFarmId" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <EntityContainer Name="StoreContainer">
+          <EntitySet Name="DCase" EntityType="Self.DCase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DComment" EntityType="Self.DComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DContent" EntityType="Self.DContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DContentCategory" EntityType="Self.DContentCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DContentTypes" EntityType="Self.DContentTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DCountry" EntityType="Self.DCountry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DEvent" EntityType="Self.DEvent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DEventApplication" EntityType="Self.DEventApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DEventParticipant" EntityType="Self.DEventParticipant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DJob" EntityType="Self.DJob" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DMeeting" EntityType="Self.DMeeting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DMeetingFile" EntityType="Self.DMeetingFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DMeetingParticipant" EntityType="Self.DMeetingParticipant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DMesoscaleDatabase" EntityType="Self.DMesoscaleDatabase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DMesoscaleTabFile" EntityType="Self.DMesoscaleTabFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DProperties" EntityType="Self.DProperties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DTurbine" EntityType="Self.DTurbine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DTurbineParameter" EntityType="Self.DTurbineParameter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DUserProfile" EntityType="Self.DUserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DUserProfileComment" EntityType="Self.DUserProfileComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DWindFarm" EntityType="Self.DWindFarm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DWindFarmTurbine" EntityType="Self.DWindFarmTurbine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pages" EntityType="Self.Pages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DVUserProfile" EntityType="Self.DVUserProfile" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[DVUserProfile].[UserId] AS [UserId], 
+[DVUserProfile].[UserName] AS [UserName], 
+[DVUserProfile].[IsVerified] AS [IsVerified], 
+[DVUserProfile].[VerificationCode] AS [VerificationCode], 
+[DVUserProfile].[ResetPasswordCode] AS [ResetPasswordCode], 
+[DVUserProfile].[FirstName] AS [FirstName], 
+[DVUserProfile].[LastName] AS [LastName], 
+[DVUserProfile].[MiddleName] AS [MiddleName], 
+[DVUserProfile].[FullName] AS [FullName], 
+[DVUserProfile].[CompanyName] AS [CompanyName], 
+[DVUserProfile].[Info] AS [Info], 
+[DVUserProfile].[LastActivity] AS [LastActivity], 
+[DVUserProfile].[Country] AS [Country], 
+[DVUserProfile].[Created] AS [Created], 
+[DVUserProfile].[Position] AS [Position], 
+[DVUserProfile].[AcademicDegree] AS [AcademicDegree], 
+[DVUserProfile].[WorkEmail] AS [WorkEmail], 
+[DVUserProfile].[CreateDate] AS [CreateDate], 
+[DVUserProfile].[IsConfirmed] AS [IsConfirmed], 
+[DVUserProfile].[Email] AS [Email]
+FROM [dbo].[DVUserProfile] AS [DVUserProfile]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VPartner" EntityType="Self.VPartner" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[VPartner].[UserId] AS [UserId], 
+[VPartner].[UserName] AS [UserName], 
+[VPartner].[FullName] AS [FullName], 
+[VPartner].[CompanyName] AS [CompanyName], 
+[VPartner].[RoleId] AS [RoleId]
+FROM [dbo].[VPartner] AS [VPartner]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VRouteItem" EntityType="Self.VRouteItem" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[VRouteItem].[Id] AS [Id], 
+[VRouteItem].[ParentId] AS [ParentId], 
+[VRouteItem].[TypeId] AS [TypeId], 
+[VRouteItem].[CategoryId] AS [CategoryId], 
+[VRouteItem].[RouteTitle] AS [RouteTitle], 
+[VRouteItem].[Route] AS [Route], 
+[VRouteItem].[Position] AS [Position]
+FROM [dbo].[VRouteItem] AS [VRouteItem]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VSmallMesoscaleTabFile" EntityType="Self.VSmallMesoscaleTabFile" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[VSmallMesoscaleTabFile].[Id] AS [Id], 
+[VSmallMesoscaleTabFile].[DatabaseId] AS [DatabaseId], 
+[VSmallMesoscaleTabFile].[Latitude] AS [Latitude], 
+[VSmallMesoscaleTabFile].[Longitude] AS [Longitude]
+FROM [dbo].[VSmallMesoscaleTabFile] AS [VSmallMesoscaleTabFile]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VUserRole" EntityType="Self.VUserRole" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[VUserRole].[UserId] AS [UserId], 
+[VUserRole].[RoleId] AS [RoleId], 
+[VUserRole].[RoleName] AS [RoleName]
+FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_DContent_DContentCategory" Association="Self.FK_DContent_DContentCategory">
+            <End Role="DContentCategory" EntitySet="DContentCategory" />
+            <End Role="DContent" EntitySet="DContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DContent_DContentTypes" Association="Self.FK_DContent_DContentTypes">
+            <End Role="DContentTypes" EntitySet="DContentTypes" />
+            <End Role="DContent" EntitySet="DContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DMeetingFile_DMeeting" Association="Self.FK_DMeetingFile_DMeeting">
+            <End Role="DMeeting" EntitySet="DMeeting" />
+            <End Role="DMeetingFile" EntitySet="DMeetingFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DMeetingParticipant_DMeeting" Association="Self.FK_DMeetingParticipant_DMeeting">
+            <End Role="DMeeting" EntitySet="DMeeting" />
+            <End Role="DMeetingParticipant" EntitySet="DMeetingParticipant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DMesoscaleTabFile_DMesoscaleDatabase" Association="Self.FK_DMesoscaleTabFile_DMesoscaleDatabase">
+            <End Role="DMesoscaleDatabase" EntitySet="DMesoscaleDatabase" />
+            <End Role="DMesoscaleTabFile" EntitySet="DMesoscaleTabFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTurbineParameter_DTurbine" Association="Self.FK_DTurbineParameter_DTurbine">
+            <End Role="DTurbine" EntitySet="DTurbine" />
+            <End Role="DTurbineParameter" EntitySet="DTurbineParameter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DWindFarmTurbine_DWindFarm" Association="Self.FK_DWindFarmTurbine_DWindFarm">
+            <End Role="DWindFarm" EntitySet="DWindFarm" />
+            <End Role="DWindFarmTurbine" EntitySet="DWindFarmTurbine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_webpages_UsersInRoles_DUserProfile" Association="Self.FK_webpages_UsersInRoles_DUserProfile">
+            <End Role="DUserProfile" EntitySet="DUserProfile" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_webpages_UsersInRoles_webpages_Roles" Association="Self.FK_webpages_UsersInRoles_webpages_Roles">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -722,7 +763,10 @@
           <FunctionImport Name="WindFarm_DeleteTurbines1">
           <Parameter Name="windFarmId" Mode="In" Type="Guid" />
           </FunctionImport>
-          <EntitySet Name="DBPlanProfitLossCustoms" EntityType="Offwind.DbModels.DBPlanProfitLossCustom" />
+          <FunctionImport Name="UpdateLastOnline">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="DateTime" Mode="In" Type="DateTime" />
+          </FunctionImport>
           <EntitySet Name="DCases" EntityType="Offwind.DbModels.DCase" />
           <EntitySet Name="DComments" EntityType="Offwind.DbModels.DComment" />
           <EntitySet Name="DContents" EntityType="Offwind.DbModels.DContent" />
@@ -742,6 +786,7 @@
           <EntitySet Name="DTurbines" EntityType="Offwind.DbModels.DTurbine" />
           <EntitySet Name="DTurbineParameters" EntityType="Offwind.DbModels.DTurbineParameter" />
           <EntitySet Name="DUserProfiles" EntityType="Offwind.DbModels.DUserProfile" />
+          <EntitySet Name="DUserProfileComments" EntityType="Offwind.DbModels.DUserProfileComment" />
           <EntitySet Name="DWindFarms" EntityType="Offwind.DbModels.DWindFarm" />
           <EntitySet Name="DWindFarmTurbines" EntityType="Offwind.DbModels.DWindFarmTurbine" />
           <EntitySet Name="Logs" EntityType="Offwind.DbModels.Log" />
@@ -750,6 +795,7 @@
           <EntitySet Name="webpages_Membership" EntityType="Offwind.DbModels.webpages_Membership" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Offwind.DbModels.webpages_OAuthMembership" />
           <EntitySet Name="webpages_Roles" EntityType="Offwind.DbModels.webpages_Roles" />
+          <EntitySet Name="DVUserProfiles" EntityType="Offwind.DbModels.DVUserProfile" />
           <EntitySet Name="VPartners" EntityType="Offwind.DbModels.VPartner" />
           <EntitySet Name="VRouteItems" EntityType="Offwind.DbModels.VRouteItem" />
           <EntitySet Name="VSmallMesoscaleTabFiles" EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" />
@@ -778,10 +824,6 @@
             <End Role="DTurbine" EntitySet="DTurbines" />
             <End Role="DTurbineParameter" EntitySet="DTurbineParameters" />
           </AssociationSet>
-          <AssociationSet Name="FK_DUserProfile_webpages_Membership" Association="Offwind.DbModels.FK_DUserProfile_webpages_Membership">
-            <End Role="webpages_Membership" EntitySet="webpages_Membership" />
-            <End Role="DUserProfile" EntitySet="DUserProfiles" />
-          </AssociationSet>
           <AssociationSet Name="FK_DWindFarmTurbine_DWindFarm" Association="Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm">
             <End Role="DWindFarm" EntitySet="DWindFarms" />
             <End Role="DWindFarmTurbine" EntitySet="DWindFarmTurbines" />
@@ -790,10 +832,6 @@
             <End Role="DUserProfile" EntitySet="DUserProfiles" />
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
           </AssociationSet>
-          <FunctionImport Name="UpdateLastOnline">
-            <Parameter Name="UserName" Mode="In" Type="String" />
-            <Parameter Name="DateTime" Mode="In" Type="DateTime" />
-          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -806,61 +844,50 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="DBPlanProfitLossCustom">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="BusinessPlanId" Nullable="false" />
-          <Property Type="String" Name="Title" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="MonthlyView" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="Type" Nullable="false" />
-          <Property Type="Int32" Name="Category" Nullable="false" />
-        </EntityType>
         <EntityType Name="DCase">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
-          <Property Type="String" Name="Owner" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Model" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Guid" Name="CurrentJobId" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Owner" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentJobId" Type="Guid" />
         </EntityType>
         <EntityType Name="DComment">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="ObjectUid" />
-          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
-          <Property Type="String" Name="Author" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ObjectUid" Type="Guid" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DContent">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="ParentId" />
-          <Property Type="String" Name="TypeId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Guid" Name="CategoryId" />
-          <Property Type="String" Name="RouteTitle" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Route" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="Position" Nullable="false" />
-          <Property Type="String" Name="BrowserTitle" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="MetaDescription" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="MetaKeywords" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Title" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Announce" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Content" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="Updated" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="PublishDate" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="ExpirationDate" Nullable="false" Precision="3" />
-          <Property Type="Boolean" Name="IsPublished" Nullable="false" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ParentId" Type="Guid" />
+          <Property Name="TypeId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryId" Type="Guid" />
+          <Property Name="RouteTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Route" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="Int32" Nullable="false" />
+          <Property Name="BrowserTitle" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetaDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetaKeywords" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Announce" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Updated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PublishDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsPublished" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="DContentCategory" Relationship="Offwind.DbModels.FK_DContent_DContentCategory" FromRole="DContent" ToRole="DContentCategory" />
           <NavigationProperty Name="DContentType" Relationship="Offwind.DbModels.FK_DContent_DContentTypes" FromRole="DContent" ToRole="DContentType" />
         </EntityType>
@@ -868,84 +895,84 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Title" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Route" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Route" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DContents" Relationship="Offwind.DbModels.FK_DContent_DContentCategory" FromRole="DContentCategory" ToRole="DContent" />
         </EntityType>
         <EntityType Name="DContentType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DContents" Relationship="Offwind.DbModels.FK_DContent_DContentTypes" FromRole="DContentType" ToRole="DContent" />
         </EntityType>
         <EntityType Name="DCountry">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DEvent">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Data" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="MinutesData" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Binary" Name="MinutesBinary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MinutesData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MinutesBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="DEventApplication">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="EventId" Nullable="false" />
-          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="Updated" Nullable="false" Precision="3" />
-          <Property Type="String" Name="FullName" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="RegisteredBy" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Email" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Company" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Phone" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Comment" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="FirstName" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Surname" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Organization" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Country" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Comments" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EventId" Type="Guid" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Updated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RegisteredBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Organization" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DEventParticipant">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="EventId" Nullable="false" />
-          <Property Type="String" Name="Data" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EventId" Type="Guid" Nullable="false" />
+          <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DJob">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="DateTime" Name="Started" Nullable="false" Precision="7" />
-          <Property Type="DateTime" Name="RunningSince" Precision="7" />
-          <Property Type="DateTime" Name="Finished" Precision="7" />
-          <Property Type="String" Name="Owner" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="State" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Result" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ResultData" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Started" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="RunningSince" Type="DateTime" Precision="7" />
+          <Property Name="Finished" Type="DateTime" Precision="7" />
+          <Property Name="Owner" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Result" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ResultData" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DMeeting">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="String" Name="TypeId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TypeId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DMeetingFiles" Relationship="Offwind.DbModels.FK_DMeetingFile_DMeeting" FromRole="DMeeting" ToRole="DMeetingFile" />
           <NavigationProperty Name="DMeetingParticipants" Relationship="Offwind.DbModels.FK_DMeetingParticipant_DMeeting" FromRole="DMeeting" ToRole="DMeetingParticipant" />
         </EntityType>
@@ -953,10 +980,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="MeetingId" Nullable="false" />
-          <Property Type="String" Name="FileName" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="Binary" Name="Data" MaxLength="Max" FixedLength="false" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="MeetingId" Type="Guid" Nullable="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Data" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="DMeeting" Relationship="Offwind.DbModels.FK_DMeetingFile_DMeeting" FromRole="DMeetingFile" ToRole="DMeeting" />
         </EntityType>
         <EntityType Name="DMeetingParticipant">
@@ -964,204 +991,246 @@
             <PropertyRef Name="MeetingId" />
             <PropertyRef Name="Participant" />
           </Key>
-          <Property Type="Guid" Name="MeetingId" Nullable="false" />
-          <Property Type="String" Name="Participant" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MeetingId" Type="Guid" Nullable="false" />
+          <Property Name="Participant" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DMeeting" Relationship="Offwind.DbModels.FK_DMeetingParticipant_DMeeting" FromRole="DMeetingParticipant" ToRole="DMeeting" />
         </EntityType>
         <EntityType Name="DMesoscaleDatabase">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int16" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DMesoscaleTabFiles" Relationship="Offwind.DbModels.FK_DMesoscaleTabFile_DMesoscaleDatabase" FromRole="DMesoscaleDatabase" ToRole="DMesoscaleTabFile" />
         </EntityType>
         <EntityType Name="DMesoscaleTabFile">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
-          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatabaseId" Type="Int16" Nullable="false" />
+          <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DMesoscaleDatabase" Relationship="Offwind.DbModels.FK_DMesoscaleTabFile_DMesoscaleDatabase" FromRole="DMesoscaleTabFile" ToRole="DMesoscaleDatabase" />
         </EntityType>
         <EntityType Name="DProperty">
           <Key>
             <PropertyRef Name="Name" />
           </Key>
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Value" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DTurbine">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="Updated" Nullable="false" Precision="3" />
-          <Property Type="String" Name="Author" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="IsPublic" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Manufacturer" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="RatedPower" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="RotorDiameter" Precision="8" Scale="2" />
-          <Property Type="String" Name="RotorOrientation" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="RotorConfiguration" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Control" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="HubHeight" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="HubDiameter" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="WindSpeedCutIn" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="WindSpeedRated" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="WindSpeedCutOut" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="RotorSpeedCutIn" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="RotorSpeedRated" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="TipSpeedRated" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="RotorMass" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="NacelleMass" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="TowerMass" Precision="8" Scale="2" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Updated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Author" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsPublic" Type="Boolean" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Manufacturer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RatedPower" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="RotorDiameter" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="RotorOrientation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RotorConfiguration" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Control" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HubHeight" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="HubDiameter" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="WindSpeedCutIn" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="WindSpeedRated" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="WindSpeedCutOut" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="RotorSpeedCutIn" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="RotorSpeedRated" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="TipSpeedRated" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="RotorMass" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="NacelleMass" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="TowerMass" Type="Decimal" Precision="8" Scale="2" />
           <NavigationProperty Name="DTurbineParameters" Relationship="Offwind.DbModels.FK_DTurbineParameter_DTurbine" FromRole="DTurbine" ToRole="DTurbineParameter" />
         </EntityType>
         <EntityType Name="DTurbineParameter">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="TurbineId" Nullable="false" />
-          <Property Type="String" Name="Group" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Parameter" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Type" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ValueTxt" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="ValueNumeric" Precision="38" Scale="10" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TurbineId" Type="Guid" Nullable="false" />
+          <Property Name="Group" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Parameter" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ValueTxt" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ValueNumeric" Type="Decimal" Precision="38" Scale="10" />
           <NavigationProperty Name="DTurbine" Relationship="Offwind.DbModels.FK_DTurbineParameter_DTurbine" FromRole="DTurbineParameter" ToRole="DTurbine" />
         </EntityType>
         <EntityType Name="DUserProfile">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="UserName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="IsVerified" Nullable="false" />
-          <Property Type="Guid" Name="VerificationCode" />
-          <Property Type="Guid" Name="ResetPasswordCode" />
-          <Property Type="String" Name="FullName" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="CompanyName" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Info" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="LastActivity" Precision="3" />
-          <NavigationProperty Name="webpages_Membership" Relationship="Offwind.DbModels.FK_DUserProfile_webpages_Membership" FromRole="DUserProfile" ToRole="webpages_Membership" />
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsVerified" Type="Boolean" Nullable="false" />
+          <Property Name="VerificationCode" Type="Guid" />
+          <Property Name="ResetPasswordCode" Type="Guid" />
+          <Property Name="FirstName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastActivity" Type="DateTime" Precision="3" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Position" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AcademicDegree" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="WorkEmail" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="webpages_Roles" Relationship="Offwind.DbModels.webpages_UsersInRoles" FromRole="DUserProfile" ToRole="webpages_Roles" />
+        </EntityType>
+        <EntityType Name="DUserProfileComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="DWindFarm">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="DateTime" Name="Created" Precision="3" />
-          <Property Type="DateTime" Name="Updated" Precision="3" />
-          <Property Type="String" Name="Author" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="Guid" Name="TurbineTypeId" />
-          <Property Type="Boolean" Name="IsPublic" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Country" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="UrlOfficial" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="UrlPublicWiki" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="GeoLat" Nullable="false" Precision="8" Scale="6" />
-          <Property Type="Decimal" Name="GeoLng" Nullable="false" Precision="8" Scale="6" />
-          <Property Type="Decimal" Name="TotalCapacity" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Updated" Type="DateTime" Precision="3" />
+          <Property Name="Author" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TurbineTypeId" Type="Guid" />
+          <Property Name="IsPublic" Type="Boolean" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="UrlOfficial" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UrlPublicWiki" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GeoLat" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+          <Property Name="GeoLng" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+          <Property Name="TotalCapacity" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <NavigationProperty Name="DWindFarmTurbines" Relationship="Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm" FromRole="DWindFarm" ToRole="DWindFarmTurbine" />
         </EntityType>
         <EntityType Name="DWindFarmTurbine">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="WindFarmId" Nullable="false" />
-          <Property Type="Int32" Name="Number" Nullable="false" />
-          <Property Type="Decimal" Name="X" Nullable="false" Precision="18" Scale="6" />
-          <Property Type="Decimal" Name="Y" Nullable="false" Precision="18" Scale="6" />
-          <Property Type="Decimal" Name="Z" Nullable="false" Precision="18" Scale="6" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="WindFarmId" Type="Guid" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="X" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+          <Property Name="Y" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+          <Property Name="Z" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
           <NavigationProperty Name="DWindFarm" Relationship="Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm" FromRole="DWindFarmTurbine" ToRole="DWindFarm" />
         </EntityType>
         <EntityType Name="Log">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="Date" Nullable="false" Precision="3" />
-          <Property Type="String" Name="Thread" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Level" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Logger" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Message" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Exception" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Thread" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Level" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Logger" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="Exception" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Page">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Slug" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PageType" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PageTitle" MaxLength="1050" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Title" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Announce" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Text" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="Updated" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="Published" Nullable="false" Precision="3" />
-          <Property Type="Boolean" Name="HomePage" Nullable="false" />
-          <Property Type="String" Name="Url" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="Priority" />
-          <Property Type="Boolean" Name="IsPublished" Nullable="false" />
-          <Property Type="Int32" Name="Votes" Nullable="false" />
-          <Property Type="String" Name="ExtraModule" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slug" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PageType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PageTitle" Type="String" MaxLength="1050" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Announce" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Updated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Published" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HomePage" Type="Boolean" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Priority" Type="Int32" />
+          <Property Name="IsPublished" Type="Boolean" Nullable="false" />
+          <Property Name="Votes" Type="Int32" Nullable="false" />
+          <Property Name="ExtraModule" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="principal_id" Nullable="false" />
-          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="version" />
-          <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="DateTime" Name="CreateDate" Precision="3" />
-          <Property Type="String" Name="ConfirmationToken" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="IsConfirmed" />
-          <Property Type="DateTime" Name="LastPasswordFailureDate" Precision="3" />
-          <Property Type="Int32" Name="PasswordFailuresSinceLastSuccess" Nullable="false" />
-          <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="PasswordChangedDate" Precision="3" />
-          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="PasswordVerificationToken" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="PasswordVerificationTokenExpirationDate" Precision="3" />
-          <Property Type="String" Name="Email" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DUserProfile" Relationship="Offwind.DbModels.FK_DUserProfile_webpages_Membership" FromRole="webpages_Membership" ToRole="DUserProfile" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ConfirmationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsConfirmed" Type="Boolean" />
+          <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="webpages_OAuthMembership">
           <Key>
             <PropertyRef Name="Provider" />
             <PropertyRef Name="ProviderUserId" />
           </Key>
-          <Property Type="String" Name="Provider" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ProviderUserId" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Name="Provider" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="webpages_Roles">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Type="Int32" Name="RoleId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DUserProfiles" Relationship="Offwind.DbModels.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="DUserProfile" />
+        </EntityType>
+        <EntityType Name="DVUserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="IsVerified" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsVerified" Type="Boolean" Nullable="false" />
+          <Property Name="VerificationCode" Type="Guid" />
+          <Property Name="ResetPasswordCode" Type="Guid" />
+          <Property Name="FirstName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastActivity" Type="DateTime" Precision="3" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Position" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AcademicDegree" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="WorkEmail" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="IsConfirmed" Type="Boolean" />
+          <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="VPartner">
           <Key>
@@ -1169,11 +1238,11 @@
             <PropertyRef Name="UserName" />
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="String" Name="UserName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="FullName" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="CompanyName" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="VRouteItem">
           <Key>
@@ -1182,13 +1251,13 @@
             <PropertyRef Name="Route" />
             <PropertyRef Name="Position" />
           </Key>
-          <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="Guid" Name="ParentId" />
-          <Property Type="String" Name="TypeId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Guid" Name="CategoryId" />
-          <Property Type="String" Name="RouteTitle" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Route" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="Position" Nullable="false" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ParentId" Type="Guid" />
+          <Property Name="TypeId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryId" Type="Guid" />
+          <Property Name="RouteTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Route" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="VSmallMesoscaleTabFile">
           <Key>
@@ -1197,10 +1266,10 @@
             <PropertyRef Name="Latitude" />
             <PropertyRef Name="Longitude" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int16" Name="DatabaseId" Nullable="false" />
-          <Property Type="Decimal" Name="Latitude" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="Longitude" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatabaseId" Type="Int16" Nullable="false" />
+          <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="VUserRole">
           <Key>
@@ -1208,9 +1277,9 @@
             <PropertyRef Name="RoleId" />
             <PropertyRef Name="RoleName" />
           </Key>
-          <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="Int32" Name="RoleId" Nullable="false" />
-          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_DContent_DContentCategory">
           <End Type="Offwind.DbModels.DContentCategory" Role="DContentCategory" Multiplicity="0..1" />
@@ -1284,18 +1353,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DUserProfile_webpages_Membership">
-          <End Type="Offwind.DbModels.webpages_Membership" Role="webpages_Membership" Multiplicity="1" />
-          <End Type="Offwind.DbModels.DUserProfile" Role="DUserProfile" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="webpages_Membership">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="DUserProfile">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DWindFarmTurbine_DWindFarm">
           <End Type="Offwind.DbModels.DWindFarm" Role="DWindFarm" Multiplicity="1" />
           <End Type="Offwind.DbModels.DWindFarmTurbine" Role="DWindFarmTurbine" Multiplicity="*" />
@@ -1343,18 +1400,7 @@
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="WindFarm_DeleteTurbines1" FunctionName="Store.WindFarm_DeleteTurbines" />
-          <EntitySetMapping Name="DBPlanProfitLossCustoms">
-            <EntityTypeMapping TypeName="Offwind.DbModels.DBPlanProfitLossCustom">
-              <MappingFragment StoreEntitySet="DBPlanProfitLossCustom">
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="MonthlyView" ColumnName="MonthlyView" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="BusinessPlanId" ColumnName="BusinessPlanId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UpdateLastOnline" FunctionName="Store.UpdateLastOnline" />
           <EntitySetMapping Name="DCases">
             <EntityTypeMapping TypeName="Offwind.DbModels.DCase">
               <MappingFragment StoreEntitySet="DCase">
@@ -1583,15 +1629,33 @@
           <EntitySetMapping Name="DUserProfiles">
             <EntityTypeMapping TypeName="Offwind.DbModels.DUserProfile">
               <MappingFragment StoreEntitySet="DUserProfile">
+                <ScalarProperty Name="WorkEmail" ColumnName="WorkEmail" />
+                <ScalarProperty Name="AcademicDegree" ColumnName="AcademicDegree" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="LastActivity" ColumnName="LastActivity" />
                 <ScalarProperty Name="Info" ColumnName="Info" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
                 <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
                 <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DUserProfileComments">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DUserProfileComment">
+              <MappingFragment StoreEntitySet="DUserProfileComment">
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1708,6 +1772,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DVUserProfiles">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DVUserProfile">
+              <MappingFragment StoreEntitySet="DVUserProfile">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="WorkEmail" ColumnName="WorkEmail" />
+                <ScalarProperty Name="AcademicDegree" ColumnName="AcademicDegree" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="LastActivity" ColumnName="LastActivity" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
+                <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="VPartners">
             <EntityTypeMapping TypeName="Offwind.DbModels.VPartner">
               <MappingFragment StoreEntitySet="VPartner">
@@ -1759,7 +1849,6 @@
               <ScalarProperty Name="UserId" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="UpdateLastOnline" FunctionName="Store.UpdateLastOnline" />
           </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
@@ -1775,50 +1864,51 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Offwind" ZoomLevel="40">
-        <EntityTypeShape EntityType="Offwind.DbModels.DBPlanProfitLossCustom" Width="1.5" PointX="1.7585316234075146" PointY="30.600868090335684" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="8.1230652276999624" PointY="20.624137142963772" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="3.3579908792665187" PointY="12.634566789788458" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="11.779500212417684" PointY="27.006797147452271" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContentCategory" Width="1.5" PointX="5.5118467013872445" PointY="12.913006684236697" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="3.3274869375524516" PointY="9.157019708844377" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DCountry" Width="1.5" PointX="0.1342753228425399" PointY="15.142245970266986" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DEvent" Width="1.5" PointX="11.06313775622432" PointY="11.220857401946958" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DEventApplication" Width="1.5" PointX="6.0826754356188122" PointY="9.3465225889098473" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DEventParticipant" Width="1.5" PointX="11.932489648429904" PointY="18.365023099987312" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="6.6706252520301508" PointY="7.9973331578063469" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="5.3252058240236746" PointY="9.7480450615976224" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="3.2372453563088763" PointY="17.485189565217677" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="5.1835705531684546" PointY="25.186745744751182" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="10.19172030044334" PointY="6.1229929207465581" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="5.7639781878162077" PointY="16.870366566288457" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DProperty" Width="1.5" PointX="8.1095813662324012" PointY="13.189559093299117" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DTurbine" Width="1.5" PointX="5.0418432154887558" PointY="2.9572213156880909" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DTurbineParameter" Width="1.5" PointX="8.4286566713958315" PointY="21.747878308290559" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="11.786974243720515" PointY="25.448494207788489" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarm" Width="1.5" PointX="1.2523713341226668" PointY="31.748941734316265" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarmTurbine" Width="1.5" PointX="8.09545537833844" PointY="27.223060426871786" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="9.5614237345575468" PointY="15.472708143048319" />
-        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="1.4102707046131933" PointY="29.023393316670969" />
-        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="10.739652871498677" PointY="2.9974164976726363" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="10.76321681531296" PointY="14.517365074957425" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="3.4573532340383872" PointY="7.1541671190197427" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="0.14440467401612767" PointY="28.692084504613693" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="6.1501197098522074" PointY="11.913462212268945" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VRouteItem" Width="1.5" PointX="4.4968060723025376" PointY="23.469452779493039" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="11.554391993002218" PointY="6.2252548216959713" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="11.935828629851262" PointY="8.5752649496194273" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="2.75" PointY="12.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="10.75" PointY="12.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="8" PointY="1.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContentCategory" Width="1.5" PointX="5.75" PointY="3.5" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DContentType" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DCountry" Width="1.5" PointX="4.75" PointY="13.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DEvent" Width="1.5" PointX="6.75" PointY="13.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DEventApplication" Width="1.5" PointX="12.75" PointY="12.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DEventParticipant" Width="1.5" PointX="0.75" PointY="15.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="8.75" PointY="15.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="0.75" PointY="3" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="3" PointY="4.25" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="3" PointY="1.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="10.75" PointY="9.125" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="13" PointY="8.75" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DProperty" Width="1.5" PointX="14.75" PointY="12.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DTurbine" Width="1.5" PointX="10.75" PointY="2" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DTurbineParameter" Width="1.5" PointX="13" PointY="3.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfile" Width="1.5" PointX="0.75" PointY="7.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DUserProfileComment" Width="1.5" PointX="14.75" PointY="15.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarm" Width="1.5" PointX="5.75" PointY="8.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DWindFarmTurbine" Width="1.5" PointX="8" PointY="9.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Log" Width="1.5" PointX="15.75" PointY="1.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.Page" Width="1.5" PointX="2.75" PointY="16.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="15.75" PointY="5.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="4.75" PointY="16.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="15.75" PointY="8.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="3" PointY="9.375" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DVUserProfile" Width="1.5" PointX="16.75" PointY="11.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="10.75" PointY="17.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VRouteItem" Width="1.5" PointX="16.75" PointY="17.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="17.75" PointY="1.625" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="17.75" PointY="4.625" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentCategory" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" />
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingFile_DMeeting" />
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingParticipant_DMeeting" />
         <AssociationConnector Association="Offwind.DbModels.FK_DMesoscaleTabFile_DMesoscaleDatabase" />
         <AssociationConnector Association="Offwind.DbModels.FK_DTurbineParameter_DTurbine" />
-        <AssociationConnector Association="Offwind.DbModels.FK_DUserProfile_webpages_Membership" />
         <AssociationConnector Association="Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm" />
         <AssociationConnector Association="Offwind.DbModels.webpages_UsersInRoles" />
       </Diagram>

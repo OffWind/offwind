@@ -1,33 +1,44 @@
 ﻿@using Offwind.WebApp.Areas.Management.Models
 @model VUsersHome
 
-<h2>@ViewBag.HTitle</h2>
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a><span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "HomeWindFarms", new { area = "WindFarms" })">Wind Farms & Turbines Database</a> <span class="divider">/</span></li>
+    <li class="active">Turbines</li>
+</ul>
+<div class="row-fluid row-content-block">
+    <div class="span12 well actionable-page">
+        <h1>User management</h1>
+        <div class="actions-block">
+            @*<a href="@Url.Action("Edit", "Turbine", new { area = "WindFarms" })" class="btn btn-primary">Add new</a>*@
+        </div>
 
-<table class="table table-striped table-bordered table-condensed">
-    
-    <tr>
-        <th>Name</th>
-        <th>Role</th>
-        <th>Last visit</th>
-        <th>Create date</th>
-    </tr>
-    
-    @foreach (VUserProfile user in Model.Users)
-    {
-        <tr>
-            <td>
-                <p>
-                    @Html.ActionLink(user.Name, "Edit", new { id = user.Id })
-                </p>
-            </td>
-            <td>@user.SelectedRoles</td>
-            <td>@user.LastVisit</td>
-            <td>@user.CreateDate</td>
-        </tr>        
-    }
-</table>
-
-<p>
-    @Html.ActionLink("Add new account", "Add")
-</p>
-
+        <table class="table table-condensed table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Was online</th>
+                    <th>Registered</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (VUserProfile user in Model.Users)
+                {
+                    <tr>
+                        <td>
+                            <p>
+                                <a href="@Url.Action("Details", "Users", new { area = "Management" })">@user.FirstName @user.LastName @user.MiddleName</a>
+                            </p>
+                        </td>
+                        <td>@user.Email</td>
+                        <td>@user.Roles.Aggregate("", (a, b) => a + "; " + b)</td>
+                        <td>@user.LastActivity</td>
+                        <td>@user.CreateDate</td>
+                    </tr>        
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

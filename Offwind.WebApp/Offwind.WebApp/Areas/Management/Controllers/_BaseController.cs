@@ -22,7 +22,7 @@ namespace Offwind.WebApp.Areas.Management.Controllers
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
 
-            ViewBag.Title = "Control Panel";
+            ViewBag.Title = "Management";
 
             // Get current controller metadata
             var cNameAttr = filterContext.Controller.GetType().GetCustomAttributes(true).FirstOrDefault(a => a is DisplayNameAttribute);
@@ -43,7 +43,6 @@ namespace Offwind.WebApp.Areas.Management.Controllers
             }
             base.OnActionExecuting(filterContext);
         }
-
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {

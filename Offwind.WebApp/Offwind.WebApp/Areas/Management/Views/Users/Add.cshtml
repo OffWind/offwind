@@ -7,7 +7,7 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
     <fieldset>
-        @Html.EditorFor(m => m.Name)
+        @Html.EditorFor(m => m.UserName)
         @Html.EditorFor(model => model.Roles)
         @Html.EditorFor(m => m.Password)
         @Html.EditorFor(m => m.ConfirmPassword)

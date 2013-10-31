@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web.Mvc;
 using Offwind.Web.Core;
-using Offwind.WebApp.Models.Account;
 
 namespace Offwind.WebApp.Areas.Management.Models
 {
@@ -19,62 +15,49 @@ namespace Offwind.WebApp.Areas.Management.Models
         public bool IsSelected { set; get; }
     }
 
-    public sealed class VUserProfile : BaseModel<VUserProfile, DUserProfile>
+    public sealed class VUserProfile : BaseModel<VUserProfile, DVUserProfile>
     {
-        public Int32 Id { set; get; }
-        [Display(Name = "Email address")]
-        [DataType(DataType.EmailAddress)]
-        public string Name { set; get; }
+        public int Id { set; get; }
+        public string UserName { set; get; }
+        public string FirstName { set; get; }
+        public string LastName { set; get; }
+        public string MiddleName { set; get; }
+        public string Email { get { return UserName; } }
+        public bool IsVerified { set; get; }
+        public string CompanyName { set; get; }
+        public string Info { set; get; }
+        public List<string> Roles { set; get; }
 
-        public string SelectedRoles { set; get; }
-        public List<UserRole> Roles { set; get; }
-
-        public DateTime LastVisit { set; get; }
+        public DateTime? LastActivity { set; get; }
         public DateTime CreateDate { set; get; }
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "New Password")]
-        public string Password { set; get; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { set; get; }
-        public string OldPassword { set; get; }
 
         public VUserProfile()
         {
-            Roles = new List<UserRole>()
-                        {
-                            new UserRole {IsSelected = false, Role = SystemRole.Admin},
-                            new UserRole {IsSelected = false, Role = SystemRole.Partner},
-                            new UserRole {IsSelected = false, Role = SystemRole.User}
-                        };
+            Roles = new List<string>();
         }
 
-        public void SelectRoles(string[] roles = null)
-        {
-            SelectedRoles = "";
-            if (roles == null)
-            {
-                foreach (var r in Roles.Where(r => r.IsSelected))
-                {
-                    if (SelectedRoles != "") SelectedRoles += ";";
-                    SelectedRoles = SelectedRoles + r.Role;
-                }
-                return;
-            }
-            foreach (var x in roles)
-            {
-                foreach (var r in Roles.Where(r => r.Role == x))
-                {
-                    r.IsSelected = true;
-                    if (SelectedRoles != "") SelectedRoles += ";";
-                    SelectedRoles = SelectedRoles + x;
-                }
-            }
-        }
+        //public void SelectRoles(string[] roles = null)
+        //{
+        //    SelectedRoles = "";
+        //    if (roles == null)
+        //    {
+        //        foreach (var r in Roles.Where(r => r.IsSelected))
+        //        {
+        //            if (SelectedRoles != "") SelectedRoles += ";";
+        //            SelectedRoles = SelectedRoles + r.Role;
+        //        }
+        //        return;
+        //    }
+        //    foreach (var x in roles)
+        //    {
+        //        foreach (var r in Roles.Where(r => r.Role == x))
+        //        {
+        //            r.IsSelected = true;
+        //            if (SelectedRoles != "") SelectedRoles += ";";
+        //            SelectedRoles = SelectedRoles + x;
+        //        }
+        //    }
+        //}
 
     }
 }

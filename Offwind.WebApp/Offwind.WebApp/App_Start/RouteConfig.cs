@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Routing;
 using Offwind.Web.Core;
-using Offwind.WebApp.Areas.ControlPanel.Tools;
+using Offwind.WebApp.Areas.Management.Tools;
 using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.App_Start

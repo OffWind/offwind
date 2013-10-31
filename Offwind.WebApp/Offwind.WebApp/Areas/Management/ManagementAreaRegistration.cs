@@ -1,24 +1,24 @@
 ﻿using System.Web.Mvc;
 
-namespace Offwind.WebApp.Areas.ControlPanel
+namespace Offwind.WebApp.Areas.Management
 {
-    public class ControlPanelAreaRegistration : AreaRegistration
+    public class ManagementAreaRegistration : AreaRegistration
     {
         public override string AreaName
         {
             get
             {
-                return "ControlPanel";
+                return "Management";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "ControlPanel_default",
-                "ControlPanel/{controller}/{action}/{id}",
+                "Management_default",
+                "Management/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
-                new[] { "Offwind.WebApp.Areas.ControlPanel.Controllers" }
+                new[] { "Offwind.WebApp.Areas.Management.Controllers" }
             );
         }
     }

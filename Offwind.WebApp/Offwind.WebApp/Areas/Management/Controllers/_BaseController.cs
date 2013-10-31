@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
-using System.Web;
-using System.Web.Configuration;
 using System.Web.Mvc;
-using System.Web.Security;
 using Offwind.Web.Core;
-using Offwind.WebApp.Areas.ControlPanel.Tools;
+using Offwind.WebApp.Areas.Management.Tools;
 using Offwind.WebApp.Controllers;
 using Offwind.WebApp.Infrastructure;
 using Offwind.WebApp.Infrastructure.Navigation;
 using Offwind.WebApp.Models;
 
-namespace Offwind.WebApp.Areas.ControlPanel.Controllers
+namespace Offwind.WebApp.Areas.Management.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class _BaseController : BaseController

@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using Offwind.WebApp.Areas.ControlPanel.Models;
+using Offwind.WebApp.Areas.Management.Models;
 using WebMatrix.WebData;
 
-namespace Offwind.WebApp.Areas.ControlPanel.Controllers
+namespace Offwind.WebApp.Areas.Management.Controllers
 {
     public class UsersController : _BaseController
     {

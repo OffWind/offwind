@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Offwind.WebApp.Models;
 
-namespace Offwind.WebApp.Areas.ControlPanel.Tools
+namespace Offwind.WebApp.Areas.Management.Tools
 {
     public static class ContentTypeHelpers
     {

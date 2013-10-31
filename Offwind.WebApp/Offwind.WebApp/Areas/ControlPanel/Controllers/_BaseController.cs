@@ -18,13 +18,12 @@ using Offwind.WebApp.Models;
 namespace Offwind.WebApp.Areas.ControlPanel.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class _BaseCmController : BaseController
+    public class _BaseController : BaseController
     {
         protected OffwindEntities _ctx = new OffwindEntities();
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            base.OnActionExecuting(filterContext);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
 
@@ -47,13 +46,12 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
                 if (a.DisplayName != null && a.DisplayName.Trim().Length > 0)
                     ViewBag.Title += ": " + a.DisplayName;
             }
+            base.OnActionExecuting(filterContext);
         }
 
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            base.OnActionExecuted(filterContext);
-
             var navigation = new NavItem<NavUrl>();
 
             navigation.AddGroup("Content")
@@ -64,10 +62,11 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
             navigation.AddGroup("Users")
                 .AddItem("Users", new NavUrl("Index", "Users", "ControlPanel"));
 
-            ViewBag.SideNav = navigation;
+            //ViewBag.SideNav = navigation;
 
             ViewBag.IsAdmin = AccountsHelper.IsAdmin(filterContext.HttpContext.User.Identity.Name);
-        }
 
+            base.OnActionExecuted(filterContext);
+        }
     }
 }

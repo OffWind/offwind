@@ -7,8 +7,7 @@ using WebMatrix.WebData;
 
 namespace Offwind.WebApp.Areas.ControlPanel.Controllers
 {
-    [Authorize]
-    public class UsersController : _BaseCmController
+    public class UsersController : _BaseController
     {
         private List<UserModel> _model; 
 

@@ -17,7 +17,8 @@ namespace Offwind.WebApp.Areas.ControlPanel
             context.MapRoute(
                 "ControlPanel_default",
                 "ControlPanel/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                new[] { "Offwind.WebApp.Areas.ControlPanel.Controllers" }
             );
         }
     }

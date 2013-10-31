@@ -7,7 +7,7 @@ namespace Offwind.WebApp.Areas.Management.Controllers
 {
     public class UsersController : _BaseController
     {
-        private List<VUserProfile> _model; 
+        private List<VUserProfile> _model;
 
         public ActionResult Index()
         {
@@ -15,7 +15,17 @@ namespace Offwind.WebApp.Areas.Management.Controllers
             model.Users = _ctx.DVUserProfiles.OrderBy(x => x.FirstName).Select(VUserProfile.MapFromDb).ToList();
             return View(model);
         }
-        
+
+        public ActionResult Details(string userName)
+        {
+            var model = _ctx.DVUserProfiles.FirstOrDefault(x => x.UserName == userName);
+            return View(model);
+        }
+
+        public FileResult DownloadExcel()
+        {
+            return File(new byte[0], "");
+        }
         //public ActionResult Edit(int id)
         //{
         //    var db = _ctx.DUserProfiles;

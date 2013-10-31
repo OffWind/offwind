@@ -23,8 +23,13 @@ namespace Offwind.WebApp.Areas.Management.Models
         public string LastName { set; get; }
         public string MiddleName { set; get; }
         public string Email { get { return UserName; } }
+        public string WorkEmail { get; set; }
         public bool IsVerified { set; get; }
         public string CompanyName { set; get; }
+        public string Country { set; get; }
+        public string City { set; get; }
+        public string Position { set; get; }
+        public string AcademicDegree { set; get; }
         public string Info { set; get; }
         public List<string> Roles { set; get; }
 

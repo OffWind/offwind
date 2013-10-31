@@ -2233,6 +2233,7 @@
     <Content Include="Areas\Help\Views\AdvancedToolsHelp\Index.cshtml" />
     <Content Include="Areas\Partners\Views\Events\Index.cshtml" />
     <Content Include="Areas\Management\Views\News\Index.cshtml" />
+    <Content Include="Areas\Management\Views\Users\Details.cshtml" />
     <None Include="Documentation.chm" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />

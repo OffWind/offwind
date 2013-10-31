@@ -82,6 +82,22 @@ namespace Offwind.Web.Core
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<DBPlanProfitLossCustom> DBPlanProfitLossCustoms
+        {
+            get
+            {
+                if ((_DBPlanProfitLossCustoms == null))
+                {
+                    _DBPlanProfitLossCustoms = base.CreateObjectSet<DBPlanProfitLossCustom>("DBPlanProfitLossCustoms");
+                }
+                return _DBPlanProfitLossCustoms;
+            }
+        }
+        private ObjectSet<DBPlanProfitLossCustom> _DBPlanProfitLossCustoms;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<DCase> DCases
         {
             get
@@ -578,6 +594,14 @@ namespace Offwind.Web.Core
         #endregion
 
         #region AddTo Methods
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DBPlanProfitLossCustoms EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDBPlanProfitLossCustoms(DBPlanProfitLossCustom dBPlanProfitLossCustom)
+        {
+            base.AddObject("DBPlanProfitLossCustoms", dBPlanProfitLossCustom);
+        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the DCases EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -1111,6 +1135,36 @@ namespace Offwind.Web.Core
     
             return base.ExecuteFunction("WindFarm_DeleteTurbines1", windFarmIdParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="userName">No Metadata Documentation available.</param>
+        /// <param name="dateTime">No Metadata Documentation available.</param>
+        public int UpdateLastOnline(global::System.String userName, Nullable<global::System.DateTime> dateTime)
+        {
+            ObjectParameter userNameParameter;
+            if (userName != null)
+            {
+                userNameParameter = new ObjectParameter("UserName", userName);
+            }
+            else
+            {
+                userNameParameter = new ObjectParameter("UserName", typeof(global::System.String));
+            }
+    
+            ObjectParameter dateTimeParameter;
+            if (dateTime.HasValue)
+            {
+                dateTimeParameter = new ObjectParameter("DateTime", dateTime);
+            }
+            else
+            {
+                dateTimeParameter = new ObjectParameter("DateTime", typeof(global::System.DateTime));
+            }
+    
+            return base.ExecuteFunction("UpdateLastOnline", userNameParameter, dateTimeParameter);
+        }
 
         #endregion
 
@@ -1119,6 +1173,193 @@ namespace Offwind.Web.Core
     #endregion
 
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DBPlanProfitLossCustom")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DBPlanProfitLossCustom : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DBPlanProfitLossCustom object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="businessPlanId">Initial value of the BusinessPlanId property.</param>
+        /// <param name="title">Initial value of the Title property.</param>
+        /// <param name="monthlyView">Initial value of the MonthlyView property.</param>
+        /// <param name="type">Initial value of the Type property.</param>
+        /// <param name="category">Initial value of the Category property.</param>
+        public static DBPlanProfitLossCustom CreateDBPlanProfitLossCustom(global::System.Guid id, global::System.Guid businessPlanId, global::System.String title, global::System.String monthlyView, global::System.Int32 type, global::System.Int32 category)
+        {
+            DBPlanProfitLossCustom dBPlanProfitLossCustom = new DBPlanProfitLossCustom();
+            dBPlanProfitLossCustom.Id = id;
+            dBPlanProfitLossCustom.BusinessPlanId = businessPlanId;
+            dBPlanProfitLossCustom.Title = title;
+            dBPlanProfitLossCustom.MonthlyView = monthlyView;
+            dBPlanProfitLossCustom.Type = type;
+            dBPlanProfitLossCustom.Category = category;
+            return dBPlanProfitLossCustom;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid BusinessPlanId
+        {
+            get
+            {
+                return _BusinessPlanId;
+            }
+            set
+            {
+                OnBusinessPlanIdChanging(value);
+                ReportPropertyChanging("BusinessPlanId");
+                _BusinessPlanId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BusinessPlanId");
+                OnBusinessPlanIdChanged();
+            }
+        }
+        private global::System.Guid _BusinessPlanId;
+        partial void OnBusinessPlanIdChanging(global::System.Guid value);
+        partial void OnBusinessPlanIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Title
+        {
+            get
+            {
+                return _Title;
+            }
+            set
+            {
+                OnTitleChanging(value);
+                ReportPropertyChanging("Title");
+                _Title = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Title");
+                OnTitleChanged();
+            }
+        }
+        private global::System.String _Title;
+        partial void OnTitleChanging(global::System.String value);
+        partial void OnTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MonthlyView
+        {
+            get
+            {
+                return _MonthlyView;
+            }
+            set
+            {
+                OnMonthlyViewChanging(value);
+                ReportPropertyChanging("MonthlyView");
+                _MonthlyView = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MonthlyView");
+                OnMonthlyViewChanged();
+            }
+        }
+        private global::System.String _MonthlyView;
+        partial void OnMonthlyViewChanging(global::System.String value);
+        partial void OnMonthlyViewChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Type
+        {
+            get
+            {
+                return _Type;
+            }
+            set
+            {
+                OnTypeChanging(value);
+                ReportPropertyChanging("Type");
+                _Type = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Type");
+                OnTypeChanged();
+            }
+        }
+        private global::System.Int32 _Type;
+        partial void OnTypeChanging(global::System.Int32 value);
+        partial void OnTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Category
+        {
+            get
+            {
+                return _Category;
+            }
+            set
+            {
+                OnCategoryChanging(value);
+                ReportPropertyChanging("Category");
+                _Category = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Category");
+                OnCategoryChanged();
+            }
+        }
+        private global::System.Int32 _Category;
+        partial void OnCategoryChanging(global::System.Int32 value);
+        partial void OnCategoryChanged();
+
+        #endregion
+
+    
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -5264,6 +5505,30 @@ namespace Offwind.Web.Core
         private global::System.String _Info;
         partial void OnInfoChanging(global::System.String value);
         partial void OnInfoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> LastActivity
+        {
+            get
+            {
+                return _LastActivity;
+            }
+            set
+            {
+                OnLastActivityChanging(value);
+                ReportPropertyChanging("LastActivity");
+                _LastActivity = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastActivity");
+                OnLastActivityChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _LastActivity;
+        partial void OnLastActivityChanging(Nullable<global::System.DateTime> value);
+        partial void OnLastActivityChanged();
 
         #endregion
 

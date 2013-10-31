@@ -9,35 +9,21 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
 {
     public class UsersController : _BaseController
     {
-        private List<UserModel> _model; 
+        private List<VUserProfile> _model; 
 
         public ActionResult Index()
         {
-            var roles = (SimpleRoleProvider)Roles.Provider;
-            _model = _ctx.DUserProfiles.Select(x => new UserModel()
-                                                        {
-                                                            Id = x.UserId,
-                                                            Name = x.UserName,
-                                                        }).ToList();
-            foreach(var usr in _model)
-            {
-                var membershipUser = Membership.GetUser(usr.Name);
-                if (membershipUser != null)
-                {
-                    usr.CreateDate = membershipUser.CreationDate;
-                    usr.LastVisit = membershipUser.LastActivityDate;
-                    usr.SelectRoles(roles.GetRolesForUser(usr.Name));
-                }
-            }
-            ViewBag.HTitle = "Users management";
-            return View(_model);
+            var model = new VUsersHome();
+            model.Users = _ctx.DUserProfiles.Select(VUserProfile.MapFromDb).ToList();
+            ViewBag.HTitle = "User management";
+            return View(model);
         }
         
         public ActionResult Edit(int id)
         {
             var db = _ctx.DUserProfiles;
             var usr = Enumerable.FirstOrDefault(
-                db.Where(x => x.UserId == id).Select(x => new UserModel()
+                db.Where(x => x.UserId == id).Select(x => new VUserProfile()
                                                               {
                                                                   Id = x.UserId,
                                                                   Name = x.UserName,
@@ -54,7 +40,7 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(UserModel model)
+        public ActionResult Edit(VUserProfile model)
         {
             if (ModelState.IsValid)
             {
@@ -79,13 +65,13 @@ namespace Offwind.WebApp.Areas.ControlPanel.Controllers
 
         public ActionResult Add()
         {
-            var model = new UserModel();
+            var model = new VUserProfile();
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(UserModel model)
+        public ActionResult Add(VUserProfile model)
         {
             if (ModelState.IsValid)
             {

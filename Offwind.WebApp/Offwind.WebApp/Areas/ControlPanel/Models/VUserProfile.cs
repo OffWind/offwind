@@ -6,17 +6,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Offwind.Web.Core;
 using Offwind.WebApp.Models.Account;
 
 namespace Offwind.WebApp.Areas.ControlPanel.Models
 {
+    public sealed class VUsersHome
+    {
+        public List<VUserProfile> Users { get; set; }
+    }
+
     public sealed class UserRole
     {
         public string Role { set; get; }
         public bool IsSelected { set; get; }
     }
 
-    public sealed class UserModel
+    public sealed class VUserProfile : BaseModel<VUserProfile, DUserProfile>
     {
         public Int32 Id { set; get; }
         [Display(Name = "Email address")]
@@ -40,7 +46,7 @@ namespace Offwind.WebApp.Areas.ControlPanel.Models
         public string ConfirmPassword { set; get; }
         public string OldPassword { set; get; }
 
-        public UserModel()
+        public VUserProfile()
         {
             Roles = new List<UserRole>()
                         {

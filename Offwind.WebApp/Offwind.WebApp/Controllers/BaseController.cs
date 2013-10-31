@@ -38,6 +38,7 @@ namespace Offwind.WebApp.Controllers
 
             ViewBag.MainMenu = mainMenu;
 
+            _ctx.UpdateLastOnline(filterContext.HttpContext.User.Identity.Name, DateTime.UtcNow);
             base.OnActionExecuted(filterContext);
         }
 

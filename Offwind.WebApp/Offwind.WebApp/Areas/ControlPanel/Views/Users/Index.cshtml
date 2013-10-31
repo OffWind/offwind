@@ -1,5 +1,5 @@
 ﻿@using Offwind.WebApp.Areas.ControlPanel.Models
-@model List<UserModel>
+@model VUsersHome
 
 <h2>@ViewBag.HTitle</h2>
 
@@ -12,12 +12,12 @@
         <th>Create date</th>
     </tr>
     
-    @foreach (UserModel user in Model)
+    @foreach (VUserProfile user in Model.Users)
     {
         <tr>
             <td>
                 <p>
-                    @Html.ActionLink(@user.Name, "Edit", new { id = user.Id })
+                    @Html.ActionLink(user.Name, "Edit", new { id = user.Id })
                 </p>
             </td>
             <td>@user.SelectedRoles</td>

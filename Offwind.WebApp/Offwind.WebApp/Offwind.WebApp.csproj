@@ -245,7 +245,7 @@
     <Compile Include="Areas\ControlPanel\Controllers\UsersController.cs" />
     <Compile Include="Areas\ControlPanel\Controllers\_BaseController.cs" />
     <Compile Include="Areas\ControlPanel\ControlPanelAreaRegistration.cs" />
-    <Compile Include="Areas\ControlPanel\Models\UserModel.cs" />
+    <Compile Include="Areas\ControlPanel\Models\VUserProfile.cs" />
     <Compile Include="Areas\ControlPanel\Tools\ContentTypeHelpers.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\EngineeringToolsController.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\MesoWindController.cs" />

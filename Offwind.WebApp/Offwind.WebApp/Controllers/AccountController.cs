@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.ServiceModel.Security;
 using System.Text;
 using System.Transactions;
 using System.Web.Configuration;
@@ -129,8 +130,17 @@ namespace Offwind.WebApp.Controllers
             var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName == model.UserName);
             profile.VerificationCode = verificationCode;
             profile.CompanyName = model.CompanyName;
-            profile.FullName = model.FullName;
-            profile.Info = model.OtherInfo;
+            profile.FirstName = model.FirstName;
+            profile.MiddleName = model.MiddleName;
+            profile.LastName = model.LastName;
+            profile.WorkEmail = model.WorkEmail;
+            profile.WorkPhone = model.WorkPhone;
+            profile.CellPhone = model.CellPhone;
+            profile.AcademicDegree = model.AcademicDegree;
+            profile.Position = model.Position;
+            profile.Country = model.Country;
+            profile.City = model.City;
+            profile.Info = model.Info;
             _ctx.SaveChanges();
 
             // Send verification email to user
@@ -183,7 +193,8 @@ namespace Offwind.WebApp.Controllers
                 //throw;
             }
             //return RedirectToAction("Index", "Home");
-            return RedirectToAction("RegisterComplete", "Account");
+            //return RedirectToAction("RegisterComplete", "Account");
+            return RedirectToAction("Profile", "Account", new { userName = User.Identity.Name });
         }
 
         [AllowAnonymous]
@@ -198,34 +209,6 @@ namespace Offwind.WebApp.Controllers
         {
             var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName != userName && p.VerificationCode == code);
             return profile != null;
-        }
-        //
-        // POST: /Account/Disassociate
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Disassociate(string provider, string providerUserId)
-        {
-            string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
-            ManageMessageId? message = null;
-
-            // Only disassociate the account if the currently logged in user is the owner
-            if (ownerAccount == User.Identity.Name)
-            {
-                // Use a transaction to prevent the user from deleting their last login credential
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
-                {
-                    bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-                    if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
-                    {
-                        OAuthWebSecurity.DeleteAccount(provider, providerUserId);
-                        scope.Complete();
-                        message = ManageMessageId.RemoveLoginSuccess;
-                    }
-                }
-            }
-
-            return RedirectToAction("Manage", new { Message = message });
         }
 
         public ActionResult ChangePassword(ManageMessageId? message)
@@ -278,7 +261,10 @@ namespace Offwind.WebApp.Controllers
         public new ActionResult Profile(string userName)
         {
             var model = new VUserProfile();
-
+            if (userName == null || userName.Trim().Length == 0)
+            {
+                userName = User.Identity.Name;
+            }
             var profile = _ctx.DVUserProfiles.FirstOrDefault(p => p.UserName == userName);
             if (profile == null)
             {

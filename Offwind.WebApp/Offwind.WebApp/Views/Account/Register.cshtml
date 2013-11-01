@@ -11,17 +11,29 @@
         @Html.BootstrapValidationSummary()
 
         <fieldset>
-            <legend>Required fields</legend>
-            @Html.EditorFor(m => m.FullName)
+            <legend>Required information</legend>
+            @Html.EditorFor(m => m.FirstName)
+            @Html.EditorFor(m => m.LastName)
             @Html.EditorFor(m => m.UserName)
             @Html.EditorFor(m => m.Password)
             @Html.EditorFor(m => m.ConfirmPassword)
         </fieldset>
 
         <fieldset>
-            <legend>Optional fields</legend>
+            <legend>Optional information</legend>
+            @Html.EditorFor(m => m.Country)
+            @Html.EditorFor(m => m.City)
             @Html.EditorFor(m => m.CompanyName)
-            @Html.EditorFor(m => m.OtherInfo, "TextEditor")
+            @Html.EditorFor(m => m.Position)
+            @Html.EditorFor(m => m.AcademicDegree)
+            @Html.EditorFor(m => m.Info, "TextEditor")
+        </fieldset>
+        
+        <fieldset>
+            <legend>Contacts</legend>
+            @Html.EditorFor(m => m.WorkEmail)
+            @Html.EditorFor(m => m.WorkPhone)
+            @Html.EditorFor(m => m.CellPhone)
         </fieldset>
 
         <input type="submit" class="btn btn-primary btn-large" value="Register" />
@@ -38,10 +50,19 @@
         <p>The registration process is very simple. After you enter
             email and password (and probably additional information about you and your company) you will be notified by email for confirmation.</p>
             
-        <h2>Optional info</h2>
-        <p>We are asking to provide some more information about you and your company. This will help
-        us to make our tools better suit your needs.</p>
+        <h2>Optional information</h2>
 
+        <p>We are asking to provide some more information about you and your company. This is not mandatory for starting using Offwind Toolkit, but we would be very thankful if you provide it
+            because:</p>
+        <ul>
+            <li>we will be able to notify you about major events or changes</li>
+            <li>this will help us to make our tools better suit your needs</li>
+        </ul>
+        
+        <h2>Profile changes</h2>
+
+        <p>You can always update your information by clicking <strong>Profile</strong> in the top left corner.
+            Note, that you have to be logged into system in order make any changes.</p>
     </div>
 </div>
 

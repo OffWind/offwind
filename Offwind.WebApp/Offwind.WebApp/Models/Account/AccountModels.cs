@@ -72,8 +72,15 @@ namespace Offwind.WebApp.Models
     public class RegisterModel : VWebPage
     {
         [Required]
-        [Display(Name = "Your name")]
-        public string FullName { get; set; }
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Middle name")]
+        public string MiddleName { get; set; }
+
+        [Required]
+        [Display(Name = "Last name")]
+        public string LastName { get; set; }
 
         [Required]
         [Display(Name = "Email", Description = "This will be used for logging into system.")]
@@ -95,8 +102,29 @@ namespace Offwind.WebApp.Models
         [Display(Name = "Company name")]
         public string CompanyName { get; set; }
 
+        [Display(Name = "Work email")]
+        public string WorkEmail { get; set; }
+
+        [Display(Name = "Work phone")]
+        public string WorkPhone { get; set; }
+
+        [Display(Name = "Cell phone")]
+        public string CellPhone { get; set; }
+
+        [Display(Name = "Academic degree")]
+        public string AcademicDegree { get; set; }
+
+        [Display(Name = "Position")]
+        public string Position { get; set; }
+
+        [Display(Name = "Country")]
+        public string Country { get; set; }
+
+        [Display(Name = "City")]
+        public string City { get; set; }
+
         [Display(Name = "About you", Description = "A short information about you or/and your company. This will be shown in your public profile.")]
-        public string OtherInfo { get; set; }
+        public string Info { get; set; }
     }
 
     public class VerifyModel : VWebPage

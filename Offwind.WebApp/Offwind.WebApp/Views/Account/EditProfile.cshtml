@@ -5,15 +5,24 @@
 }
 
 <div class="row-fluid row-content-block">
-    <div class="span6 well">
+    <div class="span12 well">
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
         @Html.BootstrapValidationSummary()
 
         <fieldset>
             <legend>Required fields</legend>
-            @Html.EditorFor(m => m.FullName)
+            @Html.EditorFor(m => m.FirstName)
+            @Html.EditorFor(m => m.MiddleName)
+            @Html.EditorFor(m => m.LastName)
+            @Html.EditorFor(m => m.Country)
+            @Html.EditorFor(m => m.City)
             @Html.EditorFor(m => m.CompanyName)
+            @Html.EditorFor(m => m.Position)
+            @Html.EditorFor(m => m.AcademicDegree)
+            @Html.EditorFor(m => m.WorkEmail)
+            @Html.EditorFor(m => m.CellPhone)
+            @Html.EditorFor(m => m.WorkPhone)
             @Html.EditorFor(m => m.Info, "TextEditor")
         </fieldset>
 

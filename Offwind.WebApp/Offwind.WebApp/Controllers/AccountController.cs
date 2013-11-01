@@ -166,6 +166,8 @@ namespace Offwind.WebApp.Controllers
         {
             try
             {
+                var url = String.Format("{0}/account/profile?userName={1}", WebConfigurationManager.AppSettings["AppHost"], Server.UrlEncode(model.UserName));
+                var href = String.Format("<a href=\"{0}\">{1} {2}</a>", url, model.FirstName, model.LastName);
                 using (var mail = new MailMessage())
                 {
                     mail.From = new MailAddress("admin@offwind.eu", "Offwind Administrator");
@@ -176,6 +178,7 @@ namespace Offwind.WebApp.Controllers
 
                     var text = new StringBuilder();
                     text.AppendFormat("Notification about new user registered<br /><br />");
+                    text.AppendFormat("View user profile {0}", href);
                     mail.Body = text.ToString();
                     mail.IsBodyHtml = true;
 

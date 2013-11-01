@@ -305,6 +305,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ContentController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\GlobalMeetingController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\MailingController.cs" />
@@ -2447,6 +2448,7 @@
     <Content Include="Views\Account\Login\__ForgottenPassword.cshtml" />
     <Content Include="Views\Account\RestoreForgottenPassword.cshtml" />
     <Content Include="Views\Account\ForgottenPassword.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

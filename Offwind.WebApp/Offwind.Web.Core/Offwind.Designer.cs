@@ -5581,6 +5581,54 @@ namespace Offwind.Web.Core
         private global::System.String _WorkEmail;
         partial void OnWorkEmailChanging(global::System.String value);
         partial void OnWorkEmailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CellPhone
+        {
+            get
+            {
+                return _CellPhone;
+            }
+            set
+            {
+                OnCellPhoneChanging(value);
+                ReportPropertyChanging("CellPhone");
+                _CellPhone = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CellPhone");
+                OnCellPhoneChanged();
+            }
+        }
+        private global::System.String _CellPhone;
+        partial void OnCellPhoneChanging(global::System.String value);
+        partial void OnCellPhoneChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WorkPhone
+        {
+            get
+            {
+                return _WorkPhone;
+            }
+            set
+            {
+                OnWorkPhoneChanging(value);
+                ReportPropertyChanging("WorkPhone");
+                _WorkPhone = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("WorkPhone");
+                OnWorkPhoneChanged();
+            }
+        }
+        private global::System.String _WorkPhone;
+        partial void OnWorkPhoneChanging(global::System.String value);
+        partial void OnWorkPhoneChanged();
 
         #endregion
 
@@ -6217,6 +6265,54 @@ namespace Offwind.Web.Core
         private global::System.String _WorkEmail;
         partial void OnWorkEmailChanging(global::System.String value);
         partial void OnWorkEmailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CellPhone
+        {
+            get
+            {
+                return _CellPhone;
+            }
+            set
+            {
+                OnCellPhoneChanging(value);
+                ReportPropertyChanging("CellPhone");
+                _CellPhone = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CellPhone");
+                OnCellPhoneChanged();
+            }
+        }
+        private global::System.String _CellPhone;
+        partial void OnCellPhoneChanging(global::System.String value);
+        partial void OnCellPhoneChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WorkPhone
+        {
+            get
+            {
+                return _WorkPhone;
+            }
+            set
+            {
+                OnWorkPhoneChanging(value);
+                ReportPropertyChanging("WorkPhone");
+                _WorkPhone = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("WorkPhone");
+                OnWorkPhoneChanged();
+            }
+        }
+        private global::System.String _WorkPhone;
+        partial void OnWorkPhoneChanging(global::System.String value);
+        partial void OnWorkPhoneChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

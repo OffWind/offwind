@@ -319,7 +319,6 @@ namespace Offwind.WebApp.Controllers
         public new ActionResult Profile()
         {
             var m = new VUserProfile();
-            m.FullName = User.Identity.Name;
 
             var profile = _ctx.DUserProfiles.First(p => p.UserName == User.Identity.Name);
             if (profile == null)
@@ -328,18 +327,8 @@ namespace Offwind.WebApp.Controllers
                 return View(m);
             }
 
-            m.CompanyName = profile.CompanyName;
-            m.FullName = profile.FullName;
-            m.Info = profile.Info;
-
-            var mbr = _ctx.webpages_Membership.FirstOrDefault(p => p.UserId == profile.UserId);
-            if (mbr != null)
-            {
-                m.Created = mbr.CreateDate ?? DateTime.Now;
-            }
-
-            var roles = _ctx.VUserRoles.Where(r => r.UserId == mbr.UserId).Select(r => r.RoleName);
-            m.Roles.AddRange(roles);
+            //var roles = _ctx.VUserRoles.Where(r => r.UserId == mbr.UserId).Select(r => r.RoleName);
+            //m.Roles.AddRange(roles);
 
             foreach (var dCase in _ctx.DCases.Where(c => c.Owner == User.Identity.Name))
             {
@@ -451,15 +440,14 @@ namespace Offwind.WebApp.Controllers
         {
             var model = new VUserProfile();
 
-            var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName == User.Identity.Name);
+            var profile = _ctx.DVUserProfiles.FirstOrDefault(p => p.UserName == User.Identity.Name);
             if (profile == null)
             {
                 // This is unlikely to happen
                 return View(model);
             }
-            model.FullName = profile.FullName;
-            model.CompanyName = profile.CompanyName;
-            model.Info = profile.Info;
+
+            VUserProfile.MapFromDb(model, profile);
 
             return View(model);
         }
@@ -471,9 +459,18 @@ namespace Offwind.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName == User.Identity.Name);
-                profile.FullName = model.FullName ?? "";
+                var profile = _ctx.DUserProfiles.First(p => p.UserName == User.Identity.Name);
+                profile.FirstName = model.FirstName ?? "";
+                profile.MiddleName = model.MiddleName ?? "";
+                profile.LastName = model.LastName ?? "";
                 profile.CompanyName = model.CompanyName ?? "";
+                profile.AcademicDegree = model.AcademicDegree ?? "";
+                profile.Position = model.Position ?? "";
+                profile.City = model.City ?? "";
+                profile.Country = model.Country ?? "";
+                profile.WorkEmail = model.WorkEmail ?? "";
+                profile.CellPhone = model.CellPhone ?? "";
+                profile.WorkPhone = model.WorkPhone ?? "";
                 profile.Info = model.Info ?? "";
                 _ctx.SaveChanges();
 
@@ -481,10 +478,6 @@ namespace Offwind.WebApp.Controllers
             }
 
             return View("EditProfile", model);
-        }
-
-        private void SaveProfile(VUserProfile model)
-        {
         }
 
         #region Helpers

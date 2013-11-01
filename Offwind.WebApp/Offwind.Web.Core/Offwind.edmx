@@ -235,6 +235,8 @@
           <Property Name="Position" Type="nvarchar" MaxLength="1000" />
           <Property Name="AcademicDegree" Type="nvarchar" MaxLength="350" />
           <Property Name="WorkEmail" Type="nvarchar" MaxLength="350" />
+          <Property Name="CellPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="WorkPhone" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DUserProfileComment">
           <Key>
@@ -385,6 +387,8 @@ warning 6002: The table/view 'offwind.dbo.DVUserProfile' does not have a primary
           <Property Name="Position" Type="nvarchar" MaxLength="1000" />
           <Property Name="AcademicDegree" Type="nvarchar" MaxLength="350" />
           <Property Name="WorkEmail" Type="nvarchar" MaxLength="350" />
+          <Property Name="CellPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="WorkPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="IsConfirmed" Type="bit" />
           <Property Name="Email" Type="nvarchar" MaxLength="128" />
@@ -648,6 +652,8 @@ warning 6035: The relationship 'FK_DJob_DUserProfile' has columns that are not p
 [DVUserProfile].[Position] AS [Position], 
 [DVUserProfile].[AcademicDegree] AS [AcademicDegree], 
 [DVUserProfile].[WorkEmail] AS [WorkEmail], 
+[DVUserProfile].[CellPhone] AS [CellPhone], 
+[DVUserProfile].[WorkPhone] AS [WorkPhone], 
 [DVUserProfile].[CreateDate] AS [CreateDate], 
 [DVUserProfile].[IsConfirmed] AS [IsConfirmed], 
 [DVUserProfile].[Email] AS [Email]
@@ -1089,6 +1095,8 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
           <Property Name="Position" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="AcademicDegree" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
           <Property Name="WorkEmail" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="CellPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="webpages_Roles" Relationship="Offwind.DbModels.webpages_UsersInRoles" FromRole="DUserProfile" ToRole="webpages_Roles" />
         </EntityType>
         <EntityType Name="DUserProfileComment">
@@ -1233,6 +1241,8 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
           <Property Name="Position" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="AcademicDegree" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
           <Property Name="WorkEmail" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="CellPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="IsConfirmed" Type="Boolean" />
           <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -1634,6 +1644,8 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
           <EntitySetMapping Name="DUserProfiles">
             <EntityTypeMapping TypeName="Offwind.DbModels.DUserProfile">
               <MappingFragment StoreEntitySet="DUserProfile">
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
                 <ScalarProperty Name="WorkEmail" ColumnName="WorkEmail" />
                 <ScalarProperty Name="AcademicDegree" ColumnName="AcademicDegree" />
                 <ScalarProperty Name="Position" ColumnName="Position" />
@@ -1784,6 +1796,8 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
                 <ScalarProperty Name="WorkEmail" ColumnName="WorkEmail" />
                 <ScalarProperty Name="AcademicDegree" ColumnName="AcademicDegree" />
                 <ScalarProperty Name="Position" ColumnName="Position" />
@@ -1904,12 +1918,12 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
         <EntityTypeShape EntityType="Offwind.DbModels.sysdiagram" Width="1.5" PointX="15.75" PointY="5.875" />
         <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="4.75" PointY="16.875" />
         <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="15.75" PointY="8.875" />
-        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="3" PointY="9.75" />
+        <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="3" PointY="10" />
         <EntityTypeShape EntityType="Offwind.DbModels.DVUserProfile" Width="1.5" PointX="16.75" PointY="11.875" />
         <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="10.75" PointY="17.875" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VRouteItem" Width="1.5" PointX="16.75" PointY="17.875" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="17.75" PointY="1.875" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="17.75" PointY="4.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VRouteItem" Width="1.5" PointX="17.75" PointY="1.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="17.75" PointY="5.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="17.75" PointY="8.875" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentCategory" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" />
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingFile_DMeeting" />

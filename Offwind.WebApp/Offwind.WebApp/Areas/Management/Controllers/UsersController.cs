@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Offwind.WebApp.Areas.Management.Models;
+using Offwind.WebApp.Models.Account;
 
 namespace Offwind.WebApp.Areas.Management.Controllers
 {

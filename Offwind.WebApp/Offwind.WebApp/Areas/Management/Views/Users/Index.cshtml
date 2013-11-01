@@ -19,7 +19,7 @@
                     <th>Name</th>
                     <th>Organization, position</th>
                     <th>Location</th>
-                    <th>Email / Work Email</th>
+                    <th>Contacts</th>
                     @*<th>Was online</th>*@
                     <th>Registered</th>
                 </tr>
@@ -51,10 +51,18 @@
                             }
                         </td>
                         <td>
-                            <span>@user.Email</span>
+                            <span><i class="icon icon-envelope"></i> <a href="mailto:@user.Email">@user.Email</a></span>
                             @if (user.WorkEmail != null && user.WorkEmail.Trim().Length > 0)
                             {
-                                <br/> <span>@user.WorkEmail</span>
+                                <br/><span><i class="icon icon-envelope"></i> <a href="mailto:@user.WorkEmail">@user.WorkEmail</a></span>
+                            }
+                            @if (user.CellPhone != null && user.CellPhone.Trim().Length > 0)
+                            {
+                                <br/><span><i class="icon icon-phone"></i> @user.CellPhone</span>
+                            }
+                            @if (user.WorkPhone != null && user.WorkPhone.Trim().Length > 0)
+                            {
+                                <br/><span><i class="icon icon-phone"></i> @user.WorkPhone</span>
                             }
                         </td>
                         @*<td>@user.LastActivity</td>*@

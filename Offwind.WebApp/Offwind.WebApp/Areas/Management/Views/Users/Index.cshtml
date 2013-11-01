@@ -29,8 +29,7 @@
                 {
                     <tr>
                         <td>
-                            @*<a href="@Url.Action("Details", "Users", new { area = "Management", userName = user.UserName })" target="_blank">@user.FirstName @user.MiddleName @user.LastName</a>*@
-                            @user.FirstName @user.MiddleName @user.LastName
+                            <a href="@Url.Action("Profile", "Account", new { area = "", userName = user.UserName })" target="_blank">@user.FirstName @user.MiddleName @user.LastName</a>
                         </td>
                         <td>
                             @user.CompanyName

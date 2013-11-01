@@ -15,7 +15,7 @@
         <table class="table table-condensed table-hover table-bordered">
             <tr>
                 <td class="ph">Name</td>
-                <td>@Model.FullName</td>
+                <td>@Model.FirstName @Model.MiddleName @Model.LastName</td>
             </tr>
             <tr>
                 <td class="ph">Roles</td>
@@ -31,12 +31,15 @@
             </tr>
             <tr>
                 <td class="ph">Registration date</td>
-                <td>@Model.Created</td>
+                <td>@Model.CreateDate</td>
             </tr>
         </table>
 
-        <a class="btn btn-info" href="@Url.Action("EditProfile", "Account")">Edit profile</a>
-        <a class="btn btn-info" href="@Url.Action("ChangePassword", "Account")">Change password</a>
+        @if ((bool)ViewBag.IsOwner)
+        {
+            <a class="btn btn-info" href="@Url.Action("EditProfile", "Account")">Edit profile</a>
+            <a class="btn btn-info" href="@Url.Action("ChangePassword", "Account")">Change password</a>
+        }
 
         @* <section id="externalLogins">
             @Html.Action("RemoveExternalLogins")

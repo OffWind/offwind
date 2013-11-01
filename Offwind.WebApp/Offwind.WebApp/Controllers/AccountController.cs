@@ -316,25 +316,28 @@ namespace Offwind.WebApp.Controllers
             }
         }
 
-        public new ActionResult Profile()
+        public new ActionResult Profile(string userName)
         {
-            var m = new VUserProfile();
+            var model = new VUserProfile();
 
-            var profile = _ctx.DUserProfiles.First(p => p.UserName == User.Identity.Name);
+            var profile = _ctx.DVUserProfiles.FirstOrDefault(p => p.UserName == userName);
             if (profile == null)
             {
                 // This is unlikely to happen
-                return View(m);
+                return View(model);
             }
-
+            VUserProfile.MapFromDb(model, profile);
             //var roles = _ctx.VUserRoles.Where(r => r.UserId == mbr.UserId).Select(r => r.RoleName);
             //m.Roles.AddRange(roles);
 
             foreach (var dCase in _ctx.DCases.Where(c => c.Owner == User.Identity.Name))
             {
-                m.Cases.Add(new VProfileCase {Created = dCase.Created, Name = dCase.Name, Id = dCase.Id});
+                model.Cases.Add(new VProfileCase {Created = dCase.Created, Name = dCase.Name, Id = dCase.Id});
             }
-            return View(m);
+
+            ViewBag.IsOwner = User.Identity.Name == userName;
+
+            return View(model);
         }
 
         //

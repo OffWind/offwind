@@ -3,8 +3,7 @@
     ViewBag.Title = "User Profile";
 }
 <style>
-    .ph
-    {
+    .ph {
         font-weight: bold;
     }
 </style>
@@ -18,30 +17,71 @@
                 <td>@Model.FirstName @Model.MiddleName @Model.LastName</td>
             </tr>
             <tr>
-                <td class="ph">Roles</td>
-                <td>@Model.FormattedRoles()</td>
+                <td class="ph">Location</td>
+                <td>
+                    @Model.Country
+                    @if (Model.City != null && Model.City.Trim().Length > 0)
+                    {
+                        <span>@Model.City</span>
+                    }
+                </td>
             </tr>
             <tr>
                 <td class="ph">Company name</td>
                 <td>@Model.CompanyName</td>
             </tr>
             <tr>
+                <td class="ph">Position, academic degree</td>
+                <td>
+                    @Model.Position
+                    @if (Model.AcademicDegree != null && Model.AcademicDegree.Trim().Length > 0)
+                    {
+                        <span>@Model.AcademicDegree</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td class="ph">Contacts</td>
+                <td>
+                    <span><i class="icon icon-envelope"></i><a href="mailto:@Model.Email"> @Model.Email</a></span>
+                    @if (Model.WorkEmail != null && Model.WorkEmail.Trim().Length > 0)
+                    {
+                        <br />
+                        <span><i class="icon icon-envelope"></i><a href="mailto:@Model.WorkEmail"> @Model.WorkEmail</a></span>
+                    }
+                    @if (Model.CellPhone != null && Model.CellPhone.Trim().Length > 0)
+                    {
+                        <br />
+                        <span><i class="icon icon-phone"></i> @Model.CellPhone</span>
+                    }
+                    @if (Model.WorkPhone != null && Model.WorkPhone.Trim().Length > 0)
+                    {
+                        <br />
+                        <span><i class="icon icon-phone"></i> @Model.WorkPhone</span>
+                    }
+                </td>
+            </tr>
+            <tr>
                 <td class="ph">Information</td>
                 <td>@Model.Info</td>
             </tr>
             <tr>
+                <td class="ph">Roles</td>
+                <td>@Model.FormattedRoles()</td>
+            </tr>
+            <tr>
                 <td class="ph">Registration date</td>
-                <td>@Model.CreateDate</td>
+                <td>@Model.CreateDate.ToString("MMMM dd, yyyy")</td>
             </tr>
         </table>
 
-        @if ((bool)ViewBag.IsOwner)
+        @if (ViewBag.IsOwner)
         {
             <a class="btn btn-info" href="@Url.Action("EditProfile", "Account")">Edit profile</a>
             <a class="btn btn-info" href="@Url.Action("ChangePassword", "Account")">Change password</a>
         }
 
-        @* <section id="externalLogins">
+@* <section id="externalLogins">
             @Html.Action("RemoveExternalLogins")
 
             <h3>Add an external login</h3>
@@ -49,22 +89,25 @@
         </section>
 *@
     </div>
-    <div class="span6 well">
-        <h2>Cases</h2>
-        <table class="table table-condensed table-hover table-bordered">
-            <tr>
-                <th>Created</th>
-                <th>Name</th>
-            </tr>
-            @foreach (var c in Model.Cases)
-            {
+    @if (ViewBag.IsOwner)
+    {
+        <div class="span6 well">
+            <h2>Cases</h2>
+            <table class="table table-condensed table-hover table-bordered">
                 <tr>
-                    <td>@c.Created</td>
-                    <td><a href="#">@c.Name</a></td>
+                    <th>Created</th>
+                    <th>Name</th>
                 </tr>
-            }
-        </table>
-    </div>
+                @foreach (var c in Model.Cases)
+                {
+                    <tr>
+                        <td>@c.Created</td>
+                        <td><a href="#">@c.Name</a></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
 </div>
 
 @section scripts {

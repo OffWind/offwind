@@ -149,6 +149,72 @@ namespace Offwind.WebApp.Controllers
             return RedirectToAction("Profile", "Account", new { justRegistered = true });
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgottenPassword(ForgottenPassword model)
+        {
+            try
+            {
+                var token = WebSecurity.GeneratePasswordResetToken(model.Email, 10);
+                var url = String.Format("{0}/account/RestoreForgottenPassword?token={1}", WebConfigurationManager.AppSettings["AppHost"], token);
+                var href = String.Format("<a href=\"{0}\">Go to restore password page</a>", url);
+                using (var mail = new MailMessage())
+                {
+                    mail.From = new MailAddress("admin@offwind.eu", "Offwind Administrator");
+                    mail.To.Add(new MailAddress(model.Email));
+                    mail.Subject = "Offwind password restore [" + model.Email + "]";
+
+                    var text = new StringBuilder();
+                    text.AppendFormat("You received this message because you have requested a password restore. If it wasn't you just ignore this message.<br /><br />");
+                    text.AppendFormat("{0}", href);
+                    mail.Body = text.ToString();
+                    mail.IsBodyHtml = true;
+
+                    var smtpClient = new SmtpClient
+                    {
+                        Host = WebConfigurationManager.AppSettings["SmtpHost"],
+                        Port = Convert.ToInt32(WebConfigurationManager.AppSettings["SmtpHostPort"]),
+                        EnableSsl = Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpEnableSSL"]),
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials =
+                            Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpUseDefaultCredentialas"]),
+                        Credentials = new NetworkCredential()
+                        {
+                            UserName = WebConfigurationManager.AppSettings["SmtpSenderMail"],
+                            Password = WebConfigurationManager.AppSettings["SmtpSenderPswd"]
+                        }
+                    };
+                    smtpClient.Send(mail);
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.UserNotFound = true;
+                return View();
+            }
+            ViewBag.UserNotFound = false;
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult RestoreForgottenPassword(string token)
+        {
+            var model = new RestoreForgottenPassword();
+            model.Token = token;
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult RestoreForgottenPassword(RestoreForgottenPassword model)
+        {
+            if (model.NewPassword != model.NewPasswordConfirm) return View(model);
+            WebSecurity.ResetPassword(model.Token, model.NewPassword);
+            return RedirectToAction("Login", "Account");
+        }
+
         public ActionResult ResendVerificationCode()
         {
             var verificationCode = Guid.NewGuid();

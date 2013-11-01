@@ -1,0 +1,15 @@
+﻿@using Offwind.WebApp.Infrastructure
+@model Offwind.WebApp.Models.LoginModel
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.BootstrapValidationSummary()
+
+    <fieldset>
+        <legend>Login</legend>
+        @Html.EditorFor(m => m.UserName)
+        @Html.EditorFor(m => m.Password)
+        @*@Html.EditorFor(m => m.RememberMe)*@
+    </fieldset>
+    <input type="submit" class="btn btn-primary btn-large" value="Log in" />
+}

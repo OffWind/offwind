@@ -317,7 +317,6 @@
     <Compile Include="Infrastructure\Navigation\NavItem.cs" />
     <Compile Include="Infrastructure\Navigation\NavUrl.cs" />
     <Compile Include="Infrastructure\StrongRandom.cs" />
-    <Compile Include="Models\Account\ExternalLoginResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Account\ManageMessageId.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -2444,6 +2443,10 @@
     <Content Include="Views\Account\Profile\__Contacts.cshtml" />
     <Content Include="Views\Account\Profile\__Events.cshtml" />
     <Content Include="Views\Account\Profile\__Cases.cshtml" />
+    <Content Include="Views\Account\Login\__Login.cshtml" />
+    <Content Include="Views\Account\Login\__ForgottenPassword.cshtml" />
+    <Content Include="Views\Account\RestoreForgottenPassword.cshtml" />
+    <Content Include="Views\Account\ForgottenPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

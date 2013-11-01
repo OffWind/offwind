@@ -136,6 +136,30 @@ namespace Offwind.WebApp.Models
         public Guid VerificationCode { get; set; }
     }
 
+    public class ForgottenPassword
+    {
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+    }
+
+    public class RestoreForgottenPassword : VWebPage
+    {
+        [Required]
+        public string Token { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "New password", Description = "Please, use strong password for security reasons.")]
+        public string NewPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm new password", Description = "Password confirmation is used to avoid mistypings.")]
+        [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
+        public string NewPasswordConfirm { get; set; }
+    }
     public class ExternalLogin
     {
         public string Provider { get; set; }

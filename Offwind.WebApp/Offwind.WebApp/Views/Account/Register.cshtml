@@ -6,66 +6,95 @@
 
 <div class="row-fluid row-content-block">
     <div class="span6 well">
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-        @Html.BootstrapValidationSummary()
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.BootstrapValidationSummary()
 
-        <fieldset>
-            <legend>Required information</legend>
-            @Html.EditorFor(m => m.FirstName)
-            @Html.EditorFor(m => m.LastName)
-            @Html.EditorFor(m => m.UserName)
-            @Html.EditorFor(m => m.Password)
-            @Html.EditorFor(m => m.ConfirmPassword)
-        </fieldset>
-
-        <fieldset>
-            <legend>Optional information</legend>
-            @Html.EditorFor(m => m.Country)
-            @Html.EditorFor(m => m.City)
-            @Html.EditorFor(m => m.CompanyName)
-            @Html.EditorFor(m => m.Position)
-            @Html.EditorFor(m => m.AcademicDegree)
-            @Html.EditorFor(m => m.Info, "TextEditor")
-        </fieldset>
-        
-        <fieldset>
-            <legend>Contacts</legend>
-            @Html.EditorFor(m => m.WorkEmail)
-            @Html.EditorFor(m => m.WorkPhone)
-            @Html.EditorFor(m => m.CellPhone)
-        </fieldset>
-
-        <input type="submit" class="btn btn-primary btn-large" value="Register" />
-    }
+            <ul class="nav nav-tabs" id="reg-tabs">
+                <li class="active"><a href="#required" data-toggle="tab">Required information</a></li>
+                <li><a href="#location-and-company" data-toggle="tab">Location and organization</a></li>
+                <li><a href="#contacts" data-toggle="tab">Contacts</a></li>
+            </ul>
+ 
+            <div class="tab-content">
+                <div class="tab-pane active" id="required">
+                    @Html.EditorFor(m => m.FirstName)
+                    @Html.EditorFor(m => m.LastName)
+                    @Html.EditorFor(m => m.UserName)
+                    @Html.EditorFor(m => m.Password)
+                    @Html.EditorFor(m => m.ConfirmPassword)
+                    <input type="button" class="btn btn-primary btn-large" id="reg-button-1" value="Next" />
+                </div>
+                <div class="tab-pane" id="location-and-company">
+                    @Html.EditorFor(m => m.Country)
+                    @Html.EditorFor(m => m.City)
+                    @Html.EditorFor(m => m.CompanyName)
+                    @Html.EditorFor(m => m.Position)
+                    @Html.EditorFor(m => m.AcademicDegree)
+                    @Html.EditorFor(m => m.Info, "TextEditor")
+                    <input type="button" class="btn btn-primary btn-large" id="reg-button-2" value="Next" />
+                </div>
+                <div class="tab-pane" id="contacts">
+                    @Html.EditorFor(m => m.WorkEmail)
+                    @Html.EditorFor(m => m.WorkPhone)
+                    @Html.EditorFor(m => m.CellPhone)
+                    <input type="submit" class="btn btn-success btn-large" value="Finish" />
+                </div>
+            </div>
+        }
     </div>
     <div class="span6 well">
         <h1>Registration at Offwind</h1>
 
         <h2>Why would you register?</h2>
-        <p>By registering you will get an access to tools and additional materials.
-        Offwind can also inform you about interesting events and features if you subscribe for it.</p>
+        <p>
+            By registering you will get an access to tools and additional materials.
+        Offwind can also inform you about interesting events and features if you subscribe for it.
+        </p>
 
         <h2>Is it easy?</h2>
-        <p>The registration process is very simple. After you enter
-            email and password (and probably additional information about you and your company) you will be notified by email for confirmation.</p>
-            
+        <p>
+            The registration process is very simple. After you enter
+            email and password (and probably additional information about you and your company) you will be notified by email for confirmation.
+        </p>
+
         <h2>Optional information</h2>
 
-        <p>We are asking to provide some more information about you and your company. This is not mandatory for starting using Offwind Toolkit, but we would be very thankful if you provide it
-            because:</p>
+        <p>
+            We are asking to provide some more information about you and your company. This is not mandatory for starting using Offwind Toolkit, but we would be very thankful if you provide it
+            because:
+        </p>
         <ul>
             <li>we will be able to notify you about major events or changes</li>
             <li>this will help us to make our tools better suit your needs</li>
         </ul>
-        
+
         <h2>Profile changes</h2>
 
-        <p>You can always update your information by clicking <strong>Profile</strong> in the top left corner.
-            Note, that you have to be logged into system in order make any changes.</p>
+        <p>
+            You can always update your information by clicking <strong>Profile</strong> in the top left corner.
+            Note, that you have to be logged into system in order make any changes.
+        </p>
     </div>
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            //$(window).keydown(function (event) {
+            //    if (event.keyCode == 13) {
+            //        event.preventDefault();
+            //        return false;
+            //    }
+            //});
+            $('#reg-button-1').click(function () {
+                $('#reg-tabs a[href="#location-and-company"]').tab('show');
+            });
+            $('#reg-button-2').click(function () {
+                $('#reg-tabs a[href="#contacts"]').tab('show');
+            });
+        });
+    </script>
 }

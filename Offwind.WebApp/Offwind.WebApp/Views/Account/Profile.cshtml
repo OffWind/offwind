@@ -8,6 +8,18 @@
     }
 </style>
 
+@if (ViewBag.JustRegistered)
+{
+    <div class="row-fluid row-content-block">
+        <div class="span12 well">
+            <h1>Thank you for registration!</h1>
+            <p>Your account <strong>@Model.UserName</strong> has been successfully created!</p>
+            <p>You can already start using Offwind Toolkit.</p>
+            <p>For security reasons we recommend you to go through a verification procedure. Please, check your email and follow the link in it to continue</p>
+        </div>
+    </div>
+}
+
 <div class="row-fluid row-content-block">
     <div class="span6 well">
         <h1>User profile</h1>

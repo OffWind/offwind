@@ -143,7 +143,55 @@ namespace Offwind.WebApp.Controllers
             profile.Info = model.Info;
             _ctx.SaveChanges();
 
-            // Send verification email to user
+            SendEmailToUser(model, verificationCode);
+            SendEmailToManager(model);
+
+            return RedirectToAction("Profile", "Account", new { justRegistered = true });
+        }
+
+        private void SendEmailToManager(RegisterModel model)
+        {
+            try
+            {
+                using (var mail = new MailMessage())
+                {
+                    mail.From = new MailAddress("admin@offwind.eu", "Offwind Administrator");
+                    mail.To.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail1"]));
+                    mail.CC.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail2"]));
+                    mail.CC.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail3"]));
+                    mail.Subject = "Offwind new user [" + model.UserName + "]";
+
+                    var text = new StringBuilder();
+                    text.AppendFormat("Notification about new user registered<br /><br />");
+                    mail.Body = text.ToString();
+                    mail.IsBodyHtml = true;
+
+                    var smtpClient = new SmtpClient()
+                    {
+                        Host = WebConfigurationManager.AppSettings["SmtpHost"],
+                        Port = Convert.ToInt32(WebConfigurationManager.AppSettings["SmtpHostPort"]),
+                        EnableSsl = Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpEnableSSL"]),
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials =
+                            Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpUseDefaultCredentialas"]),
+                        Credentials = new NetworkCredential()
+                        {
+                            UserName = WebConfigurationManager.AppSettings["SmtpSenderMail"],
+                            Password = WebConfigurationManager.AppSettings["SmtpSenderPswd"]
+                        }
+                    };
+                    smtpClient.Send(mail);
+                }
+            }
+            catch (Exception)
+            {
+                // TODO: Add logging
+                //throw;
+            }
+        }
+
+        private static void SendEmailToUser(RegisterModel model, Guid verificationCode)
+        {
             try
             {
                 var url = String.Format("{0}/account/verify/{1}",
@@ -154,14 +202,12 @@ namespace Offwind.WebApp.Controllers
                 {
                     mail.From = new MailAddress("admin@offwind.eu", "Offwind Administrator");
                     mail.To.Add(new MailAddress(model.UserName));
-                    mail.Bcc.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail1"]));
-                    mail.Bcc.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail2"]));
-                    mail.Bcc.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail3"]));
                     mail.Subject = "Offwind registration: verify your account";
 
                     var text = new StringBuilder();
                     text.AppendFormat("Welcome to Offwind!<br /><br />");
-                    text.AppendFormat("You've registered a new account and verification is required in order to finish the process.<br /><br />");
+                    text.AppendFormat(
+                        "You've registered a new account and verification is required in order to finish the process.<br /><br />");
                     text.AppendFormat("Your account: {0}<br />", model.UserName);
                     text.AppendFormat("Verification code: {0}<br />", verificationCode);
                     text.AppendFormat("You can simply follow the link: {0}<br /><br />", anchor);
@@ -176,7 +222,8 @@ namespace Offwind.WebApp.Controllers
                         Port = Convert.ToInt32(WebConfigurationManager.AppSettings["SmtpHostPort"]),
                         EnableSsl = Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpEnableSSL"]),
                         DeliveryMethod = SmtpDeliveryMethod.Network,
-                        UseDefaultCredentials = Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpUseDefaultCredentialas"]),
+                        UseDefaultCredentials =
+                            Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpUseDefaultCredentialas"]),
                         Credentials = new NetworkCredential()
                         {
                             UserName = WebConfigurationManager.AppSettings["SmtpSenderMail"],
@@ -185,15 +232,12 @@ namespace Offwind.WebApp.Controllers
                     };
                     smtpClient.Send(mail);
                 }
-
             }
             catch (Exception)
             {
                 // TODO: Add logging
                 //throw;
             }
-            //return RedirectToAction("Index", "Home");
-            return RedirectToAction("RegisterComplete", "Account");
         }
 
         [AllowAnonymous]
@@ -257,7 +301,7 @@ namespace Offwind.WebApp.Controllers
             return RedirectToAction("ChangePassword", new { Message = ManageMessageId.ChangePasswordSuccess });
         }
 
-        public new ActionResult Profile(string userName)
+        public new ActionResult Profile(string userName, bool justRegistered = false)
         {
             var model = new VUserProfile();
             if (userName == null || userName.Trim().Length == 0)
@@ -280,6 +324,7 @@ namespace Offwind.WebApp.Controllers
             }
 
             ViewBag.IsOwner = User.Identity.Name == userName;
+            ViewBag.JustRegistered = justRegistered;
 
             return View(model);
         }

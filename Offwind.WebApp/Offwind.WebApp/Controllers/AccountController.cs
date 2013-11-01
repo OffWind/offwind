@@ -154,9 +154,9 @@ namespace Offwind.WebApp.Controllers
                 {
                     mail.From = new MailAddress("admin@offwind.eu", "Offwind Administrator");
                     mail.To.Add(new MailAddress(model.UserName));
-                    mail.Bcc.Add(new MailAddress("vlad.ogay@nrg-soft.com"));
-                    //mail.Bcc.Add(new MailAddress("jafar.mahmoudi@iris.no"));
-                    //mail.Bcc.Add(new MailAddress("jafar.mahmoudi@gmail.com"));
+                    mail.Bcc.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail1"]));
+                    mail.Bcc.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail2"]));
+                    mail.Bcc.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail3"]));
                     mail.Subject = "Offwind registration: verify your account";
 
                     var text = new StringBuilder();

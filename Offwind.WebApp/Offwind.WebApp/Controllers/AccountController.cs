@@ -49,7 +49,7 @@ namespace Offwind.WebApp.Controllers
 
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return RedirectToLocal(returnUrl);
+                return RedirectToAction("Profile", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -384,9 +384,12 @@ namespace Offwind.WebApp.Controllers
                 model.Cases.Add(new VProfileCase {Created = dCase.Created, Name = dCase.Name, Id = dCase.Id});
             }
 
+            var eventParticipant = _ctx.DEventParticipants.FirstOrDefault(x => x.UserId == profile.UserId);
+
             ViewBag.IsOwner = User.Identity.Name == userName;
             ViewBag.JustRegistered = justRegistered;
             ViewBag.VerificationResent = verificationResent;
+            ViewBag.IsRegisteredForEvent = eventParticipant != null;
 
             return View(model);
         }

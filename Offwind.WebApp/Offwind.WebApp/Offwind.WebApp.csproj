@@ -2440,6 +2440,10 @@
     <Content Include="Views\Shared\__SideNavStrings.cshtml" />
     <Content Include="Views\Shared\__MainMenuCategory.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SelectList.cshtml" />
+    <Content Include="Views\Account\Profile\__Status.cshtml" />
+    <Content Include="Views\Account\Profile\__Contacts.cshtml" />
+    <Content Include="Views\Account\Profile\__Events.cshtml" />
+    <Content Include="Views\Account\Profile\__Cases.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\EngineeringTools\Views\WindFarm\InputData.cshtml" />

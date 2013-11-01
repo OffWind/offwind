@@ -58,7 +58,9 @@
         @Html.BlockContent("home-greeting")
         @if (!Request.IsAuthenticated)
         {
-            <a href="@Url.Action("Register", "Account")" class="btn btn-success btn-large btn-block">Register</a>
+            <a href="@Url.Action("Register", "Account")" class="btn btn-success btn-large register">Register</a>
+            <span class="word-or">or</span>
+            <a href="@Url.Action("Login", "Account")" class="btn btn-primary btn-large login">Login</a>
         }
     </div>
 </div>

@@ -193,8 +193,7 @@ namespace Offwind.WebApp.Controllers
                 //throw;
             }
             //return RedirectToAction("Index", "Home");
-            //return RedirectToAction("RegisterComplete", "Account");
-            return RedirectToAction("Profile", "Account", new { userName = User.Identity.Name });
+            return RedirectToAction("RegisterComplete", "Account");
         }
 
         [AllowAnonymous]

@@ -32,29 +32,7 @@
     </div>
     <div class="span4 well">
         <h2>Registration</h2>
-        <form id="form-registration" class="form " method="post" novalidate="">
-            <label class="control-label" for="FullName">Your name</label>
-            <div class="controls controls-row">
-                @Html.TextBoxFor(m => m.FullName)
-            </div>
-            <label class="control-label" for="Email">Email</label>
-            <div class="controls controls-row">
-                @Html.TextBoxFor(m => m.Email, new { autocomplete = "off" })
-            </div>
-            <label class="control-label" for="Phone">Phone</label>
-            <div class="controls controls-row">
-                @Html.TextBoxFor(m => m.Phone, new { autocomplete = "off" })
-            </div>
-            <label class="control-label" for="Company">Company</label>
-            <div class="controls controls-row">
-                @Html.TextBoxFor(m => m.Company, new { autocomplete = "off" })
-            </div>
-            <label class="control-label" for="Comment">Comment</label>
-            <div class="controls controls-row">
-                @Html.TextAreaFor(m => m.Comment)
-            </div>
-            <button type="submit" class="btn btn-primary">Apply</button>
-        </form>
+        <p>In order to register for this event, please go to <a href="@Url.Action("Register", "Account")">Registration</a> area</p>
     </div>
 </div>
 @section Scripts

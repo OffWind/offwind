@@ -43,21 +43,21 @@
             <tr>
                 <td class="ph">Contacts</td>
                 <td>
-                    <span><i class="icon icon-envelope"></i><a href="mailto:@Model.Email"> @Model.Email</a></span>
+                    <span><i class="icon icon-envelope"></i><a href="mailto:@Model.Email">@Model.Email</a></span>
                     @if (Model.WorkEmail != null && Model.WorkEmail.Trim().Length > 0)
                     {
                         <br />
-                        <span><i class="icon icon-envelope"></i><a href="mailto:@Model.WorkEmail"> @Model.WorkEmail</a></span>
+                        <span><i class="icon icon-envelope"></i><a href="mailto:@Model.WorkEmail">@Model.WorkEmail</a></span>
                     }
                     @if (Model.CellPhone != null && Model.CellPhone.Trim().Length > 0)
                     {
                         <br />
-                        <span><i class="icon icon-phone"></i> @Model.CellPhone</span>
+                        <span><i class="icon icon-phone"></i>@Model.CellPhone</span>
                     }
                     @if (Model.WorkPhone != null && Model.WorkPhone.Trim().Length > 0)
                     {
                         <br />
-                        <span><i class="icon icon-phone"></i> @Model.WorkPhone</span>
+                        <span><i class="icon icon-phone"></i>@Model.WorkPhone</span>
                     }
                 </td>
             </tr>
@@ -89,9 +89,11 @@
         </section>
 *@
     </div>
-    @if (ViewBag.IsOwner)
-    {
-        <div class="span6 well">
+    <div class="span6 well">
+        <h2>Offwind Global Expert Meeting 2013</h2>
+        <p><a href="@Url.Action("Apply", "GlobalMeeting")" class="btn btn-primary btn-large">Apply for OGEM 2013</a></p>
+        @if (ViewBag.IsOwner)
+        {
             <h2>Cases</h2>
             <table class="table table-condensed table-hover table-bordered">
                 <tr>
@@ -106,8 +108,8 @@
                     </tr>
                 }
             </table>
-        </div>
-    }
+        }
+    </div>
 </div>
 
 @section scripts {

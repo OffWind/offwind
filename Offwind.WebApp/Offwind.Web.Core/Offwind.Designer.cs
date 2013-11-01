@@ -225,6 +225,22 @@ namespace Offwind.Web.Core
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<DEventParticipantComment> DEventParticipantComments
+        {
+            get
+            {
+                if ((_DEventParticipantComments == null))
+                {
+                    _DEventParticipantComments = base.CreateObjectSet<DEventParticipantComment>("DEventParticipantComments");
+                }
+                return _DEventParticipantComments;
+            }
+        }
+        private ObjectSet<DEventParticipantComment> _DEventParticipantComments;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<DJob> DJobs
         {
             get
@@ -381,22 +397,6 @@ namespace Offwind.Web.Core
             }
         }
         private ObjectSet<DUserProfile> _DUserProfiles;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<DUserProfileComment> DUserProfileComments
-        {
-            get
-            {
-                if ((_DUserProfileComments == null))
-                {
-                    _DUserProfileComments = base.CreateObjectSet<DUserProfileComment>("DUserProfileComments");
-                }
-                return _DUserProfileComments;
-            }
-        }
-        private ObjectSet<DUserProfileComment> _DUserProfileComments;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -683,6 +683,14 @@ namespace Offwind.Web.Core
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the DEventParticipantComments EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDEventParticipantComments(DEventParticipantComment dEventParticipantComment)
+        {
+            base.AddObject("DEventParticipantComments", dEventParticipantComment);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the DJobs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToDJobs(DJob dJob)
@@ -760,14 +768,6 @@ namespace Offwind.Web.Core
         public void AddToDUserProfiles(DUserProfile dUserProfile)
         {
             base.AddObject("DUserProfiles", dUserProfile);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the DUserProfileComments EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDUserProfileComments(DUserProfileComment dUserProfileComment)
-        {
-            base.AddObject("DUserProfileComments", dUserProfileComment);
         }
     
         /// <summary>
@@ -3018,11 +3018,15 @@ namespace Offwind.Web.Core
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="eventId">Initial value of the EventId property.</param>
-        public static DEventParticipant CreateDEventParticipant(global::System.Guid id, global::System.Guid eventId)
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="created">Initial value of the Created property.</param>
+        public static DEventParticipant CreateDEventParticipant(global::System.Guid id, global::System.Guid eventId, global::System.Int32 userId, global::System.DateTime created)
         {
             DEventParticipant dEventParticipant = new DEventParticipant();
             dEventParticipant.Id = id;
             dEventParticipant.EventId = eventId;
+            dEventParticipant.UserId = userId;
+            dEventParticipant.Created = created;
             return dEventParticipant;
         }
 
@@ -3084,26 +3088,211 @@ namespace Offwind.Web.Core
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String Data
+        public global::System.Int32 UserId
         {
             get
             {
-                return _Data;
+                return _UserId;
             }
             set
             {
-                OnDataChanging(value);
-                ReportPropertyChanging("Data");
-                _Data = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Data");
-                OnDataChanged();
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
             }
         }
-        private global::System.String _Data;
-        partial void OnDataChanging(global::System.String value);
-        partial void OnDataChanged();
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private global::System.DateTime _Created;
+        partial void OnCreatedChanging(global::System.DateTime value);
+        partial void OnCreatedChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DEventParticipantComment")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DEventParticipantComment : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DEventParticipantComment object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="participantId">Initial value of the ParticipantId property.</param>
+        /// <param name="created">Initial value of the Created property.</param>
+        /// <param name="authorId">Initial value of the AuthorId property.</param>
+        /// <param name="text">Initial value of the Text property.</param>
+        public static DEventParticipantComment CreateDEventParticipantComment(global::System.Guid id, global::System.Guid participantId, global::System.DateTime created, global::System.Int32 authorId, global::System.String text)
+        {
+            DEventParticipantComment dEventParticipantComment = new DEventParticipantComment();
+            dEventParticipantComment.Id = id;
+            dEventParticipantComment.ParticipantId = participantId;
+            dEventParticipantComment.Created = created;
+            dEventParticipantComment.AuthorId = authorId;
+            dEventParticipantComment.Text = text;
+            return dEventParticipantComment;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ParticipantId
+        {
+            get
+            {
+                return _ParticipantId;
+            }
+            set
+            {
+                OnParticipantIdChanging(value);
+                ReportPropertyChanging("ParticipantId");
+                _ParticipantId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ParticipantId");
+                OnParticipantIdChanged();
+            }
+        }
+        private global::System.Guid _ParticipantId;
+        partial void OnParticipantIdChanging(global::System.Guid value);
+        partial void OnParticipantIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private global::System.DateTime _Created;
+        partial void OnCreatedChanging(global::System.DateTime value);
+        partial void OnCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AuthorId
+        {
+            get
+            {
+                return _AuthorId;
+            }
+            set
+            {
+                OnAuthorIdChanging(value);
+                ReportPropertyChanging("AuthorId");
+                _AuthorId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AuthorId");
+                OnAuthorIdChanged();
+            }
+        }
+        private global::System.Int32 _AuthorId;
+        partial void OnAuthorIdChanging(global::System.Int32 value);
+        partial void OnAuthorIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Text
+        {
+            get
+            {
+                return _Text;
+            }
+            set
+            {
+                OnTextChanging(value);
+                ReportPropertyChanging("Text");
+                _Text = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Text");
+                OnTextChanged();
+            }
+        }
+        private global::System.String _Text;
+        partial void OnTextChanging(global::System.String value);
+        partial void OnTextChanged();
 
         #endregion
 
@@ -5659,141 +5848,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Offwind.DbModels", Name="DUserProfileComment")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class DUserProfileComment : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new DUserProfileComment object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="created">Initial value of the Created property.</param>
-        /// <param name="userName">Initial value of the UserName property.</param>
-        /// <param name="author">Initial value of the Author property.</param>
-        public static DUserProfileComment CreateDUserProfileComment(global::System.Guid id, global::System.DateTime created, global::System.String userName, global::System.DateTime author)
-        {
-            DUserProfileComment dUserProfileComment = new DUserProfileComment();
-            dUserProfileComment.Id = id;
-            dUserProfileComment.Created = created;
-            dUserProfileComment.UserName = userName;
-            dUserProfileComment.Author = author;
-            return dUserProfileComment;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Guid _Id;
-        partial void OnIdChanging(global::System.Guid value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime Created
-        {
-            get
-            {
-                return _Created;
-            }
-            set
-            {
-                OnCreatedChanging(value);
-                ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Created");
-                OnCreatedChanged();
-            }
-        }
-        private global::System.DateTime _Created;
-        partial void OnCreatedChanging(global::System.DateTime value);
-        partial void OnCreatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String UserName
-        {
-            get
-            {
-                return _UserName;
-            }
-            set
-            {
-                OnUserNameChanging(value);
-                ReportPropertyChanging("UserName");
-                _UserName = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("UserName");
-                OnUserNameChanged();
-            }
-        }
-        private global::System.String _UserName;
-        partial void OnUserNameChanging(global::System.String value);
-        partial void OnUserNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime Author
-        {
-            get
-            {
-                return _Author;
-            }
-            set
-            {
-                OnAuthorChanging(value);
-                ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Author");
-                OnAuthorChanged();
-            }
-        }
-        private global::System.DateTime _Author;
-        partial void OnAuthorChanging(global::System.DateTime value);
-        partial void OnAuthorChanged();
-
-        #endregion
-
-    
     }
     
     /// <summary>

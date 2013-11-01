@@ -1,0 +1,17 @@
+﻿<tr>
+    <td class="ph">Status</td>
+    <td>
+        @if (Model.IsVerified)
+        {
+            <span class="badge badge-success">Verified</span>
+        }
+        else
+        {
+            <span class="badge badge-warning">Non-verified</span>
+            if (ViewBag.IsOwner)
+            {
+            <a href="@Url.Action("ResendVerificationCode", "Account")">Resend verification code</a>
+            }
+        }
+    </td>
+</tr>

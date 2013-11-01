@@ -149,6 +149,19 @@ namespace Offwind.WebApp.Controllers
             return RedirectToAction("Profile", "Account", new { justRegistered = true });
         }
 
+        public ActionResult ResendVerificationCode()
+        {
+            var verificationCode = Guid.NewGuid();
+            var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName == User.Identity.Name);
+            profile.VerificationCode = verificationCode;
+            _ctx.SaveChanges();
+
+            var model = new RegisterModel();
+            model.UserName = User.Identity.Name;
+            ResendVerificationToUser(model, verificationCode);
+            return RedirectToAction("Profile", new { verificationResent = true });
+        }
+
         private void SendEmailToManager(RegisterModel model)
         {
             try
@@ -208,6 +221,54 @@ namespace Offwind.WebApp.Controllers
                     text.AppendFormat("Welcome to Offwind!<br /><br />");
                     text.AppendFormat(
                         "You've registered a new account and verification is required in order to finish the process.<br /><br />");
+                    text.AppendFormat("Your account: {0}<br />", model.UserName);
+                    text.AppendFormat("Verification code: {0}<br />", verificationCode);
+                    text.AppendFormat("You can simply follow the link: {0}<br /><br />", anchor);
+                    text.AppendFormat("Best regards,<br />");
+                    text.AppendFormat("Offwind group");
+                    mail.Body = text.ToString();
+                    mail.IsBodyHtml = true;
+
+                    var smtpClient = new SmtpClient()
+                    {
+                        Host = WebConfigurationManager.AppSettings["SmtpHost"],
+                        Port = Convert.ToInt32(WebConfigurationManager.AppSettings["SmtpHostPort"]),
+                        EnableSsl = Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpEnableSSL"]),
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials =
+                            Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpUseDefaultCredentialas"]),
+                        Credentials = new NetworkCredential()
+                        {
+                            UserName = WebConfigurationManager.AppSettings["SmtpSenderMail"],
+                            Password = WebConfigurationManager.AppSettings["SmtpSenderPswd"]
+                        }
+                    };
+                    smtpClient.Send(mail);
+                }
+            }
+            catch (Exception)
+            {
+                // TODO: Add logging
+                //throw;
+            }
+        }
+
+        private static void ResendVerificationToUser(RegisterModel model, Guid verificationCode)
+        {
+            try
+            {
+                var url = String.Format("{0}/account/verify/{1}",
+                    WebConfigurationManager.AppSettings["AppHost"],
+                    verificationCode);
+                var anchor = String.Format("<a href=\"{0}\" target=\"_blank\">{0}</a>", url);
+                using (var mail = new MailMessage())
+                {
+                    mail.From = new MailAddress("admin@offwind.eu", "Offwind Administrator");
+                    mail.To.Add(new MailAddress(model.UserName));
+                    mail.Subject = "Offwind verification";
+
+                    var text = new StringBuilder();
+                    text.AppendFormat("Welcome to Offwind!<br /><br />");
                     text.AppendFormat("Your account: {0}<br />", model.UserName);
                     text.AppendFormat("Verification code: {0}<br />", verificationCode);
                     text.AppendFormat("You can simply follow the link: {0}<br /><br />", anchor);
@@ -301,7 +362,7 @@ namespace Offwind.WebApp.Controllers
             return RedirectToAction("ChangePassword", new { Message = ManageMessageId.ChangePasswordSuccess });
         }
 
-        public new ActionResult Profile(string userName, bool justRegistered = false)
+        public new ActionResult Profile(string userName, bool justRegistered = false, bool verificationResent = false)
         {
             var model = new VUserProfile();
             if (userName == null || userName.Trim().Length == 0)
@@ -325,6 +386,7 @@ namespace Offwind.WebApp.Controllers
 
             ViewBag.IsOwner = User.Identity.Name == userName;
             ViewBag.JustRegistered = justRegistered;
+            ViewBag.VerificationResent = verificationResent;
 
             return View(model);
         }

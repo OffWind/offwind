@@ -364,6 +364,42 @@
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'offwind.dbo.DVEventParticipant' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DVEventParticipant">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ParticipantJoined" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="IsVerified" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Data" Type="nvarchar(max)" />
+          <Property Name="MinutesData" Type="nvarchar(max)" />
+          <Property Name="MinutesBinary" Type="varbinary(max)" />
+          <Property Name="ParticipantJoined" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsVerified" Type="bit" Nullable="false" />
+          <Property Name="VerificationCode" Type="uniqueidentifier" />
+          <Property Name="ResetPasswordCode" Type="uniqueidentifier" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="350" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="350" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="350" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="350" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Info" Type="ntext" />
+          <Property Name="LastActivity" Type="datetime" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="350" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Position" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AcademicDegree" Type="nvarchar" MaxLength="350" />
+          <Property Name="WorkEmail" Type="nvarchar" MaxLength="350" />
+          <Property Name="CellPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="WorkPhone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'offwind.dbo.DVUserProfile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="DVUserProfile">
           <Key>
@@ -394,6 +430,7 @@ warning 6002: The table/view 'offwind.dbo.DVUserProfile' does not have a primary
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="IsConfirmed" Type="bit" />
           <Property Name="Email" Type="nvarchar" MaxLength="128" />
+          <Property Name="LastPasswordFailureDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'offwind.dbo.VPartner' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -566,6 +603,9 @@ warning 6035: The relationship 'FK_DJob_DUserProfile' has columns that are not p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DeleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -634,6 +674,35 @@ warning 6035: The relationship 'FK_DJob_DUserProfile' has columns that are not p
           <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DVEventParticipant" EntityType="Self.DVEventParticipant" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[DVEventParticipant].[Id] AS [Id], 
+[DVEventParticipant].[Data] AS [Data], 
+[DVEventParticipant].[MinutesData] AS [MinutesData], 
+[DVEventParticipant].[MinutesBinary] AS [MinutesBinary], 
+[DVEventParticipant].[ParticipantJoined] AS [ParticipantJoined], 
+[DVEventParticipant].[UserId] AS [UserId], 
+[DVEventParticipant].[UserName] AS [UserName], 
+[DVEventParticipant].[IsVerified] AS [IsVerified], 
+[DVEventParticipant].[VerificationCode] AS [VerificationCode], 
+[DVEventParticipant].[ResetPasswordCode] AS [ResetPasswordCode], 
+[DVEventParticipant].[FirstName] AS [FirstName], 
+[DVEventParticipant].[LastName] AS [LastName], 
+[DVEventParticipant].[MiddleName] AS [MiddleName], 
+[DVEventParticipant].[FullName] AS [FullName], 
+[DVEventParticipant].[CompanyName] AS [CompanyName], 
+[DVEventParticipant].[Info] AS [Info], 
+[DVEventParticipant].[LastActivity] AS [LastActivity], 
+[DVEventParticipant].[Country] AS [Country], 
+[DVEventParticipant].[City] AS [City], 
+[DVEventParticipant].[Created] AS [Created], 
+[DVEventParticipant].[Position] AS [Position], 
+[DVEventParticipant].[AcademicDegree] AS [AcademicDegree], 
+[DVEventParticipant].[WorkEmail] AS [WorkEmail], 
+[DVEventParticipant].[CellPhone] AS [CellPhone], 
+[DVEventParticipant].[WorkPhone] AS [WorkPhone]
+FROM [dbo].[DVEventParticipant] AS [DVEventParticipant]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="DVUserProfile" EntityType="Self.DVUserProfile" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [DVUserProfile].[UserId] AS [UserId], 
@@ -658,7 +727,8 @@ warning 6035: The relationship 'FK_DJob_DUserProfile' has columns that are not p
 [DVUserProfile].[WorkPhone] AS [WorkPhone], 
 [DVUserProfile].[CreateDate] AS [CreateDate], 
 [DVUserProfile].[IsConfirmed] AS [IsConfirmed], 
-[DVUserProfile].[Email] AS [Email]
+[DVUserProfile].[Email] AS [Email], 
+[DVUserProfile].[LastPasswordFailureDate] AS [LastPasswordFailureDate]
 FROM [dbo].[DVUserProfile] AS [DVUserProfile]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VPartner" EntityType="Self.VPartner" store:Type="Views" store:Schema="dbo">
@@ -778,6 +848,9 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
             <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="DateTime" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="DeleteUser">
+          <Parameter Name="UserName" Mode="In" Type="String" />
+          </FunctionImport>
           <EntitySet Name="DCases" EntityType="Offwind.DbModels.DCase" />
           <EntitySet Name="DComments" EntityType="Offwind.DbModels.DComment" />
           <EntitySet Name="DContents" EntityType="Offwind.DbModels.DContent" />
@@ -806,6 +879,7 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
           <EntitySet Name="webpages_Membership" EntityType="Offwind.DbModels.webpages_Membership" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Offwind.DbModels.webpages_OAuthMembership" />
           <EntitySet Name="webpages_Roles" EntityType="Offwind.DbModels.webpages_Roles" />
+          <EntitySet Name="DVEventParticipants" EntityType="Offwind.DbModels.DVEventParticipant" />
           <EntitySet Name="DVUserProfiles" EntityType="Offwind.DbModels.DVUserProfile" />
           <EntitySet Name="VPartners" EntityType="Offwind.DbModels.VPartner" />
           <EntitySet Name="VRouteItems" EntityType="Offwind.DbModels.VRouteItem" />
@@ -1221,6 +1295,40 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DUserProfiles" Relationship="Offwind.DbModels.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="DUserProfile" />
         </EntityType>
+        <EntityType Name="DVEventParticipant">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ParticipantJoined" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="IsVerified" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MinutesData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MinutesBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ParticipantJoined" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsVerified" Type="Boolean" Nullable="false" />
+          <Property Name="VerificationCode" Type="Guid" />
+          <Property Name="ResetPasswordCode" Type="Guid" />
+          <Property Name="FirstName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastActivity" Type="DateTime" Precision="3" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Position" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AcademicDegree" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="WorkEmail" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="CellPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="DVUserProfile">
           <Key>
             <PropertyRef Name="UserId" />
@@ -1250,6 +1358,7 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="IsConfirmed" Type="Boolean" />
           <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="VPartner">
           <Key>
@@ -1420,6 +1529,7 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="WindFarm_DeleteTurbines1" FunctionName="Store.WindFarm_DeleteTurbines" />
           <FunctionImportMapping FunctionImportName="UpdateLastOnline" FunctionName="Store.UpdateLastOnline" />
+          <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="Store.DeleteUser" />
           <EntitySetMapping Name="DCases">
             <EntityTypeMapping TypeName="Offwind.DbModels.DCase">
               <MappingFragment StoreEntitySet="DCase">
@@ -1796,9 +1906,41 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DVEventParticipants">
+            <EntityTypeMapping TypeName="Offwind.DbModels.DVEventParticipant">
+              <MappingFragment StoreEntitySet="DVEventParticipant">
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="WorkEmail" ColumnName="WorkEmail" />
+                <ScalarProperty Name="AcademicDegree" ColumnName="AcademicDegree" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="LastActivity" ColumnName="LastActivity" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
+                <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ParticipantJoined" ColumnName="ParticipantJoined" />
+                <ScalarProperty Name="MinutesBinary" ColumnName="MinutesBinary" />
+                <ScalarProperty Name="MinutesData" ColumnName="MinutesData" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DVUserProfiles">
             <EntityTypeMapping TypeName="Offwind.DbModels.DVUserProfile">
               <MappingFragment StoreEntitySet="DVUserProfile">
+                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
@@ -1909,8 +2051,8 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
         <EntityTypeShape EntityType="Offwind.DbModels.DEventParticipantComment" Width="1.5" PointX="8.75" PointY="15.875" />
         <EntityTypeShape EntityType="Offwind.DbModels.DJob" Width="1.5" PointX="14.75" PointY="12.875" />
         <EntityTypeShape EntityType="Offwind.DbModels.DMeeting" Width="1.5" PointX="0.75" PointY="3.375" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="3" PointY="4.5" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="3" PointY="2.125" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingFile" Width="1.5" PointX="3" PointY="2.125" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DMeetingParticipant" Width="1.5" PointX="3" PointY="4.875" />
         <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleDatabase" Width="1.5" PointX="10.75" PointY="9.375" />
         <EntityTypeShape EntityType="Offwind.DbModels.DMesoscaleTabFile" Width="1.5" PointX="13" PointY="9.125" />
         <EntityTypeShape EntityType="Offwind.DbModels.DProperty" Width="1.5" PointX="15.75" PointY="1.875" />
@@ -1925,11 +2067,12 @@ FROM [dbo].[VUserRole] AS [VUserRole]</DefiningQuery>
         <EntityTypeShape EntityType="Offwind.DbModels.webpages_Membership" Width="1.5" PointX="14.75" PointY="16.875" />
         <EntityTypeShape EntityType="Offwind.DbModels.webpages_OAuthMembership" Width="1.5" PointX="15.75" PointY="9.875" />
         <EntityTypeShape EntityType="Offwind.DbModels.webpages_Roles" Width="1.5" PointX="3" PointY="10" />
-        <EntityTypeShape EntityType="Offwind.DbModels.DVUserProfile" Width="1.5" PointX="10.75" PointY="17.875" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="16.75" PointY="12.875" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VRouteItem" Width="1.5" PointX="16.75" PointY="15.875" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="17.75" PointY="1.875" />
-        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="17.75" PointY="4.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DVEventParticipant" Width="1.5" PointX="10.75" PointY="17.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.DVUserProfile" Width="1.5" PointX="16.75" PointY="12.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VPartner" Width="1.5" PointX="17.75" PointY="1.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VRouteItem" Width="1.5" PointX="17.75" PointY="4.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VSmallMesoscaleTabFile" Width="1.5" PointX="6.75" PointY="18.875" />
+        <EntityTypeShape EntityType="Offwind.DbModels.VUserRole" Width="1.5" PointX="17.75" PointY="8.875" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentCategory" />
         <AssociationConnector Association="Offwind.DbModels.FK_DContent_DContentTypes" />
         <AssociationConnector Association="Offwind.DbModels.FK_DMeetingFile_DMeeting" />

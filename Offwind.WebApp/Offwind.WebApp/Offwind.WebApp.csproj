@@ -241,10 +241,12 @@
     <Compile Include="Areas\CFD\Models\Turbines\VTurbineInstance.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VTurbineType.cs" />
     <Compile Include="Areas\CFD\Models\VVertice.cs" />
+    <Compile Include="Areas\Management\Controllers\EventsController.cs" />
     <Compile Include="Areas\Management\Controllers\NewsController.cs" />
     <Compile Include="Areas\Management\Controllers\UsersController.cs" />
     <Compile Include="Areas\Management\Controllers\_BaseController.cs" />
     <Compile Include="Areas\Management\ManagementAreaRegistration.cs" />
+    <Compile Include="Areas\Management\Models\VEventsHome.cs" />
     <Compile Include="Areas\Management\Models\VUsersHome.cs" />
     <Compile Include="Areas\Management\Tools\ContentTypeHelpers.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\EngineeringToolsController.cs" />
@@ -2234,6 +2236,7 @@
     <Content Include="Areas\Partners\Views\Events\Index.cshtml" />
     <Content Include="Areas\Management\Views\News\Index.cshtml" />
     <Content Include="Areas\Management\Views\Users\Details.cshtml" />
+    <Content Include="Areas\Management\Views\Events\Index.cshtml" />
     <None Include="Documentation.chm" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />

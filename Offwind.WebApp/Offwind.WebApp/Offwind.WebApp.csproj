@@ -2238,6 +2238,8 @@
     <Content Include="Areas\Management\Views\Users\Details.cshtml" />
     <Content Include="Areas\Management\Views\Events\Index.cshtml" />
     <None Include="Documentation.chm" />
+    <Content Include="files\Offwind_workshop_V3_Final.pdf" />
+    <Content Include="files\Offwind_workshop_V3_Hotels.pdf" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />
     <Content Include="static\backbone-js-1.0.0\backbone-min.map" />

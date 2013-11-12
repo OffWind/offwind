@@ -161,7 +161,7 @@ namespace Offwind.WebApp.Controllers
                 var href = String.Format("<a href=\"{0}\">Go to restore password page</a>", url);
                 using (var mail = new MailMessage())
                 {
-                    mail.From = new MailAddress("admin@offwind.eu", "Offwind Administrator");
+                    mail.From = new MailAddress(WebConfigurationManager.AppSettings["SmtpSenderMail"], WebConfigurationManager.AppSettings["SmtpSenderName"]);
                     mail.To.Add(new MailAddress(model.Email));
                     mail.Subject = "Offwind password restore [" + model.Email + "]";
 
@@ -236,7 +236,7 @@ namespace Offwind.WebApp.Controllers
                 var href = String.Format("<a href=\"{0}\">{1} {2}</a>", url, model.FirstName, model.LastName);
                 using (var mail = new MailMessage())
                 {
-                    mail.From = new MailAddress("admin@offwind.eu", "Offwind Administrator");
+                    mail.From = new MailAddress(WebConfigurationManager.AppSettings["SmtpSenderMail"], WebConfigurationManager.AppSettings["SmtpSenderName"]);
                     mail.To.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail1"]));
                     mail.CC.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail2"]));
                     mail.CC.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail3"]));
@@ -282,7 +282,7 @@ namespace Offwind.WebApp.Controllers
                 var anchor = String.Format("<a href=\"{0}\" target=\"_blank\">{0}</a>", url);
                 using (var mail = new MailMessage())
                 {
-                    mail.From = new MailAddress("admin@offwind.eu", "Offwind Administrator");
+                    mail.From = new MailAddress(WebConfigurationManager.AppSettings["SmtpSenderMail"], WebConfigurationManager.AppSettings["SmtpSenderName"]);
                     mail.To.Add(new MailAddress(model.UserName));
                     mail.Subject = "Offwind registration: verify your account";
 
@@ -332,7 +332,7 @@ namespace Offwind.WebApp.Controllers
                 var anchor = String.Format("<a href=\"{0}\" target=\"_blank\">{0}</a>", url);
                 using (var mail = new MailMessage())
                 {
-                    mail.From = new MailAddress("admin@offwind.eu", "Offwind Administrator");
+                    mail.From = new MailAddress(WebConfigurationManager.AppSettings["SmtpSenderMail"], WebConfigurationManager.AppSettings["SmtpSenderName"]);
                     mail.To.Add(new MailAddress(model.UserName));
                     mail.Subject = "Offwind verification";
 

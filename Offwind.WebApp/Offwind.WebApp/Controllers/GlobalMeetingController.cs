@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Offwind.Web.Core;
 using Offwind.WebApp.Models.Event;
@@ -12,6 +13,20 @@ namespace Offwind.WebApp.Controllers
             return View(new VEventApplication());
         }
 
+        [Authorize]
+        public ActionResult Apply()
+        {
+            var user = _ctx.DVUserProfiles.First(x => x.UserName == User.Identity.Name);
+            var app = new DEventParticipant();
+            app.Id = Guid.NewGuid();
+            app.EventId = Guid.Parse("44EC20AA-CE3A-4BD2-B48B-E8EBDA5D2E5B");
+            app.UserId = user.UserId;
+            app.Created = DateTime.UtcNow;
+            _ctx.DEventParticipants.AddObject(app);
+            _ctx.SaveChanges();
+
+            return RedirectToAction("Profile", "Account");
+        }
         [HttpPost]
         public ActionResult Index(VEventApplication model)
         {

@@ -3,64 +3,90 @@
     ViewBag.Title = "User Profile";
 }
 <style>
-    .ph
-    {
+    .ph {
         font-weight: bold;
     }
 </style>
 
+@if (ViewBag.JustRegistered)
+{
+    <div class="row-fluid row-content-block">
+        <div class="span12 well">
+            <h1>Thank you for registration!</h1>
+            <p>Your account <strong>@Model.UserName</strong> has been successfully created!</p>
+            <p>You can already start using Offwind Toolkit.</p>
+            <p>For security reasons we recommend you to go through a verification procedure. Please, check your email and follow the link in it to continue</p>
+        </div>
+    </div>
+}
+
+@if (ViewBag.VerificationResent)
+{
+    <div class="row-fluid row-content-block">
+        <div class="span12 well">
+            <h1>Verification</h1>
+            <p>Verification code has been sent to email <strong>@Model.Email</strong></p>
+        </div>
+    </div>
+}
+
 <div class="row-fluid row-content-block">
     <div class="span6 well">
         <h1>User profile</h1>
-        <table class="table table-condensed table-hover table-bordered">
+        <table class="table table-hover table-bordered">
             <tr>
                 <td class="ph">Name</td>
-                <td>@Model.FullName</td>
+                <td>@Model.FirstName @Model.MiddleName @Model.LastName</td>
             </tr>
             <tr>
-                <td class="ph">Roles</td>
-                <td>@Model.FormattedRoles()</td>
+                <td class="ph">Location</td>
+                <td>
+                    @Model.Country
+                    @if (Model.City != null && Model.City.Trim().Length > 0)
+                    {
+                        <span>@Model.City</span>
+                    }
+                </td>
             </tr>
             <tr>
                 <td class="ph">Company name</td>
                 <td>@Model.CompanyName</td>
             </tr>
             <tr>
+                <td class="ph">Position, academic degree</td>
+                <td>
+                    @Model.Position
+                    @if (Model.AcademicDegree != null && Model.AcademicDegree.Trim().Length > 0)
+                    {
+                        <span>@Model.AcademicDegree</span>
+                    }
+                </td>
+            </tr>
+            @Html.Partial("Profile/__Contacts")
+            <tr>
                 <td class="ph">Information</td>
                 <td>@Model.Info</td>
             </tr>
+            @Html.Partial("Profile/__Status")
+            <tr>
+                <td class="ph">Roles</td>
+                <td>@Model.FormattedRoles()</td>
+            </tr>
             <tr>
                 <td class="ph">Registration date</td>
-                <td>@Model.Created</td>
+                <td>@Model.CreateDate.ToString("MMMM dd, yyyy")</td>
             </tr>
         </table>
 
-        <a class="btn btn-info" href="@Url.Action("EditProfile", "Account")">Edit profile</a>
-        <a class="btn btn-info" href="@Url.Action("ChangePassword", "Account")">Change password</a>
-
-        @* <section id="externalLogins">
-            @Html.Action("RemoveExternalLogins")
-
-            <h3>Add an external login</h3>
-            @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-*@
+        @if (ViewBag.IsOwner)
+        {
+            <a class="btn btn-info" href="@Url.Action("EditProfile", "Account")">Edit profile</a>
+            <a class="btn btn-info" href="@Url.Action("ChangePassword", "Account")">Change password</a>
+        }
     </div>
     <div class="span6 well">
-        <h2>Cases</h2>
-        <table class="table table-condensed table-hover table-bordered">
-            <tr>
-                <th>Created</th>
-                <th>Name</th>
-            </tr>
-            @foreach (var c in Model.Cases)
-            {
-                <tr>
-                    <td>@c.Created</td>
-                    <td><a href="#">@c.Name</a></td>
-                </tr>
-            }
-        </table>
+        @Html.Partial("Profile/__Events")
+        @Html.Partial("Profile/__Cases")
     </div>
 </div>
 

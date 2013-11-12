@@ -1,0 +1,12 @@
+﻿@if (ViewBag.IsOwner)
+{
+    <h2>Offwind Global Expert Meeting 2013</h2>
+    if (ViewBag.IsRegisteredForEvent)
+    {
+        <p class="alert alert-success">You are already registered for the <a href="/GlobalMeeting">Offwind Global Expert Meeting 2013</a></p>
+    }
+    else
+    {
+        <p><a href="@Url.Action("Apply", "GlobalMeeting")" class="btn btn-primary btn-large">Apply for OGEM 2013</a></p>
+    }
+}

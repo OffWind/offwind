@@ -1,8 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq.Expressions;
+using System.Web.Mvc;
 using System.Linq;
 using System.Web.Routing;
 using Offwind.Web.Core;
-using Offwind.WebApp.Areas.ControlPanel.Tools;
+using Offwind.WebApp.Areas.Management.Tools;
 using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.App_Start
@@ -30,9 +31,10 @@ namespace Offwind.WebApp.App_Start
             }
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                "Default",
+                "{controller}/{action}/{id}",
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                new [] {"Offwind.WebApp.Controllers"}
             );
         }
     }

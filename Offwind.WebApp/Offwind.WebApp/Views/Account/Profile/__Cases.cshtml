@@ -1,0 +1,17 @@
+﻿@if (ViewBag.IsOwner)
+{
+    <h2>Cases</h2>
+    <table class="table table-condensed table-hover table-bordered">
+        <tr>
+            <th>Created</th>
+            <th>Name</th>
+        </tr>
+        @foreach (var c in Model.Cases)
+        {
+            <tr>
+                <td>@c.Created</td>
+                <td><a href="#">@c.Name</a></td>
+            </tr>
+        }
+    </table>
+}

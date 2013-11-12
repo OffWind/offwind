@@ -1,0 +1,82 @@
+﻿@using Offwind.WebApp.Areas.Management.Models
+@model VUsersHome
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a><span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "Users", new { area = "Management" })">Management</a> <span class="divider">/</span></li>
+    <li class="active">User management</li>
+</ul>
+<div class="row-fluid row-content-block">
+    <div class="span12 well actionable-page">
+        <h1>User management</h1>
+        <div class="actions-block">
+            @*<a href="@Url.Action("DownloadExcel", "Users", new { area = "Management" })" class="btn btn-primary">Download as Excel</a>*@
+        </div>
+        <div class="alert alert-info">
+            Total users: @Model.Users.Count
+        </div>
+        <table class="table table-condensed table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Organization, position</th>
+                    <th>Location</th>
+                    <th>Contacts</th>
+                    @*<th>Was online</th>*@
+                    <th>Registered</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var i = 0;
+                }
+                @foreach (var user in Model.Users)
+                {
+                    i = i + 1;
+                    <tr>
+                        <td>@i</td>
+                        <td>
+                            <a href="@Url.Action("Profile", "Account", new { area = "", userName = user.UserName })" target="_blank">@user.FirstName @user.MiddleName @user.LastName</a>
+                        </td>
+                        <td>
+                            @user.CompanyName
+                            @if (user.Position != null && user.Position.Trim().Length > 0)
+                            {
+                                <br/><span>Position: @user.Position</span>
+                            }
+                            @if (user.AcademicDegree != null && user.AcademicDegree.Trim().Length > 0)
+                            {
+                                <br/><span>Academic degree: @user.AcademicDegree</span>
+                            }
+                        </td>
+                        <td>
+                            @user.Country
+                            @if (user.City != null && user.City.Trim().Length > 0)
+                            {
+                                <br/> @user.City
+                            }
+                        </td>
+                        <td>
+                            <span><i class="icon icon-envelope"></i> <a href="mailto:@user.Email">@user.Email</a></span>
+                            @if (user.WorkEmail != null && user.WorkEmail.Trim().Length > 0)
+                            {
+                                <br/><span><i class="icon icon-envelope"></i> <a href="mailto:@user.WorkEmail">@user.WorkEmail</a></span>
+                            }
+                            @if (user.CellPhone != null && user.CellPhone.Trim().Length > 0)
+                            {
+                                <br/><span><i class="icon icon-phone"></i> @user.CellPhone</span>
+                            }
+                            @if (user.WorkPhone != null && user.WorkPhone.Trim().Length > 0)
+                            {
+                                <br/><span><i class="icon icon-phone"></i> @user.WorkPhone</span>
+                            }
+                        </td>
+                        @*<td>@user.LastActivity</td>*@
+                        <td>@user.CreateDate.ToString("MMMM dd, yyyy")</td>
+                    </tr>        
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

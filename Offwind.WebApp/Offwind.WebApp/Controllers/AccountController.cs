@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.ServiceModel.Security;
 using System.Text;
 using System.Transactions;
 using System.Web.Configuration;
@@ -48,7 +49,7 @@ namespace Offwind.WebApp.Controllers
 
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return RedirectToLocal(returnUrl);
+                return RedirectToAction("Profile", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -129,11 +130,150 @@ namespace Offwind.WebApp.Controllers
             var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName == model.UserName);
             profile.VerificationCode = verificationCode;
             profile.CompanyName = model.CompanyName;
-            profile.FullName = model.FullName;
-            profile.Info = model.OtherInfo;
+            profile.FirstName = model.FirstName;
+            profile.MiddleName = model.MiddleName;
+            profile.LastName = model.LastName;
+            profile.WorkEmail = model.WorkEmail;
+            profile.WorkPhone = model.WorkPhone;
+            profile.CellPhone = model.CellPhone;
+            profile.AcademicDegree = model.AcademicDegree;
+            profile.Position = model.Position;
+            profile.Country = model.Country;
+            profile.City = model.City;
+            profile.Info = model.Info;
             _ctx.SaveChanges();
 
-            // Send verification email to user
+            SendEmailToUser(model, verificationCode);
+            SendEmailToManager(model);
+
+            return RedirectToAction("Profile", "Account", new { justRegistered = true });
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgottenPassword(ForgottenPassword model)
+        {
+            try
+            {
+                var token = WebSecurity.GeneratePasswordResetToken(model.Email, 10);
+                var url = String.Format("{0}/account/RestoreForgottenPassword?token={1}", WebConfigurationManager.AppSettings["AppHost"], token);
+                var href = String.Format("<a href=\"{0}\">Go to restore password page</a>", url);
+                using (var mail = new MailMessage())
+                {
+                    mail.From = new MailAddress(WebConfigurationManager.AppSettings["SmtpSenderMail"], WebConfigurationManager.AppSettings["SmtpSenderName"]);
+                    mail.To.Add(new MailAddress(model.Email));
+                    mail.Subject = "Offwind password restore [" + model.Email + "]";
+
+                    var text = new StringBuilder();
+                    text.AppendFormat("You received this message because you have requested a password restore. If it wasn't you just ignore this message.<br /><br />");
+                    text.AppendFormat("{0}", href);
+                    mail.Body = text.ToString();
+                    mail.IsBodyHtml = true;
+
+                    var smtpClient = new SmtpClient
+                    {
+                        Host = WebConfigurationManager.AppSettings["SmtpHost"],
+                        Port = Convert.ToInt32(WebConfigurationManager.AppSettings["SmtpHostPort"]),
+                        EnableSsl = Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpEnableSSL"]),
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials =
+                            Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpUseDefaultCredentialas"]),
+                        Credentials = new NetworkCredential()
+                        {
+                            UserName = WebConfigurationManager.AppSettings["SmtpSenderMail"],
+                            Password = WebConfigurationManager.AppSettings["SmtpSenderPswd"]
+                        }
+                    };
+                    smtpClient.Send(mail);
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.UserNotFound = true;
+                return View();
+            }
+            ViewBag.UserNotFound = false;
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult RestoreForgottenPassword(string token)
+        {
+            var model = new RestoreForgottenPassword();
+            model.Token = token;
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult RestoreForgottenPassword(RestoreForgottenPassword model)
+        {
+            if (model.NewPassword != model.NewPasswordConfirm) return View(model);
+            WebSecurity.ResetPassword(model.Token, model.NewPassword);
+            return RedirectToAction("Login", "Account");
+        }
+
+        public ActionResult ResendVerificationCode()
+        {
+            var verificationCode = Guid.NewGuid();
+            var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName == User.Identity.Name);
+            profile.VerificationCode = verificationCode;
+            _ctx.SaveChanges();
+
+            var model = new RegisterModel();
+            model.UserName = User.Identity.Name;
+            ResendVerificationToUser(model, verificationCode);
+            return RedirectToAction("Profile", new { verificationResent = true });
+        }
+
+        private void SendEmailToManager(RegisterModel model)
+        {
+            try
+            {
+                var url = String.Format("{0}/account/profile?userName={1}", WebConfigurationManager.AppSettings["AppHost"], Server.UrlEncode(model.UserName));
+                var href = String.Format("<a href=\"{0}\">{1} {2}</a>", url, model.FirstName, model.LastName);
+                using (var mail = new MailMessage())
+                {
+                    mail.From = new MailAddress(WebConfigurationManager.AppSettings["SmtpSenderMail"], WebConfigurationManager.AppSettings["SmtpSenderName"]);
+                    mail.To.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail1"]));
+                    mail.CC.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail2"]));
+                    mail.CC.Add(new MailAddress(WebConfigurationManager.AppSettings["ManagerEmail3"]));
+                    mail.Subject = "Offwind new user [" + model.UserName + "]";
+
+                    var text = new StringBuilder();
+                    text.AppendFormat("Notification about new user registered<br /><br />");
+                    text.AppendFormat("View user profile {0}", href);
+                    mail.Body = text.ToString();
+                    mail.IsBodyHtml = true;
+
+                    var smtpClient = new SmtpClient()
+                    {
+                        Host = WebConfigurationManager.AppSettings["SmtpHost"],
+                        Port = Convert.ToInt32(WebConfigurationManager.AppSettings["SmtpHostPort"]),
+                        EnableSsl = Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpEnableSSL"]),
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials =
+                            Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpUseDefaultCredentialas"]),
+                        Credentials = new NetworkCredential()
+                        {
+                            UserName = WebConfigurationManager.AppSettings["SmtpSenderMail"],
+                            Password = WebConfigurationManager.AppSettings["SmtpSenderPswd"]
+                        }
+                    };
+                    smtpClient.Send(mail);
+                }
+            }
+            catch (Exception)
+            {
+                // TODO: Add logging
+                //throw;
+            }
+        }
+
+        private static void SendEmailToUser(RegisterModel model, Guid verificationCode)
+        {
             try
             {
                 var url = String.Format("{0}/account/verify/{1}",
@@ -142,13 +282,14 @@ namespace Offwind.WebApp.Controllers
                 var anchor = String.Format("<a href=\"{0}\" target=\"_blank\">{0}</a>", url);
                 using (var mail = new MailMessage())
                 {
-                    mail.From = new MailAddress("admin@offwind.eu", "Offwind Administrator");
+                    mail.From = new MailAddress(WebConfigurationManager.AppSettings["SmtpSenderMail"], WebConfigurationManager.AppSettings["SmtpSenderName"]);
                     mail.To.Add(new MailAddress(model.UserName));
                     mail.Subject = "Offwind registration: verify your account";
 
                     var text = new StringBuilder();
                     text.AppendFormat("Welcome to Offwind!<br /><br />");
-                    text.AppendFormat("You've registered a new account and verification is required in order to finish the process.<br /><br />");
+                    text.AppendFormat(
+                        "You've registered a new account and verification is required in order to finish the process.<br /><br />");
                     text.AppendFormat("Your account: {0}<br />", model.UserName);
                     text.AppendFormat("Verification code: {0}<br />", verificationCode);
                     text.AppendFormat("You can simply follow the link: {0}<br /><br />", anchor);
@@ -163,7 +304,8 @@ namespace Offwind.WebApp.Controllers
                         Port = Convert.ToInt32(WebConfigurationManager.AppSettings["SmtpHostPort"]),
                         EnableSsl = Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpEnableSSL"]),
                         DeliveryMethod = SmtpDeliveryMethod.Network,
-                        UseDefaultCredentials = Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpUseDefaultCredentialas"]),
+                        UseDefaultCredentials =
+                            Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpUseDefaultCredentialas"]),
                         Credentials = new NetworkCredential()
                         {
                             UserName = WebConfigurationManager.AppSettings["SmtpSenderMail"],
@@ -172,15 +314,60 @@ namespace Offwind.WebApp.Controllers
                     };
                     smtpClient.Send(mail);
                 }
-
             }
             catch (Exception)
             {
                 // TODO: Add logging
                 //throw;
             }
-            //return RedirectToAction("Index", "Home");
-            return RedirectToAction("RegisterComplete", "Account");
+        }
+
+        private static void ResendVerificationToUser(RegisterModel model, Guid verificationCode)
+        {
+            try
+            {
+                var url = String.Format("{0}/account/verify/{1}",
+                    WebConfigurationManager.AppSettings["AppHost"],
+                    verificationCode);
+                var anchor = String.Format("<a href=\"{0}\" target=\"_blank\">{0}</a>", url);
+                using (var mail = new MailMessage())
+                {
+                    mail.From = new MailAddress(WebConfigurationManager.AppSettings["SmtpSenderMail"], WebConfigurationManager.AppSettings["SmtpSenderName"]);
+                    mail.To.Add(new MailAddress(model.UserName));
+                    mail.Subject = "Offwind verification";
+
+                    var text = new StringBuilder();
+                    text.AppendFormat("Welcome to Offwind!<br /><br />");
+                    text.AppendFormat("Your account: {0}<br />", model.UserName);
+                    text.AppendFormat("Verification code: {0}<br />", verificationCode);
+                    text.AppendFormat("You can simply follow the link: {0}<br /><br />", anchor);
+                    text.AppendFormat("Best regards,<br />");
+                    text.AppendFormat("Offwind group");
+                    mail.Body = text.ToString();
+                    mail.IsBodyHtml = true;
+
+                    var smtpClient = new SmtpClient()
+                    {
+                        Host = WebConfigurationManager.AppSettings["SmtpHost"],
+                        Port = Convert.ToInt32(WebConfigurationManager.AppSettings["SmtpHostPort"]),
+                        EnableSsl = Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpEnableSSL"]),
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials =
+                            Convert.ToBoolean(WebConfigurationManager.AppSettings["SmtpUseDefaultCredentialas"]),
+                        Credentials = new NetworkCredential()
+                        {
+                            UserName = WebConfigurationManager.AppSettings["SmtpSenderMail"],
+                            Password = WebConfigurationManager.AppSettings["SmtpSenderPswd"]
+                        }
+                    };
+                    smtpClient.Send(mail);
+                }
+            }
+            catch (Exception)
+            {
+                // TODO: Add logging
+                //throw;
+            }
         }
 
         [AllowAnonymous]
@@ -195,34 +382,6 @@ namespace Offwind.WebApp.Controllers
         {
             var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName != userName && p.VerificationCode == code);
             return profile != null;
-        }
-        //
-        // POST: /Account/Disassociate
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Disassociate(string provider, string providerUserId)
-        {
-            string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
-            ManageMessageId? message = null;
-
-            // Only disassociate the account if the currently logged in user is the owner
-            if (ownerAccount == User.Identity.Name)
-            {
-                // Use a transaction to prevent the user from deleting their last login credential
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
-                {
-                    bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-                    if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
-                    {
-                        OAuthWebSecurity.DeleteAccount(provider, providerUserId);
-                        scope.Complete();
-                        message = ManageMessageId.RemoveLoginSuccess;
-                    }
-                }
-            }
-
-            return RedirectToAction("Manage", new { Message = message });
         }
 
         public ActionResult ChangePassword(ManageMessageId? message)
@@ -272,161 +431,36 @@ namespace Offwind.WebApp.Controllers
             return RedirectToAction("ChangePassword", new { Message = ManageMessageId.ChangePasswordSuccess });
         }
 
-        //
-        // POST: /Account/ExternalLogin
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
+        public new ActionResult Profile(string userName, bool justRegistered = false, bool verificationResent = false)
         {
-            return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
-        }
-
-        //
-        // GET: /Account/ExternalLoginCallback
-
-        [AllowAnonymous]
-        public ActionResult ExternalLoginCallback(string returnUrl)
-        {
-            AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
-            if (!result.IsSuccessful)
+            var model = new VUserProfile();
+            if (userName == null || userName.Trim().Length == 0)
             {
-                return RedirectToAction("ExternalLoginFailure");
+                userName = User.Identity.Name;
             }
-
-            if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
-            {
-                return RedirectToLocal(returnUrl);
-            }
-
-            if (User.Identity.IsAuthenticated)
-            {
-                // If the current user is logged in add the new account
-                OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
-                return RedirectToLocal(returnUrl);
-            }
-            else
-            {
-                // User is new, ask for their desired membership name
-                string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-                ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
-                ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
-            }
-        }
-
-        public new ActionResult Profile()
-        {
-            var m = new VUserProfile();
-            m.FullName = User.Identity.Name;
-
-            var profile = _ctx.DUserProfiles.First(p => p.UserName == User.Identity.Name);
+            var profile = _ctx.DVUserProfiles.FirstOrDefault(p => p.UserName == userName);
             if (profile == null)
             {
                 // This is unlikely to happen
-                return View(m);
+                return View(model);
             }
-
-            m.CompanyName = profile.CompanyName;
-            m.FullName = profile.FullName;
-            m.Info = profile.Info;
-
-            var mbr = _ctx.webpages_Membership.FirstOrDefault(p => p.UserId == profile.UserId);
-            if (mbr != null)
-            {
-                m.Created = mbr.CreateDate ?? DateTime.Now;
-            }
-
-            var roles = _ctx.VUserRoles.Where(r => r.UserId == mbr.UserId).Select(r => r.RoleName);
-            m.Roles.AddRange(roles);
+            VUserProfile.MapFromDb(model, profile);
+            //var roles = _ctx.VUserRoles.Where(r => r.UserId == mbr.UserId).Select(r => r.RoleName);
+            //m.Roles.AddRange(roles);
 
             foreach (var dCase in _ctx.DCases.Where(c => c.Owner == User.Identity.Name))
             {
-                m.Cases.Add(new VProfileCase {Created = dCase.Created, Name = dCase.Name, Id = dCase.Id});
-            }
-            return View(m);
-        }
-
-        //
-        // POST: /Account/ExternalLoginConfirmation
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
-        {
-            string provider = null;
-            string providerUserId = null;
-
-            if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
-            {
-                return RedirectToAction("Manage");
+                model.Cases.Add(new VProfileCase {Created = dCase.Created, Name = dCase.Name, Id = dCase.Id});
             }
 
-            if (ModelState.IsValid)
-            {
-                // Insert a new user into the database
-                using (var db = new OffwindEntities())
-                {
-                    var user = db.DUserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
-                    // Check if user already exists
-                    if (user == null)
-                    {
-                        // Insert name into the profile table
-                        db.DUserProfiles.AddObject(new DUserProfile { UserName = model.UserName });
-                        db.SaveChanges();
+            var eventParticipant = _ctx.DEventParticipants.FirstOrDefault(x => x.UserId == profile.UserId);
 
-                        OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-                        OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
+            ViewBag.IsOwner = User.Identity.Name == userName;
+            ViewBag.JustRegistered = justRegistered;
+            ViewBag.VerificationResent = verificationResent;
+            ViewBag.IsRegisteredForEvent = eventParticipant != null;
 
-                        return RedirectToLocal(returnUrl);
-                    }
-                    ModelState.AddModelError("UserName", "A user name for that e-mail address already exists. Please enter a different e-mail address.");
-                }
-            }
-
-            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
-            ViewBag.ReturnUrl = returnUrl;
             return View(model);
-        }
-
-        //
-        // GET: /Account/ExternalLoginFailure
-
-        [AllowAnonymous]
-        public ActionResult ExternalLoginFailure()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        [ChildActionOnly]
-        public ActionResult ExternalLoginsList(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
-        }
-
-        [ChildActionOnly]
-        public ActionResult RemoveExternalLogins()
-        {
-            ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
-            List<ExternalLogin> externalLogins = new List<ExternalLogin>();
-            foreach (OAuthAccount account in accounts)
-            {
-                AuthenticationClientData clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
-
-                externalLogins.Add(new ExternalLogin
-                {
-                    Provider = account.Provider,
-                    ProviderDisplayName = clientData.DisplayName,
-                    ProviderUserId = account.ProviderUserId,
-                });
-            }
-
-            ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
 
         [AllowAnonymous]
@@ -451,15 +485,14 @@ namespace Offwind.WebApp.Controllers
         {
             var model = new VUserProfile();
 
-            var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName == User.Identity.Name);
+            var profile = _ctx.DVUserProfiles.FirstOrDefault(p => p.UserName == User.Identity.Name);
             if (profile == null)
             {
                 // This is unlikely to happen
                 return View(model);
             }
-            model.FullName = profile.FullName;
-            model.CompanyName = profile.CompanyName;
-            model.Info = profile.Info;
+
+            VUserProfile.MapFromDb(model, profile);
 
             return View(model);
         }
@@ -471,20 +504,25 @@ namespace Offwind.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var profile = _ctx.DUserProfiles.FirstOrDefault(p => p.UserName == User.Identity.Name);
-                profile.FullName = model.FullName ?? "";
+                var profile = _ctx.DUserProfiles.First(p => p.UserName == User.Identity.Name);
+                profile.FirstName = model.FirstName ?? "";
+                profile.MiddleName = model.MiddleName ?? "";
+                profile.LastName = model.LastName ?? "";
                 profile.CompanyName = model.CompanyName ?? "";
+                profile.AcademicDegree = model.AcademicDegree ?? "";
+                profile.Position = model.Position ?? "";
+                profile.City = model.City ?? "";
+                profile.Country = model.Country ?? "";
+                profile.WorkEmail = model.WorkEmail ?? "";
+                profile.CellPhone = model.CellPhone ?? "";
+                profile.WorkPhone = model.WorkPhone ?? "";
                 profile.Info = model.Info ?? "";
                 _ctx.SaveChanges();
 
-                return RedirectToAction("Profile");
+                return RedirectToAction("Profile", new { userName = User.Identity.Name });
             }
 
             return View("EditProfile", model);
-        }
-
-        private void SaveProfile(VUserProfile model)
-        {
         }
 
         #region Helpers

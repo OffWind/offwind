@@ -22,12 +22,13 @@
     {
         <li id="fat-menu" class="dropdown">
             <a href="#" id="drop3" role="button">
-                Control Panel
+                Management
                 <i class="icon-caret-down"></i>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="@Url.Action("Index", "News", new { area = "ControlPanel" })">News</a></li>
-                <li><a href="@Url.Action("Index", "Users", new { area = "ControlPanel" })">Users</a></li>
+                <li><a href="@Url.Action("Index", "News", new { area = "Management" })">News</a></li>
+                <li><a href="@Url.Action("Index", "Users", new { area = "Management" })">Users</a></li>
+                <li><a href="@Url.Action("Index", "Events", new { area = "Management" })">OGEM 2013</a></li>
             </ul>
         </li>
     }
@@ -41,7 +42,7 @@
                 <i class="icon-caret-down"></i>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="@Url.Action("Profile", "Account", new { area = "" })">Profile</a></li>
+                <li><a href="@Url.Action("Profile", "Account", new { area = "", userName = User.Identity.Name })">Profile</a></li>
                 <li class="divider"></li>
                 <li><a href="@Url.Action("LogOff", "Account", new { area = "" })">Sign Out</a></li>
             </ul>

@@ -1,40 +1,27 @@
-﻿@using Offwind.WebApp.Infrastructure
-@model Offwind.WebApp.Models.LoginModel
-
+﻿@using Offwind.WebApp.Models
 @{
     ViewBag.Title = "Authentication | Offwind";
 }
 <div class="row-fluid row-content-block">
     <div class="span6 well">
-    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        @Html.BootstrapValidationSummary()
-
-        <fieldset>
-            <legend>Login</legend>
-            @Html.EditorFor(m => m.UserName)
-            @Html.EditorFor(m => m.Password)
-            @*@Html.EditorFor(m => m.RememberMe)*@
-        </fieldset>
-        <input type="submit" class="btn btn-primary btn-large" value="Log in" />
-    }
+        @Html.Partial("Login/__Login")
     </div>
     <div class="span6 well">
         <h1>Log into Offwind</h1>
-        <p>You are here, because some of your actions require to be authorized. Please, use your existing account and password.
+        <p>
+            You are here, because some of your actions require to be authorized. Please, use your existing account and password.
         </p>
         <h2>New user?</h2>
         <p>You can create a new account if don't have one yet. The registration is simple and will take you not more than 3 minutes.</p>
-        <a class="btn btn-success btn-large" href="@Url.Action("Register", "Account")">Register</a> 
-        @*<h2>Forgot your password?</h2>
-        <p>Please, use this</p>*@
+        <a class="btn btn-success btn-large" href="@Url.Action("Register", "Account")">Register</a>
+          <br/>
+        <br/>
+      <h2>Forgot your password?</h2>
+        <p>Provide your email for a password restore:</p>
+        @Html.Partial("Login/__ForgottenPassword", new ForgottenPassword())
+
     </div>
 </div>
-
-
-
-
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

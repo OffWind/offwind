@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Offwind.WebApp.Areas.ControlPanel.Controllers
+namespace Offwind.WebApp.Areas.Management.Controllers
 {
     public class NewsController : _BaseController
     {

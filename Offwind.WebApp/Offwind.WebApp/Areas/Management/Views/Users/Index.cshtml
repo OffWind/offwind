@@ -1,6 +1,37 @@
 ﻿@using Offwind.WebApp.Areas.Management.Models
 @model VUsersHome
 
+@section styles
+{
+    <style>
+        table td.name div {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        table td.name .action {
+            color: red;
+            display: none;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            padding: 0;
+            margin: 0;
+        }
+
+        table tr td:hover .action {
+            display: block;
+            opacity: 0.5;
+        }
+
+        table tr td .action:hover {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+}
+
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a><span class="divider">/</span></li>
     <li><a href="@Url.Action("Index", "Users", new { area = "Management" })">Management</a> <span class="divider">/</span></li>
@@ -36,40 +67,48 @@
                     i = i + 1;
                     <tr>
                         <td>@i</td>
-                        <td>
-                            <a href="@Url.Action("Profile", "Account", new { area = "", userName = user.UserName })" target="_blank">@user.FirstName @user.MiddleName @user.LastName</a>
+                        <td class="name">
+                            <div>
+                                <a href="@Url.Action("Profile", "Account", new { area = "", userName = user.UserName })" target="_blank">@user.FirstName @user.MiddleName @user.LastName</a>
+                                <a href="#delete" data-username="@user.UserName" class="action"><i class="icon icon-remove"></i></a>
+                            </div>
                         </td>
                         <td>
                             @user.CompanyName
                             @if (user.Position != null && user.Position.Trim().Length > 0)
                             {
-                                <br/><span>Position: @user.Position</span>
+                                <br />
+                                <span>Position: @user.Position</span>
                             }
                             @if (user.AcademicDegree != null && user.AcademicDegree.Trim().Length > 0)
                             {
-                                <br/><span>Academic degree: @user.AcademicDegree</span>
+                                <br />
+                                <span>Academic degree: @user.AcademicDegree</span>
                             }
                         </td>
                         <td>
                             @user.Country
                             @if (user.City != null && user.City.Trim().Length > 0)
                             {
-                                <br/> @user.City
+                                <br /> @user.City
                             }
                         </td>
                         <td>
-                            <span><i class="icon icon-envelope"></i> <a href="mailto:@user.Email">@user.Email</a></span>
+                            <span><i class="icon icon-envelope"></i><a href="mailto:@user.Email">@user.Email</a></span>
                             @if (user.WorkEmail != null && user.WorkEmail.Trim().Length > 0)
                             {
-                                <br/><span><i class="icon icon-envelope"></i> <a href="mailto:@user.WorkEmail">@user.WorkEmail</a></span>
+                                <br />
+                                <span><i class="icon icon-envelope"></i><a href="mailto:@user.WorkEmail">@user.WorkEmail</a></span>
                             }
                             @if (user.CellPhone != null && user.CellPhone.Trim().Length > 0)
                             {
-                                <br/><span><i class="icon icon-phone"></i> @user.CellPhone</span>
+                                <br />
+                                <span><i class="icon icon-phone"></i>@user.CellPhone</span>
                             }
                             @if (user.WorkPhone != null && user.WorkPhone.Trim().Length > 0)
                             {
-                                <br/><span><i class="icon icon-phone"></i> @user.WorkPhone</span>
+                                <br />
+                                <span><i class="icon icon-phone"></i>@user.WorkPhone</span>
                             }
                         </td>
                         @*<td>@user.LastActivity</td>*@

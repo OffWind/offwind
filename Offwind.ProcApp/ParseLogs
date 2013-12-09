@@ -1,5 +1,5 @@
 #!/bin/bash
-source /opt/openfoam211/etc/bashrc
+source /opt/openfoam222/etc/bashrc
 
 foamLog log.solver.txt
 

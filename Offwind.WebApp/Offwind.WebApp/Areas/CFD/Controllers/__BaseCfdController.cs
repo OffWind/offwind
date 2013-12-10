@@ -32,6 +32,7 @@ namespace Offwind.WebApp.Areas.CFD.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            ViewBag.ProcessingHost = WebConfigurationManager.AppSettings["ProcessingHost"];
             base.OnActionExecuting(filterContext);
             Debug.Assert(Request.IsAuthenticated);
 

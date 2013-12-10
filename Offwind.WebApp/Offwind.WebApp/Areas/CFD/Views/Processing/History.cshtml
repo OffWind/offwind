@@ -26,11 +26,11 @@
             <td>
                 <a href="@Url.Action("GetInputData", "Downloads", new { area = "CFD", id = job.Id })">download case files</a>
                 <br/>
-                <a href="http://proc.offwind.eu/wd/@job.Id/log.blockMesh.txt">log.blockMesh.txt</a>
+                <a href="@ViewBag.ProcessingHost/wd/@job.Id/log.blockMesh.txt">log.blockMesh.txt</a>
                 <br/>
-                <a href="http://proc.offwind.eu/wd/@job.Id/log.solver.txt">log.solver.txt</a>
+                <a href="@ViewBag.ProcessingHost/wd/@job.Id/log.solver.txt">log.solver.txt</a>
                 <br/>
-                <a href="http://proc.offwind.eu/wd/@job.Id/result.zip">result.zip</a>
+                <a href="@ViewBag.ProcessingHost/wd/@job.Id/result.zip">result.zip</a>
             </td>
         </tr>
     }

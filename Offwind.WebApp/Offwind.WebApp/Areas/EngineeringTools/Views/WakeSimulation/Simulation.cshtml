@@ -17,6 +17,10 @@
             <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
         </p>
 
+        <p id="result-image-container" class="hidden">
+            <img id="result-image" width="480" height="320" src=""/>
+        </p>
+
         <p>
             To download result click button below. It is a <b>zip-archive</b>. Save it on your local disk and unpack.
         </p>
@@ -28,9 +32,21 @@
     <script>
         $(document).ready(function () {
             var canBeDownloaded = false;
+            var imageQueryString = '';
             $('#download-link').click(function () {
                 return canBeDownloaded;
             });
+
+            function showResultImage() {
+                $('#result-image-container').removeClass('hidden');
+                imageQueryString = (new Date()).getTime().toString();
+                $('#result-image').removeClass('hidden').attr('src', '@Url.Action("ResultImage", "WakeSimulation", new { area = "EngineeringTools" })?v=' + imageQueryString);
+            }
+
+            function allowDownloadLink() {
+                canBeDownloaded = true;
+                $('#download-link').removeClass('disabled');
+            }
 
             $('#button-run').click(function () {
                 $('#loader-gif').removeClass('hidden');
@@ -40,13 +56,24 @@
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',
                     success: function () {
-                        canBeDownloaded = true;
-                        $('#download-link').removeClass('disabled');
+                        allowDownloadLink();
+
                         $('#loader-gif').addClass('hidden');
+
+                        showResultImage();
                     }
                 });
-                
             });
-        });        
+
+            @if (ViewBag.HasResultImage)
+            {
+                <text>showResultImage();</text>
+            }
+
+            @if (ViewBag.HasResultFile)
+            {
+                <text>allowDownloadLink();</text>
+            }
+        });
     </script>    
 }

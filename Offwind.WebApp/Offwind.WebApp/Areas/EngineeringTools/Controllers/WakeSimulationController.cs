@@ -61,6 +61,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult Simulation()
         {
             ViewBag.Title = "Simulation | Wake Simulation | Offwind";
+            ViewBag.HasResultImage = (bool)(Session["WakeSimImage"] is System.Drawing.Image);
+            ViewBag.HasResultFile = (bool)(Session["WakeSimDir"] is string);
             return View(new VWebPage());
         }
 
@@ -111,7 +113,28 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
             SharpZipUtils.CompressFolder(resultDir, Path.Combine(dir, "output.zip"), null);
 
+            System.Drawing.Image resultImage = null;
+            try
+            {
+                resultImage = ResultDrawer.ProcessResult(generalData, calcData, Math.Min(480, generalData.GridPointsX), Math.Min(320, generalData.GridPointsY));
+            }
+            catch
+            {
+            }
+            Session["WakeSimImage"] = resultImage;
+
             return Json("OK", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public void ResultImage()
+        {
+            Response.ContentType = "image/jpeg";
+            var image = Session["WakeSimImage"] as System.Drawing.Image;
+            if (image != null)
+            {
+                image.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
         }
 
         public FileResult DownloadResult()

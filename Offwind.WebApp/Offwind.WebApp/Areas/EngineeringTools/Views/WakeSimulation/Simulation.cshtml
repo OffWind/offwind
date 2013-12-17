@@ -17,14 +17,14 @@
             <img id="loader-gif" class="hidden" src="@Url.Content("~\\static\\img\\ajax-loader.gif")"/>
         </p>
 
-        <p id="result-image-container" class="hidden">
-            <img id="result-image" width="480" height="320" src=""/>
-        </p>
-
         <p>
             To download result click button below. It is a <b>zip-archive</b>. Save it on your local disk and unpack.
         </p>
         <p><a class="btn btn-success btn-large disabled" id="download-link" href="@Url.Action("DownloadResult", "WakeSimulation", new { area = "EngineeringTools" })">Download result</a></p>
+
+        <p id="result-image-container" class="hidden">
+            <img id="result-image" style="width: 480px; height: 320px;" src=""/>
+        </p>
     </div>
 </div>
 @section scripts

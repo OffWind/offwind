@@ -21,7 +21,7 @@
     @if (ViewBag.IsAdmin)
     {
         <li id="fat-menu" class="dropdown">
-            <a href="#" id="drop3" role="button">
+            <a href="@Url.Action("Home","Management",new {area = "Management"})" id="drop3" role="button">
                 Management
                 <i class="icon-caret-down"></i>
             </a>

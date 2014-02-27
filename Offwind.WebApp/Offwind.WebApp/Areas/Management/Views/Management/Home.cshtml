@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Offwind.Web.Core.DContent>
+@{
+    Layout = "~/Areas/Management/Views/Shared/__ManagmentLayout.cshtml";
+}
+
+<h1>Home page</h1>
+<div class="alert alert-info">
+    Total widgets: @Model.Count()
+</div>
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("Details","Management",new{id=item.Id})" class="list-group-item">@item.Title<span><i class="glyphicon glyphicon-trash act"></i></span></a>
+    }
+</div>
+
+
+
+

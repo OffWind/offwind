@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles
+{
+  <link rel="stylesheet" type="text/css" href="~/static/bootstrap-3.1.1/css/bootstrap.css"/>
+    <style>
+        .sidebar-nav .nav-list > li > a  {
+            padding-left: 2em;
+        }
+
+        .well {
+            -moz-box-shadow: 1px 1px 0px #ffffff;
+            -webkit-box-shadow: 1px 1px 0px #ffffff;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 1px 1px 0px #ffffff;
+        }
+
+        h1 {
+            color: #3A87AD;
+            font-size: 24.5px;
+            margin: 0;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+        .alert {
+            padding: 8px 35px 8px 14px
+        }
+
+        .list-group {
+            margin-left: 0px;
+            margin-bottom: 0px;
+        }
+
+        .act {
+            margin-left: 1em;
+            float: right !important;
+        }
+        .act:hover {
+            color: #888888;
+        }
+        span {
+            display: none;
+        }
+
+        a:hover > span {
+            display: inline;
+        }
+        .row{margin-right: 0;}
+
+        input[type="text"] {
+            height: inherit;
+        }
+    </style>
+     @RenderSection("Styles", false)
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a></li>
+    <li><a href="@Url.Action("Index", "Users", new { area = "Management" })">Management</a> </li>
+    <li class="active">Home page</li>
+</ul>
+<div class="row">
+    <div class="col-md-3">
+        @Html.Partial("__SideBar")
+     </div>
+
+    <div class="col-md-9 well">
+        @RenderBody()
+    </div>
+</div>
+
+
+@section scripts
+{
+    @RenderSection("Scripts", false)
+    @RenderSection("SpecificScripts", false)
+}

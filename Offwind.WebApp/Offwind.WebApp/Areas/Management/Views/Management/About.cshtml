@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Offwind.Web.Core.DContent>
+@{
+    ViewBag.Title = "About";
+    Layout = "~/Areas/Management/Views/Shared/__ManagmentLayout.cshtml";
+}
+
+<h1>About page</h1>
+<div class="alert alert-info">
+    Total subpages: @Model.Count()
+</div>
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <a href="#" class="list-group-item">@item.Title<span><i class="glyphicon glyphicon-trash act"></i></span></a>
+    }
+</div>

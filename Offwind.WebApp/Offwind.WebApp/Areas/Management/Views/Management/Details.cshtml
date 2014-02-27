@@ -1,0 +1,41 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Management/Views/Shared/__ManagmentLayout.cshtml";
+}
+
+<h1>Edit block
+</h1>
+@using (Html.BeginForm("Edit","Management",FormMethod.Post))
+{
+    <input type="text" name="header" class="form-control" value="@Model.Header">
+    <br>
+    <div id="content">
+        @Html.Raw(Model.Content)
+    </div>
+    <input type="hidden" name="id" value="@Model.Id">
+    <input type="hidden" name="content">
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn">Cancel</button>
+    </div>
+    }
+
+@section scripts
+{
+    <script src="~/static/ckeditor/ckeditor.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+
+            var content = CKEDITOR.replace('content');
+
+            $('form').on('submit', function() {
+                $('[name="content"]').val(content.getData());
+            });
+
+        });
+    </script>
+}

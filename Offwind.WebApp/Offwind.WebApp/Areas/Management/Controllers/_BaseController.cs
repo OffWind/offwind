@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Dynamic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -16,7 +17,7 @@ namespace Offwind.WebApp.Areas.Management.Controllers
     public class _BaseController : BaseController
     {
         protected OffwindEntities _ctx = new OffwindEntities();
-
+        protected dynamic ViewModel = new ExpandoObject();
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
@@ -62,5 +63,6 @@ namespace Offwind.WebApp.Areas.Management.Controllers
 
             base.OnActionExecuted(filterContext);
         }
+        
     }
 }

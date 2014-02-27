@@ -1,0 +1,18 @@
+﻿
+
+<div class="sidebar-nav">
+            <div class="nav-header">Partitions</div>
+    <ul class="nav nav-list collapse in">
+        @foreach (var item in ViewBag.Partitions)
+        {
+            if (item.IsActive)
+            {
+                <li class="active"><a>@item.Name</a></li>
+            }
+            else
+            {
+                 <li><a href="@Url.Action(item.Name, "Management")">@item.Name</a></li>
+            }
+        }
+    </ul>
+        </div>

@@ -1,16 +1,32 @@
-﻿@model IEnumerable<Offwind.Web.Core.DContent>
+﻿@model dynamic
 @{
     Layout = "~/Areas/Management/Views/Shared/__ManagmentLayout.cshtml";
 }
 
 <h1>Home page</h1>
 <div class="alert alert-info">
-    Total widgets: @Model.Count()
+    Total widgets: @Model.TotalCount
 </div>
-<div class="list-group">
-    @foreach (var item in Model)
+<label for="carousel-items">Carousel items:</label>
+
+<div id="carousel-items" class="list-group">
+    @foreach (var item in Model.Carousel)
     {
-        <a href="@Url.Action("Details","Management",new{id=item.Id})" class="list-group-item">@item.Title<span><i class="glyphicon glyphicon-trash act"></i></span></a>
+        <a href="@Url.Action("Details","Carousel",new{id=item.Id})" class="list-group-item">@item.Title<span><i class="glyphicon glyphicon-trash act"></i></span></a>
+    }
+</div>
+<div style="margin-top: 10px">
+    <a href="@Url.Action("Create","News")" class="btn btn-primary pull-right">Add item</a>
+</div>
+<br>
+<label for="text-blocks">Text blocks:</label>
+<div id="text-blocks" class="list-group">
+    @foreach (var item in Model.TextBlocks)
+    {
+        <a href="@Url.Action("Details","TextBlock",new{id=item.Id})" class="list-group-item">
+            @item.Title
+            <span><i class="glyphicon glyphicon-trash act"></i></span>
+        </a>
     }
 </div>
 

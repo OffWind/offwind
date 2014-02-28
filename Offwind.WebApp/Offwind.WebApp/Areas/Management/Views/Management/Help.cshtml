@@ -1,8 +1,39 @@
-﻿@{
+﻿@model dynamic
+
+@{
     ViewBag.Title = "Help";
     Layout = "~/Areas/Management/Views/Shared/__ManagmentLayout.cshtml";
 }
+<h1>Edit page
+</h1>
+@using (Html.BeginForm("Edit","Help",FormMethod.Post,new{id="form"}))
+{
+    <input type="hidden" name="id" value="@Model.Id">
+    <div class="form-group">
+        <label for="content">Content:</label>
+        <textarea id="content" name="content" rows="20" form="form">
+            @Html.Raw(Model.Content)
+        </textarea>
+    </div>
+    if (Model.Updated != null)
+    {
+        <em>
+            Updated: @Model.Updated
+        </em>
+    }
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+    }
 
-<h1>Help Page</h1>
-<div id="editor"></div>
-@Html.Partial("__CKEditor",new[]{"editor"})
+@section scripts
+{
+    <script src="~/static/ckeditor/ckeditor.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            new MooEditable('content');
+
+        });
+    </script>
+}

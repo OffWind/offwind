@@ -5,17 +5,28 @@
     Layout = "~/Areas/Management/Views/Shared/__ManagmentLayout.cshtml";
 }
 
-<h1>Edit block
-</h1>
-@using (Html.BeginForm("Edit","Management",FormMethod.Post))
+<h1>Edit block</h1>
+
+@using (Html.BeginForm("Edit","TextBlock",FormMethod.Post,new {id="form"}))
 {
-    <input type="text" name="header" class="form-control" value="@Model.Header">
-    <br>
-    <div id="content">
-        @Html.Raw(Model.Content)
+    <div class="form-group">
+        <label for="header">Title:</label>
+        <input id="header" type="text" name="header" class="form-control" value="@Model.Header">
     </div>
+
+    <div class="form-group">
+        <label for="content">Content:</label>
+        <textarea id="content" form="form" name="content" rows="10">
+                @Html.Raw(Model.Content)
+        </textarea>
+    </div>
+    if (Model.Updated != null)
+    {
+        <em>
+            Updated: @Model.Updated
+        </em>
+    }
     <input type="hidden" name="id" value="@Model.Id">
-    <input type="hidden" name="content">
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="button" class="btn" id="cancel">Cancel</button>
@@ -28,17 +39,12 @@
     <script>
         $(document).ready(function() {
 
-            CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
-
-            var content = CKEDITOR.replace('content');
-
+            new MooEditable('content');
+           
             $('#cancel').on('click', function() {
                 window.history.back();
             });
 
-            $('form').on('submit', function() {
-                $('[name="content"]').val(content.getData());
-            });
 
         });
     </script>

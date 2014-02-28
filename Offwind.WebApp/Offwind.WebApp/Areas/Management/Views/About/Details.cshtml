@@ -1,0 +1,51 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Management/Views/Shared/__ManagmentLayout.cshtml";
+}
+
+<h1>@Model.Header
+</h1>
+@using (Html.BeginForm("Update","About",FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="header">Title:</label>
+        <input type="text" name="header" class="form-control" value="@Model.Title">
+    </div>
+
+    <div class="form-group">
+        <label for="content">Content:</label>
+        <textarea id="content" rows="20">
+            @Html.Raw(Model.Content)
+        </textarea>
+    </div>
+    if (Model.Published != null)
+    {
+        <em>
+            Published: @Model.Published
+        </em>
+    }
+    <input type="hidden" name="id" value="@Model.Id">
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn" id="cancel">Cancel</button>
+    </div>
+    }
+
+@section scripts
+{
+    <script src="~/static/ckeditor/ckeditor.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            new MooEditable('content');
+
+            $('#cancel').on('click', function() {
+                window.history.back();
+            });
+
+
+        });
+    </script>
+}

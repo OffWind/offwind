@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Security.Policy;
+using System.Web.Mvc;
 
 namespace Offwind.WebApp.Areas.Management
 {
@@ -15,11 +16,18 @@ namespace Offwind.WebApp.Areas.Management
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-               "Management",
-               "Management/",
-               new { action = "Index",controller="Management", id = UrlParameter.Optional },
-               new[] { "Offwind.WebApp.Areas.Management.Controllers" }
+             "Management_help",
+             "Management/Help/{action}/{id}",
+             new { action = "details", controller = "Help", id = UrlParameter.Optional },
+             new[] { "Offwind.WebApp.Areas.Management.Controllers" }
            );
+            context.MapRoute(
+              "Management_partition",
+              "Management/{action}",
+              new { action = "Home", controller = "Management" },
+              new[] { "Offwind.WebApp.Areas.Management.Controllers" }
+          );
+           
             context.MapRoute(
               "Management_users",
               "Management/users/{action}",
@@ -27,19 +35,20 @@ namespace Offwind.WebApp.Areas.Management
               new[] { "Offwind.WebApp.Areas.Management.Controllers" }
           );
             context.MapRoute(
-              "Management_partition",
-              "Management/{action}/{id}",
-              new { action = "Index", controller = "Management", id = UrlParameter.Optional },
+              "Management_home",
+              "Management/home/{controller}/{action}/{id}",
+              new { id = UrlParameter.Optional },
               new[] { "Offwind.WebApp.Areas.Management.Controllers" }
           );
-            
             context.MapRoute(
-                "Management_default",
-                "Management/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional },
+                "Management_news",
+                "Management/news/{action}/{id}",
+                new { controller = "News",id=UrlParameter.Optional },
                 new[] { "Offwind.WebApp.Areas.Management.Controllers" }
             );
-
+           
+            
+          
         }
     }
 }

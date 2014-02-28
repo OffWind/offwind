@@ -3,7 +3,9 @@
 }
 @section styles
 {
-  <link rel="stylesheet" type="text/css" href="~/static/bootstrap-3.1.1/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="~/static/bootstrap-3.1.1/css/bootstrap.css"/>
+    <link href="~/static/mooeditable/Assets/MooEditable/MooEditable.css" rel="stylesheet" />
+
     <style>
         .sidebar-nav .nav-list > li > a  {
             padding-left: 2em;
@@ -21,8 +23,11 @@
             color: #3A87AD;
             font-size: 24.5px;
             margin: 0;
-            margin-bottom: 7px;
+            margin-bottom: 15px;
             font-weight: bold;
+        }
+        h1 + .alert {
+            margin-top:-7px
         }
         .alert {
             padding: 8px 35px 8px 14px
@@ -52,6 +57,12 @@
         input[type="text"] {
             height: inherit;
         }
+        textarea {
+            width:100%
+        }
+        form,.form-actions {
+            margin-bottom: 0px;
+        }
     </style>
      @RenderSection("Styles", false)
 }
@@ -74,6 +85,8 @@
 
 @section scripts
 {
+    <script src="~/static/mooeditable/mootools.js"></script>
+    <script src="~/static/mooeditable/Source/MooEditable/MooEditable.js"></script>
     @RenderSection("Scripts", false)
     @RenderSection("SpecificScripts", false)
 }

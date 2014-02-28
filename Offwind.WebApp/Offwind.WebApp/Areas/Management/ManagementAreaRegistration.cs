@@ -28,7 +28,7 @@ namespace Offwind.WebApp.Areas.Management
           );
             context.MapRoute(
               "Management_partition",
-              "Management/{action}",
+              "Management/{action}/{id}",
               new { action = "Index", controller = "Management", id = UrlParameter.Optional },
               new[] { "Offwind.WebApp.Areas.Management.Controllers" }
           );

@@ -18,7 +18,7 @@
     <input type="hidden" name="content">
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Save</button>
-        <button type="button" class="btn">Cancel</button>
+        <button type="button" class="btn" id="cancel">Cancel</button>
     </div>
     }
 
@@ -31,6 +31,10 @@
             CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
 
             var content = CKEDITOR.replace('content');
+
+            $('#cancel').on('click', function() {
+                window.history.back();
+            });
 
             $('form').on('submit', function() {
                 $('[name="content"]').val(content.getData());

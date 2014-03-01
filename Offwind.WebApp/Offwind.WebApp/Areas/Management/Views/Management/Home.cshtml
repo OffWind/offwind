@@ -12,11 +12,11 @@
 <div id="carousel-items" class="list-group">
     @foreach (var item in Model.Carousel)
     {
-        <a href="@Url.Action("Details","Carousel",new{id=item.Id})" class="list-group-item">@item.Title<span><i class="glyphicon glyphicon-trash act"></i></span></a>
+        <a href="@Url.Action("Details","Carousel",new{id=item.Id})" class="list-group-item">@item.BrowserTitle<span><i class="glyphicon glyphicon-trash act"></i></span></a>
     }
 </div>
 <div style="margin-top: 10px">
-    <a href="@Url.Action("Create","News")" class="btn btn-primary pull-right">Add item</a>
+    <a href="@Url.Action("Create","Carousel")" class="btn btn-primary pull-right">Add item</a>
 </div>
 <br>
 <label for="text-blocks">Text blocks:</label>

@@ -47,7 +47,7 @@ namespace Offwind.WebApp.Areas.Management.Controllers
                 {
                     Content = content,
                     Title = title,
-                    CategoryId = Guid.Parse("9ec610bf-4f5b-4e02-a3da-da6c853f9b64"),
+                    CategoryId = Categories.About,
                     Created = DateTime.UtcNow,
                     Updated = DateTime.UtcNow
                 };

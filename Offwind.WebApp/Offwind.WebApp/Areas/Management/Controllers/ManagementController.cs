@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Offwind.Web.Core;
@@ -12,14 +13,14 @@ namespace Offwind.WebApp.Areas.Management.Controllers
         [Description("Home",1)]
         public ActionResult Home()
         {
-            var content = _ctx.DContents.Where(x => x.DContentCategory.Name == CategoryNames.Home && x.TypeId == ContentTypes.Block)
+            var content = _ctx.DContents.Where(x => x.DContentCategory.Name == CategoryNames.Home && x.TypeId == ContentTypes.Block && x.MetaKeywords=="")
                 .ToList()
                 .Select(x => new { x.Title, x.Id }.ToExpando())
                 .ToList();
 
-            var carousel = _ctx.DContents.Where(x => x.DContentCategory.Name == CategoryNames.Home && x.TypeId == ContentTypes.Carousel)
+            var carousel = _ctx.DContents.Where(x => x.DContentCategory.Name == CategoryNames.Home && x.MetaKeywords == ContentTypes.Carousel)
                 .ToList()
-                .Select(x => new { x.Title, x.Id }.ToExpando())
+                .Select(x => new { x.BrowserTitle, x.Id }.ToExpando())
                 .ToList();
 
             ViewModel.TotalCount = content.Count + carousel.Count;

@@ -4,29 +4,43 @@
     ViewBag.Title = "Details";
     Layout = "~/Areas/Management/Views/Shared/__ManagmentLayout.cshtml";
 }
-
-<h1>Edit item</h1>
+@section Styles
+{
+    <style>
+        /*img{
+            display: block;
+         margin-left: auto;
+         margin-right: auto;
+        }*/
+    </style>
+}
+    
+<h1>@Model.Header</h1>
 
 @using (Html.BeginForm("Edit","Carousel",FormMethod.Post,new {id="form"}))
 {
     <div class="form-group">
         <label for="header">Title:</label>
-        <input id="header" type="text" name="header" class="form-control" value="@Model.Header">
+        <textarea id="header" rows="2" form="form" name="header">@Model.Title</textarea>
     </div>
 
     <div class="form-group">
         <label for="content">Content:</label>
-        <textarea id="content" form="form" name="content" rows="10">
+        <textarea id="content" form="form" name="content" rows="4">
                 @Html.Raw(Model.Content)
         </textarea>
     </div>
+    
     <div class="form-group">
         <label for="image-url">Background image:</label>
-        <input type="file" name="image" id="image-url"/>
+        <input type="text" name="url" class="form-control" id="image-url" value="@Model.Url"/>
     </div>
-    <input type="hidden" name="id" value="@Model.Id">
+
+    <img id="preview" src="@Model.Url">
 
     
+    <input type="hidden" name="id" value="@Model.Id">
+    <input type="hidden" name="name" id="name" value="">
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="button" class="btn" id="cancel">Cancel</button>
@@ -39,13 +53,33 @@
     <script>
         $(document).ready(function() {
 
+            var options = {
+                'actions': 'createlink unlink  | toggleview',
+                'rootElement': '',
+            };
+            var a = new MooEditable('header', options);
             new MooEditable('content');
-           
-            $('#cancel').on('click', function() {
-                window.history.back();
+
+            $('#form').on('submit', function() {
+                var name = $('#header').val();
+                try {
+                    $('#name').val($(name).text());
+                } catch(e) {
+                    $('#name').val(name);
+                }
             });
+            
 
 
+        $('#cancel').on('click', function() {
+            window.history.back();
+        });
+        var $url = $('#image-url');
+        $url.on('paste', function(e) {
+            setTimeout(function() {
+                $('#preview').attr('src', $url.val());
+            }, 100);
+        });
         });
     </script>
 }

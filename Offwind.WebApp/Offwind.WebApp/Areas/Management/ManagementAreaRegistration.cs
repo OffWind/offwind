@@ -16,6 +16,12 @@ namespace Offwind.WebApp.Areas.Management
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
+            "Management_users",
+            "Management/users/{action}",
+            new { action = "Index", controller = "users", id = UrlParameter.Optional },
+            new[] { "Offwind.WebApp.Areas.Management.Controllers" }
+        );
+            context.MapRoute(
              "Management_help",
              "Management/Help/{action}/{id}",
              new { action = "details", controller = "Help", id = UrlParameter.Optional },
@@ -28,12 +34,7 @@ namespace Offwind.WebApp.Areas.Management
               new[] { "Offwind.WebApp.Areas.Management.Controllers" }
           );
            
-            context.MapRoute(
-              "Management_users",
-              "Management/users/{action}",
-              new { action = "Index", controller = "users", id = UrlParameter.Optional },
-              new[] { "Offwind.WebApp.Areas.Management.Controllers" }
-          );
+          
             context.MapRoute(
               "Management_home",
               "Management/home/{controller}/{action}/{id}",

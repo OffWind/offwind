@@ -7546,6 +7546,30 @@ namespace Offwind.Web.Core
         private global::System.Decimal _TotalCapacity;
         partial void OnTotalCapacityChanging(global::System.Decimal value);
         partial void OnTotalCapacityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Rating
+        {
+            get
+            {
+                return _Rating;
+            }
+            set
+            {
+                OnRatingChanging(value);
+                ReportPropertyChanging("Rating");
+                _Rating = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Rating");
+                OnRatingChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Rating;
+        partial void OnRatingChanging(Nullable<global::System.Int32> value);
+        partial void OnRatingChanged();
 
         #endregion
 

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using EmitMapper;
 using Offwind.Web.Core;
 using Offwind.WebApp.Areas.WindFarms.Models;
-using Offwind.WebApp.Models;
 
 namespace Offwind.WebApp.Areas.WindFarms.Controllers
 {
@@ -16,11 +13,12 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
         public ActionResult List()
         {
             var m = new VWindFarmsHome();
-
-            foreach (var db in _ctx.DWindFarms)
+            var sorted = _ctx.DWindFarms.Where(x => x.IsPublic || x.Author == User.Identity.Name).OrderByDescending(x => x.Rating);
+            foreach (var db in sorted)
             {
                 m.WindFarms.Add(VWindFarm.MapFromDb(db, User));
             }
+            
             return View(m);
         }
 
@@ -46,6 +44,14 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             }
 
             return View("Edit", model);
+        }
+
+        public ActionResult AccessLevel(Guid id,bool isPublic)
+        {
+            var dWindFarm = _ctx.DWindFarms.First(n => n.Id == id);
+            dWindFarm.IsPublic = isPublic;
+            _ctx.SaveChanges();
+            return RedirectToAction("List");
         }
 
         [HttpPost]
@@ -159,7 +165,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             db.TotalCapacity = model.TotalCapacity;
             db.UrlOfficial = model.UrlOfficial ?? "";
             db.UrlPublicWiki = model.UrlPublicWiki ?? "";
-
+            db.IsPublic = false;
             _ctx.SaveChanges();
         }
     }

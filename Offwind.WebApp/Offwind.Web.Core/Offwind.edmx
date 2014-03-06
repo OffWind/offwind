@@ -431,6 +431,7 @@
           <Property Name="GeoLat" Type="decimal" Nullable="false" Precision="8" Scale="6" />
           <Property Name="GeoLng" Type="decimal" Nullable="false" Precision="8" Scale="6" />
           <Property Name="TotalCapacity" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Rating" Type="int" />
         </EntityType>
         <EntityType Name="DWindFarmTurbine">
           <Key>
@@ -1210,6 +1211,7 @@
           <Property Name="GeoLng" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
           <Property Name="TotalCapacity" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <NavigationProperty Name="DWindFarmTurbines" Relationship="Offwind.DbModels.FK_DWindFarmTurbine_DWindFarm" FromRole="DWindFarm" ToRole="DWindFarmTurbine" />
+          <Property Type="Int32" Name="Rating" />
         </EntityType>
         <EntityType Name="DWindFarmTurbine">
           <Key>
@@ -1801,6 +1803,7 @@
           <EntitySetMapping Name="DWindFarms">
             <EntityTypeMapping TypeName="Offwind.DbModels.DWindFarm">
               <MappingFragment StoreEntitySet="DWindFarm">
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="TotalCapacity" ColumnName="TotalCapacity" />
                 <ScalarProperty Name="GeoLng" ColumnName="GeoLng" />
                 <ScalarProperty Name="GeoLat" ColumnName="GeoLat" />
@@ -2043,7 +2046,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Offwind" ZoomLevel="152">
+      <Diagram Name="Offwind" ZoomLevel="112">
         <EntityTypeShape EntityType="Offwind.DbModels.DCase" Width="1.5" PointX="2.75" PointY="12.875" />
         <EntityTypeShape EntityType="Offwind.DbModels.DComment" Width="1.5" PointX="10.75" PointY="12.875" />
         <EntityTypeShape EntityType="Offwind.DbModels.DContent" Width="1.5" PointX="8" PointY="2.25" />

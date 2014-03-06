@@ -64,6 +64,9 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
 
         public List<VTurbine> Turbines { get; set; }
 
+        [Required]
+        public bool IsPublic { get; set; }
+
         public bool HasWikiLink()
         {
             return UrlPublicWiki != null && UrlPublicWiki.Trim().Length > 0;

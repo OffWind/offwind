@@ -8,7 +8,7 @@ namespace Offwind.WebApp.Models
         public string Name { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-
+        public string Image { get; set; }
         public BlockModel()
         {
             Name = "";
@@ -16,11 +16,11 @@ namespace Offwind.WebApp.Models
             Content = "";
         }
 
-        public static BlockModel GetBlock(string name)
+        public static BlockModel GetBlock(string name,ContentType type)
         {
             using (var ctx = new OffwindEntities())
             {
-                var ctBlock = ContentType.Block.ToString();
+                var ctBlock = type.ToString();
                 var content = ctx.DContents.FirstOrDefault(c => c.TypeId == ctBlock && c.Name == name);
                 var block = new BlockModel();
                 if (content != null)
@@ -28,6 +28,7 @@ namespace Offwind.WebApp.Models
                     block.Name = content.Name;
                     block.Title = content.Title;
                     block.Content = content.Content;
+                    block.Image = content.Announce;
                 }
                 return block;
             }

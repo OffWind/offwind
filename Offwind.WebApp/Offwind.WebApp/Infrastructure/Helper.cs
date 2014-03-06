@@ -55,9 +55,9 @@ namespace Offwind.WebApp.Infrastructure
                 return html.Raw("");
             retVal += "<div class='alert alert-error'>";
             retVal += "<ul>";
-            foreach (string key in html.ViewData.ModelState.Keys)
+            foreach (var key in html.ViewData.ModelState.Keys)
             {
-                foreach (ModelError err in html.ViewData.ModelState[key].Errors)
+                foreach (var err in html.ViewData.ModelState[key].Errors)
                     retVal += "<li>" + html.Encode(err.ErrorMessage) + "</li>";
             }
             retVal += "</ul></div>";
@@ -87,17 +87,60 @@ namespace Offwind.WebApp.Infrastructure
 
         public static IHtmlString BlockTitle(this HtmlHelper html, string name)
         {
-            var block = BlockModel(html, name);
+            var block = BlockModel(html, name, ContentType.Block);
             return new HtmlString(block.Title);
         }
 
         public static IHtmlString BlockContent(this HtmlHelper html, string name)
         {
-            var block = BlockModel(html, name);
+            var block = BlockModel(html, name, ContentType.Block);
             return new HtmlString(block.Content);
         }
+        public static IHtmlString CarouselTitle(this HtmlHelper html, string name)
+        {
+            var block = BlockModel(html, name, ContentType.Carousel);
+            return new HtmlString(block.Title);
+        }
 
-        private static BlockModel BlockModel(HtmlHelper html, string name)
+        public static IHtmlString CarouselContent(this HtmlHelper html, string name)
+        {
+            var block = BlockModel(html, name, ContentType.Carousel);
+            return new HtmlString(block.Content);
+        }
+        public static IHtmlString CarouselCaption(this HtmlHelper html, string name)
+        {
+            var block = BlockModel(html, name, ContentType.Carousel);
+            return new HtmlString(block.Title + block.Content);
+        }
+        public static IHtmlString CarouselItem(this HtmlHelper html, string name)
+        {
+            var block = BlockModel(html, name, ContentType.Carousel);
+
+            var item = new TagBuilder("div");
+            item.AddCssClass("active item");
+            var caption = new TagBuilder("div");
+            var title = new TagBuilder("h2");
+            title.InnerHtml = block.Title;
+
+            caption.AddCssClass("carousel-caption");
+            caption.InnerHtml = title + block.Content;
+
+            var img = new TagBuilder("img");
+            img.MergeAttribute("src", block.Image);
+            item.InnerHtml = img.ToString(TagRenderMode.Normal) + caption.ToString(TagRenderMode.Normal);
+
+            return MvcHtmlString.Create(item.ToString(TagRenderMode.Normal));
+        }
+
+        public static IHtmlString CarouselImage(this HtmlHelper html, string name)
+        {
+            var block = BlockModel(html, name, ContentType.Carousel);
+            var builder = new TagBuilder("img");
+            builder.MergeAttribute("src",block.Image);
+
+            return MvcHtmlString.Create(builder.ToString(TagRenderMode.Normal));
+        }
+        private static BlockModel BlockModel(HtmlHelper html, string name, ContentType type)
         {
             BlockModel block;
             if (html.ViewData.ContainsKey(name))
@@ -106,7 +149,7 @@ namespace Offwind.WebApp.Infrastructure
             }
             else
             {
-                block = Models.BlockModel.GetBlock(name);
+                block = Models.BlockModel.GetBlock(name, type);
                 html.ViewData[name] = block;
             }
             return block;

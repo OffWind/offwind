@@ -32,7 +32,7 @@ namespace Offwind.WebApp.Areas.Management.Controllers
             {
                 item.Title = header;
                 item.Content = content;
-                item.Updated =DateTime.UtcNow;
+                item.Updated = DateTime.UtcNow;
                 _ctx.DContents.ApplyCurrentValues(item);
                 _ctx.SaveChanges();
                 if (this.GetAllActionNames().Contains(item.DContentCategory.Name))

@@ -13,12 +13,12 @@ namespace Offwind.WebApp.Areas.Management.Controllers
         [Description("Home",1)]
         public ActionResult Home()
         {
-            var content = _ctx.DContents.Where(x => x.DContentCategory.Name == CategoryNames.Home && x.TypeId == ContentTypes.Block && x.MetaKeywords=="")
+            var content = _ctx.DContents.Where(x => x.DContentCategory.Name == CategoryNames.Home && x.TypeId == ContentTypes.Block)
                 .ToList()
                 .Select(x => new { x.Title, x.Id }.ToExpando())
                 .ToList();
 
-            var carousel = _ctx.DContents.Where(x => x.DContentCategory.Name == CategoryNames.Home && x.MetaKeywords == ContentTypes.Carousel)
+            var carousel = _ctx.DContents.Where(x => x.DContentCategory.Name == CategoryNames.Home && x.TypeId == ContentTypes.Carousel)
                 .ToList()
                 .Select(x => new { x.BrowserTitle, x.Id }.ToExpando())
                 .ToList();

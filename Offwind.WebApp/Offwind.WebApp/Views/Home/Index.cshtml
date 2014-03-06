@@ -15,41 +15,13 @@
 </style>
 <div class="row-fluid">
     <div class="span8">
-        <div id="myCarousel" class="carousel slide">
-                @*<ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                </ol>*@
-                <div class="carousel-inner">
-                <div class="item">
-                    <img src="/static/img/meeting-december.png" alt="" />
-                    <div class="carousel-caption meeting-december">
-                        <h2><a href="@Url.Action("Index", "GlobalMeeting")">@Html.BlockTitle("event-global-expert-meeting-2013-postpone")</a></h2>
-                        @Html.BlockContent("event-global-expert-meeting-2013-postpone")
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="/static/img/meeting.jpg" alt="" />
-                    <div class="carousel-caption">
-                        <h2><a href="@Url.Action("Index", "GlobalMeeting")">Offwind Global Expert Meeting</a></h2>
-                        <p>Climatology database, CFD wake modelling, development of a wave/wake model, and other avenues of research such as wind turbine control and now-casting.
-                           Join us to contribute your own models and procedures, in order to advance knowledge in this area.
-                        </p>
-                    </div>
-                </div>
-                <div class="active item">
-                    <img src="/static/img/Depositphotos_11951183_m_3.jpg" alt="" />
-                    <div class="carousel-caption">
-                        <h2><a class="" href="@Url.Action("Index", "About", new { area = "" })">What is Offwind?</a></h2>
-                        <p>Offwind - is a set of prediction tools for offshore wind energy generation. It
-                            is being actively developed by Offwind group which consists of several partners from
-                            different countries in Europe.
-                        </p>
-                        
-                    </div>
-                </div>
+        <div id="myCarousel"  class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                 @*@Html.CarouselItem("event-global-expert-meeting-2013-postpone")
+                 @Html.CarouselItem("offwind-global-expert-meeting")*@
+                 @Html.CarouselItem("what-is-offwind")
             </div>
-            @*<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+@*            <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
             <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>*@
         </div>
     </div>

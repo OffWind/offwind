@@ -15,7 +15,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
         public ActionResult List()
         {
             var m = new VWindFarmsHome();
-            foreach (var db in _ctx.DTurbines)
+            foreach (var db in _ctx.DTurbines.Where(x => x.IsPublic || x.Author == User.Identity.Name))
             {
                 m.Turbines.Add(VTurbine.MapFromDb(db, User));
             }
@@ -27,6 +27,14 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             var db = _ctx.DTurbines.First(n => n.Id == id);
             var model = VTurbine.MapFromDb(db, User);
             return View(model);
+        }
+
+        public ActionResult AccessLevel(Guid id, bool isPublic)
+        {
+            var dWindFarm = _ctx.DTurbines.First(n => n.Id == id);
+            dWindFarm.IsPublic = isPublic;
+            _ctx.SaveChanges();
+            return RedirectToAction("List");
         }
 
         public ActionResult Edit(Guid? id)

@@ -112,6 +112,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
 
         public string Author { get; set; }
 
+        public bool IsPublic { get; set; }
         public string Description { get; set; }
         public string Manufacturer { get; set; }
 
@@ -168,7 +169,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Models
             model.RotorMass = db.RotorMass ?? 0;
             model.NacelleMass = db.NacelleMass ?? 0;
             model.TowerMass = db.TowerMass ?? 0;
-
+            model.IsPublic = db.IsPublic;
             model.CanEdit = db.Author == user.Identity.Name;
         }
     }

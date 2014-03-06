@@ -1,6 +1,8 @@
 ﻿@model dynamic
 @{
     Layout = "~/Areas/Management/Views/Shared/__ManagmentLayout.cshtml";
+    ViewBag.BreadcrumbsItems = "Home page";
+    ViewBag.BreadcrumbsLinks = Request.RawUrl;
 }
 
 <h1>Home page</h1>

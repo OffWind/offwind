@@ -17,6 +17,7 @@ namespace Offwind.WebApp.Areas.Management.Controllers
                 ViewModel.Content = item.Content;
                 ViewModel.Id = item.Id;
                 ViewModel.Updated = item.Updated;
+                ViewModel.BrowserTitle = "Edit text block";
             }
 
             return View(ViewModel);

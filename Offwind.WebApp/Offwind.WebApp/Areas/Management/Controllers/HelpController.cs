@@ -25,6 +25,7 @@ namespace Offwind.WebApp.Areas.Management.Controllers
                 ViewModel.Id = -1;
                 ViewModel.Updated = null;
             }
+            ViewModel.BrowserTitle = "Edit help page";
             return View("~/Areas/Management/Views/Management/Help.cshtml",ViewModel);
         }
 

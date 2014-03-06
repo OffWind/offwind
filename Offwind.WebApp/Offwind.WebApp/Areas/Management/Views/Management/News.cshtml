@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<Offwind.Web.Core.Page>
 @{
     Layout = "~/Areas/Management/Views/Shared/__ManagmentLayout.cshtml";
+    ViewBag.BreadcrumbsItems = "News page";
+    ViewBag.BreadcrumbsLinks = Request.RawUrl;
 }
 
 <h1>News</h1>

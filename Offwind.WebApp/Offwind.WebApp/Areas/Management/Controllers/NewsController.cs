@@ -17,6 +17,7 @@ namespace Offwind.WebApp.Areas.Management.Controllers
             ViewModel.Id = -1;
             ViewModel.Header = "New page";
             ViewModel.Published = null;
+            ViewModel.BrowserTitle = "Create news";
             return View("~/Areas/Management/Views/News/Details.cshtml",ViewModel);
         }
         public ActionResult Update(int id,string header,string announce,string content)
@@ -63,6 +64,7 @@ namespace Offwind.WebApp.Areas.Management.Controllers
                 ViewModel.Id = item.Id;
                 ViewModel.Header = "Edit page";
                 ViewModel.Published = item.Published;
+                ViewModel.BrowserTitle = "Edit news";
             }
             return View(ViewModel);
         }

@@ -17,6 +17,7 @@ namespace Offwind.WebApp.Areas.Management.Controllers
                 ViewModel.Title = item.Title;
                 ViewModel.Id = item.Id;
                 ViewModel.Header = "Edit page";
+                ViewModel.BrowserTitle = "Edit about page";
                 ViewModel.Published = item.PublishDate;
             }
             else
@@ -25,8 +26,10 @@ namespace Offwind.WebApp.Areas.Management.Controllers
                 ViewModel.Title = string.Empty;
                 ViewModel.Id = -1;
                 ViewModel.Header = "New page";
+                ViewModel.BrowserTitle = "New about page";
                 ViewModel.Published = null;
             }
+            
             return View(ViewModel);
         }
 

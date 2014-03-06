@@ -17,6 +17,7 @@ namespace Offwind.WebApp.Areas.Management.Controllers
             ViewModel.Id = Guid.Empty;
             ViewModel.Header = "New item";
             ViewModel.Updated = null;
+            ViewModel.BrowserTitle = "New carousel item";
             ViewModel.Url = string.Empty;
             return View("~/Areas/Management/Views/Carousel/Details.cshtml", ViewModel);
         }
@@ -30,6 +31,7 @@ namespace Offwind.WebApp.Areas.Management.Controllers
                 ViewModel.Content = item.Content;
                 ViewModel.Id = item.Id;
                 ViewModel.Url = item.Announce;
+                ViewModel.BrowserTitle = "Edit carousel item";
                 ViewModel.Updated = item.Updated;
             }
 

@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Areas/Management/Views/Shared/__ManagmentLayout.cshtml";
+    ViewBag.BreadcrumbsItems = "Home page" + "*" + Model.BrowserTitle;
+    ViewBag.BreadcrumbsLinks = Url.Action("Home","Management") + "*" + Request.RawUrl;
 }
 @section Styles
 {

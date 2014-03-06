@@ -69,8 +69,24 @@
 
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a></li>
-    <li><a href="@Url.Action("Index", "Users", new { area = "Management" })">Management</a> </li>
-    <li class="active">Home page</li>
+    <li><a href="@Url.Action("Home", "Management", new { area = "Management" })">Management</a> </li>
+    @if (ViewBag.BreadcrumbsItems != null && ViewBag.BreadcrumbsLinks != null)
+    {
+        var items = ((string) ViewBag.BreadcrumbsItems).Split('*');
+        var links = ((string) ViewBag.BreadcrumbsLinks).Split('*');
+        for (var index = 0; index < items.Length; index++)
+        {
+            if (index == items.Length-1 || index >= links.Length-1)
+            {
+                <li class="active">@items[index]</li>
+            }
+            else
+            {
+                <li><a href="@links[index]">@items[index]</a></li>
+            }
+        }
+    }
+    
 </ul>
 <div class="row">
     <div class="col-md-3">

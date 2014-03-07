@@ -844,6 +844,7 @@
     <Content Include="static\css\bs-docs.css" />
     <Content Include="static\css\elements.css" />
     <Content Include="static\css\myelements.css" />
+    <Content Include="static\handsontable-0.10.3\jquery.handsontable.bootstrap.css" />
     <Content Include="static\css\theme.css" />
     <Content Include="static\eng-tools\meso-wind\db-fnl.png" />
     <Content Include="static\eng-tools\wake-model\formula-1.png" />
@@ -900,6 +901,13 @@
     <Content Include="static\fullcalendar-1.5.3\MIT-LICENSE.txt" />
     <Content Include="static\handlebars\handlebars-1.0.0-rc.4.js" />
     <Content Include="static\handlebars\handlebars-1.0.0.js" />
+    <Content Include="static\handsontable-0.10.3\extensions\jquery.handsontable.bootstrap.css" />
+    <Content Include="static\handsontable-0.10.3\extensions\jquery.handsontable.removeRow.css" />
+    <Content Include="static\handsontable-0.10.3\extensions\jquery.handsontable.removeRow.js" />
+    <Content Include="static\handsontable-0.10.3\jquery.handsontable.css" />
+    <Content Include="static\handsontable-0.10.3\jquery.handsontable.full.css" />
+    <Content Include="static\handsontable-0.10.3\jquery.handsontable.full.js" />
+    <Content Include="static\handsontable-0.10.3\jquery.handsontable.js" />
     <Content Include="static\Highcharts-3.0.4\adapters\mootools-adapter.js" />
     <Content Include="static\Highcharts-3.0.4\adapters\mootools-adapter.src.js" />
     <Content Include="static\Highcharts-3.0.4\adapters\prototype-adapter.js" />

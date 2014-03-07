@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Offwind.Web.Core;
 using Offwind.WebApp.Areas.WindFarms.Models;
+using WebGrease.Css.Extensions;
 
 namespace Offwind.WebApp.Areas.WindFarms.Controllers
 {
@@ -121,16 +122,19 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
         {
             if (turbines == null) return Json("Bad model");
 
-            _ctx.WindFarm_DeleteTurbines(windFarmId);
-            _ctx.SaveChanges();
+            _ctx.DWindFarmTurbines.Where(x => x.WindFarmId == windFarmId).ForEach(x => _ctx.DWindFarmTurbines.DeleteObject(x));
 
-            for (int i = 0; i < turbines.Count - 1; i++)
+            for (var i = 0; i < turbines.Count - 1; i++)
             {
-                var item = new DWindFarmTurbine { Id = Guid.NewGuid(), WindFarmId = windFarmId };
+                var item = new DWindFarmTurbine
+                {
+                    Id = Guid.NewGuid(),
+                    WindFarmId = windFarmId,
+                    Number = i + 1,
+                    X = turbines[i][0],
+                    Y = turbines[i][1]
+                };
 
-                item.Number = i + 1;
-                item.X = turbines[i][0];
-                item.Y = turbines[i][1];
                 _ctx.DWindFarmTurbines.AddObject(item);
             }
             _ctx.SaveChanges();

@@ -11,22 +11,33 @@
     <link href="~/static/handsontable-0.10.3/jquery.handsontable.full.css" rel="stylesheet" />
     <link href="~/static/handsontable-0.10.3/extensions/jquery.handsontable.bootstrap.css" rel="stylesheet" />
     <link href="~/static/handsontable-0.10.3/extensions/jquery.handsontable.removeRow.css" rel="stylesheet" />
-    
+    <link href="~/Areas/WindFarms/static/css/farm-layout.css" rel="stylesheet" />
     <style>
-        table span.indent
-        {
-            margin-left: 1em;
+        table span.indent {
             font-weight: normal;
+            margin-left: 1em;
         }
 
-        .handsontable .currentRow { background-color: #E7E8EF; }
+        .handsontable th, .handsontable td { min-width: 50px; }
 
-        .handsontable .currentCol { background-color: #F9F9FB; }
-        .handsontable th, .handsontable td {
-            min-width: 50px;
+        .handsontable td { text-align: right; }
+
+        .root {
+            height: 500px;
+            position: relative;
+            width: 100%;             
         }
-        .handsontable td {
-            text-align: right;
+
+        .left {
+            float: left;
+            width: 480px;
+        }
+
+        .right {
+            float: left;
+            padding-left: 20px;
+           
+            width: 40%       
         }
     </style>
 }
@@ -101,37 +112,32 @@
 <div class="row-fluid row-content-block">
     <div class="span12 well actionable-page">
         <h3>Turbines Layout</h3>
-        <div class="actions-block">
-            @if (Model.CanEdit)
-            {
-                <a class="btn btn-primary" role="button" data-toggle="modal"  href="#action_upload_turbines" title="Upload turbines" id="action-upload-turbines">
-                    <i class="icon-upload-alt icon-white"></i>
-                </a>
-                <a class="btn btn-danger"  role="button" data-toggle="modal"  href="#action_remove_turbines" title="Remove all turbines" id="action-remove-turbines">
-                    <i class="icon-remove icon-white"></i>
-                </a>
-            }
-        </div>
-            @if (!Model.CanEdit && Model.Turbines.Count <= 0)
-            {
-                <div class="alert">
-                    No turbine coordinates specified
+        @if (!Model.CanEdit && Model.Turbines.Count <= 0)
+        {
+            <div class="alert">
+                No turbine coordinates specified
+            </div>
+        }
+        else
+        {
+            <div class="root">
+                <div class="left">
+                    <svg id="layout"  style="width:500px;height: 500px" ></svg>
                 </div>
-            }
-            else
-            {
-                <div id="example1"></div>
-            }
+                <div class="right"><div id="dataTable" class="handsontable" style="height: 500px; overflow: auto"></div></div>
+            </div>
+        }
     </div>
 </div>
 
 @section scripts
 {
     <script src="/static/js/standard/jquery.validate.js"></script>
-    @*    @Scripts.Render("~/static/js/jquery.handsontable.full.js")*@
-    @*@Scripts.Render("~/static/js/handsontable.tools.js")*@
+
     <script src="~/static/handsontable-0.10.3/jquery.handsontable.full.js"></script>
-    
+    <script src="~/static/svg/lightSVG.js"></script>
+    <script src="~/Areas/WindFarms/static/js/farm-layout.js"></script>
+    <script src="~/Areas/WindFarms/static/js/turbines.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -156,85 +162,55 @@
                 });
                 point.setIcon("https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png");
                 point.visible = true;
-            })();
-
-            (function() {
-
-                @{
-                    var spareRows = 1;
-                    var columnTypes = "[{ readOnly: false }, { readOnly: false }]";
-                    if (!Model.CanEdit)
-                    {
-                        spareRows = 0;
-                        columnTypes = "[{ readOnly: true }, { readOnly: true }]";
-                    }
-                }
-
-                var isInitialized = false;
-                var $container = $("#example1");
-
-                var changed = function() {
-                    if (!isInitialized) return;
-                    var d = $container.data('handsontable').getData();
-                    $.ajax({
-                        url: "@Url.Action("TurbineCoordinatesSave", "WindFarm", new {area = "WindFarms", windFarmId = Model.Id})",
-                        dataType: "json",
-                        type: "POST",
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(d)
-                    });
-                };
-
-                var resetTurbines = function() {
-                    $.ajax({
-                        url: "@Url.Action("RemoveAllTurbines", "WindFarm", new {area = "WindFarms", windFarmId = Model.Id})",
-                        dataType: "json",
-                        type: "POST",
-                        contentType: 'application/json; charset=utf-8'
-                    });
-
-                    $.ajax({
-                        url: "@Url.Action("TurbineCoordinatesData", "WindFarm", new {area = "WindFarms", windFarmId = Model.Id})",
-                        dataType: 'json',
-                        type: 'GET',
-                        success: function(res) {
-                            $container.data('handsontable').loadData(res);
-                        }
-                    });
-                };
-
-                $container.handsontable({
-                    startRows: 1,
-                    startCols: 2,
-                    columns: @columnTypes,
-                    colHeaders: ["<b>X</b>", "<b>Y</b>"],
-                    rowHeaders: true,
-                    minSpareRows: @spareRows,
-                    onChange: changed,
-                    fillHandle: true,
-                    outsideClickDeselects: false,
-                    autoWrapRow: true,
-                });
-                $container.find('table').addClass('table table-hover');
-
-                $.ajax({
-                    url: "@Url.Action("TurbineCoordinatesData", "WindFarm", new {area = "WindFarms", windFarmId = Model.Id})",
-                    dataType: 'json',
-                    type: 'GET',
-                    success: function(res) {
-                        $container.data('handsontable').loadData(res);
-                        isInitialized = true;
-                    }
-                });
-
-                $("#action-remove-turbines").on('click', resetTurbines);
-
-
-                $("#action-upload-turbines").click(function() {
-                    console.log('upload');
-                });
+                
 
             })();
         });
+        var canEdit;
+        @if (Model.CanEdit)
+        {
+            <text>
+            canEdit = '@Model.CanEdit';
+            </text>
+        }
+
+        
+        console.log(canEdit);
+        var TurbineCoordinatesSaveURl = "@Url.Action("TurbineCoordinatesSave", "WindFarm", new {area = "WindFarms", windFarmId = Model.Id})";
+        var isInitialized = false;
+        var changed = function() {
+            if (!isInitialized) return;
+            var data = $("#dataTable").handsontable('getData');
+            var res = [];
+            data.forEach(function(entry) {
+                res.push([entry.get('index'), entry.get('x'), entry.get('y')]);
+            });
+            $.ajax({
+                url: TurbineCoordinatesSaveURl,
+                dataType: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(res)
+            });
+        };
+
+        (function() {
+
+            $.ajax({
+                url: "@Url.Action("TurbineCoordinatesData", "WindFarm", new {area = "WindFarms", windFarmId = Model.Id})",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    var options = {
+                        data: res,
+                        onchanged: changed,
+                        readOnly: !canEdit
+                    };
+                    initTurbines(options);
+                    isInitialized = true;
+                }
+            });
+
+        })();
     </script>
-}
+    }

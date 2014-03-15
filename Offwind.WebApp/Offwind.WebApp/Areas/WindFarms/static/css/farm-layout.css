@@ -1,0 +1,13 @@
+﻿.draggable:hover { cursor: move }
+
+text {
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+    -o-user-select: none;
+    -webkit-user-select: none; /* Chrome/Safari */
+    user-select: none;
+}
+
+.handsontable .currentRow { background-color: white; }
+
+.handsontable .currentCol { background-color: white; }

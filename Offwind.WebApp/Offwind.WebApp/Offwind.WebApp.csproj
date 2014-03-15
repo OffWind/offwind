@@ -359,9 +359,14 @@
     <Content Include="Areas\EngineeringTools\Static\meso-wind-db.js" />
     <Content Include="Areas\Partners\Static\Events\events-models.js" />
     <Content Include="Areas\Partners\Static\Events\events-controller.js" />
+    <Content Include="Areas\WindFarms\static\css\farm-layout.css" />
+    <Content Include="Areas\WindFarms\static\js\farm-layout.js" />
+    <Content Include="Areas\WindFarms\static\js\turbines.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="static\app.js" />
+    <Content Include="static\backbone-1.1.2\backbone-min.js" />
+    <Content Include="static\backbone-1.1.2\backbone.js" />
     <Content Include="static\backbone-js-1.0.0\backbone-min.js" />
     <Content Include="static\backbone-js-1.0.0\backbone.js" />
     <Content Include="static\backbone-js-1.0.0\underscore-min.js" />
@@ -1069,6 +1074,7 @@
     <Content Include="static\mooeditable\Source\MooEditable\MooEditable.UI.ButtonOverlay.js" />
     <Content Include="static\mooeditable\Source\MooEditable\MooEditable.UI.ExtendedLinksDialog.js" />
     <Content Include="static\mooeditable\Source\MooEditable\MooEditable.UI.MenuList.js" />
+    <Content Include="static\svg\lightSVG.js" />
     <Content Include="static\theme\blog.html" />
     <Content Include="static\theme\calendar.html" />
     <Content Include="static\theme\components.html" />
@@ -2486,6 +2492,7 @@
     <Content Include="static\ckeditor\README.md" />
     <Content Include="static\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="static\ckeditor\skins\moono\readme.md" />
+    <Content Include="static\backbone-1.1.2\backbone-min.map" />
     <None Include="static\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <None Include="static\eng-tools\meso-wind\TAB-format-summary.docx" />
     <None Include="static\eng-tools\meso-wind\TAB-format-summary.pdf" />

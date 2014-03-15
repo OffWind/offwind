@@ -114,7 +114,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
         public JsonResult TurbineCoordinatesData(Guid windFarmId)
         {
             var dWindFarm = _ctx.DWindFarms.Single(wf => wf.Id == windFarmId);
-            var arr = dWindFarm.DWindFarmTurbines.OrderBy(t => t.Number).Select(t => new[] { t.X, t.Y }).ToArray();
+            var arr = dWindFarm.DWindFarmTurbines.OrderBy(t => t.Number).Select(t => new { x=t.X,y= t.Y }).ToArray();
             return Json(arr, JsonRequestBehavior.AllowGet);
         }
 
@@ -130,9 +130,9 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
                 {
                     Id = Guid.NewGuid(),
                     WindFarmId = windFarmId,
-                    Number = i + 1,
-                    X = turbines[i][0],
-                    Y = turbines[i][1]
+                    Number = (int)turbines[i][0],
+                    X = turbines[i][1],
+                    Y = turbines[i][2]
                 };
 
                 _ctx.DWindFarmTurbines.AddObject(item);

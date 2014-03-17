@@ -89,7 +89,7 @@
             var createEl = function (data) {
                 var sp = convertToScreenPoint(data);
                 var visibility = 'visible';
-                if (!sp.x || !sp.y)
+                if (sp.x == '' || sp.y === '')
                     visibility = 'hidden';
                 
                 var transform = 'translate(' + sp.x + ',' + sp.y + ')';
@@ -102,16 +102,19 @@
                 };
                 var el = svg.createCircle(options);
                 if (draggable)
-                    el.setAttribute('class','draggable');
+                    el.setAttribute('class', 'draggable');
+                
                 var p;
                 el.addEventListener('mouseenter', function (e) {
                     p = points.findWhere({ id: e.toElement.id });
                     $(document).trigger('highlight_row', p.toJSON());
                 }, false);
+                
                 el.addEventListener('mouseleave', function (e) {
                     if (!dragging)
                         $(document).trigger('unhighlight_row', p.toJSON());
                 }, false);
+                
                 return el;
             };
             var init = function (collection) {
@@ -139,12 +142,19 @@
                 points.on('change', function (model) {
                     if (innerChanging) return;
                     console.log('change in layout');
-                    var p = convertToScreenPoint(model.toJSON());
                     var el = document.getElementById(model.get('id'));
-                    if (p.x && p.y)
-                        el.setVisibility('visible');
+                    if (model.get('x') == '' && model.get('y') == '') {
+                        points.remove(model);
+                        if(el) el.parentNode.removeChild(el);
+                        return;
+                    }
                     
-                    el.setTransform('translate( ' + p.x + ',' + p.y + ')');
+                    var p = convertToScreenPoint(model.toJSON());
+                  
+                    if (el) {
+                        el.setVisibility('visible');
+                        el.setTransform('translate( ' + p.x + ',' + p.y + ')');
+                    }
                 });
             }
             else if (points instanceof Array) {

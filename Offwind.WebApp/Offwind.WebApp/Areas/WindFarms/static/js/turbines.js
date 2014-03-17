@@ -19,6 +19,11 @@
         
         function makeTurbine() {
             var m = new Backbone.Model();
+            var last = collection.at(collection.length - 1);
+            if (last.get('x') == '' || last.get('y') == '')
+                return m;
+            
+            
             if (!options.readOnly) {
                 m.set('index', collection.length);
                 m.set('id', 't-' + collection.length);
@@ -46,7 +51,7 @@
         $container.handsontable({
             data: coll.models,
             dataSchema: makeTurbine,
-            contextMenu: true,
+            contextMenu: false,
             stretchH: 'all',
             rowHeaders: true,
             minSpareRows: spareRows,

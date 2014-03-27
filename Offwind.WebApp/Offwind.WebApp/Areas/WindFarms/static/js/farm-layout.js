@@ -141,7 +141,6 @@
                 });
                 points.on('change', function (model) {
                     if (innerChanging) return;
-                    console.log('change in layout');
                     var el = document.getElementById(model.get('id'));
                     if (model.get('x') == '' && model.get('y') == '') {
                         points.remove(model);

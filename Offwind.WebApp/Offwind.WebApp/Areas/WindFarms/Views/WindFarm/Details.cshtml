@@ -18,14 +18,18 @@
             margin-left: 1em;
         }
 
-        .handsontable th, .handsontable td { min-width: 50px; }
+        .handsontable th, .handsontable td {
+            min-width: 50px;
+        }
 
-        .handsontable td { text-align: right; }
+        .handsontable td {
+            text-align: right;
+        }
 
         .root {
             height: 500px;
             position: relative;
-            width: 100%;             
+            width: 100%;
         }
 
         .left {
@@ -36,13 +40,12 @@
         .right {
             float: left;
             padding-left: 20px;
-           
-            width: 40%       
+            width: 40%;
         }
     </style>
 }
 <ul class="breadcrumb">
-    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a><span class="divider">/</span></li>
     <li><a href="@Url.Action("Index", "HomeWindFarms", new { area = "WindFarms" })">Wind Farms & Turbines Database</a> <span class="divider">/</span></li>
     <li><a href="@Url.Action("List", "WindFarm", new { area = "WindFarms" })">Wind Farms</a> <span class="divider">/</span></li>
     <li class="active">Wind Farm Details</li>
@@ -60,12 +63,13 @@
                         @Html.DisplayFor(m => m.Country)
                         @Html.DisplayFor(m => m.TotalCapacity)
                         <tr>
-                            <td>Coordinates<br/>
-                                <span class="indent">Latitude</span><br/>
+                            <td>Coordinates<br />
+                                <span class="indent">Latitude</span><br />
                                 <span class="indent">Longitude</span>
                             </td>
-                            <td><br/>
-                                @Model.GeoLat<br/>@Model.GeoLng
+                            <td>
+                                <br />
+                                @Model.GeoLat<br />@Model.GeoLng
                             </td>
                         </tr>
                         @if (Model.HasLinks())
@@ -75,7 +79,7 @@
                                 <td>
                                     @if (Model.HasOfficialLink())
                                     {
-                                        <a href="@Model.UrlOfficial.AnchorUrl()" rel="nofollow" target="_blank">Official site</a><br/>
+                                        <a href="@Model.UrlOfficial.AnchorUrl()" rel="nofollow" target="_blank">Official site</a><br />
                                     }
 
                                     @if (Model.HasWikiLink())
@@ -112,21 +116,15 @@
 <div class="row-fluid row-content-block">
     <div class="span12 well actionable-page">
         <h3>Turbines Layout</h3>
-        @if (!Model.CanEdit && Model.Turbines.Count <= 0)
-        {
-            <div class="alert">
-                No turbine coordinates specified
+        @Html.Partial("__LayoutActions")
+        <div class="root">
+            <div class="left">
+                <svg id="layout" style="width: 500px; height: 500px"></svg>
             </div>
-        }
-        else
-        {
-            <div class="root">
-                <div class="left">
-                    <svg id="layout"  style="width:500px;height: 500px" ></svg>
-                </div>
-                <div class="right"><div id="dataTable" class="handsontable" style="height: 500px; overflow: auto"></div></div>
+            <div class="right">
+                <div id="dataTable" class="handsontable" style="height: 500px; overflow: auto"></div>
             </div>
-        }
+        </div>
     </div>
 </div>
 
@@ -170,13 +168,11 @@
         @if (Model.CanEdit)
         {
             <text>
-            canEdit = '@Model.CanEdit';
+        canEdit = '@Model.CanEdit';
             </text>
         }
 
-        
-        console.log(canEdit);
-        var TurbineCoordinatesSaveURl = "@Url.Action("TurbineCoordinatesSave", "WindFarm", new {area = "WindFarms", windFarmId = Model.Id})";
+        var TurbineCoordinatesSaveURl = "@Url.Action("TurbineCoordinatesSave", "WindFarm", new { area = "WindFarms", windFarmId = Model.Id })";
         var isInitialized = false;
         var changed = function() {
             if (!isInitialized) return;
@@ -197,7 +193,7 @@
         (function() {
 
             $.ajax({
-                url: "@Url.Action("TurbineCoordinatesData", "WindFarm", new {area = "WindFarms", windFarmId = Model.Id})",
+                url: "@Url.Action("TurbineCoordinatesData", "WindFarm", new { area = "WindFarms", windFarmId = Model.Id })",
                 dataType: 'json',
                 type: 'GET',
                 success: function(res) {
@@ -213,4 +209,4 @@
 
         })();
     </script>
-    }
+}

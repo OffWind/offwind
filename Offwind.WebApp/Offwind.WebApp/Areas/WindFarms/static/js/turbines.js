@@ -5,12 +5,10 @@
     var l = new Layout(4000, 4000, 1000, 100);
 
     var points = options.data;
-    console.log(spareRows);
     for (var i = 0; i < points.length; i++) {
         points[i].id = 't-' + i;
         points[i].index = i;
     }
-
 
     var collection = new Backbone.Collection();
     collection.reset(points);
@@ -20,6 +18,16 @@
         function makeTurbine() {
             var m = new Backbone.Model();
             var last = collection.at(collection.length - 1);
+
+            if (!last) {
+                m.set('index', collection.length);
+                m.set('id', 't-' + collection.length);
+                m.set('x', '');
+                m.set('y', '');
+                collection.add(m);
+                return m;
+            }
+
             if (last.get('x') == '' || last.get('y') == '')
                 return m;
             

@@ -147,13 +147,20 @@
                         if(el) el.parentNode.removeChild(el);
                         return;
                     }
-                    
                     var p = convertToScreenPoint(model.toJSON());
                   
                     if (el) {
                         el.setVisibility('visible');
                         el.setTransform('translate( ' + p.x + ',' + p.y + ')');
                     }
+                });
+                points.on('remove', function(model) {
+                    var el = document.getElementById(model.get('id'));
+                    if (el) el.parentNode.removeChild(el);
+                    return;
+                });
+                points.on('reset', function() {
+                    $(container).empty();
                 });
             }
             else if (points instanceof Array) {

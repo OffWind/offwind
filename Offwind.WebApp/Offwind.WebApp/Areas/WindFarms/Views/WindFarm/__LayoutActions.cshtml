@@ -2,7 +2,8 @@
 <div class="actions-block">
     @if (Model.CanEdit)
     {
-        <a href="#add-turbine" class="btn btn-primary">Add</a>
-        <a href="#delete-turbine" class="btn btn-danger">Delete</a>
+        <button id="add-turbine" class="btn btn-primary">Add</button>
+        <button id="delete-turbine" class="btn btn-danger disabled">Delete</button>
+        <button id="reset-turbines" class="btn btn-danger">Reset</button>
     }
 </div>

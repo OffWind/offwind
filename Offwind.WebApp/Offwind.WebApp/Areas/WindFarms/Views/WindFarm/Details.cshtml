@@ -42,6 +42,9 @@
             padding-left: 20px;
             width: 40%;
         }
+        .actionable-page .actions-block {
+            opacity: 1;
+        }
     </style>
 }
 <ul class="breadcrumb">
@@ -127,7 +130,7 @@
         </div>
     </div>
 </div>
-
+@Html.Partial("__ResetWarning")
 @section scripts
 {
     <script src="/static/js/standard/jquery.validate.js"></script>
@@ -171,18 +174,21 @@
         canEdit = '@Model.CanEdit';
             </text>
         }
-
+        
         var TurbineCoordinatesSaveURl = "@Url.Action("TurbineCoordinatesSave", "WindFarm", new { area = "WindFarms", windFarmId = Model.Id })";
+        var TurbineCoordinatesResetURl = "@Url.Action("RemoveAllTurbines", "WindFarm", new { area = "WindFarms", windFarmId = Model.Id })";
         var isInitialized = false;
         var changed = function() {
             if (!isInitialized) return;
             var data = $("#dataTable").handsontable('getData');
+           
             var res = [];
             data.forEach(function(entry) {
                 res.push([entry.get('index'), entry.get('x'), entry.get('y')]);
             });
+            var url = res.length ? TurbineCoordinatesSaveURl : TurbineCoordinatesResetURl;
             $.ajax({
-                url: TurbineCoordinatesSaveURl,
+                url:url,
                 dataType: "json",
                 type: "POST",
                 contentType: 'application/json; charset=utf-8',
@@ -191,7 +197,7 @@
         };
 
         (function() {
-
+            
             $.ajax({
                 url: "@Url.Action("TurbineCoordinatesData", "WindFarm", new { area = "WindFarms", windFarmId = Model.Id })",
                 dataType: 'json',

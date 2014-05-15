@@ -107,7 +107,8 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
         [HttpPost]
         public JsonResult RemoveAllTurbines(Guid windFarmId)
         {
-            _ctx.WindFarm_DeleteTurbines(windFarmId);
+            _ctx.DWindFarmTurbines.Where(x => x.WindFarmId == windFarmId).ForEach(x => _ctx.DWindFarmTurbines.DeleteObject(x));
+            _ctx.SaveChanges();
             return Json("OK");
         }
 
@@ -124,7 +125,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
 
             _ctx.DWindFarmTurbines.Where(x => x.WindFarmId == windFarmId).ForEach(x => _ctx.DWindFarmTurbines.DeleteObject(x));
 
-            for (var i = 0; i < turbines.Count - 1; i++)
+            for (var i = 0; i < turbines.Count; i++)
             {
                 var item = new DWindFarmTurbine
                 {

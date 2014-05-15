@@ -2471,6 +2471,8 @@
     <Content Include="Areas\Management\Views\News\Details.cshtml" />
     <Content Include="Areas\Management\Views\Carousel\Details.cshtml" />
     <Content Include="Areas\Management\Views\About\Details.cshtml" />
+    <Content Include="Areas\WindFarms\Views\WindFarm\__LayoutActions.cshtml" />
+    <Content Include="Areas\WindFarms\Views\WindFarm\__ResetWarning.cshtml" />
     <None Include="Documentation.chm" />
     <Content Include="files\Offwind_workshop_V3_Final.pdf" />
     <Content Include="files\Offwind_workshop_V3_Hotels.pdf" />

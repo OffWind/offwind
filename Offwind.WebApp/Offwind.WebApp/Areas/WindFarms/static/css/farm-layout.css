@@ -11,3 +11,7 @@ text {
 .handsontable .currentRow { background-color: white; }
 
 .handsontable .currentCol { background-color: white; }
+
+tr.selectedRow td {
+    background-color: #E0E0E0 !important;
+}

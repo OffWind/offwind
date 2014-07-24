@@ -64,7 +64,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
     </Reference>
-    <Reference Include="EmitMapper">
+    <Reference Include="EmitMapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EmitMapper.1.0.0\lib\EmitMapper.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

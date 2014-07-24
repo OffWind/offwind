@@ -366,12 +366,26 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="app-js\app.js" />
-    <Content Include="static\backbone-1.1.2\backbone-min.js" />
-    <Content Include="static\backbone-1.1.2\backbone.js" />
-    <Content Include="static\backbone-js-1.0.0\backbone-min.js" />
-    <Content Include="static\backbone-js-1.0.0\backbone.js" />
-    <Content Include="static\backbone-js-1.0.0\underscore-min.js" />
-    <Content Include="static\backbone-js-1.0.0\underscore.js" />
+    <Content Include="static\backbone-js\1.0.0\backbone-min.js" />
+    <Content Include="static\backbone-js\1.0.0\backbone.js" />
+    <Content Include="static\backbone-js\1.0.0\underscore-min.js" />
+    <Content Include="static\backbone-js\1.0.0\underscore.js" />
+    <Content Include="static\backbone-js\1.1.2\backbone-min.js" />
+    <Content Include="static\backbone-js\1.1.2\backbone-min.min.js" />
+    <Content Include="static\backbone-js\1.1.2\backbone.js" />
+    <Content Include="static\backbone-js\1.1.2\underscore-min.js" />
+    <Content Include="static\backbone-js\1.1.2\underscore-min.min.js" />
+    <Content Include="static\backbone-js\1.1.2\underscore.js" />
+    <Content Include="static\backbone-js\ext\backbone-pageable.js" />
+    <Content Include="static\backbone-js\ext\backbone-pageable.min.js" />
+    <Content Include="static\backbone-js\ext\backbone-pageable.min.min.js" />
+    <Content Include="static\backbone.marionette\amd\backbone.marionette.js" />
+    <Content Include="static\backbone.marionette\amd\backbone.marionette.min.js" />
+    <Content Include="static\backbone.marionette\backbone.marionette.js" />
+    <Content Include="static\backbone.marionette\backbone.marionette.min.js" />
+    <Content Include="static\backbone.marionette\json2.js" />
+    <Content Include="static\backbone.marionette\marionette.handlebars.js" />
+    <Content Include="static\backbone.marionette\marionette.handlebars.min.js" />
     <Content Include="static\bootstrap-3.1.1\css\bootstrap-theme.css" />
     <Content Include="static\bootstrap-3.1.1\css\bootstrap-theme.min.css" />
     <Content Include="static\bootstrap-3.1.1\css\bootstrap.css" />
@@ -850,6 +864,8 @@
     <Content Include="static\css\bs-docs.css" />
     <Content Include="static\css\elements.css" />
     <Content Include="static\css\myelements.css" />
+    <Content Include="static\handlebars\handlebars-v1.3.0.js" />
+    <Content Include="static\handlebars\handlebars-v1.3.0.min.js" />
     <Content Include="static\handsontable-0.10.3\jquery.handsontable.bootstrap.css" />
     <Content Include="static\css\theme.css" />
     <Content Include="static\eng-tools\meso-wind\db-fnl.png" />
@@ -2474,13 +2490,12 @@
     <Content Include="Areas\Management\Views\About\Details.cshtml" />
     <Content Include="Areas\WindFarms\Views\WindFarm\__LayoutActions.cshtml" />
     <Content Include="Areas\WindFarms\Views\WindFarm\__ResetWarning.cshtml" />
+    <Content Include="bundler\bundler.cmd" />
     <None Include="Documentation.chm" />
     <Content Include="files\Offwind_workshop_V3_Final.pdf" />
     <Content Include="files\Offwind_workshop_V3_Hotels.pdf" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="static\.DS_Store" />
-    <Content Include="static\backbone-js-1.0.0\backbone-min.map" />
-    <Content Include="static\backbone-js-1.0.0\underscore-min.map" />
     <Content Include="static\bootstrap-3.1.1\css\bootstrap-theme.css.map" />
     <Content Include="static\bootstrap-3.1.1\css\bootstrap.css.map" />
     <Content Include="static\bootstrap-3.1.1\fonts\glyphicons-halflings-regular.eot" />
@@ -2495,7 +2510,11 @@
     <Content Include="static\ckeditor\README.md" />
     <Content Include="static\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="static\ckeditor\skins\moono\readme.md" />
-    <Content Include="static\backbone-1.1.2\backbone-min.map" />
+    <Content Include="static\backbone-js\1.0.0\backbone-min.map" />
+    <Content Include="static\backbone-js\1.0.0\underscore-min.map" />
+    <Content Include="static\backbone-js\1.1.2\backbone-min.map" />
+    <Content Include="static\backbone-js\1.1.2\underscore-min.map" />
+    <None Include="static\vendor.ag.js.bundle" />
     <None Include="static\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <None Include="static\eng-tools\meso-wind\TAB-format-summary.docx" />
     <None Include="static\eng-tools\meso-wind\TAB-format-summary.pdf" />
@@ -2762,6 +2781,9 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)bundler\bundler.cmd"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

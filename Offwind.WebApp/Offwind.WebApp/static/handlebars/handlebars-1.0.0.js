@@ -121,17 +121,16 @@ Handlebars.logger = {
 
 Handlebars.log = function(level, obj) { Handlebars.logger.log(level, obj); };
 
-Handlebars.registerHelper('each', function(context, options) {
+Handlebars.registerHelper('each', function (context, options) {
   var fn = options.fn, inverse = options.inverse;
   var i = 0, ret = "", data;
-
   var type = toString.call(context);
   if(type === functionType) { context = context.call(this); }
 
   if (options.data) {
     data = Handlebars.createFrame(options.data);
   }
-
+   
   if(context && typeof context === 'object') {
     if(context instanceof Array){
       for(var j = context.length; i<j; i++) {

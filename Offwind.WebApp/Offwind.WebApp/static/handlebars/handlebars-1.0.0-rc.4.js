@@ -123,7 +123,6 @@ Handlebars.log = function(level, obj) { Handlebars.logger.log(level, obj); };
 Handlebars.registerHelper('each', function(context, options) {
   var fn = options.fn, inverse = options.inverse;
   var i = 0, ret = "", data;
-
   if (options.data) {
     data = Handlebars.createFrame(options.data);
   }

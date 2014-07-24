@@ -1,0 +1,6 @@
+handlebars/handlebars-v1.3.0.js
+backbone-js/1.1.2/underscore-min.js
+backbone-js/1.1.2/backbone-min.js
+backbone-js/ext/backbone-pageable.min.js
+backbone.marionette/backbone.marionette.js
+backbone.marionette/marionette.handlebars.js

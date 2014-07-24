@@ -76,8 +76,11 @@
 </div>
 @Html.Partial("__LatestPosts")
 
+@section scripts
+{
 <script>
     $('.carousel').carousel({
         interval: 2000
     })
-</script>
+</script>    
+}

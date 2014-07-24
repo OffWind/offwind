@@ -200,6 +200,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\v1\WindFarmsController.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -364,7 +365,7 @@
     <Content Include="Areas\WindFarms\static\js\turbines.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="static\app.js" />
+    <Content Include="app-js\app.js" />
     <Content Include="static\backbone-1.1.2\backbone-min.js" />
     <Content Include="static\backbone-1.1.2\backbone.js" />
     <Content Include="static\backbone-js-1.0.0\backbone-min.js" />

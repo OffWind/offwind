@@ -325,6 +325,7 @@
     <Compile Include="Infrastructure\AccountsHelper.cs" />
     <Compile Include="Infrastructure\Breadcrumbs\BreadcrumbsCollection.cs" />
     <Compile Include="Infrastructure\Breadcrumbs\BreadcrumbsItem.cs" />
+    <Compile Include="Infrastructure\Bundler.cs" />
     <Compile Include="Infrastructure\GuidConstraint.cs" />
     <Compile Include="Infrastructure\EmitMapperExtensions.cs" />
     <Compile Include="Infrastructure\Navigation\NavItem.cs" />

@@ -17,10 +17,6 @@ namespace Offwind.WebApp.App_Start
                         "~/static/js/standard/jquery.unobtrusive*",
                         "~/static/js/standard/jquery.validate*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/backbone").Include(
-                        "~/static/backbone-js-1.0.0/underscore-min.js",
-                        "~/static/backbone-js-1.0.0/backbone-min.js"));
-
             //// Use the development version of Modernizr to develop with and learn from. Then, when you're
             //// ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include("~/static/js/standard/modernizr-*"));

@@ -1,4 +1,5 @@
-﻿@using Offwind.WebApp.Infrastructure.Navigation
+﻿@using Offwind.WebApp.Infrastructure
+@using Offwind.WebApp.Infrastructure.Navigation
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,8 +91,8 @@
     <script src="/static/jquery-1.8.1.min.js" type="text/javascript"></script>
     <script src="/static/bootstrap/js/bootstrap.js?v=@ViewBag.Version"></script>
     <script src="/static/bootstrap/js/offwind.js?v=@ViewBag.Version"></script>
-    @Scripts.Render("~/bundles/backbone")
     <script src="/app-js/app.js?v=@ViewBag.Version"></script>
+    @Html.RenderJsBundle("~/static/vendor.ag.js.bundle", BundleOptions.Normal)
     @RenderSection("scripts", false)
 
     <script type="text/javascript">

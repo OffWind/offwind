@@ -1271,7 +1271,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1290,7 +1290,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -1315,7 +1315,7 @@ namespace Offwind.Web.Core
             {
                 OnCreatedChanging(value);
                 ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
+                _Created = StructuralObject.SetValidValue(value, "Created");
                 ReportPropertyChanged("Created");
                 OnCreatedChanged();
             }
@@ -1339,7 +1339,7 @@ namespace Offwind.Web.Core
             {
                 OnOwnerChanging(value);
                 ReportPropertyChanging("Owner");
-                _Owner = StructuralObject.SetValidValue(value, false);
+                _Owner = StructuralObject.SetValidValue(value, false, "Owner");
                 ReportPropertyChanged("Owner");
                 OnOwnerChanged();
             }
@@ -1363,7 +1363,7 @@ namespace Offwind.Web.Core
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -1387,7 +1387,7 @@ namespace Offwind.Web.Core
             {
                 OnModelChanging(value);
                 ReportPropertyChanging("Model");
-                _Model = StructuralObject.SetValidValue(value, false);
+                _Model = StructuralObject.SetValidValue(value, false, "Model");
                 ReportPropertyChanged("Model");
                 OnModelChanged();
             }
@@ -1411,7 +1411,7 @@ namespace Offwind.Web.Core
             {
                 OnCurrentJobIdChanging(value);
                 ReportPropertyChanging("CurrentJobId");
-                _CurrentJobId = StructuralObject.SetValidValue(value);
+                _CurrentJobId = StructuralObject.SetValidValue(value, "CurrentJobId");
                 ReportPropertyChanged("CurrentJobId");
                 OnCurrentJobIdChanged();
             }
@@ -1422,7 +1422,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -1454,7 +1453,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1473,7 +1472,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -1498,7 +1497,7 @@ namespace Offwind.Web.Core
             {
                 OnObjectUidChanging(value);
                 ReportPropertyChanging("ObjectUid");
-                _ObjectUid = StructuralObject.SetValidValue(value);
+                _ObjectUid = StructuralObject.SetValidValue(value, "ObjectUid");
                 ReportPropertyChanged("ObjectUid");
                 OnObjectUidChanged();
             }
@@ -1522,7 +1521,7 @@ namespace Offwind.Web.Core
             {
                 OnCreatedChanging(value);
                 ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
+                _Created = StructuralObject.SetValidValue(value, "Created");
                 ReportPropertyChanged("Created");
                 OnCreatedChanged();
             }
@@ -1546,7 +1545,7 @@ namespace Offwind.Web.Core
             {
                 OnAuthorChanging(value);
                 ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value, false);
+                _Author = StructuralObject.SetValidValue(value, false, "Author");
                 ReportPropertyChanged("Author");
                 OnAuthorChanged();
             }
@@ -1570,7 +1569,7 @@ namespace Offwind.Web.Core
             {
                 OnTextChanging(value);
                 ReportPropertyChanging("Text");
-                _Text = StructuralObject.SetValidValue(value, false);
+                _Text = StructuralObject.SetValidValue(value, false, "Text");
                 ReportPropertyChanged("Text");
                 OnTextChanged();
             }
@@ -1581,7 +1580,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -1637,7 +1635,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1656,7 +1654,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -1681,7 +1679,7 @@ namespace Offwind.Web.Core
             {
                 OnParentIdChanging(value);
                 ReportPropertyChanging("ParentId");
-                _ParentId = StructuralObject.SetValidValue(value);
+                _ParentId = StructuralObject.SetValidValue(value, "ParentId");
                 ReportPropertyChanged("ParentId");
                 OnParentIdChanged();
             }
@@ -1705,7 +1703,7 @@ namespace Offwind.Web.Core
             {
                 OnTypeIdChanging(value);
                 ReportPropertyChanging("TypeId");
-                _TypeId = StructuralObject.SetValidValue(value, false);
+                _TypeId = StructuralObject.SetValidValue(value, false, "TypeId");
                 ReportPropertyChanged("TypeId");
                 OnTypeIdChanged();
             }
@@ -1729,7 +1727,7 @@ namespace Offwind.Web.Core
             {
                 OnCategoryIdChanging(value);
                 ReportPropertyChanging("CategoryId");
-                _CategoryId = StructuralObject.SetValidValue(value);
+                _CategoryId = StructuralObject.SetValidValue(value, "CategoryId");
                 ReportPropertyChanged("CategoryId");
                 OnCategoryIdChanged();
             }
@@ -1753,7 +1751,7 @@ namespace Offwind.Web.Core
             {
                 OnRouteTitleChanging(value);
                 ReportPropertyChanging("RouteTitle");
-                _RouteTitle = StructuralObject.SetValidValue(value, true);
+                _RouteTitle = StructuralObject.SetValidValue(value, true, "RouteTitle");
                 ReportPropertyChanged("RouteTitle");
                 OnRouteTitleChanged();
             }
@@ -1777,7 +1775,7 @@ namespace Offwind.Web.Core
             {
                 OnRouteChanging(value);
                 ReportPropertyChanging("Route");
-                _Route = StructuralObject.SetValidValue(value, false);
+                _Route = StructuralObject.SetValidValue(value, false, "Route");
                 ReportPropertyChanged("Route");
                 OnRouteChanged();
             }
@@ -1801,7 +1799,7 @@ namespace Offwind.Web.Core
             {
                 OnPositionChanging(value);
                 ReportPropertyChanging("Position");
-                _Position = StructuralObject.SetValidValue(value);
+                _Position = StructuralObject.SetValidValue(value, "Position");
                 ReportPropertyChanged("Position");
                 OnPositionChanged();
             }
@@ -1825,7 +1823,7 @@ namespace Offwind.Web.Core
             {
                 OnBrowserTitleChanging(value);
                 ReportPropertyChanging("BrowserTitle");
-                _BrowserTitle = StructuralObject.SetValidValue(value, false);
+                _BrowserTitle = StructuralObject.SetValidValue(value, false, "BrowserTitle");
                 ReportPropertyChanged("BrowserTitle");
                 OnBrowserTitleChanged();
             }
@@ -1849,7 +1847,7 @@ namespace Offwind.Web.Core
             {
                 OnMetaDescriptionChanging(value);
                 ReportPropertyChanging("MetaDescription");
-                _MetaDescription = StructuralObject.SetValidValue(value, false);
+                _MetaDescription = StructuralObject.SetValidValue(value, false, "MetaDescription");
                 ReportPropertyChanged("MetaDescription");
                 OnMetaDescriptionChanged();
             }
@@ -1873,7 +1871,7 @@ namespace Offwind.Web.Core
             {
                 OnMetaKeywordsChanging(value);
                 ReportPropertyChanging("MetaKeywords");
-                _MetaKeywords = StructuralObject.SetValidValue(value, false);
+                _MetaKeywords = StructuralObject.SetValidValue(value, false, "MetaKeywords");
                 ReportPropertyChanged("MetaKeywords");
                 OnMetaKeywordsChanged();
             }
@@ -1897,7 +1895,7 @@ namespace Offwind.Web.Core
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -1921,7 +1919,7 @@ namespace Offwind.Web.Core
             {
                 OnTitleChanging(value);
                 ReportPropertyChanging("Title");
-                _Title = StructuralObject.SetValidValue(value, false);
+                _Title = StructuralObject.SetValidValue(value, false, "Title");
                 ReportPropertyChanged("Title");
                 OnTitleChanged();
             }
@@ -1945,7 +1943,7 @@ namespace Offwind.Web.Core
             {
                 OnAnnounceChanging(value);
                 ReportPropertyChanging("Announce");
-                _Announce = StructuralObject.SetValidValue(value, false);
+                _Announce = StructuralObject.SetValidValue(value, false, "Announce");
                 ReportPropertyChanged("Announce");
                 OnAnnounceChanged();
             }
@@ -1969,7 +1967,7 @@ namespace Offwind.Web.Core
             {
                 OnContentChanging(value);
                 ReportPropertyChanging("Content");
-                _Content = StructuralObject.SetValidValue(value, false);
+                _Content = StructuralObject.SetValidValue(value, false, "Content");
                 ReportPropertyChanged("Content");
                 OnContentChanged();
             }
@@ -1993,7 +1991,7 @@ namespace Offwind.Web.Core
             {
                 OnCreatedChanging(value);
                 ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
+                _Created = StructuralObject.SetValidValue(value, "Created");
                 ReportPropertyChanged("Created");
                 OnCreatedChanged();
             }
@@ -2017,7 +2015,7 @@ namespace Offwind.Web.Core
             {
                 OnUpdatedChanging(value);
                 ReportPropertyChanging("Updated");
-                _Updated = StructuralObject.SetValidValue(value);
+                _Updated = StructuralObject.SetValidValue(value, "Updated");
                 ReportPropertyChanged("Updated");
                 OnUpdatedChanged();
             }
@@ -2041,7 +2039,7 @@ namespace Offwind.Web.Core
             {
                 OnPublishDateChanging(value);
                 ReportPropertyChanging("PublishDate");
-                _PublishDate = StructuralObject.SetValidValue(value);
+                _PublishDate = StructuralObject.SetValidValue(value, "PublishDate");
                 ReportPropertyChanged("PublishDate");
                 OnPublishDateChanged();
             }
@@ -2065,7 +2063,7 @@ namespace Offwind.Web.Core
             {
                 OnExpirationDateChanging(value);
                 ReportPropertyChanging("ExpirationDate");
-                _ExpirationDate = StructuralObject.SetValidValue(value);
+                _ExpirationDate = StructuralObject.SetValidValue(value, "ExpirationDate");
                 ReportPropertyChanged("ExpirationDate");
                 OnExpirationDateChanged();
             }
@@ -2089,7 +2087,7 @@ namespace Offwind.Web.Core
             {
                 OnIsPublishedChanging(value);
                 ReportPropertyChanging("IsPublished");
-                _IsPublished = StructuralObject.SetValidValue(value);
+                _IsPublished = StructuralObject.SetValidValue(value, "IsPublished");
                 ReportPropertyChanged("IsPublished");
                 OnIsPublishedChanged();
             }
@@ -2100,7 +2098,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -2210,7 +2207,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2229,7 +2226,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -2254,7 +2251,7 @@ namespace Offwind.Web.Core
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -2278,7 +2275,7 @@ namespace Offwind.Web.Core
             {
                 OnTitleChanging(value);
                 ReportPropertyChanging("Title");
-                _Title = StructuralObject.SetValidValue(value, false);
+                _Title = StructuralObject.SetValidValue(value, false, "Title");
                 ReportPropertyChanged("Title");
                 OnTitleChanged();
             }
@@ -2302,7 +2299,7 @@ namespace Offwind.Web.Core
             {
                 OnRouteChanging(value);
                 ReportPropertyChanging("Route");
-                _Route = StructuralObject.SetValidValue(value, true);
+                _Route = StructuralObject.SetValidValue(value, true, "Route");
                 ReportPropertyChanged("Route");
                 OnRouteChanged();
             }
@@ -2313,7 +2310,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -2365,7 +2361,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2384,7 +2380,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, false);
+                    _Id = StructuralObject.SetValidValue(value, false, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -2396,7 +2392,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -2450,7 +2445,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2469,7 +2464,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -2494,7 +2489,7 @@ namespace Offwind.Web.Core
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -2505,7 +2500,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -2531,7 +2525,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2550,7 +2544,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -2575,7 +2569,7 @@ namespace Offwind.Web.Core
             {
                 OnDataChanging(value);
                 ReportPropertyChanging("Data");
-                _Data = StructuralObject.SetValidValue(value, true);
+                _Data = StructuralObject.SetValidValue(value, true, "Data");
                 ReportPropertyChanged("Data");
                 OnDataChanged();
             }
@@ -2599,7 +2593,7 @@ namespace Offwind.Web.Core
             {
                 OnMinutesDataChanging(value);
                 ReportPropertyChanging("MinutesData");
-                _MinutesData = StructuralObject.SetValidValue(value, true);
+                _MinutesData = StructuralObject.SetValidValue(value, true, "MinutesData");
                 ReportPropertyChanged("MinutesData");
                 OnMinutesDataChanged();
             }
@@ -2623,7 +2617,7 @@ namespace Offwind.Web.Core
             {
                 OnMinutesBinaryChanging(value);
                 ReportPropertyChanging("MinutesBinary");
-                _MinutesBinary = StructuralObject.SetValidValue(value, true);
+                _MinutesBinary = StructuralObject.SetValidValue(value, true, "MinutesBinary");
                 ReportPropertyChanged("MinutesBinary");
                 OnMinutesBinaryChanged();
             }
@@ -2634,7 +2628,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -2676,7 +2669,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2695,7 +2688,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -2720,7 +2713,7 @@ namespace Offwind.Web.Core
             {
                 OnEventIdChanging(value);
                 ReportPropertyChanging("EventId");
-                _EventId = StructuralObject.SetValidValue(value);
+                _EventId = StructuralObject.SetValidValue(value, "EventId");
                 ReportPropertyChanged("EventId");
                 OnEventIdChanged();
             }
@@ -2744,7 +2737,7 @@ namespace Offwind.Web.Core
             {
                 OnCreatedChanging(value);
                 ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
+                _Created = StructuralObject.SetValidValue(value, "Created");
                 ReportPropertyChanged("Created");
                 OnCreatedChanged();
             }
@@ -2768,7 +2761,7 @@ namespace Offwind.Web.Core
             {
                 OnUpdatedChanging(value);
                 ReportPropertyChanging("Updated");
-                _Updated = StructuralObject.SetValidValue(value);
+                _Updated = StructuralObject.SetValidValue(value, "Updated");
                 ReportPropertyChanged("Updated");
                 OnUpdatedChanged();
             }
@@ -2792,7 +2785,7 @@ namespace Offwind.Web.Core
             {
                 OnFullNameChanging(value);
                 ReportPropertyChanging("FullName");
-                _FullName = StructuralObject.SetValidValue(value, false);
+                _FullName = StructuralObject.SetValidValue(value, false, "FullName");
                 ReportPropertyChanged("FullName");
                 OnFullNameChanged();
             }
@@ -2816,7 +2809,7 @@ namespace Offwind.Web.Core
             {
                 OnRegisteredByChanging(value);
                 ReportPropertyChanging("RegisteredBy");
-                _RegisteredBy = StructuralObject.SetValidValue(value, true);
+                _RegisteredBy = StructuralObject.SetValidValue(value, true, "RegisteredBy");
                 ReportPropertyChanged("RegisteredBy");
                 OnRegisteredByChanged();
             }
@@ -2840,7 +2833,7 @@ namespace Offwind.Web.Core
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, false);
+                _Email = StructuralObject.SetValidValue(value, false, "Email");
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -2864,7 +2857,7 @@ namespace Offwind.Web.Core
             {
                 OnCompanyChanging(value);
                 ReportPropertyChanging("Company");
-                _Company = StructuralObject.SetValidValue(value, false);
+                _Company = StructuralObject.SetValidValue(value, false, "Company");
                 ReportPropertyChanged("Company");
                 OnCompanyChanged();
             }
@@ -2888,7 +2881,7 @@ namespace Offwind.Web.Core
             {
                 OnPhoneChanging(value);
                 ReportPropertyChanging("Phone");
-                _Phone = StructuralObject.SetValidValue(value, false);
+                _Phone = StructuralObject.SetValidValue(value, false, "Phone");
                 ReportPropertyChanged("Phone");
                 OnPhoneChanged();
             }
@@ -2912,7 +2905,7 @@ namespace Offwind.Web.Core
             {
                 OnCommentChanging(value);
                 ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, false);
+                _Comment = StructuralObject.SetValidValue(value, false, "Comment");
                 ReportPropertyChanged("Comment");
                 OnCommentChanged();
             }
@@ -2936,7 +2929,7 @@ namespace Offwind.Web.Core
             {
                 OnFirstNameChanging(value);
                 ReportPropertyChanging("FirstName");
-                _FirstName = StructuralObject.SetValidValue(value, true);
+                _FirstName = StructuralObject.SetValidValue(value, true, "FirstName");
                 ReportPropertyChanged("FirstName");
                 OnFirstNameChanged();
             }
@@ -2960,7 +2953,7 @@ namespace Offwind.Web.Core
             {
                 OnSurnameChanging(value);
                 ReportPropertyChanging("Surname");
-                _Surname = StructuralObject.SetValidValue(value, true);
+                _Surname = StructuralObject.SetValidValue(value, true, "Surname");
                 ReportPropertyChanged("Surname");
                 OnSurnameChanged();
             }
@@ -2984,7 +2977,7 @@ namespace Offwind.Web.Core
             {
                 OnOrganizationChanging(value);
                 ReportPropertyChanging("Organization");
-                _Organization = StructuralObject.SetValidValue(value, true);
+                _Organization = StructuralObject.SetValidValue(value, true, "Organization");
                 ReportPropertyChanged("Organization");
                 OnOrganizationChanged();
             }
@@ -3008,7 +3001,7 @@ namespace Offwind.Web.Core
             {
                 OnCountryChanging(value);
                 ReportPropertyChanging("Country");
-                _Country = StructuralObject.SetValidValue(value, true);
+                _Country = StructuralObject.SetValidValue(value, true, "Country");
                 ReportPropertyChanged("Country");
                 OnCountryChanged();
             }
@@ -3032,7 +3025,7 @@ namespace Offwind.Web.Core
             {
                 OnCommentsChanging(value);
                 ReportPropertyChanging("Comments");
-                _Comments = StructuralObject.SetValidValue(value, true);
+                _Comments = StructuralObject.SetValidValue(value, true, "Comments");
                 ReportPropertyChanged("Comments");
                 OnCommentsChanged();
             }
@@ -3043,7 +3036,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -3075,7 +3067,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3094,7 +3086,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -3119,7 +3111,7 @@ namespace Offwind.Web.Core
             {
                 OnEventIdChanging(value);
                 ReportPropertyChanging("EventId");
-                _EventId = StructuralObject.SetValidValue(value);
+                _EventId = StructuralObject.SetValidValue(value, "EventId");
                 ReportPropertyChanged("EventId");
                 OnEventIdChanged();
             }
@@ -3143,7 +3135,7 @@ namespace Offwind.Web.Core
             {
                 OnUserIdChanging(value);
                 ReportPropertyChanging("UserId");
-                _UserId = StructuralObject.SetValidValue(value);
+                _UserId = StructuralObject.SetValidValue(value, "UserId");
                 ReportPropertyChanged("UserId");
                 OnUserIdChanged();
             }
@@ -3167,7 +3159,7 @@ namespace Offwind.Web.Core
             {
                 OnCreatedChanging(value);
                 ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
+                _Created = StructuralObject.SetValidValue(value, "Created");
                 ReportPropertyChanged("Created");
                 OnCreatedChanged();
             }
@@ -3178,7 +3170,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -3212,7 +3203,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3231,7 +3222,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -3256,7 +3247,7 @@ namespace Offwind.Web.Core
             {
                 OnParticipantIdChanging(value);
                 ReportPropertyChanging("ParticipantId");
-                _ParticipantId = StructuralObject.SetValidValue(value);
+                _ParticipantId = StructuralObject.SetValidValue(value, "ParticipantId");
                 ReportPropertyChanged("ParticipantId");
                 OnParticipantIdChanged();
             }
@@ -3280,7 +3271,7 @@ namespace Offwind.Web.Core
             {
                 OnCreatedChanging(value);
                 ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
+                _Created = StructuralObject.SetValidValue(value, "Created");
                 ReportPropertyChanged("Created");
                 OnCreatedChanged();
             }
@@ -3304,7 +3295,7 @@ namespace Offwind.Web.Core
             {
                 OnAuthorIdChanging(value);
                 ReportPropertyChanging("AuthorId");
-                _AuthorId = StructuralObject.SetValidValue(value);
+                _AuthorId = StructuralObject.SetValidValue(value, "AuthorId");
                 ReportPropertyChanged("AuthorId");
                 OnAuthorIdChanged();
             }
@@ -3328,7 +3319,7 @@ namespace Offwind.Web.Core
             {
                 OnTextChanging(value);
                 ReportPropertyChanging("Text");
-                _Text = StructuralObject.SetValidValue(value, false);
+                _Text = StructuralObject.SetValidValue(value, false, "Text");
                 ReportPropertyChanged("Text");
                 OnTextChanged();
             }
@@ -3339,7 +3330,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -3373,7 +3363,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3392,7 +3382,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -3417,7 +3407,7 @@ namespace Offwind.Web.Core
             {
                 OnStartedChanging(value);
                 ReportPropertyChanging("Started");
-                _Started = StructuralObject.SetValidValue(value);
+                _Started = StructuralObject.SetValidValue(value, "Started");
                 ReportPropertyChanged("Started");
                 OnStartedChanged();
             }
@@ -3441,7 +3431,7 @@ namespace Offwind.Web.Core
             {
                 OnRunningSinceChanging(value);
                 ReportPropertyChanging("RunningSince");
-                _RunningSince = StructuralObject.SetValidValue(value);
+                _RunningSince = StructuralObject.SetValidValue(value, "RunningSince");
                 ReportPropertyChanged("RunningSince");
                 OnRunningSinceChanged();
             }
@@ -3465,7 +3455,7 @@ namespace Offwind.Web.Core
             {
                 OnFinishedChanging(value);
                 ReportPropertyChanging("Finished");
-                _Finished = StructuralObject.SetValidValue(value);
+                _Finished = StructuralObject.SetValidValue(value, "Finished");
                 ReportPropertyChanged("Finished");
                 OnFinishedChanged();
             }
@@ -3489,7 +3479,7 @@ namespace Offwind.Web.Core
             {
                 OnOwnerChanging(value);
                 ReportPropertyChanging("Owner");
-                _Owner = StructuralObject.SetValidValue(value, false);
+                _Owner = StructuralObject.SetValidValue(value, false, "Owner");
                 ReportPropertyChanged("Owner");
                 OnOwnerChanged();
             }
@@ -3513,7 +3503,7 @@ namespace Offwind.Web.Core
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -3537,7 +3527,7 @@ namespace Offwind.Web.Core
             {
                 OnStateChanging(value);
                 ReportPropertyChanging("State");
-                _State = StructuralObject.SetValidValue(value, false);
+                _State = StructuralObject.SetValidValue(value, false, "State");
                 ReportPropertyChanged("State");
                 OnStateChanged();
             }
@@ -3561,7 +3551,7 @@ namespace Offwind.Web.Core
             {
                 OnResultChanging(value);
                 ReportPropertyChanging("Result");
-                _Result = StructuralObject.SetValidValue(value, true);
+                _Result = StructuralObject.SetValidValue(value, true, "Result");
                 ReportPropertyChanged("Result");
                 OnResultChanged();
             }
@@ -3585,7 +3575,7 @@ namespace Offwind.Web.Core
             {
                 OnResultDataChanging(value);
                 ReportPropertyChanging("ResultData");
-                _ResultData = StructuralObject.SetValidValue(value, true);
+                _ResultData = StructuralObject.SetValidValue(value, true, "ResultData");
                 ReportPropertyChanged("ResultData");
                 OnResultDataChanged();
             }
@@ -3596,7 +3586,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -3626,7 +3615,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3645,7 +3634,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -3670,7 +3659,7 @@ namespace Offwind.Web.Core
             {
                 OnTypeIdChanging(value);
                 ReportPropertyChanging("TypeId");
-                _TypeId = StructuralObject.SetValidValue(value, false);
+                _TypeId = StructuralObject.SetValidValue(value, false, "TypeId");
                 ReportPropertyChanged("TypeId");
                 OnTypeIdChanged();
             }
@@ -3694,7 +3683,7 @@ namespace Offwind.Web.Core
             {
                 OnDateTimeChanging(value);
                 ReportPropertyChanging("DateTime");
-                _DateTime = StructuralObject.SetValidValue(value);
+                _DateTime = StructuralObject.SetValidValue(value, "DateTime");
                 ReportPropertyChanged("DateTime");
                 OnDateTimeChanged();
             }
@@ -3705,7 +3694,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -3783,7 +3771,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3802,7 +3790,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -3827,7 +3815,7 @@ namespace Offwind.Web.Core
             {
                 OnMeetingIdChanging(value);
                 ReportPropertyChanging("MeetingId");
-                _MeetingId = StructuralObject.SetValidValue(value);
+                _MeetingId = StructuralObject.SetValidValue(value, "MeetingId");
                 ReportPropertyChanged("MeetingId");
                 OnMeetingIdChanged();
             }
@@ -3851,7 +3839,7 @@ namespace Offwind.Web.Core
             {
                 OnFileNameChanging(value);
                 ReportPropertyChanging("FileName");
-                _FileName = StructuralObject.SetValidValue(value, false);
+                _FileName = StructuralObject.SetValidValue(value, false, "FileName");
                 ReportPropertyChanged("FileName");
                 OnFileNameChanged();
             }
@@ -3875,7 +3863,7 @@ namespace Offwind.Web.Core
             {
                 OnDataChanging(value);
                 ReportPropertyChanging("Data");
-                _Data = StructuralObject.SetValidValue(value, true);
+                _Data = StructuralObject.SetValidValue(value, true, "Data");
                 ReportPropertyChanged("Data");
                 OnDataChanged();
             }
@@ -3886,7 +3874,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -3956,7 +3943,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3975,7 +3962,7 @@ namespace Offwind.Web.Core
                 {
                     OnMeetingIdChanging(value);
                     ReportPropertyChanging("MeetingId");
-                    _MeetingId = StructuralObject.SetValidValue(value);
+                    _MeetingId = StructuralObject.SetValidValue(value, "MeetingId");
                     ReportPropertyChanged("MeetingId");
                     OnMeetingIdChanged();
                 }
@@ -4002,7 +3989,7 @@ namespace Offwind.Web.Core
                 {
                     OnParticipantChanging(value);
                     ReportPropertyChanging("Participant");
-                    _Participant = StructuralObject.SetValidValue(value, false);
+                    _Participant = StructuralObject.SetValidValue(value, false, "Participant");
                     ReportPropertyChanged("Participant");
                     OnParticipantChanged();
                 }
@@ -4014,7 +4001,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -4084,7 +4070,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4103,7 +4089,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -4128,7 +4114,7 @@ namespace Offwind.Web.Core
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -4139,7 +4125,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -4199,7 +4184,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4218,7 +4203,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -4243,7 +4228,7 @@ namespace Offwind.Web.Core
             {
                 OnDatabaseIdChanging(value);
                 ReportPropertyChanging("DatabaseId");
-                _DatabaseId = StructuralObject.SetValidValue(value);
+                _DatabaseId = StructuralObject.SetValidValue(value, "DatabaseId");
                 ReportPropertyChanged("DatabaseId");
                 OnDatabaseIdChanged();
             }
@@ -4267,7 +4252,7 @@ namespace Offwind.Web.Core
             {
                 OnLatitudeChanging(value);
                 ReportPropertyChanging("Latitude");
-                _Latitude = StructuralObject.SetValidValue(value);
+                _Latitude = StructuralObject.SetValidValue(value, "Latitude");
                 ReportPropertyChanged("Latitude");
                 OnLatitudeChanged();
             }
@@ -4291,7 +4276,7 @@ namespace Offwind.Web.Core
             {
                 OnLongitudeChanging(value);
                 ReportPropertyChanging("Longitude");
-                _Longitude = StructuralObject.SetValidValue(value);
+                _Longitude = StructuralObject.SetValidValue(value, "Longitude");
                 ReportPropertyChanged("Longitude");
                 OnLongitudeChanged();
             }
@@ -4315,7 +4300,7 @@ namespace Offwind.Web.Core
             {
                 OnTextChanging(value);
                 ReportPropertyChanging("Text");
-                _Text = StructuralObject.SetValidValue(value, false);
+                _Text = StructuralObject.SetValidValue(value, false, "Text");
                 ReportPropertyChanged("Text");
                 OnTextChanged();
             }
@@ -4326,7 +4311,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -4396,7 +4380,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4415,7 +4399,7 @@ namespace Offwind.Web.Core
                 {
                     OnNameChanging(value);
                     ReportPropertyChanging("Name");
-                    _Name = StructuralObject.SetValidValue(value, false);
+                    _Name = StructuralObject.SetValidValue(value, false, "Name");
                     ReportPropertyChanged("Name");
                     OnNameChanged();
                 }
@@ -4440,7 +4424,7 @@ namespace Offwind.Web.Core
             {
                 OnValueChanging(value);
                 ReportPropertyChanging("Value");
-                _Value = StructuralObject.SetValidValue(value, false);
+                _Value = StructuralObject.SetValidValue(value, false, "Value");
                 ReportPropertyChanged("Value");
                 OnValueChanged();
             }
@@ -4451,7 +4435,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -4487,7 +4470,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4506,7 +4489,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -4531,7 +4514,7 @@ namespace Offwind.Web.Core
             {
                 OnCreatedChanging(value);
                 ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
+                _Created = StructuralObject.SetValidValue(value, "Created");
                 ReportPropertyChanged("Created");
                 OnCreatedChanged();
             }
@@ -4555,7 +4538,7 @@ namespace Offwind.Web.Core
             {
                 OnUpdatedChanging(value);
                 ReportPropertyChanging("Updated");
-                _Updated = StructuralObject.SetValidValue(value);
+                _Updated = StructuralObject.SetValidValue(value, "Updated");
                 ReportPropertyChanged("Updated");
                 OnUpdatedChanged();
             }
@@ -4579,7 +4562,7 @@ namespace Offwind.Web.Core
             {
                 OnAuthorChanging(value);
                 ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value, true);
+                _Author = StructuralObject.SetValidValue(value, true, "Author");
                 ReportPropertyChanged("Author");
                 OnAuthorChanged();
             }
@@ -4603,7 +4586,7 @@ namespace Offwind.Web.Core
             {
                 OnIsPublicChanging(value);
                 ReportPropertyChanging("IsPublic");
-                _IsPublic = StructuralObject.SetValidValue(value);
+                _IsPublic = StructuralObject.SetValidValue(value, "IsPublic");
                 ReportPropertyChanged("IsPublic");
                 OnIsPublicChanged();
             }
@@ -4627,7 +4610,7 @@ namespace Offwind.Web.Core
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -4651,7 +4634,7 @@ namespace Offwind.Web.Core
             {
                 OnDescriptionChanging(value);
                 ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, false);
+                _Description = StructuralObject.SetValidValue(value, false, "Description");
                 ReportPropertyChanged("Description");
                 OnDescriptionChanged();
             }
@@ -4675,7 +4658,7 @@ namespace Offwind.Web.Core
             {
                 OnManufacturerChanging(value);
                 ReportPropertyChanging("Manufacturer");
-                _Manufacturer = StructuralObject.SetValidValue(value, true);
+                _Manufacturer = StructuralObject.SetValidValue(value, true, "Manufacturer");
                 ReportPropertyChanged("Manufacturer");
                 OnManufacturerChanged();
             }
@@ -4699,7 +4682,7 @@ namespace Offwind.Web.Core
             {
                 OnRatedPowerChanging(value);
                 ReportPropertyChanging("RatedPower");
-                _RatedPower = StructuralObject.SetValidValue(value);
+                _RatedPower = StructuralObject.SetValidValue(value, "RatedPower");
                 ReportPropertyChanged("RatedPower");
                 OnRatedPowerChanged();
             }
@@ -4723,7 +4706,7 @@ namespace Offwind.Web.Core
             {
                 OnRotorDiameterChanging(value);
                 ReportPropertyChanging("RotorDiameter");
-                _RotorDiameter = StructuralObject.SetValidValue(value);
+                _RotorDiameter = StructuralObject.SetValidValue(value, "RotorDiameter");
                 ReportPropertyChanged("RotorDiameter");
                 OnRotorDiameterChanged();
             }
@@ -4747,7 +4730,7 @@ namespace Offwind.Web.Core
             {
                 OnRotorOrientationChanging(value);
                 ReportPropertyChanging("RotorOrientation");
-                _RotorOrientation = StructuralObject.SetValidValue(value, true);
+                _RotorOrientation = StructuralObject.SetValidValue(value, true, "RotorOrientation");
                 ReportPropertyChanged("RotorOrientation");
                 OnRotorOrientationChanged();
             }
@@ -4771,7 +4754,7 @@ namespace Offwind.Web.Core
             {
                 OnRotorConfigurationChanging(value);
                 ReportPropertyChanging("RotorConfiguration");
-                _RotorConfiguration = StructuralObject.SetValidValue(value, true);
+                _RotorConfiguration = StructuralObject.SetValidValue(value, true, "RotorConfiguration");
                 ReportPropertyChanged("RotorConfiguration");
                 OnRotorConfigurationChanged();
             }
@@ -4795,7 +4778,7 @@ namespace Offwind.Web.Core
             {
                 OnControlChanging(value);
                 ReportPropertyChanging("Control");
-                _Control = StructuralObject.SetValidValue(value, true);
+                _Control = StructuralObject.SetValidValue(value, true, "Control");
                 ReportPropertyChanged("Control");
                 OnControlChanged();
             }
@@ -4819,7 +4802,7 @@ namespace Offwind.Web.Core
             {
                 OnHubHeightChanging(value);
                 ReportPropertyChanging("HubHeight");
-                _HubHeight = StructuralObject.SetValidValue(value);
+                _HubHeight = StructuralObject.SetValidValue(value, "HubHeight");
                 ReportPropertyChanged("HubHeight");
                 OnHubHeightChanged();
             }
@@ -4843,7 +4826,7 @@ namespace Offwind.Web.Core
             {
                 OnHubDiameterChanging(value);
                 ReportPropertyChanging("HubDiameter");
-                _HubDiameter = StructuralObject.SetValidValue(value);
+                _HubDiameter = StructuralObject.SetValidValue(value, "HubDiameter");
                 ReportPropertyChanged("HubDiameter");
                 OnHubDiameterChanged();
             }
@@ -4867,7 +4850,7 @@ namespace Offwind.Web.Core
             {
                 OnWindSpeedCutInChanging(value);
                 ReportPropertyChanging("WindSpeedCutIn");
-                _WindSpeedCutIn = StructuralObject.SetValidValue(value);
+                _WindSpeedCutIn = StructuralObject.SetValidValue(value, "WindSpeedCutIn");
                 ReportPropertyChanged("WindSpeedCutIn");
                 OnWindSpeedCutInChanged();
             }
@@ -4891,7 +4874,7 @@ namespace Offwind.Web.Core
             {
                 OnWindSpeedRatedChanging(value);
                 ReportPropertyChanging("WindSpeedRated");
-                _WindSpeedRated = StructuralObject.SetValidValue(value);
+                _WindSpeedRated = StructuralObject.SetValidValue(value, "WindSpeedRated");
                 ReportPropertyChanged("WindSpeedRated");
                 OnWindSpeedRatedChanged();
             }
@@ -4915,7 +4898,7 @@ namespace Offwind.Web.Core
             {
                 OnWindSpeedCutOutChanging(value);
                 ReportPropertyChanging("WindSpeedCutOut");
-                _WindSpeedCutOut = StructuralObject.SetValidValue(value);
+                _WindSpeedCutOut = StructuralObject.SetValidValue(value, "WindSpeedCutOut");
                 ReportPropertyChanged("WindSpeedCutOut");
                 OnWindSpeedCutOutChanged();
             }
@@ -4939,7 +4922,7 @@ namespace Offwind.Web.Core
             {
                 OnRotorSpeedCutInChanging(value);
                 ReportPropertyChanging("RotorSpeedCutIn");
-                _RotorSpeedCutIn = StructuralObject.SetValidValue(value);
+                _RotorSpeedCutIn = StructuralObject.SetValidValue(value, "RotorSpeedCutIn");
                 ReportPropertyChanged("RotorSpeedCutIn");
                 OnRotorSpeedCutInChanged();
             }
@@ -4963,7 +4946,7 @@ namespace Offwind.Web.Core
             {
                 OnRotorSpeedRatedChanging(value);
                 ReportPropertyChanging("RotorSpeedRated");
-                _RotorSpeedRated = StructuralObject.SetValidValue(value);
+                _RotorSpeedRated = StructuralObject.SetValidValue(value, "RotorSpeedRated");
                 ReportPropertyChanged("RotorSpeedRated");
                 OnRotorSpeedRatedChanged();
             }
@@ -4987,7 +4970,7 @@ namespace Offwind.Web.Core
             {
                 OnTipSpeedRatedChanging(value);
                 ReportPropertyChanging("TipSpeedRated");
-                _TipSpeedRated = StructuralObject.SetValidValue(value);
+                _TipSpeedRated = StructuralObject.SetValidValue(value, "TipSpeedRated");
                 ReportPropertyChanged("TipSpeedRated");
                 OnTipSpeedRatedChanged();
             }
@@ -5011,7 +4994,7 @@ namespace Offwind.Web.Core
             {
                 OnRotorMassChanging(value);
                 ReportPropertyChanging("RotorMass");
-                _RotorMass = StructuralObject.SetValidValue(value);
+                _RotorMass = StructuralObject.SetValidValue(value, "RotorMass");
                 ReportPropertyChanged("RotorMass");
                 OnRotorMassChanged();
             }
@@ -5035,7 +5018,7 @@ namespace Offwind.Web.Core
             {
                 OnNacelleMassChanging(value);
                 ReportPropertyChanging("NacelleMass");
-                _NacelleMass = StructuralObject.SetValidValue(value);
+                _NacelleMass = StructuralObject.SetValidValue(value, "NacelleMass");
                 ReportPropertyChanged("NacelleMass");
                 OnNacelleMassChanged();
             }
@@ -5059,7 +5042,7 @@ namespace Offwind.Web.Core
             {
                 OnTowerMassChanging(value);
                 ReportPropertyChanging("TowerMass");
-                _TowerMass = StructuralObject.SetValidValue(value);
+                _TowerMass = StructuralObject.SetValidValue(value, "TowerMass");
                 ReportPropertyChanged("TowerMass");
                 OnTowerMassChanged();
             }
@@ -5070,7 +5053,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -5130,7 +5112,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5149,7 +5131,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -5174,7 +5156,7 @@ namespace Offwind.Web.Core
             {
                 OnTurbineIdChanging(value);
                 ReportPropertyChanging("TurbineId");
-                _TurbineId = StructuralObject.SetValidValue(value);
+                _TurbineId = StructuralObject.SetValidValue(value, "TurbineId");
                 ReportPropertyChanged("TurbineId");
                 OnTurbineIdChanged();
             }
@@ -5198,7 +5180,7 @@ namespace Offwind.Web.Core
             {
                 OnGroupChanging(value);
                 ReportPropertyChanging("Group");
-                _Group = StructuralObject.SetValidValue(value, false);
+                _Group = StructuralObject.SetValidValue(value, false, "Group");
                 ReportPropertyChanged("Group");
                 OnGroupChanged();
             }
@@ -5222,7 +5204,7 @@ namespace Offwind.Web.Core
             {
                 OnParameterChanging(value);
                 ReportPropertyChanging("Parameter");
-                _Parameter = StructuralObject.SetValidValue(value, false);
+                _Parameter = StructuralObject.SetValidValue(value, false, "Parameter");
                 ReportPropertyChanged("Parameter");
                 OnParameterChanged();
             }
@@ -5246,7 +5228,7 @@ namespace Offwind.Web.Core
             {
                 OnTypeChanging(value);
                 ReportPropertyChanging("Type");
-                _Type = StructuralObject.SetValidValue(value, false);
+                _Type = StructuralObject.SetValidValue(value, false, "Type");
                 ReportPropertyChanged("Type");
                 OnTypeChanged();
             }
@@ -5270,7 +5252,7 @@ namespace Offwind.Web.Core
             {
                 OnValueTxtChanging(value);
                 ReportPropertyChanging("ValueTxt");
-                _ValueTxt = StructuralObject.SetValidValue(value, true);
+                _ValueTxt = StructuralObject.SetValidValue(value, true, "ValueTxt");
                 ReportPropertyChanged("ValueTxt");
                 OnValueTxtChanged();
             }
@@ -5294,7 +5276,7 @@ namespace Offwind.Web.Core
             {
                 OnValueNumericChanging(value);
                 ReportPropertyChanging("ValueNumeric");
-                _ValueNumeric = StructuralObject.SetValidValue(value);
+                _ValueNumeric = StructuralObject.SetValidValue(value, "ValueNumeric");
                 ReportPropertyChanged("ValueNumeric");
                 OnValueNumericChanged();
             }
@@ -5305,7 +5287,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -5377,7 +5358,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5396,7 +5377,7 @@ namespace Offwind.Web.Core
                 {
                     OnUserIdChanging(value);
                     ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value);
+                    _UserId = StructuralObject.SetValidValue(value, "UserId");
                     ReportPropertyChanged("UserId");
                     OnUserIdChanged();
                 }
@@ -5421,7 +5402,7 @@ namespace Offwind.Web.Core
             {
                 OnUserNameChanging(value);
                 ReportPropertyChanging("UserName");
-                _UserName = StructuralObject.SetValidValue(value, false);
+                _UserName = StructuralObject.SetValidValue(value, false, "UserName");
                 ReportPropertyChanged("UserName");
                 OnUserNameChanged();
             }
@@ -5445,7 +5426,7 @@ namespace Offwind.Web.Core
             {
                 OnIsVerifiedChanging(value);
                 ReportPropertyChanging("IsVerified");
-                _IsVerified = StructuralObject.SetValidValue(value);
+                _IsVerified = StructuralObject.SetValidValue(value, "IsVerified");
                 ReportPropertyChanged("IsVerified");
                 OnIsVerifiedChanged();
             }
@@ -5469,7 +5450,7 @@ namespace Offwind.Web.Core
             {
                 OnVerificationCodeChanging(value);
                 ReportPropertyChanging("VerificationCode");
-                _VerificationCode = StructuralObject.SetValidValue(value);
+                _VerificationCode = StructuralObject.SetValidValue(value, "VerificationCode");
                 ReportPropertyChanged("VerificationCode");
                 OnVerificationCodeChanged();
             }
@@ -5493,7 +5474,7 @@ namespace Offwind.Web.Core
             {
                 OnResetPasswordCodeChanging(value);
                 ReportPropertyChanging("ResetPasswordCode");
-                _ResetPasswordCode = StructuralObject.SetValidValue(value);
+                _ResetPasswordCode = StructuralObject.SetValidValue(value, "ResetPasswordCode");
                 ReportPropertyChanged("ResetPasswordCode");
                 OnResetPasswordCodeChanged();
             }
@@ -5517,7 +5498,7 @@ namespace Offwind.Web.Core
             {
                 OnFirstNameChanging(value);
                 ReportPropertyChanging("FirstName");
-                _FirstName = StructuralObject.SetValidValue(value, true);
+                _FirstName = StructuralObject.SetValidValue(value, true, "FirstName");
                 ReportPropertyChanged("FirstName");
                 OnFirstNameChanged();
             }
@@ -5541,7 +5522,7 @@ namespace Offwind.Web.Core
             {
                 OnLastNameChanging(value);
                 ReportPropertyChanging("LastName");
-                _LastName = StructuralObject.SetValidValue(value, true);
+                _LastName = StructuralObject.SetValidValue(value, true, "LastName");
                 ReportPropertyChanged("LastName");
                 OnLastNameChanged();
             }
@@ -5565,7 +5546,7 @@ namespace Offwind.Web.Core
             {
                 OnMiddleNameChanging(value);
                 ReportPropertyChanging("MiddleName");
-                _MiddleName = StructuralObject.SetValidValue(value, true);
+                _MiddleName = StructuralObject.SetValidValue(value, true, "MiddleName");
                 ReportPropertyChanged("MiddleName");
                 OnMiddleNameChanged();
             }
@@ -5589,7 +5570,7 @@ namespace Offwind.Web.Core
             {
                 OnFullNameChanging(value);
                 ReportPropertyChanging("FullName");
-                _FullName = StructuralObject.SetValidValue(value, true);
+                _FullName = StructuralObject.SetValidValue(value, true, "FullName");
                 ReportPropertyChanged("FullName");
                 OnFullNameChanged();
             }
@@ -5613,7 +5594,7 @@ namespace Offwind.Web.Core
             {
                 OnCompanyNameChanging(value);
                 ReportPropertyChanging("CompanyName");
-                _CompanyName = StructuralObject.SetValidValue(value, true);
+                _CompanyName = StructuralObject.SetValidValue(value, true, "CompanyName");
                 ReportPropertyChanged("CompanyName");
                 OnCompanyNameChanged();
             }
@@ -5637,7 +5618,7 @@ namespace Offwind.Web.Core
             {
                 OnInfoChanging(value);
                 ReportPropertyChanging("Info");
-                _Info = StructuralObject.SetValidValue(value, true);
+                _Info = StructuralObject.SetValidValue(value, true, "Info");
                 ReportPropertyChanged("Info");
                 OnInfoChanged();
             }
@@ -5661,7 +5642,7 @@ namespace Offwind.Web.Core
             {
                 OnLastActivityChanging(value);
                 ReportPropertyChanging("LastActivity");
-                _LastActivity = StructuralObject.SetValidValue(value);
+                _LastActivity = StructuralObject.SetValidValue(value, "LastActivity");
                 ReportPropertyChanged("LastActivity");
                 OnLastActivityChanged();
             }
@@ -5685,7 +5666,7 @@ namespace Offwind.Web.Core
             {
                 OnCountryChanging(value);
                 ReportPropertyChanging("Country");
-                _Country = StructuralObject.SetValidValue(value, true);
+                _Country = StructuralObject.SetValidValue(value, true, "Country");
                 ReportPropertyChanged("Country");
                 OnCountryChanged();
             }
@@ -5709,7 +5690,7 @@ namespace Offwind.Web.Core
             {
                 OnCityChanging(value);
                 ReportPropertyChanging("City");
-                _City = StructuralObject.SetValidValue(value, true);
+                _City = StructuralObject.SetValidValue(value, true, "City");
                 ReportPropertyChanged("City");
                 OnCityChanged();
             }
@@ -5733,7 +5714,7 @@ namespace Offwind.Web.Core
             {
                 OnCreatedChanging(value);
                 ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
+                _Created = StructuralObject.SetValidValue(value, "Created");
                 ReportPropertyChanged("Created");
                 OnCreatedChanged();
             }
@@ -5757,7 +5738,7 @@ namespace Offwind.Web.Core
             {
                 OnPositionChanging(value);
                 ReportPropertyChanging("Position");
-                _Position = StructuralObject.SetValidValue(value, true);
+                _Position = StructuralObject.SetValidValue(value, true, "Position");
                 ReportPropertyChanged("Position");
                 OnPositionChanged();
             }
@@ -5781,7 +5762,7 @@ namespace Offwind.Web.Core
             {
                 OnAcademicDegreeChanging(value);
                 ReportPropertyChanging("AcademicDegree");
-                _AcademicDegree = StructuralObject.SetValidValue(value, true);
+                _AcademicDegree = StructuralObject.SetValidValue(value, true, "AcademicDegree");
                 ReportPropertyChanged("AcademicDegree");
                 OnAcademicDegreeChanged();
             }
@@ -5805,7 +5786,7 @@ namespace Offwind.Web.Core
             {
                 OnWorkEmailChanging(value);
                 ReportPropertyChanging("WorkEmail");
-                _WorkEmail = StructuralObject.SetValidValue(value, true);
+                _WorkEmail = StructuralObject.SetValidValue(value, true, "WorkEmail");
                 ReportPropertyChanged("WorkEmail");
                 OnWorkEmailChanged();
             }
@@ -5829,7 +5810,7 @@ namespace Offwind.Web.Core
             {
                 OnCellPhoneChanging(value);
                 ReportPropertyChanging("CellPhone");
-                _CellPhone = StructuralObject.SetValidValue(value, true);
+                _CellPhone = StructuralObject.SetValidValue(value, true, "CellPhone");
                 ReportPropertyChanged("CellPhone");
                 OnCellPhoneChanged();
             }
@@ -5853,7 +5834,7 @@ namespace Offwind.Web.Core
             {
                 OnWorkPhoneChanging(value);
                 ReportPropertyChanging("WorkPhone");
-                _WorkPhone = StructuralObject.SetValidValue(value, true);
+                _WorkPhone = StructuralObject.SetValidValue(value, true, "WorkPhone");
                 ReportPropertyChanged("WorkPhone");
                 OnWorkPhoneChanged();
             }
@@ -5864,7 +5845,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -5924,7 +5904,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5943,7 +5923,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -5968,7 +5948,7 @@ namespace Offwind.Web.Core
             {
                 OnDataChanging(value);
                 ReportPropertyChanging("Data");
-                _Data = StructuralObject.SetValidValue(value, true);
+                _Data = StructuralObject.SetValidValue(value, true, "Data");
                 ReportPropertyChanged("Data");
                 OnDataChanged();
             }
@@ -5992,7 +5972,7 @@ namespace Offwind.Web.Core
             {
                 OnMinutesDataChanging(value);
                 ReportPropertyChanging("MinutesData");
-                _MinutesData = StructuralObject.SetValidValue(value, true);
+                _MinutesData = StructuralObject.SetValidValue(value, true, "MinutesData");
                 ReportPropertyChanged("MinutesData");
                 OnMinutesDataChanged();
             }
@@ -6016,7 +5996,7 @@ namespace Offwind.Web.Core
             {
                 OnMinutesBinaryChanging(value);
                 ReportPropertyChanging("MinutesBinary");
-                _MinutesBinary = StructuralObject.SetValidValue(value, true);
+                _MinutesBinary = StructuralObject.SetValidValue(value, true, "MinutesBinary");
                 ReportPropertyChanged("MinutesBinary");
                 OnMinutesBinaryChanged();
             }
@@ -6042,7 +6022,7 @@ namespace Offwind.Web.Core
                 {
                     OnParticipantJoinedChanging(value);
                     ReportPropertyChanging("ParticipantJoined");
-                    _ParticipantJoined = StructuralObject.SetValidValue(value);
+                    _ParticipantJoined = StructuralObject.SetValidValue(value, "ParticipantJoined");
                     ReportPropertyChanged("ParticipantJoined");
                     OnParticipantJoinedChanged();
                 }
@@ -6069,7 +6049,7 @@ namespace Offwind.Web.Core
                 {
                     OnUserIdChanging(value);
                     ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value);
+                    _UserId = StructuralObject.SetValidValue(value, "UserId");
                     ReportPropertyChanged("UserId");
                     OnUserIdChanged();
                 }
@@ -6096,7 +6076,7 @@ namespace Offwind.Web.Core
                 {
                     OnUserNameChanging(value);
                     ReportPropertyChanging("UserName");
-                    _UserName = StructuralObject.SetValidValue(value, false);
+                    _UserName = StructuralObject.SetValidValue(value, false, "UserName");
                     ReportPropertyChanged("UserName");
                     OnUserNameChanged();
                 }
@@ -6123,7 +6103,7 @@ namespace Offwind.Web.Core
                 {
                     OnIsVerifiedChanging(value);
                     ReportPropertyChanging("IsVerified");
-                    _IsVerified = StructuralObject.SetValidValue(value);
+                    _IsVerified = StructuralObject.SetValidValue(value, "IsVerified");
                     ReportPropertyChanged("IsVerified");
                     OnIsVerifiedChanged();
                 }
@@ -6148,7 +6128,7 @@ namespace Offwind.Web.Core
             {
                 OnVerificationCodeChanging(value);
                 ReportPropertyChanging("VerificationCode");
-                _VerificationCode = StructuralObject.SetValidValue(value);
+                _VerificationCode = StructuralObject.SetValidValue(value, "VerificationCode");
                 ReportPropertyChanged("VerificationCode");
                 OnVerificationCodeChanged();
             }
@@ -6172,7 +6152,7 @@ namespace Offwind.Web.Core
             {
                 OnResetPasswordCodeChanging(value);
                 ReportPropertyChanging("ResetPasswordCode");
-                _ResetPasswordCode = StructuralObject.SetValidValue(value);
+                _ResetPasswordCode = StructuralObject.SetValidValue(value, "ResetPasswordCode");
                 ReportPropertyChanged("ResetPasswordCode");
                 OnResetPasswordCodeChanged();
             }
@@ -6196,7 +6176,7 @@ namespace Offwind.Web.Core
             {
                 OnFirstNameChanging(value);
                 ReportPropertyChanging("FirstName");
-                _FirstName = StructuralObject.SetValidValue(value, true);
+                _FirstName = StructuralObject.SetValidValue(value, true, "FirstName");
                 ReportPropertyChanged("FirstName");
                 OnFirstNameChanged();
             }
@@ -6220,7 +6200,7 @@ namespace Offwind.Web.Core
             {
                 OnLastNameChanging(value);
                 ReportPropertyChanging("LastName");
-                _LastName = StructuralObject.SetValidValue(value, true);
+                _LastName = StructuralObject.SetValidValue(value, true, "LastName");
                 ReportPropertyChanged("LastName");
                 OnLastNameChanged();
             }
@@ -6244,7 +6224,7 @@ namespace Offwind.Web.Core
             {
                 OnMiddleNameChanging(value);
                 ReportPropertyChanging("MiddleName");
-                _MiddleName = StructuralObject.SetValidValue(value, true);
+                _MiddleName = StructuralObject.SetValidValue(value, true, "MiddleName");
                 ReportPropertyChanged("MiddleName");
                 OnMiddleNameChanged();
             }
@@ -6268,7 +6248,7 @@ namespace Offwind.Web.Core
             {
                 OnFullNameChanging(value);
                 ReportPropertyChanging("FullName");
-                _FullName = StructuralObject.SetValidValue(value, true);
+                _FullName = StructuralObject.SetValidValue(value, true, "FullName");
                 ReportPropertyChanged("FullName");
                 OnFullNameChanged();
             }
@@ -6292,7 +6272,7 @@ namespace Offwind.Web.Core
             {
                 OnCompanyNameChanging(value);
                 ReportPropertyChanging("CompanyName");
-                _CompanyName = StructuralObject.SetValidValue(value, true);
+                _CompanyName = StructuralObject.SetValidValue(value, true, "CompanyName");
                 ReportPropertyChanged("CompanyName");
                 OnCompanyNameChanged();
             }
@@ -6316,7 +6296,7 @@ namespace Offwind.Web.Core
             {
                 OnInfoChanging(value);
                 ReportPropertyChanging("Info");
-                _Info = StructuralObject.SetValidValue(value, true);
+                _Info = StructuralObject.SetValidValue(value, true, "Info");
                 ReportPropertyChanged("Info");
                 OnInfoChanged();
             }
@@ -6340,7 +6320,7 @@ namespace Offwind.Web.Core
             {
                 OnLastActivityChanging(value);
                 ReportPropertyChanging("LastActivity");
-                _LastActivity = StructuralObject.SetValidValue(value);
+                _LastActivity = StructuralObject.SetValidValue(value, "LastActivity");
                 ReportPropertyChanged("LastActivity");
                 OnLastActivityChanged();
             }
@@ -6364,7 +6344,7 @@ namespace Offwind.Web.Core
             {
                 OnCountryChanging(value);
                 ReportPropertyChanging("Country");
-                _Country = StructuralObject.SetValidValue(value, true);
+                _Country = StructuralObject.SetValidValue(value, true, "Country");
                 ReportPropertyChanged("Country");
                 OnCountryChanged();
             }
@@ -6388,7 +6368,7 @@ namespace Offwind.Web.Core
             {
                 OnCityChanging(value);
                 ReportPropertyChanging("City");
-                _City = StructuralObject.SetValidValue(value, true);
+                _City = StructuralObject.SetValidValue(value, true, "City");
                 ReportPropertyChanged("City");
                 OnCityChanged();
             }
@@ -6412,7 +6392,7 @@ namespace Offwind.Web.Core
             {
                 OnCreatedChanging(value);
                 ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
+                _Created = StructuralObject.SetValidValue(value, "Created");
                 ReportPropertyChanged("Created");
                 OnCreatedChanged();
             }
@@ -6436,7 +6416,7 @@ namespace Offwind.Web.Core
             {
                 OnPositionChanging(value);
                 ReportPropertyChanging("Position");
-                _Position = StructuralObject.SetValidValue(value, true);
+                _Position = StructuralObject.SetValidValue(value, true, "Position");
                 ReportPropertyChanged("Position");
                 OnPositionChanged();
             }
@@ -6460,7 +6440,7 @@ namespace Offwind.Web.Core
             {
                 OnAcademicDegreeChanging(value);
                 ReportPropertyChanging("AcademicDegree");
-                _AcademicDegree = StructuralObject.SetValidValue(value, true);
+                _AcademicDegree = StructuralObject.SetValidValue(value, true, "AcademicDegree");
                 ReportPropertyChanged("AcademicDegree");
                 OnAcademicDegreeChanged();
             }
@@ -6484,7 +6464,7 @@ namespace Offwind.Web.Core
             {
                 OnWorkEmailChanging(value);
                 ReportPropertyChanging("WorkEmail");
-                _WorkEmail = StructuralObject.SetValidValue(value, true);
+                _WorkEmail = StructuralObject.SetValidValue(value, true, "WorkEmail");
                 ReportPropertyChanged("WorkEmail");
                 OnWorkEmailChanged();
             }
@@ -6508,7 +6488,7 @@ namespace Offwind.Web.Core
             {
                 OnCellPhoneChanging(value);
                 ReportPropertyChanging("CellPhone");
-                _CellPhone = StructuralObject.SetValidValue(value, true);
+                _CellPhone = StructuralObject.SetValidValue(value, true, "CellPhone");
                 ReportPropertyChanged("CellPhone");
                 OnCellPhoneChanged();
             }
@@ -6532,7 +6512,7 @@ namespace Offwind.Web.Core
             {
                 OnWorkPhoneChanging(value);
                 ReportPropertyChanging("WorkPhone");
-                _WorkPhone = StructuralObject.SetValidValue(value, true);
+                _WorkPhone = StructuralObject.SetValidValue(value, true, "WorkPhone");
                 ReportPropertyChanged("WorkPhone");
                 OnWorkPhoneChanged();
             }
@@ -6543,7 +6523,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -6573,7 +6552,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6592,7 +6571,7 @@ namespace Offwind.Web.Core
                 {
                     OnUserIdChanging(value);
                     ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value);
+                    _UserId = StructuralObject.SetValidValue(value, "UserId");
                     ReportPropertyChanged("UserId");
                     OnUserIdChanged();
                 }
@@ -6619,7 +6598,7 @@ namespace Offwind.Web.Core
                 {
                     OnUserNameChanging(value);
                     ReportPropertyChanging("UserName");
-                    _UserName = StructuralObject.SetValidValue(value, false);
+                    _UserName = StructuralObject.SetValidValue(value, false, "UserName");
                     ReportPropertyChanged("UserName");
                     OnUserNameChanged();
                 }
@@ -6646,7 +6625,7 @@ namespace Offwind.Web.Core
                 {
                     OnIsVerifiedChanging(value);
                     ReportPropertyChanging("IsVerified");
-                    _IsVerified = StructuralObject.SetValidValue(value);
+                    _IsVerified = StructuralObject.SetValidValue(value, "IsVerified");
                     ReportPropertyChanged("IsVerified");
                     OnIsVerifiedChanged();
                 }
@@ -6671,7 +6650,7 @@ namespace Offwind.Web.Core
             {
                 OnVerificationCodeChanging(value);
                 ReportPropertyChanging("VerificationCode");
-                _VerificationCode = StructuralObject.SetValidValue(value);
+                _VerificationCode = StructuralObject.SetValidValue(value, "VerificationCode");
                 ReportPropertyChanged("VerificationCode");
                 OnVerificationCodeChanged();
             }
@@ -6695,7 +6674,7 @@ namespace Offwind.Web.Core
             {
                 OnResetPasswordCodeChanging(value);
                 ReportPropertyChanging("ResetPasswordCode");
-                _ResetPasswordCode = StructuralObject.SetValidValue(value);
+                _ResetPasswordCode = StructuralObject.SetValidValue(value, "ResetPasswordCode");
                 ReportPropertyChanged("ResetPasswordCode");
                 OnResetPasswordCodeChanged();
             }
@@ -6719,7 +6698,7 @@ namespace Offwind.Web.Core
             {
                 OnFirstNameChanging(value);
                 ReportPropertyChanging("FirstName");
-                _FirstName = StructuralObject.SetValidValue(value, true);
+                _FirstName = StructuralObject.SetValidValue(value, true, "FirstName");
                 ReportPropertyChanged("FirstName");
                 OnFirstNameChanged();
             }
@@ -6743,7 +6722,7 @@ namespace Offwind.Web.Core
             {
                 OnLastNameChanging(value);
                 ReportPropertyChanging("LastName");
-                _LastName = StructuralObject.SetValidValue(value, true);
+                _LastName = StructuralObject.SetValidValue(value, true, "LastName");
                 ReportPropertyChanged("LastName");
                 OnLastNameChanged();
             }
@@ -6767,7 +6746,7 @@ namespace Offwind.Web.Core
             {
                 OnMiddleNameChanging(value);
                 ReportPropertyChanging("MiddleName");
-                _MiddleName = StructuralObject.SetValidValue(value, true);
+                _MiddleName = StructuralObject.SetValidValue(value, true, "MiddleName");
                 ReportPropertyChanged("MiddleName");
                 OnMiddleNameChanged();
             }
@@ -6791,7 +6770,7 @@ namespace Offwind.Web.Core
             {
                 OnFullNameChanging(value);
                 ReportPropertyChanging("FullName");
-                _FullName = StructuralObject.SetValidValue(value, true);
+                _FullName = StructuralObject.SetValidValue(value, true, "FullName");
                 ReportPropertyChanged("FullName");
                 OnFullNameChanged();
             }
@@ -6815,7 +6794,7 @@ namespace Offwind.Web.Core
             {
                 OnCompanyNameChanging(value);
                 ReportPropertyChanging("CompanyName");
-                _CompanyName = StructuralObject.SetValidValue(value, true);
+                _CompanyName = StructuralObject.SetValidValue(value, true, "CompanyName");
                 ReportPropertyChanged("CompanyName");
                 OnCompanyNameChanged();
             }
@@ -6839,7 +6818,7 @@ namespace Offwind.Web.Core
             {
                 OnInfoChanging(value);
                 ReportPropertyChanging("Info");
-                _Info = StructuralObject.SetValidValue(value, true);
+                _Info = StructuralObject.SetValidValue(value, true, "Info");
                 ReportPropertyChanged("Info");
                 OnInfoChanged();
             }
@@ -6863,7 +6842,7 @@ namespace Offwind.Web.Core
             {
                 OnLastActivityChanging(value);
                 ReportPropertyChanging("LastActivity");
-                _LastActivity = StructuralObject.SetValidValue(value);
+                _LastActivity = StructuralObject.SetValidValue(value, "LastActivity");
                 ReportPropertyChanged("LastActivity");
                 OnLastActivityChanged();
             }
@@ -6887,7 +6866,7 @@ namespace Offwind.Web.Core
             {
                 OnCountryChanging(value);
                 ReportPropertyChanging("Country");
-                _Country = StructuralObject.SetValidValue(value, true);
+                _Country = StructuralObject.SetValidValue(value, true, "Country");
                 ReportPropertyChanged("Country");
                 OnCountryChanged();
             }
@@ -6911,7 +6890,7 @@ namespace Offwind.Web.Core
             {
                 OnCityChanging(value);
                 ReportPropertyChanging("City");
-                _City = StructuralObject.SetValidValue(value, true);
+                _City = StructuralObject.SetValidValue(value, true, "City");
                 ReportPropertyChanged("City");
                 OnCityChanged();
             }
@@ -6935,7 +6914,7 @@ namespace Offwind.Web.Core
             {
                 OnCreatedChanging(value);
                 ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
+                _Created = StructuralObject.SetValidValue(value, "Created");
                 ReportPropertyChanged("Created");
                 OnCreatedChanged();
             }
@@ -6959,7 +6938,7 @@ namespace Offwind.Web.Core
             {
                 OnPositionChanging(value);
                 ReportPropertyChanging("Position");
-                _Position = StructuralObject.SetValidValue(value, true);
+                _Position = StructuralObject.SetValidValue(value, true, "Position");
                 ReportPropertyChanged("Position");
                 OnPositionChanged();
             }
@@ -6983,7 +6962,7 @@ namespace Offwind.Web.Core
             {
                 OnAcademicDegreeChanging(value);
                 ReportPropertyChanging("AcademicDegree");
-                _AcademicDegree = StructuralObject.SetValidValue(value, true);
+                _AcademicDegree = StructuralObject.SetValidValue(value, true, "AcademicDegree");
                 ReportPropertyChanged("AcademicDegree");
                 OnAcademicDegreeChanged();
             }
@@ -7007,7 +6986,7 @@ namespace Offwind.Web.Core
             {
                 OnWorkEmailChanging(value);
                 ReportPropertyChanging("WorkEmail");
-                _WorkEmail = StructuralObject.SetValidValue(value, true);
+                _WorkEmail = StructuralObject.SetValidValue(value, true, "WorkEmail");
                 ReportPropertyChanged("WorkEmail");
                 OnWorkEmailChanged();
             }
@@ -7031,7 +7010,7 @@ namespace Offwind.Web.Core
             {
                 OnCellPhoneChanging(value);
                 ReportPropertyChanging("CellPhone");
-                _CellPhone = StructuralObject.SetValidValue(value, true);
+                _CellPhone = StructuralObject.SetValidValue(value, true, "CellPhone");
                 ReportPropertyChanged("CellPhone");
                 OnCellPhoneChanged();
             }
@@ -7055,7 +7034,7 @@ namespace Offwind.Web.Core
             {
                 OnWorkPhoneChanging(value);
                 ReportPropertyChanging("WorkPhone");
-                _WorkPhone = StructuralObject.SetValidValue(value, true);
+                _WorkPhone = StructuralObject.SetValidValue(value, true, "WorkPhone");
                 ReportPropertyChanged("WorkPhone");
                 OnWorkPhoneChanged();
             }
@@ -7079,7 +7058,7 @@ namespace Offwind.Web.Core
             {
                 OnCreateDateChanging(value);
                 ReportPropertyChanging("CreateDate");
-                _CreateDate = StructuralObject.SetValidValue(value);
+                _CreateDate = StructuralObject.SetValidValue(value, "CreateDate");
                 ReportPropertyChanged("CreateDate");
                 OnCreateDateChanged();
             }
@@ -7103,7 +7082,7 @@ namespace Offwind.Web.Core
             {
                 OnIsConfirmedChanging(value);
                 ReportPropertyChanging("IsConfirmed");
-                _IsConfirmed = StructuralObject.SetValidValue(value);
+                _IsConfirmed = StructuralObject.SetValidValue(value, "IsConfirmed");
                 ReportPropertyChanged("IsConfirmed");
                 OnIsConfirmedChanged();
             }
@@ -7127,7 +7106,7 @@ namespace Offwind.Web.Core
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, true);
+                _Email = StructuralObject.SetValidValue(value, true, "Email");
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -7151,7 +7130,7 @@ namespace Offwind.Web.Core
             {
                 OnLastPasswordFailureDateChanging(value);
                 ReportPropertyChanging("LastPasswordFailureDate");
-                _LastPasswordFailureDate = StructuralObject.SetValidValue(value);
+                _LastPasswordFailureDate = StructuralObject.SetValidValue(value, "LastPasswordFailureDate");
                 ReportPropertyChanged("LastPasswordFailureDate");
                 OnLastPasswordFailureDateChanged();
             }
@@ -7162,7 +7141,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -7206,7 +7184,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7225,7 +7203,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -7250,7 +7228,7 @@ namespace Offwind.Web.Core
             {
                 OnCreatedChanging(value);
                 ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
+                _Created = StructuralObject.SetValidValue(value, "Created");
                 ReportPropertyChanged("Created");
                 OnCreatedChanged();
             }
@@ -7274,7 +7252,7 @@ namespace Offwind.Web.Core
             {
                 OnUpdatedChanging(value);
                 ReportPropertyChanging("Updated");
-                _Updated = StructuralObject.SetValidValue(value);
+                _Updated = StructuralObject.SetValidValue(value, "Updated");
                 ReportPropertyChanged("Updated");
                 OnUpdatedChanged();
             }
@@ -7298,7 +7276,7 @@ namespace Offwind.Web.Core
             {
                 OnAuthorChanging(value);
                 ReportPropertyChanging("Author");
-                _Author = StructuralObject.SetValidValue(value, true);
+                _Author = StructuralObject.SetValidValue(value, true, "Author");
                 ReportPropertyChanged("Author");
                 OnAuthorChanged();
             }
@@ -7322,7 +7300,7 @@ namespace Offwind.Web.Core
             {
                 OnTurbineTypeIdChanging(value);
                 ReportPropertyChanging("TurbineTypeId");
-                _TurbineTypeId = StructuralObject.SetValidValue(value);
+                _TurbineTypeId = StructuralObject.SetValidValue(value, "TurbineTypeId");
                 ReportPropertyChanged("TurbineTypeId");
                 OnTurbineTypeIdChanged();
             }
@@ -7346,7 +7324,7 @@ namespace Offwind.Web.Core
             {
                 OnIsPublicChanging(value);
                 ReportPropertyChanging("IsPublic");
-                _IsPublic = StructuralObject.SetValidValue(value);
+                _IsPublic = StructuralObject.SetValidValue(value, "IsPublic");
                 ReportPropertyChanged("IsPublic");
                 OnIsPublicChanged();
             }
@@ -7370,7 +7348,7 @@ namespace Offwind.Web.Core
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -7394,7 +7372,7 @@ namespace Offwind.Web.Core
             {
                 OnCountryChanging(value);
                 ReportPropertyChanging("Country");
-                _Country = StructuralObject.SetValidValue(value, false);
+                _Country = StructuralObject.SetValidValue(value, false, "Country");
                 ReportPropertyChanged("Country");
                 OnCountryChanged();
             }
@@ -7418,7 +7396,7 @@ namespace Offwind.Web.Core
             {
                 OnUrlOfficialChanging(value);
                 ReportPropertyChanging("UrlOfficial");
-                _UrlOfficial = StructuralObject.SetValidValue(value, false);
+                _UrlOfficial = StructuralObject.SetValidValue(value, false, "UrlOfficial");
                 ReportPropertyChanged("UrlOfficial");
                 OnUrlOfficialChanged();
             }
@@ -7442,7 +7420,7 @@ namespace Offwind.Web.Core
             {
                 OnUrlPublicWikiChanging(value);
                 ReportPropertyChanging("UrlPublicWiki");
-                _UrlPublicWiki = StructuralObject.SetValidValue(value, false);
+                _UrlPublicWiki = StructuralObject.SetValidValue(value, false, "UrlPublicWiki");
                 ReportPropertyChanged("UrlPublicWiki");
                 OnUrlPublicWikiChanged();
             }
@@ -7466,7 +7444,7 @@ namespace Offwind.Web.Core
             {
                 OnDescriptionChanging(value);
                 ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, false);
+                _Description = StructuralObject.SetValidValue(value, false, "Description");
                 ReportPropertyChanged("Description");
                 OnDescriptionChanged();
             }
@@ -7490,7 +7468,7 @@ namespace Offwind.Web.Core
             {
                 OnGeoLatChanging(value);
                 ReportPropertyChanging("GeoLat");
-                _GeoLat = StructuralObject.SetValidValue(value);
+                _GeoLat = StructuralObject.SetValidValue(value, "GeoLat");
                 ReportPropertyChanged("GeoLat");
                 OnGeoLatChanged();
             }
@@ -7514,7 +7492,7 @@ namespace Offwind.Web.Core
             {
                 OnGeoLngChanging(value);
                 ReportPropertyChanging("GeoLng");
-                _GeoLng = StructuralObject.SetValidValue(value);
+                _GeoLng = StructuralObject.SetValidValue(value, "GeoLng");
                 ReportPropertyChanged("GeoLng");
                 OnGeoLngChanged();
             }
@@ -7538,7 +7516,7 @@ namespace Offwind.Web.Core
             {
                 OnTotalCapacityChanging(value);
                 ReportPropertyChanging("TotalCapacity");
-                _TotalCapacity = StructuralObject.SetValidValue(value);
+                _TotalCapacity = StructuralObject.SetValidValue(value, "TotalCapacity");
                 ReportPropertyChanged("TotalCapacity");
                 OnTotalCapacityChanged();
             }
@@ -7562,7 +7540,7 @@ namespace Offwind.Web.Core
             {
                 OnRatingChanging(value);
                 ReportPropertyChanging("Rating");
-                _Rating = StructuralObject.SetValidValue(value);
+                _Rating = StructuralObject.SetValidValue(value, "Rating");
                 ReportPropertyChanged("Rating");
                 OnRatingChanged();
             }
@@ -7573,7 +7551,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -7635,7 +7612,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7654,7 +7631,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -7679,7 +7656,7 @@ namespace Offwind.Web.Core
             {
                 OnWindFarmIdChanging(value);
                 ReportPropertyChanging("WindFarmId");
-                _WindFarmId = StructuralObject.SetValidValue(value);
+                _WindFarmId = StructuralObject.SetValidValue(value, "WindFarmId");
                 ReportPropertyChanged("WindFarmId");
                 OnWindFarmIdChanged();
             }
@@ -7703,7 +7680,7 @@ namespace Offwind.Web.Core
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value);
+                _Number = StructuralObject.SetValidValue(value, "Number");
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
@@ -7727,7 +7704,7 @@ namespace Offwind.Web.Core
             {
                 OnXChanging(value);
                 ReportPropertyChanging("X");
-                _X = StructuralObject.SetValidValue(value);
+                _X = StructuralObject.SetValidValue(value, "X");
                 ReportPropertyChanged("X");
                 OnXChanged();
             }
@@ -7751,7 +7728,7 @@ namespace Offwind.Web.Core
             {
                 OnYChanging(value);
                 ReportPropertyChanging("Y");
-                _Y = StructuralObject.SetValidValue(value);
+                _Y = StructuralObject.SetValidValue(value, "Y");
                 ReportPropertyChanged("Y");
                 OnYChanged();
             }
@@ -7775,7 +7752,7 @@ namespace Offwind.Web.Core
             {
                 OnZChanging(value);
                 ReportPropertyChanging("Z");
-                _Z = StructuralObject.SetValidValue(value);
+                _Z = StructuralObject.SetValidValue(value, "Z");
                 ReportPropertyChanged("Z");
                 OnZChanged();
             }
@@ -7786,7 +7763,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -7864,7 +7840,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7883,7 +7859,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -7908,7 +7884,7 @@ namespace Offwind.Web.Core
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -7932,7 +7908,7 @@ namespace Offwind.Web.Core
             {
                 OnThreadChanging(value);
                 ReportPropertyChanging("Thread");
-                _Thread = StructuralObject.SetValidValue(value, false);
+                _Thread = StructuralObject.SetValidValue(value, false, "Thread");
                 ReportPropertyChanged("Thread");
                 OnThreadChanged();
             }
@@ -7956,7 +7932,7 @@ namespace Offwind.Web.Core
             {
                 OnLevelChanging(value);
                 ReportPropertyChanging("Level");
-                _Level = StructuralObject.SetValidValue(value, false);
+                _Level = StructuralObject.SetValidValue(value, false, "Level");
                 ReportPropertyChanged("Level");
                 OnLevelChanged();
             }
@@ -7980,7 +7956,7 @@ namespace Offwind.Web.Core
             {
                 OnLoggerChanging(value);
                 ReportPropertyChanging("Logger");
-                _Logger = StructuralObject.SetValidValue(value, false);
+                _Logger = StructuralObject.SetValidValue(value, false, "Logger");
                 ReportPropertyChanged("Logger");
                 OnLoggerChanged();
             }
@@ -8004,7 +7980,7 @@ namespace Offwind.Web.Core
             {
                 OnMessageChanging(value);
                 ReportPropertyChanging("Message");
-                _Message = StructuralObject.SetValidValue(value, false);
+                _Message = StructuralObject.SetValidValue(value, false, "Message");
                 ReportPropertyChanged("Message");
                 OnMessageChanged();
             }
@@ -8028,7 +8004,7 @@ namespace Offwind.Web.Core
             {
                 OnExceptionChanging(value);
                 ReportPropertyChanging("Exception");
-                _Exception = StructuralObject.SetValidValue(value, true);
+                _Exception = StructuralObject.SetValidValue(value, true, "Exception");
                 ReportPropertyChanged("Exception");
                 OnExceptionChanged();
             }
@@ -8039,7 +8015,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -8077,7 +8052,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8096,7 +8071,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -8121,7 +8096,7 @@ namespace Offwind.Web.Core
             {
                 OnSlugChanging(value);
                 ReportPropertyChanging("Slug");
-                _Slug = StructuralObject.SetValidValue(value, true);
+                _Slug = StructuralObject.SetValidValue(value, true, "Slug");
                 ReportPropertyChanged("Slug");
                 OnSlugChanged();
             }
@@ -8145,7 +8120,7 @@ namespace Offwind.Web.Core
             {
                 OnPageTypeChanging(value);
                 ReportPropertyChanging("PageType");
-                _PageType = StructuralObject.SetValidValue(value, true);
+                _PageType = StructuralObject.SetValidValue(value, true, "PageType");
                 ReportPropertyChanged("PageType");
                 OnPageTypeChanged();
             }
@@ -8169,7 +8144,7 @@ namespace Offwind.Web.Core
             {
                 OnPageTitleChanging(value);
                 ReportPropertyChanging("PageTitle");
-                _PageTitle = StructuralObject.SetValidValue(value, true);
+                _PageTitle = StructuralObject.SetValidValue(value, true, "PageTitle");
                 ReportPropertyChanged("PageTitle");
                 OnPageTitleChanged();
             }
@@ -8193,7 +8168,7 @@ namespace Offwind.Web.Core
             {
                 OnTitleChanging(value);
                 ReportPropertyChanging("Title");
-                _Title = StructuralObject.SetValidValue(value, true);
+                _Title = StructuralObject.SetValidValue(value, true, "Title");
                 ReportPropertyChanged("Title");
                 OnTitleChanged();
             }
@@ -8217,7 +8192,7 @@ namespace Offwind.Web.Core
             {
                 OnAnnounceChanging(value);
                 ReportPropertyChanging("Announce");
-                _Announce = StructuralObject.SetValidValue(value, true);
+                _Announce = StructuralObject.SetValidValue(value, true, "Announce");
                 ReportPropertyChanged("Announce");
                 OnAnnounceChanged();
             }
@@ -8241,7 +8216,7 @@ namespace Offwind.Web.Core
             {
                 OnTextChanging(value);
                 ReportPropertyChanging("Text");
-                _Text = StructuralObject.SetValidValue(value, true);
+                _Text = StructuralObject.SetValidValue(value, true, "Text");
                 ReportPropertyChanged("Text");
                 OnTextChanged();
             }
@@ -8265,7 +8240,7 @@ namespace Offwind.Web.Core
             {
                 OnCreatedChanging(value);
                 ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
+                _Created = StructuralObject.SetValidValue(value, "Created");
                 ReportPropertyChanged("Created");
                 OnCreatedChanged();
             }
@@ -8289,7 +8264,7 @@ namespace Offwind.Web.Core
             {
                 OnUpdatedChanging(value);
                 ReportPropertyChanging("Updated");
-                _Updated = StructuralObject.SetValidValue(value);
+                _Updated = StructuralObject.SetValidValue(value, "Updated");
                 ReportPropertyChanged("Updated");
                 OnUpdatedChanged();
             }
@@ -8313,7 +8288,7 @@ namespace Offwind.Web.Core
             {
                 OnPublishedChanging(value);
                 ReportPropertyChanging("Published");
-                _Published = StructuralObject.SetValidValue(value);
+                _Published = StructuralObject.SetValidValue(value, "Published");
                 ReportPropertyChanged("Published");
                 OnPublishedChanged();
             }
@@ -8337,7 +8312,7 @@ namespace Offwind.Web.Core
             {
                 OnHomePageChanging(value);
                 ReportPropertyChanging("HomePage");
-                _HomePage = StructuralObject.SetValidValue(value);
+                _HomePage = StructuralObject.SetValidValue(value, "HomePage");
                 ReportPropertyChanged("HomePage");
                 OnHomePageChanged();
             }
@@ -8361,7 +8336,7 @@ namespace Offwind.Web.Core
             {
                 OnUrlChanging(value);
                 ReportPropertyChanging("Url");
-                _Url = StructuralObject.SetValidValue(value, true);
+                _Url = StructuralObject.SetValidValue(value, true, "Url");
                 ReportPropertyChanged("Url");
                 OnUrlChanged();
             }
@@ -8385,7 +8360,7 @@ namespace Offwind.Web.Core
             {
                 OnPriorityChanging(value);
                 ReportPropertyChanging("Priority");
-                _Priority = StructuralObject.SetValidValue(value);
+                _Priority = StructuralObject.SetValidValue(value, "Priority");
                 ReportPropertyChanged("Priority");
                 OnPriorityChanged();
             }
@@ -8409,7 +8384,7 @@ namespace Offwind.Web.Core
             {
                 OnIsPublishedChanging(value);
                 ReportPropertyChanging("IsPublished");
-                _IsPublished = StructuralObject.SetValidValue(value);
+                _IsPublished = StructuralObject.SetValidValue(value, "IsPublished");
                 ReportPropertyChanged("IsPublished");
                 OnIsPublishedChanged();
             }
@@ -8433,7 +8408,7 @@ namespace Offwind.Web.Core
             {
                 OnVotesChanging(value);
                 ReportPropertyChanging("Votes");
-                _Votes = StructuralObject.SetValidValue(value);
+                _Votes = StructuralObject.SetValidValue(value, "Votes");
                 ReportPropertyChanged("Votes");
                 OnVotesChanged();
             }
@@ -8457,7 +8432,7 @@ namespace Offwind.Web.Core
             {
                 OnExtraModuleChanging(value);
                 ReportPropertyChanging("ExtraModule");
-                _ExtraModule = StructuralObject.SetValidValue(value, true);
+                _ExtraModule = StructuralObject.SetValidValue(value, true, "ExtraModule");
                 ReportPropertyChanged("ExtraModule");
                 OnExtraModuleChanged();
             }
@@ -8468,7 +8443,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -8498,7 +8472,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8515,7 +8489,7 @@ namespace Offwind.Web.Core
             {
                 OnnameChanging(value);
                 ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
+                _name = StructuralObject.SetValidValue(value, false, "name");
                 ReportPropertyChanged("name");
                 OnnameChanged();
             }
@@ -8539,7 +8513,7 @@ namespace Offwind.Web.Core
             {
                 Onprincipal_idChanging(value);
                 ReportPropertyChanging("principal_id");
-                _principal_id = StructuralObject.SetValidValue(value);
+                _principal_id = StructuralObject.SetValidValue(value, "principal_id");
                 ReportPropertyChanged("principal_id");
                 Onprincipal_idChanged();
             }
@@ -8565,7 +8539,7 @@ namespace Offwind.Web.Core
                 {
                     Ondiagram_idChanging(value);
                     ReportPropertyChanging("diagram_id");
-                    _diagram_id = StructuralObject.SetValidValue(value);
+                    _diagram_id = StructuralObject.SetValidValue(value, "diagram_id");
                     ReportPropertyChanged("diagram_id");
                     Ondiagram_idChanged();
                 }
@@ -8590,7 +8564,7 @@ namespace Offwind.Web.Core
             {
                 OnversionChanging(value);
                 ReportPropertyChanging("version");
-                _version = StructuralObject.SetValidValue(value);
+                _version = StructuralObject.SetValidValue(value, "version");
                 ReportPropertyChanged("version");
                 OnversionChanged();
             }
@@ -8614,7 +8588,7 @@ namespace Offwind.Web.Core
             {
                 OndefinitionChanging(value);
                 ReportPropertyChanging("definition");
-                _definition = StructuralObject.SetValidValue(value, true);
+                _definition = StructuralObject.SetValidValue(value, true, "definition");
                 ReportPropertyChanged("definition");
                 OndefinitionChanged();
             }
@@ -8625,7 +8599,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -8655,7 +8628,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8674,7 +8647,7 @@ namespace Offwind.Web.Core
                 {
                     OnUserIdChanging(value);
                     ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value);
+                    _UserId = StructuralObject.SetValidValue(value, "UserId");
                     ReportPropertyChanged("UserId");
                     OnUserIdChanged();
                 }
@@ -8701,7 +8674,7 @@ namespace Offwind.Web.Core
                 {
                     OnUserNameChanging(value);
                     ReportPropertyChanging("UserName");
-                    _UserName = StructuralObject.SetValidValue(value, false);
+                    _UserName = StructuralObject.SetValidValue(value, false, "UserName");
                     ReportPropertyChanged("UserName");
                     OnUserNameChanged();
                 }
@@ -8726,7 +8699,7 @@ namespace Offwind.Web.Core
             {
                 OnFullNameChanging(value);
                 ReportPropertyChanging("FullName");
-                _FullName = StructuralObject.SetValidValue(value, true);
+                _FullName = StructuralObject.SetValidValue(value, true, "FullName");
                 ReportPropertyChanged("FullName");
                 OnFullNameChanged();
             }
@@ -8750,7 +8723,7 @@ namespace Offwind.Web.Core
             {
                 OnCompanyNameChanging(value);
                 ReportPropertyChanging("CompanyName");
-                _CompanyName = StructuralObject.SetValidValue(value, true);
+                _CompanyName = StructuralObject.SetValidValue(value, true, "CompanyName");
                 ReportPropertyChanged("CompanyName");
                 OnCompanyNameChanged();
             }
@@ -8776,7 +8749,7 @@ namespace Offwind.Web.Core
                 {
                     OnRoleIdChanging(value);
                     ReportPropertyChanging("RoleId");
-                    _RoleId = StructuralObject.SetValidValue(value);
+                    _RoleId = StructuralObject.SetValidValue(value, "RoleId");
                     ReportPropertyChanged("RoleId");
                     OnRoleIdChanged();
                 }
@@ -8788,7 +8761,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -8820,7 +8792,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8839,7 +8811,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -8864,7 +8836,7 @@ namespace Offwind.Web.Core
             {
                 OnParentIdChanging(value);
                 ReportPropertyChanging("ParentId");
-                _ParentId = StructuralObject.SetValidValue(value);
+                _ParentId = StructuralObject.SetValidValue(value, "ParentId");
                 ReportPropertyChanged("ParentId");
                 OnParentIdChanged();
             }
@@ -8890,7 +8862,7 @@ namespace Offwind.Web.Core
                 {
                     OnTypeIdChanging(value);
                     ReportPropertyChanging("TypeId");
-                    _TypeId = StructuralObject.SetValidValue(value, false);
+                    _TypeId = StructuralObject.SetValidValue(value, false, "TypeId");
                     ReportPropertyChanged("TypeId");
                     OnTypeIdChanged();
                 }
@@ -8915,7 +8887,7 @@ namespace Offwind.Web.Core
             {
                 OnCategoryIdChanging(value);
                 ReportPropertyChanging("CategoryId");
-                _CategoryId = StructuralObject.SetValidValue(value);
+                _CategoryId = StructuralObject.SetValidValue(value, "CategoryId");
                 ReportPropertyChanged("CategoryId");
                 OnCategoryIdChanged();
             }
@@ -8939,7 +8911,7 @@ namespace Offwind.Web.Core
             {
                 OnRouteTitleChanging(value);
                 ReportPropertyChanging("RouteTitle");
-                _RouteTitle = StructuralObject.SetValidValue(value, true);
+                _RouteTitle = StructuralObject.SetValidValue(value, true, "RouteTitle");
                 ReportPropertyChanged("RouteTitle");
                 OnRouteTitleChanged();
             }
@@ -8965,7 +8937,7 @@ namespace Offwind.Web.Core
                 {
                     OnRouteChanging(value);
                     ReportPropertyChanging("Route");
-                    _Route = StructuralObject.SetValidValue(value, false);
+                    _Route = StructuralObject.SetValidValue(value, false, "Route");
                     ReportPropertyChanged("Route");
                     OnRouteChanged();
                 }
@@ -8992,7 +8964,7 @@ namespace Offwind.Web.Core
                 {
                     OnPositionChanging(value);
                     ReportPropertyChanging("Position");
-                    _Position = StructuralObject.SetValidValue(value);
+                    _Position = StructuralObject.SetValidValue(value, "Position");
                     ReportPropertyChanged("Position");
                     OnPositionChanged();
                 }
@@ -9004,7 +8976,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -9036,7 +9007,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9055,7 +9026,7 @@ namespace Offwind.Web.Core
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -9082,7 +9053,7 @@ namespace Offwind.Web.Core
                 {
                     OnDatabaseIdChanging(value);
                     ReportPropertyChanging("DatabaseId");
-                    _DatabaseId = StructuralObject.SetValidValue(value);
+                    _DatabaseId = StructuralObject.SetValidValue(value, "DatabaseId");
                     ReportPropertyChanged("DatabaseId");
                     OnDatabaseIdChanged();
                 }
@@ -9109,7 +9080,7 @@ namespace Offwind.Web.Core
                 {
                     OnLatitudeChanging(value);
                     ReportPropertyChanging("Latitude");
-                    _Latitude = StructuralObject.SetValidValue(value);
+                    _Latitude = StructuralObject.SetValidValue(value, "Latitude");
                     ReportPropertyChanged("Latitude");
                     OnLatitudeChanged();
                 }
@@ -9136,7 +9107,7 @@ namespace Offwind.Web.Core
                 {
                     OnLongitudeChanging(value);
                     ReportPropertyChanging("Longitude");
-                    _Longitude = StructuralObject.SetValidValue(value);
+                    _Longitude = StructuralObject.SetValidValue(value, "Longitude");
                     ReportPropertyChanged("Longitude");
                     OnLongitudeChanged();
                 }
@@ -9148,7 +9119,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -9178,7 +9148,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9197,7 +9167,7 @@ namespace Offwind.Web.Core
                 {
                     OnUserIdChanging(value);
                     ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value);
+                    _UserId = StructuralObject.SetValidValue(value, "UserId");
                     ReportPropertyChanged("UserId");
                     OnUserIdChanged();
                 }
@@ -9224,7 +9194,7 @@ namespace Offwind.Web.Core
                 {
                     OnRoleIdChanging(value);
                     ReportPropertyChanging("RoleId");
-                    _RoleId = StructuralObject.SetValidValue(value);
+                    _RoleId = StructuralObject.SetValidValue(value, "RoleId");
                     ReportPropertyChanged("RoleId");
                     OnRoleIdChanged();
                 }
@@ -9251,7 +9221,7 @@ namespace Offwind.Web.Core
                 {
                     OnRoleNameChanging(value);
                     ReportPropertyChanging("RoleName");
-                    _RoleName = StructuralObject.SetValidValue(value, false);
+                    _RoleName = StructuralObject.SetValidValue(value, false, "RoleName");
                     ReportPropertyChanged("RoleName");
                     OnRoleNameChanged();
                 }
@@ -9263,7 +9233,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -9295,7 +9264,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9314,7 +9283,7 @@ namespace Offwind.Web.Core
                 {
                     OnUserIdChanging(value);
                     ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value);
+                    _UserId = StructuralObject.SetValidValue(value, "UserId");
                     ReportPropertyChanged("UserId");
                     OnUserIdChanged();
                 }
@@ -9339,7 +9308,7 @@ namespace Offwind.Web.Core
             {
                 OnCreateDateChanging(value);
                 ReportPropertyChanging("CreateDate");
-                _CreateDate = StructuralObject.SetValidValue(value);
+                _CreateDate = StructuralObject.SetValidValue(value, "CreateDate");
                 ReportPropertyChanged("CreateDate");
                 OnCreateDateChanged();
             }
@@ -9363,7 +9332,7 @@ namespace Offwind.Web.Core
             {
                 OnConfirmationTokenChanging(value);
                 ReportPropertyChanging("ConfirmationToken");
-                _ConfirmationToken = StructuralObject.SetValidValue(value, true);
+                _ConfirmationToken = StructuralObject.SetValidValue(value, true, "ConfirmationToken");
                 ReportPropertyChanged("ConfirmationToken");
                 OnConfirmationTokenChanged();
             }
@@ -9387,7 +9356,7 @@ namespace Offwind.Web.Core
             {
                 OnIsConfirmedChanging(value);
                 ReportPropertyChanging("IsConfirmed");
-                _IsConfirmed = StructuralObject.SetValidValue(value);
+                _IsConfirmed = StructuralObject.SetValidValue(value, "IsConfirmed");
                 ReportPropertyChanged("IsConfirmed");
                 OnIsConfirmedChanged();
             }
@@ -9411,7 +9380,7 @@ namespace Offwind.Web.Core
             {
                 OnLastPasswordFailureDateChanging(value);
                 ReportPropertyChanging("LastPasswordFailureDate");
-                _LastPasswordFailureDate = StructuralObject.SetValidValue(value);
+                _LastPasswordFailureDate = StructuralObject.SetValidValue(value, "LastPasswordFailureDate");
                 ReportPropertyChanged("LastPasswordFailureDate");
                 OnLastPasswordFailureDateChanged();
             }
@@ -9435,7 +9404,7 @@ namespace Offwind.Web.Core
             {
                 OnPasswordFailuresSinceLastSuccessChanging(value);
                 ReportPropertyChanging("PasswordFailuresSinceLastSuccess");
-                _PasswordFailuresSinceLastSuccess = StructuralObject.SetValidValue(value);
+                _PasswordFailuresSinceLastSuccess = StructuralObject.SetValidValue(value, "PasswordFailuresSinceLastSuccess");
                 ReportPropertyChanged("PasswordFailuresSinceLastSuccess");
                 OnPasswordFailuresSinceLastSuccessChanged();
             }
@@ -9459,7 +9428,7 @@ namespace Offwind.Web.Core
             {
                 OnPasswordChanging(value);
                 ReportPropertyChanging("Password");
-                _Password = StructuralObject.SetValidValue(value, false);
+                _Password = StructuralObject.SetValidValue(value, false, "Password");
                 ReportPropertyChanged("Password");
                 OnPasswordChanged();
             }
@@ -9483,7 +9452,7 @@ namespace Offwind.Web.Core
             {
                 OnPasswordChangedDateChanging(value);
                 ReportPropertyChanging("PasswordChangedDate");
-                _PasswordChangedDate = StructuralObject.SetValidValue(value);
+                _PasswordChangedDate = StructuralObject.SetValidValue(value, "PasswordChangedDate");
                 ReportPropertyChanged("PasswordChangedDate");
                 OnPasswordChangedDateChanged();
             }
@@ -9507,7 +9476,7 @@ namespace Offwind.Web.Core
             {
                 OnPasswordSaltChanging(value);
                 ReportPropertyChanging("PasswordSalt");
-                _PasswordSalt = StructuralObject.SetValidValue(value, false);
+                _PasswordSalt = StructuralObject.SetValidValue(value, false, "PasswordSalt");
                 ReportPropertyChanged("PasswordSalt");
                 OnPasswordSaltChanged();
             }
@@ -9531,7 +9500,7 @@ namespace Offwind.Web.Core
             {
                 OnPasswordVerificationTokenChanging(value);
                 ReportPropertyChanging("PasswordVerificationToken");
-                _PasswordVerificationToken = StructuralObject.SetValidValue(value, true);
+                _PasswordVerificationToken = StructuralObject.SetValidValue(value, true, "PasswordVerificationToken");
                 ReportPropertyChanged("PasswordVerificationToken");
                 OnPasswordVerificationTokenChanged();
             }
@@ -9555,7 +9524,7 @@ namespace Offwind.Web.Core
             {
                 OnPasswordVerificationTokenExpirationDateChanging(value);
                 ReportPropertyChanging("PasswordVerificationTokenExpirationDate");
-                _PasswordVerificationTokenExpirationDate = StructuralObject.SetValidValue(value);
+                _PasswordVerificationTokenExpirationDate = StructuralObject.SetValidValue(value, "PasswordVerificationTokenExpirationDate");
                 ReportPropertyChanged("PasswordVerificationTokenExpirationDate");
                 OnPasswordVerificationTokenExpirationDateChanged();
             }
@@ -9579,7 +9548,7 @@ namespace Offwind.Web.Core
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, true);
+                _Email = StructuralObject.SetValidValue(value, true, "Email");
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -9590,7 +9559,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -9620,7 +9588,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9639,7 +9607,7 @@ namespace Offwind.Web.Core
                 {
                     OnProviderChanging(value);
                     ReportPropertyChanging("Provider");
-                    _Provider = StructuralObject.SetValidValue(value, false);
+                    _Provider = StructuralObject.SetValidValue(value, false, "Provider");
                     ReportPropertyChanged("Provider");
                     OnProviderChanged();
                 }
@@ -9666,7 +9634,7 @@ namespace Offwind.Web.Core
                 {
                     OnProviderUserIdChanging(value);
                     ReportPropertyChanging("ProviderUserId");
-                    _ProviderUserId = StructuralObject.SetValidValue(value, false);
+                    _ProviderUserId = StructuralObject.SetValidValue(value, false, "ProviderUserId");
                     ReportPropertyChanged("ProviderUserId");
                     OnProviderUserIdChanged();
                 }
@@ -9691,7 +9659,7 @@ namespace Offwind.Web.Core
             {
                 OnUserIdChanging(value);
                 ReportPropertyChanging("UserId");
-                _UserId = StructuralObject.SetValidValue(value);
+                _UserId = StructuralObject.SetValidValue(value, "UserId");
                 ReportPropertyChanged("UserId");
                 OnUserIdChanged();
             }
@@ -9702,7 +9670,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -9730,7 +9697,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9749,7 +9716,7 @@ namespace Offwind.Web.Core
                 {
                     OnRoleIdChanging(value);
                     ReportPropertyChanging("RoleId");
-                    _RoleId = StructuralObject.SetValidValue(value);
+                    _RoleId = StructuralObject.SetValidValue(value, "RoleId");
                     ReportPropertyChanged("RoleId");
                     OnRoleIdChanged();
                 }
@@ -9774,7 +9741,7 @@ namespace Offwind.Web.Core
             {
                 OnRoleNameChanging(value);
                 ReportPropertyChanging("RoleName");
-                _RoleName = StructuralObject.SetValidValue(value, false);
+                _RoleName = StructuralObject.SetValidValue(value, false, "RoleName");
                 ReportPropertyChanged("RoleName");
                 OnRoleNameChanged();
             }
@@ -9785,7 +9752,6 @@ namespace Offwind.Web.Core
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -9826,7 +9792,7 @@ namespace Offwind.Web.Core
     [Serializable()]
     public partial class sp_helpdiagramdefinition_Result : ComplexObject
     {
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9843,7 +9809,7 @@ namespace Offwind.Web.Core
             {
                 OnversionChanging(value);
                 ReportPropertyChanging("version");
-                _version = StructuralObject.SetValidValue(value);
+                _version = StructuralObject.SetValidValue(value, "version");
                 ReportPropertyChanged("version");
                 OnversionChanged();
             }
@@ -9867,7 +9833,7 @@ namespace Offwind.Web.Core
             {
                 OndefinitionChanging(value);
                 ReportPropertyChanging("definition");
-                _definition = StructuralObject.SetValidValue(value, true);
+                _definition = StructuralObject.SetValidValue(value, true, "definition");
                 ReportPropertyChanged("definition");
                 OndefinitionChanged();
             }
@@ -9907,7 +9873,7 @@ namespace Offwind.Web.Core
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9924,7 +9890,7 @@ namespace Offwind.Web.Core
             {
                 OnDatabaseChanging(value);
                 ReportPropertyChanging("Database");
-                _Database = StructuralObject.SetValidValue(value, true);
+                _Database = StructuralObject.SetValidValue(value, true, "Database");
                 ReportPropertyChanged("Database");
                 OnDatabaseChanged();
             }
@@ -9948,7 +9914,7 @@ namespace Offwind.Web.Core
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -9972,7 +9938,7 @@ namespace Offwind.Web.Core
             {
                 OnIDChanging(value);
                 ReportPropertyChanging("ID");
-                _ID = StructuralObject.SetValidValue(value);
+                _ID = StructuralObject.SetValidValue(value, "ID");
                 ReportPropertyChanged("ID");
                 OnIDChanged();
             }
@@ -9996,7 +9962,7 @@ namespace Offwind.Web.Core
             {
                 OnOwnerChanging(value);
                 ReportPropertyChanging("Owner");
-                _Owner = StructuralObject.SetValidValue(value, true);
+                _Owner = StructuralObject.SetValidValue(value, true, "Owner");
                 ReportPropertyChanged("Owner");
                 OnOwnerChanged();
             }
@@ -10020,7 +9986,7 @@ namespace Offwind.Web.Core
             {
                 OnOwnerIDChanging(value);
                 ReportPropertyChanging("OwnerID");
-                _OwnerID = StructuralObject.SetValidValue(value);
+                _OwnerID = StructuralObject.SetValidValue(value, "OwnerID");
                 ReportPropertyChanged("OwnerID");
                 OnOwnerIDChanged();
             }
@@ -10035,5 +10001,4 @@ namespace Offwind.Web.Core
 
     #endregion
 
-    
 }

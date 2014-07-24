@@ -16,11 +16,11 @@ namespace Offwind.WebApp.Models
         public DbSet<UserProfile> UserProfiles { get; set; }
     }
 
-    [Table("DUserProfile")]
+    //[Table("DUserProfile")]
     public class UserProfile
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
     }
@@ -49,7 +49,6 @@ namespace Offwind.WebApp.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -96,7 +95,6 @@ namespace Offwind.WebApp.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password", Description = "Password confirmation is used to avoid mistypings.")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Company name")]
@@ -157,7 +155,6 @@ namespace Offwind.WebApp.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password", Description = "Password confirmation is used to avoid mistypings.")]
-        [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
         public string NewPasswordConfirm { get; set; }
     }
     public class ExternalLogin

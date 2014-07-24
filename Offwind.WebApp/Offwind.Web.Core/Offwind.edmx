@@ -1,41 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="StoreContainer">
-          <EntitySet Name="DCase" EntityType="Store.DCase" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DComment" EntityType="Store.DComment" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DContent" EntityType="Store.DContent" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DContentCategory" EntityType="Store.DContentCategory" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DContentTypes" EntityType="Store.DContentTypes" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DCountry" EntityType="Store.DCountry" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DEvent" EntityType="Store.DEvent" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DEventApplication" EntityType="Store.DEventApplication" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DEventParticipant" EntityType="Store.DEventParticipant" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DEventParticipantComment" EntityType="Store.DEventParticipantComment" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DJob" EntityType="Store.DJob" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMeeting" EntityType="Store.DMeeting" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMeetingFile" EntityType="Store.DMeetingFile" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMeetingParticipant" EntityType="Store.DMeetingParticipant" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMesoscaleDatabase" EntityType="Store.DMesoscaleDatabase" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DMesoscaleTabFile" EntityType="Store.DMesoscaleTabFile" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DProperties" EntityType="Store.DProperties" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DTurbine" EntityType="Store.DTurbine" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DTurbineParameter" EntityType="Store.DTurbineParameter" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DUserProfile" EntityType="Store.DUserProfile" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DWindFarm" EntityType="Store.DWindFarm" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DWindFarmTurbine" EntityType="Store.DWindFarmTurbine" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Log" EntityType="Store.Log" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Pages" EntityType="Store.Pages" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="sysdiagrams" EntityType="Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="webpages_Membership" EntityType="Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="webpages_OAuthMembership" EntityType="Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="webpages_Roles" EntityType="Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="webpages_UsersInRoles" EntityType="Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DVEventParticipant" EntityType="Store.DVEventParticipant" store:Type="Views" store:Schema="dbo" store:Name="DVEventParticipant">
+          <EntitySet Name="DCase" EntityType="Store.DCase" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DComment" EntityType="Store.DComment" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DContent" EntityType="Store.DContent" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DContentCategory" EntityType="Store.DContentCategory" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DContentTypes" EntityType="Store.DContentTypes" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DCountry" EntityType="Store.DCountry" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DEvent" EntityType="Store.DEvent" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DEventApplication" EntityType="Store.DEventApplication" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DEventParticipant" EntityType="Store.DEventParticipant" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DEventParticipantComment" EntityType="Store.DEventParticipantComment" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DJob" EntityType="Store.DJob" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DMeeting" EntityType="Store.DMeeting" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DMeetingFile" EntityType="Store.DMeetingFile" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DMeetingParticipant" EntityType="Store.DMeetingParticipant" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DMesoscaleDatabase" EntityType="Store.DMesoscaleDatabase" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DMesoscaleTabFile" EntityType="Store.DMesoscaleTabFile" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DProperties" EntityType="Store.DProperties" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DTurbine" EntityType="Store.DTurbine" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DTurbineParameter" EntityType="Store.DTurbineParameter" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DUserProfile" EntityType="Store.DUserProfile" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DWindFarm" EntityType="Store.DWindFarm" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DWindFarmTurbine" EntityType="Store.DWindFarmTurbine" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Log" EntityType="Store.Log" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Pages" EntityType="Store.Pages" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="sysdiagrams" EntityType="Store.sysdiagrams" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="webpages_Membership" EntityType="Store.webpages_Membership" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="webpages_Roles" EntityType="Store.webpages_Roles" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DVEventParticipant" EntityType="Store.DVEventParticipant" store:Type="Views" store:Schema="dbo" store:Name="DVEventParticipant" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
       [DVEventParticipant].[Id] AS [Id], 
       [DVEventParticipant].[Data] AS [Data], 
@@ -64,7 +64,7 @@
       [DVEventParticipant].[WorkPhone] AS [WorkPhone]
       FROM [dbo].[DVEventParticipant] AS [DVEventParticipant]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="DVUserProfile" EntityType="Store.DVUserProfile" store:Type="Views" store:Schema="dbo" store:Name="DVUserProfile">
+          <EntitySet Name="DVUserProfile" EntityType="Store.DVUserProfile" store:Type="Views" store:Schema="dbo" store:Name="DVUserProfile" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
       [DVUserProfile].[UserId] AS [UserId], 
       [DVUserProfile].[UserName] AS [UserName], 
@@ -92,7 +92,7 @@
       [DVUserProfile].[LastPasswordFailureDate] AS [LastPasswordFailureDate]
       FROM [dbo].[DVUserProfile] AS [DVUserProfile]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VPartner" EntityType="Store.VPartner" store:Type="Views" store:Schema="dbo" store:Name="VPartner">
+          <EntitySet Name="VPartner" EntityType="Store.VPartner" store:Type="Views" store:Schema="dbo" store:Name="VPartner" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
       [VPartner].[UserId] AS [UserId], 
       [VPartner].[UserName] AS [UserName], 
@@ -101,7 +101,7 @@
       [VPartner].[RoleId] AS [RoleId]
       FROM [dbo].[VPartner] AS [VPartner]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VRouteItem" EntityType="Store.VRouteItem" store:Type="Views" store:Schema="dbo" store:Name="VRouteItem">
+          <EntitySet Name="VRouteItem" EntityType="Store.VRouteItem" store:Type="Views" store:Schema="dbo" store:Name="VRouteItem" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
       [VRouteItem].[Id] AS [Id], 
       [VRouteItem].[ParentId] AS [ParentId], 
@@ -112,7 +112,7 @@
       [VRouteItem].[Position] AS [Position]
       FROM [dbo].[VRouteItem] AS [VRouteItem]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VSmallMesoscaleTabFile" EntityType="Store.VSmallMesoscaleTabFile" store:Type="Views" store:Schema="dbo" store:Name="VSmallMesoscaleTabFile">
+          <EntitySet Name="VSmallMesoscaleTabFile" EntityType="Store.VSmallMesoscaleTabFile" store:Type="Views" store:Schema="dbo" store:Name="VSmallMesoscaleTabFile" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
       [VSmallMesoscaleTabFile].[Id] AS [Id], 
       [VSmallMesoscaleTabFile].[DatabaseId] AS [DatabaseId], 
@@ -120,7 +120,7 @@
       [VSmallMesoscaleTabFile].[Longitude] AS [Longitude]
       FROM [dbo].[VSmallMesoscaleTabFile] AS [VSmallMesoscaleTabFile]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VUserRole" EntityType="Store.VUserRole" store:Type="Views" store:Schema="dbo" store:Name="VUserRole">
+          <EntitySet Name="VUserRole" EntityType="Store.VUserRole" store:Type="Views" store:Schema="dbo" store:Name="VUserRole" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
       [VUserRole].[UserId] AS [UserId], 
       [VUserRole].[RoleId] AS [RoleId], 
@@ -812,8 +812,8 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Offwind.DbModels" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="OffwindEntities" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="Offwind.DbModels" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="OffwindEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <FunctionImport Name="WindFarm_DeleteTurbines">
             <Parameter Name="windFarmId" Mode="In" Type="Guid" />
           </FunctionImport>
@@ -1003,7 +1003,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DEvent">
@@ -1109,7 +1109,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="DatabaseId" Type="Int16" Nullable="false" />
           <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
           <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
@@ -1170,7 +1170,7 @@
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsVerified" Type="Boolean" Nullable="false" />
           <Property Name="VerificationCode" Type="Guid" />
@@ -1229,7 +1229,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Thread" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="Level" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
@@ -1241,7 +1241,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Slug" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="PageType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="PageTitle" Type="String" MaxLength="1050" FixedLength="false" Unicode="true" />
@@ -1264,7 +1264,7 @@
           </Key>
           <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
@@ -1298,7 +1298,7 @@
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DUserProfiles" Relationship="Offwind.DbModels.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="DUserProfile" />
         </EntityType>
@@ -1401,7 +1401,7 @@
             <PropertyRef Name="Latitude" />
             <PropertyRef Name="Longitude" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="DatabaseId" Type="Int16" Nullable="false" />
           <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
           <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
@@ -1508,8 +1508,8 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="OffwindEntities" >
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="OffwindEntities">
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Store.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Store.sp_dropdiagram" />
@@ -2030,7 +2030,7 @@
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />

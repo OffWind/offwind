@@ -92,6 +92,7 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
         public ActionResult DeleteConfirmed(Guid id, string returnTo)
         {
             var dWindFarm = _ctx.DWindFarms.Single(n => n.Id == id);
+            RemoveAllTurbines(dWindFarm.Id);
             _ctx.DWindFarms.DeleteObject(dWindFarm);
             _ctx.SaveChanges();
             return RedirectToAction("List", "WindFarm", new { area = "WindFarms" });

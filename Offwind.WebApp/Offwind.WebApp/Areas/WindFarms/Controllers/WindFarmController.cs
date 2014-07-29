@@ -47,6 +47,14 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             return View("Edit", model);
         }
 
+        public ActionResult Copy(Guid id)
+        {
+            var dWindFarm = _ctx.DWindFarms.First(n => n.Id == id);
+            var newId = CopyWindFarm(dWindFarm);
+
+            return RedirectToAction("Details", "WindFarm", new { area = "WindFarms", id = newId });
+        }
+
         public ActionResult AccessLevel(Guid id,bool isPublic)
         {
             var dWindFarm = _ctx.DWindFarms.First(n => n.Id == id);
@@ -172,6 +180,63 @@ namespace Offwind.WebApp.Areas.WindFarms.Controllers
             db.UrlPublicWiki = model.UrlPublicWiki ?? "";
             db.IsPublic = false;
             _ctx.SaveChanges();
+        }
+
+        private Guid CopyWindFarm(DWindFarm copiedDb)
+        {
+            DWindFarm db;
+            db = new DWindFarm();
+            db.Id = Guid.NewGuid();
+            db.Created = DateTime.UtcNow;
+            db.Author = HttpContext.User.Identity.Name;
+
+            _ctx.DWindFarms.AddObject(db);
+
+            db.Updated = DateTime.UtcNow;
+            var copiedDbName = copiedDb.Name;
+            var copyNumber = 1;
+            var dbName = string.Empty;
+            while (true)
+            {
+                dbName = string.Format("{0} ({1})", copiedDbName, copyNumber);
+                if (!_ctx.DWindFarms.Any(wf => (string.Compare(wf.Name, dbName, false) == 0)))
+                {
+                    break;
+                }
+                copyNumber++;
+            }
+            db.Name = dbName;
+            db.Country = copiedDb.Country;
+            db.Description = copiedDb.Description;
+            db.GeoLat = copiedDb.GeoLat;
+            db.GeoLng = copiedDb.GeoLng;
+            db.TotalCapacity = copiedDb.TotalCapacity;
+            db.UrlOfficial = copiedDb.UrlOfficial;
+            db.UrlPublicWiki = copiedDb.UrlPublicWiki;
+            db.IsPublic = copiedDb.IsPublic;
+            //db.Rating
+            //db.TurbineTypeId
+            //_ctx.SaveChanges();
+
+            _ctx.DWindFarmTurbines.Where(wft => wft.WindFarmId == copiedDb.Id).ForEach(
+                wft =>
+                {
+                    _ctx.DWindFarmTurbines.AddObject(
+                        new DWindFarmTurbine
+                        {
+                            Id = Guid.NewGuid(),
+                            WindFarmId = db.Id,
+                            Number = wft.Number,
+                            X = wft.X,
+                            Y = wft.Y,
+                            Z = wft.Z
+                        }
+                    );
+                }
+            );
+            _ctx.SaveChanges();
+
+            return db.Id;
         }
     }
 }

@@ -52,6 +52,7 @@
                                 @if (farm.CanEdit)
                                 {
                                     <li><a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms", id = farm.Id, returnTo = "list" })" class="">Edit</a></li>
+                                    <li><a href="@Url.Action("Copy", "WindFarm", new { area = "WindFarms", id = farm.Id })" class="">Copy</a></li>
 
                                     if (farm.IsPublic)
                                     {

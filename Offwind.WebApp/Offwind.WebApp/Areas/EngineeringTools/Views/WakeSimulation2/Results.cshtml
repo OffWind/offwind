@@ -55,23 +55,38 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            function formatNumber(value, digitsAfterPointNumber) {
+                var powerOfTen = Math.pow(10, digitsAfterPointNumber);
+                formattedValueString = String(Math.round(value * powerOfTen) / powerOfTen);
+                return formattedValueString;
+            }
+
             $.ajax({
                 url: "@Url.Action("GetSimulationResults", "WakeSimulation2", new { area = "EngineeringTools" })",
                 dataType: 'json',
                 type: 'GET',
                 success: function(res) {
                     if (!res) return;
+                    var data = res.data;
+                    var turbines = res.turbines;
+                    var turbines_titles = null;
+                    if (turbines != null) {
+                        turbines_titles =  [ ];
+                        for (var i = 0; i < turbines.length; i++) {
+                            turbines_titles.push('Turbine #' + (turbines[i].n + 1) + ' (' + formatNumber(turbines[i].x, 2) + ', ' + formatNumber(turbines[i].y, 2) + ')');
+                        }
+                    }
                     var w = $('.tab-content').width();
                     $('.chart').width(w);
-                    show_graph(res, "rotorSpeed", "Rotor Speed", "", "", 1, 0, null);
-                    show_graph(res, "bladePitchAngle", "Blade pitch angle", "", "", 2, 0, null);
-                    show_graph(res, "turbinePowerReference", "Individual turbine power reference", "", "", 3, 0, null);
-                    show_graph(res, "availablePower", "Available power", "", "", 6, 0, null);
-                    show_graph(res, "windSpeed", "Wind speed", "", "", 0, 0, null);
+                    show_graph(data, "rotorSpeed", "Rotor Speed", "Time [s]", "Rotor speed [r/s]", 1, 0, turbines_titles);
+                    show_graph(data, "bladePitchAngle", "Blade pitch angle", "Time [s]", "Blade pitch angle [r]", 2, 0, turbines_titles);
+                    show_graph(data, "turbinePowerReference", "Individual turbine power reference", "Time [s]", "Power reference [W]", 3, 0, turbines_titles);
+                    show_graph(data, "availablePower", "Available power", "Time [s]", "Available power [W]", 6, 0, turbines_titles);
+                    show_graph(data, "windSpeed", "Wind speed", "Time [s]", "Wind speed [m/s]", 0, 0, turbines_titles);
                     
-                    show_graph(res, "totalFarmPower", "Total farm power", "", "", 9, 0, ["Power Demand", "Available Power", "Actual Production"]);
-                    show_graph(res, "totalPower", "Total power", "", "", 9, 3, ["Demand", "Available", "Actual"]);
-                    show_graph(res, "totalPowerProduced", "Total power produced", "", "", 9, 6, [""]);
+                    show_graph(data, "totalFarmPower", "Total farm power", "Time [s]", "Total farm power [MW]", 9, 0, ["Power Demand", "Available Power", "Actual Production"]);
+                    show_graph(data, "totalPower", "Total power", "Time [s]", "Total power [W]", 9, 3, ["Demand", "Available", "Actual"]);
+                    show_graph(data, "totalPowerProduced", "Total power produced", "Time [s]", "Total power produced [W]", 9, 6, [""]);
                 }
             });
         });

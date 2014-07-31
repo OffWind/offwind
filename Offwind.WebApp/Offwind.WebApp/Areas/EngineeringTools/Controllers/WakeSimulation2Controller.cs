@@ -85,7 +85,20 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             // You could always read the value from the config section mentioned above.
             serializer.MaxJsonLength = Int32.MaxValue;
 
-            var res = _simulation.Select(x => new object[] { x }).ToArray();
+            //var res = _simulation.Select(x => new object[] { x }).ToArray();
+
+            var turbines = new object[] { };
+            if (_model != null)
+            {
+                string modelWindFarm;
+                lock (_model)
+                {
+                    modelWindFarm = _model.WindFarm;
+                }
+                var dWindFarm = _ctx.DWindFarms.First(wf => wf.Name == modelWindFarm);
+                turbines = dWindFarm.DWindFarmTurbines.OrderBy(t => t.Number).Select(t => new { n = t.Number, x = t.X, y = t.Y }).ToArray();
+            }
+            var res = new { data = _simulation.Select(x => new object[] { x }).ToArray(), turbines = turbines };
             var result = new ContentResult
             {
                 Content = serializer.Serialize(res),

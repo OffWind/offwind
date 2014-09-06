@@ -81,7 +81,10 @@
                     var lbox = document.getElementById("windfarmsel");
                     for (var i = 0; i < res.length-1; i++) {
                         var opt = document.createElement("option");
-                        opt.label = res[i];
+                        //opt.label = res[i];
+                        var optLabel = res[i];
+                        opt.text = optLabel;
+                        opt.label = optLabel;
                         lbox.appendChild(opt);
                     }
                     lbox.selectedIndex = parseInt(res[i]);

@@ -8,6 +8,7 @@ namespace Offwind.WebApp.Models.Account
     public class VUserProfile : BaseModel<VUserProfile, DVUserProfile>
     {
         public int Id { set; get; }
+        public int UserId { set; get; }
         public string UserName { set; get; }
         public string FirstName { set; get; }
         public string LastName { set; get; }

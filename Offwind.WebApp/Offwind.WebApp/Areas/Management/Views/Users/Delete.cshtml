@@ -1,0 +1,86 @@
+﻿@model Offwind.WebApp.Models.Account.VUserProfile
+
+@{
+    ViewBag.Title = "User Profile";
+}
+
+<style>
+</style>
+
+@*
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "HomeWindFarms", new { area = "WindFarms" })">Wind Farms & Turbines Database</a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("List", "Turbine", new { area = "WindFarms" })">Turbines</a> <span class="divider">/</span></li>
+    <li class="active">User Details</li>
+</ul>
+*@
+<div class="row-fluid row-content-block">
+    <div class="span12 well actionable-page">
+        <h1>User Deletion</h1>
+        <h3>Are you sure you want to delete this?</h3>
+     
+        @using (Html.BeginForm())
+        {
+            <p>
+                <input class="btn btn-primary" type="submit" value="Delete" />
+@*
+                @if (Model.ReturnTo == "list")
+                {
+                    <a href="@Url.Action("List", "WindFarm", new { area = "WindFarms" })" class="btn">Cancel</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Details", "WindFarm", new { area = "WindFarms", id = Model.Id })" class="btn">Cancel</a>
+                }
+*@
+                <a href="@Url.Action("Index", "Users", new { area = "Management" })" class="btn">Cancel</a>
+            </p>
+        }
+        <h2>Properties</h2>
+        <p>
+            <table class="table table-bordered model-view">
+                <tr>
+                    <td>Username</td>
+                    <td>@Model.UserName</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>@Model.FirstName @Model.MiddleName @Model.LastName</td>
+                </tr>
+                <tr>
+                    <td class="ph">Company name</td>
+                    <td>@Model.CompanyName</td>
+                </tr>
+                @Html.Partial("~/Views/Account/Profile/__Contacts.cshtml")
+                <tr>
+                    <td class="ph">Status</td>
+                    <td>
+                        @if (Model.IsVerified)
+                        {
+                            <span class="badge badge-success">Verified</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-warning">Non-verified</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="ph">Roles</td>
+                    <td>@Model.FormattedRoles()</td>
+                </tr>
+                <tr>
+                    <td class="ph">Registration date</td>
+                    <td>@Model.CreateDate.ToString("MMMM dd, yyyy")</td>
+                </tr>
+            </table>
+        </p>
+    </div>
+
+</div>
+
+
+@section scripts
+{
+}

@@ -70,7 +70,7 @@
                         <td class="name">
                             <div>
                                 <a href="@Url.Action("Profile", "Account", new { area = "", userName = user.UserName })" target="_blank">@user.FirstName @user.MiddleName @user.LastName</a>
-                                <a href="#delete" data-username="@user.UserName" class="action"><i class="icon icon-remove"></i></a>
+                                <a href="@Url.Action("Delete", "Users", new { area = "Management", id = user.UserId })" data-username=" @user.UserName " class=" action"><i class="icon icon-remove"></i></a>
                             </div>
                         </td>
                         <td>

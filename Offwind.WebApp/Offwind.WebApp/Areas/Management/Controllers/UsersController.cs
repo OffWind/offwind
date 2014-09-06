@@ -102,5 +102,94 @@ namespace Offwind.WebApp.Areas.Management.Controllers
         //    }
         //    return Json("OK");
         //}        
+
+        public ActionResult Delete(int id)
+        {
+            var usr = Enumerable.FirstOrDefault(_ctx.DVUserProfiles.Where(x => x.UserId == id));
+            if (usr == null)
+            {
+                throw new System.ArgumentException();
+            }
+            var model = VUserProfile.MapFromDb(usr);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateInput(false)]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var usr = Enumerable.FirstOrDefault(_ctx.DUserProfiles.Where(x => x.UserId == id));
+            if (usr == null || usr.UserName == User.Identity.Name)
+            {
+                throw new System.ArgumentException();
+            }
+            RemoveUser(usr);
+            return RedirectToAction("Index", "Users", new { area = "Management" });
+        }
+
+        private void RemoveUser(Web.Core.DUserProfile usr)
+        {
+            var cases = _ctx.DCases.Where(c => c.Owner == usr.UserName).ToList();
+            foreach (var case_ in cases)
+            {
+                _ctx.DCases.DeleteObject(case_);
+            }
+
+            var comments = _ctx.DComments.Where(c => c.Author == usr.UserName).ToList();
+            foreach (var comment in comments)
+            {
+                _ctx.DComments.DeleteObject(comment);
+            }
+
+            var eventParticipants = _ctx.DEventParticipants.Where(ep => ep.UserId == usr.UserId).ToList();
+            foreach (var eventParticipant in eventParticipants)
+            {
+                var eventParticipantComments = _ctx.DEventParticipantComments.Where(epc => epc.ParticipantId == eventParticipant.Id).ToList();
+                foreach (var eventParticipantComment in eventParticipantComments)
+                {
+                    _ctx.DEventParticipantComments.DeleteObject(eventParticipantComment);
+                }
+                _ctx.DEventParticipants.DeleteObject(eventParticipant);
+            }
+
+            var jobs = _ctx.DJobs.Where(j => j.Owner == usr.UserName).ToList();
+            foreach (var job in jobs)
+            {
+                _ctx.DJobs.DeleteObject(job);
+            }
+
+            var turbines = _ctx.DTurbines.Where(t => t.Author == usr.UserName).ToList();
+            foreach (var turbine in turbines)
+            {
+                var turbineParameters = _ctx.DTurbineParameters.Where(tp => tp.TurbineId == turbine.Id).ToList();
+                foreach (var turbineParameter in turbineParameters)
+                {
+                    _ctx.DTurbineParameters.DeleteObject(turbineParameter);
+                }
+                _ctx.DTurbines.DeleteObject(turbine);
+            }
+
+            var windFarms = _ctx.DWindFarms.Where(wf => wf.Author == usr.UserName).ToList();
+            foreach (var windFarm in windFarms)
+            {
+                var windFarmTurbines = _ctx.DWindFarmTurbines.Where(wft => wft.WindFarmId == windFarm.Id).ToList();
+                foreach (var windFarmTurbine in windFarmTurbines)
+                {
+                    _ctx.DWindFarmTurbines.DeleteObject(windFarmTurbine);
+                }
+                _ctx.DWindFarms.DeleteObject(windFarm);
+            }
+
+            var rolesProvider = (WebMatrix.WebData.SimpleRoleProvider)System.Web.Security.Roles.Provider;
+            var userRoles = usr.webpages_Roles.Select(wp_r => wp_r.RoleName);
+            rolesProvider.RemoveUsersFromRoles(new[] { usr.UserName }, userRoles.ToArray());
+
+            System.Web.Security.Membership.DeleteUser(usr.UserName);
+
+            _ctx.SaveChanges();
+
+            //WebMatrix.WebData.WebSecurity.DeleteUserAndAccount(usr.UserName);
+        }
     }
 }

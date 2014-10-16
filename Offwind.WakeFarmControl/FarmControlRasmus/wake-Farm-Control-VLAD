@@ -1,0 +1,26 @@
+Description on the Wake-Farm-Control
+
+Variables that the end-user should be able to alter:
+The Syntax is as follows
+Matlab Variable Name, "What it should be called on Homepage" (Short Desciption on mouseover)
+
+"True or False"-settings:
+enablePowerDistribution "Enable Power Distribution?" (Enables wind farm control and not only constant power)
+enableTurbineDynamics "Enable Turbine Dynamics?" (Enable Dynamic Turbine Model)
+powerRefInterpolation "Enable Power Reference Interpolation" (Enable Power Reference Interpolation)
+enableVaryingDemand "Enable a Varying Demand" (Enables a Power Demand that varies).
+
+Variables that the user should be able to set:
+simParm.timeStep "Time Step" (time Step)
+simParm.tEnd "End Time" (end time of simulation)
+simParm.ctrlUpdate "Update Interval, Control" (update time of controller)
+simParm.powerUpdate "Update Interval, Power" (update time of the power reference)
+P_demand(1) "Initial Power Demand" (The initial Power demand, if the varying demand option is set to "false" this will remain constant throughout the simulation).
+
+
+Outputs:
+Allow the users to download the "dataOut" structure. This contains the following:
+[time, sumPower, sumReference, sumAvailable] - so the 
+
+Plots:
+I'll get back to you when the prediction script is ready.

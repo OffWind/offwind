@@ -88,7 +88,7 @@ for i=2:((simParm.tEnd-simParm.tStart)/simParm.timeStep) % At each sample time (
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
     
     % Calculate the wake using the last Ct values
-    v_nac(:,i)  = wakeCalculationsRLC(parm.Ct(:,i-1), wField, x(:,2), parm, simParm);
+    v_nac(:,i)  = wakeCalculationsRLC(parm.Ct(:,i-1), transpose(wField), x(:,2), parm, simParm);
     x(:,2)      = v_nac(:,i);
     
     
@@ -126,27 +126,10 @@ for i=2:((simParm.tEnd-simParm.tStart)/simParm.timeStep) % At each sample time (
         end
     end
     
-    %Rate limit torque change 
-    u(:,2) = sign(u(:,2) - Mg(:,i-1)) .* min(abs(u(:,2) - Mg(:,i-1)), Mg_max_rate) + Mg(:,i-1);
-    u(:,1) = Kp*(omega0 - x(:,1)) + Ki*dZ; % The Kp and Ki values are negative!
-
-    % Integrator Anti-windup
-    
-    for j = 1:parm.N
-        if (u(j,1) >= Umax) && (omega0 >= x(j,1))
-            du(j,1) = 0;
-        elseif (u(j,1) >= Umax) && (omega0 <= x(j,1))
-            du(j,1) = omega0 - x(j,1);
-        end
-
-
-        if (u(j,1) <= Umin) && (omega0 <= x(j,1))
-            du(j,1) = 0;
-        elseif (u(j,1) <= Umin) && (omega0 >= x(j,1))
-            du(j,1) = omega0 - x(j,1);
-        end
-    end 
-    dZ = dZ + simParm.timeStep*du(:,1);
+    dx      = (omega0 - x(:,1)) - (omega0 - Omega(:,i-1));
+    du      = Kp*dx + Ki*simParm.timeStep*(omega0 - x(:,1));
+    du      = min(max(du,-wt.ctrl.pitch.ratelim),wt.ctrl.pitch.ratelim);
+    u(:,1)  = min(max(u(:,1)+du*simParm.timeStep,Umin),Umax);
  
     
     Mg(:,i)     = u(:,2); % Torque Input

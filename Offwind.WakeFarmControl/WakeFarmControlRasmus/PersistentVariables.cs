@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using ILNumerics;
 
-namespace WakeFarmControl
+namespace WakeFarmControlR
 {
     public sealed class PersistentVariables
     {

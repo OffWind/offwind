@@ -2,7 +2,7 @@
 using System.Linq;
 using ILNumerics;
 
-namespace WakeFarmControl
+namespace WakeFarmControlR
 {
     public static class ILArrayExtensions
     {
@@ -14,6 +14,38 @@ namespace WakeFarmControl
         public static int length(this ILArray<int> ilArray)
         {
             return ilArray.Size.Longest;
+        }
+
+        //public static string Dimensions(this ILArray<double> ilArray)
+        //{
+        //    string itemsSeparator = ", ";
+        //    string arrDimensions = ilArray.Size.ToIntArray().Aggregate(string.Empty, (dimensions, item) => { return dimensions + itemsSeparator + item.ToString(); });
+        //    if (arrDimensions.StartsWith(itemsSeparator))
+        //    {
+        //        arrDimensions = arrDimensions.Substring(itemsSeparator.Length);
+        //    }
+
+        //    return "{" + arrDimensions + "}";
+        //}
+
+        public static double[][] ToDoubleArray(this ILArray<double> ilArray)
+        {
+            if (ilArray.Size.ToIntArray().Length != 2)
+            {
+                throw new ArgumentException();
+            }
+
+            var doubleArray = new double[ilArray.Size[0]][];
+            for (int i = 0; i <= doubleArray.GetLength(0) - 1; i++)
+            {
+                doubleArray[i] = new double[ilArray.Size[1]];
+                for (int j = 0; j <= doubleArray[i].GetLength(0) - 1; j++)
+                {
+                    doubleArray[i][j] = ilArray.GetValue(i, j);
+                }
+            }
+
+            return doubleArray;
         }
 
         public static void SetRows(this ILArray<double> ilArray, ILArray<double> value, int fromRow, int toRow)
@@ -94,7 +126,7 @@ namespace WakeFarmControl
         }
 
         //% The main file for running the wind farm controll and wake simulation.
-        public static double[][] Simulation(WakeFarmControlRConfig config)
+        public static double[][] Simulation(WakeFarmControlConfig config)
         {
             var parm = new WindTurbineParameters();
 
@@ -143,7 +175,7 @@ namespace WakeFarmControl
             var wind = new ILMatFile(config.Wind_MatFile);
 
             // Wind farm and Turbine Properties properties
-            parm.wf = LoadILArrayFromFile("initial_data"); // Loads the Wind Farm Layout.
+            parm.wf = LoadILArrayFromFile(config.InitialData_MatFile); // Loads the Wind Farm Layout.
             parm.N = parm.wf.length(); // number of turbines in farm
             parm.rotA = -48.80; // Angle of Attack
             parm.kWake = 0.06;
@@ -320,7 +352,7 @@ namespace WakeFarmControl
 
             //%
             //time    = (simParm.tStart:simParm.timeStep:simParm.tEnd-simParm.timeStep)';
-            time = (ILMath.counter(config.SimParm.tStart, config.SimParm.timeStep, (config.SimParm.tEnd - config.SimParm.tStart) / config.SimParm.timeStep));
+            time = (ILMath.counter(config.SimParm.tStart, config.SimParm.timeStep, stepsCount));  // (config.SimParm.tEnd - config.SimParm.tStart) / config.SimParm.timeStep
 
 
             if (config.saveData)
@@ -338,22 +370,13 @@ namespace WakeFarmControl
             //plot(time,P_ref*(10^(-6))); grid on; // Power Reference
             //xlabel('Time [s]'); ylabel('Power Reference [MW]');
             //title('Individual Power Reference');
-            plotsData = plotsData.Concat(P_ref * 1E-6, 1);
+            plotsData = plotsData.Concat(P_ref.T * 1E-6, 1);
             // 
             //f2 = figure(2); clf;
             //plot(time,v_nac); grid on; // Wind velocity at each turbine
             //xlabel('Time [s]'); ylabel('Wind Speed [m/s]');
             //title('Wind Speed @ individual turbine');
-            plotsData = plotsData.Concat(v_nac, 1);
-
-            //f3 = figure(3); clf;
-            //plot(time,sumRef,time,sumAvai,time,sumPower); grid on; // Power References
-            //xlabel('Time [s]'); ylabel('Power [MW]');
-            //legend('Reference','Available','Produced');
-            //title('Power Plot');
-            plotsData = plotsData.Concat(sumRef, 1);
-            plotsData = plotsData.Concat(sumAvai, 1);
-            plotsData = plotsData.Concat(sumPower, 1);
+            plotsData = plotsData.Concat(v_nac.T, 1);
 
             //f4 = figure(4); clf;
             //plot(time,beta'); grid on;
@@ -367,8 +390,16 @@ namespace WakeFarmControl
             //title('Evolution of Revolutional Velocity over time');
             plotsData = plotsData.Concat(Omega.T, 1);
 
-            throw new NotImplementedException();
-            return null;
+            //f3 = figure(3); clf;
+            //plot(time,sumRef,time,sumAvai,time,sumPower); grid on; // Power References
+            //xlabel('Time [s]'); ylabel('Power [MW]');
+            //legend('Reference','Available','Produced');
+            //title('Power Plot');
+            plotsData = plotsData.Concat(sumRef.T, 1);
+            plotsData = plotsData.Concat(sumAvai.T, 1);
+            plotsData = plotsData.Concat(sumPower.T, 1);
+
+            return plotsData.ToDoubleArray();
         }
     }
 }

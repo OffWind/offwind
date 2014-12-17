@@ -1,6 +1,6 @@
 ﻿using ILNumerics;
 
-namespace WakeFarmControl
+namespace WakeFarmControlR
 {
     public sealed class wakeCalculationsRLC
     {
@@ -18,7 +18,7 @@ namespace WakeFarmControl
             int gridRes = simParm.gridRes; // Grid Resolution, the lower the number, the higher the amount of points computed.
             int endSize = simParm.grid;
     
-            if (Ct < 0) // !ILMath.isreal(Ct) | 
+            //if (Ct < 0) // !ILMath.isreal(Ct) | 
             {
                 //disp('Ct is negative or complex');
             }

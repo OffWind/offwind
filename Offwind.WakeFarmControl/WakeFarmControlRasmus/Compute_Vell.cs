@@ -1,7 +1,7 @@
 ﻿using System;
 using ILNumerics;
 
-namespace WakeFarmControl
+namespace WakeFarmControlR
 {
     public sealed class Compute_Vell
     {
@@ -59,15 +59,14 @@ namespace WakeFarmControl
 
                     for (var j = jjMin; j <= jjMax; j++)
                     {
-                        if (((-vell_i.GetValue(ii - 1, j - 1) + Uhub.GetValue(k - 1)) > 0) && (ii > xTurbC.GetValue(k - 1) + nk))
+                        if (((-vell_i.GetValue(ii - 1, j) + Uhub.GetValue(k - 1)) > 0) && (ii > xTurbC.GetValue(k - 1) + nk))
                         {
-                            vell_i.SetValue(Math.Min(vell_i.GetValue(ii - 2, j - 1), Uhub.GetValue(k - 1) + Uhub.GetValue(k - 1) * (Math.Sqrt(1 - Ct.GetValue(k - 1)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - Math.Sqrt(1 - Ct.GetValue(k - 1))) * SS)), ii - 1, j - 1);
-                            vell_i.SetValue(Math.Max(0, vell_i.GetValue(ii - 1, j - 1)), ii - 1, j - 1);
+                            vell_i.SetValue(Math.Min(vell_i.GetValue(ii - 2, j), Uhub.GetValue(k - 1) + Uhub.GetValue(k - 1) * (Math.Sqrt(1 - Ct.GetValue(k - 1)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - Math.Sqrt(1 - Ct.GetValue(k - 1))) * SS)), ii - 1, j);
+                            vell_i.SetValue(Math.Max(0, vell_i.GetValue(ii - 1, j)), ii - 1, j);
                         }
                         else
                         {
-                            vell_i.SetValue((Uhub.GetValue(k - 1) + Uhub.GetValue(k - 1) * (Math.Sqrt(1 - Ct.GetValue(k - 1)) - 1) * (r0 / rrt) * (r0 / rrt)) * (1 - (1 - Math.Sqrt(1 - Ct.GetValue(k - 1))) * SS), ii - 1, j - 1);
-                            vell_i.SetValue(Math.Max(0, vell_i.GetValue(ii - 1, j - 1)), ii - 1, j - 1);
+                            vell_i.SetValue((Uhub.GetValue(k - 1) + Uhub.GetValue(k - 1) * (Math.Sqrt(1 - Ct.GetValue(k - 1)) - 1) * (r0 / rrt) * (r0 / rrt)) * (1 - (1 - Math.Sqrt(1 - Ct.GetValue(k - 1))) * SS), ii - 1, j);
                         }
                     }
                 }

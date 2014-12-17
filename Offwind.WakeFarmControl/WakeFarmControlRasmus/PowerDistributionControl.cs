@@ -1,7 +1,7 @@
 ﻿using System;
 using ILNumerics;
 
-namespace WakeFarmControl
+namespace WakeFarmControlR
 {
     public sealed class PowerDistributionControl
     {

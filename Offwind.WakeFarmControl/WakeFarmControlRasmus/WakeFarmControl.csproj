@@ -7,8 +7,8 @@
     <ProjectGuid>{D1EB8E84-274B-46E5-AF75-7539B6BFCA28}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WakeFarmControl</RootNamespace>
-    <AssemblyName>WakeFarmControl</AssemblyName>
+    <RootNamespace>WakeFarmControlR</RootNamespace>
+    <AssemblyName>WakeFarmControlR</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

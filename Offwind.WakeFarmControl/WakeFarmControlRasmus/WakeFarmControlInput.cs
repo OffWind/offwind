@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WakeFarmControl
+namespace WakeFarmControlR
 {
     public class SimParm
     {
@@ -16,7 +16,7 @@ namespace WakeFarmControl
         public double powerUpdate = 1; // How often the control algorithm should update!
     }
 
-    public sealed class WakeFarmControlRConfig
+    public sealed class WakeFarmControlConfig
     {
         public bool saveData;
         public bool enablePowerDistribution;
@@ -37,6 +37,7 @@ namespace WakeFarmControl
 
         public string NREL5MW_MatFile;
         public string Wind_MatFile;
+        public string InitialData_MatFile;
 
         //public bool PowerRefInterpolation;
 
@@ -45,7 +46,7 @@ namespace WakeFarmControl
         //    return ((Tend - Tstart)/DT);
         //}
 
-        public WakeFarmControlRConfig()
+        public WakeFarmControlConfig()
         {
             //General settings to be changed
             saveData = true; // Save all the simulated data to a .mat file?
@@ -55,6 +56,7 @@ namespace WakeFarmControl
             enableVaryingDemand = true; // Varying Reference
 
             // Simulation Properties:
+            SimParm = new SimParm();
             SimParm.tStart = 0; // time start
             SimParm.timeStep = 0.1; // time step, 8Hz - the NREL model is 80Hz (for reasons unknown)
             SimParm.tEnd = 100; // time end

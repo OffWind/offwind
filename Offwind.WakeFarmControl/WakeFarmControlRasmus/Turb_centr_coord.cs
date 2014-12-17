@@ -1,6 +1,6 @@
 ﻿using ILNumerics;
 
-namespace WakeFarmControl
+namespace WakeFarmControlR
 {
     public sealed class Turb_centr_coord
     {

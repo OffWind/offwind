@@ -32,12 +32,14 @@ namespace WakeFarmControlR
         //public bool EnableTurbineDynamics;   //Enable dynamical turbine model.
         //                                     //Disabling this will increase the speed significantly, but also lower the fidelity of the results (setting to false does not work properly yet)
         //public int PRefSampleTime;           // Update inverval for farm controller
+        public double[,] Turbines;             // Turbines coordinates in farm
         //public int NTurbines;                // Turbines count in farm
         //public double Pdemand;               // some number
+        public double InitialPowerDemand;       // Initial Power Demand
 
         public string NREL5MW_MatFile;
         public string Wind_MatFile;
-        public string InitialData_MatFile;
+        //public string InitialData_MatFile;
 
         //public bool PowerRefInterpolation;
 
@@ -54,6 +56,8 @@ namespace WakeFarmControlR
             enableTurbineDynamics = true; // Enable dynamical turbine model. Disabling this will increase the speed significantly, but also lower the fidelity of the results (setting to false does not work properly yet)
             powerRefInterpolation = true; // Power Reference table interpolation.
             enableVaryingDemand = true; // Varying Reference
+
+            InitialPowerDemand = 50 * 5e6;
 
             // Simulation Properties:
             SimParm = new SimParm();

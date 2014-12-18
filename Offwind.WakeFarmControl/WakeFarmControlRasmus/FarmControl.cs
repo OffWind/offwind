@@ -16,18 +16,6 @@ namespace WakeFarmControlR
             return ilArray.Size.Longest;
         }
 
-        //public static string Dimensions(this ILArray<double> ilArray)
-        //{
-        //    string itemsSeparator = ", ";
-        //    string arrDimensions = ilArray.Size.ToIntArray().Aggregate(string.Empty, (dimensions, item) => { return dimensions + itemsSeparator + item.ToString(); });
-        //    if (arrDimensions.StartsWith(itemsSeparator))
-        //    {
-        //        arrDimensions = arrDimensions.Substring(itemsSeparator.Length);
-        //    }
-
-        //    return "{" + arrDimensions + "}";
-        //}
-
         public static double[][] ToDoubleArray(this ILArray<double> ilArray)
         {
             if (ilArray.Size.ToIntArray().Length != 2)
@@ -100,32 +88,6 @@ namespace WakeFarmControlR
 
     public class FarmControl
     {
-        private static ILArray<double> LoadILArrayFromFile(string filePath)
-        {
-            string[] lines = System.IO.File.ReadAllLines(filePath);
-            ILArray<double> ilArray = ILMath.empty<double>();
-
-            foreach (string line in lines)
-            {
-                string[] lineStringValues = line.Split(new char[] { ',' });
-                double[] lineValues = new double[lineStringValues.Length];
-                for (int valueIndex = 0; valueIndex < lineStringValues.Length; valueIndex++)
-                {
-                    lineValues[valueIndex] = double.Parse(lineStringValues[valueIndex]);
-                }
-
-                var rowILArray = ((ILArray<double>)(lineValues)).T;
-                if (ilArray.IsEmpty)
-                {
-                    ilArray = ILMath.empty<double>(0, rowILArray.Size[1]);
-                }
-                ilArray = ilArray.Concat(rowILArray, 0);
-            }
-
-            return ilArray;
-        }
-
-        //% The main file for running the wind farm controll and wake simulation.
         public static double[][] Simulation(WakeFarmControlConfig config)
         {
             var parm = new WindTurbineParameters();
@@ -175,7 +137,8 @@ namespace WakeFarmControlR
             var wind = new ILMatFile(config.Wind_MatFile);
 
             // Wind farm and Turbine Properties properties
-            parm.wf = LoadILArrayFromFile(config.InitialData_MatFile); // Loads the Wind Farm Layout.
+            //parm.wf = LoadILArrayFromFile(config.InitialData_MatFile); // Loads the Wind Farm Layout.
+            parm.wf = ((ILArray<double>)(config.Turbines)).T;
             parm.N = parm.wf.length(); // number of turbines in farm
             parm.rotA = -48.80; // Angle of Attack
             parm.kWake = 0.06;
@@ -234,7 +197,7 @@ namespace WakeFarmControlR
             du = ILMath.zeros(parm.N, 1); // Integration variable. 
             x = (omega0 * initVector).Concat(0 * initVector, 1); // x0
             u = (beta0 * initVector).Concat(power0 * initVector, 1); // u0
-            P_demand[0] = 50 * 5e6; // Power Demand.
+            P_demand[0] = config.InitialPowerDemand; // Power Demand.
 
             var turbineModel = new TurbineDrivetrainModel();
 

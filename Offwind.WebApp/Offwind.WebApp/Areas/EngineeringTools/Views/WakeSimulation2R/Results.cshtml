@@ -1,0 +1,154 @@
+﻿@model object[]
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>Wind Farm Control</li>
+</ul>
+
+<div>
+    <a href="@Url.Action("Simulation", "WakeSimulation2R", new { area = "EngineeringTools" })">Back to simulation parameters</a>
+</div>
+
+<div class="row-fluid row-content-block">
+    <div class="span12 well">
+        <div class="fancy-tab-container">
+            <ul class="nav nav-tabs fancy">
+                <li class="active"><a href="#result-1" data-toggle="tab">P<sub>individual</a></li>
+                <li><a href="#result-2" data-toggle="tab">Wind Speed</a></li>
+                <li><a href="#result-3" data-toggle="tab">P<sub>total</sub></a></li>
+                <li><a href="#result-4" data-toggle="tab">Pitch angle</sub></a></li>
+                <li><a href="#result-5" data-toggle="tab">Revolutional Velocity</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="result-1">
+                    <div class="chart" id="powerReference" style="width: 100px; height: 560px;"></div>
+                </div>
+                <div class="tab-pane" id="result-2">
+                    <div class="chart" id="windSpeed" style="height: 560px;"></div>
+                </div>
+                <div class="tab-pane" id="result-3">
+                    <div class="chart" id="power" style="width: 100%; height: 560px;"></div>
+                </div>
+                <div class="tab-pane" id="result-4">
+                    <div class="chart" id="pitchAngle" style="height: 560px;"></div>
+                </div>
+                <div class="tab-pane" id="result-5">
+                    <div class="chart" id="revolutionalVelocity" style="height: 560px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/static/Highcharts-3.0.4/highcharts.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function formatNumber(value, digitsAfterPointNumber) {
+                var powerOfTen = Math.pow(10, digitsAfterPointNumber);
+                formattedValueString = String(Math.round(value * powerOfTen) / powerOfTen);
+                return formattedValueString;
+            }
+
+            $.ajax({
+                url: "@Url.Action("GetSimulationResults", "WakeSimulation2R", new { area = "EngineeringTools" })",
+                dataType: 'json',
+                type: 'GET',
+                success: function(res) {
+                    if (!res) return;
+                    var data = res.data;
+                    var turbines = res.turbines;
+                    var turbines_titles = null;
+                    if (turbines != null) {
+                        turbines_titles = [];
+                        for (var i = 0; i < turbines.length; i++) {
+                            turbines_titles.push('Turbine #' + (turbines[i].n + 1) + ' (' + formatNumber(turbines[i].x, 2) + ', ' + formatNumber(turbines[i].y, 2) + ')');
+                        }
+                    }
+                    var w = $('.tab-content').width();
+                    $('.chart').width(w);
+                    show_graph(data, "powerReference", "Individual Power Reference", "Time [s]", "Power Reference [MW]", 0, 0, turbines_titles);
+                    show_graph(data, "windSpeed", "Wind Speed @("@") individual turbine", "Time [s]", "Wind Speed [m/s]", 1, 0, turbines_titles);
+                    show_graph(data, "power", "Power Plot", "Time [s]", "Power [MW]", 4, 0, ['Reference', 'Available', 'Produced']);
+                    show_graph(data, "pitchAngle", "Evolution of Pitch angle over time", "Time [s]", "Pitch Angle [deg]", 2, 0, turbines_titles);
+                    show_graph(data, "revolutionalVelocity", "Evolution of Revolutional Velocity over time", "Time [s]", "Revolutional Velocity [rpm]", 3, 0, turbines_titles);
+                }
+            });
+        });
+        
+        function show_graph(data, place, title, x_title, y_title, graph_num, adv_graph_data_offset, series_titles) {
+            var colors = [ '#0000FF', '#007F00', '#FF0000', '#00BFBF', '#BF00BF', '#BFBF00', '#3F3F3F' ];
+            var nturbines = (data[0][0].length - 4) / 4;
+            var show_legend = ((series_titles != null) && (series_titles[0] != ""));
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: place
+                },
+                title: {
+                    text: title
+                },
+                xAxis: {
+                    min: 0,
+                    title: {
+                        text: x_title
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: y_title
+                    }
+                },
+                legend: {
+                    enabled: show_legend,
+                    maxHeight: 80
+                }
+            });
+            chart.showLoading('Loading data...');
+            var shift = graph_num * nturbines + 1 + adv_graph_data_offset;
+            if (series_titles != null) {
+                nturbines = series_titles.length;
+            }
+            var skip = function(jx) {
+                return false;
+            };
+            if (data.length > 900) {
+                var step = Math.ceil(data.length / 1000);
+                skip = function(jx) {
+                    if (jx == 0) return false;
+                    if (jx % step != 0) {
+                        return true;
+                    }
+                    return false;
+                };
+            }
+
+            for (var i = 0; i < nturbines; i++)
+            {
+                var func = [];
+                for (var j = 0; j < data.length; j++) {
+                    if (skip(j)) continue;
+                    func.push({
+                        x: data[j][0][0],
+                        y: data[j][0][shift + i]
+                    });
+                }
+                var series = chart.addSeries({
+                    type: 'line',
+                    name: (show_legend) ? series_titles[i] : '',
+                    shadow: false,
+                    lineWidth: 1,
+                    color: colors[i % colors.length],
+                    marker: {
+                        enabled: false
+                    }
+                }, false);
+                series.setData(func, false);
+            }
+            chart.redraw();
+            chart.hideLoading();
+        }
+    </script>
+}

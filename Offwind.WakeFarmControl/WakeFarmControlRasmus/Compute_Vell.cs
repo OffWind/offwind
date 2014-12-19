@@ -67,6 +67,7 @@ namespace WakeFarmControlR
                         else
                         {
                             vell_i.SetValue((Uhub.GetValue(k - 1) + Uhub.GetValue(k - 1) * (Math.Sqrt(1 - Ct.GetValue(k - 1)) - 1) * (r0 / rrt) * (r0 / rrt)) * (1 - (1 - Math.Sqrt(1 - Ct.GetValue(k - 1))) * SS), ii - 1, j);
+                            vell_i.SetValue(Math.Max(0, vell_i.GetValue(ii - 1, j)), ii - 1, j);
                         }
                     }
                 }

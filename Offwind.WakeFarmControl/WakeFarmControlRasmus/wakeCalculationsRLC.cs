@@ -62,7 +62,7 @@ namespace WakeFarmControlR
 
             for (var j = 1; j <= length(xTurbC); j++)
             {
-                vNac._set(j, Velocity._get(yTurbC._get(j), xTurbC._get(j)));
+                vNac._set(j, '=', Velocity._get(yTurbC._get(j), xTurbC._get(j)));
             }
         }
     }

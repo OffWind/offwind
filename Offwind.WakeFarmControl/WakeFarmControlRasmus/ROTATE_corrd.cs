@@ -21,8 +21,8 @@ namespace WakeFarmControlR
 
             for (var i = 1; i <= length(xTurb); i++)
             {
-		        x_out._set(i, xTurb._get(i) * cos(rotA) - xTurb._get(i) * sin(rotA));
-		        y_out._set(i, xTurb._get(i) * sin(rotA) + yTurb._get(i) * cos(rotA));
+                x_out._set(i, '=', xTurb._get(i) * cos(rotA) - xTurb._get(i) * sin(rotA));
+                y_out._set(i, '=', xTurb._get(i) * sin(rotA) + yTurb._get(i) * cos(rotA));
             }
 
             if (min(x_out) < 0) // Moves the x-points if these are negative.

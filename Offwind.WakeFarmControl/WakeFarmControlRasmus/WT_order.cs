@@ -21,7 +21,7 @@ namespace WakeFarmControlR
                         sortCtr = sortCtr + 1;
                     }
                 }
-                turbineOrder._set(i, i + sortCtr, ':', sortrows(sorted._get(i, i + sortCtr, ':'), 2));
+                turbineOrder._set(i, i + sortCtr, ':', '=', sortrows(sorted._get(i, i + sortCtr, ':'), 2));
 
                 sortCtr = 0;
             }

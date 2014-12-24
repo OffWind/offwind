@@ -43,7 +43,7 @@ namespace WakeFarmControlR
                             double Alpha_k = acos(((r0 * r0) + (Dij * Dij) - (RR_i * RR_i)) / (2 * r0 * Dij));
                             double Area;
                             AArea(RR_i, r0, Dij, out Area);
-                            shadow._set(J, (Alpha_i * (RR_i * RR_i) + Alpha_k * (r0 * r0)) - 2 * Area);
+                            shadow._set(J, '=', (Alpha_i * (RR_i * RR_i) + Alpha_k * (r0 * r0)) - 2 * Area);
                             SS = SS + ((shadow._get(J)) / SS0) * ((r0 * r0) / (RR_i * RR_i));
                         }
                     }
@@ -61,13 +61,13 @@ namespace WakeFarmControlR
                     {
                         if (((-vell_i._get(ii, j) + Uhub._get(k)) > 0) && (ii > xTurbC._get(k) + nk))
                         {
-                            vell_i._set(ii, j, min(_[ vell_i._get(ii - 1, j), Uhub._get(k) + Uhub._get(k) * (sqrt(1 - Ct._get(k)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - sqrt(1 - Ct._get(k))) * SS) ]));
-                            vell_i._set(ii, j, max(_[ 0, vell_i._get(ii, j) ]));
+                            vell_i._set(ii, j, '=', min(_[vell_i._get(ii - 1, j), Uhub._get(k) + Uhub._get(k) * (sqrt(1 - Ct._get(k)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - sqrt(1 - Ct._get(k))) * SS)]));
+                            vell_i._set(ii, j, '=', max(_[0, vell_i._get(ii, j)]));
                         }
                         else
                         {
-                            vell_i._set(ii, j, (Uhub._get(k) + Uhub._get(k) * (sqrt(1 - Ct._get(k)) - 1) * (r0 / rrt) * (r0 / rrt)) * (1 - (1 - sqrt(1 - Ct._get(k))) * SS));
-                            vell_i._set(ii, j, max(_[ 0, vell_i._get(ii, j) ]));
+                            vell_i._set(ii, j, '=', (Uhub._get(k) + Uhub._get(k) * (sqrt(1 - Ct._get(k)) - 1) * (r0 / rrt) * (r0 / rrt)) * (1 - (1 - sqrt(1 - Ct._get(k))) * SS));
+                            vell_i._set(ii, j, '=', max(_[0, vell_i._get(ii, j)]));
                         }
                     }
                 }

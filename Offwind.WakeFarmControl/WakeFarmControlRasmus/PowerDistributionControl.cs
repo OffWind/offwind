@@ -28,7 +28,7 @@ namespace WakeFarmControlR
             // Compute available power at each turbine
             for (var i = 1; i <= parm.N; i++)
             {
-                P_a._set(i, min(_[ rated._get(i), (pi / 2) * rho * _p(R._get(i), 2) * _p(v_nac._get(i), 3) * Cp._get(i) ]));
+                P_a._set(i, '=', min(_[rated._get(i), (pi / 2) * rho * _p(R._get(i), 2) * _p(v_nac._get(i), 3) * Cp._get(i)]));
             }
 
             var sum_P_a_ = (double)sum(P_a);
@@ -38,11 +38,11 @@ namespace WakeFarmControlR
             {
                 if (P_demand < sum_P_a_)
                 {
-                    P_ref._set(i, max(_[ 0, min(_[ rated._get(i), P_demand * P_a._get(i) / sum_P_a_ ]) ]));
+                    P_ref._set(i, '=', max(_[0, min(_[rated._get(i), P_demand * P_a._get(i) / sum_P_a_])]));
                 }
                 else
                 {
-                    P_ref._set(i, P_a._get(i));
+                    P_ref._set(i, '=', P_a._get(i));
                 }
             }
         }

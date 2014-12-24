@@ -14,12 +14,12 @@ namespace WakeFarmControlR
             double xMax = max(xOrder) + dTurb * pppPoint;
             double xMin = ((double)(min(xOrder))) - 2 * dTurb;
 
-            x._set(1, xMin);
+            x._set(1, '=', xMin);
             ddx = (xMax - xMin) / (iMax - 1);
 
             for (var i = 1; i <= iMax - 1; i++)
             {
-                x._set(i + 1, x._get(i) + ddx);
+                x._set(i + 1, '=', x._get(i) + ddx);
             }
 
             output = x;

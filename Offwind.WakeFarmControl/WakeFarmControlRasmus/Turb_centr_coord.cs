@@ -18,7 +18,7 @@ namespace WakeFarmControlR
                 {
                     if (abs(x._get(ii)) <= abs(xTurb._get(i)) && abs(xTurb._get(i)) < abs(x._get(ii + 1)))
                     {
-                        xxcTurb._set(i, ii * sign(xTurb._get(i)));
+                        xxcTurb._set(i, '=', ii * sign(xTurb._get(i)));
                         break;
                     }
                 }

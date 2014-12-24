@@ -32,7 +32,7 @@ namespace WakeFarmControlR
             return ilArray.GetValue(index - 1);
         }
 
-        public static void _set(this ILArray<int> ilArray, int index, int value)
+        public static void _set(this ILArray<int> ilArray, int index, char equalitySign, int value)
         {
             ilArray.SetValue(value, index - 1);
         }
@@ -42,9 +42,14 @@ namespace WakeFarmControlR
             return ilArray.GetValue(index - 1);
         }
 
-        public static void _set(this ILArray<double> ilArray, int index, double value)
+        public static void _set(this ILArray<double> ilArray, int index, char equalitySign, double value)
         {
             ilArray.SetValue(value, index - 1);
+        }
+
+        public static void _set(this ILArray<double> ilArray, int index, char equalitySign, ILArray<double> value)
+        {
+            ilArray.SetValue((double)value, index - 1);
         }
         #endregion
 
@@ -54,7 +59,7 @@ namespace WakeFarmControlR
             return ilArray.GetValue(index1 - 1, index2 - 1);
         }
 
-        public static void _set(this ILArray<double> ilArray, int index1, int index2, double value)
+        public static void _set(this ILArray<double> ilArray, int index1, int index2, char equalitySign, double value)
         {
             ilArray.SetValue(value, index1 - 1, index2 - 1);
         }
@@ -71,71 +76,71 @@ namespace WakeFarmControlR
         }
 
         #region "(:,i) & (i,:)"
-        public static ILArray<double> _get(this ILArray<double> ilArray, char c, int index)
+        public static ILArray<double> _get(this ILArray<double> ilArray, char colon, int index)
         {
             return ilArray[ILMath.full, index - 1];
         }
 
-        public static void _set(this ILArray<double> ilArray, char c, int index, ILArray<double> value)
+        public static void _set(this ILArray<double> ilArray, char colon, int index, char equalitySign, ILArray<double> value)
         {
             ilArray[ILMath.full, index - 1] = value;
         }
 
-        public static void _set(this ILArray<double> ilArray, char c, int index, double value)
+        public static void _set(this ILArray<double> ilArray, char colon, int index, char equalitySign, double value)
         {
             ilArray[ILMath.full, index - 1] = value;
         }
 
-        public static ILArray<double> _get(this ILArray<double> ilArray, int index, char c)
+        public static ILArray<double> _get(this ILArray<double> ilArray, int index, char colon)
         {
             return ilArray[index - 1, ILMath.full];
         }
 
-        public static void _set(this ILArray<double> ilArray, int index, char c, ILArray<double> value)
+        public static void _set(this ILArray<double> ilArray, int index, char colon, char equalitySign, ILArray<double> value)
         {
             ilArray[index - 1, ILMath.full] = value;
         }
         #endregion
 
         #region "(:,f:t) & (f:t,:)"
-        public static ILArray<double> _get(this ILArray<double> ilArray, char c, int index1, int index2)
+        public static ILArray<double> _get(this ILArray<double> ilArray, char colon, int index1, int index2)
         {
             return ilArray[ILMath.full, ILMath.r(index1 - 1, index2 - 1)];
         }
 
-        public static void _set(this ILArray<double> ilArray, char c, int index1, int index2, ILArray<double> value)
+        public static void _set(this ILArray<double> ilArray, char colon, int index1, int index2, char equalitySign, ILArray<double> value)
         {
             ilArray[ILMath.full, ILMath.r(index1 - 1, index2 - 1)] = value;
         }
 
-        public static ILArray<double> _get(this ILArray<double> ilArray, int index1, int index2, char c)
+        public static ILArray<double> _get(this ILArray<double> ilArray, int index1, int index2, char colon)
         {
             return ilArray[ILMath.r(index1 - 1, index2 - 1), ILMath.full];
         }
 
-        public static void _set(this ILArray<double> ilArray, int index1, int index2, char c, ILArray<double> value)
+        public static void _set(this ILArray<double> ilArray, int index1, int index2, char colon, char equalitySign, ILArray<double> value)
         {
             ilArray[ILMath.r(index1 - 1, index2 - 1), ILMath.full] = value;
         }
         #endregion
 
         #region "(:,f:end) & (f:end,:)"
-        public static ILArray<double> _get(this ILArray<double> ilArray, char c, int index1, ILNumerics.Misc.ILExpression index2)
+        public static ILArray<double> _get(this ILArray<double> ilArray, char colon, int index1, ILNumerics.Misc.ILExpression index2)
         {
             return ilArray[ILMath.full, ILMath.r(index1 - 1, index2)];
         }
 
-        public static void _set(this ILArray<double> ilArray, char c, int index1, ILNumerics.Misc.ILExpression index2, ILArray<double> value)
+        public static void _set(this ILArray<double> ilArray, char colon, int index1, ILNumerics.Misc.ILExpression index2, char equalitySign, ILArray<double> value)
         {
             ilArray[ILMath.full, ILMath.r(index1 - 1, index2)] = value;
         }
 
-        public static ILArray<double> _get(this ILArray<double> ilArray, int index1, ILNumerics.Misc.ILExpression index2, char c)
+        public static ILArray<double> _get(this ILArray<double> ilArray, int index1, ILNumerics.Misc.ILExpression index2, char colon)
         {
             return ilArray[ILMath.r(index1 - 1, index2), ILMath.full];
         }
 
-        public static void _set(this ILArray<double> ilArray, int index1, ILNumerics.Misc.ILExpression index2, ILArray<double> value, char c)
+        public static void _set(this ILArray<double> ilArray, int index1, ILNumerics.Misc.ILExpression index2, ILArray<double> value, char colon, char equalitySign)
         {
             ilArray[ILMath.r(index1 - 1, index2), ILMath.full] = value;
         }

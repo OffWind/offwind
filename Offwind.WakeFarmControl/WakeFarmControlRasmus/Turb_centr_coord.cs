@@ -16,9 +16,9 @@ namespace WakeFarmControlR
             {
                 for (var ii = 1; ii <= iMax - 1; ii++)
                 {
-                    if (abs(x._get(ii)) <= abs(xTurb._get(i)) && abs(xTurb._get(i)) < abs(x._get(ii + 1)))
+                    if (abs(x._(ii)) <= abs(xTurb._(i)) && abs(xTurb._(i)) < abs(x._(ii + 1)))
                     {
-                        xxcTurb._set(i, '=', ii * sign(xTurb._get(i)));
+                        xxcTurb._(i, '=', ii * sign(xTurb._(i)));
                         break;
                     }
                 }

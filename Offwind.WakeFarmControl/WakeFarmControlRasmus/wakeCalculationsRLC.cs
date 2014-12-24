@@ -11,7 +11,7 @@ namespace WakeFarmControlR
         public static void Calculate(out ILArray<double> vNac, ILArray<double> Ct, ILArray<double> wField, ILArray<double> vHub, WindTurbineParameters parm, SimParm simParm)
         {
             ILArray<double> data  = parm.wf.C;
-            double dTurb = 2 * parm.radius._get(1);
+            double dTurb = 2 * parm.radius._(1);
             int nTurb = parm.N;
             double rotA  = parm.rotA;
             double kWake = parm.kWake;
@@ -28,8 +28,8 @@ namespace WakeFarmControlR
             int gridX = length(x); // Number of grid points.
             int gridY = length(y); // Number of grid points.
         
-            ILArray<double> xCoor   = data._get(':', 1); // Coordiante of turbine, x-position
-            ILArray<double> yCoor   = data._get(':', 2); // Coordinate of turbine, y-position
+            ILArray<double> xCoor   = data._(':', 1); // Coordiante of turbine, x-position
+            ILArray<double> yCoor   = data._(':', 2); // Coordinate of turbine, y-position
 
             ILArray<double> xTurb;
             ILArray<double> yTurb;
@@ -62,7 +62,7 @@ namespace WakeFarmControlR
 
             for (var j = 1; j <= length(xTurbC); j++)
             {
-                vNac._set(j, '=', Velocity._get(yTurbC._get(j), xTurbC._get(j)));
+                vNac._(j, '=', Velocity._(yTurbC._get(j), xTurbC._get(j)));
             }
         }
     }

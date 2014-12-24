@@ -16,10 +16,10 @@ namespace WakeFarmControlR
 
             // Definitons etc.
 
-            var Omega = x._get(1);
-            var Ve = x._get(2);
-            var Beta = u._get(1);
-            var Tg = u._get(2);
+            var Omega = x._(1);
+            var Ve = x._(2);
+            var Beta = u._(1);
+            var Tg = u._(2);
 
             // Algorithm
             double Lambda;

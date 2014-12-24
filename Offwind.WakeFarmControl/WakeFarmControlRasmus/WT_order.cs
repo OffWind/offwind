@@ -16,17 +16,17 @@ namespace WakeFarmControlR
             {
                 for (var j = i + 1; j <= length(sorted); j++)
                 {
-                    if (sorted._get(i, 1) == sorted._get(j, 1))
+                    if (sorted._(i, 1) == sorted._(j, 1))
                     {
                         sortCtr = sortCtr + 1;
                     }
                 }
-                turbineOrder._set(i, i + sortCtr, ':', '=', sortrows(sorted._get(i, i + sortCtr, ':'), 2));
+                turbineOrder._(i, i + sortCtr, ':', '=', sortrows(sorted._(i, i + sortCtr, ':'), 2));
 
                 sortCtr = 0;
             }
-            xOrder = turbineOrder._get(':', 1);
-            yOrder = turbineOrder._get(':', 2);
+            xOrder = turbineOrder._(':', 1);
+            yOrder = turbineOrder._(':', 2);
         }
     }
 }

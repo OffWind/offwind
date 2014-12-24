@@ -13,7 +13,7 @@ namespace WakeFarmControlR
             //a placeholder for a correct wake calculation that will come later
 
             ILArray<double> scaling = ILMath.linspace(0.5, 0.9, length(Ct));
-            v_nac = scaling * wind._get(i, 2);
+            v_nac = scaling * wind._(i, 2);
         }
     }
 }

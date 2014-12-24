@@ -27,8 +27,8 @@ namespace WakeFarmControlR
 
                 for (var i = 1; i <= k - 1; i++)
                 {
-                    double RR_i = r0 + kWake * (x._get(xTurbC._get(k)) - x._get(xTurbC._get(i)));
-                    double Dij = abs(yTurb._get(i) - yTurb._get(k));
+                    double RR_i = r0 + kWake * (x._(xTurbC._get(k)) - x._(xTurbC._get(i)));
+                    double Dij = abs(yTurb._(i) - yTurb._(k));
 
                     if ((RR_i >= (r0 + Dij)) || (Dij <= dy))
                     {
@@ -43,15 +43,15 @@ namespace WakeFarmControlR
                             double Alpha_k = acos(((r0 * r0) + (Dij * Dij) - (RR_i * RR_i)) / (2 * r0 * Dij));
                             double Area;
                             AArea(RR_i, r0, Dij, out Area);
-                            shadow._set(J, '=', (Alpha_i * (RR_i * RR_i) + Alpha_k * (r0 * r0)) - 2 * Area);
-                            SS = SS + ((shadow._get(J)) / SS0) * ((r0 * r0) / (RR_i * RR_i));
+                            shadow._(J, '=', (Alpha_i * (RR_i * RR_i) + Alpha_k * (r0 * r0)) - 2 * Area);
+                            SS = SS + ((shadow._(J)) / SS0) * ((r0 * r0) / (RR_i * RR_i));
                         }
                     }
                 }
 
                 for (var ii = xTurbC._get(k); ii <= iMax; ii++)
                 {
-                    double rrt = r0 + kWake * (x._get(ii) - x._get(xTurbC._get(k)));
+                    double rrt = r0 + kWake * (x._(ii) - x._(xTurbC._get(k)));
                     double nj = (ceil(rrt / dy));
 
                     int jjMin = (int)floor(max(1, yTurbC._get(k) - nj));
@@ -59,15 +59,15 @@ namespace WakeFarmControlR
 
                     for (var j = jjMin; j <= jjMax; j++)
                     {
-                        if (((-vell_i._get(ii, j) + Uhub._get(k)) > 0) && (ii > xTurbC._get(k) + nk))
+                        if (((-vell_i._(ii, j) + Uhub._(k)) > 0) && (ii > xTurbC._get(k) + nk))
                         {
-                            vell_i._set(ii, j, '=', min(_[vell_i._get(ii - 1, j), Uhub._get(k) + Uhub._get(k) * (sqrt(1 - Ct._get(k)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - sqrt(1 - Ct._get(k))) * SS)]));
-                            vell_i._set(ii, j, '=', max(_[0, vell_i._get(ii, j)]));
+                            vell_i._(ii, j, '=', min(_[vell_i._(ii - 1, j), Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS)]));
+                            vell_i._(ii, j, '=', max(_[0, vell_i._(ii, j)]));
                         }
                         else
                         {
-                            vell_i._set(ii, j, '=', (Uhub._get(k) + Uhub._get(k) * (sqrt(1 - Ct._get(k)) - 1) * (r0 / rrt) * (r0 / rrt)) * (1 - (1 - sqrt(1 - Ct._get(k))) * SS));
-                            vell_i._set(ii, j, '=', max(_[0, vell_i._get(ii, j)]));
+                            vell_i._(ii, j, '=', (Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * (r0 / rrt) * (r0 / rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS));
+                            vell_i._(ii, j, '=', max(_[0, vell_i._(ii, j)]));
                         }
                     }
                 }

@@ -2,30 +2,31 @@
 
 namespace WakeFarmControlR
 {
-    public sealed class WT_order
+    public sealed class WT_order : MatlabCode
     {
         // Wake Code - Matlab
         // Rasmus Christensen
         // Control and Automation, Aalborg University
-        public static void Calculate(ILArray<double> xTurb, ILArray<double> yTurb, out ILArray<double> xOrder, out ILArray<double> yOrder)
+        public static void Calculate(out ILArray<double> xOrder, out ILArray<double> yOrder, ILArray<double> xTurb, ILArray<double> yTurb)
         {
-            ILArray<double> sorted = ((ILArray<double>)(xTurb.T.Concat(yTurb.T, 1))).sortrows(0);
-            ILArray<double> turbineOrder = ILMath.zeros(sorted.length(), 2);
+            ILArray<double> sorted = sortrows(_[ xTurb.T, yTurb.T ], 1);
+            ILArray<double> turbineOrder = zeros(length(sorted), 2);
             int sortCtr = 0;
-            for (var i = 1; i <= sorted.length(); i++)
+            for (var i = 1; i <= length(sorted); i++)
             {
-                for (var j = i + 1; j <= sorted.length(); j++)
+                for (var j = i + 1; j <= length(sorted); j++)
                 {
-                    if (sorted.GetValue(i - 1, 0) == sorted.GetValue(j - 1, 0))
+                    if (sorted._get(i, 1) == sorted._get(j, 1))
                     {
                         sortCtr = sortCtr + 1;
                     }
                 }
-                turbineOrder.SetRows(((ILArray<double>)(sorted[ILMath.r(i - 1, i + sortCtr - 1), ILMath.full])).sortrows(1), i - 1, i + sortCtr - 1);
+                turbineOrder._set(i, i + sortCtr, ':', sortrows(sorted._get(i, i + sortCtr, ':'), 2));
+
                 sortCtr = 0;
             }
-            xOrder = turbineOrder[ILMath.full, 0];
-            yOrder = turbineOrder[ILMath.full, 1];
+            xOrder = turbineOrder._get(':', 1);
+            yOrder = turbineOrder._get(':', 2);
         }
     }
 }

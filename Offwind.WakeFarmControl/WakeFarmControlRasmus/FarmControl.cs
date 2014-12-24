@@ -4,14 +4,19 @@ using ILNumerics;
 
 namespace WakeFarmControlR
 {
-    public class FarmControl
+    public class FarmControl : MatlabCode
     {
+        protected static ILArray<double> ILArrayFromArray(double[,] array)
+        {
+            return ((ILArray<double>)array).T;
+        }
+
         public static double[][] Simulation(WakeFarmControlConfig config)
         {
             var parm = new WindTurbineParameters();
 
-            ILMatFile env;
-            ILMatFile wt;
+            EnvMatFileDataStructure env;
+            WtMatFileDataStructure wt;
 
             ILArray<int> idx;
 
@@ -52,35 +57,43 @@ namespace WakeFarmControlR
             //bool enablePowerDistribution = true; // Enable wind farm control and not only constant power
             //bool enableVaryingDemand = true; // Varying Reference
 
-            var wind = new ILMatFile(config.Wind_MatFile);
+            ILArray<double> wind;
+            using (var WindMatFile = new ILMatFile(config.Wind_MatFile))
+            {
+                wind = WindMatFile.GetArray<double>("wind");
+            }
+            
 
             // Wind farm and Turbine Properties properties
             //parm.wf = LoadILArrayFromFile(config.InitialData_MatFile); // Loads the Wind Farm Layout.
-            parm.wf = ((ILArray<double>)(config.Turbines)).T;
-            parm.N = parm.wf.length(); // number of turbines in farm
+            parm.wf = ILArrayFromArray(config.Turbines);
+            parm.N = length(parm.wf); // number of turbines in farm
             parm.rotA = -48.80; // Angle of Attack
             parm.kWake = 0.06;
 
             //% Turbine properties - Loaded from the NREL5MW.mat file
-            env = wt = new ILMatFile(config.NREL5MW_MatFile); // Load parameters from the NREL 5MW Reference turbine struct.
-            parm.rho = (double)(env.GetArray<double>("env_rho")); // air density
-            parm.radius = ((double)(wt.GetArray<double>("wt_rotor_radius"))) * ILMath.ones(1, parm.N); // rotor radius (NREL5MW)
-            parm.rated = ((double)(wt.GetArray<double>("wt_ctrl_p_rated"))) * ILMath.ones(1, parm.N); //rated power (NREL5MW)
-            parm.ratedSpeed = (double)(wt.GetArray<double>("wt_rotor_ratedspeed")); //rated rotor speed
+            using (var NREL5MWMatFile = new ILMatFile(config.NREL5MW_MatFile))// Load parameters from the NREL 5MW Reference turbine struct.
+            {
+                env = new EnvMatFileDataStructure(NREL5MWMatFile);
+                wt = new WtMatFileDataStructure(NREL5MWMatFile);
+            }
+            parm.rho = env.rho; // air density
+            parm.radius = wt.rotor.radius * ones(1, parm.N); // rotor radius (NREL5MW)
+            parm.rated = wt.ctrl.p_rated * ones(1, parm.N); //rated power (NREL5MW)
+            parm.ratedSpeed = wt.rotor.ratedspeed; //rated rotor speed
 
-            idx = ILMath.empty<int>();
-            ILMath.max(wt.GetArray<double>("wt_cp_table")[ILMath.full], idx); // Find index for max Cp
+            max(out idx, wt.cp.table[ILMath.full]); // Find index for max Cp
             int stepsCount = (int)((config.SimParm.tEnd - config.SimParm.tStart) / config.SimParm.timeStep);
-            parm.Ct = 0.0 * wt.GetArray<double>("wt_ct_table").GetValue(idx.ToArray()) * ILMath.ones(parm.N, stepsCount); // Define initial Ct as the optimal Ct. 
-            parm.Cp = wt.GetArray<double>("wt_cp_table").GetValue(idx.ToArray()) * ILMath.ones(parm.N, stepsCount); // Define initial Cp as the optimal Cp. 
+            parm.Ct = 0.0 * wt.ct.table._get(idx) * ones(parm.N, stepsCount); // Define initial Ct as the optimal Ct. 
+            parm.Cp = wt.cp.table._get(idx) * ones(parm.N, stepsCount); // Define initial Cp as the optimal Cp. 
 
-            Mg_max_rate = (double)wt.GetArray<double>("wt_ctrl_torq_ratelim"); // Rate-limit on Torque Change.
+            Mg_max_rate = wt.ctrl.torq.ratelim; // Rate-limit on Torque Change.
 
             //Pitch control
-            Ki = (double)wt.GetArray<double>("wt_ctrl_pitch_Igain"); // 0.008068634*360/2/pi; % integral gain (NREL5MW).
-            Kp = (double)wt.GetArray<double>("wt_ctrl_pitch_Pgain"); // 0.01882681*360/2/pi; % proportional gain (NREL5MW).
-            Umax = (double)wt.GetArray<double>("wt_ctrl_pitch_ulim"); // Upper limit of the pitch controller
-            Umin = (double)wt.GetArray<double>("wt_ctrl_pitch_llim"); // Lower limit of the pitch controller.
+            Ki = wt.ctrl.pitch.Igain; // 0.008068634*360/2/pi; % integral gain (NREL5MW).
+            Kp = wt.ctrl.pitch.Pgain; // 0.01882681*360/2/pi; % proportional gain (NREL5MW).
+            Umax = wt.ctrl.pitch.ulim; // Upper limit of the pitch controller
+            Umin = wt.ctrl.pitch.llim; // Lower limit of the pitch controller.
 
             // NREL Regional Control - extracted from the NREL report. 
             VS_CtInSp = 70.162240;
@@ -88,17 +101,17 @@ namespace WakeFarmControlR
             VS_Rgn2K = 2.332287;
 
             //% Set initial conditions
-            omega0 = (double)(wt.GetArray<double>("wt_rotor_ratedspeed")); // Desired Rotation speed
+            omega0 = wt.rotor.ratedspeed; // Desired Rotation speed
             beta0 = 0; // wt.ctrl.pitch.llim; % Initial pitch at zero.
             power0 = 0; // Power Production
 
             //% Memory Allocation and Memory Initialization
-            initMatrix = ILMath.zeros(parm.N, stepsCount);
-            sumPower = initMatrix[0, ILMath.full]; // Initialize produced power vector
-            sumRef = initMatrix[0, ILMath.full]; // Initialize reference power vector
-            sumAvai = initMatrix[0, ILMath.full]; // Initialize available power vector
-            P_ref_new = initMatrix[0, ILMath.full]; // Initialize new reference vector
-            P_demand = initMatrix[0, ILMath.full]; // Initialize power demand vector
+            initMatrix = zeros(parm.N, stepsCount);
+            sumPower = initMatrix._get(1, ':'); // Initialize produced power vector
+            sumRef = initMatrix._get(1, ':'); // Initialize reference power vector
+            sumAvai = initMatrix._get(1, ':'); // Initialize available power vector
+            P_ref_new = initMatrix._get(1, ':'); // Initialize new reference vector
+            P_demand = initMatrix._get(1, ':'); // Initialize power demand vector
             v_nac = initMatrix.C; // Initialize hub velocity matrix.
             P_ref = initMatrix.C; // Initialize matrix to save the power production history for each turbine.
             Pa = initMatrix.C; // Initialize available power matrix.
@@ -106,16 +119,16 @@ namespace WakeFarmControlR
             beta = initMatrix.C; // Initialize pitch matrix.
             Omega = initMatrix.C; // Initialize revolutional velocity matrix.
 
-            initVector = ILMath.ones(parm.N, 1);
+            initVector = ones(parm.N, 1);
             Mg = 0 * initVector;
-            wField = ILMath.zeros(config.SimParm.grid / config.SimParm.gridRes, config.SimParm.grid / config.SimParm.gridRes); // Wind field matrix
+            wField = zeros(config.SimParm.grid / config.SimParm.gridRes, config.SimParm.grid / config.SimParm.gridRes); // Wind field matrix
 
             //% Controller Initizliation
             dZ = 0; // Integrator Initialization.
-            du = ILMath.zeros(parm.N, 1); // Integration variable. 
-            x = (omega0 * initVector).Concat(0 * initVector, 1); // x0
-            u = (beta0 * initVector).Concat(power0 * initVector, 1); // u0
-            P_demand[0] = config.InitialPowerDemand; // Power Demand.
+            du = zeros(parm.N, 1); // Integration variable. 
+            x = _[ omega0 * initVector, 0 * initVector ]; // x0
+            u = _[ beta0 * initVector, power0 * initVector ]; // u0
+            P_demand._set(1, config.InitialPowerDemand); // Power Demand.
 
             var turbineModel = new TurbineDrivetrainModel();
 
@@ -126,24 +139,24 @@ namespace WakeFarmControlR
                 //fprintf('Iteration Counter: %i out of %i \n', i, config.SimParm.tEnd * (1 / config.SimParm.timeStep));
 
                 //%%%%%%%%%%%%%%% WIND FIELD FIFO MATRIX %%%%%%%%%%%%%%%%%%%
-                wField[ILMath.full, ILMath.r(1, ILMath.end)] = wField[ILMath.full, ILMath.r(0, ILMath.end - 1)];
-                wField[ILMath.full, 0] = wind.GetArray<double>("wind").GetValue(i - 1, 1) * ILMath.ones(config.SimParm.grid / config.SimParm.gridRes, 1) + ILMath.randn(config.SimParm.grid / config.SimParm.gridRes, 1) * 0.5;
+                wField._set(':', 2, ILMath.end,     wField._get(':', 1, (ILMath.end - 1)));
+                wField._set(':', 1,                 wind._get(i, 2) * ones(config.SimParm.grid / config.SimParm.gridRes, 1) + randn(config.SimParm.grid / config.SimParm.gridRes, 1) * 0.5);
                 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 
                 // Calculate the wake using the last Ct values
                 ILArray<double> v_nacRow;
-                wakeCalculationsRLC.Calculate(parm.Ct[ILMath.full, i - 2], wField.T, x[ILMath.full, 1], parm, config.SimParm, out v_nacRow);
-                v_nac[ILMath.full, i - 1] = v_nacRow;
-                x[ILMath.full, 1] = v_nac[ILMath.full, i - 1];
+                wakeCalculationsRLC.Calculate(out v_nacRow, parm.Ct._get(':', i - 1), transpose(wField), x._get(':', 2), parm, config.SimParm);
+                v_nac._set(':', i - 1,      v_nacRow);
+                x._set(':', 2,              v_nac._get(':', i));
 
 
                 if (config.enableVaryingDemand) // A random walk to simulate fluctuations in the power demand.
                 {
-                    P_demand[i - 1] = P_demand.GetValue(i - 2) + ILMath.randn() * 50000;
+                    P_demand._set(i, P_demand._get(i - 1) + randn() * 50000);
                 }
                 else
                 {
-                    P_demand[i - 1] = P_demand.GetValue(i - 2);
+                    P_demand._set(i, P_demand._get(i - 1));
                 }
 
                 // Farm control
@@ -151,80 +164,80 @@ namespace WakeFarmControlR
                 if (config.enablePowerDistribution)
                 {
                     ILArray<double> Pa_i_out;
-                    PowerDistributionControl.DistributePower(x[ILMath.full, 1], P_demand.GetValue(i - 1), parm, out P_ref_new, out Pa_i_out);
-                    Pa[ILMath.full, i - 1] = Pa_i_out;
+                    PowerDistributionControl.DistributePower(out P_ref_new, out Pa_i_out, x._get(':', 2), P_demand._get(i), parm);
+                    Pa._set(':', i, Pa_i_out);
                 }
 
                 //Hold  the demand for some seconds
-                if (ILMath.mod(i, ILMath.round(config.SimParm.ctrlUpdate / config.SimParm.timeStep)) == config.SimParm.powerUpdate)
+                if (mod(i, round(config.SimParm.ctrlUpdate / config.SimParm.timeStep)) == config.SimParm.powerUpdate)
                 {
-                    P_ref[ILMath.full, i - 1] = P_ref_new;
+                    P_ref._set(':', i, P_ref_new);
                 }
                 else
                 {
                     if (config.powerRefInterpolation)
                     {
                         var alpha = 0.01;
-                        P_ref[ILMath.full, i - 1] = (1 - alpha) * P_ref[ILMath.full, i - 2] + (alpha) * P_ref_new;
+                        P_ref._set(':', i, (1 - alpha) * P_ref._get(':', i - 1) + (alpha) * P_ref_new);
                     }
                     else
                     {
-                        P_ref[ILMath.full, i - 1] = P_ref_new;
+                        P_ref._set(':', i, P_ref_new);
                     }
                 }
                 //Torque controller
                 for (var j = 1; j <= parm.N; j++)
                 {
-                    if ((x.GetValue(j - 1, 0) * 97 >= VS_RtGnSp) || (u.GetValue(j - 1, 0) >= 1))      //! We are in region 3 - power is constant
+                    if ((x._get(j, 1) * 97 >= VS_RtGnSp) || (u._get(j, 1) >= 1))      //! We are in region 3 - power is constant
                     {
-                        u.SetValue(P_ref.GetValue(j - 1, i - 1) / x.GetValue(j - 1, 0), j - 1, 1);
+                        u._set(j, 2,    P_ref._get(j, i) / x._get(j, 1));
                     }
                     else if (x.GetValue(j - 1, 0) * 97 <= VS_CtInSp)                     //! We are in region 1 - torque is zero
                     {
-                        u.SetValue(0.0, j - 1, 1);
+                        u._set(j, 2,    0.0);
                     }
                     else                                                //! We are in region 2 - optimal torque is proportional to the square of the generator speed
                     {
-                        u.SetValue(97 * VS_Rgn2K * x.GetValue(j - 1, 0) * x.GetValue(j - 1, 0) * Math.Pow(97, 2), j - 1, 1);
+                        u._set(j, 2,    97 * VS_Rgn2K * x._get(j, 1) * x._get(j, 1) * _p(97, 2));
                     }
                 }
 
-                dx = (omega0 - x[ILMath.full, 0]) - (omega0 - Omega[ILMath.full, i - 2]);
-                du = Kp * dx + Ki * config.SimParm.timeStep * (omega0 - x[ILMath.full, 0]);
-                du = ILMath.min(ILMath.max(du, -((wt.GetArray<double>("wt_ctrl_pitch_ratelim")))), (wt.GetArray<double>("wt_ctrl_pitch_ratelim")));
-                u[ILMath.full, 0] = ILMath.min(ILMath.max(u[ILMath.full, 0] + du * config.SimParm.timeStep, Umin), Umax);
+                dx = (omega0 - x._get(':', 1)) - (omega0 - Omega._get(':', i - 1));
+                du = Kp * dx + Ki * config.SimParm.timeStep * (omega0 - x._get(':', 1));
+                du = min(max(du, -wt.ctrl.pitch.ratelim), (wt.ctrl.pitch.ratelim));
+                u._set(':', 1, min(max(u._get(':', 1) + du * config.SimParm.timeStep, Umin), Umax));
 
 
-                Mg[ILMath.full, i - 1] = u[ILMath.full, 1]; // Torque Input
-                beta[ILMath.full, i - 1] = u[ILMath.full, 0]; // Pitch Input
+                Mg._set(':', i, u._get(':', 2)); // Torque Input
+                beta._set(':', i, u._get(':', 1)); // Pitch Input
 
                 // Turbine dynamics - can be simplified:
                 if (config.enableTurbineDynamics)
                 {
                     for (var j = 1; j <= parm.N; j++)
                     {
-                        double xItemValue;
-                        double parmCtItemValue;
-                        double parmCpItemValue;
-                        turbineModel.Model(x[j - 1, ILMath.full], u[j - 1, ILMath.full], wt, env, config.SimParm.timeStep, out xItemValue, out parmCtItemValue, out parmCpItemValue);
+                        double x_j_1;
+                        double parm_Ct_j_i;
+                        double parm_Cp_j_i;
+                        turbineModel.Model(out x_j_1, out parm_Ct_j_i, out parm_Cp_j_i, x._get(j, ':'), u._get(j, ':'), wt, env, config.SimParm.timeStep);
                         //[x(j,1), parm.Ct(j,i), parm.Cp(j,i)]
-                        x.SetValue(xItemValue, j - 1, 0);
-                        parm.Ct.SetValue(parmCtItemValue, j - 1, i - 1);
-                        parm.Cp.SetValue(parmCpItemValue, j - 1, i - 1);
+                        x._set(j, 1, x_j_1);
+                        parm.Ct._set(j, i, parm_Ct_j_i);
+                        parm.Cp._set(j, i, parm_Cp_j_i);
                     }
                 }
                 else
                 {
-                    x[ILMath.full, 0] = parm.ratedSpeed; // Rotational speed
+                    x._set(':', 1, parm.ratedSpeed); // Rotational speed
                 }
 
-                Omega[ILMath.full, i - 1] = x[ILMath.full, 0];
-                Power[ILMath.full, i - 1] = Omega[ILMath.full, i - 1] * Mg[ILMath.full, i - 1];
+                Omega._set(':', i, x._get(':', 1));
+                Power._set(':', i, Omega._get(':', i) * Mg._get(':', i));
 
                 // Power Summations
-                sumPower.SetValue((double)(ILMath.sum(Power[ILMath.full, i - 1])) * 1E-6, i - 1);
-                sumRef.SetValue((double)(ILMath.sum(P_ref[ILMath.full, i - 1])) * 1E-6, i - 1);
-                sumAvai.SetValue((double)(ILMath.sum(Pa[ILMath.full, i - 1])) * 1E-6, i - 1);
+                sumPower._set(i, ((double)(sum(Power._get(':', i)))) * 1E-6);
+                sumRef._set(i, ((double)(ILMath.sum(P_ref._get(':', i)))) * 1E-6);
+                sumAvai._set(i - 1, ((double)(ILMath.sum(Pa._get(':', i)))) * 1E-6);
 
                 // NOWCASTING FUNKTION HER
                 // powerPrediction(i) = powerPrediction(i,sumPower(i:-1:i-10)) % or something
@@ -233,15 +246,12 @@ namespace WakeFarmControlR
 
             //%
             //time    = (simParm.tStart:simParm.timeStep:simParm.tEnd-simParm.timeStep)';
-            time = (ILMath.counter(config.SimParm.tStart, config.SimParm.timeStep, stepsCount));  // (config.SimParm.tEnd - config.SimParm.tStart) / config.SimParm.timeStep
+            time = (_a(config.SimParm.tStart, config.SimParm.timeStep, config.SimParm.tEnd - config.SimParm.timeStep));  // (config.SimParm.tEnd - config.SimParm.tStart) / config.SimParm.timeStep
 
 
             if (config.saveData)
             {
-                dataOut = time.C;
-                dataOut = dataOut.Concat(sumPower.T, 1);
-                dataOut = dataOut.Concat(sumRef.T, 1);
-                dataOut = dataOut.Concat(sumAvai.T, 1);
+                dataOut = _[ time, sumPower.T, sumRef.T, sumAvai.T ];
                 //save dataOut;
             }
             //% Plotting

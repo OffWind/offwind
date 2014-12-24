@@ -2,24 +2,24 @@
 
 namespace WakeFarmControlR
 {
-    public sealed class DOMAIN_pt
+    public sealed class DOMAIN_pt : MatlabCode
     {
         // Wake Code - Matlab
         // Rasmus Christensen
         // Control and Automation, Aalborg University
-        public static void Calculate(int iMax, double dTurb, ILArray<double> xOrder, int pppPoint, out ILArray<double> output, out double ddx)
+        public static void Calculate(out ILArray<double> output, out double ddx, int iMax, double dTurb, ILArray<double> xOrder, int pppPoint)
         {
-            ILArray<double> x = ILMath.zeros(1, xOrder.length()); // Initialization
+            ILArray<double> x = zeros(1, length(xOrder)); // Initialization
 
-            double xMax = ((double)(ILMath.max(xOrder))) + dTurb * pppPoint;
-            double xMin = ((double)(ILMath.min(xOrder))) - 2 * dTurb;
+            double xMax = max(xOrder) + dTurb * pppPoint;
+            double xMin = ((double)(min(xOrder))) - 2 * dTurb;
 
-            x.SetValue(xMin, 0);
+            x._set(1, xMin);
             ddx = (xMax - xMin) / (iMax - 1);
 
             for (var i = 1; i <= iMax - 1; i++)
             {
-                x.SetValue(x.GetValue(i - 1) + ddx, i);
+                x._set(i + 1, x._get(i) + ddx);
             }
 
             output = x;

@@ -2,7 +2,7 @@
 
 namespace WakeFarmControlR
 {
-    public sealed class EmbeddedInterpol
+    public sealed class EmbeddedInterpol : MatlabCode
     {
         private PersistentVariables _persistentVariables = null;
 
@@ -25,7 +25,7 @@ namespace WakeFarmControlR
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-        public void interpTable(double Beta, double Lambda, ILArray<double> table, ILArray<double> turbineTableBeta, ILArray<double> turbineTableLambda, bool negYes, out double interpValue)
+        public void interpTable(out double interpValue, double Beta, double Lambda, ILArray<double> table, ILArray<double> turbineTableBeta, ILArray<double> turbineTableLambda, bool negYes)
         {
             int Bt0;
             int Bt1;
@@ -44,19 +44,19 @@ namespace WakeFarmControlR
                 _persistentVariables.TurbineTable = table.C;
             }
 
-            var turbineTableSize = _persistentVariables.TurbineTable.Size;
+            var turbineTableSize = size(_persistentVariables.TurbineTable);
             var sizeBt = turbineTableSize[0];
             var sizeLa = turbineTableSize[1];
 
             //% Index Interpolation
             // Finds the beta-point of the interpolation.
-            ILArray<int> Bt0_ = ILMath.empty<int>();
-            ILMath.min(ILMath.abs(turbineTableBeta - Beta), Bt0_);  // Determines the index of the closest point.
-            Bt0 = Bt0_.GetValue(0);
+            ILArray<int> Bt0_;
+            min(out Bt0_, abs(turbineTableBeta - Beta));  // Determines the index of the closest point.
+            Bt0 = (int)Bt0_;
 
-            if (Beta > turbineTableBeta.GetValue(Bt0))
+            if (Beta > turbineTableBeta._get(Bt0))
             {
-                if (Bt0 == sizeBt - 1) //length(turbineTableBeta)
+                if (Bt0 == sizeBt) //length(turbineTableBeta)
                 {
                     Bt1 = Bt0;
                     Bt0 = Bt0 - 1;
@@ -68,7 +68,7 @@ namespace WakeFarmControlR
             }
             else
             {
-                if (Bt0 == 0)
+                if (Bt0 == 1)
                 {
                     Bt1 = Bt0 + 1;
                 }
@@ -80,12 +80,12 @@ namespace WakeFarmControlR
             }
 
             // Finds the Lambda-point of the interpolation.
-            ILArray<int> La0_ = ILMath.empty<int>();
-            ILMath.min(ILMath.abs(turbineTableLambda - Lambda), La0_); // Determines the index of the closest point.
-            La0 = La0_.GetValue(0);
+            ILArray<int> La0_;
+            min(out La0_, abs(turbineTableLambda - Lambda)); // Determines the index of the closest point.
+            La0 = (int)La0_;
 
-            if (Lambda > turbineTableLambda.GetValue(La0))
-                if (La0 == sizeLa - 1) //length(turbineTableLambda)
+            if (Lambda > turbineTableLambda._get(La0))
+                if (La0 == sizeLa) //length(turbineTableLambda)
                 {
                     La1 = La0;
                     La0 = La1 - 1;
@@ -96,7 +96,7 @@ namespace WakeFarmControlR
                 }
             else
             {
-                if (La0 == 0)
+                if (La0 == 1)
                 {
                     La1 = La0 + 1;
                 }
@@ -110,28 +110,28 @@ namespace WakeFarmControlR
             //% Table Interpolation
             // Table lookup using indexes obtained previously:
             tableLookup = new double[,] {
-                { _persistentVariables.TurbineTable.GetValue(Bt0, La0), _persistentVariables.TurbineTable.GetValue(Bt1, La0) },
-                { _persistentVariables.TurbineTable.GetValue(Bt0, La1), _persistentVariables.TurbineTable.GetValue(Bt1, La1) }
+                { _persistentVariables.TurbineTable._get(Bt0, La0), _persistentVariables.TurbineTable._get(Bt1, La0) },
+                { _persistentVariables.TurbineTable._get(Bt0, La1), _persistentVariables.TurbineTable._get(Bt1, La1) }
             };
 
             // Interpolating, using the Lambda values first, then the Betas.
             lambdaIntervals = ILMath.array(
                 new double[] {
-                    ((tableLookup.GetValue(0, 1) - tableLookup.GetValue(0, 0))
-                        / (turbineTableLambda.GetValue(La1) - turbineTableLambda.GetValue(La0)))
-                        * (Lambda - turbineTableLambda.GetValue(La0))
-                    + tableLookup.GetValue(0, 0),
-                    ((tableLookup.GetValue(1, 1) - tableLookup.GetValue(1, 0))
-                        / (turbineTableLambda.GetValue(La1) - turbineTableLambda.GetValue(La0)))
-                        * (Lambda - turbineTableLambda.GetValue(La0))
-                    + tableLookup.GetValue(0, 1)
+                    ((tableLookup._get(1, 2) - tableLookup._get(1, 1))
+                        / (turbineTableLambda._get(La1) - turbineTableLambda._get(La0)))
+                        * (Lambda - turbineTableLambda._get(La0))
+                    + tableLookup._get(1, 1),
+                    ((tableLookup._get(2, 2) - tableLookup._get(2, 1))
+                        / (turbineTableLambda._get(La1) - turbineTableLambda._get(La0)))
+                        * (Lambda - turbineTableLambda._get(La0))
+                    + tableLookup._get(1, 2)
                 }
             );
 
             // Interpolation, using the Beta values (using the intervales computed above).
-            betaIntervals = ((lambdaIntervals.GetValue(1) - lambdaIntervals.GetValue(0)) / (turbineTableBeta.GetValue(Bt1) - turbineTableBeta.GetValue(Bt0)))
-                                 * (Beta - turbineTableBeta.GetValue(Bt0))
-                             + lambdaIntervals.GetValue(0);
+            betaIntervals = ((lambdaIntervals._get(2) - lambdaIntervals._get(1)) / (turbineTableBeta._get(Bt1) - turbineTableBeta._get(Bt0)))
+                                 * (Beta - turbineTableBeta._get(Bt0))
+                             + lambdaIntervals._get(1);
 
             //% Negativity Handling
             // If the negYes value is set as true in the system, the functino will only

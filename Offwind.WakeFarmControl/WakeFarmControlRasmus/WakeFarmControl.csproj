@@ -80,9 +80,11 @@
   <ItemGroup>
     <Compile Include="Compute_Vell.cs" />
     <Compile Include="DOMAIN_pt.cs" />
+    <Compile Include="EnvMatFileDataStructure.cs" />
     <Compile Include="FarmControl.cs" />
     <Compile Include="ILArrayExtensions.cs" />
     <Compile Include="InterpTable.cs" />
+    <Compile Include="MathlabCode.cs" />
     <Compile Include="PersistentVariables.cs" />
     <Compile Include="PowerDistributionControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="wakeCalculationsRLC.cs" />
     <Compile Include="WakeFarmControlInput.cs" />
     <Compile Include="WindTurbineParameters.cs" />
+    <Compile Include="WtMatFileDataStructure.cs" />
     <Compile Include="WT_order.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

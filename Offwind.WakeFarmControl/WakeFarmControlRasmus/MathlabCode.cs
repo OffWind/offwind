@@ -42,6 +42,12 @@ namespace WakeFarmControlR
             }
         }
 
+        #region "Array size functions"
+        protected static int[] size(ILArray<double> ilArray)
+        {
+            return ilArray.Size.ToIntArray();
+        }
+
         protected static int length(ILArray<double> ilArray)
         {
             return ilArray.Size.Longest;
@@ -51,7 +57,9 @@ namespace WakeFarmControlR
         {
             return ilArray.Size.Longest;
         }
+        #endregion
 
+        #region "Rounding functions"
         protected static double ceil(double value)
         {
             return Math.Ceiling(value);
@@ -66,6 +74,7 @@ namespace WakeFarmControlR
         {
             return (double)(ILMath.round(value));
         }
+        #endregion
 
         protected static double abs(double value)
         {
@@ -77,6 +86,7 @@ namespace WakeFarmControlR
             return (ILMath.abs(ilArray));
         }
 
+        #region "Trigonometrical functions"
         protected static double sin(double value)
         {
             return Math.Sin(value);
@@ -91,12 +101,19 @@ namespace WakeFarmControlR
         {
             return Math.Acos(value);
         }
+        #endregion
+
+        protected static double _p(double value, double power)
+        {
+            return Math.Pow(value, power);
+        }
 
         protected static double sqrt(double value)
         {
             return Math.Sqrt(value);
         }
 
+        #region "min & max functions"
         protected static int min(int value1, int value2)
         {
             return Math.Min(value1, value2);
@@ -178,76 +195,13 @@ namespace WakeFarmControlR
             }
             return result;
         }
+        #endregion
 
+        #region "Matrix operations functions"
         protected static ILArray<double> transpose(ILArray<double> ilArray)
         {
             return ilArray.T;
         }
-
-        protected static ILArray<double> zeros(int size1, int size2)
-        {
-            return ILMath.zeros(size1, size2);
-        }
-
-        protected static ILArray<T> zeros<T>(int size1, int size2)
-        {
-            return ILMath.zeros<T>(size1, size2);
-        }
-
-        protected static double randn()
-        {
-            //get
-            {
-                return (double)(ILMath.randn());
-            }
-        }
-
-        protected static ILArray<double> randn(int dim1, int dim2)
-        {
-            return ILMath.randn(dim1, dim2);
-        }
-
-        protected static int[] size(ILArray<double> ilArray)
-        {
-            return ilArray.Size.ToIntArray();
-        }
-
-        //protected static ILArray<T> zeros<T>(int size1, int size2)
-        //{
-        //    return ILMath.zeros<T>(size1, size2);
-        //}
-
-        protected static ILArray<double> ones(int size1, int size2)
-        {
-            return ILMath.ones(size1, size2);
-        }
-
-        protected static double _p(double value, double power)
-        {
-            return Math.Pow(value, power);
-        }
-
-        protected static ILArray<double> _a(double start, double incrementation, double limit)
-        {
-            return ILMath.counter(start, incrementation, (limit - start) / incrementation + 1);
-        }
-
-        protected static int sign(double value)
-        {
-            return Math.Sign(value);
-        }
-
-        protected static ILArray<double> sum(ILArray<double> ilArray)
-        {
-            return ILMath.sum(ilArray);
-        }
-
-        protected static ILArray<double> mod(double value1, double value2)
-        {
-            return ILMath.mod(value1, value2);
-        }
-
-
 
         protected static ILArray<double> sortrows(ILArray<double> ilArray, int sortedByColumnIndex)
         {
@@ -263,6 +217,57 @@ namespace WakeFarmControlR
             }
 
             return sortedArray;
+        }
+        #endregion
+
+        #region "Matrix creation functions"
+        protected static ILArray<double> _a(double start, double incrementation, double limit)
+        {
+            return ILMath.counter(start, incrementation, (limit - start) / incrementation + 1);
+        }
+
+        protected static ILArray<double> zeros(int size1, int size2)
+        {
+            return ILMath.zeros(size1, size2);
+        }
+
+        protected static ILArray<T> zeros<T>(int size1, int size2)
+        {
+            return ILMath.zeros<T>(size1, size2);
+        }
+
+        protected static ILArray<double> ones(int size1, int size2)
+        {
+            return ILMath.ones(size1, size2);
+        }
+
+        protected static ILArray<double> randn(int dim1, int dim2)
+        {
+            return ILMath.randn(dim1, dim2);
+        }
+        #endregion
+
+        protected static double randn()
+        {
+            //get
+            {
+                return (double)(ILMath.randn());
+            }
+        }
+
+        protected static int sign(double value)
+        {
+            return Math.Sign(value);
+        }
+
+        protected static ILArray<double> mod(double value1, double value2)
+        {
+            return (value1 % value2);//ILMath.mod(value1, value2);
+        }
+
+        protected static ILArray<double> sum(ILArray<double> ilArray)
+        {
+            return ILMath.sum(ilArray);
         }
     }
 }

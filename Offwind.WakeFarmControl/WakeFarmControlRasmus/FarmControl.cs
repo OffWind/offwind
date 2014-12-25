@@ -170,7 +170,7 @@ namespace WakeFarmControlR
                 // Calculate the wake using the last Ct values
                 ILArray<double> v_nac___i_;
                 wakeCalculationsRLC(out v_nac___i_, parm.Ct._(':', i - 1), transpose(wField), x._(':', 2), parm, simParm);
-                v_nac._(':', i - 1,  '=', v_nac___i_);
+                v_nac._(':', i,      '=', v_nac___i_);
                 x._(':', 2,          '=', v_nac._(':', i));
 
 
@@ -256,7 +256,7 @@ namespace WakeFarmControlR
                 // Power Summations
                 sumPower._(i, '=', sum(Power._(':', i)) * _p(10, -6));
                 sumRef._(i, '=', sum(P_ref._(':', i)) * _p(10, -6));
-                sumAvai._(i - 1, '=', sum(Pa._(':', i)) * _p(10, -6));
+                sumAvai._(i, '=', sum(Pa._(':', i)) * _p(10, -6));
 
                 // NOWCASTING FUNKTION HER
                 // powerPrediction(i) = powerPrediction(i,sumPower(i:-1:i-10)) % or something

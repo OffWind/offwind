@@ -4,8 +4,6 @@ namespace WakeFarmControlR
 {
     public sealed class EmbeddedInterpol : MatlabCode
     {
-        private PersistentVariables _persistentVariables = null;
-
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         // DESCRIPTION:
         // RLC - 8/9/2014, interpolation, for getting an accurate CP/CT value. The
@@ -23,11 +21,10 @@ namespace WakeFarmControlR
         // turbineTable defines the table to lookup in. 
         // negYes defines wether the CP value should be allowed to be negative.
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
         public void interpTable(out double interpValue, double Beta, double Lambda, ILArray<double> table, ILArray<double> turbineTableBeta, ILArray<double> turbineTableLambda, bool negYes)
         {
             #region "Used variables declaration"
+            ILArray<double> turbineTable;
             int sizeBt;
             int sizeLa;
             int Bt0;
@@ -42,13 +39,12 @@ namespace WakeFarmControlR
             //% Setup, loads the table, and stores it.
             //persistent turbineTable tableLoad
 
-            //if (_persistentVariables == null)
-            {
-                _persistentVariables = new PersistentVariables();
-                _persistentVariables.TurbineTable = table.C;
-            }
+            //if isempty(tableLoad)
+                turbineTable        = table.C;
+            //    tableLoad           = 1;
+            //end
 
-            var turbineTableSize = size(_persistentVariables.TurbineTable);
+            var turbineTableSize = size(turbineTable);
             sizeBt = turbineTableSize[0];
             sizeLa = turbineTableSize[1];
 
@@ -114,8 +110,8 @@ namespace WakeFarmControlR
             //% Table Interpolation
             // Table lookup using indexes obtained previously:
             tableLookup = new double[,] {
-                { _persistentVariables.TurbineTable._(Bt0, La0), _persistentVariables.TurbineTable._(Bt1, La0) },
-                { _persistentVariables.TurbineTable._(Bt0, La1), _persistentVariables.TurbineTable._(Bt1, La1) }
+                { turbineTable._(Bt0, La0), turbineTable._(Bt1, La0) },
+                { turbineTable._(Bt0, La1), turbineTable._(Bt1, La1) }
             };
 
             // Interpolating, using the Lambda values first, then the Betas.

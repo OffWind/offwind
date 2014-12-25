@@ -85,7 +85,6 @@
     <Compile Include="ILArrayExtensions.cs" />
     <Compile Include="InterpTable.cs" />
     <Compile Include="MathlabCode.cs" />
-    <Compile Include="PersistentVariables.cs" />
     <Compile Include="PowerDistributionControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ROTATE_corrd.cs" />

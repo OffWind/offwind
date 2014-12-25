@@ -1,13 +1,14 @@
-﻿using ILNumerics;
+﻿using System;
+using ILNumerics;
 
 namespace WakeFarmControlR
 {
-    public sealed class WT_order : MatlabCode
+    public partial class FarmControl
     {
         // Wake Code - Matlab
         // Rasmus Christensen
         // Control and Automation, Aalborg University
-        public static void Calculate(out ILArray<double> xOrder, out ILArray<double> yOrder, ILArray<double> xTurb, ILArray<double> yTurb)
+        internal static void WT_order(out ILArray<double> xOrder, out ILArray<double> yOrder, ILArray<double> xTurb, ILArray<double> yTurb)
         {
             #region "Used variables declaration"
             ILArray<double> sorted;
@@ -17,7 +18,7 @@ namespace WakeFarmControlR
             int j;
             #endregion
 
-            sorted = sortrows(_[xTurb.T, yTurb.T], 1);
+            sorted = sortrows(_[ xTurb.T, yTurb.T ], 1);
             turbineOrder = zeros(length(sorted), 2);
             sortCtr = 0;
             for (i = 1; i <= length(sorted); i++)

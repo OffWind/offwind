@@ -15,6 +15,22 @@ namespace WakeFarmControlR
                 }
             }
 
+            public ILArray<double> this[double value1, char semicolor, double value2]
+            {
+                get
+                {
+                    return ((ILArray<double>)(new double[] { value1, value2 })).T;
+                }
+            }
+
+            public ILArray<double> this[double value11, double value12, char semicolor, double value21, double value22]
+            {
+                get
+                {
+                    return (ILArray<double>)(new double[,] { { value11, value21 }, { value12, value22 } });
+                }
+            }
+
             public ILArray<double> this[ILArray<double> value1, ILArray<double> value2]
             {
                 get
@@ -165,6 +181,15 @@ namespace WakeFarmControlR
             return result;
         }
 
+        protected static ILArray<double> min(out int index, ILArray<double> ilArray)
+        {
+            ILArray<int> idx;
+            var result = min(out idx, ilArray);
+            index = (int)idx;
+
+            return result;
+        }
+
         protected static int max(int value1, int value2)
         {
             return Math.Max(value1, value2);
@@ -246,9 +271,19 @@ namespace WakeFarmControlR
             return ILMath.zeros<T>(size1, size2);
         }
 
+        protected static ILArray<int> zeros_(int size1, int size2)
+        {
+            return zeros<int>(size1, size2);
+        }
+
         protected static ILArray<double> ones(int size1, int size2)
         {
             return ILMath.ones(size1, size2);
+        }
+
+        protected static ILArray<double> linspace(double start, double end, double length)
+        {
+            return ILMath.linspace(start, end, length);
         }
 
         protected static ILArray<double> randn(int dim1, int dim2)
@@ -278,6 +313,11 @@ namespace WakeFarmControlR
         protected static ILArray<double> sum(ILArray<double> ilArray)
         {
             return ILMath.sum(ilArray);
+        }
+
+        protected static double sum_(ILArray<double> ilArray)
+        {
+            return (double)(sum(ilArray));
         }
     }
 }

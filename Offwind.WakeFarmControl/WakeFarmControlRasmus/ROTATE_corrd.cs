@@ -3,7 +3,7 @@ using ILNumerics;
 
 namespace WakeFarmControlR
 {
-    public sealed class ROTATE_corrd : MatlabCode
+    public partial class FarmControl
     {
         // Wake Code - Matlab
         // Rasmus Christensen
@@ -12,7 +12,7 @@ namespace WakeFarmControlR
         // N_turb = number of turbines.
         // X_turb = x-position of turbine.
         // Y_turb = y-position of turbine.
-        public static void Calculate(out ILArray<double> out_x, out ILArray<double> out_y, ILArray<double> xTurb, ILArray<double> yTurb, double rotA)
+        internal static void ROTATE_corrd(out ILArray<double> out_x, out ILArray<double> out_y, ILArray<double> xTurb, ILArray<double> yTurb, double rotA)
         {
             #region "Used variables declaration"
             ILArray<double> x_out;

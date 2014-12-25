@@ -3,11 +3,9 @@ using ILNumerics;
 
 namespace WakeFarmControlR
 {
-    public class TurbineDrivetrainModel : MatlabCode
+    public partial class FarmControl
     {
-        private readonly EmbeddedInterpol _eInterpol = new EmbeddedInterpol();
-
-        internal void Model(out double OmegaOut, out double Ct, out double Cp, ILArray<double> x, ILArray<double> u, WtMatFileDataStructure wt, EnvMatFileDataStructure env, double timeStep)
+        internal static void turbineDrivetrainModel(out double OmegaOut, out double Ct, out double Cp, ILArray<double> x, ILArray<double> u, WtMatFileDataStructure wt, EnvMatFileDataStructure env, double timeStep)
         {
             #region "Used variables declaration"
             double R;
@@ -42,15 +40,15 @@ namespace WakeFarmControlR
                 Lambda = Omega * R / Ve;
             }
 
-            _eInterpol.interpTable(out Cp, Beta, Lambda, wt.cp.table, wt.cp.beta, wt.cp.tsr, false);
-            _eInterpol.interpTable(out Ct, Beta, Lambda, wt.ct.table, wt.ct.beta, wt.ct.tsr, false);
+            interpTable(out Cp, Beta, Lambda, wt.cp.table, wt.cp.beta, wt.cp.tsr, false);
+            interpTable(out Ct, Beta, Lambda, wt.ct.table, wt.ct.beta, wt.ct.tsr, false);
 
             if (Ct > 1)
             {
                 Ct = 1;
             }
 
-            Tr = 0.5 * env.rho * pi * _p(R, 2) * _p(Ve, 3) * Ct / Omega;
+            Tr = 1.0 / 2 * env.rho * pi * _p(R, 2) * _p(Ve, 3) * Ct / Omega;
 
             OmegaOut = Omega + timeStep * (Tr - Tg) / I; //Integration method: Forward Euler
         }

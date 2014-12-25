@@ -1,14 +1,15 @@
-﻿using ILNumerics;
+﻿using System;
+using ILNumerics;
 
 namespace WakeFarmControlR
 {
-    public sealed class wakeCalculationsRLC : MatlabCode
+    public partial class FarmControl
     {
         //% v_nac = WAKECALCULATION(Ct,i,wind)
         // RLC, Aalborg
         // The below is based on the .F90 code developed by ?, and will give a
         // better estimate of the actual wake the individual turbines experience. 
-        public static void Calculate(out ILArray<double> vNac, ILArray<double> Ct, ILArray<double> wField, ILArray<double> vHub, WindTurbineParameters parm, SimParm simParm)
+        internal static void wakeCalculationsRLC(out ILArray<double> vNac, ILArray<double> Ct, ILArray<double> wField, ILArray<double> vHub, WindTurbineParameters parm, SimParm simParm)
         {
             #region "Used variables declaration"
             ILArray<double> data;
@@ -59,20 +60,20 @@ namespace WakeFarmControlR
             xCoor   = data._(':', 1); // Coordiante of turbine, x-position
             yCoor   = data._(':', 2); // Coordinate of turbine, y-position
 
-            ROTATE_corrd.Calculate(out xTurb, out yTurb, xCoor, yCoor, rotA); // Rotated (and scaled) coordinates
-            WT_order.Calculate(out xOrder, out yOrder, xTurb, yTurb); // Ordered turbines. 
+            ROTATE_corrd(out xTurb, out yTurb, xCoor, yCoor, rotA); // Rotated (and scaled) coordinates
+            WT_order(out xOrder, out yOrder, xTurb, yTurb); // Ordered turbines. 
 
             ppp = 2; // This parameter is also a bit weird.. But it changes the grid.
             double _;
-            DOMAIN_pt.Calculate(out xGrid, out _, gridX, dTurb, xOrder, ppp); // 
+            DOMAIN_pt(out xGrid, out _, gridX, dTurb, xOrder, ppp); // 
             ppp = 5;
-            DOMAIN_pt.Calculate(out yGrid, out dy, gridY, dTurb, yOrder, ppp);
+            DOMAIN_pt(out yGrid, out dy, gridY, dTurb, yOrder, ppp);
 
-            Turb_centr_coord.Calculate(out xTurbC, nTurb, gridX, xGrid, xOrder, gridRes); // Determines the grid point closest to the turbine.
-            Turb_centr_coord.Calculate(out yTurbC, nTurb, gridY, yGrid, yOrder, gridRes); // Determines the grid point closest to the turbine. 
+            Turb_centr_coord(out xTurbC, nTurb, gridX, xGrid, xOrder, gridRes); // Determines the grid point closest to the turbine.
+            Turb_centr_coord(out yTurbC, nTurb, gridY, yGrid, yOrder, gridRes); // Determines the grid point closest to the turbine. 
 
             // Velocity Computation
-            Compute_Vell.Calculate(out Velocity, yOrder, xTurbC, yTurbC, x, wField, vHub, kWake, gridX, gridY, nTurb, dTurb, Ct, dy);
+            Compute_Vell(out Velocity, yOrder, xTurbC, yTurbC, x, wField, vHub, kWake, gridX, gridY, nTurb, dTurb, Ct, dy);
 
             // Extracting the individual Nacelle Wind Speeds from the wind velocity matrix.
             //Velocity = Velocity';
@@ -80,7 +81,7 @@ namespace WakeFarmControlR
 
             for (j = 1; j <= length(xTurbC); j++)
             {
-                vNac._(j, '=', Velocity._(yTurbC._get(j), xTurbC._get(j)));
+                vNac._(j, '=', Velocity._(yTurbC._(j), xTurbC._(j)));
             }
         }
     }

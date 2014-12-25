@@ -3,12 +3,12 @@ using ILNumerics;
 
 namespace WakeFarmControlR
 {
-    public sealed class Turb_centr_coord : MatlabCode
+    public partial class FarmControl
     {
         // Wake Code - Matlab
         // Rasmus Christensen
         // Control and Automation, Aalborg University
-        public static void Calculate(out ILArray<int> output, int nTurb, int iMax, ILArray<double> x, ILArray<double> xTurb, int gridRes)
+        internal static void Turb_centr_coord(out ILArray<int> output, int nTurb, int iMax, ILArray<double> x, ILArray<double> xTurb, int gridRes)
         {
             #region "Used variables declaration"
             ILArray<int> xxcTurb;
@@ -16,7 +16,7 @@ namespace WakeFarmControlR
             int ii;
             #endregion
 
-            xxcTurb = zeros<int>(1, nTurb);
+            xxcTurb = zeros_(1, nTurb);
 
             for (i = 1; i <= nTurb; i++)
             {

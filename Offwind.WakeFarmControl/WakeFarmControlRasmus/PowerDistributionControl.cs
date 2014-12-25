@@ -3,13 +3,13 @@ using ILNumerics;
 
 namespace WakeFarmControlR
 {
-    public sealed class PowerDistributionControl : MatlabCode
+    public partial class FarmControl
     {
         //P_ref is a vector of power refenreces for tehe wind turbine with dimension 1xN
         //v_nac is a vector of wind speed at each wind turbine with dimension 1xN
         //P_demand is a scale of the wind farm power demand.
         //parm is a struct of wind turbine parameters e.g. NREL5MW
-        public static void DistributePower(out ILArray<double> P_ref, out ILArray<double> P_a, ILArray<double> v_nac, double P_demand, WindTurbineParameters parm)
+        internal static void powerDistributionControl(out ILArray<double> P_ref, out ILArray<double> P_a, ILArray<double> v_nac, double P_demand, WindTurbineParameters parm)
         {
             #region "Used variables declaration"
             double rho;
@@ -30,17 +30,17 @@ namespace WakeFarmControlR
             // Compute available power at each turbine
             for (i = 1; i <= parm.N; i++)
             {
-                P_a._(i, '=', min(_[rated._(i), (pi / 2) * rho * _p(R._(i), 2) * _p(v_nac._(i), 3) * Cp._(i)]));
+                P_a._(i, '=', min(_[ rated._(i), (pi / 2) * rho * _p(R._(i), 2) * _p(v_nac._(i), 3) * Cp._(i) ]));
             }
 
-            var sum_P_a_ = (double)(sum(P_a));
+            var sum_P_a_ = sum_(P_a);
 
             //Distribute power according to availibility
             for (i = 1; i <= parm.N; i++)
             {
                 if (P_demand < sum_P_a_)
                 {
-                    P_ref._(i, '=', max(_[0, min(_[rated._(i), P_demand * P_a._(i) / sum_P_a_])]));
+                    P_ref._(i, '=', max(_[ 0, min(_[ rated._(i), P_demand * P_a._(i) / sum_P_a_ ]) ]));
                 }
                 else
                 {

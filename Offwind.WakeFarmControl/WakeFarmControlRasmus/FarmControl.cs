@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Linq;
 using ILNumerics;
 
 namespace WakeFarmControlR
 {
-    public class FarmControl : MatlabCode
+    public partial class FarmControl : MatlabCode
     {
         protected static ILArray<double> ILArrayFromArray(double[,] array)
         {
@@ -16,7 +15,7 @@ namespace WakeFarmControlR
             return ILArrayFromArray(array);
         }
 
-        private static void load(out ILArray<double> wind, string windMatFilePath)
+        private static void load(string windMatFilePath, out ILArray<double> wind)
         {
             using (var WindMatFile = new ILMatFile(windMatFilePath))
             {
@@ -35,8 +34,6 @@ namespace WakeFarmControlR
 
         public static double[][] Simulation(WakeFarmControlConfig config)
         {
-            var turbineModel = new TurbineDrivetrainModel();
-
             #region "Used variables declaration"
             bool saveData;
             bool enablePowerDistribution;
@@ -93,15 +90,16 @@ namespace WakeFarmControlR
             simParm.tStart      = config.SimParm.tStart; // time start
             simParm.timeStep    = config.SimParm.timeStep; // time step, 8Hz - the NREL model is 80Hz (for reasons unknown)
             simParm.tEnd        = config.SimParm.tEnd; // time end
+            int _simParm_tEnd_simParm_tStart__simParm_timeStep = (int)((simParm.tEnd - simParm.tStart) / simParm.timeStep);
             simParm.gridRes     = config.SimParm.gridRes; // Grid Resolution
             simParm.grid        = config.SimParm.grid; // Grid Size
             simParm.ctrlUpdate  = config.SimParm.ctrlUpdate;  // Update inverval for farm controller
             simParm.powerUpdate = config.SimParm.powerUpdate; // How often the control algorithm should update!
-            load(out wind, config.Wind_MatFile);
+            load(config.Wind_MatFile, out wind); // Load Wind Data
 
             // Wind farm and Turbine Properties properties
             parm = new WindTurbineParameters();
-            parm.wf = load(config.Turbines);
+            parm.wf = load(config.Turbines); // Loads the Wind Farm Layout.
             parm.N = length(parm.wf); // number of turbines in farm
             parm.rotA = -48.80; // Angle of Attack
             parm.kWake = 0.06;
@@ -112,12 +110,9 @@ namespace WakeFarmControlR
             parm.radius = wt.rotor.radius * ones(1, parm.N); // rotor radius (NREL5MW)
             parm.rated = wt.ctrl.p_rated * ones(1, parm.N); //rated power (NREL5MW)
             parm.ratedSpeed = wt.rotor.ratedspeed; //rated rotor speed
-
-            max(out idx, wt.cp.table[ILMath.full]); // Find index for max Cp
-            int stepsCount = (int)((simParm.tEnd - simParm.tStart) / simParm.timeStep);
-            parm.Ct = 0.0 * wt.ct.table._(idx) * ones(parm.N, stepsCount); // Define initial Ct as the optimal Ct. 
-            parm.Cp = wt.cp.table._(idx) * ones(parm.N, stepsCount); // Define initial Cp as the optimal Cp. 
-
+            max(out idx, wt.cp.table._(':')); // Find index for max Cp
+            parm.Ct = 0.0 * wt.ct.table._(idx) * ones(parm.N, (_simParm_tEnd_simParm_tStart__simParm_timeStep)); // Define initial Ct as the optimal Ct. 
+            parm.Cp = wt.cp.table._(idx) * ones(parm.N, (_simParm_tEnd_simParm_tStart__simParm_timeStep)); // Define initial Cp as the optimal Cp. 
             Mg_max_rate = wt.ctrl.torq.ratelim; // Rate-limit on Torque Change.
 
             //Pitch control
@@ -137,7 +132,7 @@ namespace WakeFarmControlR
             power0 = 0; // Power Production
 
             //% Memory Allocation and Memory Initialization
-            initMatrix = zeros(parm.N, stepsCount);
+            initMatrix = zeros(parm.N, _simParm_tEnd_simParm_tStart__simParm_timeStep);
             sumPower = initMatrix._(1, ':'); // Initialize produced power vector
             sumRef = initMatrix._(1, ':'); // Initialize reference power vector
             sumAvai = initMatrix._(1, ':'); // Initialize available power vector
@@ -162,21 +157,21 @@ namespace WakeFarmControlR
             P_demand._(1, '=', config.InitialPowerDemand); // Power Demand.
 
             //% Simulate wind farm operation
-            for (var i = 2; i <= stepsCount; i++) // At each sample time (DT) from Tstart to Tend
+            for (var i = 2; i <= _simParm_tEnd_simParm_tStart__simParm_timeStep; i++) // At each sample time (DT) from Tstart to Tend
             {
                 //clc;
                 //fprintf('Iteration Counter: %i out of %i \n', i, config.SimParm.tEnd * (1 / config.SimParm.timeStep));
 
                 //%%%%%%%%%%%%%%% WIND FIELD FIFO MATRIX %%%%%%%%%%%%%%%%%%%
-                wField._(':', 2, ILMath.end, '=', wField._(':', 1, (ILMath.end - 1)));
-                wField._(':', 1,             '=', wind._(i, 2) * ones(simParm.grid / simParm.gridRes, 1) + randn(simParm.grid / simParm.gridRes, 1) * 0.5);
+                wField._(':', 2, end, '=', wField._(':', 1, (end - 1)));
+                wField._(':', 1,      '=', wind._(i, 2) * ones(simParm.grid / simParm.gridRes, 1) + randn(simParm.grid / simParm.gridRes, 1) * 0.5);
                 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 
                 // Calculate the wake using the last Ct values
-                ILArray<double> v_nacRow;
-                wakeCalculationsRLC.Calculate(out v_nacRow, parm.Ct._(':', i - 1), transpose(wField), x._(':', 2), parm, simParm);
-                v_nac._(':', i - 1,      '=', v_nacRow);
-                x._(':', 2,              '=', v_nac._(':', i));
+                ILArray<double> v_nac___i_;
+                wakeCalculationsRLC(out v_nac___i_, parm.Ct._(':', i - 1), transpose(wField), x._(':', 2), parm, simParm);
+                v_nac._(':', i - 1,  '=', v_nac___i_);
+                x._(':', 2,          '=', v_nac._(':', i));
 
 
                 if (enableVaryingDemand) // A random walk to simulate fluctuations in the power demand.
@@ -192,9 +187,9 @@ namespace WakeFarmControlR
                 // Calculate the power distribution references for each turbine
                 if (enablePowerDistribution)
                 {
-                    ILArray<double> Pa_i_out;
-                    PowerDistributionControl.DistributePower(out P_ref_new, out Pa_i_out, x._(':', 2), P_demand._(i), parm);
-                    Pa._(':', i, '=', Pa_i_out);
+                    ILArray<double> Pa___i_;
+                    powerDistributionControl(out P_ref_new, out Pa___i_, x._(':', 2), P_demand._(i), parm);
+                    Pa._(':', i, '=', Pa___i_);
                 }
 
                 //Hold  the demand for some seconds
@@ -221,7 +216,7 @@ namespace WakeFarmControlR
                     {
                         u._(j, 2, '=', P_ref._(j, i) / x._(j, 1));
                     }
-                    else if (x.GetValue(j - 1, 0) * 97 <= VS_CtInSp)                     //! We are in region 1 - torque is zero
+                    else if (x._(j, 1) * 97 <= VS_CtInSp)                     //! We are in region 1 - torque is zero
                     {
                         u._(j, 2, '=', 0.0);
                     }
@@ -233,7 +228,7 @@ namespace WakeFarmControlR
 
                 dx = (omega0 - x._(':', 1)) - (omega0 - Omega._(':', i - 1));
                 du = Kp * dx + Ki * simParm.timeStep * (omega0 - x._(':', 1));
-                du = min(max(du, -wt.ctrl.pitch.ratelim), (wt.ctrl.pitch.ratelim));
+                du = min(max(du, -wt.ctrl.pitch.ratelim), wt.ctrl.pitch.ratelim);
                 u._(':', 1, '=', min(max(u._(':', 1) + du * simParm.timeStep, Umin), Umax));
 
 
@@ -245,14 +240,9 @@ namespace WakeFarmControlR
                 {
                     for (j = 1; j <= parm.N; j++)
                     {
-                        double x_j_1;
-                        double parm_Ct_j_i;
-                        double parm_Cp_j_i;
-                        turbineModel.Model(out x_j_1, out parm_Ct_j_i, out parm_Cp_j_i, x._(j, ':'), u._(j, ':'), wt, env, simParm.timeStep);
-                        //[x(j,1), parm.Ct(j,i), parm.Cp(j,i)]
-                        x._(j, 1, '=', x_j_1);
-                        parm.Ct._(j, i, '=', parm_Ct_j_i);
-                        parm.Cp._(j, i, '=', parm_Cp_j_i);
+                        double x_j_1_; double parm_Ct_j_i_; double parm_Cp_j_i_;
+                        turbineDrivetrainModel(out x_j_1_, out parm_Ct_j_i_, out parm_Cp_j_i_, x._(j, ':'), u._(j, ':'), wt, env, simParm.timeStep);
+                        x._(j, 1, '=', x_j_1_); parm.Ct._(j, i, '=', parm_Ct_j_i_); parm.Cp._(j, i, '=', parm_Cp_j_i_);
                     }
                 }
                 else
@@ -264,9 +254,9 @@ namespace WakeFarmControlR
                 Power._(':', i, '=', Omega._(':', i) * Mg._(':', i));
 
                 // Power Summations
-                sumPower._(i, '=', sum(Power._(':', i)) * 1E-6);
-                sumRef._(i, '=', sum(P_ref._(':', i)) * 1E-6);
-                sumAvai._(i - 1, '=', sum(Pa._(':', i)) * 1E-6);
+                sumPower._(i, '=', sum(Power._(':', i)) * _p(10, -6));
+                sumRef._(i, '=', sum(P_ref._(':', i)) * _p(10, -6));
+                sumAvai._(i - 1, '=', sum(Pa._(':', i)) * _p(10, -6));
 
                 // NOWCASTING FUNKTION HER
                 // powerPrediction(i) = powerPrediction(i,sumPower(i:-1:i-10)) % or something
@@ -274,9 +264,7 @@ namespace WakeFarmControlR
             }
 
             //%
-            //time    = (simParm.tStart:simParm.timeStep:simParm.tEnd-simParm.timeStep)';
-            time = (_a(simParm.tStart, simParm.timeStep, simParm.tEnd - simParm.timeStep));  // (config.SimParm.tEnd - config.SimParm.tStart) / config.SimParm.timeStep
-
+            time = (_a(simParm.tStart, simParm.timeStep, simParm.tEnd - simParm.timeStep));
 
             if (saveData)
             {
@@ -287,38 +275,11 @@ namespace WakeFarmControlR
             //Below a number of different plots are made. Most of them for test purposes
             ILArray<double> plotsData;
             plotsData = time.C;
-            //f1 = figure(1); //clf;
-            //plot(time,P_ref*(10^(-6))); grid on; // Power Reference
-            //xlabel('Time [s]'); ylabel('Power Reference [MW]');
-            //title('Individual Power Reference');
-            plotsData = plotsData.Concat(P_ref.T * 1E-6, 1);
-            // 
-            //f2 = figure(2); clf;
-            //plot(time,v_nac); grid on; // Wind velocity at each turbine
-            //xlabel('Time [s]'); ylabel('Wind Speed [m/s]');
-            //title('Wind Speed @ individual turbine');
-            plotsData = plotsData.Concat(v_nac.T, 1);
-
-            //f4 = figure(4); clf;
-            //plot(time,beta'); grid on;
-            //xlabel('Time [s]'); ylabel('Pitch Angle [deg]');
-            //title('Evolution of Pitch angle over time');
-            plotsData = plotsData.Concat(beta.T, 1);
-
-            //f5 = figure(5); clf;
-            //plot(time,Omega'); grid on;
-            //xlabel('Time [s]'); ylabel('Revolutional Velocity [rpm]');
-            //title('Evolution of Revolutional Velocity over time');
-            plotsData = plotsData.Concat(Omega.T, 1);
-
-            //f3 = figure(3); clf;
-            //plot(time,sumRef,time,sumAvai,time,sumPower); grid on; // Power References
-            //xlabel('Time [s]'); ylabel('Power [MW]');
-            //legend('Reference','Available','Produced');
-            //title('Power Plot');
-            plotsData = plotsData.Concat(sumRef.T, 1);
-            plotsData = plotsData.Concat(sumAvai.T, 1);
-            plotsData = plotsData.Concat(sumPower.T, 1);
+            plotsData = _[ plotsData, P_ref.T * (_p(10, -6)) ];             // f1 = figure(1); xlabel('Time [s]'); ylabel('Power Reference [MW]'); title('Individual Power Reference');
+            plotsData = _[ plotsData, v_nac.T ];                            // f2 = figure(2); xlabel('Time [s]'); ylabel('Wind Speed [m/s]'); title('Wind Speed @ individual turbine');
+            plotsData = _[ plotsData, beta.T ];                             // f4 = figure(4); xlabel('Time [s]'); ylabel('Pitch Angle [deg]'); title('Evolution of Pitch angle over time');
+            plotsData = _[ plotsData, Omega.T ];                            // f5 = figure(5); xlabel('Time [s]'); ylabel('Revolutional Velocity [rpm]'); title('Evolution of Revolutional Velocity over time');
+            plotsData = _[ plotsData, sumRef.T, sumAvai.T, sumPower.T ];    // f3 = figure(3); xlabel('Time [s]'); ylabel('Power [MW]'); title('Power Plot'); legend('Reference','Available','Produced');
 
             return plotsData.ToDoubleArray();
         }

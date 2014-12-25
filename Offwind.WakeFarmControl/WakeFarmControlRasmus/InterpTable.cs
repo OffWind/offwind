@@ -1,8 +1,9 @@
-﻿using ILNumerics;
+﻿using System;
+using ILNumerics;
 
 namespace WakeFarmControlR
 {
-    public sealed class EmbeddedInterpol : MatlabCode
+    public partial class FarmControl
     {
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         // DESCRIPTION:
@@ -21,7 +22,7 @@ namespace WakeFarmControlR
         // turbineTable defines the table to lookup in. 
         // negYes defines wether the CP value should be allowed to be negative.
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        public void interpTable(out double interpValue, double Beta, double Lambda, ILArray<double> table, ILArray<double> turbineTableBeta, ILArray<double> turbineTableLambda, bool negYes)
+        internal static void interpTable(out double interpValue, double Beta, double Lambda, ILArray<double> table, ILArray<double> turbineTableBeta, ILArray<double> turbineTableLambda, bool negYes)
         {
             #region "Used variables declaration"
             ILArray<double> turbineTable;
@@ -50,9 +51,7 @@ namespace WakeFarmControlR
 
             //% Index Interpolation
             // Finds the beta-point of the interpolation.
-            ILArray<int> Bt0_;
-            min(out Bt0_, abs(turbineTableBeta - Beta));  // Determines the index of the closest point.
-            Bt0 = (int)Bt0_;
+            min(out Bt0, abs(turbineTableBeta - Beta));  // Determines the index of the closest point.
 
             if (Beta > turbineTableBeta._(Bt0))
             {
@@ -80,9 +79,7 @@ namespace WakeFarmControlR
             }
 
             // Finds the Lambda-point of the interpolation.
-            ILArray<int> La0_;
-            min(out La0_, abs(turbineTableLambda - Lambda)); // Determines the index of the closest point.
-            La0 = (int)La0_;
+            min(out La0, abs(turbineTableLambda - Lambda)); // Determines the index of the closest point.
 
             if (Lambda > turbineTableLambda._(La0))
                 if (La0 == sizeLa) //length(turbineTableLambda)
@@ -109,29 +106,15 @@ namespace WakeFarmControlR
 
             //% Table Interpolation
             // Table lookup using indexes obtained previously:
-            tableLookup = new double[,] {
-                { turbineTable._(Bt0, La0), turbineTable._(Bt1, La0) },
-                { turbineTable._(Bt0, La1), turbineTable._(Bt1, La1) }
-            };
+            tableLookup     = _[ turbineTable._(Bt0, La0), turbineTable._(Bt0, La1), ';',
+                                 turbineTable._(Bt1, La0), turbineTable._(Bt1, La1) ];
 
             // Interpolating, using the Lambda values first, then the Betas.
-            lambdaIntervals = ILMath.array(
-                new double[] {
-                    ((tableLookup._(1, 2) - tableLookup._(1, 1))
-                        / (turbineTableLambda._(La1) - turbineTableLambda._(La0)))
-                        * (Lambda - turbineTableLambda._(La0))
-                    + tableLookup._(1, 1),
-                    ((tableLookup._(2, 2) - tableLookup._(2, 1))
-                        / (turbineTableLambda._(La1) - turbineTableLambda._(La0)))
-                        * (Lambda - turbineTableLambda._(La0))
-                    + tableLookup._(1, 2)
-                }
-            );
+            lambdaIntervals = _[ ( (tableLookup._(1, 2) - tableLookup._(1, 1)) / (turbineTableLambda._(La1) - turbineTableLambda._(La0)) ) * (Lambda - turbineTableLambda._(La0)) + tableLookup._(1, 1), ';',
+                                 ( (tableLookup._(2, 2) - tableLookup._(2, 1)) / (turbineTableLambda._(La1) - turbineTableLambda._(La0)) ) * (Lambda - turbineTableLambda._(La0)) + tableLookup._(1, 2) ];
 
             // Interpolation, using the Beta values (using the intervales computed above).
-            betaIntervals = ((lambdaIntervals._(2) - lambdaIntervals._(1)) / (turbineTableBeta._(Bt1) - turbineTableBeta._(Bt0)))
-                                 * (Beta - turbineTableBeta._(Bt0))
-                             + lambdaIntervals._(1);
+            betaIntervals   = ( (lambdaIntervals._(2) - lambdaIntervals._(1)) / (turbineTableBeta._(Bt1) - turbineTableBeta._(Bt0)) ) * (Beta - turbineTableBeta._(Bt0)) + lambdaIntervals._(1);
 
             //% Negativity Handling
             // If the negYes value is set as true in the system, the functino will only

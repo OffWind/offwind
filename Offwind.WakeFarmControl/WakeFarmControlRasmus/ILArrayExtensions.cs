@@ -30,7 +30,7 @@ namespace WakeFarmControlR
         /// <summary>
         /// = (i)
         /// </summary>
-        public static int _get(this ILArray<int> ilArray, int index)
+        public static int _(this ILArray<int> ilArray, int index)
         {
             return ilArray.GetValue(index - 1);
         }

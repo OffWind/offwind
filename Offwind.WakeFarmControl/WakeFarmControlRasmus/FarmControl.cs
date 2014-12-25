@@ -11,6 +11,28 @@ namespace WakeFarmControlR
             return ((ILArray<double>)array).T;
         }
 
+        private static ILArray<double> load(double[,] array)
+        {
+            return ILArrayFromArray(array);
+        }
+
+        private static void load(out ILArray<double> wind, string windMatFilePath)
+        {
+            using (var WindMatFile = new ILMatFile(windMatFilePath))
+            {
+                wind = WindMatFile.GetArray<double>("wind");
+            }
+        }
+
+        private static void load(string nrel5MWMatFilePath, out EnvMatFileDataStructure env, out WtMatFileDataStructure wt)
+        {
+            using (var NREL5MWMatFile = new ILMatFile(nrel5MWMatFilePath))
+            {
+                env = new EnvMatFileDataStructure(NREL5MWMatFile);
+                wt = new WtMatFileDataStructure(NREL5MWMatFile);
+            }
+        }
+
         public static double[][] Simulation(WakeFarmControlConfig config)
         {
             var turbineModel = new TurbineDrivetrainModel();
@@ -75,25 +97,17 @@ namespace WakeFarmControlR
             simParm.grid        = config.SimParm.grid; // Grid Size
             simParm.ctrlUpdate  = config.SimParm.ctrlUpdate;  // Update inverval for farm controller
             simParm.powerUpdate = config.SimParm.powerUpdate; // How often the control algorithm should update!
-            using (var WindMatFile = new ILMatFile(config.Wind_MatFile))
-            {
-                wind = WindMatFile.GetArray<double>("wind");
-            }
+            load(out wind, config.Wind_MatFile);
 
             // Wind farm and Turbine Properties properties
             parm = new WindTurbineParameters();
-            //parm.wf = LoadILArrayFromFile(config.InitialData_MatFile); // Loads the Wind Farm Layout.
-            parm.wf = ILArrayFromArray(config.Turbines);
+            parm.wf = load(config.Turbines);
             parm.N = length(parm.wf); // number of turbines in farm
             parm.rotA = -48.80; // Angle of Attack
             parm.kWake = 0.06;
 
             //% Turbine properties - Loaded from the NREL5MW.mat file
-            using (var NREL5MWMatFile = new ILMatFile(config.NREL5MW_MatFile))// Load parameters from the NREL 5MW Reference turbine struct.
-            {
-                env = new EnvMatFileDataStructure(NREL5MWMatFile);
-                wt = new WtMatFileDataStructure(NREL5MWMatFile);
-            }
+            load(config.NREL5MW_MatFile, out env, out wt); // Load parameters from the NREL 5MW Reference turbine struct.
             parm.rho = env.rho; // air density
             parm.radius = wt.rotor.radius * ones(1, parm.N); // rotor radius (NREL5MW)
             parm.rated = wt.ctrl.p_rated * ones(1, parm.N); //rated power (NREL5MW)

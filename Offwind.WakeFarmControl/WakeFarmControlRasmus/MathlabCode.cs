@@ -34,13 +34,8 @@ namespace WakeFarmControlR
 
         protected static ArrayInitializer _ = new ArrayInitializer();
 
-        protected static double pi
-        {
-            get
-            {
-                return ILMath.pi;
-            }
-        }
+        protected static double pi = ILMath.pi;
+        protected static ILNumerics.Misc.ILExpression end = ILMath.end;
 
         #region "Array size functions"
         protected static int[] size(ILArray<double> ilArray)
@@ -65,9 +60,19 @@ namespace WakeFarmControlR
             return Math.Ceiling(value);
         }
 
+        protected static int ceil_(double value)
+        {
+            return (int)(ceil(value));
+        }
+
         protected static double floor(double value)
         {
             return Math.Floor(value);
+        }
+
+        protected static int floor_(double value)
+        {
+            return (int)(floor(value));
         }
 
         protected static double round(double value)
@@ -137,6 +142,11 @@ namespace WakeFarmControlR
         protected static ILArray<double> min(ILArray<double> ilArray)
         {
             return ILMath.min(ilArray);
+        }
+
+        protected static double min_(ILArray<double> ilArray)
+        {
+            return (double)(min(ilArray));
         }
 
         protected static ILArray<double> min(ILArray<double> ilArray, double value)

@@ -14,12 +14,18 @@ namespace WakeFarmControlR
         // Y_turb = y-position of turbine.
         public static void Calculate(out ILArray<double> out_x, out ILArray<double> out_y, ILArray<double> xTurb, ILArray<double> yTurb, double rotA)
         {
-            ILArray<double> x_out = zeros(1, length(xTurb)); // Initialization x-coordinates
-            ILArray<double> y_out = zeros(1, length(yTurb)); // Initialization y-coordinates
+            #region "Used variables declaration"
+            ILArray<double> x_out;
+            ILArray<double> y_out;
+            int i;
+            #endregion
+
+            x_out = zeros(1, length(xTurb)); // Initialization x-coordinates
+            y_out = zeros(1, length(yTurb)); // Initialization y-coordinates
     
             rotA = rotA * pi / 180; // Conversion to radians
 
-            for (var i = 1; i <= length(xTurb); i++)
+            for (i = 1; i <= length(xTurb); i++)
             {
                 x_out._(i, '=', xTurb._(i) * cos(rotA) - xTurb._(i) * sin(rotA));
                 y_out._(i, '=', xTurb._(i) * sin(rotA) + yTurb._(i) * cos(rotA));

@@ -13,18 +13,25 @@ namespace WakeFarmControlR
 
         public static double[][] Simulation(WakeFarmControlConfig config)
         {
-            var parm = new WindTurbineParameters();
+            var turbineModel = new TurbineDrivetrainModel();
 
+            #region "Used variables declaration"
+            bool saveData;
+            bool enablePowerDistribution;
+            bool enableTurbineDynamics;
+            bool powerRefInterpolation;
+            bool enableVaryingDemand;
+            SimParm simParm;
+
+            ILArray<double> wind;
+            WindTurbineParameters parm;
             EnvMatFileDataStructure env;
             WtMatFileDataStructure wt;
-
             ILArray<int> idx;
-
             double Mg_max_rate;
             double Ki, Kp, Umax, Umin;
             double VS_CtInSp, VS_RtGnSp, VS_Rgn2K;
             double omega0, beta0, power0;
-
             ILArray<double> initMatrix;
             ILArray<double> sumPower;
             ILArray<double> sumRef;
@@ -38,33 +45,43 @@ namespace WakeFarmControlR
             ILArray<double> beta;
             ILArray<double> Omega;
             ILArray<double> initVector;
-
             ILArray<double> Mg;
             ILArray<double> wField;
-
             double dZ;
             ILArray<double> du;
             ILArray<double> x;
             ILArray<double> u;
-
+            double alpha;
+            int j;
             ILArray<double> dx;
-
             ILArray<double> time;
             ILArray<double> dataOut;
-            ILArray<double> plotsData;
+            #endregion
 
             //% Initialization
-            //bool enablePowerDistribution = true; // Enable wind farm control and not only constant power
-            //bool enableVaryingDemand = true; // Varying Reference
+            //General settings to be changed
+            saveData                = config.saveData; // Save all the simulated data to a .mat file?
+            enablePowerDistribution = config.enablePowerDistribution; // Enable wind farm control and not only constant power
+            enableTurbineDynamics   = config.enableTurbineDynamics; // Enable dynamical turbine model. Disabling this will increase the speed significantly, but also lower the fidelity of the results (setting to false does not work properly yet)
+            powerRefInterpolation   = config.powerRefInterpolation; // Power Reference table interpolation.
+            enableVaryingDemand     = config.enableVaryingDemand; // Varying Reference
 
-            ILArray<double> wind;
+            // Simulation Properties:
+            simParm = new SimParm();
+            simParm.tStart      = config.SimParm.tStart; // time start
+            simParm.timeStep    = config.SimParm.timeStep; // time step, 8Hz - the NREL model is 80Hz (for reasons unknown)
+            simParm.tEnd        = config.SimParm.tEnd; // time end
+            simParm.gridRes     = config.SimParm.gridRes; // Grid Resolution
+            simParm.grid        = config.SimParm.grid; // Grid Size
+            simParm.ctrlUpdate  = config.SimParm.ctrlUpdate;  // Update inverval for farm controller
+            simParm.powerUpdate = config.SimParm.powerUpdate; // How often the control algorithm should update!
             using (var WindMatFile = new ILMatFile(config.Wind_MatFile))
             {
                 wind = WindMatFile.GetArray<double>("wind");
             }
-            
 
             // Wind farm and Turbine Properties properties
+            parm = new WindTurbineParameters();
             //parm.wf = LoadILArrayFromFile(config.InitialData_MatFile); // Loads the Wind Farm Layout.
             parm.wf = ILArrayFromArray(config.Turbines);
             parm.N = length(parm.wf); // number of turbines in farm
@@ -83,7 +100,7 @@ namespace WakeFarmControlR
             parm.ratedSpeed = wt.rotor.ratedspeed; //rated rotor speed
 
             max(out idx, wt.cp.table[ILMath.full]); // Find index for max Cp
-            int stepsCount = (int)((config.SimParm.tEnd - config.SimParm.tStart) / config.SimParm.timeStep);
+            int stepsCount = (int)((simParm.tEnd - simParm.tStart) / simParm.timeStep);
             parm.Ct = 0.0 * wt.ct.table._(idx) * ones(parm.N, stepsCount); // Define initial Ct as the optimal Ct. 
             parm.Cp = wt.cp.table._(idx) * ones(parm.N, stepsCount); // Define initial Cp as the optimal Cp. 
 
@@ -121,7 +138,7 @@ namespace WakeFarmControlR
 
             initVector = ones(parm.N, 1);
             Mg = 0 * initVector;
-            wField = zeros(config.SimParm.grid / config.SimParm.gridRes, config.SimParm.grid / config.SimParm.gridRes); // Wind field matrix
+            wField = zeros(simParm.grid / simParm.gridRes, simParm.grid / simParm.gridRes); // Wind field matrix
 
             //% Controller Initizliation
             dZ = 0; // Integrator Initialization.
@@ -129,8 +146,6 @@ namespace WakeFarmControlR
             x = _[ omega0 * initVector, 0 * initVector ]; // x0
             u = _[ beta0 * initVector, power0 * initVector ]; // u0
             P_demand._(1, '=', config.InitialPowerDemand); // Power Demand.
-
-            var turbineModel = new TurbineDrivetrainModel();
 
             //% Simulate wind farm operation
             for (var i = 2; i <= stepsCount; i++) // At each sample time (DT) from Tstart to Tend
@@ -140,17 +155,17 @@ namespace WakeFarmControlR
 
                 //%%%%%%%%%%%%%%% WIND FIELD FIFO MATRIX %%%%%%%%%%%%%%%%%%%
                 wField._(':', 2, ILMath.end, '=', wField._(':', 1, (ILMath.end - 1)));
-                wField._(':', 1,             '=', wind._(i, 2) * ones(config.SimParm.grid / config.SimParm.gridRes, 1) + randn(config.SimParm.grid / config.SimParm.gridRes, 1) * 0.5);
+                wField._(':', 1,             '=', wind._(i, 2) * ones(simParm.grid / simParm.gridRes, 1) + randn(simParm.grid / simParm.gridRes, 1) * 0.5);
                 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 
                 // Calculate the wake using the last Ct values
                 ILArray<double> v_nacRow;
-                wakeCalculationsRLC.Calculate(out v_nacRow, parm.Ct._(':', i - 1), transpose(wField), x._(':', 2), parm, config.SimParm);
+                wakeCalculationsRLC.Calculate(out v_nacRow, parm.Ct._(':', i - 1), transpose(wField), x._(':', 2), parm, simParm);
                 v_nac._(':', i - 1,      '=', v_nacRow);
                 x._(':', 2,              '=', v_nac._(':', i));
 
 
-                if (config.enableVaryingDemand) // A random walk to simulate fluctuations in the power demand.
+                if (enableVaryingDemand) // A random walk to simulate fluctuations in the power demand.
                 {
                     P_demand._(i, '=', P_demand._(i - 1) + randn() * 50000);
                 }
@@ -161,7 +176,7 @@ namespace WakeFarmControlR
 
                 // Farm control
                 // Calculate the power distribution references for each turbine
-                if (config.enablePowerDistribution)
+                if (enablePowerDistribution)
                 {
                     ILArray<double> Pa_i_out;
                     PowerDistributionControl.DistributePower(out P_ref_new, out Pa_i_out, x._(':', 2), P_demand._(i), parm);
@@ -169,15 +184,15 @@ namespace WakeFarmControlR
                 }
 
                 //Hold  the demand for some seconds
-                if (mod(i, round(config.SimParm.ctrlUpdate / config.SimParm.timeStep)) == config.SimParm.powerUpdate)
+                if (mod(i, round(simParm.ctrlUpdate / simParm.timeStep)) == simParm.powerUpdate)
                 {
                     P_ref._(':', i, '=', P_ref_new);
                 }
                 else
                 {
-                    if (config.powerRefInterpolation)
+                    if (powerRefInterpolation)
                     {
-                        var alpha = 0.01;
+                        alpha = 0.01;
                         P_ref._(':', i, '=', (1 - alpha) * P_ref._(':', i - 1) + (alpha) * P_ref_new);
                     }
                     else
@@ -186,7 +201,7 @@ namespace WakeFarmControlR
                     }
                 }
                 //Torque controller
-                for (var j = 1; j <= parm.N; j++)
+                for (j = 1; j <= parm.N; j++)
                 {
                     if ((x._(j, 1) * 97 >= VS_RtGnSp) || (u._(j, 1) >= 1))      //! We are in region 3 - power is constant
                     {
@@ -203,23 +218,23 @@ namespace WakeFarmControlR
                 }
 
                 dx = (omega0 - x._(':', 1)) - (omega0 - Omega._(':', i - 1));
-                du = Kp * dx + Ki * config.SimParm.timeStep * (omega0 - x._(':', 1));
+                du = Kp * dx + Ki * simParm.timeStep * (omega0 - x._(':', 1));
                 du = min(max(du, -wt.ctrl.pitch.ratelim), (wt.ctrl.pitch.ratelim));
-                u._(':', 1, '=', min(max(u._(':', 1) + du * config.SimParm.timeStep, Umin), Umax));
+                u._(':', 1, '=', min(max(u._(':', 1) + du * simParm.timeStep, Umin), Umax));
 
 
                 Mg._(':', i, '=', u._(':', 2)); // Torque Input
                 beta._(':', i, '=', u._(':', 1)); // Pitch Input
 
                 // Turbine dynamics - can be simplified:
-                if (config.enableTurbineDynamics)
+                if (enableTurbineDynamics)
                 {
-                    for (var j = 1; j <= parm.N; j++)
+                    for (j = 1; j <= parm.N; j++)
                     {
                         double x_j_1;
                         double parm_Ct_j_i;
                         double parm_Cp_j_i;
-                        turbineModel.Model(out x_j_1, out parm_Ct_j_i, out parm_Cp_j_i, x._(j, ':'), u._(j, ':'), wt, env, config.SimParm.timeStep);
+                        turbineModel.Model(out x_j_1, out parm_Ct_j_i, out parm_Cp_j_i, x._(j, ':'), u._(j, ':'), wt, env, simParm.timeStep);
                         //[x(j,1), parm.Ct(j,i), parm.Cp(j,i)]
                         x._(j, 1, '=', x_j_1);
                         parm.Ct._(j, i, '=', parm_Ct_j_i);
@@ -246,16 +261,17 @@ namespace WakeFarmControlR
 
             //%
             //time    = (simParm.tStart:simParm.timeStep:simParm.tEnd-simParm.timeStep)';
-            time = (_a(config.SimParm.tStart, config.SimParm.timeStep, config.SimParm.tEnd - config.SimParm.timeStep));  // (config.SimParm.tEnd - config.SimParm.tStart) / config.SimParm.timeStep
+            time = (_a(simParm.tStart, simParm.timeStep, simParm.tEnd - simParm.timeStep));  // (config.SimParm.tEnd - config.SimParm.tStart) / config.SimParm.timeStep
 
 
-            if (config.saveData)
+            if (saveData)
             {
                 dataOut = _[ time, sumPower.T, sumRef.T, sumAvai.T ];
                 //save dataOut;
             }
             //% Plotting
             //Below a number of different plots are made. Most of them for test purposes
+            ILArray<double> plotsData;
             plotsData = time.C;
             //f1 = figure(1); //clf;
             //plot(time,P_ref*(10^(-6))); grid on; // Power Reference

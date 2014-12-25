@@ -27,6 +27,9 @@ namespace WakeFarmControlR
 
         public void interpTable(out double interpValue, double Beta, double Lambda, ILArray<double> table, ILArray<double> turbineTableBeta, ILArray<double> turbineTableLambda, bool negYes)
         {
+            #region "Used variables declaration"
+            int sizeBt;
+            int sizeLa;
             int Bt0;
             int Bt1;
             int La0;
@@ -34,6 +37,7 @@ namespace WakeFarmControlR
             ILArray<double> tableLookup;
             ILArray<double> lambdaIntervals;
             double betaIntervals;
+            #endregion
 
             //% Setup, loads the table, and stores it.
             //persistent turbineTable tableLoad
@@ -45,8 +49,8 @@ namespace WakeFarmControlR
             }
 
             var turbineTableSize = size(_persistentVariables.TurbineTable);
-            var sizeBt = turbineTableSize[0];
-            var sizeLa = turbineTableSize[1];
+            sizeBt = turbineTableSize[0];
+            sizeLa = turbineTableSize[1];
 
             //% Index Interpolation
             // Finds the beta-point of the interpolation.

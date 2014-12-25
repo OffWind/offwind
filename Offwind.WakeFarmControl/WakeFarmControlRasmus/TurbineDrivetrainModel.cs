@@ -9,20 +9,30 @@ namespace WakeFarmControlR
 
         internal void Model(out double OmegaOut, out double Ct, out double Cp, ILArray<double> x, ILArray<double> u, WtMatFileDataStructure wt, EnvMatFileDataStructure env, double timeStep)
         {
+            #region "Used variables declaration"
+            double R;
+            double I;
+            double Omega;
+            double Ve;
+            double Beta;
+            double Tg;
+            double Lambda;
+            double Tr;
+            #endregion
+
             // Parameters
 
-            var R = wt.rotor.radius;
-            var I = wt.rotor.inertia;
+            R = wt.rotor.radius;
+            I = wt.rotor.inertia;
 
             // Definitons etc.
 
-            var Omega = x._(1);
-            var Ve = x._(2);
-            var Beta = u._(1);
-            var Tg = u._(2);
+            Omega = x._(1);
+            Ve = x._(2);
+            Beta = u._(1);
+            Tg = u._(2);
 
             // Algorithm
-            double Lambda;
             if (Ve == 0)
             {
                 Lambda  = 25;
@@ -40,7 +50,8 @@ namespace WakeFarmControlR
                 Ct = 1;
             }
 
-            var Tr = 0.5 * env.rho * pi * _p(R, 2) * _p(Ve, 3) * Ct / Omega;
+            Tr = 0.5 * env.rho * pi * _p(R, 2) * _p(Ve, 3) * Ct / Omega;
+
             OmegaOut = Omega + timeStep * (Tr - Tg) / I; //Integration method: Forward Euler
         }
     }

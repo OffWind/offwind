@@ -11,11 +11,13 @@ namespace WakeFarmControlR
         //parm is a struct of wind turbine parameters e.g. NREL5MW
         public static void DistributePower(out ILArray<double> P_ref, out ILArray<double> P_a, ILArray<double> v_nac, double P_demand, WindTurbineParameters parm)
         {
+            #region "Used variables declaration"
             double rho;
             ILArray<double> R;
             ILArray<double> rated;
-            int N;
             ILArray<double> Cp;
+            int i;
+            #endregion
 
             rho = parm.rho;                 //air density for each wind turbine(probably the same for all)
             R = parm.radius.C;              //rotor radius for each wind turbine(NREL.r=63m)
@@ -26,15 +28,15 @@ namespace WakeFarmControlR
             P_ref = zeros(parm.N, 1);
 
             // Compute available power at each turbine
-            for (var i = 1; i <= parm.N; i++)
+            for (i = 1; i <= parm.N; i++)
             {
                 P_a._(i, '=', min(_[rated._(i), (pi / 2) * rho * _p(R._(i), 2) * _p(v_nac._(i), 3) * Cp._(i)]));
             }
 
-            var sum_P_a_ = (double)sum(P_a);
+            var sum_P_a_ = (double)(sum(P_a));
 
             //Distribute power according to availibility
-            for (var i = 1; i <= parm.N; i++)
+            for (i = 1; i <= parm.N; i++)
             {
                 if (P_demand < sum_P_a_)
                 {

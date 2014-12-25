@@ -12,23 +12,46 @@ namespace WakeFarmControlR
         // Compute the velocity in front of each wind-turbine, with respect to the wind input.
         public static void Calculate(out ILArray<double> vel_output, ILArray<double> yTurb, ILArray<int> xTurbC, ILArray<int> yTurbC, ILArray<double> x, ILArray<double> wField, ILArray<double> Uhub, double kWake, int iMax, int jMax, int nTurb, double dTurb, ILArray<double> Ct, double dy)
         {
-            ILArray<double> vell_i = wField.C;
+            #region "Used variables declaration"
+            ILArray<double> vell_i;
+            ILArray<double> shadow;
+            double r0;
+            double nk;
+            int k;
+            int J;
+            double SS;
+            double SS0;
+            int i;
+            double RR_i;
+            double Dij;
+            double Alpha_i;
+            double Alpha_k;
+            double Area;
+            int ii;
+            double rrt;
+            double nj;
+            int jjMin;
+            int jjMax;
+            #endregion
 
-            ILArray<double> shadow = zeros(1, nTurb);
 
-            double r0 = 0.5 * dTurb;
-            double nk = 2 * ceil(dTurb / dy);
+            vell_i = wField.C;
 
-            for (var k = 1; k <= nTurb; k++)
+            shadow = zeros(1, nTurb);
+
+            r0 = 0.5 * dTurb;
+            nk = 2 * ceil(dTurb / dy);
+
+            for (k = 1; k <= nTurb; k++)
             {
-                int J = 0;
-                double SS = 0;
-                var SS0 = pi * r0 * r0;
+                J = 0;
+                SS = 0;
+                SS0 = pi * r0 * r0;
 
-                for (var i = 1; i <= k - 1; i++)
+                for (i = 1; i <= k - 1; i++)
                 {
-                    double RR_i = r0 + kWake * (x._(xTurbC._get(k)) - x._(xTurbC._get(i)));
-                    double Dij = abs(yTurb._(i) - yTurb._(k));
+                    RR_i = r0 + kWake * (x._(xTurbC._get(k)) - x._(xTurbC._get(i)));
+                    Dij = abs(yTurb._(i) - yTurb._(k));
 
                     if ((RR_i >= (r0 + Dij)) || (Dij <= dy))
                     {
@@ -39,9 +62,8 @@ namespace WakeFarmControlR
                         if (RR_i >= (r0 + Dij) && Dij > dy)
                         {
                             J = J + 1;
-                            double Alpha_i = acos((RR_i * RR_i) + (Dij * Dij) - (r0 * r0) / (2 * RR_i * Dij));
-                            double Alpha_k = acos(((r0 * r0) + (Dij * Dij) - (RR_i * RR_i)) / (2 * r0 * Dij));
-                            double Area;
+                            Alpha_i = acos((RR_i * RR_i) + (Dij * Dij) - (r0 * r0) / (2 * RR_i * Dij));
+                            Alpha_k = acos(((r0 * r0) + (Dij * Dij) - (RR_i * RR_i)) / (2 * r0 * Dij));
                             AArea(RR_i, r0, Dij, out Area);
                             shadow._(J, '=', (Alpha_i * (RR_i * RR_i) + Alpha_k * (r0 * r0)) - 2 * Area);
                             SS = SS + ((shadow._(J)) / SS0) * ((r0 * r0) / (RR_i * RR_i));
@@ -49,13 +71,13 @@ namespace WakeFarmControlR
                     }
                 }
 
-                for (var ii = xTurbC._get(k); ii <= iMax; ii++)
+                for (ii = xTurbC._get(k); ii <= iMax; ii++)
                 {
-                    double rrt = r0 + kWake * (x._(ii) - x._(xTurbC._get(k)));
-                    double nj = (ceil(rrt / dy));
+                    rrt = r0 + kWake * (x._(ii) - x._(xTurbC._get(k)));
+                    nj = (ceil(rrt / dy));
 
-                    int jjMin = (int)floor(max(1, yTurbC._get(k) - nj));
-                    int jjMax = (int)ceil(min(new double[] { jMax, yTurbC._get(k) + nj }));
+                    jjMin = (int)floor(max(1, yTurbC._get(k) - nj));
+                    jjMax = (int)ceil(min(new double[] { jMax, yTurbC._get(k) + nj }));
 
                     for (var j = jjMin; j <= jjMax; j++)
                     {
@@ -78,7 +100,11 @@ namespace WakeFarmControlR
 
         public static void AArea(double x, double y, double z, out double area_out) // Internal function to compute the shadowed area.
         {
-            double PP = (x + y + z) * 0.5;
+            #region "Used variables declaration"
+            double PP;
+            #endregion
+
+            PP = (x + y + z) * 0.5;
             area_out = sqrt(PP * (PP - x) * (PP - y) * (PP - z));
         }
     }

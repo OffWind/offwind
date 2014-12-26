@@ -69,6 +69,9 @@
     <Reference Include="ILNumerics">
       <HintPath>..\ILNumericsLib\64\ILNumerics.dll</HintPath>
     </Reference>
+    <Reference Include="MatlabInterpreter">
+      <HintPath>..\MatlabInterpreter\xAny\MatlabInterpreter.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -82,9 +85,7 @@
     <Compile Include="DOMAIN_pt.cs" />
     <Compile Include="EnvMatFileDataStructure.cs" />
     <Compile Include="FarmControl.cs" />
-    <Compile Include="ILArrayExtensions.cs" />
     <Compile Include="InterpTable.cs" />
-    <Compile Include="MathlabCode.cs" />
     <Compile Include="PowerDistributionControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ROTATE_corrd.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Turb_centr_coord.cs" />
     <Compile Include="WakeCalculation.cs" />
     <Compile Include="wakeCalculationsRLC.cs" />
+    <Compile Include="WakeFarmControl.cs" />
     <Compile Include="WakeFarmControlInput.cs" />
     <Compile Include="WindTurbineParameters.cs" />
     <Compile Include="WtMatFileDataStructure.cs" />

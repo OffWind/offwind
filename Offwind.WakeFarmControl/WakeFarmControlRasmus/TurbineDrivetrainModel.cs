@@ -1,9 +1,10 @@
 ﻿using System;
 using ILNumerics;
+using MatlabInterpreter;
 
 namespace WakeFarmControlR
 {
-    public partial class FarmControl
+    internal partial class TranslatedCode
     {
         internal static void turbineDrivetrainModel(out double OmegaOut, out double Ct, out double Cp, ILArray<double> x, ILArray<double> u, WtMatFileDataStructure wt, EnvMatFileDataStructure env, double timeStep)
         {

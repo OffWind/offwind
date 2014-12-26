@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WakeFarmControlR
 {
-    public class SimParm
+    public sealed class SimParm
     {
         public double tStart = 0; // time start
         public double timeStep = 0.1; // time step, 8Hz - the NREL model is 80Hz (for reasons unknown)

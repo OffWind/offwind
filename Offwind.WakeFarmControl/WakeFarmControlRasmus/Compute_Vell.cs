@@ -1,9 +1,10 @@
 ﻿using System;
 using ILNumerics;
+using MatlabInterpreter;
 
 namespace WakeFarmControlR
 {
-    public partial class FarmControl
+    internal partial class TranslatedCode
     {
         // Wake Simulation
         // (C) Rasmus Christensen

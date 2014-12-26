@@ -2,7 +2,7 @@
 using System.Linq;
 using ILNumerics;
 
-namespace WakeFarmControlR
+namespace MatlabInterpreter
 {
     public static class ILArrayExtensions
     {

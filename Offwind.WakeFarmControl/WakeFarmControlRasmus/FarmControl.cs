@@ -1,9 +1,10 @@
 ﻿using System;
 using ILNumerics;
+using MatlabInterpreter;
 
 namespace WakeFarmControlR
 {
-    public partial class FarmControl : MatlabCode
+    internal partial class TranslatedCode : MatlabCode
     {
         protected static ILArray<double> ILArrayFromArray(double[,] array)
         {
@@ -32,7 +33,7 @@ namespace WakeFarmControlR
             }
         }
 
-        public static double[][] Simulation(WakeFarmControlConfig config)
+        public static double[][] FarmControl(WakeFarmControlConfig config)
         {
             #region "Used variables declaration"
             bool saveData;

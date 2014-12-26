@@ -1,7 +1,7 @@
 ﻿using System;
 using ILNumerics;
 
-namespace WakeFarmControlR
+namespace MatlabInterpreter
 {
     public abstract class MatlabCode
     {

@@ -1,9 +1,10 @@
 ﻿using System;
 using ILNumerics;
+using MatlabInterpreter;
 
 namespace WakeFarmControlR
 {
-    public partial class FarmControl
+    internal partial class TranslatedCode
     {
         //P_ref is a vector of power refenreces for tehe wind turbine with dimension 1xN
         //v_nac is a vector of wind speed at each wind turbine with dimension 1xN

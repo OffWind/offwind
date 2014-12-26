@@ -1,9 +1,10 @@
 ﻿using System;
 using ILNumerics;
+using MatlabInterpreter;
 
 namespace WakeFarmControlR
 {
-    public partial class FarmControl
+    internal partial class TranslatedCode
     {
         //% v_nac = WAKECALCULATION(Ct,i,wind)
         // RLC, Aalborg

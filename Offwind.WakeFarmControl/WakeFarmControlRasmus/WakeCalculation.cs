@@ -1,9 +1,10 @@
 ﻿using System;
 using ILNumerics;
+using MatlabInterpreter;
 
 namespace WakeFarmControlR
 {
-    public partial class FarmControl
+    internal partial class TranslatedCode
     {
         internal static void wakeCalculation(out ILArray<double> v_nac, ILArray<double> Ct, int i, ILArray<double> wind)
         {

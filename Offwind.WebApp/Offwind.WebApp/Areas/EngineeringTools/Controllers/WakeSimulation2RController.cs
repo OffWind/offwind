@@ -44,11 +44,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 ObjectMapperManager.DefaultInstance.GetMapper<VGeneralProperties, VGeneralProperties>().Map(model, _model);
             }
             var dWindFarm = _ctx.DWindFarms.First(e => _model.WindFarm == e.Name);
-            var turbinesCoordinatesList = new List<double[]>();
-            foreach (var windFarmTurbine in dWindFarm.DWindFarmTurbines)
-            {
-                turbinesCoordinatesList.Add(new double[] { (double)(windFarmTurbine.X), (double)(windFarmTurbine.Y) });
-            }
+            var turbinesCoordinatesList = dWindFarm.DWindFarmTurbines.OrderBy(t => t.Number).Select(t => new double[] { (double)(t.X), (double)(t.Y) }).ToList();
             var turbinesCoordinates = new double[turbinesCoordinatesList.Count, 2];
             for (var index = 0; index < turbinesCoordinates.GetLength(0); index++ )
             {

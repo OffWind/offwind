@@ -48,27 +48,27 @@ namespace MatlabInterpreter
                 }
             }
 
-            public double[] this[double value1, double value2]
+            public ILArray<double> this[double value1, double value2]
             {
                 get
                 {
-                    return new double[] { value1, value2 };
+                    return ((ILArray<double>)(new double[] { value1, value2 })).T;
                 }
             }
 
-            public double[] this[double value1, double value2, double value3]
+            public ILArray<double> this[double value1, double value2, double value3]
             {
                 get
                 {
-                    return new double[] { value1, value2, value3 };
+                    return ((ILArray<double>)(new double[] { value1, value2, value3 })).T;
                 }
             }
 
-            public double[] this[double value1, double value2, double value3, double value4, double value5]
+            public ILArray<double> this[double value1, double value2, double value3, double value4, double value5]
             {
                 get
                 {
-                    return new double[] { value1, value2, value3, value4, value5 };
+                    return ((ILArray<double>)(new double[] { value1, value2, value3, value4, value5 })).T;
                 }
             }
 
@@ -76,7 +76,7 @@ namespace MatlabInterpreter
             {
                 get
                 {
-                    return ((ILArray<double>)(new double[] { value1, value2 })).T;
+                    return ((ILArray<double>)(new double[] { value1, value2 }));
                 }
             }
 

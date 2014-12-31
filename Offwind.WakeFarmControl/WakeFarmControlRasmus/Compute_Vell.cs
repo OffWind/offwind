@@ -78,13 +78,13 @@ namespace WakeFarmControlR
                     nj = ceil(rrt / dy);
 
                     jjMin = floor_(max(1, yTurbC._(k) - nj));
-                    jjMax = ceil_(min(_[ jMax, yTurbC._(k) + nj ]));
+                    jjMax = ceil_(min_(_[ jMax, yTurbC._(k) + nj ]));
 
                     for (var j = jjMin; j <= jjMax; j++)
                     {
                         if (((-vell_i._(ii, j) + Uhub._(k)) > 0) && (ii > xTurbC._(k) + nk))
                         {
-                            vell_i._(ii, j, '=', min(_[ vell_i._(ii - 1, j), Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS) ]));
+                            vell_i._(ii, j, '=', min_(_[ vell_i._(ii - 1, j), Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS) ]));
                             vell_i._(ii, j, '=', max(_[ 0, vell_i._(ii, j) ]));
                         }
                         else

@@ -6,6 +6,22 @@ namespace MatlabInterpreter
 {
     public static class ILArrayExtensions
     {
+        //public static T[] ToArray<T>(this ILArray<T> ilArray)
+        //{
+        //    if (ilArray.Size.ToIntArray().Length != 1)
+        //    {
+        //        throw new ArgumentException();
+        //    }
+
+        //    var array = new T[ilArray.Size[0]];
+        //    for (int i = 0; i <= array.GetLength(0) - 1; i++)
+        //    {
+        //        array[i] = ilArray.GetValue(i);
+        //    }
+
+        //    return array;
+        //}
+
         public static double[][] ToDoubleArray(this ILArray<double> ilArray)
         {
             if (ilArray.Size.ToIntArray().Length != 2)
@@ -68,6 +84,17 @@ namespace MatlabInterpreter
         public static void _(this ILArray<double> ilArray, int index, char equalitySign, ILArray<double> value)
         {
             ilArray.SetValue((double)value, index - 1);
+        }
+        #endregion
+
+        #region "(end)"
+        /// <summary>
+        /// = (end)
+        /// </summary>
+        /// <param name="colon"></param>
+        public static double _(this ILArray<double> ilArray, ILNumerics.Misc.ILExpression index)
+        {
+            return (double)(ilArray[index]);
         }
         #endregion
 

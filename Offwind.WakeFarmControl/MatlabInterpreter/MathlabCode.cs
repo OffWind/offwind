@@ -7,6 +7,47 @@ namespace MatlabInterpreter
     {
         protected class ArrayInitializer
         {
+            public ILArray<double> this[char space]
+            {
+                get
+                {
+                    if (!(space == ' '))
+                    {
+                        throw new ArgumentException();
+                    }
+                    return ((ILArray<double>)(new double[] { })).T;
+                }
+            }
+
+            public string this[string str]
+            {
+                get
+                {
+                    return str;
+                }
+            }
+
+            public string this[string str1, string str2]
+            {
+                get
+                {
+                    return (str1 + str2);
+                }
+            }
+
+            public string this[string str1, string str2, string str3, string str4]
+            {
+                get
+                {
+                    var stringBuilder = new System.Text.StringBuilder(str1);
+                    stringBuilder.Append(str2);
+                    stringBuilder.Append(str3);
+                    stringBuilder.Append(str4);
+
+                    return stringBuilder.ToString();
+                }
+            }
+
             public double[] this[double value1, double value2]
             {
                 get
@@ -15,7 +56,23 @@ namespace MatlabInterpreter
                 }
             }
 
-            public ILArray<double> this[double value1, char semicolor, double value2]
+            public double[] this[double value1, double value2, double value3]
+            {
+                get
+                {
+                    return new double[] { value1, value2, value3 };
+                }
+            }
+
+            public double[] this[double value1, double value2, double value3, double value4, double value5]
+            {
+                get
+                {
+                    return new double[] { value1, value2, value3, value4, value5 };
+                }
+            }
+
+            public ILArray<double> this[double value1, char semicolon, double value2]
             {
                 get
                 {
@@ -23,7 +80,7 @@ namespace MatlabInterpreter
                 }
             }
 
-            public ILArray<double> this[double value11, double value12, char semicolor, double value21, double value22]
+            public ILArray<double> this[double value11, double value12, char semicolon, double value21, double value22]
             {
                 get
                 {
@@ -39,11 +96,35 @@ namespace MatlabInterpreter
                 }
             }
 
+            public ILArray<double> this[ILArray<double> value1, char semicolon, ILArray<double> value2]
+            {
+                get
+                {
+                    return (value1.Concat(value2, 0));
+                }
+            }
+
+            public ILArray<double> this[ILArray<double> value1, ILArray<double> value2, ILArray<double> value3]
+            {
+                get
+                {
+                    return (value1.Concat(value2, 1).Concat(value3, 1));
+                }
+            }
+
             public ILArray<double> this[ILArray<double> value1, ILArray<double> value2, ILArray<double> value3, ILArray<double> value4]
             {
                 get
                 {
                     return (value1.Concat(value2, 1).Concat(value3, 1).Concat(value4, 1));
+                }
+            }
+
+            public ILArray<double> this[ILArray<double> value1, ILArray<double> value2, ILArray<double> value3, ILArray<double> value4, ILArray<double> value5]
+            {
+                get
+                {
+                    return (value1.Concat(value2, 1).Concat(value3, 1).Concat(value4, 1).Concat(value5, 1));
                 }
             }
         }
@@ -53,10 +134,36 @@ namespace MatlabInterpreter
         protected static double pi = ILMath.pi;
         protected static ILNumerics.Misc.ILExpression end = ILMath.end;
 
+        protected static void error(string message)
+        {
+            throw new ApplicationException(message);
+        }
+
+        protected static void warning(string message, ref System.Collections.Generic.List<string> warningMessage)
+        {
+            warningMessage.Add(message);
+        }
+
+        protected static void warning(string message)
+        {
+            System.Collections.Generic.List<string> warningMessage = new System.Collections.Generic.List<string>();
+            warning(message, ref warningMessage);
+        }
+
+        protected static string num2str(double value)
+        {
+            return value.ToString();
+        }
+
         #region "Array size functions"
         protected static int[] size(ILArray<double> ilArray)
         {
             return ilArray.Size.ToIntArray();
+        }
+
+        protected static int size(ILArray<double> ilArray, int dim)
+        {
+            return ilArray.Size[dim - 1];
         }
 
         protected static int length(ILArray<double> ilArray)
@@ -134,6 +241,11 @@ namespace MatlabInterpreter
             return Math.Sqrt(value);
         }
 
+        protected static double exp(double power)
+        {
+            return Math.Exp(power);
+        }
+
         #region "min & max functions"
         protected static int min(int value1, int value2)
         {
@@ -153,6 +265,16 @@ namespace MatlabInterpreter
             }
 
             throw new NotImplementedException();
+        }
+
+        protected static ILArray<int> min(ILArray<int> ilArray)
+        {
+            return ILMath.min(ilArray);
+        }
+
+        protected static int min_(ILArray<int> ilArray)
+        {
+            return (int)(min(ilArray));
         }
 
         protected static ILArray<double> min(ILArray<double> ilArray)
@@ -232,7 +354,28 @@ namespace MatlabInterpreter
         }
         #endregion
 
+        protected static ILLogical all(ILLogical Logical)
+        {
+            return (ILLogical)(ILMath.all(Logical));
+        }
+
+        protected static ILArray<int> find(ILLogical Logical)
+        {
+            ILArray<int> idx = ILMath.empty<int>();
+            idx = ILMath.find(Logical);
+            for (var i = 0; i < idx.Length; i++)
+            {
+                idx[i] = idx[i] + 1;
+            }
+            return idx;
+        }
+
         #region "Matrix operations functions"
+        protected static ILArray<double> _m(ILArray<double> ilArray1, ILArray<double> ilArray2)
+        {
+            return ILMath.multiply(ilArray1, ilArray2);
+        }
+
         protected static ILArray<double> transpose(ILArray<double> ilArray)
         {
             return ilArray.T;
@@ -259,6 +402,11 @@ namespace MatlabInterpreter
         protected static ILArray<double> _a(double start, double incrementation, double limit)
         {
             return ILMath.counter(start, incrementation, (limit - start) / incrementation + 1);
+        }
+
+        protected static ILArray<double> _a(double start, double limit)
+        {
+            return _a(start, 1, limit);
         }
 
         protected static ILArray<double> zeros(int size1, int size2)
@@ -292,6 +440,16 @@ namespace MatlabInterpreter
         }
         #endregion
 
+        protected static bool isempty<T>(ILArray<T> ilArray)
+        {
+            return ILMath.isempty(ilArray);
+        }
+
+        protected static bool isempty(string str)
+        {
+            return (str == string.Empty);
+        }
+
         protected static double randn()
         {
             //get
@@ -318,6 +476,11 @@ namespace MatlabInterpreter
         protected static double sum_(ILArray<double> ilArray)
         {
             return (double)(sum(ilArray));
+        }
+
+        protected static bool strncmpi(string str1, string str2, int n)
+        {
+            return (string.Compare(str1, 0, str2, 0, n, true) == 0);
         }
     }
 }

@@ -13,7 +13,7 @@ using WakeFarmControl.Input;
 
 namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
-    public class WakeSimulation2RController : _BaseController
+    public class WakeSimulation2NewController : _BaseController
     {
         const string SimulationPageTitle = "Input | Wake Simulation II-New | Offwind";
         const string ResultsPageTitle = "Results | Wake Simulation II-New | Offwind";

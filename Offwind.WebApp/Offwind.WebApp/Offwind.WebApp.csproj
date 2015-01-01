@@ -264,9 +264,9 @@
     <Compile Include="Areas\CFD\Models\Turbines\VTurbineInstance.cs" />
     <Compile Include="Areas\CFD\Models\Turbines\VTurbineType.cs" />
     <Compile Include="Areas\CFD\Models\VVertice.cs" />
-    <Compile Include="Areas\EngineeringTools\Controllers\WakeSimulation2RController.cs" />
-    <Compile Include="Areas\EngineeringTools\Models\WakeSimulation2R\VNowcastingProperties.cs" />
-    <Compile Include="Areas\EngineeringTools\Models\WakeSimulation2R\VGeneralProperties.cs" />
+    <Compile Include="Areas\EngineeringTools\Controllers\WakeSimulation2NewController.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WakeSimulation2New\VNowcastingProperties.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WakeSimulation2New\VGeneralProperties.cs" />
     <Compile Include="Areas\Management\Controllers\AboutController.cs" />
     <Compile Include="Areas\Management\Controllers\CarouselController.cs" />
     <Compile Include="Areas\Management\Controllers\DescriptionAttribute.cs" />
@@ -392,9 +392,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="app-js\app.js" />
-    <Content Include="Areas\EngineeringTools\Views\WakeSimulation2R\Results.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\WakeSimulation2R\Simulation.cshtml" />
-    <Content Include="Areas\EngineeringTools\Views\WakeSimulation2R\Nowcasting.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\WakeSimulation2New\Results.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\WakeSimulation2New\Simulation.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\WakeSimulation2New\Nowcasting.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

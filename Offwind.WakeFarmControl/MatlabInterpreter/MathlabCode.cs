@@ -93,6 +93,13 @@ namespace MatlabInterpreter
                 get
                 {
                     return (value1.Concat(value2, 1));
+                    //int dim0 = value1.Size[0];
+                    //int offset2 = value1.Size[1];
+                    //int dim1 = offset2 + value2.Size[1];
+                    //ILArray<double> result = ILMath.zeros(dim0, dim1);
+                    //result[ILMath.full, ILMath.r(0, offset2 - 1)] = value1;
+                    //result[ILMath.full, ILMath.r(offset2, ILMath.end)] = value2;
+                    //return result;
                 }
             }
 
@@ -101,6 +108,13 @@ namespace MatlabInterpreter
                 get
                 {
                     return (value1.Concat(value2, 0));
+                    //int offset2 = value1.Size[0];
+                    //int dim0 = offset2 + value2.Size[0];
+                    //int dim1 = value1.Size[1];
+                    //ILArray<double> result = ILMath.zeros(dim0, dim1);
+                    //result[ILMath.r(0, offset2 - 1), ILMath.full] = value1;
+                    //result[ILMath.r(offset2, ILMath.end), ILMath.full] = value2;
+                    //return result;
                 }
             }
 
@@ -109,6 +123,15 @@ namespace MatlabInterpreter
                 get
                 {
                     return (value1.Concat(value2, 1).Concat(value3, 1));
+                    //int dim0 = value1.Size[0];
+                    //int offset2 = value1.Size[1];
+                    //int offset3 = offset2 + value2.Size[1];
+                    //int dim1 = offset3 + value3.Size[1];
+                    //ILArray<double> result = ILMath.zeros(dim0, dim1);
+                    //result[ILMath.full, ILMath.r(0, offset2 - 1)] = value1;
+                    //result[ILMath.full, ILMath.r(offset2, offset3 - 1)] = value2;
+                    //result[ILMath.full, ILMath.r(offset3, ILMath.end)] = value3;
+                    //return result;
                 }
             }
 
@@ -117,6 +140,17 @@ namespace MatlabInterpreter
                 get
                 {
                     return (value1.Concat(value2, 1).Concat(value3, 1).Concat(value4, 1));
+                    //int dim0 = value1.Size[0];
+                    //int offset2 = value1.Size[1];
+                    //int offset3 = offset2 + value2.Size[1];
+                    //int offset4 = offset3 + value3.Size[1];
+                    //int dim1 = offset4 + value3.Size[1];
+                    //ILArray<double> result = ILMath.zeros(dim0, dim1);
+                    //result[ILMath.full, ILMath.r(0, offset2 - 1)] = value1;
+                    //result[ILMath.full, ILMath.r(offset2, offset3 - 1)] = value2;
+                    //result[ILMath.full, ILMath.r(offset3, offset4 - 1)] = value3;
+                    //result[ILMath.full, ILMath.r(offset4, ILMath.end)] = value4;
+                    //return result;
                 }
             }
 
@@ -125,6 +159,19 @@ namespace MatlabInterpreter
                 get
                 {
                     return (value1.Concat(value2, 1).Concat(value3, 1).Concat(value4, 1).Concat(value5, 1));
+                    //int dim0 = value1.Size[0];
+                    //int offset2 = value1.Size[1];
+                    //int offset3 = offset2 + value2.Size[1];
+                    //int offset4 = offset3 + value3.Size[1];
+                    //int offset5 = offset4 + value4.Size[1];
+                    //int dim1 = offset5 + value3.Size[1];
+                    //ILArray<double> result = ILMath.zeros(dim0, dim1);
+                    //result[ILMath.full, ILMath.r(0, offset2 - 1)] = value1;
+                    //result[ILMath.full, ILMath.r(offset2, offset3 - 1)] = value2;
+                    //result[ILMath.full, ILMath.r(offset3, offset4 - 1)] = value3;
+                    //result[ILMath.full, ILMath.r(offset4, offset5 - 1)] = value4;
+                    //result[ILMath.full, ILMath.r(offset5, ILMath.end)] = value5;
+                    //return result;
                 }
             }
         }

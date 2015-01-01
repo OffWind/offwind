@@ -11,7 +11,7 @@ namespace WakeFarmControl.NowCast
         internal const string MethodDef = "a";
         internal const double TPredictDef = 0.5;
 
-        internal static void NowCastWFPFunc(out string outMethod, out ILArray<int> outTime, out ILArray<double> outX, out ILArray<double> outXhmsAll, out int outXhmsAllTimeOffset, out int outXhmsLLength, out int outXhmsUOffset, ILArray<double> Data, double TPredict = TPredictDef, string Method = MethodDef, int r = rDef, double Ts = TsDef)
+        internal static void NowCastWFPFunc(out string outMethod, out ILArray<double> outTime, out ILArray<double> outX, out ILArray<double> outXhmsAll, out int outXhmsAllTimeOffset, out int outXhmsLLength, out int outXhmsUOffset, ILArray<double> Data, double TPredict = TPredictDef, string Method = MethodDef, int r = rDef, double Ts = TsDef)
         {
             #region "Original function comments"
             //Nowcasting with  model based on total wind farm power
@@ -243,7 +243,7 @@ namespace WakeFarmControl.NowCast
             NSOneHour = Math.Min(NS - TPS - 1, (int)(Math.Round(3600 / Ts)));
             //set(gcf, "defaultaxescolororder", ILMath.eye(3, 3));
             outMethod = Method;
-            outTime = ILMath.toint32(TimePlot);
+            outTime = TimePlot;
             outX = Res[ILMath.full, 2 - 1];
             outXhmsAll = ConIntAWFP;
             outXhmsAllTimeOffset = (TPS - IMT);

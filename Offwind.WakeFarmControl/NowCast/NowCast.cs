@@ -27,7 +27,7 @@ namespace WakeFarmControl.NowCast
         {
             ILArray<double> Data = ILArrayFromArray(wakeFarmControlDataOut);
             string outMethod;
-            ILArray<int> outTime;
+            ILArray<double> outTime;
             ILArray<double> outX;
             ILArray<double> outXhmsAll;
             int outXhmsAllTimeOffset;

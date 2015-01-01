@@ -7,7 +7,7 @@
 </ul>
 
 <div>
-    <a href="@Url.Action("Simulation", "WakeSimulation2R", new { area = "EngineeringTools" })">Back to simulation parameters</a>
+    <a href="@Url.Action("Simulation", "WakeSimulation2New", new { area = "EngineeringTools" })">&lt;&lt;&nbsp;To simulation parameters</a>
 </div>
 
 <div class="row-fluid row-content-block">
@@ -54,7 +54,7 @@
             }
 
             $.ajax({
-                url: "@Url.Action("GetSimulationResults", "WakeSimulation2R", new { area = "EngineeringTools" })",
+                url: "@Url.Action("GetSimulationResults", "WakeSimulation2New", new { area = "EngineeringTools" })",
                 dataType: 'json',
                 type: 'GET',
                 success: function(res) {
@@ -125,8 +125,7 @@
                 };
             }
 
-            for (var i = 0; i < nturbines; i++)
-            {
+            for (var i = 0; i < nturbines; i++) {
                 var func = [];
                 for (var j = 0; j < data.length; j++) {
                     if (skip(j)) continue;

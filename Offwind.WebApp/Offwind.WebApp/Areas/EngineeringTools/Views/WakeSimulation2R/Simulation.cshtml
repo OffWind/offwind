@@ -1,4 +1,4 @@
-﻿@model Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2.VGeneralProperties
+﻿@model Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New.VGeneralProperties
 
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
@@ -71,7 +71,7 @@
     <script type="text/javascript">
         $(document).ready(function () {            
             $.ajax({
-                url: "@Url.Action("GetAvailWinFarms", "WakeSimulation2R", new { area = "EngineeringTools" })",
+                url: "@Url.Action("GetAvailWinFarms", "WakeSimulation2New", new { area = "EngineeringTools" })",
                 dataType: 'json',
                 type: 'GET',
                 success: function(res) {
@@ -92,7 +92,7 @@
         
         function windfarm_change() {            
             var list = document.getElementById("windfarmsel");
-            var url = "/EngineeringTools/WakeSimulation2R/WindFarmSelected/" + list.selectedIndex;
+            var url = "/EngineeringTools/WakeSimulation2New/WindFarmSelected/" + list.selectedIndex;
             $.ajax({
                 url: url,
                 dataType: 'json',

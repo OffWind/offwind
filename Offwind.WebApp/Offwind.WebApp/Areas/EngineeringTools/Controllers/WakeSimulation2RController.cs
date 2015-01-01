@@ -6,7 +6,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using EmitMapper;
-using Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2;
+using Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New;
 using WakeFarmControl;
 using WakeFarmControl.Input;
 
@@ -15,10 +15,17 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 {
     public class WakeSimulation2RController : _BaseController
     {
+        const string SimulationPageTitle = "Input | Wake Simulation II-New | Offwind";
+        const string ResultsPageTitle = "Results | Wake Simulation II-New | Offwind";
+        const string NowcastingPageTitle = "Nowcasting | Wake Simulation II-New | Offwind";
+
         private static VGeneralProperties _model = null;
         private static List<string> _wfl = null;
         static private double[][] _simulation;
-        const string SimulationPageTitle = "Input | Wake Simulation II-R | Offwind";
+        static VNowcastingProperties _nowcastingModel = null;
+        static private WakeFarmControl.NowCast.NowCastSimulationResult _nowcastingSimulationResult;
+        static TimeSpan _nowcastingSimulationTime;
+
         public ActionResult Simulation()
         {
             ViewBag.Title = SimulationPageTitle;
@@ -28,6 +35,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 _model.TimeStep = (decimal)(0.1);
                 _wfl = new List<string>();
                 _simulation = null;
+                _nowcastingSimulationResult = null;
             }
             var model = new VGeneralProperties();
             ObjectMapperManager.DefaultInstance.GetMapper<VGeneralProperties, VGeneralProperties>().Map(_model, model);
@@ -77,7 +85,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         public ActionResult Results()
         {
-            ViewBag.Title = SimulationPageTitle;
+            ViewBag.Title = ResultsPageTitle;
             if (_simulation != null)
             {
                 var res = _simulation.Select(x => new object[] { x }).ToArray();
@@ -123,6 +131,119 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             //return Json(null, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Nowcasting()
+        {
+            ViewBag.Title = NowcastingPageTitle;
+            if (_simulation == null)
+            {
+                return RedirectToAction("Simulation");
+            }
+
+            if (_nowcastingModel == null)
+            {
+                _nowcastingModel = new VNowcastingProperties();
+                var config = new WakeFarmControl.NowCast.NowCastConfig();
+                _nowcastingModel.TimeForStarting = config.TPredict;
+                _nowcastingModel.Decimation = config.r;
+                _nowcastingModel.SamplingTime = config.Ts;
+            }
+            return View(_nowcastingModel);
+        }
+
+        [HttpPost]
+        public ActionResult Nowcasting(VNowcastingProperties nowcastingModel)
+        {
+            if (_simulation == null)
+            {
+                return RedirectToAction("Simulation");
+            }
+            lock (_nowcastingModel)
+            {
+                ObjectMapperManager.DefaultInstance.GetMapper<VNowcastingProperties, VNowcastingProperties>().Map(nowcastingModel, _nowcastingModel);
+            }
+
+            var config = new WakeFarmControl.NowCast.NowCastConfig();
+            config.Method = _nowcastingModel.Method.ToString();
+            config.TPredict = _nowcastingModel.TimeForStarting;
+            config.r = (int)_nowcastingModel.Decimation;
+            config.Ts = _nowcastingModel.SamplingTime;
+
+            var simulationStartTime = DateTime.UtcNow;
+            _nowcastingSimulationResult = WakeFarmControl.NowCast.NowCast.Simulation(_simulation, config);
+            var simulationEndTime = DateTime.UtcNow;
+            _nowcastingSimulationTime = (simulationEndTime - simulationStartTime);
+
+            return RedirectToAction("Nowcasting");
+        }
+
+        private double?[] RemoveNaNs(double[] array)
+        {
+            if (array == null)
+            {
+                return null;
+            }
+            var arrayWithoutNaNs = new double?[array.GetLength(0)];
+            for (var i = 0; i < arrayWithoutNaNs.GetLength(0); i++)
+            {
+                arrayWithoutNaNs[i] = (double.IsNaN(array[i]) ? (double?)null : array[i]);
+            }
+
+            return arrayWithoutNaNs;
+        }
+
+        private double?[][] RemoveNaNs(double[][] array)
+        {
+            if (array == null)
+            {
+                return null;
+            }
+            var arrayWithoutNaNs = new double?[array.GetLength(0)][];
+            for (var i = 0; i < arrayWithoutNaNs.GetLength(0); i++)
+            {
+                if (array[i] == null)
+                {
+                    arrayWithoutNaNs[i] = null;
+                    continue;
+                }
+                arrayWithoutNaNs[i] = new double?[array[i].GetLength(0)];
+                for (var j = 0; j < arrayWithoutNaNs[i].GetLength(0); j++)
+                {
+                    arrayWithoutNaNs[i][j] = (double.IsNaN(array[i][j]) ? (double?)null : array[i][j]);
+                }
+            }
+
+            return arrayWithoutNaNs;
+        }
+
+        public ContentResult GetNowcastingSimulationResults()
+        {
+            var serializer = new JavaScriptSerializer();
+
+            // For simplicity just use Int32's max value.
+            // You could always read the value from the config section mentioned above.
+            serializer.MaxJsonLength = Int32.MaxValue;
+
+            var res = new { time = _nowcastingSimulationTime.ToString(), data =
+                                (_nowcastingSimulationResult == null ? null :
+                                    new {
+                                            Method = _nowcastingSimulationResult.Method,
+                                            Time = RemoveNaNs(_nowcastingSimulationResult.Time),
+                                            X = RemoveNaNs(_nowcastingSimulationResult.X),
+                                            XhmsAll = RemoveNaNs(_nowcastingSimulationResult.XhmsAll).Select(x => new object[] { x }).ToArray(),
+                                            XhmsAllTimeOffset = _nowcastingSimulationResult.XhmsAllTimeOffset,
+                                            XhmsLLength = _nowcastingSimulationResult.XhmsLLength,
+                                            XhmsUOffset = _nowcastingSimulationResult.XhmsUOffset
+                                        }
+                                )
+                            };
+            var result = new ContentResult
+            {
+                Content = serializer.Serialize(res),
+                ContentType = "application/json"
+            };
+            return result;
+        }
+
         public JsonResult GetAvailWinFarms()
         {
             _wfl.Clear();
@@ -162,7 +283,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult WindFarmInfo(Guid? id)
         {
             var dWindFarm = _ctx.DWindFarms.First(e => _model.WindFarm == e.Name);
-            return RedirectToAction("Details", "WindFarm", new { area = "WindFarms", id = dWindFarm.Id, returnTo = "WakeSimulator2" });
+            return RedirectToAction("Details", "WindFarm", new { area = "WindFarms", id = dWindFarm.Id, returnTo = "WakeSimulator2New" });
         }
     }
 }

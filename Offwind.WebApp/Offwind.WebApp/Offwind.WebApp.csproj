@@ -87,6 +87,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="MatlabInterpreter">
+      <HintPath>..\..\Offwind.WakeFarmControl\MatlabInterpreter\xAny\MatlabInterpreter.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.WebPages.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -198,6 +201,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Offwind.WakeFarmControl\WakeFarmControl\x32\WakeFarmControl.dll</HintPath>
     </Reference>
+    <Reference Include="WakeFarmControl.NowCast">
+      <HintPath>..\..\Offwind.WakeFarmControl\NowCast\xAny\WakeFarmControl.NowCast.dll</HintPath>
+    </Reference>
     <Reference Include="WakeFarmControlR, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Offwind.WakeFarmControl\WakeFarmControlRasmus\xAny\WakeFarmControlR.dll</HintPath>
@@ -259,6 +265,8 @@
     <Compile Include="Areas\CFD\Models\Turbines\VTurbineType.cs" />
     <Compile Include="Areas\CFD\Models\VVertice.cs" />
     <Compile Include="Areas\EngineeringTools\Controllers\WakeSimulation2RController.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WakeSimulation2R\VNowcastingProperties.cs" />
+    <Compile Include="Areas\EngineeringTools\Models\WakeSimulation2R\VGeneralProperties.cs" />
     <Compile Include="Areas\Management\Controllers\AboutController.cs" />
     <Compile Include="Areas\Management\Controllers\CarouselController.cs" />
     <Compile Include="Areas\Management\Controllers\DescriptionAttribute.cs" />
@@ -386,6 +394,7 @@
     <Content Include="app-js\app.js" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2R\Results.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2R\Simulation.cshtml" />
+    <Content Include="Areas\EngineeringTools\Views\WakeSimulation2R\Nowcasting.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

@@ -1,0 +1,167 @@
+﻿@model Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New.VNowcastingProperties
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
+    <li>Wind Farm Control</li>
+</ul>
+
+<div>
+    <a href="@Url.Action("Simulation", "WakeSimulation2New", new { area = "EngineeringTools" })">&lt;&lt;&nbsp;To simulation results</a>
+</div>
+
+<div class="row-fluid row-content-block">
+    <div class="span12 well">
+        <div class="fancy-tab-container">
+            <ul class="nav nav-tabs fancy">
+                <li class="active"><a href="#parameters" data-toggle="tab">Parameters</a></li>
+                <li><a href="#results" data-toggle="tab">Results</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="parameters">
+                    <form class="form-horizontal" method="post">
+                        <br />
+                        <fieldset>
+                            <!--
+                            <div class="control-group">
+                                <label class="control-label">Select Simulaton Method</label>
+                                <div class="controls">
+                                    <select class="input-xlarge" id="methodsel"></select>
+                                </div>
+                            </div>
+                            -->
+                            @Html.EditorFor(m => m.Method)
+                            @Html.EditorFor(m => m.TimeForStarting)
+                            @Html.EditorFor(m => m.Decimation)
+                            @Html.EditorFor(m => m.SamplingTime)
+                        </fieldset>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Run</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="results">
+                    <div class="chart" id="nowcastingChart" style="width: 100px; height: 560px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/static/Highcharts-3.0.4/highcharts.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function formatNumber(value, digitsAfterPointNumber) {
+                var powerOfTen = Math.pow(10, digitsAfterPointNumber);
+                formattedValueString = String(Math.round(value * powerOfTen) / powerOfTen);
+                return formattedValueString;
+            }
+
+            $.ajax({
+                url: "@Url.Action("GetNowcastingSimulationResults", "WakeSimulation2New", new { area = "EngineeringTools" })",
+                dataType: 'json',
+                type: 'GET',
+                success: function (res) {
+                    if (!res) return;
+                    var data = res.data;
+
+                    if (data == null) {
+                        return;
+                    }
+
+                    var w = $('.tab-content').width();
+                    $('.chart').width(w);
+                    show_graph(data);
+                    $('[href="#results"]').click();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if (typeof (console) !== 'undefined' && console.debug != null) {
+                        console.debug(jqXHR, textStatus, errorThrown);
+                    }
+                },
+                complete: function (jqXHR, textStatus) {
+                }
+            });
+            console.debug('TP#100');
+        });
+        
+        function show_graph(data) {
+            var colors = [ '#000000', '#FF0000', '#00FF00', '#0000FF' ];
+            var place = "nowcastingChart";
+            var method = data.Method;
+            var title = "Nowcasting with " + method + " model based on total wind farm power, Offwind simulation";
+            var time = data.Time;
+            var x = data.X;
+            var xhmsAll = data.XhmsAll;
+            var xhmsAllTimeOffset = data.XhmsAllTimeOffset;
+            var xhmsLLength = data.XhmsLLength;
+            var xhmsUOffset = data.XhmsUOffset;
+            var series_titles = [ 'x', 'xhmsL', 'xhms', 'xhmsU' ];
+
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: place
+                },
+                title: {
+                    text: title
+                },
+                xAxis: {
+                    min: 0,
+                    title: {
+                    }
+                },
+                yAxis: {
+                    title: {
+                    }
+                },
+                legend: {
+                    enabled: true,
+                    maxHeight: 80
+                }
+            });
+            chart.showLoading('Loading data...');
+            var skip = function(jx) {
+                return false;
+            };
+            if (time.length > 900) {
+                var step = Math.ceil(time.length / 1000);
+                skip = function(jx) {
+                    if (jx == 0) return false;
+                    if (jx % step != 0) {
+                        return true;
+                    }
+                    return false;
+                };
+            }
+
+            for (var i = 0; i < 1; i++)
+            {
+                var func = [];
+                for (var j = 0; j < time.length; j++) {
+                    if (skip(j)) continue;
+                    func.push({
+                        x: time[j],
+                        y: x[j]
+                    });
+                }
+                var series = chart.addSeries({
+                    type: 'line',
+                    name: series_titles[i],
+                    shadow: false,
+                    lineWidth: 1,
+                    color: colors[i % colors.length],
+                    marker: {
+                        enabled: false
+                    }
+                }, false);
+                series.setData(func, false);
+            }
+            chart.redraw();
+            chart.hideLoading();
+        }
+    </script>
+}

@@ -6,6 +6,7 @@ namespace WakeFarmControlR
 {
     internal partial class TranslatedCode
     {
+        #region "Original function comments"
         // Wake Code - Matlab
         // Rasmus Christensen
         // Control and Automation, Aalborg University
@@ -13,6 +14,7 @@ namespace WakeFarmControlR
         // N_turb = number of turbines.
         // X_turb = x-position of turbine.
         // Y_turb = y-position of turbine.
+        #endregion
         internal static void ROTATE_corrd(out ILArray<double> out_x, out ILArray<double> out_y, ILArray<double> xTurb, ILArray<double> yTurb, double rotA)
         {
             #region "Used variables declaration"
@@ -32,14 +34,14 @@ namespace WakeFarmControlR
                 y_out._(i, '=', xTurb._(i) * sin(rotA) + yTurb._(i) * cos(rotA));
             }
 
-            if (min(x_out) < 0) // Moves the x-points if these are negative.
+            if (min_(x_out) < 0) // Moves the x-points if these are negative.
             {
-                x_out = x_out + 500 + abs(min(x_out));
+                x_out = x_out + 500 + abs(min_(x_out));
             }
 
-            if (min(y_out) < 0) // Moves the y-points if these are negative.
+            if (min_(y_out) < 0) // Moves the y-points if these are negative.
             {
-                y_out = y_out + 500 + abs(min(y_out));
+                y_out = y_out + 500 + abs(min_(y_out));
             }
     
 	        out_x = x_out;

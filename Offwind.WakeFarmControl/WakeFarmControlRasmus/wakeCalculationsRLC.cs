@@ -6,10 +6,12 @@ namespace WakeFarmControlR
 {
     internal partial class TranslatedCode
     {
+        #region "Original function comments"
         //% v_nac = WAKECALCULATION(Ct,i,wind)
         // RLC, Aalborg
         // The below is based on the .F90 code developed by ?, and will give a
         // better estimate of the actual wake the individual turbines experience. 
+        #endregion
         internal static void wakeCalculationsRLC(out ILArray<double> vNac, ILArray<double> Ct, ILArray<double> wField, ILArray<double> vHub, WindTurbineParameters parm, SimParm simParm)
         {
             #region "Used variables declaration"
@@ -53,20 +55,19 @@ namespace WakeFarmControlR
                 //disp('Ct is negative or complex');
             }
 
-            x = _a(1, gridRes, endSize);// x-grid.
-            y = _a(1, gridRes, endSize);// y-grid.
+            x = _c(1, gridRes, endSize);// x-grid.
+            y = _c(1, gridRes, endSize);// y-grid.
             gridX = length(x); // Number of grid points.
             gridY = length(y); // Number of grid points.
-        
-            xCoor   = data._(':', 1); // Coordiante of turbine, x-position
-            yCoor   = data._(':', 2); // Coordinate of turbine, y-position
+
+            xCoor   = data[_(':'), _(1)]; // Coordiante of turbine, x-position
+            yCoor   = data[_(':'), _(2)]; // Coordinate of turbine, y-position
 
             ROTATE_corrd(out xTurb, out yTurb, xCoor, yCoor, rotA); // Rotated (and scaled) coordinates
             WT_order(out xOrder, out yOrder, xTurb, yTurb); // Ordered turbines. 
 
             ppp = 2; // This parameter is also a bit weird.. But it changes the grid.
-            double _;
-            DOMAIN_pt(out xGrid, out _, gridX, dTurb, xOrder, ppp); // 
+            DOMAIN_pt(out xGrid, out _double, gridX, dTurb, xOrder, ppp); // 
             ppp = 5;
             DOMAIN_pt(out yGrid, out dy, gridY, dTurb, yOrder, ppp);
 

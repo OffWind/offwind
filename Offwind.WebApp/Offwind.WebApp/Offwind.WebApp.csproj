@@ -79,9 +79,8 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\Prebuilt\SharpZipLib\net-20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="ILNumerics, Version=3.2.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Offwind.WakeFarmControl\WakeFarmControl\x32\ILNumerics.dll</HintPath>
+    <Reference Include="ILNumerics">
+      <HintPath>..\..\Offwind.WakeFarmControl\ILNumericsLib\64\ILNumerics.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -201,11 +200,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Offwind.WakeFarmControl\WakeFarmControl\x32\WakeFarmControl.dll</HintPath>
     </Reference>
-    <Reference Include="WakeFarmControl.NowCast">
+    <Reference Include="WakeFarmControl.NowCast, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Offwind.WakeFarmControl\NowCast\xAny\WakeFarmControl.NowCast.dll</HintPath>
     </Reference>
-    <Reference Include="WakeFarmControlR, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="WakeFarmControlR">
       <HintPath>..\..\Offwind.WakeFarmControl\WakeFarmControlRasmus\xAny\WakeFarmControlR.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

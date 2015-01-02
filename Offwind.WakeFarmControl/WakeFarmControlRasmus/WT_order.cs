@@ -6,9 +6,11 @@ namespace WakeFarmControlR
 {
     internal partial class TranslatedCode
     {
+        #region "Original function comments"
         // Wake Code - Matlab
         // Rasmus Christensen
         // Control and Automation, Aalborg University
+        #endregion
         internal static void WT_order(out ILArray<double> xOrder, out ILArray<double> yOrder, ILArray<double> xTurb, ILArray<double> yTurb)
         {
             #region "Used variables declaration"
@@ -19,7 +21,7 @@ namespace WakeFarmControlR
             int j;
             #endregion
 
-            sorted = sortrows(_[ xTurb.T, yTurb.T ], 1);
+            sorted = sortrows(__[ xTurb.T, yTurb.T ], 1);
             turbineOrder = zeros(length(sorted), 2);
             sortCtr = 0;
             for (i = 1; i <= length(sorted); i++)
@@ -31,11 +33,11 @@ namespace WakeFarmControlR
                         sortCtr = sortCtr + 1;
                     }
                 }
-                turbineOrder._(i, i + sortCtr, ':', '=', sortrows(sorted._(i, i + sortCtr, ':'), 2));
+                turbineOrder[_(i, ':', i + sortCtr), _(':')] = sortrows(sorted[_(i, ':', i + sortCtr), _(':')], 2);
                 sortCtr = 0;
             }
-            xOrder = turbineOrder._(':', 1);
-            yOrder = turbineOrder._(':', 2);
+            xOrder = turbineOrder[_(':'), _(1)];
+            yOrder = turbineOrder[_(':'), _(2)];
         }
     }
 }

@@ -6,9 +6,11 @@ namespace WakeFarmControlR
 {
     internal partial class TranslatedCode
     {
+        #region "Original function comments"
         // Wake Code - Matlab
         // Rasmus Christensen
         // Control and Automation, Aalborg University
+        #endregion
         internal static void Turb_centr_coord(out ILArray<int> output, int nTurb, int iMax, ILArray<double> x, ILArray<double> xTurb, int gridRes)
         {
             #region "Used variables declaration"

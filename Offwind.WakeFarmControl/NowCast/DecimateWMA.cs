@@ -32,6 +32,15 @@ namespace WakeFarmControl.NowCast
             // Aalborg University, Dept. of Electronic Systems, Section of Automation
             // and Control
             // E-mail: tk@es.aau.dk
+            #endregion
+
+            #region "Used variables declaration"
+            int n;
+            int m;
+            int ny;
+            int j;
+            ILArray<double> xx;
+            #endregion
 
             //% setting up inputs
             //symDef = 0;
@@ -43,24 +52,13 @@ namespace WakeFarmControl.NowCast
             //% Definitions etc.
 
             //% Algorithm
-            #endregion
-
-            #region "Used variables declaration"
-            int n;
-            int m;
-            int ny;
-            int j;
-            ILArray<double> xx;
-            #endregion
 
             // Only use integer number off r rows
-            var size_x_ = x.Size;
-            n = size_x_[0];
-            m = size_x_[1];
-            ny = (int)(Math.Floor(((double)n) / r));
-            x = x[ILMath.r(1 - 1, ny * r - 1), ILMath.full];
+            size(out n, out m, x);
+            ny = floor_((1.0 * n) / r);
+            x = x[_(1, ':', ny * r), _(':')];
 
-            y = ILMath.zeros(ny, m);
+            y = zeros(ny, m);
             // Directly calculate the output
             // This is much slower compared to the below using reshape
             // $$$ for i= 1:ny;
@@ -69,14 +67,14 @@ namespace WakeFarmControl.NowCast
             // Use reshape
             for (j = 1; j <= m; j++)
             {
-                xx = ILMath.reshape(x[ILMath.full, j - 1], r, ny);
-                y[ILMath.full, j - 1] = (ILMath.mean(xx)).T;
+                xx = reshape(x[_(':'), _(j)], r, ny);
+                y[_(':'), _(j)] = (mean(xx)).T;
             }
-            t = _a(1, ny) * r;
+            t = _c(1, ny) * r;
             // If symmetric the first time/index must be (r+1)/2
             if (sym != 0)
             {
-                t = t - r + (r + 1) / 2;
+                t = t - r + (r + 1) / 2.0;
             }
         }
     }

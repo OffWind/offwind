@@ -6,6 +6,7 @@ namespace WakeFarmControlR
 {
     internal partial class TranslatedCode
     {
+        #region "Original function comments"
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         // DESCRIPTION:
         // RLC - 8/9/2014, interpolation, for getting an accurate CP/CT value. The
@@ -23,6 +24,7 @@ namespace WakeFarmControlR
         // turbineTable defines the table to lookup in. 
         // negYes defines wether the CP value should be allowed to be negative.
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        #endregion
         internal static void interpTable(out double interpValue, double Beta, double Lambda, ILArray<double> table, ILArray<double> turbineTableBeta, ILArray<double> turbineTableLambda, bool negYes)
         {
             #region "Used variables declaration"
@@ -46,9 +48,7 @@ namespace WakeFarmControlR
             //    tableLoad           = 1;
             //end
 
-            var turbineTableSize = size(turbineTable);
-            sizeBt = turbineTableSize[0];
-            sizeLa = turbineTableSize[1];
+            size(out sizeBt, out sizeLa, turbineTable);
 
             //% Index Interpolation
             // Finds the beta-point of the interpolation.
@@ -107,12 +107,12 @@ namespace WakeFarmControlR
 
             //% Table Interpolation
             // Table lookup using indexes obtained previously:
-            tableLookup     = _[ turbineTable._(Bt0, La0), turbineTable._(Bt0, La1), ';',
-                                 turbineTable._(Bt1, La0), turbineTable._(Bt1, La1) ];
+            tableLookup     = __[ turbineTable._(Bt0, La0), turbineTable._(Bt0, La1), ';',
+                                  turbineTable._(Bt1, La0), turbineTable._(Bt1, La1) ];
 
             // Interpolating, using the Lambda values first, then the Betas.
-            lambdaIntervals = _[ ( (tableLookup._(1, 2) - tableLookup._(1, 1)) / (turbineTableLambda._(La1) - turbineTableLambda._(La0)) ) * (Lambda - turbineTableLambda._(La0)) + tableLookup._(1, 1), ';',
-                                 ( (tableLookup._(2, 2) - tableLookup._(2, 1)) / (turbineTableLambda._(La1) - turbineTableLambda._(La0)) ) * (Lambda - turbineTableLambda._(La0)) + tableLookup._(1, 2) ];
+            lambdaIntervals = __[ ( (tableLookup._(1, 2) - tableLookup._(1, 1)) / (turbineTableLambda._(La1) - turbineTableLambda._(La0)) ) * (Lambda - turbineTableLambda._(La0)) + tableLookup._(1, 1), ';',
+                                  ( (tableLookup._(2, 2) - tableLookup._(2, 1)) / (turbineTableLambda._(La1) - turbineTableLambda._(La0)) ) * (Lambda - turbineTableLambda._(La0)) + tableLookup._(1, 2) ];
 
             // Interpolation, using the Beta values (using the intervales computed above).
             betaIntervals   = ( (lambdaIntervals._(2) - lambdaIntervals._(1)) / (turbineTableBeta._(Bt1) - turbineTableBeta._(Bt0)) ) * (Beta - turbineTableBeta._(Bt0)) + lambdaIntervals._(1);

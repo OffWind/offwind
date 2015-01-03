@@ -22,9 +22,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private static VGeneralProperties _model = null;
         private static List<string> _wfl = null;
         static private double[][] _simulation;
+        static private double[][] _simulationDataOut;
         static VNowcastingProperties _nowcastingModel = null;
         static private WakeFarmControl.NowCast.NowCastSimulationResult _nowcastingSimulationResult;
-        static TimeSpan _nowcastingSimulationTime;
 
         public ActionResult Simulation()
         {
@@ -35,6 +35,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 _model.TimeStep = (decimal)(0.1);
                 _wfl = new List<string>();
                 _simulation = null;
+                _simulationDataOut = null;
                 _nowcastingSimulationResult = null;
             }
             var model = new VGeneralProperties();
@@ -79,7 +80,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             config.NREL5MW_MatFile = WebConfigurationManager.AppSettings["WakeFarmControlRNREL5MW"]; // @"c:\farmcontrol\NREL5MW_Runc.mat";
             config.Wind_MatFile = WebConfigurationManager.AppSettings["WakeFarmControlRWind"]; // @"c:\farmcontrol\wind_Runc.mat";
 
-            _simulation = WakeFarmControlR.FarmControl.Simulation(config);
+            _simulation = WakeFarmControlR.FarmControl.Simulation(config, out _simulationDataOut);
             return RedirectToAction("Results");
         }
 
@@ -134,7 +135,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult Nowcasting()
         {
             ViewBag.Title = NowcastingPageTitle;
-            if (_simulation == null)
+            if (_simulationDataOut == null)
             {
                 return RedirectToAction("Simulation");
             }
@@ -153,7 +154,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         [HttpPost]
         public ActionResult Nowcasting(VNowcastingProperties nowcastingModel)
         {
-            if (_simulation == null)
+            if (_simulationDataOut == null)
             {
                 return RedirectToAction("Simulation");
             }
@@ -168,10 +169,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             config.r = (int)_nowcastingModel.Decimation;
             config.Ts = _nowcastingModel.SamplingTime;
 
-            var simulationStartTime = DateTime.UtcNow;
-            _nowcastingSimulationResult = WakeFarmControl.NowCast.NowCast.Simulation(_simulation, config);
-            var simulationEndTime = DateTime.UtcNow;
-            _nowcastingSimulationTime = (simulationEndTime - simulationStartTime);
+            _nowcastingSimulationResult = WakeFarmControl.NowCast.NowCast.Simulation(_simulationDataOut, config);
 
             return RedirectToAction("Nowcasting");
         }
@@ -223,7 +221,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             // You could always read the value from the config section mentioned above.
             serializer.MaxJsonLength = Int32.MaxValue;
 
-            var res = new { time = _nowcastingSimulationTime.ToString(), data =
+            var res = new { data =
                                 (_nowcastingSimulationResult == null ? null :
                                     new {
                                             Method = _nowcastingSimulationResult.Method,

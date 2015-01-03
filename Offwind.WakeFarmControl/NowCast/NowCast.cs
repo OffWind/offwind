@@ -33,7 +33,7 @@ namespace WakeFarmControl.NowCast
             int outXhmsAllTimeOffset;
             int outXhmsLLength;
             int outXhmsUOffset;
-            TranslatedCode.NowCastWFPFunc(out outMethod, out outTime, out outX, out outXhmsAll, out outXhmsAllTimeOffset, out outXhmsLLength, out outXhmsUOffset, Data, config.TPredict, config.Method, config.r, config.Ts);
+            TranslatedCode.NowCastWFPFunc(out outMethod, out outTime, out outX, out outXhmsAll, out outXhmsAllTimeOffset, out outXhmsLLength, out outXhmsUOffset, Data[ILMath.full, 1], config.TPredict, config.Method, config.r, config.Ts);
             NowCastSimulationResult nowCastSimulationResult = new NowCastSimulationResult();
             nowCastSimulationResult.Method = outMethod;
             nowCastSimulationResult.Time = outTime.ToArray();

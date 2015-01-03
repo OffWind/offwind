@@ -33,7 +33,7 @@ namespace WakeFarmControlR
             }
         }
 
-        public static double[][] FarmControl(WakeFarmControlConfig config)
+        public static double[][] FarmControl(WakeFarmControlConfig config, out double[][] dataOut)
         {
             #region "Used variables declaration"
             bool saveData;
@@ -75,7 +75,6 @@ namespace WakeFarmControlR
             int j;
             ILArray<double> dx;
             ILArray<double> time;
-            ILArray<double> dataOut;
             #endregion
 
             //% Initialization
@@ -270,8 +269,12 @@ namespace WakeFarmControlR
             if (saveData)
             {
                 //throw new ApplicationException(string.Format("{0}\t{1}\t{2}\t{3}", time.Dimensions, sumPower.T.Dimensions, sumRef.T.Dimensions, sumAvai.T.Dimensions));
-                dataOut = __[ time, sumPower.T, sumRef.T, sumAvai.T ];
+                dataOut = (__[ time, sumPower.T, sumRef.T, sumAvai.T ]).ToDoubleArray();
                 //save dataOut;
+            }
+            else
+            {
+                dataOut = new double[][] { new double[] { 0, 0, 0, 0 } };
             }
             //% Plotting
             //Below a number of different plots are made. Most of them for test purposes

@@ -220,6 +220,8 @@ namespace MatlabInterpreter
         protected static double _double;
         protected static ILArray<double> _ILArray_double;
 
+        public static readonly System.Collections.Generic.List<string> WarningMessages = new System.Collections.Generic.List<string>();
+
         private static bool IsScalar<T>(ILArray<T> ilArray)
         {
             return ilArray.IsScalar;
@@ -286,16 +288,27 @@ namespace MatlabInterpreter
         //    throw new ApplicationException(message);
         //}
 
-        private static void warning(string message, ref System.Collections.Generic.List<string> warningMessage)
-        {
-            warningMessage.Add(message);
-        }
+        //protected static void warning(string message, ref System.Collections.Generic.List<string> warningMessages)
+        //{
+        //    warningMessages.Add(message);
+        //}
 
         protected static void warning(string message)
         {
-            System.Collections.Generic.List<string> warningMessage = new System.Collections.Generic.List<string>();
-            MatlabCode.warning(message, ref warningMessage);
+            //MatlabCode.warning(message, ref warningMessages);
+            lock (WarningMessages)
+            {
+                WarningMessages.Add(message);
+            }
         }
+
+        //protected static void clc()
+        //{
+        //    lock (WarningMessages)
+        //    {
+        //        WarningMessages.Clear();
+        //    }
+        //}
 
         #region "Array size functions"
         //protected static int[] size(ILArray<double> ilArray)
@@ -606,9 +619,7 @@ namespace MatlabInterpreter
 
         protected static ILArray<double> inv(ILArray<double> ilArray)
         {
-            ILArray<double> ilArrayInverted = ILMath.empty();
-            ILMath.invert(ilArray, ilArrayInverted);
-            return ilArrayInverted;
+            return ILMath.pinv(ilArray);
         }
 
         protected static ILArray<double> reshape(ILArray<double> ilArray, int dim1, int dim2)
@@ -752,6 +763,33 @@ namespace MatlabInterpreter
         protected static string num2str(double value)
         {
             return value.ToString();
+        }
+
+        protected static string num2str(ILArray<double> ilArray)
+        {
+            if (ilArray == null)
+            {
+                return null;
+            }
+            string serializedILArray = string.Empty;//string.Format("{0}", ilArray.Dimensions);
+            serializedILArray += "[";
+            for (var i = 0; i < ilArray.Size[0]; i++)
+            {
+                if (i > 0)
+                {
+                    serializedILArray += "; ";
+                }
+                for (var j = 0; j < ilArray.Size[1]; j++)
+                {
+                    if (j > 0)
+                    {
+                        serializedILArray += ", ";
+                    }
+                    serializedILArray += ilArray.GetValue(i, j).ToString();
+                }
+            }
+            serializedILArray += "]";
+            return serializedILArray;
         }
         #endregion
     }

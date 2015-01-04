@@ -157,8 +157,8 @@ namespace WakeFarmControl.NowCast
             }
             if (TPredict < TauLambdaInf)
             {
-                warning("TK: Prediction time is so small that the estimator/predictor " //...
-                            + "might not have converged yet");
+                warning(__[ "TK: Prediction time is so small that the estimator/predictor ", //...
+                            "might not have converged yet" ]);
             }
             TPS = min_(find(T >= TPredict));            // Use time from measurements
 

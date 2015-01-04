@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ILNumerics;
 using MatlabInterpreter;
@@ -23,7 +24,7 @@ namespace WakeFarmControl.NowCast
             return ilArray;
         }
 
-        public static NowCastSimulationResult Simulation(double[][] wakeFarmControlDataOut, NowCastConfig config)
+        public static NowCastSimulationResult Simulation(double[][] wakeFarmControlDataOut, NowCastConfig config, out List<string> warningMessages)
         {
             ILArray<double> Data = ILArrayFromArray(wakeFarmControlDataOut);
             string outMethod;
@@ -33,7 +34,15 @@ namespace WakeFarmControl.NowCast
             int outXhmsAllTimeOffset;
             int outXhmsLLength;
             int outXhmsUOffset;
+            lock (TranslatedCode.WarningMessages)
+            {
+                TranslatedCode.WarningMessages.Clear();
+            }
             TranslatedCode.NowCastWFPFunc(out outMethod, out outTime, out outX, out outXhmsAll, out outXhmsAllTimeOffset, out outXhmsLLength, out outXhmsUOffset, Data[ILMath.full, 1], config.TPredict, config.Method, config.r, config.Ts);
+            lock (TranslatedCode.WarningMessages)
+            {
+                warningMessages = new List<string>(TranslatedCode.WarningMessages);
+            }
             NowCastSimulationResult nowCastSimulationResult = new NowCastSimulationResult();
             nowCastSimulationResult.Method = outMethod;
             nowCastSimulationResult.Time = outTime.ToArray();

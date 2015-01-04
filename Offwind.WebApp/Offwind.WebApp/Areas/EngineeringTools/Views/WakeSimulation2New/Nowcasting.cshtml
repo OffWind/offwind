@@ -10,6 +10,17 @@
     <a href="@Url.Action("Results", "WakeSimulation2New", new { area = "EngineeringTools" })">&lt;&lt;&nbsp;To simulation results</a>
 </div>
 
+@section styles
+{
+    <style type="text/css">
+        .alert-warning {
+          color: #996633;
+          background-color: #ffffcc;
+          border-color: #996633;
+        }
+    </style>
+}
+
 <div class="row-fluid row-content-block">
     <div class="span12 well">
         <div class="fancy-tab-container">
@@ -22,14 +33,6 @@
                     <form class="form-horizontal" method="post">
                         <br />
                         <fieldset>
-                            <!--
-                            <div class="control-group">
-                                <label class="control-label">Select Simulaton Method</label>
-                                <div class="controls">
-                                    <select class="input-xlarge" id="methodsel"></select>
-                                </div>
-                            </div>
-                            -->
                             @Html.EditorFor(m => m.Method)
                             @Html.EditorFor(m => m.TimeForStarting)
                             @Html.EditorFor(m => m.Decimation)
@@ -43,6 +46,11 @@
                 </div>
                 <div class="tab-pane" id="results">
                     <div class="chart" id="nowcastingChart" style="width: 100px; height: 560px;"></div>
+                    <div id="alert-warnings" class="alert alert-warning hidden" style="margin: 20px;">
+                        Warnings:
+                        <a class="close" data-dismiss="alert">×</a>
+                        <div></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -55,6 +63,11 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#alert-warnings').bind('close', function () {
+                $('#alert-warnings').fadeOut();
+                return false;
+            });
+
             function formatNumber(value, digitsAfterPointNumber) {
                 var powerOfTen = Math.pow(10, digitsAfterPointNumber);
                 formattedValueString = String(Math.round(value * powerOfTen) / powerOfTen);
@@ -71,6 +84,16 @@
 
                     if (data == null) {
                         return;
+                    }
+
+                    var warningMessages = res.warningMessages;
+                    if (warningMessages != null && warningMessages.length >= 1) {
+                        $('#alert-warnings div').empty();
+                        $('#alert-warnings div').append('<ul />');
+                        for (var i = 0; i < warningMessages.length; i++) {
+                            $('#alert-warnings ul').append('<li>' + warningMessages[i] + '</li>')
+                        }
+                        $('#alert-warnings').removeClass('hidden').hide().fadeIn();
                     }
 
                     var w = $('.tab-content').width();
@@ -137,8 +160,8 @@
                 };
             }
 
-            for (var i = 0; i < 1; i++)
             {
+                var i = 0;
                 var func = [];
                 for (var j = 0; j < time.length; j++) {
                     if (skip(j)) continue;
@@ -159,6 +182,35 @@
                 }, false);
                 series.setData(func, false);
             }
+
+            var dashStyles = [ 'Solid', 'Dash', 'Dot' ];
+            var xhmsBounds = [ [ 0, xhmsLLength - 1 ], [ xhmsLLength, xhmsUOffset - 1 ], [ xhmsUOffset, xhmsAll.length - 1 ] ];
+            for (var segmentIndex = 0; segmentIndex <= 2; segmentIndex++) {
+                for (var lineIndex = 0; lineIndex <= 2; lineIndex++) {
+                    func = [ ];
+                    for (var timePointIndex = xhmsBounds[segmentIndex][0]; timePointIndex <= xhmsBounds[segmentIndex][1]; timePointIndex++) {
+                        //if (skip(xhmsAllTimeOffset + timePointIndex)) continue;
+                        func.push({
+                            x: time[xhmsAllTimeOffset + timePointIndex],
+                            y: xhmsAll[timePointIndex][lineIndex]
+                        });
+                    }
+                    var series = chart.addSeries({
+                        type: 'line',
+                        name: series_titles[1 + lineIndex],
+                        showInLegend: (segmentIndex == 0),
+                        shadow: false,
+                        dash: dashStyles[segmentIndex],
+                        lineWidth: 1,
+                        color: colors[(1 + lineIndex) % colors.length],
+                        marker: {
+                            enabled: false
+                        }
+                    }, false);
+                    series.setData(func, false);
+                }
+            }
+
             chart.redraw();
             chart.hideLoading();
         }

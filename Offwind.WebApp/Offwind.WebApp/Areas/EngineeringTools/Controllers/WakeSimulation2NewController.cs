@@ -25,6 +25,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         static private double[][] _simulationDataOut;
         static VNowcastingProperties _nowcastingModel = null;
         static private WakeFarmControl.NowCast.NowCastSimulationResult _nowcastingSimulationResult;
+        static private List<string> _nowcastingSimulationWarningMessages;
 
         public ActionResult Simulation()
         {
@@ -37,6 +38,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 _simulation = null;
                 _simulationDataOut = null;
                 _nowcastingSimulationResult = null;
+                _nowcastingSimulationWarningMessages = null;
             }
             var model = new VGeneralProperties();
             ObjectMapperManager.DefaultInstance.GetMapper<VGeneralProperties, VGeneralProperties>().Map(_model, model);
@@ -169,7 +171,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             config.r = (int)_nowcastingModel.Decimation;
             config.Ts = _nowcastingModel.SamplingTime;
 
-            _nowcastingSimulationResult = WakeFarmControl.NowCast.NowCast.Simulation(_simulationDataOut, config);
+            _nowcastingSimulationResult = WakeFarmControl.NowCast.NowCast.Simulation(_simulationDataOut, config, out _nowcastingSimulationWarningMessages);
 
             return RedirectToAction("Nowcasting");
         }
@@ -227,12 +229,13 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                                             Method = _nowcastingSimulationResult.Method,
                                             Time = RemoveNaNs(_nowcastingSimulationResult.Time),
                                             X = RemoveNaNs(_nowcastingSimulationResult.X),
-                                            XhmsAll = RemoveNaNs(_nowcastingSimulationResult.XhmsAll).Select(x => new object[] { x }).ToArray(),
+                                            XhmsAll = RemoveNaNs(_nowcastingSimulationResult.XhmsAll),//.Select(x => new object[] { x }).ToArray(),
                                             XhmsAllTimeOffset = _nowcastingSimulationResult.XhmsAllTimeOffset,
                                             XhmsLLength = _nowcastingSimulationResult.XhmsLLength,
                                             XhmsUOffset = _nowcastingSimulationResult.XhmsUOffset
                                         }
-                                )
+                                ),
+                            warningMessages = _nowcastingSimulationWarningMessages
                             };
             var result = new ContentResult
             {

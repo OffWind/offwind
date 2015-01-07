@@ -26,7 +26,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New
         public double TimeForStarting { set; get; }
         [DisplayName("Decimation")]
         [Description("Decimation with a moving average of order")]
-        public double Decimation { set; get; }
+        public int Decimation { set; get; }
         [DisplayName("Sampling time")]
         [Description("Sampling time")]
         public double SamplingTime { set; get; }

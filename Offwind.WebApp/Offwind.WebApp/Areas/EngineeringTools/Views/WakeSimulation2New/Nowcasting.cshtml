@@ -63,6 +63,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#SamplingTime').attr('readonly', 'readonly').attr('disabled', 'disabled');
+
             $('#alert-warnings').bind('close', function () {
                 $('#alert-warnings').fadeOut();
                 return false;

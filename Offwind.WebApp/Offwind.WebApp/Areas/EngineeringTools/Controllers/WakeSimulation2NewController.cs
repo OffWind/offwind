@@ -21,6 +21,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
         private static VGeneralProperties _model = null;
         private static List<string> _wfl = null;
+        static private double _simulationTimeStep;
         static private double[][] _simulation;
         static private double[][] _simulationDataOut;
         static private List<string> _simulationInformationMessages;
@@ -84,6 +85,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             config.Wind_MatFile = WebConfigurationManager.AppSettings["WakeFarmControlRWind"]; // @"c:\farmcontrol\wind_Runc.mat";
 
             _simulation = WakeFarmControlR.FarmControl.Simulation(config, out _simulationDataOut, out _simulationInformationMessages);
+            _simulationTimeStep = config.SimParm.timeStep;
             return RedirectToAction("Results");
         }
 
@@ -155,6 +157,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 _nowcastingModel.Decimation = config.r;
                 _nowcastingModel.SamplingTime = config.Ts;
             }
+            _nowcastingModel.SamplingTime = _simulationTimeStep;
             return View(_nowcastingModel);
         }
 
@@ -168,13 +171,14 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             lock (_nowcastingModel)
             {
                 ObjectMapperManager.DefaultInstance.GetMapper<VNowcastingProperties, VNowcastingProperties>().Map(nowcastingModel, _nowcastingModel);
+                _nowcastingModel.SamplingTime = _simulationTimeStep;
             }
 
             var config = new WakeFarmControl.NowCast.NowCastConfig();
             config.Method = _nowcastingModel.Method.ToString();
             config.TPredict = _nowcastingModel.TimeForStarting;
-            config.r = (int)_nowcastingModel.Decimation;
-            config.Ts = _nowcastingModel.SamplingTime;
+            config.r = _nowcastingModel.Decimation;
+            config.Ts = _simulationTimeStep;
 
             _nowcastingSimulationResult = WakeFarmControl.NowCast.NowCast.Simulation(_simulationDataOut, config, out _nowcastingSimulationWarningMessages);
 

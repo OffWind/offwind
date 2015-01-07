@@ -23,6 +23,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         private static List<string> _wfl = null;
         static private double[][] _simulation;
         static private double[][] _simulationDataOut;
+        static private List<string> _simulationInformationMessages;
         static VNowcastingProperties _nowcastingModel = null;
         static private WakeFarmControl.NowCast.NowCastSimulationResult _nowcastingSimulationResult;
         static private List<string> _nowcastingSimulationWarningMessages;
@@ -82,7 +83,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             config.NREL5MW_MatFile = WebConfigurationManager.AppSettings["WakeFarmControlRNREL5MW"]; // @"c:\farmcontrol\NREL5MW_Runc.mat";
             config.Wind_MatFile = WebConfigurationManager.AppSettings["WakeFarmControlRWind"]; // @"c:\farmcontrol\wind_Runc.mat";
 
-            _simulation = WakeFarmControlR.FarmControl.Simulation(config, out _simulationDataOut);
+            _simulation = WakeFarmControlR.FarmControl.Simulation(config, out _simulationDataOut, out _simulationInformationMessages);
             return RedirectToAction("Results");
         }
 
@@ -118,7 +119,11 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 var dWindFarm = _ctx.DWindFarms.First(wf => wf.Name == modelWindFarm);
                 turbines = dWindFarm.DWindFarmTurbines.OrderBy(t => t.Number).Select(t => new { n = t.Number, x = t.X, y = t.Y }).ToArray();
             }
-            var res = new { data = _simulation.Select(x => new object[] { x }).ToArray(), turbines = turbines };
+            var res = new {
+                            data = _simulation.Select(x => new object[] { x }).ToArray(),
+                            turbines = turbines,
+                            informationMessages = _simulationInformationMessages
+            };
             var result = new ContentResult
             {
                 Content = serializer.Serialize(res),

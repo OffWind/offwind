@@ -388,6 +388,8 @@
     <Content Include="Areas\WindFarms\static\css\farm-layout.css" />
     <Content Include="Areas\WindFarms\static\js\farm-layout.js" />
     <Content Include="Areas\WindFarms\static\js\turbines.js" />
+    <Content Include="bin\libiomp5md.dll" />
+    <Content Include="bin\mkl_custom.dll" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="app-js\app.js" />

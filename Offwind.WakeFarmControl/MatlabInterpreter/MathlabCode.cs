@@ -445,10 +445,10 @@ namespace MatlabInterpreter
             return Math.Min(value1, value2);
         }
 
-        //protected static double min(double value1, double value2)
-        //{
-        //    return Math.Min(value1, value2);
-        //}
+        protected static double min(double value1, double value2)
+        {
+            return Math.Min(value1, value2);
+        }
 
         //protected static double min(double[] array)
         //{

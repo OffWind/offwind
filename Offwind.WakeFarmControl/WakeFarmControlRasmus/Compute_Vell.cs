@@ -80,19 +80,19 @@ namespace WakeFarmControlR
                     nj      = ceil(rrt / dy);
 
                     jjMin   = floor_(max(1, yTurbC._(k) - nj));
-                    jjMax   = ceil_(min_(__[ jMax, yTurbC._(k) + nj ]));
+                    jjMax   = ceil_(min(jMax, yTurbC._(k) + nj));
 
                     for (var j = jjMin; j <= jjMax; j++)
                     {
                         if (((-vell_i._(ii, j) + Uhub._(k)) > 0) && (ii > xTurbC._(k) + nk))
                         {
-                            vell_i._(ii, j, '=', min_(__[ vell_i._(ii - 1, j), Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS) ]));
-                            vell_i._(ii, j, '=', max_(__[ 0, vell_i._(ii, j) ]));
+                            vell_i._(ii, j, '=', min(vell_i._(ii - 1, j), Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS)));
+                            vell_i._(ii, j, '=', max(0, vell_i._(ii, j)));
                         }
                         else
                         {
                             vell_i._(ii, j, '=', (Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * (r0 / rrt) * (r0 / rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS));
-                            vell_i._(ii, j, '=', max_(__[ 0, vell_i._(ii, j) ]));
+                            vell_i._(ii, j, '=', max(0, vell_i._(ii, j)));
                         }
                     }
                 }

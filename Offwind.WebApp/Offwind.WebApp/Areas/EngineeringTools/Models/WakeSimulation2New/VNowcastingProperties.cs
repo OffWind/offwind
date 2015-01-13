@@ -19,6 +19,8 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New
 
     public class VNowcastingProperties : VWebPage
     {
+        public bool WasWakeSimulationPerformed = false;
+
         public NowcastingSimulationMethod Method { set; get; }
 
         [DisplayName("Time for starting")]

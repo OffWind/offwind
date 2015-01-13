@@ -94,7 +94,10 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             ViewBag.Title = ResultsPageTitle;
             if (_simulation != null)
             {
-                var res = _simulation.Select(x => new object[] { x }).ToArray();
+                var res = new {
+                                informationMessages = _simulationInformationMessages,
+                                data = _simulation.Select(x => new object[] { x }).ToArray()
+                };
                 return View(res);
             }
             return View(new object[0]);
@@ -122,9 +125,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 turbines = dWindFarm.DWindFarmTurbines.OrderBy(t => t.Number).Select(t => new { n = t.Number, x = t.X, y = t.Y }).ToArray();
             }
             var res = new {
-                            data = _simulation.Select(x => new object[] { x }).ToArray(),
+                            informationMessages = _simulationInformationMessages,
                             turbines = turbines,
-                            informationMessages = _simulationInformationMessages
+                            data = _simulation.Select(x => new object[] { x }).ToArray()
             };
             var result = new ContentResult
             {
@@ -144,10 +147,6 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult Nowcasting()
         {
             ViewBag.Title = NowcastingPageTitle;
-            if (_simulationDataOut == null)
-            {
-                return RedirectToAction("Simulation");
-            }
 
             if (_nowcastingModel == null)
             {
@@ -158,6 +157,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 _nowcastingModel.SamplingTime = config.Ts;
             }
             _nowcastingModel.SamplingTime = _simulationTimeStep;
+            _nowcastingModel.WasWakeSimulationPerformed = !(_simulationDataOut == null);
             return View(_nowcastingModel);
         }
 

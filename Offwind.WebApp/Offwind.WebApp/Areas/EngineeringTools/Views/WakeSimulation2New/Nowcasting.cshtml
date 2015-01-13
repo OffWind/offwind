@@ -40,7 +40,10 @@
                         </fieldset>
 
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Run</button>
+                            <button type="submit" class="btn btn-primary@(Model.WasWakeSimulationPerformed ? string.Empty : " disabled")"@(Model.WasWakeSimulationPerformed ? string.Empty : "disabled=\"disabled\"")>Run</button>
+                        </div>
+                        <div id="alert-error" class="alert alert-error@(Model.WasWakeSimulationPerformed ? " hidden" : string.Empty)" style="margin: 20px;">
+                            Wake Simulation has not been performed yet. To run Nowcasting Simulation please <a href="@Url.Action("Simulation", "WakeSimulation2New", new { area = "EngineeringTools" })">run</a> Wake Simulation first.
                         </div>
                     </form>
                 </div>

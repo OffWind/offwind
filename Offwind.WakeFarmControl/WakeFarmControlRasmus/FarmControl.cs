@@ -156,6 +156,18 @@ namespace WakeFarmControlR
             u = __[ beta0 * initVector, power0 * initVector ]; // u0
             P_demand._(1, '=', config.InitialPowerDemand); // Power Demand.
 
+            double turbinesDTurb;
+            int turbinesNTurb;
+            double turbinesKWake;
+            ILArray<double> turbinesX;
+            int turbinesGridX;
+            int turbinesGridY;
+            ILArray<double> turbinesYOrder;
+            double turbinesDy;
+            ILArray<int> turbinesXTurbC;
+            ILArray<int> turbinesYTurbC;
+            turbinesCalculations(out turbinesDTurb, out turbinesNTurb, out turbinesKWake, out turbinesX, out turbinesGridX, out turbinesGridY, out turbinesYOrder, out turbinesDy, out turbinesXTurbC, out turbinesYTurbC, parm, simParm);
+
             //% Simulate wind farm operation
             for (var i = 2; i <= _simParm_tEnd_simParm_tStart__simParm_timeStep; i++) // At each sample time (DT) from Tstart to Tend
             {
@@ -169,7 +181,7 @@ namespace WakeFarmControlR
 
                 // Calculate the wake using the last Ct values
                 ILArray<double> v_nac___i_;
-                wakeCalculationsRLC(out v_nac___i_, parm.Ct[_(':'), _(i - 1)], transpose(wField), x[_(':'), _(2)], parm, simParm);
+                wakeCalculationsRLC(out v_nac___i_, turbinesDTurb, turbinesNTurb, turbinesKWake, turbinesX, turbinesGridX, turbinesGridY, turbinesYOrder, turbinesDy, turbinesXTurbC, turbinesYTurbC, parm.Ct[_(':'), _(i - 1)], transpose(wField), x[_(':'), _(2)], parm, simParm);
                 v_nac[_(':'), _(i)] = v_nac___i_;
                 x[_(':'), _(2)]     = v_nac[_(':'), _(i)];
 

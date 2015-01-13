@@ -95,6 +95,7 @@
     <Compile Include="TurbineDrivetrainModel.cs" />
     <Compile Include="Turb_centr_coord.cs" />
     <Compile Include="WakeCalculation.cs" />
+    <Compile Include="turbinesCalculations.cs" />
     <Compile Include="wakeCalculationsRLC.cs" />
     <Compile Include="WakeFarmControl.cs" />
     <Compile Include="WakeFarmControlInput.cs" />

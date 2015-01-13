@@ -91,6 +91,7 @@
     <Compile Include="PowerDistributionControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ROTATE_corrd.cs" />
+    <Compile Include="Timers.cs" />
     <Compile Include="TurbineDrivetrainModel.cs" />
     <Compile Include="Turb_centr_coord.cs" />
     <Compile Include="WakeCalculation.cs" />

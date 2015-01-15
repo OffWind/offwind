@@ -15,7 +15,7 @@ namespace WakeFarmControlR
         internal static void wakeCalculationsRLC(out ILArray<double> vNac, double dTurb, int nTurb, double kWake, ILArray<double> x, int gridX, int gridY, ILArray<double> yOrder, double dy, ILArray<int> xTurbC, ILArray<int> yTurbC, ILArray<double> Ct, ILArray<double> wField, ILArray<double> vHub, WindTurbineParameters parm, SimParm simParm)
         {
             #region "Used variables declaration"
-            ILArray<double> Velocity;
+            double[,] Velocity;
             int j;
             #endregion
 
@@ -28,7 +28,7 @@ namespace WakeFarmControlR
 
             for (j = 1; j <= length(xTurbC); j++)
             {
-                vNac._(j, '=', Velocity._(yTurbC._(j), xTurbC._(j)));
+                vNac._(j, '=', Velocity[yTurbC._(j) - 1, xTurbC._(j) - 1]);
             }
         }
     }

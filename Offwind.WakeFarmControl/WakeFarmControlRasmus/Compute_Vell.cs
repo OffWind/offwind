@@ -13,10 +13,10 @@ namespace WakeFarmControlR
 
         // Compute the velocity in front of each wind-turbine, with respect to the wind input.
         #endregion
-        internal static void Compute_Vell(out ILArray<double> vel_output, ILArray<double> yTurb, ILArray<int> xTurbC, ILArray<int> yTurbC, ILArray<double> x, ILArray<double> wField, ILArray<double> Uhub, double kWake, int iMax, int jMax, int nTurb, double dTurb, ILArray<double> Ct, double dy)
+        internal static void Compute_Vell(out double[,] vel_output, ILArray<double> yTurb, ILArray<int> xTurbC, ILArray<int> yTurbC, ILArray<double> x, ILArray<double> wField, ILArray<double> Uhub, double kWake, int iMax, int jMax, int nTurb, double dTurb, ILArray<double> Ct, double dy)
         {
             #region "Used variables declaration"
-            ILArray<double> vell_i;
+            double[,] vell_i;
             ILArray<double> shadow;
             double r0;
             double nk;
@@ -38,7 +38,15 @@ namespace WakeFarmControlR
             #endregion
 
 
-            vell_i = wField.C;
+            //vell_i = wField.C;
+            vell_i = new double[wField.Size[0], wField.Size[1]];
+            for (var i0 = 0; i0 < vell_i.GetLength(0); i0++)
+            {
+                for (var i1 = 0; i1 < vell_i.GetLength(1); i1++)
+                {
+                    vell_i[i0, i1] = wField.GetValue(i0, i1);
+                }
+            }
 
             shadow = zeros(1, nTurb);
 
@@ -84,15 +92,15 @@ namespace WakeFarmControlR
 
                     for (var j = jjMin; j <= jjMax; j++)
                     {
-                        if (((-vell_i._(ii, j) + Uhub._(k)) > 0) && (ii > xTurbC._(k) + nk))
+                        if (((-vell_i[ii - 1, j - 1] + Uhub._(k)) > 0) && (ii > xTurbC._(k) + nk))
                         {
-                            vell_i._(ii, j, '=', min(vell_i._(ii - 1, j), Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS)));
-                            vell_i._(ii, j, '=', max(0, vell_i._(ii, j)));
+                            vell_i[ii - 1, j - 1] = min(vell_i[ii - 2, j - 1], Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS));
+                            vell_i[ii - 1, j - 1] = max(0, vell_i[ii - 1, j - 1]);
                         }
                         else
                         {
-                            vell_i._(ii, j, '=', (Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * (r0 / rrt) * (r0 / rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS));
-                            vell_i._(ii, j, '=', max(0, vell_i._(ii, j)));
+                            vell_i[ii - 1, j - 1] = (Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * (r0 / rrt) * (r0 / rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS);
+                            vell_i[ii - 1, j - 1] = max(0, vell_i[ii - 1, j - 1]);
                         }
                     }
                 }

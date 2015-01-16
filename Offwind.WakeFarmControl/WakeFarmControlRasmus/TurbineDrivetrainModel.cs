@@ -6,7 +6,7 @@ namespace WakeFarmControlR
 {
     internal partial class TranslatedCode
     {
-        internal static void turbineDrivetrainModel(out double OmegaOut, out double Ct, out double Cp, ILArray<double> x, ILArray<double> u, WtMatFileDataStructure wt, EnvMatFileDataStructure env, double timeStep)
+        internal static void turbineDrivetrainModel(out double OmegaOut, out double Ct, out double Cp, double x_1_, double x_2_, ILArray<double> u, WtMatFileDataStructure wt, EnvMatFileDataStructure env, double timeStep)
         {
             #region "Used variables declaration"
             double R;
@@ -26,8 +26,8 @@ namespace WakeFarmControlR
 
             // Definitons etc.
 
-            Omega = x._(1);
-            Ve = x._(2);
+            Omega = x_1_;
+            Ve = x_2_;
             Beta = u._(1);
             Tg = u._(2);
 

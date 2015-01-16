@@ -12,7 +12,7 @@ namespace WakeFarmControlR
         // The below is based on the .F90 code developed by ?, and will give a
         // better estimate of the actual wake the individual turbines experience. 
         #endregion
-        internal static void wakeCalculationsRLC(out ILArray<double> vNac, double dTurb, int nTurb, double kWake, ILArray<double> x, int gridX, int gridY, ILArray<double> yOrder, double dy, ILArray<int> xTurbC, ILArray<int> yTurbC, ILArray<double> Ct, ILArray<double> wField, ILArray<double> vHub, WindTurbineParameters parm, SimParm simParm)
+        internal static void wakeCalculationsRLC(out ILArray<double> vNac, double dTurb, int nTurb, double kWake, ILArray<double> x, int gridX, int gridY, ILArray<double> yOrder, double dy, ILArray<int> xTurbC, ILArray<int> yTurbC, ILArray<double> Ct, ILArray<double> wField, double[] vHub, WindTurbineParameters parm, SimParm simParm)
         {
             #region "Used variables declaration"
             double[,] Velocity;

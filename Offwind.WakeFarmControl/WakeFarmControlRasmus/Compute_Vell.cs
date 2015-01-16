@@ -13,7 +13,7 @@ namespace WakeFarmControlR
 
         // Compute the velocity in front of each wind-turbine, with respect to the wind input.
         #endregion
-        internal static void Compute_Vell(out double[,] vel_output, ILArray<double> yTurb, ILArray<int> xTurbC, ILArray<int> yTurbC, ILArray<double> x, ILArray<double> wField, ILArray<double> Uhub, double kWake, int iMax, int jMax, int nTurb, double dTurb, ILArray<double> Ct, double dy)
+        internal static void Compute_Vell(out double[,] vel_output, ILArray<double> yTurb, ILArray<int> xTurbC, ILArray<int> yTurbC, ILArray<double> x, ILArray<double> wField, double[] Uhub, double kWake, int iMax, int jMax, int nTurb, double dTurb, ILArray<double> Ct, double dy)
         {
             #region "Used variables declaration"
             double[,] vell_i;
@@ -92,14 +92,14 @@ namespace WakeFarmControlR
 
                     for (var j = jjMin; j <= jjMax; j++)
                     {
-                        if (((-vell_i[ii - 1, j - 1] + Uhub._(k)) > 0) && (ii > xTurbC._(k) + nk))
+                        if (((-vell_i[ii - 1, j - 1] + Uhub[k - 1]) > 0) && (ii > xTurbC._(k) + nk))
                         {
-                            vell_i[ii - 1, j - 1] = min(vell_i[ii - 2, j - 1], Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS));
+                            vell_i[ii - 1, j - 1] = min(vell_i[ii - 2, j - 1], Uhub[k - 1] + Uhub[k - 1] * (sqrt(1 - Ct._(k)) - 1) * ((r0 * r0) / (rrt * rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS));
                             vell_i[ii - 1, j - 1] = max(0, vell_i[ii - 1, j - 1]);
                         }
                         else
                         {
-                            vell_i[ii - 1, j - 1] = (Uhub._(k) + Uhub._(k) * (sqrt(1 - Ct._(k)) - 1) * (r0 / rrt) * (r0 / rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS);
+                            vell_i[ii - 1, j - 1] = (Uhub[k - 1] + Uhub[k - 1] * (sqrt(1 - Ct._(k)) - 1) * (r0 / rrt) * (r0 / rrt)) * (1 - (1 - sqrt(1 - Ct._(k))) * SS);
                             vell_i[ii - 1, j - 1] = max(0, vell_i[ii - 1, j - 1]);
                         }
                     }

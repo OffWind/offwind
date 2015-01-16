@@ -65,13 +65,14 @@ namespace WakeFarmControlR
             ILArray<double> beta;
             ILArray<double> Omega;
             ILArray<double> initVector;
-            ILArray<double> Mg;
+            ILArray<double> Mg___i_;
             ILArray<double> wField;
             double dZ;
             ILArray<double> du;
             double[] x___1_;
             double[] x___2_;
-            ILArray<double> u;
+            double[] u___1_;
+            double[] u___2_;
             double alpha;
             int j;
             ILArray<double> dx;
@@ -147,7 +148,7 @@ namespace WakeFarmControlR
             Omega = initMatrix.C; // Initialize revolutional velocity matrix.
 
             initVector = ones(parm.N, 1);
-            Mg = 0 * initVector;
+            Mg___i_ = 0 * initVector;
             wField = zeros(simParm.grid / simParm.gridRes, simParm.grid / simParm.gridRes); // Wind field matrix
 
             //% Controller Initizliation
@@ -155,7 +156,8 @@ namespace WakeFarmControlR
             du = zeros(parm.N, 1); // Integration variable. 
             x___1_ = (omega0 * initVector).GetArrayForRead();
             x___2_ = (0 * initVector).GetArrayForRead();
-            u = __[ beta0 * initVector, power0 * initVector ]; // u0
+            u___1_ = (beta0 * initVector).GetArrayForRead(); // u0
+            u___2_ = (power0 * initVector).GetArrayForRead(); // u0
             P_demand._(1, '=', config.InitialPowerDemand); // Power Demand.
 
             double turbinesDTurb;
@@ -226,28 +228,28 @@ namespace WakeFarmControlR
                 //Torque controller
                 for (j = 1; j <= parm.N; j++)
                 {
-                    if ((x___1_[j - 1] * 97 >= VS_RtGnSp) || (u._(j, 1) >= 1))      //! We are in region 3 - power is constant
+                    if ((x___1_[j - 1] * 97 >= VS_RtGnSp) || (u___1_[j - 1] >= 1))      //! We are in region 3 - power is constant
                     {
-                        u._(j, 2, '=', P_ref._(j, i) / x___1_[j - 1]);
+                        u___2_[j - 1]   = P_ref._(j, i) / x___1_[j - 1];
                     }
                     else if (x___1_[j - 1] * 97 <= VS_CtInSp)                     //! We are in region 1 - torque is zero
                     {
-                        u._(j, 2,   '=', 0.0);
+                        u___2_[j - 1]   = 0.0;
                     }
                     else                                                //! We are in region 2 - optimal torque is proportional to the square of the generator speed
                     {
-                        u._(j, 2,   '=', 97 * VS_Rgn2K * x___1_[j - 1] * x___1_[j - 1] * _p(97, 2));
+                        u___2_[j - 1]   = 97 * VS_Rgn2K * x___1_[j - 1] * x___1_[j - 1] * _p(97, 2);
                     }
                 }
 
-                dx              = (omega0 - ((ILArray<double>)x___1_)) - (omega0 - Omega[_(':'), _(i - 1)]);
-                du              = Kp * dx + Ki * simParm.timeStep * (omega0 - ((ILArray<double>)(x___1_)));
-                du              = min(max(du, -wt.ctrl.pitch.ratelim), wt.ctrl.pitch.ratelim);
-                u[_(':'), _(1)] = min(max(u[_(':'), _(1)] + du * simParm.timeStep, Umin), Umax);
+                dx = (omega0 - ((ILArray<double>)x___1_)) - (omega0 - Omega[_(':'), _(i - 1)]);
+                du = Kp * dx + Ki * simParm.timeStep * (omega0 - ((ILArray<double>)(x___1_)));
+                du = min(max(du, -wt.ctrl.pitch.ratelim), wt.ctrl.pitch.ratelim);
+                u___1_ = (min(max(((ILArray<double>)u___1_) + du * simParm.timeStep, Umin), Umax)).GetArrayForRead();
 
 
-                Mg[_(':'), _(i)]    = u[_(':'), _(2)]; // Torque Input
-                beta[_(':'), _(i)]  = u[_(':'), _(1)]; // Pitch Input
+                Mg___i_ = u___2_; // Torque Input
+                beta[_(':'), _(i)] = u___1_; // Pitch Input
 
                 // Turbine dynamics - can be simplified:
                 if (enableTurbineDynamics)
@@ -255,7 +257,7 @@ namespace WakeFarmControlR
                     for (j = 1; j <= parm.N; j++)
                     {
                         double x_j_1_; double parm_Ct_j_i_; double parm_Cp_j_i_;
-                        turbineDrivetrainModel(out x_j_1_, out parm_Ct_j_i_, out parm_Cp_j_i_, x___1_[j - 1], x___2_[j - 1], u[_(j), _(':')], wt, env, simParm.timeStep);
+                        turbineDrivetrainModel(out x_j_1_, out parm_Ct_j_i_, out parm_Cp_j_i_, x___1_[j - 1], x___2_[j - 1], u___1_[j - 1], u___2_[j - 1], wt, env, simParm.timeStep);
                         x___1_[j - 1] = x_j_1_; parm.Ct._(j, i, '=', parm_Ct_j_i_); parm.Cp._(j, i, '=', parm_Cp_j_i_);
                     }
                 }
@@ -265,7 +267,7 @@ namespace WakeFarmControlR
                 }
 
                 Omega[_(':'), _(i)] = x___1_;
-                Power[_(':'), _(i)] = Omega[_(':'), _(i)] * Mg[_(':'), _(i)];
+                Power[_(':'), _(i)] = Omega[_(':'), _(i)] * Mg___i_;
 
                 // Power Summations
                 sumPower._(i,   '=', sum_(Power[_(':'), _(i)]) * _p(10, -6));

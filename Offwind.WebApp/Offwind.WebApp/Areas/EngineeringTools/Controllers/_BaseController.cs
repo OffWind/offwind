@@ -54,6 +54,12 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 .AddItem("Results", new NavUrl("Results", "WakeSimulation2", "EngineeringTools"))
                 .AddItem("Help", new NavUrl("Index", "EngWindSim", "Help"), openInNewWindow: true);
 
+            navigation.AddGroup("Wind Farm Control-N", isActive: controller == "WakeSimulation2New")
+                .AddItem("Simulation", new NavUrl("Simulation", "WakeSimulation2New", "EngineeringTools"))
+                .AddItem("Results", new NavUrl("Results", "WakeSimulation2New", "EngineeringTools"))
+                .AddItem("Nowcasting", new NavUrl("Nowcasting", "WakeSimulation2New", "EngineeringTools"))
+                .AddItem("Help", new NavUrl("Index", "EngWindFarmControlNew", "Help"), openInNewWindow: true);
+
             //navigation.AddGroup("Wind Farm Control", isActive: controller == "WindFarm")
             //    .AddItem("Input Data", new NavUrl("InputData", "WindFarm", "EngineeringTools"))
             //    .AddItem("Simulation", new NavUrl("Simulation", "WindFarm", "EngineeringTools"));

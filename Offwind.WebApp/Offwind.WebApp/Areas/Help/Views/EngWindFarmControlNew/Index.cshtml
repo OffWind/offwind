@@ -1,0 +1,130 @@
+﻿<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a><span class="divider">/</span></li>
+    <li><a href="@Url.Action("Index", "HomeHelp", new { area = "Help" })">Help</a> <span class="divider">/</span></li>
+    <li>Engineering Tools <span class="divider">/</span></li>
+    <li>Wind Farm Control</li>
+</ul>
+<div class="row-fluid row-content-block">
+    <div class="span12 well text">
+        <h1>Wind Farm Control Nowcasting</h1>
+
+        <h2>What is nowcasting</h2>
+        <p>The term <i>Nowcasting</i> means <i>fore-casting</i> for a relative short prediction horizon. For wind farm applications short is below some hours.</p>
+
+        <h2>What is it good for</h2>
+        <p>It is important for the electricity grid and thus the transmission system operator (TSO), to know what a
+farm will produce in the next hour [Giebel and Kariniotakis, 2009, Landberg, 2012]. The Danish TSO
+point to 10 min as the most relevant prediction horizon [Pinson, 2012]. The uncertainty on the forecast is
+as important as the point forecast itself [Landberg, 2012]. If no uncertainty is provided then for example
+the probability of lag of power in the next hour will be unknown. The inter hour forecast can also be
+used by the farm owner/operator for trading in the balancing market.</p>
+        <p>A medium range forecast for horizon’s from 12-36 hours can be used for energy trading e.g. at Nord
+Pool.</p>
+
+        <h2>Modelling methods</h2>
+        <p>From meteorology we have models used for weather forecast. The models are based on the laws of
+physics and are very power full for forecast from one to approximately 10 days ahead [Shaojin et al.,
+1991]. Forecasts for more than 10 days e.g. one month should be based on seasonal statistics as the
+physical models loses their power on these long horizons [Lorenz, 1963]. For short horizons e.g. less
+than one hour the meteorology models becomes less useful. For very short horizons like one minute,
+statistical models using available measurement will be superior. Moreover, persistent methods [Glassley
+et al., 2010, Giebel and Kariniotakis, 2007] where the most recent measurement is used as the prediction
+is close to optimal. However a good method for the uncertainty are still needed. For horizons increasing
+from seconds to days the focus should move from statistical to meteorological methods and models
+[Glassley et al., 2010]. These two concepts are illustrated in figure 1.</p>
+        <p>
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/forecasting-less-than-one-hour.PNG" alt="Figure 1: Forecasting less than a few hours can build more on statistical methods and realtime data compared to meteorology." />
+        </p>
+
+        <h2>Models</h2>
+        <p>The models developed here are not using any meteorological forecasts. They only use standard measurement
+which are available in commercial wind farms. The models are based on standard statistical time
+series analysis. The atmospheric conditions as 10 minutes average wind speed and direction, turbulence
+intensity and atmospheric stability is typically only varying slightly within the hour but often changes
+dramatically over hours and days. Consequently some form of adaptive methods must be used to follow
+these changes. For this standard forgetting factor methods for system identification is used for two
+simple models which predicts total wind farm power from its historical values.</p>
+        <h3>Persistence based on WF power including uncertainty</h3>
+        <p>If the signal in question, here wind farm power, is called x the persistence method is by definition</p>
+        <p>
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-1.PNG" />(1)
+        </p>
+        <p>From a time series point of view this is consistent with using a Wiener process for x</p>
+        <p>
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-2.PNG" />(2)
+        </p>
+        <p>where W(q) denotes a Wiener process in continuous time with incremental variance q. By definition
+this means that x is normal with independent increments with variance proportional to time lag. From
+this the predictor and its prediction error variances follows from (3) below which holds for any   0.</p>
+        <p>
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-3.PNG" />(3a)
+        </p>
+        <p>
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-4.PNG" />(3b)
+        </p>
+        <p>
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-5.PNG" />(3c)
+        </p>
+        <p>
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-6.PNG" />(3d)
+        </p>
+        <p>
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-7.PNG" />(3e)
+        </p>
+        <p>The only parameter in this model is q. As it is not known it has to be estimated.</p>
+        <h4>Beyond persistence models</h4>
+        <p>In principle all time series model structures could be used instead of the persistence model. For example
+the simple first order discrete time (AR) process can be used.</p>
+        <p>
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-8.PNG" />(4)
+        </p>
+        <p>
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-9.PNG" />(5)
+        </p>
+        <p>The parameters a; ;  can then be estimated in a adaptive/recursive way. Also a approximation for the
+confidence limits can be found. Strictly speaking, AR processes has no input and therefore has mean
+value 0. The term (t) can be interpreted as (t)u(t 􀀀  ) i.e. a input u which is always 1. In this sense
+the model type is an auto regressive model with exogenous input (ARX). The parameter (t) only serves
+to give a non zero mean value (5) therefore the model is still called a AR model.</p>
+
+        <h2>Alternative methods and models</h2>
+        <p>It is very important to consider exactly what inputs are used was outputs are predicted and what assumptions
+are done. For example, is it total wind farm power that is predicted assuming the wind farm always
+runs at max power or is the farm allowed to be derated and then not the produce power but the available
+power is predicted.</p>
+        <p>There are a number of other choices that defines the forecasting method. The most important are:</p>
+        <ul>
+            <li>Start with wind speed and direction and map to power or directly use power.</li>
+            <li>Use values from single turbines or aggregated values from wind farm.</li>
+            <li>Model type used: persistence, AR etc.</li>
+        </ul>
+        <p>Any of these many combinations could potentially be a good model. Methods using power of course
+only works when derating is not used. Some of the most reasonable models are presented and discussed
+in more details in Knudsen [2014].</p>
+
+        <h2>References</h2>
+        <ul class="reference">
+            <li>[1] G. Giebel and G. Kariniotakis. Best practice in short-term forecasting - a users guide. In Conference
+proceedings (online). EWEA, European Wind Energy Association (EWEA), 2007.</li>
+            <li>[2] G. Giebel and G. Kariniotakis. Best practice in short-term forecasting - a users guide. Technical report,
+Risø National Laboratory for Sustainable Energy, DTU, Denmark, 2009.</li>
+            <li>[3] W. Glassley, J. Kleissl, C. C. van Dam, H. Shiu, J. Huang, G. Braun, and R. Holland. California renewable
+energy forecasting, resource data and mapping. Reports 500-99-013, California Institute for
+Energy and Environment, 2010. Appendix BWind Energy Forecasting: A Review of State-of-the-Art
+and Recommendations for Better Forecasts.</li>
+            <li>[4] T. Knudsen. Wind farm power nowcasting for less than an hour - offwind project. Technical report,
+Automation and Control, Department of Electronic Systems, Aalborg University, 2014.</li>
+            <li>[5] L. Landberg. Taking the guesswork out of wind power forecasting. In EWEA2012, Monday 16 - Thursday
+19 April 2012, Copenhagen, Denmark. EWEA, EWEA, 2012. Slide presentation.</li>
+            <li>[6] E. N. Lorenz. Deterministic nonperiodic flow. Journal of the Atmospheric Sciences, 20(2):130–141,
+1963. doi: 10.1175/1520-0469(1963)020<0130:dnf>2.0.CO;2.</li>
+            <li>[7] P. Pinson. Very-short-term probabilistic forecasting of wind power with generalized logit-normal
+distributions. Journal of the Royal Statistical Society, Appl. Statist., 61:555–576, 2012. doi:
+10.1002/for.1194.</li>
+            <li>[8] Y. Shaojin, P. Yongqing, and W. Jianzhong. Determination of kolmogorov entropy of chaotic attractor
+included in one-dimensional time series of meteorological data. Advances in Atmospheric Sciences, 8
+(2):243–250, 1991. doi: 10.1007/BF02658098.</li>
+        </ul>
+    </div>
+</div>
+

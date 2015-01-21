@@ -266,6 +266,7 @@
     <Compile Include="Areas\EngineeringTools\Controllers\WakeSimulation2NewController.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation2New\VNowcastingProperties.cs" />
     <Compile Include="Areas\EngineeringTools\Models\WakeSimulation2New\VGeneralProperties.cs" />
+    <Compile Include="Areas\Help\Controllers\EngWindFarmControlNewController.cs" />
     <Compile Include="Areas\Management\Controllers\AboutController.cs" />
     <Compile Include="Areas\Management\Controllers\CarouselController.cs" />
     <Compile Include="Areas\Management\Controllers\DescriptionAttribute.cs" />
@@ -396,6 +397,7 @@
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2New\Results.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2New\Simulation.cshtml" />
     <Content Include="Areas\EngineeringTools\Views\WakeSimulation2New\Nowcasting.cshtml" />
+    <Content Include="Areas\Help\Views\EngWindFarmControlNew\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -906,6 +908,16 @@
     <Content Include="static\css\bs-docs.css" />
     <Content Include="static\css\elements.css" />
     <Content Include="static\css\myelements.css" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\forecasting-less-than-one-hour.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-1.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-2.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-3.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-4.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-5.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-6.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-7.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-8.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-9.png" />
     <Content Include="static\handlebars\handlebars-v1.3.0.js" />
     <Content Include="static\handlebars\handlebars-v1.3.0.min.js" />
     <Content Include="static\handsontable-0.10.3\jquery.handsontable.bootstrap.css" />

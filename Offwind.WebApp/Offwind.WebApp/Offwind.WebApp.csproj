@@ -908,6 +908,10 @@
     <Content Include="static\css\bs-docs.css" />
     <Content Include="static\css\elements.css" />
     <Content Include="static\css\myelements.css" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\expression-01.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\expression-02.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\expression-03.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\expression-04.png" />
     <Content Include="static\eng-tools\wake-farm-control-nowcasting\forecasting-less-than-one-hour.png" />
     <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-1.png" />
     <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-2.png" />
@@ -918,6 +922,12 @@
     <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-7.png" />
     <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-8.png" />
     <Content Include="static\eng-tools\wake-farm-control-nowcasting\formula-9.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\symbol-alpha.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\symbol-mu.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\symbol-q.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\symbol-sigma.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\symbol-u.png" />
+    <Content Include="static\eng-tools\wake-farm-control-nowcasting\symbol-x.png" />
     <Content Include="static\handlebars\handlebars-v1.3.0.js" />
     <Content Include="static\handlebars\handlebars-v1.3.0.min.js" />
     <Content Include="static\handsontable-0.10.3\jquery.handsontable.bootstrap.css" />

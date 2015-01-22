@@ -4,18 +4,42 @@
     <li>Engineering Tools <span class="divider">/</span></li>
     <li>Wind Farm Control</li>
 </ul>
+<style>
+    .image.formula {
+        margin-left: 40px;
+    }
+
+    span.formula-number {
+        float: right;
+    }
+
+    ul.reference li {
+        list-style: none;
+    }
+
+    a.anchor {
+        position: relative;
+        top: -45px;
+    }
+
+    div.figure-caption {
+        text-align: center;
+        font-size: smaller;
+    }
+</style>
 <div class="row-fluid row-content-block">
     <div class="span12 well text">
         <h1>Wind Farm Control Nowcasting</h1>
+        <br />
 
         <h2>What is nowcasting</h2>
         <p>The term <i>Nowcasting</i> means <i>fore-casting</i> for a relative short prediction horizon. For wind farm applications short is below some hours.</p>
 
         <h2>What is it good for</h2>
         <p>It is important for the electricity grid and thus the transmission system operator (TSO), to know what a
-farm will produce in the next hour [Giebel and Kariniotakis, 2009, Landberg, 2012]. The Danish TSO
-point to 10 min as the most relevant prediction horizon [Pinson, 2012]. The uncertainty on the forecast is
-as important as the point forecast itself [Landberg, 2012]. If no uncertainty is provided then for example
+farm will produce in the next hour [<a href="#ref-02">Giebel and Kariniotakis, 2009</a>, <a href="#ref-05">Landberg, 2012</a>]. The Danish TSO
+point to 10 min as the most relevant prediction horizon [<a href="#ref-07">Pinson, 2012</a>]. The uncertainty on the forecast is
+as important as the point forecast itself [<a href="#ref-05">Landberg, 2012</a>]. If no uncertainty is provided then for example
 the probability of lag of power in the next hour will be unknown. The inter hour forecast can also be
 used by the farm owner/operator for trading in the balancing market.</p>
         <p>A medium range forecast for horizon’s from 12-36 hours can be used for energy trading e.g. at Nord
@@ -23,69 +47,72 @@ Pool.</p>
 
         <h2>Modelling methods</h2>
         <p>From meteorology we have models used for weather forecast. The models are based on the laws of
-physics and are very power full for forecast from one to approximately 10 days ahead [Shaojin et al.,
-1991]. Forecasts for more than 10 days e.g. one month should be based on seasonal statistics as the
-physical models loses their power on these long horizons [Lorenz, 1963]. For short horizons e.g. less
+physics and are very power full for forecast from one to approximately 10 days ahead [<a href="#ref-08">Shaojin et al.,
+1991</a>]. Forecasts for more than 10 days e.g. one month should be based on seasonal statistics as the
+physical models loses their power on these long horizons [<a href="#ref-06">Lorenz, 1963</a>]. For short horizons e.g. less
 than one hour the meteorology models becomes less useful. For very short horizons like one minute,
-statistical models using available measurement will be superior. Moreover, persistent methods [Glassley
-et al., 2010, Giebel and Kariniotakis, 2007] where the most recent measurement is used as the prediction
+statistical models using available measurement will be superior. Moreover, persistent methods [<a href="#ref-03">Glassley
+et al., 2010</a>, <a href="#ref-01">Giebel and Kariniotakis, 2007</a>] where the most recent measurement is used as the prediction
 is close to optimal. However a good method for the uncertainty are still needed. For horizons increasing
 from seconds to days the focus should move from statistical to meteorological methods and models
-[Glassley et al., 2010]. These two concepts are illustrated in figure 1.</p>
+[<a href="#ref-03">Glassley et al., 2010</a>]. These two concepts are illustrated in <a href="#figure-01">figure 1</a>.</p>
         <p>
-            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/forecasting-less-than-one-hour.PNG" alt="Figure 1: Forecasting less than a few hours can build more on statistical methods and realtime data compared to meteorology." />
+            <a class="anchor" name="figure-01">&nbsp;</a><img class="image" src="/static/eng-tools/wake-farm-control-nowcasting/forecasting-less-than-one-hour.png" alt="Figure 1: Forecasting less than a few hours can build more on statistical methods and realtime data compared to meteorology." />
+            <div class="figure-caption">
+                Figure 1: Forecasting less than a few hours can build more on statistical methods and realtime data compared to meteorology.
+            </div>
         </p>
 
         <h2>Models</h2>
         <p>The models developed here are not using any meteorological forecasts. They only use standard measurement
-which are available in commercial wind farms. The models are based on standard statistical time
-series analysis. The atmospheric conditions as 10 minutes average wind speed and direction, turbulence
+which are available in commercial wind farms. The models are based on standard statistical <i>time
+series analysis</i>. The atmospheric conditions as 10 minutes average wind speed and direction, turbulence
 intensity and atmospheric stability is typically only varying slightly within the hour but often changes
 dramatically over hours and days. Consequently some form of adaptive methods must be used to follow
 these changes. For this standard forgetting factor methods for system identification is used for two
 simple models which predicts total wind farm power from its historical values.</p>
         <h3>Persistence based on WF power including uncertainty</h3>
-        <p>If the signal in question, here wind farm power, is called x the persistence method is by definition</p>
+        <p>If the signal in question, here wind farm power, is called <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/symbol-x.png" /> the persistence method is by definition</p>
         <p>
-            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-1.PNG" />(1)
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-1.png" />.<a class="anchor" name="formula-01">&nbsp;</a><span class="formula-number">(1)</span>
         </p>
-        <p>From a time series point of view this is consistent with using a Wiener process for x</p>
+        <p>From a time series point of view this is consistent with using a Wiener process for <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/symbol-x.png" /></p>
         <p>
-            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-2.PNG" />(2)
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-2.png" />,<a class="anchor" name="formula-02">&nbsp;</a><span class="formula-number">(2)</span>
         </p>
-        <p>where W(q) denotes a Wiener process in continuous time with incremental variance q. By definition
-this means that x is normal with independent increments with variance proportional to time lag. From
-this the predictor and its prediction error variances follows from (3) below which holds for any   0.</p>
+        <p>where <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/expression-01.png" /> denotes a Wiener process in continuous time with <i>incremental</i> variance <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/symbol-q.png" />. By definition
+this means that <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/symbol-x.png" /> is normal with independent increments with variance proportional to time lag. From
+this the predictor and its prediction error variances follows from <a href="#formula-03">(3)</a> below which holds for any <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/expression-02.png" />.</p>
         <p>
-            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-3.PNG" />(3a)
-        </p>
-        <p>
-            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-4.PNG" />(3b)
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-3.png" /><a class="anchor" name="formula-03">&nbsp;</a><span class="formula-number">(3a)</span>
         </p>
         <p>
-            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-5.PNG" />(3c)
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-4.png" /><a class="anchor" name="formula-04">&nbsp;</a><span class="formula-number">(3b)</span>
         </p>
         <p>
-            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-6.PNG" />(3d)
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-5.png" /><a class="anchor" name="formula-05">&nbsp;</a><span class="formula-number">(3c)</span>
         </p>
         <p>
-            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-7.PNG" />(3e)
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-6.png" /><a class="anchor" name="formula-06">&nbsp;</a><span class="formula-number">(3d)</span>
         </p>
-        <p>The only parameter in this model is q. As it is not known it has to be estimated.</p>
+        <p>
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-7.png" /><a class="anchor" name="formula-07">&nbsp;</a><span class="formula-number">(3e)</span>
+        </p>
+        <p>The only parameter in this model is <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/symbol-q.png" />. As it is not known it has to be estimated.</p>
         <h4>Beyond persistence models</h4>
         <p>In principle all time series model structures could be used instead of the persistence model. For example
 the simple first order discrete time (AR) process can be used.</p>
         <p>
-            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-8.PNG" />(4)
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-8.png" /><a class="anchor" name="formula-08">&nbsp;</a><span class="formula-number">(4)</span>
         </p>
         <p>
-            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-9.PNG" />(5)
+            <img class="image formula" src="/static/eng-tools/wake-farm-control-nowcasting/formula-9.png" /><a class="anchor" name="formula-09">&nbsp;</a><span class="formula-number">(5)</span>
         </p>
-        <p>The parameters a; ;  can then be estimated in a adaptive/recursive way. Also a approximation for the
+        <p>The parameters <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/symbol-alpha.png" />, <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/symbol-mu.png" />, <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/symbol-sigma.png" /> can then be estimated in a adaptive/recursive way. Also a approximation for the
 confidence limits can be found. Strictly speaking, AR processes has no input and therefore has mean
-value 0. The term (t) can be interpreted as (t)u(t 􀀀  ) i.e. a input u which is always 1. In this sense
-the model type is an auto regressive model with exogenous input (ARX). The parameter (t) only serves
-to give a non zero mean value (5) therefore the model is still called a AR model.</p>
+value 0. The term <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/expression-03.png" /> can be interpreted as <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/expression-04.png" /> i.e. a input <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/symbol-u.png" /> which is always 1. In this sense
+the model type is an <i>auto regressive model with exogenous input</i> (ARX). The parameter <img class="image inline-expression" src="/static/eng-tools/wake-farm-control-nowcasting/expression-03.png" /> only serves
+to give a non zero mean value <a href="#formula-09">(5)</a> therefore the model is still called a AR model.</p>
 
         <h2>Alternative methods and models</h2>
         <p>It is very important to consider exactly what inputs are used was outputs are predicted and what assumptions
@@ -100,29 +127,29 @@ power is predicted.</p>
         </ul>
         <p>Any of these many combinations could potentially be a good model. Methods using power of course
 only works when derating is not used. Some of the most reasonable models are presented and discussed
-in more details in Knudsen [2014].</p>
+in more details in <a href="#ref-04">Knudsen [2014]</a>.</p>
 
         <h2>References</h2>
         <ul class="reference">
-            <li>[1] G. Giebel and G. Kariniotakis. Best practice in short-term forecasting - a users guide. In Conference
-proceedings (online). EWEA, European Wind Energy Association (EWEA), 2007.</li>
-            <li>[2] G. Giebel and G. Kariniotakis. Best practice in short-term forecasting - a users guide. Technical report,
+            <li>[1]<a class="anchor" name="ref-01">&nbsp;</a>G. Giebel and G. Kariniotakis. Best practice in short-term forecasting - a users guide. In <i>Conference
+proceedings (online)</i>. EWEA, European Wind Energy Association (EWEA), 2007.</li>
+            <li>[2]<a class="anchor" name="ref-02">&nbsp;</a>G. Giebel and G. Kariniotakis. Best practice in short-term forecasting - a users guide. Technical report,
 Risø National Laboratory for Sustainable Energy, DTU, Denmark, 2009.</li>
-            <li>[3] W. Glassley, J. Kleissl, C. C. van Dam, H. Shiu, J. Huang, G. Braun, and R. Holland. California renewable
+            <li>[3]<a class="anchor" name="ref-03">&nbsp;</a>W. Glassley, J. Kleissl, C. C. van Dam, H. Shiu, J. Huang, G. Braun, and R. Holland. California renewable
 energy forecasting, resource data and mapping. Reports 500-99-013, California Institute for
 Energy and Environment, 2010. Appendix BWind Energy Forecasting: A Review of State-of-the-Art
 and Recommendations for Better Forecasts.</li>
-            <li>[4] T. Knudsen. Wind farm power nowcasting for less than an hour - offwind project. Technical report,
+            <li>[4]<a class="anchor" name="ref-04">&nbsp;</a>T. Knudsen. Wind farm power nowcasting for less than an hour - offwind project. Technical report,
 Automation and Control, Department of Electronic Systems, Aalborg University, 2014.</li>
-            <li>[5] L. Landberg. Taking the guesswork out of wind power forecasting. In EWEA2012, Monday 16 - Thursday
-19 April 2012, Copenhagen, Denmark. EWEA, EWEA, 2012. Slide presentation.</li>
-            <li>[6] E. N. Lorenz. Deterministic nonperiodic flow. Journal of the Atmospheric Sciences, 20(2):130–141,
+            <li>[5]<a class="anchor" name="ref-05">&nbsp;</a>L. Landberg. Taking the guesswork out of wind power forecasting. In <i>EWEA2012, Monday 16 - Thursday
+19 April 2012, Copenhagen, Denmark</i>. EWEA, EWEA, 2012. Slide presentation.</li>
+            <li>[6]<a class="anchor" name="ref-06">&nbsp;</a>E. N. Lorenz. Deterministic nonperiodic flow. <i>Journal of the Atmospheric Sciences</i>, 20(2):130–141,
 1963. doi: 10.1175/1520-0469(1963)020<0130:dnf>2.0.CO;2.</li>
-            <li>[7] P. Pinson. Very-short-term probabilistic forecasting of wind power with generalized logit-normal
-distributions. Journal of the Royal Statistical Society, Appl. Statist., 61:555–576, 2012. doi:
+            <li>[7]<a class="anchor" name="ref-07">&nbsp;</a>P. Pinson. Very-short-term probabilistic forecasting of wind power with generalized logit-normal
+distributions. <i>Journal of the Royal Statistical Society, Appl. Statist.</i>, 61:555–576, 2012. doi:
 10.1002/for.1194.</li>
-            <li>[8] Y. Shaojin, P. Yongqing, and W. Jianzhong. Determination of kolmogorov entropy of chaotic attractor
-included in one-dimensional time series of meteorological data. Advances in Atmospheric Sciences, 8
+            <li>[8]<a class="anchor" name="ref-08">&nbsp;</a>Y. Shaojin, P. Yongqing, and W. Jianzhong. Determination of kolmogorov entropy of chaotic attractor
+included in one-dimensional time series of meteorological data. <i>Advances in Atmospheric Sciences</i>, 8
 (2):243–250, 1991. doi: 10.1007/BF02658098.</li>
         </ul>
     </div>

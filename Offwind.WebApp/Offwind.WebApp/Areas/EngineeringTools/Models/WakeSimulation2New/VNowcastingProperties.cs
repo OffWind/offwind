@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Offwind.WebApp.Models;
@@ -9,11 +10,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New
 {
     public enum NowcastingSimulationMethod
     {
-        [System.ComponentModel.DataAnnotations.Display(Name = "AR(1)", ShortName = "AR(1)", Description = "AR(1)")]
-        [Description("AR(1)")]
+        [Display(Name = "AR(1)")]
         a,
-        [System.ComponentModel.DataAnnotations.Display(Name = "Persistence", ShortName = "Persistence", Description = "Persistence")]
-        [Description("Persistence")]
+        [Display(Name = "Persistence")]
         p
     }
 

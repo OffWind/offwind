@@ -293,7 +293,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult WindFarmInfo(Guid? id)
         {
             var dWindFarm = _ctx.DWindFarms.First(e => _model.WindFarm == e.Name);
-            return RedirectToAction("Details", "WindFarm", new { area = "WindFarms", id = dWindFarm.Id, returnTo = "WakeSimulator2New" });
+            return RedirectToAction("Details", "WindFarm", new { area = "WindFarms", id = dWindFarm.Id, returnTo = "WakeSimulation2New" });
         }
     }
 }

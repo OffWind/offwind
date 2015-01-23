@@ -5,9 +5,9 @@
         <a href="@Url.Action("Edit", "WindFarm", new { area = "WindFarms", id = Model.Id })" class="btn btn-primary">Edit</a>
         <a href="@Url.Action("Delete", "WindFarm", new { area = "WindFarms", id = Model.Id })" class="btn btn-danger">Delete</a>
     }
-    @if (Model.ReturnTo == "WakeSimulator2")
+    @if (Model.ReturnTo == "WakeSimulation2" || Model.ReturnTo == "WakeSimulation2New")
     {
-        <a href="@Url.Action("Index", "WakeSimulation2", new { area = "EngineeringTools" })" class="btn">Back to list</a>
+        <a href="@Url.Action("Simulation", Model.ReturnTo, new { area = "EngineeringTools" })" class="btn">Back to Simulation</a>
     }
     else
     {

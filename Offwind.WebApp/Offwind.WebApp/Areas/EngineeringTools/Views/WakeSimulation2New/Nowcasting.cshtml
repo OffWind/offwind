@@ -6,18 +6,16 @@
     <li>Wind Farm Control</li>
 </ul>
 
-<!--<div>
-    <a href="@Url.Action("Results", "WakeSimulation2New", new { area = "EngineeringTools" })">&lt;&lt;&nbsp;To simulation results</a>
-</div>-->
-
 @section styles
 {
     <style type="text/css">
+        /*
         .alert-warning {
           color: #996633;
           background-color: #ffffcc;
           border-color: #996633;
         }
+        */
     </style>
 }
 
@@ -33,7 +31,13 @@
                     <form class="form-horizontal" method="post">
                         <br />
                         <fieldset>
-                            @Html.EditorFor(m => m.Method)
+                            <!--@Html.EditorFor(m => m.Method)-->
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.Method, new { @class = "control-label" })
+                                <div class="controls controls-row">
+                                    @Html.EnumDropDownListFor(m => m.Method, new { @class = "input-xlarge" })
+                                </div>
+                            </div>
                             @Html.EditorFor(m => m.TimeForStarting)
                             @Html.EditorFor(m => m.Decimation)
                             @Html.EditorFor(m => m.SamplingTime)
@@ -43,7 +47,7 @@
                             <button type="submit" class="btn btn-primary@(Model.WasWakeSimulationPerformed ? string.Empty : " disabled")"@(Model.WasWakeSimulationPerformed ? string.Empty : "disabled=\"disabled\"")>Run</button>
                         </div>
                         <div id="alert-error" class="alert alert-error@(Model.WasWakeSimulationPerformed ? " hidden" : string.Empty)" style="margin: 20px;">
-                            Wake Simulation has not been performed yet. To run Nowcasting Simulation please <a href="@Url.Action("Simulation", "WakeSimulation2New", new { area = "EngineeringTools" })">run</a> Wake Simulation first.
+                            Wind Farm Control Simulation has not been performed yet. To run Nowcasting Simulation please run <a href="@Url.Action("Simulation", "WakeSimulation2New", new { area = "EngineeringTools" })">Wind Farm Control Simulation</a> first.
                         </div>
                     </form>
                 </div>

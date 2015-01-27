@@ -131,7 +131,7 @@
             var xhmsAllTimeOffset = data.XhmsAllTimeOffset;
             var xhmsLLength = data.XhmsLLength;
             var xhmsUOffset = data.XhmsUOffset;
-            var series_titles = [ 'x', 'xhmsL', 'xhms', 'xhmsU' ];
+            var series_titles = [ 'WF Power', 'Forecast lower conf. lim.', 'Forecast', 'Forecast upper conf. lim.' ];
 
             var chart = new Highcharts.Chart({
                 chart: {
@@ -143,6 +143,7 @@
                 xAxis: {
                     min: 0,
                     title: {
+                        text: 'Time [h]'
                     }
                 },
                 yAxis: {

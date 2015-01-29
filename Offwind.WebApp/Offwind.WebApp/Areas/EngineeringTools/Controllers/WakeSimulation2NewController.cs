@@ -19,15 +19,103 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         const string ResultsPageTitle = "Results | Wake Simulation II-New | Offwind";
         const string NowcastingPageTitle = "Nowcasting | Wake Simulation II-New | Offwind";
 
-        private static VGeneralProperties _model = null;
+        private VGeneralProperties _model
+        {
+            get
+            {
+                return (VGeneralProperties)(Session["WindFarmControlNew.GeneralProperties"]);
+            }
+            set
+            {
+                Session["WindFarmControlNew.GeneralProperties"] = value;
+            }
+        }
+
         private static List<string> _wfl = null;
-        static private double _simulationTimeStep;
-        static private double[][] _simulation;
-        static private double[][] _simulationDataOut;
-        static private List<string> _simulationInformationMessages;
-        static VNowcastingProperties _nowcastingModel = null;
-        static private WakeFarmControl.NowCast.NowCastSimulationResult _nowcastingSimulationResult;
-        static private List<string> _nowcastingSimulationWarningMessages;
+
+        private double _simulationTimeStep
+        {
+            get
+            {
+                return (double)(Session["WindFarmControlNew.SimulationTimeStep"] ?? ((double)0));
+            }
+            set
+            {
+                Session["WindFarmControlNew.SimulationTimeStep"] = value;
+            }
+        }
+
+        private double[][] _simulation
+        {
+            get
+            {
+                return (double[][])(Session["WindFarmControlNew.Simulation"]);
+            }
+            set
+            {
+                Session["WindFarmControlNew.Simulation"] = value;
+            }
+        }
+
+        private double[][] _simulationDataOut
+        {
+            get
+            {
+                return (double[][])(Session["WindFarmControlNew.SimulationDataOut"]);
+            }
+            set
+            {
+                Session["WindFarmControlNew.SimulationDataOut"] = value;
+            }
+        }
+
+        private List<string> _simulationInformationMessages
+        {
+            get
+            {
+                return (List<string>)(Session["WindFarmControlNew.SimulationInformationMessages"]);
+            }
+            set
+            {
+                Session["WindFarmControlNew.SimulationInformationMessages"] = value;
+            }
+        }
+
+        private VNowcastingProperties _nowcastingModel
+        {
+            get
+            {
+                return (VNowcastingProperties)(Session["WindFarmControlNew.NowcastingModel"]);
+            }
+            set
+            {
+                Session["WindFarmControlNew.NowcastingModel"] = value;
+            }
+        }
+
+        private WakeFarmControl.NowCast.NowCastSimulationResult _nowcastingSimulationResult
+        {
+            get
+            {
+                return (WakeFarmControl.NowCast.NowCastSimulationResult)(Session["WindFarmControlNew.NowcastingSimulationResult"]);
+            }
+            set
+            {
+                Session["WindFarmControlNew.NowcastingSimulationResult"] = value;
+            }
+        }
+
+        private List<string> _nowcastingSimulationWarningMessages
+        {
+            get
+            {
+                return (List<string>)(Session["WindFarmControlNew.NowcastingSimulationWarningMessages"]);
+            }
+            set
+            {
+                Session["WindFarmControlNew.NowcastingSimulationWarningMessages"] = value;
+            }
+        }
 
         public ActionResult Simulation()
         {
@@ -84,7 +172,11 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             config.NREL5MW_MatFile = WebConfigurationManager.AppSettings["WakeFarmControlRNREL5MW"]; // @"c:\farmcontrol\NREL5MW_Runc.mat";
             config.Wind_MatFile = WebConfigurationManager.AppSettings["WakeFarmControlRWind"]; // @"c:\farmcontrol\wind_Runc.mat";
 
-            _simulation = WakeFarmControlR.FarmControl.Simulation(config, out _simulationDataOut, out _simulationInformationMessages);
+            double[][] simulationDataOut;
+            List<string> simulationInformationMessages;
+            _simulation = WakeFarmControlR.FarmControl.Simulation(config, out simulationDataOut, out simulationInformationMessages);
+            _simulationDataOut = simulationDataOut;
+            _simulationInformationMessages = simulationInformationMessages;
             _simulationTimeStep = config.SimParm.timeStep;
             return RedirectToAction("Results");
         }
@@ -180,7 +272,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             config.r = _nowcastingModel.Decimation;
             config.Ts = _simulationTimeStep;
 
-            _nowcastingSimulationResult = WakeFarmControl.NowCast.NowCast.Simulation(_simulationDataOut, config, out _nowcastingSimulationWarningMessages);
+            List<string> nowcastingSimulationWarningMessages;
+            _nowcastingSimulationResult = WakeFarmControl.NowCast.NowCast.Simulation(_simulationDataOut, config, out nowcastingSimulationWarningMessages);
+            _nowcastingSimulationWarningMessages = nowcastingSimulationWarningMessages;
 
             return RedirectToAction("Nowcasting");
         }

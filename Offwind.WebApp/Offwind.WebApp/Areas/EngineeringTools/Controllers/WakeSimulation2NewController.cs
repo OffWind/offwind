@@ -31,7 +31,23 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
         }
 
-        private static List<string> _wfl = null;
+        private List<string> _wfl
+        {
+            get
+            {
+                var wfl = (List<string>)(Session["WindFarmControlNew.WindFarmsList"]);
+                if (wfl == null)
+                {
+                    wfl = new List<string>();
+                    Session["WindFarmControlNew.WindFarmsList"] = wfl;
+                }
+                return wfl;
+            }
+            set
+            {
+                Session["WindFarmControlNew.WindFarmsList"] = value;
+            }
+        }
 
         private double _simulationTimeStep
         {
@@ -124,7 +140,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             {
                 _model = new VGeneralProperties();
                 _model.TimeStep = (decimal)(0.1);
-                _wfl = new List<string>();
+                //_wfl = new List<string>();
                 _simulation = null;
                 _simulationDataOut = null;
                 _nowcastingSimulationResult = null;

@@ -106,7 +106,8 @@
                 
                 var p;
                 el.addEventListener('mouseenter', function (e) {
-                    p = points.findWhere({ id: e.toElement.id });
+                    var toElement = (!(e.toElement == null) ? e.toElement : e.target);
+                    p = points.findWhere({ id: toElement.id });
                     $(document).trigger('highlight_row', p.toJSON());
                 }, false);
                 

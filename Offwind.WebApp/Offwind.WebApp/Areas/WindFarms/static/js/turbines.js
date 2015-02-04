@@ -6,9 +6,10 @@
     var $deleteButton = $('#delete-turbine');
     var $resetModal = $('#reset_dlg');
     var points = options.data;
+    var maxUsedIndex = -1;
    
     for (var i = 0; i < points.length; i++) {
-        points[i].id = 't-' + i;
+        points[i].id = 't-' + (++maxUsedIndex);
         points[i].index = i;
     }
    
@@ -17,7 +18,7 @@
     $('#add-turbine').on('click', function () {
         collection.add({
             index: collection.length,
-            id: 't-' + collection.length,
+            id: 't-' + (++maxUsedIndex),
             x: 100,
             y: 100
         });
@@ -102,7 +103,7 @@
             $container.handsontable("loadData", coll.models);
             $container.handsontable("render");
             initHandlers();
-            changed();
+            //changed();
         })
             .on("remove", function () {
             $container.handsontable("render");

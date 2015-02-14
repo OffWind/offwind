@@ -86,9 +86,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="MatlabInterpreter">
-      <HintPath>..\..\Offwind.WakeFarmControl\MatlabInterpreter\xAny\MatlabInterpreter.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.WebPages.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -2369,6 +2366,10 @@
     <Content Include="Views\Shared\EditorTemplates\Int32.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Offwind.WakeFarmControl\MatlabInterpreter\MatlabInterpreter.csproj">
+      <Project>{15901403-2b32-433c-8fab-676840598438}</Project>
+      <Name>MatlabInterpreter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Offwind.WakeFarmControl\NowCast\NowCast.csproj">
       <Project>{bb09db2f-13c0-4fe1-b008-6fe7c7a4a799}</Project>
       <Name>NowCast</Name>

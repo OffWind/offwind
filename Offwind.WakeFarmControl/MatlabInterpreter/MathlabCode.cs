@@ -660,12 +660,12 @@ namespace MatlabInterpreter
             return (limit - start) / incrementation + 1;
         }
 
-        protected static ILArray<double> _c(double start, double incrementation, double limit)
+        protected static ILArray<double> _c(decimal start, decimal incrementation, decimal limit)
         {
-            return ILMath.counter(start, incrementation, 1, (double)_csize((decimal)start, (decimal)incrementation, (decimal)limit));
+            return ILMath.counter((double)start, (double)incrementation, 1, (int)_csize(start, incrementation, limit));
         }
 
-        protected static ILArray<double> _c(double start, double limit)
+        protected static ILArray<double> _c(decimal start, decimal limit)
         {
             return MatlabCode._c(start, 1, limit);
         }

@@ -12,7 +12,7 @@ namespace MatlabInterpreter.Tests
         [TestCase(0, 0.1, 299, 2990)]
         [TestCase(0, 0.1, 300, 3000)]
         [TestCase(0, 0.1, 400, 4000)]
-        public void TestC(double tStart, double timeStep, double tEnd, int result)
+        public void TestC(decimal tStart, decimal timeStep, decimal tEnd, int result)
         {
             var r = TestMock.TestC(tStart, timeStep, tEnd - timeStep);
             Assert.AreEqual(result, r.Size[1]);
@@ -33,7 +33,7 @@ namespace MatlabInterpreter.Tests
 
     public class TestMock : MatlabCode
     {
-        public static ILArray<double> TestC(double start, double incrementation, double limit)
+        public static ILArray<double> TestC(decimal start, decimal incrementation, decimal limit)
         {
             return _c(start, incrementation, limit);
         }

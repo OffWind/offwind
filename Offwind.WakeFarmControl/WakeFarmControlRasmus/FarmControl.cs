@@ -280,7 +280,9 @@ namespace WakeFarmControlR
             }
 
             //%
-            time = (_c((decimal)simParm.tStart, (decimal)simParm.timeStep, (decimal)simParm.tEnd - (decimal)simParm.timeStep)).T;
+            //time = (_c((decimal)simParm.tStart, (decimal)simParm.timeStep, (decimal)simParm.tEnd - (decimal)simParm.timeStep)).T;
+            time = (_c(0.0, 1.0, _simParm_tEnd_simParm_tStart__simParm_timeStep - 1) * simParm.timeStep + simParm.tStart).T;
+
 
             if (saveData)
             {

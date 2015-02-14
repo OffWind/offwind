@@ -37,8 +37,8 @@ namespace WakeFarmControlR
                 //disp('Ct is negative or complex');
             }
 
-            x = _c(1, gridRes, endSize);// x-grid.
-            y = _c(1, gridRes, endSize);// y-grid.
+            x = _c(1.0, gridRes, endSize);// x-grid.
+            y = _c(1.0, gridRes, endSize);// y-grid.
             gridX = length(x); // Number of grid points.
             gridY = length(y); // Number of grid points.
 

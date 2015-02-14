@@ -23,13 +23,13 @@ namespace MatlabInterpreter
                 }
             }
 
-        //    public string this[string str]
-        //    {
-        //        get
-        //        {
-        //            return str;
-        //        }
-        //    }
+            //    public string this[string str]
+            //    {
+            //        get
+            //        {
+            //            return str;
+            //        }
+            //    }
 
             /// <summary>
             /// [  '', '' ]
@@ -42,18 +42,18 @@ namespace MatlabInterpreter
                 }
             }
 
-        //    public string this[string str1, string str2, string str3, string str4]
-        //    {
-        //        get
-        //        {
-        //            var stringBuilder = new System.Text.StringBuilder(str1);
-        //            stringBuilder.Append(str2);
-        //            stringBuilder.Append(str3);
-        //            stringBuilder.Append(str4);
+            //    public string this[string str1, string str2, string str3, string str4]
+            //    {
+            //        get
+            //        {
+            //            var stringBuilder = new System.Text.StringBuilder(str1);
+            //            stringBuilder.Append(str2);
+            //            stringBuilder.Append(str3);
+            //            stringBuilder.Append(str4);
 
-        //            return stringBuilder.ToString();
-        //        }
-        //    }
+            //            return stringBuilder.ToString();
+            //        }
+            //    }
 
             /// <summary>
             /// [ v1, v2 ]
@@ -78,13 +78,13 @@ namespace MatlabInterpreter
                 }
             }
 
-        //    public ILArray<double> this[double value1, double value2, double value3, double value4, double value5]
-        //    {
-        //        get
-        //        {
-        //            return ((ILArray<double>)(new double[] { value1, value2, value3, value4, value5 })).T;
-        //        }
-        //    }
+            //    public ILArray<double> this[double value1, double value2, double value3, double value4, double value5]
+            //    {
+            //        get
+            //        {
+            //            return ((ILArray<double>)(new double[] { value1, value2, value3, value4, value5 })).T;
+            //        }
+            //    }
 
             /// <summary>
             /// [ v1 ; v2 ]
@@ -147,22 +147,22 @@ namespace MatlabInterpreter
                 }
             }
 
-        //    public ILArray<double> this[ILArray<double> value1, ILArray<double> value2, ILArray<double> value3]
-        //    {
-        //        get
-        //        {
-        //            return (value1.Concat(value2, 1).Concat(value3, 1));
-        //            //int dim0 = value1.Size[0];
-        //            //int offset2 = value1.Size[1];
-        //            //int offset3 = offset2 + value2.Size[1];
-        //            //int dim1 = offset3 + value3.Size[1];
-        //            //ILArray<double> result = ILMath.zeros(dim0, dim1);
-        //            //result[ILMath.full, ILMath.r(0, offset2 - 1)] = value1;
-        //            //result[ILMath.full, ILMath.r(offset2, offset3 - 1)] = value2;
-        //            //result[ILMath.full, ILMath.r(offset3, ILMath.end)] = value3;
-        //            //return result;
-        //        }
-        //    }
+            //    public ILArray<double> this[ILArray<double> value1, ILArray<double> value2, ILArray<double> value3]
+            //    {
+            //        get
+            //        {
+            //            return (value1.Concat(value2, 1).Concat(value3, 1));
+            //            //int dim0 = value1.Size[0];
+            //            //int offset2 = value1.Size[1];
+            //            //int offset3 = offset2 + value2.Size[1];
+            //            //int dim1 = offset3 + value3.Size[1];
+            //            //ILArray<double> result = ILMath.zeros(dim0, dim1);
+            //            //result[ILMath.full, ILMath.r(0, offset2 - 1)] = value1;
+            //            //result[ILMath.full, ILMath.r(offset2, offset3 - 1)] = value2;
+            //            //result[ILMath.full, ILMath.r(offset3, ILMath.end)] = value3;
+            //            //return result;
+            //        }
+            //    }
 
             /// <summary>
             /// [ a1, a2, a3, a4 ]
@@ -655,9 +655,14 @@ namespace MatlabInterpreter
             return MatlabCode._c_(start, 1, limit);
         }
 
+        public static decimal _csize(decimal start, decimal incrementation, decimal limit)
+        {
+            return (limit - start) / incrementation + 1;
+        }
+
         protected static ILArray<double> _c(double start, double incrementation, double limit)
         {
-            return ILMath.counter(start, incrementation, 1, (limit - start) / incrementation + 1);
+            return ILMath.counter(start, incrementation, 1, (double)_csize((decimal)start, (decimal)incrementation, (decimal)limit));
         }
 
         protected static ILArray<double> _c(double start, double limit)

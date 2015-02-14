@@ -70,10 +70,6 @@
       <HintPath>..\ILNumericsLib\64\ILNumerics.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="MatlabInterpreter">
-      <HintPath>..\MatlabInterpreter\xAny\MatlabInterpreter.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -102,6 +98,12 @@
     <Compile Include="WindTurbineParameters.cs" />
     <Compile Include="WtMatFileDataStructure.cs" />
     <Compile Include="WT_order.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MatlabInterpreter\MatlabInterpreter.csproj">
+      <Project>{15901403-2b32-433c-8fab-676840598438}</Project>
+      <Name>MatlabInterpreter</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

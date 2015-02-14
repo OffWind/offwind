@@ -204,9 +204,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Offwind.WakeFarmControl\NowCast\xAny\WakeFarmControl.NowCast.dll</HintPath>
     </Reference>
-    <Reference Include="WakeFarmControlR">
-      <HintPath>..\..\Offwind.WakeFarmControl\WakeFarmControlRasmus\xAny\WakeFarmControlR.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -2376,6 +2373,10 @@
     <Content Include="Views\Shared\EditorTemplates\Int32.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Offwind.WakeFarmControl\WakeFarmControlRasmus\WakeFarmControlR.csproj">
+      <Project>{d1eb8e84-274b-46e5-af75-7539b6bfca28}</Project>
+      <Name>WakeFarmControlR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Offwind.Wake\csharp\WakeCode\WakeCode.csproj">
       <Project>{E37CB3E6-1575-4241-BEC6-86E2650ECAED}</Project>
       <Name>WakeCode</Name>

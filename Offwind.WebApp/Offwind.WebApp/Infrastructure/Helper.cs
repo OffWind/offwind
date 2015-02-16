@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.ComponentModel;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -172,5 +175,71 @@ namespace Offwind.WebApp.Infrastructure
             }
         }
         */
+
+        public static string GetMemberDescription(Type containerType, string memberName)
+        {
+            var memberInfo = containerType.GetMember(memberName);
+
+            if (memberInfo != null && memberInfo.Length > 0)
+            {
+                object[] customAttributes = memberInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+                if (customAttributes != null && customAttributes.Length > 0)
+                {
+                    return ((DescriptionAttribute)customAttributes[0]).Description;
+                }
+            }
+
+            return null;
+        }
+
+        public static void RegisterTooltipForModelPropertyEditorElement<T>(System.Collections.ObjectModel.ReadOnlyCollection<ParameterExpression> editorBindingExpressionParameters, Expression editorBindingExpressionBody, Dictionary<string, string> elementsTooltips)
+        {
+            if (elementsTooltips == null)
+            {
+                return;
+            }
+
+            if (editorBindingExpressionParameters.Count < 1)
+            {
+                return;
+            }
+            var expressionFirstParameter = editorBindingExpressionParameters[0].Name;
+
+            var expressionBodyString = editorBindingExpressionBody.ToString();
+            var expressionBodyFirstPointIndex = expressionBodyString.IndexOf(".");
+            if (expressionBodyFirstPointIndex < 0)
+            {
+                return;
+            }
+            if (string.Compare(expressionBodyString.Substring(0, expressionBodyFirstPointIndex), expressionFirstParameter, false) != 0)
+            {
+                return;
+            }
+            var modelPropertyName = expressionBodyString.Substring(expressionBodyFirstPointIndex + 1);
+
+            var modelPropertyDescription = GetMemberDescription(typeof(T), modelPropertyName);
+
+            if (modelPropertyDescription == null)
+            {
+                return;
+            }
+            if (elementsTooltips.ContainsKey(modelPropertyName))
+            {
+                return;
+            }
+
+            elementsTooltips.Add(modelPropertyName, modelPropertyDescription);
+        }
+
+        public static void RegisterModelPropertyEditorTooltip<T>(Expression<Func<T, decimal>> expression, Dictionary<string, string> elementsTooltips)
+        {
+            RegisterTooltipForModelPropertyEditorElement<T>(expression.Parameters, expression.Body, elementsTooltips);
+        }
+
+        public static void RegisterModelPropertyEditorTooltip<T>(Expression<Func<T, bool>> expression, Dictionary<string, string> elementsTooltips)
+        {
+            RegisterTooltipForModelPropertyEditorElement<T>(expression.Parameters, expression.Body, elementsTooltips);
+        }
     }
 }

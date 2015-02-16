@@ -1,4 +1,7 @@
-﻿@model Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New.VGeneralProperties
+﻿@using Offwind.WebApp.Infrastructure
+@using Offwind.WebApp.Areas.EngineeringTools.Models
+@using Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New
+@model Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New.VGeneralProperties
 
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
@@ -25,7 +28,7 @@
                     <br />
                     <fieldset>
                         <div class="control-group">
-                            <label class="control-label">Select WindFarm</label>
+                            <label class="control-label">Select Wind Farm</label>
                             <div class="controls">
                                 <select class="input-xlarge" id="windfarmsel" onchange="windfarm_change();"></select>
                                 <a href="@Url.Action("WindFarmInfo", "WakeSimulation2New", new { area = "EngineeringTools" })" class="btn btn-info">View details</a>
@@ -69,14 +72,38 @@
     @Scripts.Render("~/static/Highcharts-3.0.4/highcharts.js")
 
     <script type="text/javascript">
-        $(document).ready(function () {            
+        $(document).ready(function () {
+    @{
+        var elementsTooltips = new System.Collections.Generic.Dictionary<string, string>();
+        try
+        {
+            Helper.RegisterModelPropertyEditorTooltip<VGeneralProperties>(m => m.EnablePowerDistribution, elementsTooltips);
+            Helper.RegisterModelPropertyEditorTooltip<VGeneralProperties>(m => m.EnableTurbineDynamics, elementsTooltips);
+            Helper.RegisterModelPropertyEditorTooltip<VGeneralProperties>(m => m.PowerRefInterpolation, elementsTooltips);
+            Helper.RegisterModelPropertyEditorTooltip<VGeneralProperties>(m => m.EnableVaryingDemand, elementsTooltips);
+            Helper.RegisterModelPropertyEditorTooltip<VGeneralProperties>(m => m.StopTime, elementsTooltips);
+            Helper.RegisterModelPropertyEditorTooltip<VGeneralProperties>(m => m.TimeStep, elementsTooltips);
+            Helper.RegisterModelPropertyEditorTooltip<VGeneralProperties>(m => m.ControlUpdateInterval, elementsTooltips);
+            Helper.RegisterModelPropertyEditorTooltip<VGeneralProperties>(m => m.PowerUpdateInterval, elementsTooltips);
+            Helper.RegisterModelPropertyEditorTooltip<VGeneralProperties>(m => m.InitialPowerDemand, elementsTooltips);
+        }
+        catch
+        {
+        }
+
+        foreach (var modelPropertyName in elementsTooltips.Keys)
+        {
+            var modelPropertyDescription = elementsTooltips[modelPropertyName];
+            Output.WriteLine("\t\t$('#{0}, label[for=\"{0}\"]').attr('Title', '{1}');", modelPropertyName, modelPropertyDescription);
+        }
+    }
             $.ajax({
                 url: "@Url.Action("GetAvailWinFarms", "WakeSimulation2New", new { area = "EngineeringTools" })",
                 dataType: 'json',
                 type: 'GET',
-                success: function(res) {
+                success: function (res) {
                     var lbox = document.getElementById("windfarmsel");
-                    for (var i = 0; i < res.length-1; i++) {
+                    for (var i = 0; i < res.length - 1; i++) {
                         var opt = document.createElement("option");
                         //opt.label = res[i];
                         var optLabel = res[i];
@@ -89,18 +116,18 @@
                 }
             });
         });
-        
-        function windfarm_change() {            
+
+        function windfarm_change() {
             var list = document.getElementById("windfarmsel");
             var url = "/EngineeringTools/WakeSimulation2New/WindFarmSelected/" + list.selectedIndex;
             $.ajax({
                 url: url,
                 dataType: 'json',
                 type: 'POST',
-                success: function() {                    
+                success: function () {
                 }
             });
         };
-        
+
     </script>
 }

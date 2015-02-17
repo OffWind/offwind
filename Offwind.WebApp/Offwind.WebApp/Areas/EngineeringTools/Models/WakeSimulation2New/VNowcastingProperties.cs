@@ -24,13 +24,13 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New
 
         [DisplayName("Time for starting")]
         [Description("Time for starting multi step prediction. If < 1 it is assumed  a fraction of the end time")]
-        public double TimeForStarting { set; get; }
+        public decimal TimeForStarting { set; get; }
         [DisplayName("Decimation")]
         [Description("Decimation with a moving average of order")]
         public int Decimation { set; get; }
         [DisplayName("Sampling time")]
         [Description("Sampling time")]
-        public double SamplingTime { set; get; }
+        public decimal SamplingTime { set; get; }
 
         public VNowcastingProperties()
         {

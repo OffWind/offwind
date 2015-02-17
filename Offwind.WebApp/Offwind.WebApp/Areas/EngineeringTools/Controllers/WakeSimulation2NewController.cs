@@ -49,11 +49,11 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
         }
 
-        private double _simulationTimeStep
+        private decimal _simulationTimeStep
         {
             get
             {
-                return (double)(Session["WindFarmControlNew.SimulationTimeStep"] ?? ((double)0));
+                return (decimal)(Session["WindFarmControlNew.SimulationTimeStep"] ?? ((decimal)0));
             }
             set
             {
@@ -168,11 +168,12 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 turbinesCoordinates[index, 0] = turbinesCoordinatesList[index][0];
                 turbinesCoordinates[index, 1] = turbinesCoordinatesList[index][1];
             }
-            _model.Turbines = turbinesCoordinates;
+            //_model.Turbines = turbinesCoordinates;
 
             var config = new WakeFarmControlR.WakeFarmControlConfig()
             {
-                Turbines = _model.Turbines,
+                //Turbines = _model.Turbines,
+                Turbines = turbinesCoordinates,
             };
             config.enablePowerDistribution = _model.EnablePowerDistribution;
             config.enableTurbineDynamics = _model.EnableTurbineDynamics;
@@ -191,9 +192,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             double[][] simulationDataOut;
             List<string> simulationInformationMessages;
             _simulation = WakeFarmControlR.FarmControl.Simulation(config, out simulationDataOut, out simulationInformationMessages);
+            _simulationTimeStep = _model.TimeStep;
             _simulationDataOut = simulationDataOut;
             _simulationInformationMessages = simulationInformationMessages;
-            _simulationTimeStep = config.SimParm.timeStep;
             return RedirectToAction("Results");
         }
 
@@ -260,9 +261,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             {
                 _nowcastingModel = new VNowcastingProperties();
                 var config = new WakeFarmControl.NowCast.NowCastConfig();
-                _nowcastingModel.TimeForStarting = config.TPredict;
+                _nowcastingModel.TimeForStarting = (decimal)(config.TPredict);
                 _nowcastingModel.Decimation = config.r;
-                _nowcastingModel.SamplingTime = config.Ts;
+                _nowcastingModel.SamplingTime = (decimal)(config.Ts);
             }
             _nowcastingModel.SamplingTime = _simulationTimeStep;
             _nowcastingModel.WasWakeSimulationPerformed = !(_simulationDataOut == null);
@@ -284,9 +285,9 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
 
             var config = new WakeFarmControl.NowCast.NowCastConfig();
             config.Method = _nowcastingModel.Method.ToString();
-            config.TPredict = _nowcastingModel.TimeForStarting;
+            config.TPredict = (double)(_nowcastingModel.TimeForStarting);
             config.r = _nowcastingModel.Decimation;
-            config.Ts = _simulationTimeStep;
+            config.Ts = (double)(_simulationTimeStep);
 
             List<string> nowcastingSimulationWarningMessages;
             _nowcastingSimulationResult = WakeFarmControl.NowCast.NowCast.Simulation(_simulationDataOut, config, out nowcastingSimulationWarningMessages);

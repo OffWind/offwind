@@ -10,7 +10,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New
     public class VGeneralProperties : VWebPage
     {
         public string WindFarm { set; get; }
-        public double[,] Turbines { set; get; }
+        //public double[,] Turbines { set; get; }
 
         [DisplayName("Enable Power Distribution?")]
         [Description("Enables wind farm control and not only constant power")]
@@ -44,7 +44,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New
         public VGeneralProperties()
         {
             WindFarm = "";
-            Turbines = new double[0, 0];
+            //Turbines = new double[0, 0];
 
             EnablePowerDistribution = true;
             EnableTurbineDynamics = true;

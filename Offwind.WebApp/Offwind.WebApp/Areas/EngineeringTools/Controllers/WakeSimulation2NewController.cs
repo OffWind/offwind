@@ -154,6 +154,10 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         [HttpPost]
         public ActionResult Simulation(VGeneralProperties model)
         {
+            if (_model == null)
+            {
+                return RedirectToAction("Simulation");
+            }
             ViewBag.Title = SimulationPageTitle;
             lock (_model)
             {

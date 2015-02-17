@@ -201,6 +201,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult Results()
         {
             ViewBag.Title = ResultsPageTitle;
+            ViewBag.WasWakeSimulationPerformed = !(_simulationDataOut == null);
             if (_simulation != null)
             {
                 var res = new {
@@ -236,7 +237,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             var res = new {
                             informationMessages = _simulationInformationMessages,
                             turbines = turbines,
-                            data = _simulation.Select(x => new object[] { x }).ToArray()
+                            data = (_simulation ?? new double[0][]).Select(x => new object[] { x }).ToArray()
             };
             var result = new ContentResult
             {
@@ -256,6 +257,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         public ActionResult Nowcasting()
         {
             ViewBag.Title = NowcastingPageTitle;
+            ViewBag.WasWakeSimulationPerformed = !(_simulationDataOut == null);
 
             if (_nowcastingModel == null)
             {
@@ -266,7 +268,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 _nowcastingModel.SamplingTime = (decimal)(config.Ts);
             }
             _nowcastingModel.SamplingTime = _simulationTimeStep;
-            _nowcastingModel.WasWakeSimulationPerformed = !(_simulationDataOut == null);
+            //_nowcastingModel.WasWakeSimulationPerformed = !(_simulationDataOut == null);
             return View(_nowcastingModel);
         }
 

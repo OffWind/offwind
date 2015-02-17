@@ -1,5 +1,9 @@
 ﻿@model object
 
+@{
+    var wasWakeSimulationPerformed = (bool?)(ViewBag.WasWakeSimulationPerformed) ?? false;
+}
+
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home", new { area = "" })"><i class="icon-home"></i></a> <span class="divider">/</span></li>
     <li><a href="@Url.Action("Index", "EngineeringTools", new { area = "EngineeringTools" })">Engineering Tools</a> <span class="divider">/</span></li>
@@ -8,6 +12,10 @@
 
 <div class="row-fluid row-content-block">
     <div class="span12 well">
+        <div id="alert-error" class="alert alert-error@(wasWakeSimulationPerformed ? " hidden" : string.Empty)">
+            Wind Farm Control Simulation has not been performed yet. To view or download results please run <a href="@Url.Action("Simulation", "WakeSimulation2New", new { area = "EngineeringTools" })">Wind Farm Control Simulation</a> first.
+        </div>
+
         <div class="fancy-tab-container">
             <ul class="nav nav-tabs fancy">
                 <li class="active"><a href="#result-1" data-toggle="tab">P<sub>individual</sub></a></li>
@@ -56,6 +64,9 @@
                 success: function(res) {
                     if (!res) return;
                     var data = res.data;
+                    if (!data || !(data.length >= 1)) {
+                        return;
+                    }
                     var turbines = res.turbines;
                     var turbines_titles = null;
                     if (turbines != null) {

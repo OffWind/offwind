@@ -49,6 +49,18 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             }
         }
 
+        private List<decimal[]> _simulationTurbines
+        {
+            get
+            {
+                return (List<decimal[]>)(Session["WindFarmControlNew.SimulationTurbines"]);
+            }
+            set
+            {
+                Session["WindFarmControlNew.SimulationTurbines"] = value;
+            }
+        }
+
         private decimal _simulationTimeStep
         {
             get
@@ -165,18 +177,17 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
                 ObjectMapperManager.DefaultInstance.GetMapper<VGeneralProperties, VGeneralProperties>().Map(model, _model);
             }
             var dWindFarm = _ctx.DWindFarms.First(e => _model.WindFarm == e.Name);
-            var turbinesCoordinatesList = dWindFarm.DWindFarmTurbines.OrderBy(t => t.Number).Select(t => new double[] { (double)(t.X), (double)(t.Y) }).ToList();
-            var turbinesCoordinates = new double[turbinesCoordinatesList.Count, 2];
-            for (var index = 0; index < turbinesCoordinates.GetLength(0); index++ )
+            var turbines = dWindFarm.DWindFarmTurbines.OrderBy(t => t.Number).Select(t => new decimal[] { t.Number, t.X, t.Y }).ToList();
+            var turbinesCoordinates = new double[turbines.Count, 2];
+            for (var index = 0; index < turbinesCoordinates.GetLength(0); index++)
             {
-                turbinesCoordinates[index, 0] = turbinesCoordinatesList[index][0];
-                turbinesCoordinates[index, 1] = turbinesCoordinatesList[index][1];
+                var turbine = turbines[index];
+                turbinesCoordinates[index, 0] = (double)(turbine[1]);
+                turbinesCoordinates[index, 1] = (double)(turbine[2]);
             }
-            //_model.Turbines = turbinesCoordinates;
 
             var config = new WakeFarmControlR.WakeFarmControlConfig()
             {
-                //Turbines = _model.Turbines,
                 Turbines = turbinesCoordinates,
             };
             config.enablePowerDistribution = _model.EnablePowerDistribution;
@@ -196,6 +207,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             double[][] simulationDataOut;
             List<string> simulationInformationMessages;
             _simulation = WakeFarmControlR.FarmControl.Simulation(config, out simulationDataOut, out simulationInformationMessages);
+            _simulationTurbines = turbines;
             _simulationTimeStep = _model.TimeStep;
             _simulationDataOut = simulationDataOut;
             _simulationInformationMessages = simulationInformationMessages;
@@ -206,15 +218,15 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
         {
             ViewBag.Title = ResultsPageTitle;
             ViewBag.WasWakeSimulationPerformed = !(_simulationDataOut == null);
-            if (_simulation != null)
-            {
-                var res = new {
-                                informationMessages = _simulationInformationMessages,
-                                data = _simulation.Select(x => new object[] { x }).ToArray()
-                };
-                return View(res);
-            }
-            return View(new object[0]);
+            //if (_simulation != null)
+            //{
+            //    var res = new {
+            //                    informationMessages = _simulationInformationMessages,
+            //                    data = _simulation.Select(x => new object[] { x }).ToArray()
+            //    };
+            //    return View(res);
+            //}
+            return View((object)null);
         }
 
         public ContentResult GetSimulationResults()
@@ -226,18 +238,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             serializer.MaxJsonLength = Int32.MaxValue;
 
             //var res = _simulation.Select(x => new object[] { x }).ToArray();
-
-            var turbines = new object[] { };
-            if (_model != null)
-            {
-                string modelWindFarm;
-                lock (_model)
-                {
-                    modelWindFarm = _model.WindFarm;
-                }
-                var dWindFarm = _ctx.DWindFarms.First(wf => wf.Name == modelWindFarm);
-                turbines = dWindFarm.DWindFarmTurbines.OrderBy(t => t.Number).Select(t => new { n = t.Number, x = t.X, y = t.Y }).ToArray();
-            }
+            var turbines = (_simulationTurbines ?? new List<decimal[]>()).Select(t => new { n = (int)(t[0]), x = t[1], y = t[2] }).ToArray();
             var res = new {
                             informationMessages = _simulationInformationMessages,
                             turbines = turbines,

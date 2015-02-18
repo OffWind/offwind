@@ -42,6 +42,13 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-actions">
+            <p>
+                To download result as a list of <b><i>Time [s]</i></b>, <b><i>Produced Power [MW]</i></b>, <b><i>Reference Power [MW]</i></b>, <b><i>Available Power [MW]</i></b> values click button below.
+            </p>
+            <p><a class="btn btn-success btn-large@(wasWakeSimulationPerformed ? string.Empty : " disabled")" id="download-link" href="@Url.Action("DownloadResult", "WakeSimulation2New", new { area = "EngineeringTools" })">Download result</a></p>
+        </div>
     </div>
 </div>
 
@@ -51,6 +58,10 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#download-link').click(function () {
+                return !($(this).hasClass('disabled'));
+            });
+
             function formatNumber(value, digitsAfterPointNumber) {
                 var powerOfTen = Math.pow(10, digitsAfterPointNumber);
                 formattedValueString = String(Math.round(value * powerOfTen) / powerOfTen);

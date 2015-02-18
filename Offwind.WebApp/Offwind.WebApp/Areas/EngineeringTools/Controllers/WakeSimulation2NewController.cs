@@ -258,6 +258,37 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             //return Json(null, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult DownloadResult()
+        {
+            Response.Clear();
+            Response.AddHeader("Content-Disposition", "attachment; filename=dataOut.csv");
+            Response.ContentType = "text/csv";
+
+            if (_simulationDataOut != null)
+            {
+                bool wereLinesWritten = false;
+                for (var i = 0; i < _simulationDataOut.Length; i++)
+                {
+                    var dataOutRecord = _simulationDataOut[i];
+                    if (dataOutRecord == null || dataOutRecord.Length < 4)
+                    {
+                        continue;
+                    }
+                    if (wereLinesWritten)
+                    {
+                        Response.Write(System.Environment.NewLine);
+                    }
+                    Response.Write(string.Format("{0},{1},{2},{3}", dataOutRecord[0], dataOutRecord[1], dataOutRecord[2], dataOutRecord[3]));
+                    wereLinesWritten = true;
+                }
+            }
+
+            Response.End();
+
+            return new EmptyResult();
+        }
+
         public ActionResult Nowcasting()
         {
             ViewBag.Title = NowcastingPageTitle;

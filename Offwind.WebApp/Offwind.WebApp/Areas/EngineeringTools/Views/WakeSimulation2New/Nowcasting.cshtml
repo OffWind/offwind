@@ -32,7 +32,7 @@
         <div class="fancy-tab-container">
             <ul class="nav nav-tabs fancy">
                 <li class="active"><a href="#parameters" data-toggle="tab">Parameters</a></li>
-                <li><a href="#results" data-toggle="tab">Results</a></li>
+                <li class="hidden"><a href="#results" data-toggle="tab">Results</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="parameters">
@@ -113,6 +113,7 @@
                     var w = $('.tab-content').width();
                     $('.chart').width(w);
                     show_graph(data);
+                    $('[href="#results"]').closest('.nav-tabs li').removeClass('hidden');
                     $('[href="#results"]').click();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

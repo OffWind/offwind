@@ -12,6 +12,11 @@ namespace WakeFarmControlR
             public ILArray<double> tsr;
         }
 
+        public class Gen
+        {
+            public double effeciency;
+        }
+
         public class Rotor
         {
             public double radius;
@@ -42,6 +47,7 @@ namespace WakeFarmControlR
 
         public C_ cp = new C_();
         public C_ ct = new C_();
+        public Gen gen = new Gen();
         public Rotor rotor = new Rotor();
         public Ctrl ctrl = new Ctrl();
 
@@ -58,6 +64,7 @@ namespace WakeFarmControlR
             this.ct.table                   = ilMatFile.GetArray<double>("wt_ct_table");
             this.ct.beta                    = ilMatFile.GetArray<double>("wt_ct_beta");
             this.ct.tsr                     = ilMatFile.GetArray<double>("wt_ct_tsr");
+            this.gen.effeciency             = (double)(ilMatFile.GetArray<double>("wt_gen_effeciency"));
             this.rotor.radius               = (double)(ilMatFile.GetArray<double>("wt_rotor_radius"));
             this.rotor.inertia              = (double)(ilMatFile.GetArray<double>("wt_rotor_inertia"));
             this.rotor.ratedspeed           = (double)(ilMatFile.GetArray<double>("wt_rotor_ratedspeed"));

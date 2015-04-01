@@ -110,7 +110,7 @@ namespace WakeFarmControlR
             load(config.NREL5MW_MatFile, out env, out wt); // Load parameters from the NREL 5MW Reference turbine struct.
             parm.rho = env.rho; // air density
             parm.radius = wt.rotor.radius * ones(1, parm.N); // rotor radius (NREL5MW)
-            parm.rated = wt.ctrl.p_rated * ones(1, parm.N); //rated power (NREL5MW)
+            parm.rated = wt.ctrl.p_rated * wt.gen.effeciency * ones(1, parm.N); //rated power (NREL5MW)
             parm.ratedSpeed = wt.rotor.ratedspeed; //rated rotor speed
             max(out idx, wt.cp.table[_(':')]); // Find index for max Cp
             parm.Ct = 0.0 * wt.ct.table[_(idx)] * ones(parm.N, (_simParm_tEnd_simParm_tStart__simParm_timeStep)); // Define initial Ct as the optimal Ct. 

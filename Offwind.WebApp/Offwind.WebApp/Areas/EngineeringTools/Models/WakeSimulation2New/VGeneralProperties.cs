@@ -28,7 +28,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New
 
         [DisplayName("End Time")]
         [Description("end time of simulation")]
-        [Range(0.1, 108000)]
+        [Range(0.1, 10800)]
         public decimal StopTime { set; get; }
         [DisplayName("Time Step")]
         [Description("time Step")]

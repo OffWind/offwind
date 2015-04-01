@@ -69,10 +69,13 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqueryval")
+
     @Scripts.Render("~/static/Highcharts-3.0.4/highcharts.js")
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#TimeStep').attr('readonly', 'readonly').attr('disabled', 'disabled');
     @{
         var elementsTooltips = new System.Collections.Generic.Dictionary<string, string>();
         try

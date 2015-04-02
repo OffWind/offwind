@@ -32,7 +32,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New
         public decimal StopTime { set; get; }
         [DisplayName("Time Step")]
         [Description("time Step")]
-        public decimal TimeStep { set; get; }
+        public decimal TimeStep { get { return 0.1m; } }
         [DisplayName("Update Interval, Control")]
         [Description("update time of controller")]
         public decimal ControlUpdateInterval { set; get; }
@@ -54,7 +54,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Models.WakeSimulation2New
             EnableVaryingDemand = true;
 
             StopTime = 100;
-            TimeStep = 0.125m;
+            //TimeStep = 0.125m;
             ControlUpdateInterval = 5;
             PowerUpdateInterval = 1;
             InitialPowerDemand = (decimal)(50 * 5e6);

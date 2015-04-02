@@ -151,7 +151,7 @@ namespace Offwind.WebApp.Areas.EngineeringTools.Controllers
             if (_model == null)
             {
                 _model = new VGeneralProperties();
-                _model.TimeStep = (decimal)(0.1);
+                //_model.TimeStep = (decimal)(0.1);
                 //_wfl = new List<string>();
                 _simulation = null;
                 _simulationDataOut = null;
